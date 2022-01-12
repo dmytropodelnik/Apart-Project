@@ -52,8 +52,9 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(20, MinimumLength = 6, ErrorMessage = "Incorrect length")]
         public string PhoneNumber { get; set; }
 
-        [DataType(DataType.Text)]
-        public string Avatar { get; set; }
+        public int RoleId { get; set; }
+        [ForeignKey("RoleId")]
+        public Role Role { get; set; }
 
         public UserProfile Profile { get; set; }
     }

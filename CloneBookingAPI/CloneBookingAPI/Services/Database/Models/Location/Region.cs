@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloneBookingAPI.Services.Database.Models
 {
-    [Table("Trips")]
-    public class Trip
+    [Table("Regions")]
+    public class Region
     {
         [Column("Id")]  // Можно было не указывать потому, что так было бы по умолчанию, благодаря соглашению о наименованиях EF
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]

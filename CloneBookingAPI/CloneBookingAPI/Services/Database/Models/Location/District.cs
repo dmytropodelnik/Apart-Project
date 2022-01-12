@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CloneBookingAPI.Services.Database.Models
+namespace CloneBookingAPI.Services.Database.Models.Location
 {
-    [Table("Trips")]
-    public class Trip
+    [Table("Districts")]
+    public class District
     {
         [Column("Id")]  // Можно было не указывать потому, что так было бы по умолчанию, благодаря соглашению о наименованиях EF
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]

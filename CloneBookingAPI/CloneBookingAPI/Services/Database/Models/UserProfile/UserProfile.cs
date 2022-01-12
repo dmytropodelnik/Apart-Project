@@ -27,13 +27,13 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(50, MinimumLength = 4, ErrorMessage = "Incorrect length")]
         public string Nationality { get; set; }
 
+
+        [DataType(DataType.Text)]
+        public string Avatar { get; set; }
+
         public int GenderId { get; set; }
         [ForeignKey("GenderId")]
         public Gender Gender { get; set; }
-
-        public int RoleId { get; set; }
-        [ForeignKey("RoleId")]
-        public Role Role { get; set; }
 
         public int AddressId { get; set; }
         [ForeignKey("AddressId")]

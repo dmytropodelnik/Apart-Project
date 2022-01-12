@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CloneBookingAPI.Services.Database.Models
+namespace CloneBookingAPI.Services.Database.Models.UserProfile
 {
-    [Table("Trips")]
-    public class Trip
+    [Table("Favorites")]
+    public class Favorite
     {
         [Column("Id")]  // Можно было не указывать потому, что так было бы по умолчанию, благодаря соглашению о наименованиях EF
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
