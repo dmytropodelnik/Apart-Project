@@ -27,7 +27,6 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(50, MinimumLength = 4, ErrorMessage = "Incorrect length")]
         public string Nationality { get; set; }
 
-
         [DataType(DataType.Text)]
         public string Avatar { get; set; }
 

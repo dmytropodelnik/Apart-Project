@@ -1,6 +1,6 @@
 ﻿using CloneBookingAPI.Services.Database;
+using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Helpers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -26,45 +26,45 @@ namespace CloneBookingAPI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Token([FromBody] User user)
 		{
-			var claims = await GetIdentity(user.Username, user.Password);
-			if (claims == null)
-			{
-				return Unauthorized();
-			}
+            var claims = await GetIdentity(user.Username, user.Password);
+            if (claims is null)
+            {
+                return Unauthorized();
+            }
 
-			var now = DateTime.UtcNow;
-			var jwt = new JwtSecurityToken(
-					issuer: AuthOptions.ISSUER,
-					audience: AuthOptions.AUDIENCE,
-					notBefore: now,
-					claims: claims,
-					expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-					signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+            var now = DateTime.UtcNow;
+            var jwt = new JwtSecurityToken(
+                    issuer: AuthOptions.ISSUER,
+                    audience: AuthOptions.AUDIENCE,
+                    notBefore: now,
+                    claims: claims,
+                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
-			var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
 
-			return Json(encodedJwt);
+            return Json(encodedJwt);
 		}
 		private async Task<IReadOnlyCollection<Claim>> GetIdentity(string username, string password)
 		{
 			List<Claim> claims = null;
 
-			var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+			//var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
 
-			if (user != null)
-			{
-				var sha256 = new SHA256Managed();
-				var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(password)));
+			//if (user is not null)
+			//{
+			//	var sha256 = new SHA256Managed();
+			//	var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(password)));
 
-				if (passwordHash == user.Password)
-				{
-					claims = new List<Claim>
-					{
-						new Claim(ClaimsIdentity.DefaultNameClaimType, user.Username),
-						new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
-					};
-				}
-			}
+			//	if (passwordHash == user.Password)
+			//	{
+			//		claims = new List<Claim>
+			//		{
+			//			new Claim(ClaimsIdentity.DefaultNameClaimType, user.Username),
+			//			new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
+			//		};
+			//	}
+			//}
 
 			return claims;
 		}
