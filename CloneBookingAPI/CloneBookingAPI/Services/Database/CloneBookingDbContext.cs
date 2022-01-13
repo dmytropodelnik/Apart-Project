@@ -1,9 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using CloneBookingAPI.Services.Database.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace CloneBookingAPI.Services.Database
 {
     public class CloneBookingDbContext : DbContext
     {
+        public DbSet<User> Users { get; set; }
+
         public CloneBookingDbContext(DbContextOptions<CloneBookingDbContext> options) : base(options)
         {
             // If database already exists then delete it

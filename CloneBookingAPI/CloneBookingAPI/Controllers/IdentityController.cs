@@ -2,6 +2,7 @@
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Helpers;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers
 {
-    public class IdentityController : ControllerBase
+    public class IdentityController : Controller
     {
 		private readonly CloneBookingDbContext _context;
 
@@ -26,7 +27,7 @@ namespace CloneBookingAPI.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Token([FromBody] User user)
 		{
-            var claims = await GetIdentity(user.Username, user.Password);
+            var claims = await GetIdentity(user.Email, user.Password);
             if (claims is null)
             {
                 return Unauthorized();
@@ -45,28 +46,30 @@ namespace CloneBookingAPI.Controllers
 
             return Json(encodedJwt);
 		}
-		private async Task<IReadOnlyCollection<Claim>> GetIdentity(string username, string password)
+		private async Task<IReadOnlyCollection<Claim>> GetIdentity(string email, string password)
 		{
 			List<Claim> claims = null;
 
-			//var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
+            var user = await _context.Users
+                .Include(u => u.Role)
+                .FirstOrDefaultAsync(u => u.Email == email);
 
-			//if (user is not null)
-			//{
-			//	var sha256 = new SHA256Managed();
-			//	var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(password)));
+            if (user is not null)
+            {
+                SHA256 sha256 = SHA256.Create();
+                var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(password)));
 
-			//	if (passwordHash == user.Password)
-			//	{
-			//		claims = new List<Claim>
-			//		{
-			//			new Claim(ClaimsIdentity.DefaultNameClaimType, user.Username),
-			//			new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
-			//		};
-			//	}
-			//}
+                if (passwordHash == user.Password)
+                {
+                    claims = new List<Claim>
+                    {
+                        new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
+                        new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.ToString())
+                    };
+                }
+            }
 
-			return claims;
+            return claims;
 		}
 	}
 }
