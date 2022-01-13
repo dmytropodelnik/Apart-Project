@@ -33,7 +33,7 @@ namespace CloneBookingAPI.Controllers
                 return Unauthorized();
             }
 
-            var now = DateTime.UtcNow;
+            var now = DateTime.UtcNow; //
             var jwt = new JwtSecurityToken(
                     issuer: AuthOptions.ISSUER,
                     audience: AuthOptions.AUDIENCE,
