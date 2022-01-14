@@ -1,4 +1,10 @@
-﻿using CloneBookingAPI.Services.Database.Models;
+﻿using CloneBookingAPI.Services.Database.Configurations;
+using CloneBookingAPI.Services.Database.Configurations.Flights;
+using CloneBookingAPI.Services.Database.Configurations.Location;
+using CloneBookingAPI.Services.Database.Configurations.Payment;
+using CloneBookingAPI.Services.Database.Configurations.Review;
+using CloneBookingAPI.Services.Database.Configurations.UserProfile;
+using CloneBookingAPI.Services.Database.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CloneBookingAPI.Services.Database
@@ -39,9 +45,33 @@ namespace CloneBookingAPI.Services.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.ApplyConfiguration(new UsersConfiguration());
-            //modelBuilder.ApplyConfiguration(new UserProfilesConfiguration());
-            //modelBuilder.ApplyConfiguration(new RecordsConfiguration());
+            modelBuilder.ApplyConfiguration(new FlightClassTypesConfiguration());
+            modelBuilder.ApplyConfiguration(new AddressesConfiguration());
+            modelBuilder.ApplyConfiguration(new AirportsConfiguration());
+            modelBuilder.ApplyConfiguration(new CitiesConfiguration());
+            modelBuilder.ApplyConfiguration(new CountriesConfiguration());
+            modelBuilder.ApplyConfiguration(new DistrictsConfiguration());
+            modelBuilder.ApplyConfiguration(new RegionsConfiguration());
+            modelBuilder.ApplyConfiguration(new CardTypesConfiguration());
+            modelBuilder.ApplyConfiguration(new CurrenciesConfiguration());
+            modelBuilder.ApplyConfiguration(new PaymentTypesConfiguration());
+            modelBuilder.ApplyConfiguration(new ReviewCategoriesConfiguration());
+            modelBuilder.ApplyConfiguration(new ReviewsConfiguration());
+            modelBuilder.ApplyConfiguration(new FavoritesConfiguration());
+            modelBuilder.ApplyConfiguration(new GendersConfiguration());
+            modelBuilder.ApplyConfiguration(new RolesConfiguration());
+            modelBuilder.ApplyConfiguration(new UserProfilesConfiguration());
+            modelBuilder.ApplyConfiguration(new UsersConfiguration());
+            modelBuilder.ApplyConfiguration(new AreaInfosConfiguration());
+            modelBuilder.ApplyConfiguration(new AreaInfoTypesConfiguration());
+            modelBuilder.ApplyConfiguration(new BookingsConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoriesConfiguration());
+            modelBuilder.ApplyConfiguration(new FacilitiesConfiguration());
+            modelBuilder.ApplyConfiguration(new FacilityTypesConfiguration());
+            modelBuilder.ApplyConfiguration(new LanguagesConfiguration());
+            modelBuilder.ApplyConfiguration(new NotificationsConfiguration());
+            modelBuilder.ApplyConfiguration(new ServicesConfiguration());
+            modelBuilder.ApplyConfiguration(new TripsConfiguration());
         }
     }
 }

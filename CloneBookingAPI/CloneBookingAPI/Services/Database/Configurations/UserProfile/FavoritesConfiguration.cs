@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CloneBookingAPI.Services.Database.Configurations.UserProfile
 {
-    public class FavoriteConfiguration : IEntityTypeConfiguration<Models.UserProfile.Favorite>
+    public class FavoritesConfiguration : IEntityTypeConfiguration<Models.UserProfile.Favorite>
     {
         public void Configure(EntityTypeBuilder<Models.UserProfile.Favorite> builder)
         {
