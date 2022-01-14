@@ -10,6 +10,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { AuthComponent } from './auth/auth.component';
+import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AuthComponent } from './auth/auth.component';
     FooterComponent,
     HomeComponent,
     LayoutComponent,
-    AuthComponent
+    AuthComponent,
+    AdminPanelComponent
   ],
   imports: [
     BrowserModule,
