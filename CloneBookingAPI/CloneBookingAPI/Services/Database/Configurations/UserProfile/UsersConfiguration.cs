@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CloneBookingAPI.Services.Database.Configurations
+namespace CloneBookingAPI.Services.Database.Configurations.UserProfile
 {
     public class UsersConfiguration : IEntityTypeConfiguration<User>
     {
