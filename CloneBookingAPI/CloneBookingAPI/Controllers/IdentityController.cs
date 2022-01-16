@@ -16,9 +16,9 @@ namespace CloneBookingAPI.Controllers
 {
     public class IdentityController : Controller
     {
-		private readonly CloneBookingDbContext _context;
+		private readonly ApartProjectDbContext _context;
 
-		public IdentityController(CloneBookingDbContext context)
+		public IdentityController(ApartProjectDbContext context)
 		{
 			_context = context;
 		}

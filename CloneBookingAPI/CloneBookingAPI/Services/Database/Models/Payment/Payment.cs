@@ -1,22 +1,22 @@
-﻿using CloneBookingAPI.Services.Database.Models.Payment;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CloneBookingAPI.Services.Database.Models
+namespace CloneBookingAPI.Services.Database.Models.Payment
 {
-    [Table("CardTypes")]
-    public class CardType
+    [Table("Payments")]
+    public class Payment
     {
         [Column("Id")]  // Можно было не указывать потому, что так было бы по умолчанию, благодаря соглашению о наименованиях EF
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Column("Type")]
-        [Display(Name = "Card Type")]
-        [DataType(DataType.Text)]
-        [MinLength(2)]
-        public string Type { get; set; }
-        public List<CreditCard> CreditCards { get; set; } = new();
+        public int PaymentTypeId { get; set; }
+        [ForeignKey("PaymentTypeId")]
+        public PaymentType PaymentType { get; set; }
+
+        public int CreditCardId { get; set; }
+        [ForeignKey("CreditCardId")]
+        public CreditCard CreditCard { get; set; }
     }
 }

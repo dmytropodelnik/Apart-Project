@@ -20,6 +20,16 @@ namespace CloneBookingAPI.Services.Database.Models
         [MinLength(2)]
         public string City { get; set; }
 
+        [Display(Name = "Zip Code")]
+        [DataType(DataType.Text)]
+        [MinLength(4)]
+        public string ZipCode { get; set; }
+
+        [Display(Name = "Phone Number")]
+        [DataType(DataType.PhoneNumber)]
+        [StringLength(20, MinimumLength = 6, ErrorMessage = "Incorrect length")]
+        public string PhoneNumber { get; set; }
+
         [Column("Address")]
         [Display(Name = "Street")]
         [DataType(DataType.Text)]

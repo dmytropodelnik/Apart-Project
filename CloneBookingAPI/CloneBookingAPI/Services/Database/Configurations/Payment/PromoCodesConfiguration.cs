@@ -2,14 +2,14 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CloneBookingAPI.Services.Database.Configurations
+namespace CloneBookingAPI.Services.Database.Configurations.Payment
 {
-    public class ServicesConfiguration : IEntityTypeConfiguration<Service>
+    public class PromoCodesConfiguration : IEntityTypeConfiguration<PromoCode>
     {
-        public void Configure(EntityTypeBuilder<Service> builder)
+        public void Configure(EntityTypeBuilder<PromoCode> builder)
         {
             builder.HasData(
-              new Service[]
+              new PromoCode[]
               {
 
               });

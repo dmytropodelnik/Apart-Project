@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CloneBookingAPI.Services.Database.Configurations
 {
-    public class CategoriesConfiguration : IEntityTypeConfiguration<Category>
+    public class CartsConfiguration : IEntityTypeConfiguration<Cart>
     {
-        public void Configure(EntityTypeBuilder<Category> builder)
+        public void Configure(EntityTypeBuilder<Cart> builder)
         {
             builder.HasData(
-              new Category[]
+              new Cart[]
               {
 
               });
