@@ -5,15 +5,24 @@ using CloneBookingAPI.Services.Database.Configurations.Payment;
 using CloneBookingAPI.Services.Database.Configurations.Review;
 using CloneBookingAPI.Services.Database.Configurations.UserProfile;
 using CloneBookingAPI.Services.Database.Models;
+using CloneBookingAPI.Services.Database.Models.Payment;
+using CloneBookingAPI.Services.Database.Models.UserProfile;
 using Microsoft.EntityFrameworkCore;
 
 namespace CloneBookingAPI.Services.Database
 {
-    public class CloneBookingDbContext : DbContext
+    public class ApartProjectDbContext : DbContext
     {
         public DbSet<User> Users { get; set; }
+        public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<CreditCard> CreditCards { get; set; }
+        public DbSet<Price> Prices { get; set; }
 
-        public CloneBookingDbContext(DbContextOptions<CloneBookingDbContext> options) : base(options)
+        public ApartProjectDbContext(DbContextOptions<ApartProjectDbContext> options) : base(options)
         {
             // If database already exists then delete it
             ConnectToDatabase();

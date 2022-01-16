@@ -35,8 +35,8 @@ namespace CloneBookingAPI
         {
             // получаем строку подключения из файла конфигурации
             string connection = Configuration.GetConnectionString("DefaultConnection");
-            // добавляем контекст MobileContext в качестве сервиса в приложение
-            services.AddDbContext<CloneBookingDbContext>(options =>
+            // добавляем контекст Apart в качестве сервиса в приложение
+            services.AddDbContext<ApartProjectDbContext>(options =>
                 options.UseSqlServer(connection));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
