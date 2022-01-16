@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloneBookingAPI.Services.Database.Models.UserData
@@ -21,5 +22,7 @@ namespace CloneBookingAPI.Services.Database.Models.UserData
         [DataType(DataType.Text)]
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string LastName { get; set; }
+
+        public List<Booking> Bookings { get; set; } = new();
     }
 }

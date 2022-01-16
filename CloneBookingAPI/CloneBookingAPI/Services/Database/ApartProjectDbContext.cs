@@ -21,7 +21,7 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<CreditCard> CreditCards { get; set; }
-        public DbSet<Price> Prices { get; set; }
+        public DbSet<BookingPrice> Prices { get; set; }
         public DbSet<PromoCode> PromoCodes { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<ReviewMessage> ReviewMessages { get; set; }
@@ -69,7 +69,7 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new CardTypesConfiguration());
             modelBuilder.ApplyConfiguration(new CurrenciesConfiguration());
             modelBuilder.ApplyConfiguration(new PaymentTypesConfiguration());
-            modelBuilder.ApplyConfiguration(new ReviewCategoriesConfiguration());
+            modelBuilder.ApplyConfiguration(new AdditionalServicesConfiguration());
             modelBuilder.ApplyConfiguration(new ReviewsConfiguration());
             modelBuilder.ApplyConfiguration(new FavoritesConfiguration());
             modelBuilder.ApplyConfiguration(new GendersConfiguration());
