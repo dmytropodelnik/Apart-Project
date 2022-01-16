@@ -38,6 +38,13 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(20, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string PromoCode { get; set; }
 
+        public int ServiceCategoryId { get; set; }
+        [ForeignKey("ServiceCategoryId")]
+        public ServiceCategory ServiceCategory { get; set; }
+        public int? BookingCategoryId { get; set; }
+        [ForeignKey("BookingCategoryId")]
+        public BookingCategory BookingCategory { get; set; }
+
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }

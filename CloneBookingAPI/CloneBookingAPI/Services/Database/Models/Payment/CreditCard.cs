@@ -33,5 +33,9 @@ namespace CloneBookingAPI.Services.Database.Models.Payment
         public string CVC { get; set; }
 
         public Payment Payment { get; set; }
+
+        public int CardTypeId { get; set; }
+        [ForeignKey("CardTypeId")]
+        public CardType CardType { get; set; }
     }
 }

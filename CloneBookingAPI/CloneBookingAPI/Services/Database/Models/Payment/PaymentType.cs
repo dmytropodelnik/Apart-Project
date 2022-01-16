@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloneBookingAPI.Services.Database.Models
@@ -15,5 +16,7 @@ namespace CloneBookingAPI.Services.Database.Models
         [DataType(DataType.Text)]
         [MinLength(2)]
         public string Type { get; set; }
+
+        public List<Payment.Payment> Payments { get; set; } = new();
     }
 }

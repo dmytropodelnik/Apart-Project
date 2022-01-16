@@ -80,7 +80,7 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new FacilityTypesConfiguration());
             modelBuilder.ApplyConfiguration(new LanguagesConfiguration());
             modelBuilder.ApplyConfiguration(new NotificationsConfiguration());
-            modelBuilder.ApplyConfiguration(new ServicesConfiguration());
+            modelBuilder.ApplyConfiguration(new ServicesCategoriesConfiguration());
             modelBuilder.ApplyConfiguration(new TripsConfiguration());
         }
     }

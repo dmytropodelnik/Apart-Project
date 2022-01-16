@@ -9,5 +9,20 @@ namespace CloneBookingAPI.Services.Database.Models
         [Column("Id")]  // Можно было не указывать потому, что так было бы по умолчанию, благодаря соглашению о наименованиях EF
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        [Display(Name = "Notification")]
+        [Required]
+        [DataType(DataType.Text)]
+        [StringLength(1000, MinimumLength = 1, ErrorMessage = "Incorrect length")]
+        public string Value { get; set; }
+
+        [Display(Name = "Image")]
+        [DataType(DataType.Text)]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Incorrect length")]
+        public string Image { get; set; }
+
+        public int UserId { get; set; }
+        [ForeignKey("UserId")]
+        public User User { get; set; }
     }
 }

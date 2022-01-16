@@ -12,15 +12,15 @@ namespace CloneBookingAPI.Services.Database.Configurations
               new BookingCategory[]
               {
                   new BookingCategory { Id = 1, Category = "Hotels" },
-                  new BookingCategory { Id = 1, Category = "Places of interest" },
-                  new BookingCategory { Id = 1, Category = "Homes" },
-                  new BookingCategory { Id = 1, Category = "Apartments" },
-                  new BookingCategory { Id = 1, Category = "Resorts" },
-                  new BookingCategory { Id = 1, Category = "Villas" },
-                  new BookingCategory { Id = 1, Category = "Hostels" },
-                  new BookingCategory { Id = 1, Category = "B&Bs" },
-                  new BookingCategory { Id = 1, Category = "Guest houses" },
-                  new BookingCategory { Id = 1, Category = "Unique places to stay" },
+                  new BookingCategory { Id = 2, Category = "Places of interest" },
+                  new BookingCategory { Id = 3, Category = "Homes" },
+                  new BookingCategory { Id = 4, Category = "Apartments" },
+                  new BookingCategory { Id = 5, Category = "Resorts" },
+                  new BookingCategory { Id = 6, Category = "Villas" },
+                  new BookingCategory { Id = 7, Category = "Hostels" },
+                  new BookingCategory { Id = 8, Category = "B&Bs" },
+                  new BookingCategory { Id = 9, Category = "Guest houses" },
+                  new BookingCategory { Id = 10, Category = "Unique places to stay" },
               });
         }
     }
