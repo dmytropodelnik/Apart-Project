@@ -12,7 +12,6 @@ namespace CloneBookingAPI.Services.Database.Models
         public int Id { get; set; }
 
         [Display(Name = "Title")]
-        [Required(ErrorMessage = "Enter a title")]
         [DataType(DataType.Text)]
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string Title { get; set; }
@@ -40,17 +39,16 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(320, ErrorMessage = "Incorrect length")]
         public string Email { get; set; }
 
+        [Display(Name = "Phone Number")]
+        [DataType(DataType.PhoneNumber)]
+        [StringLength(20, MinimumLength = 6, ErrorMessage = "Incorrect length")]
+        public string PhoneNumber { get; set; }
+
         [Display(Name = "Password")]
         [Required(ErrorMessage = "Enter a password")]
         [DataType(DataType.Password)]
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string Password { get; set; }
-
-        [Display(Name = "Phone Number")] 
-        [Required(ErrorMessage = "Enter a phone number")]
-        [DataType(DataType.PhoneNumber)]
-        [StringLength(20, MinimumLength = 6, ErrorMessage = "Incorrect length")]
-        public string PhoneNumber { get; set; }
 
         public int RoleId { get; set; }
         [ForeignKey("RoleId")]
