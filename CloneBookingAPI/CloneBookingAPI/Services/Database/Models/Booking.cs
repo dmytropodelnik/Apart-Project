@@ -1,6 +1,8 @@
 ﻿using CloneBookingAPI.Services.Database.Models.Payment;
+using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Database.Models.UserData;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -22,7 +24,7 @@ namespace CloneBookingAPI.Services.Database.Models
 
         public int PriceId { get; set; }
         [ForeignKey("PriceId")]
-        public Price Price { get; set; }
+        public BookingPrice Price { get; set; }
 
         public int AddressId { get; set; }
         [ForeignKey("AddressId")]
@@ -49,6 +51,10 @@ namespace CloneBookingAPI.Services.Database.Models
         [ForeignKey("BookingCategoryId")]
         public BookingCategory BookingCategory { get; set; }
 
+        public int SuggestionId { get; set; }
+        [ForeignKey("SuggestionId")]
+        public Suggestion Suggestion { get; set; }
+
         public int? TempUserId { get; set; }
         [ForeignKey("TempUserId")]
         public TempUser TempUser { get; set; }
@@ -56,6 +62,8 @@ namespace CloneBookingAPI.Services.Database.Models
         public int? UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
+
+        public List<Room> Rooms { get; set; } = new();
 
     }
 }

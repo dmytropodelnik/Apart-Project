@@ -29,7 +29,6 @@ namespace CloneBookingAPI.Services.Database.Models.UserProfile
         [Display(Name = "Image")]
         [DataType(DataType.Text)]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Incorrect length")]
-        public string Image { get; set; }
 
         public int GenderId { get; set; }
         [ForeignKey("GenderId")]
@@ -50,5 +49,6 @@ namespace CloneBookingAPI.Services.Database.Models.UserProfile
         public int? UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
+        public Image Image { get; set; }
     }
 }

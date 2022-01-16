@@ -1,28 +1,32 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using CloneBookingAPI.Services.Database;
 
-namespace CloneBookingAPI.Services.Database.Configurations.Review
+namespace CloneBookingAPI.Services.Database.Models.Suggestions
 {
-    [Table("ReviewMessages")]
-    public class ReviewMessage
+    [Table("Suggestions")]
+    public class SuggestionHighlight
     {
         [Column("Id")]  // Можно было не указывать потому, что так было бы по умолчанию, благодаря соглашению о наименованиях EF
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Display(Name = "Title")]
         [Required]
         [DataType(DataType.Text)]
         [StringLength(100, MinimumLength = 6, ErrorMessage = "Incorrect length")]
         public string Title { get; set; }
 
-        [Display(Name = "Message")]
         [Required]
         [DataType(DataType.Text)]
         [StringLength(1000, MinimumLength = 6, ErrorMessage = "Incorrect length")]
         public string Text { get; set; }
 
-        public Models.Review.Review Review { get; set; }
+        public Image Image { get; set; }
+
+        public int SuggestionId { get; set; }
+        [ForeignKey("SuggestionId")]
+        public Suggestion Suggestion { get; set; }
+        public int? RoomId { get; set; }
+        [ForeignKey("RoomId")]
+        public RoomType Room { get; set; }
     }
 }
