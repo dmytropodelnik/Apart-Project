@@ -6,6 +6,7 @@ using CloneBookingAPI.Services.Database.Configurations.Review;
 using CloneBookingAPI.Services.Database.Configurations.UserProfile;
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Database.Models.Payment;
+using CloneBookingAPI.Services.Database.Models.Review;
 using CloneBookingAPI.Services.Database.Models.UserProfile;
 using Microsoft.EntityFrameworkCore;
 
@@ -22,6 +23,9 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<CreditCard> CreditCards { get; set; }
         public DbSet<Price> Prices { get; set; }
         public DbSet<PromoCode> PromoCodes { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<ReviewMessage> ReviewMessages { get; set; }
+        public DbSet<Language> Languages { get; set; }
 
         public ApartProjectDbContext(DbContextOptions<ApartProjectDbContext> options) : base(options)
         {

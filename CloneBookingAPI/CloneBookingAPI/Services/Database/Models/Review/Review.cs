@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CloneBookingAPI.Services.Database.Configurations.Review;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloneBookingAPI.Services.Database.Models.Review
@@ -10,6 +12,24 @@ namespace CloneBookingAPI.Services.Database.Models.Review
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        public int UserId { get; set; }
+        [ForeignKey("UserId")]
+        public User User { get; set; }
 
+        public int BookingId { get; set; }
+        [ForeignKey("BookingId")]
+        public Booking Booking { get; set; }
+
+        [Required]
+        public DateOnly ReviewedDate { get; set; }
+
+        public int MessageId { get; set; }
+        [ForeignKey("MessageId")]
+        public ReviewMessage Message { get; set; }
+
+        [Required]
+        public uint LikesAmount { get; set; }
+        [Required]
+        public uint DislikesAmount { get; set; }
     }
 }
