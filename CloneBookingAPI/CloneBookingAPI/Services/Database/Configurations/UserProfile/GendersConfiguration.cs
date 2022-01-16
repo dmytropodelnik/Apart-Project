@@ -1,4 +1,4 @@
-﻿using CloneBookingAPI.Services.Database.Models;
+﻿using CloneBookingAPI.Services.Database.Models.UserProfile;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

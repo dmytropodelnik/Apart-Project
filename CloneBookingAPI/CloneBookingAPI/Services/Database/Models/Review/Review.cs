@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CloneBookingAPI.Services.Database.Models
+namespace CloneBookingAPI.Services.Database.Models.Review
 {
     [Table("Reviews")]
     public class Review
