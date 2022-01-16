@@ -33,6 +33,11 @@ namespace CloneBookingAPI.Services.Database.Models
         [DataType(DataType.Date)]
         public DateTime CheckOut { get; set; }
 
+        [Display(Name = "Promo code")]
+        [DataType(DataType.Text)]
+        [StringLength(20, MinimumLength = 8, ErrorMessage = "Incorrect length")]
+        public string PromoCode { get; set; }
+
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }

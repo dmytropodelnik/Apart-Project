@@ -21,6 +21,7 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<Payment> Payments { get; set; }
         public DbSet<CreditCard> CreditCards { get; set; }
         public DbSet<Price> Prices { get; set; }
+        public DbSet<PromoCode> PromoCodes { get; set; }
 
         public ApartProjectDbContext(DbContextOptions<ApartProjectDbContext> options) : base(options)
         {
@@ -74,7 +75,7 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new AreaInfosConfiguration());
             modelBuilder.ApplyConfiguration(new AreaInfoTypesConfiguration());
             modelBuilder.ApplyConfiguration(new BookingsConfiguration());
-            modelBuilder.ApplyConfiguration(new CategoriesConfiguration());
+            modelBuilder.ApplyConfiguration(new BookingCategoriesConfiguration());
             modelBuilder.ApplyConfiguration(new FacilitiesConfiguration());
             modelBuilder.ApplyConfiguration(new FacilityTypesConfiguration());
             modelBuilder.ApplyConfiguration(new LanguagesConfiguration());
