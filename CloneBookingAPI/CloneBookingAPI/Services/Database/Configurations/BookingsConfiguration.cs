@@ -8,6 +8,8 @@ namespace CloneBookingAPI.Services.Database.Configurations
     {
         public void Configure(EntityTypeBuilder<Booking> builder)
         {
+            builder.Property(b => b.IsForWork).HasDefaultValue(false);
+
             builder.HasData(
               new Booking[]
               {

@@ -16,6 +16,7 @@ namespace CloneBookingAPI.Services.Database.Configurations.Review
                   new Models.Review.ReviewCategory { Id = 4, Category = "Comfort" },
                   new Models.Review.ReviewCategory { Id = 5, Category = "Value for money" },
                   new Models.Review.ReviewCategory { Id = 6, Category = "Location" },
+                  new Models.Review.ReviewCategory { Id = 7, Category = "Free WiFi" },
               });
         }
     }

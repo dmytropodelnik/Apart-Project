@@ -7,6 +7,9 @@ namespace CloneBookingAPI.Services.Database.Configurations.Review
     {
         public void Configure(EntityTypeBuilder<Models.Review.Review> builder)
         {
+            builder.Property(r => r.LikesAmount).HasDefaultValue(0);
+            builder.Property(r => r.DislikesAmount).HasDefaultValue(0);
+
             builder.HasData(
               new Models.Review.Review[]
               {

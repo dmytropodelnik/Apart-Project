@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CloneBookingAPI.Services.Database.Models.UserProfile;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloneBookingAPI.Services.Database.Models.Suggestions
@@ -17,5 +19,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public int UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
+
+        public List<Favorite> Favorites { get; set; } = new();
     }
 }

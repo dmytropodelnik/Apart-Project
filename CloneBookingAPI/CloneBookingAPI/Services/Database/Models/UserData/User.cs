@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CloneBookingAPI.Services.Database.Models.UserProfile;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,19 +17,19 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string Title { get; set; }
 
-        [Display(Name = "First Name")]
+        [Display(Name = "First name")]
         [Required(ErrorMessage = "Enter a first name")]
         [DataType(DataType.Text)]
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string FirstName { get; set; }
 
-        [Display(Name = "Last Name")]
+        [Display(Name = "Last name")]
         [Required(ErrorMessage = "Enter a last name")]
         [DataType(DataType.Text)]
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string LastName { get; set; }
 
-        [Display(Name = "Display Name")]
+        [Display(Name = "Display name")]
         [DataType(DataType.Text)]
         [StringLength(60, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string DisplayName { get; set; }
@@ -49,6 +50,10 @@ namespace CloneBookingAPI.Services.Database.Models
         [DataType(DataType.Password)]
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string Password { get; set; }
+
+        public int FavoriteId { get; set; }
+        [ForeignKey("FavoriteId")]
+        public Favorite Favorite { get; set; }
 
         public int RoleId { get; set; }
         [ForeignKey("RoleId")]
