@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CloneBookingAPI.Services.Database.Models
+namespace CloneBookingAPI.Services.Database.Models.UserProfile
 {
     [Table("Genders")]
     public class Gender
