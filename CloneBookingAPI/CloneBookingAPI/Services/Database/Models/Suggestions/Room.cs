@@ -11,8 +11,19 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public ushort RoomAmount { get; set; }
+        [Required]
         public ushort Sleeps { get; set; }
+        [Required]
+        public ushort RoomSize { get; set; }
+        [Required]
+        public bool IsSmokingAllowed { get; set; }
+        [Required]
+        public bool IsSuite { get; set; }
+
+        [Display(Name = "Description")]
+        [DataType(DataType.Text)]
+        [StringLength(1000, MinimumLength = 6, ErrorMessage = "Incorrect length")]
+        public string Description { get; set; }
 
         public int RoomTypeId { get; set; }
         [ForeignKey("RoomTypeId")]
@@ -26,6 +37,6 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [DataType(DataType.Currency)]
         public decimal AmountInUS { get; set; }
 
-        public List<SuggestionHighlight> Highlights { get; set; } = new();
+        public List<SuggestionHighlight> Facilities { get; set; } = new();
     }
 }
