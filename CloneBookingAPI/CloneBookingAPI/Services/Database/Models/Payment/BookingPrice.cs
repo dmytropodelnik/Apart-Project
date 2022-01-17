@@ -34,6 +34,6 @@ namespace CloneBookingAPI.Services.Database.Models.Payment
         [DataType(DataType.Currency)]
         public decimal CancellationPrice { get; set; }
 
-        public Booking Booking { get; set; }
+        public StayBooking Booking { get; set; }
     }
 }

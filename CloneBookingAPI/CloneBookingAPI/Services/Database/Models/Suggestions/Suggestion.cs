@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database.Models.Review;
+﻿using CloneBookingAPI.Services.Database.Models.Location;
+using CloneBookingAPI.Services.Database.Models.Review;
 using CloneBookingAPI.Services.Database.Models.UserProfile;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -30,7 +31,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public BookingCategory BookingCategory { get; set; }
 
         public List<Review.Review> Reviews { get; set; } = new();
-        public List<Booking> Bookings { get; set; } = new();
+        public List<StayBooking> Bookings { get; set; } = new();
         public List<ReviewCategory> AdditionalServices { get; set; } = new();
         public List<SuggestionReviewGrade> SuggestionReviewGrades { get; set; } = new();
         public List<Favorite> Favorites { get; set; } = new();

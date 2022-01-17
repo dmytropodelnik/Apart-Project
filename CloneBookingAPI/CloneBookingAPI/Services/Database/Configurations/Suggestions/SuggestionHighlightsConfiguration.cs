@@ -8,8 +8,6 @@ namespace CloneBookingAPI.Services.Database.Configurations.Suggestions
     {
         public void Configure(EntityTypeBuilder<SuggestionHighlight> builder)
         {
-            builder.Property(r => r.IsSuite).HasDefaultValue(false);
-
             builder.HasData(
               new SuggestionHighlight[]
               {

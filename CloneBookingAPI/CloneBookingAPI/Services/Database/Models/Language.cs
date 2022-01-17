@@ -16,6 +16,7 @@ namespace CloneBookingAPI.Services.Database.Models
         [DataType(DataType.Text)]
         [MinLength(3)]
         public string Title { get; set; }
+
         public List<User> Users { get; set; } = new();
     }
 }
