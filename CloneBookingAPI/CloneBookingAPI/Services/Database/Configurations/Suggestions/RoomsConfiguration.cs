@@ -8,6 +8,8 @@ namespace CloneBookingAPI.Services.Database.Configurations.Suggestions
     {
         public void Configure(EntityTypeBuilder<Room> builder)
         {
+            builder.Property(r => r.IsSuite).HasDefaultValue(false);
+
             builder.HasData(
               new Room[]
               {
