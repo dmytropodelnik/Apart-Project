@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CloneBookingAPI.Services.Database.Models.Suggestions;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloneBookingAPI.Services.Database.Models
@@ -11,5 +13,10 @@ namespace CloneBookingAPI.Services.Database.Models
         public int Id { get; set; }
 
         public string ImagePath { get; set; }
+
+        public List<UserProfile.UserProfile> UserProfiles { get; set; } = new();
+        public List<Facility> Facilities { get; set; } = new();
+        public List<Suggestion> Suggestions { get; set; } = new();
+        public List<SuggestionHighlight> SuggestionHighlights { get; set; } = new();
     }
 }

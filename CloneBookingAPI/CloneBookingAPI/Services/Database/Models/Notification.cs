@@ -21,8 +21,12 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Incorrect length")]
         public string Image { get; set; }
 
+        public int? EmitterId { get; set; }
+        [ForeignKey("EmitterId")]
+        public User EmitterUser { get; set; }
+
         public int UserId { get; set; }
         [ForeignKey("UserId")]
-        public User User { get; set; }
+        public User RecipientUser { get; set; }
     }
 }

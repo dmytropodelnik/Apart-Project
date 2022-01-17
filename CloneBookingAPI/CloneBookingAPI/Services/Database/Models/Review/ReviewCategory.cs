@@ -3,22 +3,21 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CloneBookingAPI.Services.Database.Models
+namespace CloneBookingAPI.Services.Database.Models.Review
 {
-    [Table("Services")]
-    public class ServiceCategory
+    [Table("ReviewCategories")]
+    public class ReviewCategory
     {
         [Column("Id")]  // Можно было не указывать потому, что так было бы по умолчанию, благодаря соглашению о наименованиях EF
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Display(Name = "Service Category")]
+        [Display(Name = "Review Category")]
         [Required]
         [DataType(DataType.Text)]
-        [StringLength(30, MinimumLength = 3, ErrorMessage = "Incorrect length")]
+        [StringLength(60, MinimumLength = 2, ErrorMessage = "Incorrect length")]
         public string Category { get; set; }
 
-        public List<Booking> Bookings { get; set; } = new();
-        public List<Suggestion> Suggestions { get; set; } = new();
+        public List<SuggestionReviewGrade> SuggestionReviewGrades { get; set; } = new();
     }
 }

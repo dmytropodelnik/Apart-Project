@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -32,10 +33,10 @@ namespace CloneBookingAPI.Services.Database.Models.Payment
         [StringLength(3)]
         public string CVC { get; set; }
 
-        public Payment Payment { get; set; }
-
         public int CardTypeId { get; set; }
         [ForeignKey("CardTypeId")]
         public CardType CardType { get; set; }
+
+        public List<Payment> Payments { get; set; } = new();
     }
 }

@@ -17,6 +17,14 @@ namespace CloneBookingAPI.Services.Database.Models
 
         [Required]
         public bool IsForWork { get; set; }
+        [Required]
+        public bool IsRequestedAirportShuttle { get; set; }
+        [Required]
+        public bool IsRequestedRentingCar { get; set; }
+        [Display(Name = "Special Requests")]
+        [DataType(DataType.Text)]
+        [StringLength(1000, MinimumLength = 6, ErrorMessage = "Incorrect length")]
+        public string SpecialRequests { get; set; }
 
         public int PaymentId { get; set; }
         [ForeignKey("PaymentId")]
@@ -31,6 +39,7 @@ namespace CloneBookingAPI.Services.Database.Models
         public Address Address { get; set; }
 
         [Display(Name = "Check-in")]
+        [Required]
         [DataType(DataType.Date)]
         public DateTime CheckIn { get; set; }
 
@@ -39,14 +48,26 @@ namespace CloneBookingAPI.Services.Database.Models
         [DataType(DataType.Date)]
         public DateTime CheckOut { get; set; }
 
+        [Display(Name = "Arrival time")]
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime ArrivalTime { get; set; }
+
         [Display(Name = "Promo code")]
         [DataType(DataType.Text)]
         [StringLength(20, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string PromoCode { get; set; }
 
+        [Display(Name = "Booking number")]
+        [Required]
+        [DataType(DataType.Text)]
+        [StringLength(20, MinimumLength = 8, ErrorMessage = "Incorrect length")]
+        public string UniqueNumber { get; set; }
+
         public int ServiceCategoryId { get; set; }
         [ForeignKey("ServiceCategoryId")]
         public ServiceCategory ServiceCategory { get; set; }
+
         public int? BookingCategoryId { get; set; }
         [ForeignKey("BookingCategoryId")]
         public BookingCategory BookingCategory { get; set; }
@@ -55,15 +76,12 @@ namespace CloneBookingAPI.Services.Database.Models
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }
 
-        public int? TempUserId { get; set; }
-        [ForeignKey("TempUserId")]
-        public TempUser TempUser { get; set; }
-
         public int? UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
 
         public List<Room> Rooms { get; set; } = new();
+        public List<TempUser> Guests { get; set; } = new();
 
     }
 }
