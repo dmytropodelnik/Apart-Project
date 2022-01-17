@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CloneBookingAPI.Services.Database.Models.Suggestions;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,5 +19,6 @@ namespace CloneBookingAPI.Services.Database.Models
         public string Category { get; set; }
 
         public List<Booking> Bookings { get; set; } = new();
+        public List<Suggestion> Suggestions { get; set; } = new();
     }
 }

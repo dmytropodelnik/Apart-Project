@@ -11,11 +11,13 @@ namespace CloneBookingAPI.Services.Database.Models
         public int Id { get; set; }
 
         [Display(Name = "Country")]
+        [Required]
         [DataType(DataType.Text)]
         [MinLength(2)]
         public string Country { get; set; }
 
         [Display(Name = "City")]
+        [Required]
         [DataType(DataType.Text)]
         [MinLength(2)]
         public string City { get; set; }
@@ -32,6 +34,7 @@ namespace CloneBookingAPI.Services.Database.Models
 
         [Column("Address")]
         [Display(Name = "Street")]
+        [Required]
         [DataType(DataType.Text)]
         [MinLength(2)]
         public string AddressText { get; set; }

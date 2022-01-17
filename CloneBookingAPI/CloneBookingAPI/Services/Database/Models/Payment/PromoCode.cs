@@ -14,5 +14,11 @@ namespace CloneBookingAPI.Services.Database.Models
         [DataType(DataType.Text)]
         [StringLength(20, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string Code { get; set; }
+
+        [Required]
+        public ushort PercentDiscount { get; set; }
+        
+        [Required]
+        public bool IsActive { get; set; }
     }
 }

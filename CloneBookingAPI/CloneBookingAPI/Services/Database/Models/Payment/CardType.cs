@@ -12,11 +12,11 @@ namespace CloneBookingAPI.Services.Database.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Column("Type")]
         [Display(Name = "Card Type")]
         [DataType(DataType.Text)]
         [MinLength(2)]
         public string Type { get; set; }
+
         public List<CreditCard> CreditCards { get; set; } = new();
     }
 }

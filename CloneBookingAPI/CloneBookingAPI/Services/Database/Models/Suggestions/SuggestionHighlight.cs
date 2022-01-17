@@ -20,11 +20,14 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [StringLength(1000, MinimumLength = 6, ErrorMessage = "Incorrect length")]
         public string Text { get; set; }
 
+        public int? ImageId { get; set; }
+        [ForeignKey("ImageId")]
         public Image Image { get; set; }
 
         public int SuggestionId { get; set; }
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }
+
         public int? RoomId { get; set; }
         [ForeignKey("RoomId")]
         public RoomType Room { get; set; }

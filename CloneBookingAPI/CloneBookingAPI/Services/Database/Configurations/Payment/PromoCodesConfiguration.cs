@@ -8,6 +8,8 @@ namespace CloneBookingAPI.Services.Database.Configurations.Payment
     {
         public void Configure(EntityTypeBuilder<PromoCode> builder)
         {
+            builder.Property(p => p.IsActive).HasDefaultValue(true);
+
             builder.HasData(
               new PromoCode[]
               {

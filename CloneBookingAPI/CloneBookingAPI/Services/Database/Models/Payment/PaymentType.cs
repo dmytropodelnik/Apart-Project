@@ -11,7 +11,6 @@ namespace CloneBookingAPI.Services.Database.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Column("Type")]
         [Display(Name = "Payment Type")]
         [DataType(DataType.Text)]
         [MinLength(2)]
