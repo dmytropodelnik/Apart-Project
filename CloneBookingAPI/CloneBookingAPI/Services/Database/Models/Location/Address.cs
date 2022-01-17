@@ -1,7 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CloneBookingAPI.Services.Database.Models.Location;
+using CloneBookingAPI.Services.Database.Models.Suggestions;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CloneBookingAPI.Services.Database.Models
+namespace CloneBookingAPI.Services.Database.Models.Location
 {
     [Table("Addresses")]
     public class Address
@@ -10,17 +13,13 @@ namespace CloneBookingAPI.Services.Database.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Display(Name = "Country")]
-        [Required]
-        [DataType(DataType.Text)]
-        [MinLength(2)]
-        public string Country { get; set; }
+        public int CountryId { get; set; }
+        [ForeignKey("CountryId")]
+        public Country Country { get; set; }
 
-        [Display(Name = "City")]
-        [Required]
-        [DataType(DataType.Text)]
-        [MinLength(2)]
-        public string City { get; set; }
+        public int CityId { get; set; }
+        [ForeignKey("CityId")]
+        public City City { get; set; }
 
         [Display(Name = "Zip Code")]
         [DataType(DataType.Text)]
@@ -38,5 +37,9 @@ namespace CloneBookingAPI.Services.Database.Models
         [DataType(DataType.Text)]
         [MinLength(2)]
         public string AddressText { get; set; }
+
+        public List<StayBooking> Booking { get; set; } = new();
+        public List<Suggestion> Suggestions { get; set; } = new();
+        public List<UserProfile.UserProfile> UserProfiles { get; set; } = new();
     }
 }

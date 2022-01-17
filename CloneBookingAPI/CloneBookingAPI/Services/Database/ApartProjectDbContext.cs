@@ -5,6 +5,7 @@ using CloneBookingAPI.Services.Database.Configurations.Payment;
 using CloneBookingAPI.Services.Database.Configurations.Review;
 using CloneBookingAPI.Services.Database.Configurations.UserProfile;
 using CloneBookingAPI.Services.Database.Models;
+using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Payment;
 using CloneBookingAPI.Services.Database.Models.Review;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
@@ -19,9 +20,8 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<User> Users { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<TempUser> TempUsers { get; set; }
-        public DbSet<Address> Addresses { get; set; }
         public DbSet<Cart> Carts { get; set; }
-        public DbSet<Booking> Bookings { get; set; }
+        public DbSet<StayBooking> Bookings { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<CreditCard> CreditCards { get; set; }
         public DbSet<BookingPrice> Prices { get; set; }
@@ -48,7 +48,14 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<Suggestion> Suggestions { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<RoomType> RoomTypes { get; set; }
-
+        public DbSet<CardType> CardTypes { get; set; }
+        public DbSet<Currency> Currencies { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Region> Regions { get; set; }
+        public DbSet<District> Districts { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Airport> Airports { get; set; }
 
         public ApartProjectDbContext(DbContextOptions<ApartProjectDbContext> options) : base(options)
         {
@@ -101,14 +108,14 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new UsersConfiguration());
             modelBuilder.ApplyConfiguration(new AreaInfosConfiguration());
             modelBuilder.ApplyConfiguration(new AreaInfoTypesConfiguration());
-            modelBuilder.ApplyConfiguration(new BookingsConfiguration());
+            modelBuilder.ApplyConfiguration(new StayBookingsConfiguration());
             modelBuilder.ApplyConfiguration(new BookingCategoriesConfiguration());
             modelBuilder.ApplyConfiguration(new FacilitiesConfiguration());
             modelBuilder.ApplyConfiguration(new FacilityTypesConfiguration());
             modelBuilder.ApplyConfiguration(new LanguagesConfiguration());
             modelBuilder.ApplyConfiguration(new NotificationsConfiguration());
             modelBuilder.ApplyConfiguration(new ServicesCategoriesConfiguration());
-            modelBuilder.ApplyConfiguration(new TripsConfiguration());
+            modelBuilder.ApplyConfiguration(new FlightBookingsConfiguration());
         }
     }
 }

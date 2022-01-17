@@ -34,6 +34,6 @@ namespace CloneBookingAPI.Services.Database.Models.UserData
         [StringLength(20, MinimumLength = 6, ErrorMessage = "Incorrect length")]
         public string PhoneNumber { get; set; }
 
-        public List<Booking> Bookings { get; set; } = new();
+        public List<StayBooking> Bookings { get; set; } = new();
     }
 }

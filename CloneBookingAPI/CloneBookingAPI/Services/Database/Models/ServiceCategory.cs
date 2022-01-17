@@ -18,7 +18,7 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(30, MinimumLength = 3, ErrorMessage = "Incorrect length")]
         public string Category { get; set; }
 
-        public List<Booking> Bookings { get; set; } = new();
+        public List<StayBooking> Bookings { get; set; } = new();
         public List<Suggestion> Suggestions { get; set; } = new();
     }
 }

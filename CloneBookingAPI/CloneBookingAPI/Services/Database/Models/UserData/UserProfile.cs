@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CloneBookingAPI.Services.Database.Models.Location;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

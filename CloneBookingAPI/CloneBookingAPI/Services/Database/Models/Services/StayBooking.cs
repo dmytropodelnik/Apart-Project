@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database.Models.Payment;
+﻿using CloneBookingAPI.Services.Database.Models.Location;
+using CloneBookingAPI.Services.Database.Models.Payment;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Database.Models.UserData;
 using System;
@@ -8,8 +9,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloneBookingAPI.Services.Database.Models
 {
-    [Table("Bookings")]
-    public class Booking
+    [Table("StayBookings")]
+    public class StayBooking
     {
         [Column("Id")]  // Можно было не указывать потому, что так было бы по умолчанию, благодаря соглашению о наименованиях EF
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
