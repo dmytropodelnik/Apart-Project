@@ -284,6 +284,11 @@ a.a11y-skip-to-content {
     position: relative;
 }
 
+.bui-avatar--button-auth{
+    position: relative;
+    left:10px;
+}
+
 .bui-avatar--small {
     height: 24px;
     width: 24px;

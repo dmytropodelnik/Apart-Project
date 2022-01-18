@@ -8,13 +8,14 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 })
 export class HeaderComponent implements OnInit {
 
+  isExist: string;
   public isCollapsed = false;
 
   @ViewChild('content') content !: TemplateRef<any>;
   @ViewChild('content1') content1 !: TemplateRef<any>;
 
   constructor(config: NgbModalConfig, private modalService: NgbModal) {
-
+    this.isExist = '';
   }
 
   ngOnInit(): void {
