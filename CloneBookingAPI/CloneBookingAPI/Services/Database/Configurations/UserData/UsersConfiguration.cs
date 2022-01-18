@@ -1,6 +1,9 @@
 ﻿using CloneBookingAPI.Services.Database.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace CloneBookingAPI.Services.Database.Configurations.UserProfile
 {
@@ -8,13 +11,14 @@ namespace CloneBookingAPI.Services.Database.Configurations.UserProfile
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            // SHA256Managed sha256 = new SHA256Managed();
+            SHA256 sha256 = SHA256.Create();
 
             builder.HasData(
               new User[]
               {
                 new User { Id = 1, Email = "apartproject@ukr.net", FirstName = "Admin FirstName", LastName = "Admin LastName",
-                           Password =    }
+                           Password =  Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes("123123")))  },
+
               });
         }
     }

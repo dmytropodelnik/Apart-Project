@@ -27,12 +27,12 @@ export class AuthComponent implements OnInit {
       password: this.password,
     };
 
-    // fetch('https://localhost:44341/userexists?email=' + user.email, {
+    //     fetch('https://localhost:44381/api/user/userexists?email=' + user.email, {
 
-    fetch('https://localhost:44341/api/user/userexists?email=' + user.email, {
+    fetch('https://localhost:44381/api/user/userexists?email=' + user.email, {
       method: 'GET',
     })
-      .then(r => r.json())
+      .then(r => r.text())
       .then(data => {
         console.log(data);
         alert(data);
