@@ -171,14 +171,6 @@ a.a11y-skip-to-content {
     margin-top: 8px !important;
 }
 
-.bui-button-group.bui-group--inline .bui-group__item:first-child .bui-button--light.bui-button--large {
-    margin-left: -12px;
-}
-
-.bui-button-group.bui-group--inline .bui-group__item:first-child .bui-button--light {
-    margin-left: -8px;
-}
-
 .bui-button--large.bui-button--light,
 .bui-button--large.bui-button--tertiary,
 .bui-button--large.bui-button--tertiary-neutral {
@@ -197,8 +189,6 @@ a.a11y-skip-to-content {
 }
 
 .bui-button--light {
-    padding-left: 8px;
-    padding-right: 8px;
     color: #fff;
 }
 
@@ -282,6 +272,10 @@ a.a11y-skip-to-content {
 
 .bui-button__text {
     position: relative;
+}
+.bui-button-USD{
+    position: relative;
+    left: 5px;
 }
 
 .bui-avatar--button-auth{
