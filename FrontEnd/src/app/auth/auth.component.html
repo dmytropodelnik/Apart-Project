@@ -28,9 +28,9 @@
                   </h1>
                   <div class="mt-4 mb-3">
                     <label for="email">Email address</label>
-                    <input type="text" class="auth-input">
+                    <input type="text" class="auth-input" name="email" [(ngModel)]="email" />
                   </div>
-                  <div><a href="javascript:void(0)" class="auth-btn">Continue with email</a></div>
+                  <div><button class="auth-btn" (click)="userCheck()">Continue with email</button></div>
                   <div class="my-3">
                     <div class="line">
                       <div class="text"><span>or use one of these options</span></div>

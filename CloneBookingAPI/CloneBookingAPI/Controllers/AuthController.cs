@@ -58,12 +58,5 @@ namespace CloneBookingAPI.Controllers
         public void Delete(int id)
         {
         }
-
-        [Route("userexists")]
-        [HttpGet]
-        private bool ArticleExists(string email)
-        {
-            return _context.Users.Any(u => u.Email.Equals(email));
-        }
     }
 }

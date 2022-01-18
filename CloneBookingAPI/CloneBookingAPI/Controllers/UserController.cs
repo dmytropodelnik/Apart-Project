@@ -65,9 +65,11 @@ namespace CloneBookingAPI.Controllers
             return RedirectToAction(nameof(GetLanguages));
         }
 
-        private bool LanguageExists(int id)
+        [Route("userexists")]
+        [HttpGet]
+        private bool UserExists(string email)
         {
-            return _context.Users.Any(e => e.Id == id);
+            return _context.Users.Any(u => u.Email.Equals(email));
         }
     }
 }
