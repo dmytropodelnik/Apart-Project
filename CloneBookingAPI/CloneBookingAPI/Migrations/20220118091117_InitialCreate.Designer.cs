@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CloneBookingAPI.Migrations
 {
     [DbContext(typeof(ApartProjectDbContext))]
-    [Migration("20220118090110_InitialCreate")]
+    [Migration("20220118091117_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
