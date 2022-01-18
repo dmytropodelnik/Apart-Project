@@ -13,7 +13,7 @@ export class AuthComponent implements OnInit {
   username: string;
   password: string;
 
-  constructor(private authService: AuthorizationService) {
+  constructor(private authService: AuthorizationService, private router: Router) {
     this.username = "";
     this.password = "";
   }
