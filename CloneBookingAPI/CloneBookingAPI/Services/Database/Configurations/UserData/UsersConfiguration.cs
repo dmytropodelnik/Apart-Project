@@ -17,7 +17,7 @@ namespace CloneBookingAPI.Services.Database.Configurations.UserProfile
               new User[]
               {
                 new User { Id = 1, Email = "apartproject@ukr.net", FirstName = "Admin FirstName", LastName = "Admin LastName",
-                           Password =  Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes("123123")))  },
+                           Password =  Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes("123123"))), RoleId = 1  },
 
               });
         }

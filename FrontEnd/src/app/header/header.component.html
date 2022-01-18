@@ -79,7 +79,7 @@
             </span>
           </a>
         </div>
-        <div *ngIf="isExist === ''; then thenBlock else elseBlock"></div>
+        <div *ngIf="authService.getLogCondition() === false; then thenBlock else elseBlock"></div>
           <ng-template #thenBlock>
             <div class="bui-group__item">
               <a class="bui-button bui-button--secondary js-header-login-link" routerLink="/auth" href="javascript:void(0)">

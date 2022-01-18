@@ -51,26 +51,5 @@ namespace CloneBookingAPI.Controllers
 
             return user;
         }
-
-        [Route("delete/{id:int}")]
-        public async Task<IActionResult> Delete(string email)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var article = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (article == null)
-            {
-                return NotFound();
-            }
-
-            _context.Users.Remove(article);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(UserExists));
-        }
     }
 }

@@ -32,8 +32,8 @@ export class AuthComponent implements OnInit {
     fetch('https://localhost:44381/api/user/userexists?email=' + user.email, {
       method: 'GET',
     })
-      .then(r => r.text())
-      .then(data => {
+      .then((r) => r.text())
+      .then((data) => {
         if (data === 'true') {
           this.isExist = 'true';
         }
@@ -41,36 +41,38 @@ export class AuthComponent implements OnInit {
       .catch((ex) => {
         alert(ex);
       });
-
-    // fetch('https://localhost:44341/token', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json; charset=utf-8'
-    //             },
-    //             body: JSON.stringify(user)
-    //         }).then((response) => {
-    //             if (response.ok) {
-    //                 return response.json();
-    //             } else {
-    //                 console.log(this.authService.getLogCondition());
-    //                 console.log(this.username);
-    //                 console.log(this.password);
-    //                 alert("Error authorization");
-    //                 return "Error";
-    //             }
-    //         }).then((data) => {
-    //             AuthHelper.saveAuth(user.username, data.access_token);
-    //             this.authService.toggleLogCondition();
-    //             console.log(this.authService.getLogCondition());
-    //             alert("You have successfully authenticated!");
-    //             //this.router.navigate(['/welcome']);
-    //         }).catch((ex) => {
-    //             alert(ex);
-    //         });
   }
 
   userSignIn(): void {
+    let user = {
+      email: this.email,
+      password: this.password,
+    };
 
+    fetch('https://localhost:44381/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: JSON.stringify(user),
+    })
+      .then(response => response.json())
+      .then(response => {
+        alert(response);
+        console.log(response);
+
+        console.log(this.authService.getLogCondition());
+
+        AuthHelper.saveAuth(user.email, response);
+
+        this.authService.toggleLogCondition();
+
+        alert('You have successfully authenticated!');
+        this.router.navigate(['']);
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   ngOnInit(): void {}
