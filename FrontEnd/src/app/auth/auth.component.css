@@ -95,6 +95,7 @@
     line-height: 24px;
     padding: 8px 24px;
     min-height: 48px;
+    min-width: 360px;
 }
 
 .auth-btn:hover{
