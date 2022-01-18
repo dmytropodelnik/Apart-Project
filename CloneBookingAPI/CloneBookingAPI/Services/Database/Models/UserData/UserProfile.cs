@@ -17,10 +17,10 @@ namespace CloneBookingAPI.Services.Database.Models.UserProfile
 
         [Display(Name = "Date of birth")]
         [DataType(DataType.Date)]
-        public DateOnly BirthDate { get; set; }
+        public DateTime BirthDate { get; set; }
 
         [Required]
-        public DateOnly RegisterDate { get; set; }
+        public DateTime RegisterDate { get; set; }
 
         [Display(Name = "Nationality")]
         [DataType(DataType.Text)]
@@ -31,19 +31,19 @@ namespace CloneBookingAPI.Services.Database.Models.UserProfile
         [DataType(DataType.Text)]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Incorrect length")]
 
-        public int GenderId { get; set; }
+        public int? GenderId { get; set; }
         [ForeignKey("GenderId")]
         public Gender Gender { get; set; }
 
-        public int AddressId { get; set; }
+        public int? AddressId { get; set; }
         [ForeignKey("AddressId")]
         public Address Address { get; set; }
 
-        public int CurrencyId { get; set; }
+        public int? CurrencyId { get; set; }
         [ForeignKey("CurrencyId")]
         public Currency Currency { get; set; }
 
-        public int LanguageId { get; set; }
+        public int? LanguageId { get; set; }
         [ForeignKey("LanguageId")]
         public Language Language { get; set; }
 

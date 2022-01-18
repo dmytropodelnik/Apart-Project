@@ -51,11 +51,11 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string Password { get; set; }
 
-        public int FavoriteId { get; set; }
+        public int? FavoriteId { get; set; }
         [ForeignKey("FavoriteId")]
         public Favorite Favorite { get; set; }
 
-        public int RoleId { get; set; }
+        public int? RoleId { get; set; }
         [ForeignKey("RoleId")]
         public Role Role { get; set; }
 

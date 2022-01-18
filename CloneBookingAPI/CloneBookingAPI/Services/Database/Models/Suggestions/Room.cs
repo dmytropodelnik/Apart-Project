@@ -25,13 +25,13 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [StringLength(1000, MinimumLength = 6, ErrorMessage = "Incorrect length")]
         public string Description { get; set; }
 
-        public int RoomTypeId { get; set; }
+        public int? RoomTypeId { get; set; }
         [ForeignKey("RoomTypeId")]
         public RoomType RoomType { get; set; }
 
         [Required]
         [DataType(DataType.Currency)]
-        public decimal? AmountInUserCurrency { get; set; }
+        public decimal AmountInUserCurrency { get; set; }
 
         [Required]
         [DataType(DataType.Currency)]

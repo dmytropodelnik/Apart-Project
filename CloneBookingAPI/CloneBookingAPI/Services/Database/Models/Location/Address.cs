@@ -13,7 +13,7 @@ namespace CloneBookingAPI.Services.Database.Models.Location
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int CountryId { get; set; }
+        public int? CountryId { get; set; }
         [ForeignKey("CountryId")]
         public Country Country { get; set; }
 

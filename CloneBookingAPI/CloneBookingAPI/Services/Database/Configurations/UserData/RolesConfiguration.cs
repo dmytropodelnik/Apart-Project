@@ -12,7 +12,7 @@ namespace CloneBookingAPI.Services.Database.Configurations.UserProfile
               new Role[]
               {
                     new Role { Id = 1, Name = "admin" },
-                    new Role { Id = 2, Name = "user" }
+                    new Role { Id = 2, Name = "user" },
               });
         }
     }

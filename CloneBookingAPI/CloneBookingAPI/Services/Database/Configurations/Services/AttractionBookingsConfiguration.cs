@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CloneBookingAPI.Services.Database.Configurations.Services
 {
-    public class CarRentalsConfiguration : IEntityTypeConfiguration<CarRental>
+    public class AttractionBookingsConfiguration : IEntityTypeConfiguration<AttractionBooking>
     {
-        public void Configure(EntityTypeBuilder<CarRental> builder)
+        public void Configure(EntityTypeBuilder<AttractionBooking> builder)
         {
             builder.HasData(
-              new CarRental[]
+              new AttractionBooking[]
               {
 
               });

@@ -13,22 +13,22 @@ namespace CloneBookingAPI.Services.Database.Models.Review
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
 
-        public int SuggestionId { get; set; }
+        public int? SuggestionId { get; set; }
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }
 
-        public int BookingId { get; set; }
+        public int? BookingId { get; set; }
         [ForeignKey("BookingId")]
         public StayBooking Booking { get; set; }
 
         [Required]
-        public DateOnly ReviewedDate { get; set; }
+        public DateTime ReviewedDate { get; set; }
 
-        public int MessageId { get; set; }
+        public int? MessageId { get; set; }
         [ForeignKey("MessageId")]
         public ReviewMessage Message { get; set; }
 
