@@ -1,32 +1,45 @@
 import { Component, OnInit } from '@angular/core';
-import AuthHelper from "../utils/authHelper"
+
+import AuthHelper from '../utils/authHelper';
 import { AuthorizationService } from '../services/authorization.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
-  styleUrls: ['./auth.component.css']
+  styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent implements OnInit {
-
-  username: string;
+  email: string;
   password: string;
 
-  constructor(private authService: AuthorizationService, private router: Router) {
-    this.username = "";
-    this.password = "";
+  constructor(
+    private authService: AuthorizationService,
+    private router: Router
+  ) {
+    this.email = '';
+    this.password = '';
   }
 
-  userCheck($event : any): void {
-
+  userCheck(): void {
     let user = {
-      username: this.username,
-      password: this.password
+      email: this.email,
+      password: this.password,
     };
 
     // fetch('https://localhost:44341/userexists?email=' + user.email, {
-    // https://localhost:44341/userexists?email=
+
+    fetch('https://localhost:44341/api/user/userexists?email=' + user.email, {
+      method: 'GET',
+    })
+      .then(r => r.json())
+      .then(data => {
+        console.log(data);
+        alert(data);
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
 
     // fetch('https://localhost:44341/token', {
     //             method: 'POST',
@@ -55,7 +68,5 @@ export class AuthComponent implements OnInit {
     //         });
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

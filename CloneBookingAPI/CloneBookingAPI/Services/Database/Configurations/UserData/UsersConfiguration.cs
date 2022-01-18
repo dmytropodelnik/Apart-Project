@@ -13,7 +13,8 @@ namespace CloneBookingAPI.Services.Database.Configurations.UserProfile
             builder.HasData(
               new User[]
               {
-                
+                new User { Id = 1, Email = "apartproject@ukr.net", FirstName = "Admin FirstName", LastName = "Admin LastName",
+                           Password =    }
               });
         }
     }
