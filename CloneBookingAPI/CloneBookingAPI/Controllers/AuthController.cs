@@ -3,6 +3,7 @@ using CloneBookingAPI.Services.Database.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -58,9 +59,11 @@ namespace CloneBookingAPI.Controllers
         {
         }
 
-        private bool ArticleExists(int id)
+        [Route("userexists")]
+        [HttpGet]
+        private bool ArticleExists(string email)
         {
-            return _context.Articles.Any(e => e.Id == id);
+            return _context.Users.Any(u => u.Email.Equals(email));
         }
     }
 }

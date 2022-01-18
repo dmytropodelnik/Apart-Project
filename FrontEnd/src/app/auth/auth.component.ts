@@ -20,10 +20,13 @@ export class AuthComponent implements OnInit {
 
   userCheck($event : any): void {
 
-    // let user = {
-    //   username: this.username,
-    //   password: this.password
-    // };
+    let user = {
+      username: this.username,
+      password: this.password
+    };
+
+    // fetch('https://localhost:44341/userexists?email=' + user.email, {
+    // https://localhost:44341/userexists?email=
 
     // fetch('https://localhost:44341/token', {
     //             method: 'POST',
