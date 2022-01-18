@@ -33,33 +33,34 @@ namespace CloneBookingAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            // .AddJwtBearer(options =>
+            // {
+            //     options.RequireHttpsMetadata = false;
+            //     options.SaveToken = true;
+            //     options.TokenValidationParameters = new TokenValidationParameters
+            //     {
+            //         ValidIssuer = "ValidIssuer",
+            //         ValidAudience = "ValidateAudience",
+            //         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("IssuerSigningSecretKey")),
+            //         ValidateLifetime = true,
+            //         ValidateIssuerSigningKey = true,
+            //         ClockSkew = TimeSpan.Zero
+            //     };
+            // });
+
             // получаем строку подключения из файла конфигурации
             string connection = Configuration.GetConnectionString("DefaultConnection");
             // добавляем контекст Apart в качестве сервиса в приложение
             services.AddDbContext<ApartProjectDbContext>(options =>
                 options.UseSqlServer(connection));
 
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-             .AddJwtBearer(options =>
-             {
-                 options.RequireHttpsMetadata = false;
-                 options.SaveToken = true;
-                 options.TokenValidationParameters = new TokenValidationParameters
-                 {
-                     ValidIssuer = "ValidIssuer",
-                     ValidAudience = "ValidateAudience",
-                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("IssuerSigningSecretKey")),
-                     ValidateLifetime = true,
-                     ValidateIssuerSigningKey = true,
-                     ClockSkew = TimeSpan.Zero
-                 };
-             });
-
             services.AddControllers();
             services.AddCors();
             // services.AddSwaggerGen(c =>
             // {
-            //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "CloneBookingAPI", Version = "v1" });
+            //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApartProjectAPI", Version = "v1" });
             // });
         }
 

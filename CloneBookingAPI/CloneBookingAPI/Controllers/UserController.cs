@@ -10,31 +10,31 @@ using System.Threading.Tasks;
 namespace CloneBookingAPI.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
-    public class LanguageController : Controller
+    // [ApiController]
+    public class UserController : Controller
     {
         private readonly ApartProjectDbContext _context;
 
-        public LanguageController(ApartProjectDbContext context)
+        public UserController(ApartProjectDbContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Language>>> GetLanguages()
+        public async Task<ActionResult<IEnumerable<User>>> GetLanguages()
         {
-            return await _context.Languages.ToListAsync();
+            return await _context.Users.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Language>> GetLanguage(int? id)
+        public async Task<ActionResult<User>> GetLanguage(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var article = await _context.Languages
+            var article = await _context.Users
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (article == null)
             {
@@ -52,14 +52,14 @@ namespace CloneBookingAPI.Controllers
                 return NotFound();
             }
 
-            var article = await _context.Languages
+            var article = await _context.Users
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (article == null)
             {
                 return NotFound();
             }
 
-            _context.Languages.Remove(article);
+            _context.Users.Remove(article);
             await _context.SaveChangesAsync();
 
             return RedirectToAction(nameof(GetLanguages));
@@ -67,7 +67,7 @@ namespace CloneBookingAPI.Controllers
 
         private bool LanguageExists(int id)
         {
-            return _context.Languages.Any(e => e.Id == id);
+            return _context.Users.Any(e => e.Id == id);
         }
     }
 }

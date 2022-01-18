@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloneBookingAPI.Services.Database.Models.Suggestions
 {
-    [Table("Suggestions")]
+    [Table("SuggestionHighlights")]
     public class SuggestionHighlight
     {
         [Column("Id")]  // Можно было не указывать потому, что так было бы по умолчанию, благодаря соглашению о наименованиях EF
@@ -24,7 +24,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [ForeignKey("ImageId")]
         public Image Image { get; set; }
 
-        public int SuggestionId { get; set; }
+        public int? SuggestionId { get; set; }
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }
 

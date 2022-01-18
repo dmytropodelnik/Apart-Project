@@ -11,7 +11,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int SuggestionRuleTypeId { get; set; }
+        public int? SuggestionRuleTypeId { get; set; }
         [ForeignKey("SuggestionRuleTypeId")]
 
         public SuggestionRuleType SuggestionRuleType { get; set; }

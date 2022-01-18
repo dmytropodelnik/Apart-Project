@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloneBookingAPI.Services.Database.Models.Payment
 {
-    [Table("Currencies")]
+    [Table("CreditCards")]
     public class CreditCard
     {
         [Column("Id")]  // Можно было не указывать потому, что так было бы по умолчанию, благодаря соглашению о наименованиях EF
@@ -25,7 +25,7 @@ namespace CloneBookingAPI.Services.Database.Models.Payment
 
         [Display(Name = "Expiration Date")]
         [DataType(DataType.Date)]
-        public DateOnly ExpirationDate { get; set; }
+        public DateTime ExpirationDate { get; set; }
 
         [Display(Name = "CVC")]
         [Required(ErrorMessage = "Enter a CVC")]
@@ -33,7 +33,7 @@ namespace CloneBookingAPI.Services.Database.Models.Payment
         [StringLength(3)]
         public string CVC { get; set; }
 
-        public int CardTypeId { get; set; }
+        public int? CardTypeId { get; set; }
         [ForeignKey("CardTypeId")]
         public CardType CardType { get; set; }
 
