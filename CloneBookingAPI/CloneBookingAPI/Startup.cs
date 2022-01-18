@@ -81,8 +81,8 @@ namespace CloneBookingAPI
                     .AllowAnyHeader()
             );
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseHttpsRedirection();
 
             app.UseRouting();
 

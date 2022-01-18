@@ -20,14 +20,21 @@ namespace CloneBookingAPI.Controllers
             _context = context;
         }
 
+        [Route("userexists")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetLanguages()
+        public async Task<ActionResult<User>> UserExists(string email)
         {
-            return await _context.Users.ToListAsync();
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            
+            if (user is not null)
+            {
+                return Ok(true);
+            }
+            return Ok(false);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetLanguage(int? id)
+        public async Task<ActionResult<User>> GetUser(int? id)
         {
             if (id == null)
             {
@@ -62,14 +69,7 @@ namespace CloneBookingAPI.Controllers
             _context.Users.Remove(article);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(GetLanguages));
-        }
-
-        [Route("userexists")]
-        [HttpGet]
-        private bool UserExists(string email)
-        {
-            return _context.Users.Any(u => u.Email.Equals(email));
+            return RedirectToAction(nameof(UserExists));
         }
     }
 }
