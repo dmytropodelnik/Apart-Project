@@ -1,10 +1,11 @@
-﻿using MailKit.Net.Smtp;
+﻿using CloneBookingAPI.Interfaces;
+using MailKit.Net.Smtp;
 using MimeKit;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Services
 {
-    public class EmailSender
+    public class AuthEmailSender : IEmailSender
     {
         public async Task SendEmailAsync(string email, string subject, string message)
         {
