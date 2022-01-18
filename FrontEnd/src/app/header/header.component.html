@@ -78,8 +78,8 @@
               List your property
             </span>
           </a>
-        </div>
-        <div *ngIf="authService.getLogCondition() === false; then thenBlock else elseBlock"></div>
+       </div>  <!-- authService.getLogCondition() === false || -->
+        <div *ngIf="authService.getTokenKey() === null && authService.getLogCondition() === false; then thenBlock else elseBlock"></div>
           <ng-template #thenBlock>
             <div class="bui-group__item">
               <a class="bui-button bui-button--secondary js-header-login-link" routerLink="/auth" href="javascript:void(0)">
