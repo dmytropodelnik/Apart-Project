@@ -12,6 +12,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { AuthComponent } from './auth/auth.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
 
+import { AuthorizationService } from './services/authorization.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -28,7 +30,7 @@ import { AdminPanelComponent } from './admin-panel/admin-panel.component';
     NgbModule,
     SlickCarouselModule,
   ],
-  providers: [],
+  providers: [AuthorizationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
