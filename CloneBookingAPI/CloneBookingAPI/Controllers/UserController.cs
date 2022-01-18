@@ -33,26 +33,27 @@ namespace CloneBookingAPI.Controllers
             return Ok(false);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int? id)
+        [Route("getuser")]
+        [HttpGet]
+        public async Task<ActionResult<User>> GetUser(string email)
         {
-            if (id == null)
+            if (string.IsNullOrWhiteSpace(email))
             {
                 return NotFound();
             }
 
-            var article = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (article == null)
+            var user = await _context.Users
+                .FirstOrDefaultAsync(m => m.Email == email);
+            if (user is null)
             {
                 return NotFound();
             }
 
-            return article;
+            return user;
         }
 
         [Route("delete/{id:int}")]
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string email)
         {
             if (id == null)
             {
