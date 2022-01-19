@@ -1,7 +1,9 @@
 ﻿using CloneBookingAPI.Services.Database;
+using CloneBookingAPI.Services.Helpers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -34,21 +36,30 @@ namespace CloneBookingAPI
         public void ConfigureServices(IServiceCollection services)
         {
 
-            //services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            // .AddJwtBearer(options =>
-            // {
-            //     options.RequireHttpsMetadata = false;
-            //     options.SaveToken = true;
-            //     options.TokenValidationParameters = new TokenValidationParameters
-            //     {
-            //         ValidIssuer = "ValidIssuer",
-            //         ValidAudience = "ValidateAudience",
-            //         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("IssuerSigningSecretKey")),
-            //         ValidateLifetime = true,
-            //         ValidateIssuerSigningKey = true,
-            //         ClockSkew = TimeSpan.Zero
-            //     };
-            // });
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                                .AddJwtBearer(options =>
+                                {
+                                    options.RequireHttpsMetadata = false;
+                                    options.TokenValidationParameters = new TokenValidationParameters
+                                    {
+                            // укзывает, будет ли валидироваться издатель при валидации токена
+                            ValidateIssuer = true,
+                            // строка, представляющая издателя
+                            ValidIssuer = AuthOptions.ISSUER,
+
+                            // будет ли валидироваться потребитель токена
+                            ValidateAudience = true,
+                            // установка потребителя токена
+                            ValidAudience = AuthOptions.AUDIENCE,
+                            // будет ли валидироваться время существования
+                            ValidateLifetime = true,
+
+                            // установка ключа безопасности
+                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(),
+                            // валидация ключа безопасности
+                            ValidateIssuerSigningKey = true,
+                                    };
+                                });
 
             // получаем строку подключения из файла конфигурации
             string connection = Configuration.GetConnectionString("DefaultConnection");
@@ -76,10 +87,18 @@ namespace CloneBookingAPI
 
             app.UseCors(builder =>
                 builder
+                    .AllowCredentials()
                     .AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader()
             );
+
+            app.UseCookiePolicy(new CookiePolicyOptions
+            {
+                MinimumSameSitePolicy = SameSiteMode.Strict,
+                HttpOnly = HttpOnlyPolicy.Always,
+                Secure = CookieSecurePolicy.Always
+            });
 
             app.UseStaticFiles();
             app.UseHttpsRedirection();
