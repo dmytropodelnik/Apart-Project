@@ -44,7 +44,7 @@ namespace CloneBookingAPI.Controllers
         {
             if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password))
             {
-                return null;
+                return StatusCode(400);
             }
 
             var user = await _context.Users.FirstOrDefaultAsync(u => 
@@ -54,7 +54,7 @@ namespace CloneBookingAPI.Controllers
 
             if (user is null)
             {
-                return null;
+                return StatusCode(400);
             }
 
             return Ok();
