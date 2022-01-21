@@ -14,7 +14,9 @@ export class AdminContentComponent implements OnInit {
     this.content = "users";
   }
 
-  set
+  setContent(newContent: string) {
+    this.content = newContent;
+  }
 
   ngOnInit(): void {
   }
