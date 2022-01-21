@@ -1,121 +1,134 @@
 <div class="page-content">
   <div class="container-fluid">
 
-    <div [ngSwitch]="content">
-      <ng-template ngSwitchCase="users">
-        <app-user-list></app-user-list>
-      </ng-template>
-      <ng-template ngSwitchCase="user-profiles">
+    <div class="container">
+      <div class="row">
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-dark">Add</button>
+          <button type="button" class="btn btn-dark">Edit</button>
+          <button type="button" class="btn btn-dark">Delete</button>
+        </div>
+      </div>
 
-      </ng-template>
-      <ng-template ngSwitchCase="temp-users">
+      <div class="row">
 
-      </ng-template>
-      <ng-template ngSwitchCase="roles">
+        <div [ngSwitch]="content">
+          <ng-template ngSwitchCase="users">
+            <app-user-list></app-user-list>
+          </ng-template>
+          <ng-template ngSwitchCase="user-profiles">
 
-      </ng-template>
-      <ng-template ngSwitchCase="genders">
+          </ng-template>
+          <ng-template ngSwitchCase="temp-users">
 
-      </ng-template>
-      <ng-template ngSwitchCase="favorites">
+          </ng-template>
+          <ng-template ngSwitchCase="roles">
 
-      </ng-template>
-      <ng-template ngSwitchCase="stay-bookings">
+          </ng-template>
+          <ng-template ngSwitchCase="genders">
 
-      </ng-template>
-      <ng-template ngSwitchCase="flight-bookings">
+          </ng-template>
+          <ng-template ngSwitchCase="favorites">
 
-      </ng-template>
-      <ng-template ngSwitchCase="car-rental-bookings">
+          </ng-template>
+          <ng-template ngSwitchCase="stay-bookings">
 
-      </ng-template>
-      <ng-template ngSwitchCase="attraction-bookings">
+          </ng-template>
+          <ng-template ngSwitchCase="flight-bookings">
 
-      </ng-template>
-      <ng-template ngSwitchCase="airport-taxi-bookings">
+          </ng-template>
+          <ng-template ngSwitchCase="car-rental-bookings">
 
-      </ng-template>
-      <ng-template ngSwitchCase="addresses">
+          </ng-template>
+          <ng-template ngSwitchCase="attraction-bookings">
 
-      </ng-template>
-      <ng-template ngSwitchCase="airports">
+          </ng-template>
+          <ng-template ngSwitchCase="airport-taxi-bookings">
 
-      </ng-template>
-      <ng-template ngSwitchCase="cities">
+          </ng-template>
+          <ng-template ngSwitchCase="addresses">
 
-      </ng-template>
-      <ng-template ngSwitchCase="countries">
+          </ng-template>
+          <ng-template ngSwitchCase="airports">
 
-      </ng-template>
-      <ng-template ngSwitchCase="districts">
+          </ng-template>
+          <ng-template ngSwitchCase="cities">
 
-      </ng-template>
-      <ng-template ngSwitchCase="regions">
+          </ng-template>
+          <ng-template ngSwitchCase="countries">
 
-      </ng-template>
-      <ng-template ngSwitchCase="suggestions">
+          </ng-template>
+          <ng-template ngSwitchCase="districts">
 
-      </ng-template>
-      <ng-template ngSwitchCase="suggestions-highlights">
+          </ng-template>
+          <ng-template ngSwitchCase="regions">
 
-      </ng-template>
-      <ng-template ngSwitchCase="suggestions-rules">
+          </ng-template>
+          <ng-template ngSwitchCase="suggestions">
 
-      </ng-template>
-      <ng-template ngSwitchCase="suggestions-rule-types">
+          </ng-template>
+          <ng-template ngSwitchCase="suggestions-highlights">
 
-      </ng-template>
-      <ng-template ngSwitchCase="suggestions-review-grades">
+          </ng-template>
+          <ng-template ngSwitchCase="suggestions-rules">
 
-      </ng-template>
-      <ng-template ngSwitchCase="suggestions-objects">
+          </ng-template>
+          <ng-template ngSwitchCase="suggestions-rule-types">
 
-      </ng-template>
-      <ng-template ngSwitchCase="suggestions-objects-types">
+          </ng-template>
+          <ng-template ngSwitchCase="suggestions-review-grades">
 
-      </ng-template>
-      <ng-template ngSwitchCase="rooms">
+          </ng-template>
+          <ng-template ngSwitchCase="suggestions-objects">
 
-      </ng-template>
-      <ng-template ngSwitchCase="room-types">
+          </ng-template>
+          <ng-template ngSwitchCase="suggestions-objects-types">
 
-      </ng-template>
-      <ng-template ngSwitchCase="reviews">
+          </ng-template>
+          <ng-template ngSwitchCase="rooms">
 
-      </ng-template>
-      <ng-template ngSwitchCase="review-categories">
+          </ng-template>
+          <ng-template ngSwitchCase="room-types">
 
-      </ng-template>
-      <ng-template ngSwitchCase="review-messages">
+          </ng-template>
+          <ng-template ngSwitchCase="reviews">
 
-      </ng-template>
-      <ng-template ngSwitchCase="payments">
+          </ng-template>
+          <ng-template ngSwitchCase="review-categories">
 
-      </ng-template>
-      <ng-template ngSwitchCase="payment-types">
+          </ng-template>
+          <ng-template ngSwitchCase="review-messages">
 
-      </ng-template>
-      <ng-template ngSwitchCase="promo-codes">
+          </ng-template>
+          <ng-template ngSwitchCase="payments">
 
-      </ng-template>
-      <ng-template ngSwitchCase="currencies">
+          </ng-template>
+          <ng-template ngSwitchCase="payment-types">
 
-      </ng-template>
-      <ng-template ngSwitchCase="card-types">
+          </ng-template>
+          <ng-template ngSwitchCase="promo-codes">
 
-      </ng-template>
-      <ng-template ngSwitchCase="credit-cards">
+          </ng-template>
+          <ng-template ngSwitchCase="currencies">
 
-      </ng-template>
-      <ng-template ngSwitchCase="booking-prices">
+          </ng-template>
+          <ng-template ngSwitchCase="card-types">
 
-      </ng-template>
-      <ng-template ngSwitchCase="flight-class-types">
+          </ng-template>
+          <ng-template ngSwitchCase="credit-cards">
 
-      </ng-template>
-      <ng-template ngSwitchDefault>
+          </ng-template>
+          <ng-template ngSwitchCase="booking-prices">
 
-      </ng-template>
+          </ng-template>
+          <ng-template ngSwitchCase="flight-class-types">
+
+          </ng-template>
+          <ng-template ngSwitchDefault>
+
+          </ng-template>
+        </div>
+      </div>
     </div>
 
   </div> <!-- container-fluid -->
