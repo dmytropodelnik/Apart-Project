@@ -11,10 +11,18 @@ import { LayoutComponent } from './layout/layout.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { AuthComponent } from './auth/auth.component';
-import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { AdminPanelComponent } from './admin-panel/admin-main-body/admin-panel.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AuthorizationService } from './services/authorization.service';
+import { AdminContentComponent } from './admin-panel/admin-content/admin-content.component';
+import { UserListComponent } from './admin-panel/lists/users-list/user-list.component';
+import { UserProfileListComponent } from './admin-panel/lists/user-profiles-list/user-profile-list.component';
+import { CountriesListComponent } from './admin-panel/lists/countries-list/countries-list.component';
+import { CitiesListComponent } from './admin-panel/lists/cities-list/cities-list.component';
+import { RegionsListComponent } from './regions-list/regions-list.component';
+import { DistrictsListComponent } from './admin-panel/lists/districts-list/districts-list.component';
+import { AdminAuthComponent } from './admin-panel/admin-auth/admin-auth.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +32,15 @@ import { AuthorizationService } from './services/authorization.service';
     HomeComponent,
     LayoutComponent,
     AuthComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    AdminContentComponent,
+    UserListComponent,
+    UserProfileListComponent,
+    CountriesListComponent,
+    CitiesListComponent,
+    RegionsListComponent,
+    DistrictsListComponent,
+    AdminAuthComponent
   ],
   imports: [
     BrowserModule,
