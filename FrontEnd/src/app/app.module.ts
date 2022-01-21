@@ -15,8 +15,12 @@ import { AdminPanelComponent } from './admin-panel/admin-main-body/admin-panel.c
 
 import { AuthorizationService } from './services/authorization.service';
 import { AdminContentComponent } from './admin-panel/admin-content/admin-content.component';
-import { UserListComponent } from './admin-panel/lists/user-list/user-list.component';
-import { UserProfileListComponent } from './admin-panel/lists/user-profile-list/user-profile-list.component';
+import { UserListComponent } from './admin-panel/lists/users-list/user-list.component';
+import { UserProfileListComponent } from './admin-panel/lists/user-profiles-list/user-profile-list.component';
+import { CountriesListComponent } from './admin-panel/lists/countries-list/countries-list.component';
+import { CitiesListComponent } from './admin-panel/lists/cities-list/cities-list.component';
+import { RegionsListComponent } from './regions-list/regions-list.component';
+import { DistrictsListComponent } from './admin-panel/lists/districts-list/districts-list.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +33,11 @@ import { UserProfileListComponent } from './admin-panel/lists/user-profile-list/
     AdminPanelComponent,
     AdminContentComponent,
     UserListComponent,
-    UserProfileListComponent
+    UserProfileListComponent,
+    CountriesListComponent,
+    CitiesListComponent,
+    RegionsListComponent,
+    DistrictsListComponent
   ],
   imports: [
     BrowserModule,

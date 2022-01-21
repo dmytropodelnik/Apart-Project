@@ -1,4 +1,4 @@
-export class ArticleItem {
+export class User {
   id: number | undefined;
   title: string;
   content: string;
