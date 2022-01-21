@@ -6,13 +6,14 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using CloneBookingAPI.Services.Database.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CloneBookingAPI.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    //[ApiController]
     public class AdminController : Controller
     {
         private readonly ApartProjectDbContext _context;
@@ -40,24 +41,25 @@ namespace CloneBookingAPI.Controllers
         // POST api/<AdminController>
         [Route("login")]
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] string login, string password)
+        public async Task<IActionResult> Login([FromBody] User person)
         {
-            if (string.IsNullOrWhiteSpace(login) || string.IsNullOrWhiteSpace(password))
+            
+            if (string.IsNullOrWhiteSpace(person.Email) || string.IsNullOrWhiteSpace(person.Password))
             {
-                return null;
+                return Json(new { code = 400 });
             }
 
             var user = await _context.Users.FirstOrDefaultAsync(u => 
-                                    u.Email == login &&
-                                    u.Password == password
+                                    u.Email == person.Email &&
+                                    u.Password == Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(person.Password)))
             );
 
             if (user is null)
             {
-                return null;
+                return Json(new { code = 400 });
             }
 
-            return Ok();
+            return Json(new { code = 200 });
         }
 
         // PUT api/<AdminController>/5
