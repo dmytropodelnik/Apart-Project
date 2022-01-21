@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import AuthHelper from '../utils/authHelper';
 import { AuthorizationService } from '../services/authorization.service';
 import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-auth',
@@ -14,21 +15,31 @@ export class AuthComponent implements OnInit {
   password: string;
   isExistUser = false;
   isAccountExists = false;
+  registerForm: FormGroup;
+  submitted = false;
 
   constructor(
     private authService: AuthorizationService,
-    private router: Router
+    private router: Router,
+    private formBuilder: FormBuilder
   ) {
     this.email = '';
-    this.password = '';
+    this.password = ''
+    this.registerForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
   }
+  get f() { return this.registerForm.controls; }
 
   userCheck(): void {
+    if (this.registerForm.invalid) {
+      return;
+    }
     let user = {
       email: this.email,
       password: this.password,
     };
-
     fetch('https://localhost:44381/api/users/userexists?email=' + user.email, {
       method: 'GET',
     })
@@ -82,5 +93,15 @@ export class AuthComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+}
+  onSubmit() {
+        this.submitted = true;
+
+        // stop here if form is invalid
+        if (this.registerForm.invalid) {
+            return;
+        }
+        alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value))
+    }
 }

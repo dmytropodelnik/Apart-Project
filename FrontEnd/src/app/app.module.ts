@@ -12,6 +12,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { AuthComponent } from './auth/auth.component';
 import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AuthorizationService } from './services/authorization.service';
 
@@ -30,7 +31,8 @@ import { AuthorizationService } from './services/authorization.service';
     AppRoutingModule,
     NgbModule,
     SlickCarouselModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [AuthorizationService],
   bootstrap: [AppComponent]
