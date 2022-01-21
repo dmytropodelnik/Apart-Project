@@ -12,7 +12,11 @@ export class AdminContentComponent implements OnInit {
 
   constructor() {
     this.content = "users";
-   }
+  }
+
+  setContent(newContent: string) {
+    this.content = newContent;
+  }
 
   ngOnInit(): void {
   }
