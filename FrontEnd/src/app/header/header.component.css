@@ -269,6 +269,16 @@ a.a11y-skip-to-content {
     border: 1px solid #0071c2;
     border-radius: 2px;
 }
+.bui-dropdown-menu__button {
+    position: relative;
+    width: 100%;
+    text-align: center;
+    left: 4px;
+    outline: 0;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "Times New Roman", Times, serif;
+}
 
 .bui-button__text {
     position: relative;
@@ -280,7 +290,7 @@ a.a11y-skip-to-content {
 
 .bui-avatar--button-auth{
     position: relative;
-    left:10px;
+    left: 5px;
 }
 
 .bui-avatar--small {
