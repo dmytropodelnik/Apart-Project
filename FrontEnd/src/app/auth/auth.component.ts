@@ -12,7 +12,8 @@ import { Router } from '@angular/router';
 export class AuthComponent implements OnInit {
   email: string;
   password: string;
-  isExist = false;
+  isExistUser = false;
+  isAccountExists = false;
 
   constructor(
     private authService: AuthorizationService,
@@ -28,16 +29,21 @@ export class AuthComponent implements OnInit {
       password: this.password,
     };
 
-    fetch('https://localhost:44381/api/user/userexists?email=' + user.email, {
+    fetch('https://localhost:44381/api/users/userexists?email=' + user.email, {
       method: 'GET',
     })
       .then((r) => r.text())
       .then((data) => {
         if (data === 'true') {
-          this.isExist = true;
+          this.isExistUser = true;
+          this.isAccountExists = true;
         }
-        alert(data);
-        alert(this.isExist);
+        else {
+          this.isExistUser = true;
+        }
+
+        alert("isAccountExists:" + this.isAccountExists);
+        alert("isExistUser:" + this.isExistUser);
       })
       .catch((ex) => {
         alert(ex);
