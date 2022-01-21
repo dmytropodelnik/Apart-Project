@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
 import { AdminPanelComponent } from './admin-panel/admin-main-body/admin-panel.component';
 import { LayoutComponent } from './layout/layout.component';
-import { AdminAuthComponent } from './admin-panel/admin-auth/admin-auth.component';
+import { AdminAuthComponent } from './admin-auth/admin-auth.component';
 
 const routes: Routes = [
   {path: '', component: LayoutComponent},
