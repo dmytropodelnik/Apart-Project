@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-auth',
@@ -10,11 +11,15 @@ export class AdminAuthComponent implements OnInit {
   login: string | undefined;
   password: string | undefined;
 
-  constructor() { }
+  constructor(
+    private router: Router
+    ) {
 
-  loginAdmin() {
+   }
+
+  loginAdmin() : void {
     let user = {
-      login: this.login,
+      email: this.login,
       password: this.password,
     };
 
@@ -25,9 +30,13 @@ export class AdminAuthComponent implements OnInit {
        },
       body: JSON.stringify(user),
     })
-      .then((r) => r.text())
+      .then((r) => r.json())
       .then((data) => {
-        alert(data);
+        if (data.code === 200) {
+          this.router.navigate(['/admin']);
+        } else {
+          alert("Incorrect data");
+        }
       })
       .catch((ex) => {
         alert(ex);

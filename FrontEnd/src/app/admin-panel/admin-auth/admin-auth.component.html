@@ -2,13 +2,13 @@
   <form class="row g-3 needs-validation" >
     <div class="mb-3">
       <label for="email" class="form-label">Login</label>
-      <input type="email" class="form-control" id="email" aria-describedby="emailHelp" required
-             [(ngModel)]="login">
+      <input type="email" class="form-control" id="email" aria-describedby="emailHelp"
+      [(ngModel)]="login" name="login">
       <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
     </div>
     <div class="mb-3">
       <label for="password" class="form-label">Password</label>
-      <input type="password" class="form-control" id="password" required [(ngModel)]="password">
+      <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password">
     </div>
     <button type="submit" class="btn btn-primary" (click)="loginAdmin()">Submit</button>
   </form>
