@@ -11,9 +11,12 @@ import { LayoutComponent } from './layout/layout.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { AuthComponent } from './auth/auth.component';
-import { AdminPanelComponent } from './admin-panel/admin-panel.component';
+import { AdminPanelComponent } from './admin-panel/admin-main-body/admin-panel.component';
 
 import { AuthorizationService } from './services/authorization.service';
+import { AdminContentComponent } from './admin-panel/admin-content/admin-content.component';
+import { UserListComponent } from './admin-panel/lists/user-list/user-list.component';
+import { UserProfileListComponent } from './admin-panel/lists/user-profile-list/user-profile-list.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,10 @@ import { AuthorizationService } from './services/authorization.service';
     HomeComponent,
     LayoutComponent,
     AuthComponent,
-    AdminPanelComponent
+    AdminPanelComponent,
+    AdminContentComponent,
+    UserListComponent,
+    UserProfileListComponent
   ],
   imports: [
     BrowserModule,
