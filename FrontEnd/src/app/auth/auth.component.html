@@ -26,7 +26,7 @@
       <h1 class="bui_font_display_two">
         Sign in or create an account
       </h1>
-      <div *ngIf="isExist === ''; then thenBlock else elseBlock"></div>
+      <div *ngIf="isExist === false; then thenBlock else elseBlock"></div>
       <ng-template #thenBlock>
         <div class="mt-4 mb-3">
           <label for="email">Email address</label>
@@ -35,11 +35,23 @@
         <div><button class="auth-btn" (click)="userCheck()">Continue with email</button></div>
       </ng-template>
       <ng-template #elseBlock>
-        <div class="mt-4 mb-3">
-          <label for="email">Password</label>
-          <input type="password" class="auth-input" name="password" [(ngModel)]="password" />
-        </div>
-        <div><button class="auth-btn" (click)="userSignIn()">Sign In</button></div>
+        <ng-container *ngIf="isExist === false; then SignIn; else SignUp"></ng-container>
+          <ng-template #SignIn>
+              <div class="mt-4 mb-3">
+                <label for="email">Password</label>
+                <input type="password" class="auth-input" name="password" [(ngModel)]="password" />
+              </div>
+            <div><button class="auth-btn" (click)="userSignIn()">Sign In</button></div>
+          </ng-template>
+          <ng-template #SignUp>
+              <div class="mt-4 mb-3">
+                <label for="email">Password</label>
+                <input type="password" class="auth-input" name="password" [(ngModel)]="password" />
+                <label for="email">Confirm Password</label>
+                <input type="password" class="auth-input" name="password" [(ngModel)]="password" />
+              </div>
+            <div><button class="auth-btn" (click)="userSignIn()">Sign Up</button></div>
+        </ng-template>
       </ng-template>
       <div class="my-3">
         <div class="line">

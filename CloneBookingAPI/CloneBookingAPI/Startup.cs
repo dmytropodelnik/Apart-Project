@@ -87,7 +87,7 @@ namespace CloneBookingAPI
 
             app.UseCors(builder =>
                 builder
-                    .AllowCredentials()
+                    //.AllowCredentials()
                     .AllowAnyOrigin()
                     .AllowAnyMethod()
                     .AllowAnyHeader()

@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class AuthComponent implements OnInit {
   email: string;
   password: string;
-  isExist: string;
+  isExist = false;
 
   constructor(
     private authService: AuthorizationService,
@@ -20,7 +20,6 @@ export class AuthComponent implements OnInit {
   ) {
     this.email = '';
     this.password = '';
-    this.isExist = '';
   }
 
   userCheck(): void {
@@ -35,8 +34,10 @@ export class AuthComponent implements OnInit {
       .then((r) => r.text())
       .then((data) => {
         if (data === 'true') {
-          this.isExist = 'true';
+          this.isExist = true;
         }
+        alert(data);
+        alert(this.isExist);
       })
       .catch((ex) => {
         alert(ex);

@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 namespace CloneBookingAPI.Controllers
 {
     [Route("api/[controller]")]
-    // [ApiController]
-    public class UserController : Controller
+    [ApiController]
+    public class UsersController : Controller
     {
         private readonly ApartProjectDbContext _context;
 
-        public UserController(ApartProjectDbContext context)
+        public UsersController(ApartProjectDbContext context)
         {
             _context = context;
         }
@@ -31,6 +31,13 @@ namespace CloneBookingAPI.Controllers
                 return Ok(true);
             }
             return Ok(false);
+        }
+
+        [Route("getusers")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers(string email)
+        {
+            return await _context.Users.ToListAsync();
         }
 
         [Route("getuser")]
