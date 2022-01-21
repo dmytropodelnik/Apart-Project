@@ -28,16 +28,16 @@
       </h1>
       <div *ngIf="isExistUser === false; then thenBlock else elseBlock"></div>
       <ng-template #thenBlock>
-      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-        <div class="form-group">
+      <form [formGroup]="registerForm">
+        <div class="form-group" class="mt-4 mb-3">
           <label>Email</label>
-          <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
-          <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+          <input type="text" formControlName="email"  class="form-control" [ngClass]="{ 'is-invalid':f.email.errors }" [(ngModel)]="email"/>
+          <div *ngIf="f.email.errors" class="invalid-feedback">
               <div *ngIf="f.email.errors.required">Email is required</div>
               <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
           </div>
           <div class="form-group" ><button class="auth-btn" (click)="userCheck()">Continue with email</button></div>
-      </div>
+        </div>
       </form>
         <!-- <div class="mt-4 mb-3">
           <label for="email">Email address</label>

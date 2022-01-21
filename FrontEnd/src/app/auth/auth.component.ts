@@ -33,7 +33,7 @@ export class AuthComponent implements OnInit {
   get f() { return this.registerForm.controls; }
 
   userCheck(): void {
-    if (this.registerForm.invalid) {
+    if (!this.email.match('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')) {
       return;
     }
     let user = {
@@ -93,15 +93,5 @@ export class AuthComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
-}
-  onSubmit() {
-        this.submitted = true;
-
-        // stop here if form is invalid
-        if (this.registerForm.invalid) {
-            return;
-        }
-        alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value))
-    }
+  ngOnInit(): void {}
 }
