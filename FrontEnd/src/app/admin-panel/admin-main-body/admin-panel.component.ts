@@ -7,11 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminPanelComponent implements OnInit {
 
+  
   currentYear: number = new Date().getFullYear();
 
   constructor() {
 
   }
+
+  set
 
   ngOnInit(): void {
   }

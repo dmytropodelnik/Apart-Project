@@ -1,4 +1,6 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Interfaces;
+using CloneBookingAPI.Services;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,10 +13,11 @@ using System.Threading.Tasks;
 namespace CloneBookingAPI.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    // [ApiController]
     public class AuthController : Controller
     {
         private readonly ApartProjectDbContext _context;
+        private readonly IEmailSender _emailSender = new AuthEmailSender();
 
         public AuthController(ApartProjectDbContext context)
         {
@@ -28,10 +31,11 @@ namespace CloneBookingAPI.Controllers
         }
 
         // GET: api/<AuthController>
+        [Route("sendmessage")]
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async void Get()
         {
-            return new string[] { "value1", "value2" };
+            await _emailSender.SendEmailAsync("kanyesupreme@ukr.net", "Test", "<p>HELLO TEST</p>");
         }
 
         // GET api/<AuthController>/5
