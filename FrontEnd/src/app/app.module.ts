@@ -21,6 +21,7 @@ import { CountriesListComponent } from './admin-panel/lists/countries-list/count
 import { CitiesListComponent } from './admin-panel/lists/cities-list/cities-list.component';
 import { RegionsListComponent } from './regions-list/regions-list.component';
 import { DistrictsListComponent } from './admin-panel/lists/districts-list/districts-list.component';
+import { AdminAuthComponent } from './admin-panel/admin-auth/admin-auth.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { DistrictsListComponent } from './admin-panel/lists/districts-list/distr
     CountriesListComponent,
     CitiesListComponent,
     RegionsListComponent,
-    DistrictsListComponent
+    DistrictsListComponent,
+    AdminAuthComponent
   ],
   imports: [
     BrowserModule,
