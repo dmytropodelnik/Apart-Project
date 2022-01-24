@@ -43,13 +43,13 @@ namespace CloneBookingAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] User person)
         {
-            
+
             if (string.IsNullOrWhiteSpace(person.Email) || string.IsNullOrWhiteSpace(person.Password))
             {
                 return Json(new { code = 400 });
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(u => 
+            var user = await _context.Users.FirstOrDefaultAsync(u =>
                                     u.Email == person.Email &&
                                     u.Password == Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(person.Password)))
             );
