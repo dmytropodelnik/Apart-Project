@@ -25,9 +25,9 @@ namespace CloneBookingAPI.Controllers
         }
 
         // GET: api/<AuthController>
-        [Route("sendbestdealsemail")]
+        [Route("sendbestdealsletter")]
         [HttpGet]
-        public async Task<ActionResult> Get(string email)
+        public async Task<ActionResult> SendBestDealsLetter(string email)
         {
             var res = await _emailSender.SendEmailAsync(email, "Finish subscribing to get deals, inspiration, and more", _letterTemplate);
             if (res == true)

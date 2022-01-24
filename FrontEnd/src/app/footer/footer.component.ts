@@ -13,7 +13,7 @@ export class FooterComponent implements OnInit {
   constructor() { }
 
   fetchRequest() {
-    fetch('https://localhost:44381/api/deals/sendbestdealsemail?email=' + this.email, {
+    fetch('https://localhost:44381/api/deals/sendbestdealsletter?email=' + this.email, {
       method: 'GET',
     })
     .then(r => r.json())

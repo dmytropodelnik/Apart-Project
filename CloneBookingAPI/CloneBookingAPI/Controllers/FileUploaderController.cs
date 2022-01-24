@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,7 +17,7 @@ namespace CloneBookingAPI.Controllers.UserData
 {
     [Route("api/[controller]")]
     //[ApiController]
-    public class FileUploaderController : ControllerBase
+    public class FileUploaderController : Controller
     {
         private readonly ApartProjectDbContext _context;
         private readonly IWebHostEnvironment _appEnvironment;
@@ -38,21 +39,31 @@ namespace CloneBookingAPI.Controllers.UserData
         [HttpPost]
         public async Task<IActionResult> UploadFiles(IFormFile uploadedFile)
         {
-            if (uploadedFile != null)
+            try
             {
-                // путь к папке Files
-                string path = "/Files/" + uploadedFile.FileName;
-                // сохраняем файл в папку Files в каталоге wwwroot
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                if (uploadedFile is not null)
                 {
-                    await uploadedFile.CopyToAsync(fileStream);
-                }
-                FileModel file = new FileModel { Name = uploadedFile.FileName, Path = path };
-                _context.Files.Add(file);
-                _context.SaveChanges();
-            }
+                    // путь к папке Files
+                    string path = "/files/" + uploadedFile.FileName;
+                    // сохраняем файл в папку Files в каталоге wwwroot
+                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await uploadedFile.CopyToAsync(fileStream);
+                    }
+                    FileModel file = new FileModel { Name = uploadedFile.FileName, Path = path };
+                    _context.Files.Add(file);
+                    _context.SaveChanges();
 
-            return RedirectToAction("Index");
+                    return Json(new { code = 200 });
+                }
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
 
         [Route("uploadfiles")]

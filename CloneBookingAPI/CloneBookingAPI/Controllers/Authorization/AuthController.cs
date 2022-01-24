@@ -31,10 +31,23 @@ namespace CloneBookingAPI.Controllers
             return await _context.Users.ToListAsync();
         }
 
-        // GET: api/<AuthController>
-        [Route("sendconfirmemail")]
+        [Route("sendregisterletter")]
         [HttpGet]
-        public async Task<ActionResult> Get(string email)
+        public async Task<ActionResult> SendRegisterLetter(string email)
+        {
+            var res = await _emailSender.SendEmailAsync(email, "Finish subscribing to get deals, inspiration, and more", _letterTemplate);
+            if (res == true)
+            {
+                return Json(new { code = 200 });
+            }
+
+            return Json(new { code = 400 });
+        }
+
+        // GET: api/<AuthController>
+        [Route("sendauthletter")]
+        [HttpGet]
+        public async Task<ActionResult> SendAuthLetter(string email)
         {
             var res = await _emailSender.SendEmailAsync(email, "Finish subscribing to get deals, inspiration, and more", _letterTemplate);
             if (res == true)
