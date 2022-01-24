@@ -19,8 +19,12 @@ namespace CloneBookingAPI.Controllers.UserData
     //[ApiController]
     public class FileUploaderController : Controller
     {
+        private const int STATUS_200 = 200;
+        private const int STATUS_400 = 400;
+
         private readonly ApartProjectDbContext _context;
         private readonly IWebHostEnvironment _appEnvironment;
+        private readonly string _storagePath = "/files/";
 
         public FileUploaderController(ApartProjectDbContext context, IWebHostEnvironment appEnvironment)
         {
@@ -44,7 +48,7 @@ namespace CloneBookingAPI.Controllers.UserData
                 if (uploadedFile is not null)
                 {
                     // путь к папке Files
-                    string path = "/files/" + uploadedFile.FileName;
+                    string path = _storagePath + uploadedFile.FileName;
                     // сохраняем файл в папку Files в каталоге wwwroot
                     using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
                     {
@@ -54,38 +58,38 @@ namespace CloneBookingAPI.Controllers.UserData
                     _context.Files.Add(file);
                     _context.SaveChanges();
 
-                    return Json(new { code = 200 });
+                    return Json(new { code = STATUS_200 });
                 }
-                return Json(new { code = 400 });
+                return Json(new { code = STATUS_400 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = STATUS_400 });
             }
         }
 
-        [Route("uploadfiles")]
-        [HttpPost]
-        public async Task<IActionResult> UploadFiles(IFormFileCollection uploads)
-        {
-            foreach (var uploadedFile in uploads)
-            {
-                // путь к папке Files
-                string path = "/Files/" + uploadedFile.FileName;
-                // сохраняем файл в папку Files в каталоге wwwroot
-                using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
-                {
-                    await uploadedFile.CopyToAsync(fileStream);
-                }
-                FileModel file = new FileModel { Name = uploadedFile.FileName, Path = path };
-                _context.Files.Add(file);
-            }
-            _context.SaveChanges();
+        //[Route("uploadfiles")]
+        //[HttpPost]
+        //public async Task<IActionResult> UploadFiles(IFormFileCollection uploads)
+        //{
+        //    foreach (var uploadedFile in uploads)
+        //    {
+        //        // путь к папке Files
+        //        string path = "/Files/" + uploadedFile.FileName;
+        //        // сохраняем файл в папку Files в каталоге wwwroot
+        //        using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+        //        {
+        //            await uploadedFile.CopyToAsync(fileStream);
+        //        }
+        //        FileModel file = new FileModel { Name = uploadedFile.FileName, Path = path };
+        //        _context.Files.Add(file);
+        //    }
+        //    _context.SaveChanges();
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
 
         // PUT api/<FileUploaderController>/5
         [HttpPut("{id}")]
