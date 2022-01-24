@@ -5,8 +5,8 @@ namespace CloneBookingAPI.Services.Helpers
 {
     public class AuthOptions
     {
-		public const string ISSUER = "CloneBooking";
-		public const string AUDIENCE = "CloneBookingUser";
+		public const string ISSUER = "ApartProject";
+		public const string AUDIENCE = "ApartProjectUser";
 		const string KEY = "authentification_security_key!qwe123";
 		public const int LIFETIME = 5;
 		public static SymmetricSecurityKey GetSymmetricSecurityKey()

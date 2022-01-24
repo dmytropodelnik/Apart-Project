@@ -95,8 +95,30 @@
     line-height: 24px;
     padding: 8px 24px;
     min-height: 48px;
+    min-width: 360px;
+    margin-top: 7px;
 }
 
+.button-outline-Auth{
+    border: 1px solid transparent;
+    border-radius: 2px;
+    background-color: white;
+    border-color: #0071c2;
+    color: #0071c2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    padding: 8px 24px;
+    min-height: 48px;
+    min-width: 360px;
+    top: 5px;
+}
+.button-outline-Auth:hover{
+    background-color: #a6d2f13b;
+}
 .auth-btn:hover{
     background-color: #00487a;
     border-color: #00487a;

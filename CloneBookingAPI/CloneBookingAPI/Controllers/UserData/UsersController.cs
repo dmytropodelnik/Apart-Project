@@ -10,12 +10,12 @@ using System.Threading.Tasks;
 namespace CloneBookingAPI.Controllers
 {
     [Route("api/[controller]")]
-    // [ApiController]
-    public class UserController : Controller
+    [ApiController]
+    public class UsersController : Controller
     {
         private readonly ApartProjectDbContext _context;
 
-        public UserController(ApartProjectDbContext context)
+        public UsersController(ApartProjectDbContext context)
         {
             _context = context;
         }
@@ -33,43 +33,30 @@ namespace CloneBookingAPI.Controllers
             return Ok(false);
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<User>> GetUser(int? id)
+        [Route("getusers")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers(string email)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var article = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (article == null)
-            {
-                return NotFound();
-            }
-
-            return article;
+            return await _context.Users.ToListAsync();
         }
 
-        [Route("delete/{id:int}")]
-        public async Task<IActionResult> Delete(int? id)
+        [Route("getuser")]
+        [HttpGet]
+        public async Task<ActionResult<User>> GetUser(string email)
         {
-            if (id == null)
+            if (string.IsNullOrWhiteSpace(email))
             {
                 return NotFound();
             }
 
-            var article = await _context.Users
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (article == null)
+            var user = await _context.Users
+                .FirstOrDefaultAsync(m => m.Email == email);
+            if (user is null)
             {
                 return NotFound();
             }
 
-            _context.Users.Remove(article);
-            await _context.SaveChangesAsync();
-
-            return RedirectToAction(nameof(UserExists));
+            return user;
         }
     }
 }

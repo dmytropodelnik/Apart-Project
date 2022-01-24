@@ -7,7 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminPanelComponent implements OnInit {
 
-  constructor() { }
+
+  currentYear: number = new Date().getFullYear();
+  content: string | undefined;
+
+  constructor() {
+    this.content = "users";
+  }
+
+  setContent(newContent: string) {
+    this.content = newContent;
+  }
 
   ngOnInit(): void {
   }

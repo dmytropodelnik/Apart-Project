@@ -68,7 +68,6 @@ namespace CloneBookingAPI.Controllers
                     };
                 }
             }
-
             return claims;
 		}
 	}
