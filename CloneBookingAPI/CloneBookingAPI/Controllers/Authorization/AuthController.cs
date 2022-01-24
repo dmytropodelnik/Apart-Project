@@ -18,6 +18,7 @@ namespace CloneBookingAPI.Controllers
     {
         private readonly ApartProjectDbContext _context;
         private readonly IEmailSender _emailSender = new AuthEmailSender();
+        private string _letterTemplate = "<p>HELLO TEST</p>";
 
         public AuthController(ApartProjectDbContext context)
         {
@@ -31,11 +32,17 @@ namespace CloneBookingAPI.Controllers
         }
 
         // GET: api/<AuthController>
-        [Route("sendmessage")]
+        [Route("sendconfirmemail")]
         [HttpGet]
-        public async void Get()
+        public async Task<ActionResult> Get(string email)
         {
-            await _emailSender.SendEmailAsync("kanyesupreme@ukr.net", "Test", "<p>HELLO TEST</p>");
+            var res = await _emailSender.SendEmailAsync(email, "Finish subscribing to get deals, inspiration, and more", _letterTemplate);
+            if (res == true)
+            {
+                return Json(new { code = 200 });
+            }
+
+            return Json(new { code = 400 });
         }
 
         // GET api/<AuthController>/5
