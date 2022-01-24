@@ -35,7 +35,7 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<Language> Languages { get; set; }
         public DbSet<ServiceCategory> ServiceCategories { get; set; }
         public DbSet<Notification> Notifications { get; set; }
-        public DbSet<Image> Images { get; set; }
+        public DbSet<FileModel> Files { get; set; }
         public DbSet<Facility> Facilities { get; set; }
         public DbSet<FacilityType> FacilityTypes { get; set; }
         public DbSet<BookingCategory> BookingCategories { get; set; }
@@ -119,7 +119,7 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new NotificationsConfiguration());
             modelBuilder.ApplyConfiguration(new ServicesCategoriesConfiguration());
             modelBuilder.ApplyConfiguration(new FlightBookingsConfiguration());
-            modelBuilder.ApplyConfiguration(new ImagesConfiguration());
+            modelBuilder.ApplyConfiguration(new FileModelConfiguration());
             modelBuilder.ApplyConfiguration(new CartsConfiguration());
             modelBuilder.ApplyConfiguration(new TempUsersConfiguration());
             modelBuilder.ApplyConfiguration(new RoomsConfiguration());
