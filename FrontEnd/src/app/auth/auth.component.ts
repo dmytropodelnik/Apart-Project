@@ -11,8 +11,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent implements OnInit {
-  email: string;
-  password: string;
+  email: string  = '';
+  password: string = '';
+  confirmPassword: string = '';
   isExistUser = false;
   isAccountExists = false;
   registerForm: FormGroup;
@@ -23,8 +24,6 @@ export class AuthComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder
   ) {
-    this.email = '';
-    this.password = ''
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -93,5 +92,11 @@ export class AuthComponent implements OnInit {
       });
   }
 
+  userSignUp(): void {
+    
+  }
+
   ngOnInit(): void {}
+
 }
+

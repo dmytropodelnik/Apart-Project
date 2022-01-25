@@ -279,7 +279,33 @@ a.a11y-skip-to-content {
     font-weight: 400;
     font-family: "Times New Roman", Times, serif;
 }
+.robotolight {
 
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 18px;
+    color: #000000;
+    margin-left: 5px;
+}
+.robotomonoregular {
+
+    font-family: Roboto Mono;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    margin-left: 5px;
+    color: #000000;
+}
+.robotoregular {
+
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 18px;
+    color: #000000;
+    margin-left: 5px;
+}
 .bui-button__text {
     position: relative;
 }

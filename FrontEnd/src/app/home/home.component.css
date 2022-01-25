@@ -1016,6 +1016,31 @@ a.coronavirus-banner__link {
 .bui-button--secondary {
   background-color: #fff;
   color: #0071c2;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.dropdownFormReservation{
+  display: flex;
+  width: 300px;
+  height: 135px;
+  flex-direction: column;
+}
+
+.dropdownSubSection {
+  display: flex;
+}
+.dropdownSubSection > *:nth-child(1){
+  flex-basis: 100%;
+}
+
+.dropdownSubSectionButtons{
+  display: flex;
+  justify-content: center;
+}
+
+.dropdownSubSectionText{
+  margin-top: 5px;
 }
 
 .bui-button--tertiary.bui-button--active:before,

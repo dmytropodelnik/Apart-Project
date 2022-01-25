@@ -65,12 +65,19 @@
           </ng-template>
           <ng-template #SignUp>
               <div class="mt-4 mb-3">
-                <label for="email">Password</label>
+                <label for="password">Password</label>
                 <input type="password" class="auth-input" name="password" [(ngModel)]="password" />
-                <label for="email">Confirm Password</label>
-                <input type="password" class="auth-input" name="password" [(ngModel)]="password" />
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" class="auth-input" name="confirmPassword" [(ngModel)]="confirmPassword" />
               </div>
-            <div><button class="auth-btn" (click)="userSignIn()">Sign Up</button></div>
+            <div><button class="auth-btn" (click)="userSignUp()">Sign Up</button></div>
+            <ng-template *ngIf="password === confirmPassword">
+              <div class="mt-4 mb-3">
+                <label for="verificationCode">verificationCode</label>
+                <input type="text" class="auth-input" name="verificationCode" [(ngModel)]="password"/>
+                <div><button class="auth-btn" (click)="userSignUp()">Confirm Email</button></div>
+              </div>
+            </ng-template>
         </ng-template>
       </ng-template>
       <div class="my-3">
