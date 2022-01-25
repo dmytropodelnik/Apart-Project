@@ -25,59 +25,63 @@
     <div class="access-panel-container">
       <div *ngIf="isExistUser === false; then thenBlock else elseBlock"></div>
       <ng-template #thenBlock>
-      <form [formGroup]="registerForm">
-        <div class="form-group" class="mt-4 mb-3">
-          <h1 class="bui_font_display_two">
-            Sign in or create an account
-          </h1>
-          <label>Email</label>
-          <input type="text" formControlName="email"  class="form-control" [ngClass]="{ 'is-invalid':f.email.errors }" [(ngModel)]="email"/>
-          <div *ngIf="f.email.errors" class="invalid-feedback">
+        <form [formGroup]="registerForm">
+          <div class="form-group" class="mt-4 mb-3">
+            <h1 class="bui_font_display_two">
+              Sign in or create an account
+            </h1>
+            <label>Email</label>
+            <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid':f.email.errors }"
+              [(ngModel)]="email" />
+            <div *ngIf="f.email.errors" class="invalid-feedback">
               <div *ngIf="f.email.errors.required">Email is required</div>
               <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+            </div>
+            <div class="form-group"><button class="auth-btn" (click)="userCheck()">Continue with email</button></div>
           </div>
-          <div class="form-group" ><button class="auth-btn" (click)="userCheck()">Continue with email</button></div>
-        </div>
-      </form>
+        </form>
       </ng-template>
       <ng-template #elseBlock>
-        <ng-container *ngIf="isAccountExists === true; then SignIn; else SignUp"></ng-container>
-          <ng-template #SignIn>
-            <div>
-              <div class="page-header">
-                  <h1
-                    class="bui_font_display_two bui_font_heading--bold bui-spacer--medium nw-step-header">Check your inbox
-                  </h1>
-                <div class="bui-spacer--largest">
-                  <div>
-                    <p class="nw-step-description" >We've just emailed a verification link to <strong class="recovery-login-name">
+        <div *ngIf="isAccountExists === true; then SignIn; else SignUp"></div>
+        <ng-template #SignIn>
+          <div>
+            <div class="page-header">
+              <h1 class="bui_font_display_two bui_font_heading--bold bui-spacer--medium nw-step-header">Check your inbox
+              </h1>
+              <div class="bui-spacer--largest">
+                <div>
+                  <p class="nw-step-description">We've just emailed a verification link to <strong
+                      class="recovery-login-name">
                       {{email}}</strong>.
-                     Once it arrives, it will be valid for 10 minutes.</p>
-                  </div>
+                    Once it arrives, it will be valid for 10 minutes.</p>
                 </div>
               </div>
             </div>
-              <!-- <div class="mt-4 mb-3">
+          </div>
+          <!-- <div class="mt-4 mb-3">
                 <label for="email">Password</label>
                 <input type="password" class="auth-input" name="password" [(ngModel)]="password" />
               </div> -->
-            <div><button class="button-outline-Auth" routerLink="">Back to sign-in</button></div>
+          <div><button class="button-outline-Auth" routerLink="">Back to sign-in</button></div>
+        </ng-template>
+        <ng-template #SignUp>
+          <ng-container *ngIf="isPasswordEqual === false; then ConfirmPass; else verifyCode;"></ng-container>
+          <ng-template #ConfirmPass>
+            <div class="mt-4 mb-3">
+              <label for="password">Password</label>
+              <input type="password" class="auth-input" name="password" [(ngModel)]="password" />
+              <label for="confirmPassword">Confirm Password</label>
+              <input type="password" class="auth-input" name="confirmPassword" [(ngModel)]="confirmPassword" />
+            </div>
+            <div><button class="auth-btn" (click)="userSignUp()">Sign up</button></div>
           </ng-template>
-          <ng-template #SignUp>
-              <div class="mt-4 mb-3">
-                <label for="password">Password</label>
-                <input type="password" class="auth-input" name="password" [(ngModel)]="password" />
-                <label for="confirmPassword">Confirm Password</label>
-                <input type="password" class="auth-input" name="confirmPassword" [(ngModel)]="confirmPassword" />
-              </div>
-            <div><button class="auth-btn" (click)="userSignUp()">Sign Up</button></div>
-            <ng-template *ngIf="password === confirmPassword">
-              <div class="mt-4 mb-3">
-                <label for="verificationCode">verificationCode</label>
-                <input type="text" class="auth-input" name="verificationCode" [(ngModel)]="password"/>
-                <div><button class="auth-btn" (click)="userSignUp()">Confirm Email</button></div>
-              </div>
-            </ng-template>
+          <ng-template #verifyCode>
+            <div class="mt-4 mb-3">
+              <label for="verificationCode">Verification code</label>
+              <input type="text" class="auth-input" name="verificationCode" [(ngModel)]="verificationCode" />
+              <div><button class="auth-btn" (click)="userSignUp()">Confirm email</button></div>
+            </div>
+          </ng-template>
         </ng-template>
       </ng-template>
       <div class="my-3">

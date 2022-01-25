@@ -14,8 +14,10 @@ export class AuthComponent implements OnInit {
   email: string  = '';
   password: string = '';
   confirmPassword: string = '';
+  verificationCode : string = '';
   isExistUser = false;
   isAccountExists = false;
+  isPasswordEqual = false;
   registerForm: FormGroup;
   submitted = false;
 
@@ -45,15 +47,9 @@ export class AuthComponent implements OnInit {
       .then((r) => r.text())
       .then((data) => {
         if (data === 'true') {
-          this.isExistUser = true;
           this.isAccountExists = true;
         }
-        else {
-          this.isExistUser = true;
-        }
-
-        alert("isAccountExists:" + this.isAccountExists);
-        alert("isExistUser:" + this.isExistUser);
+        this.isExistUser = true;
       })
       .catch((ex) => {
         alert(ex);
@@ -93,7 +89,12 @@ export class AuthComponent implements OnInit {
   }
 
   userSignUp(): void {
-    
+    if (this.password === this.confirmPassword){
+      this.isPasswordEqual = true;
+    } else {
+      alert("Password not Equal!");
+    }
+
   }
 
   ngOnInit(): void {}
