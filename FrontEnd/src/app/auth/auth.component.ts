@@ -16,6 +16,7 @@ export class AuthComponent implements OnInit {
   confirmPassword: string = '';
   isExistUser = false;
   isAccountExists = false;
+  isPasswordEqual = false;
   registerForm: FormGroup;
   submitted = false;
 
@@ -93,7 +94,12 @@ export class AuthComponent implements OnInit {
   }
 
   userSignUp(): void {
-    
+    if(this.password === this.confirmPassword){
+      this.isPasswordEqual === true;
+    }else{
+      alert("Password not Equal!");
+    }
+
   }
 
   ngOnInit(): void {}
