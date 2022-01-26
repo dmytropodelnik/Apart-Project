@@ -1,5 +1,6 @@
 ﻿using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
+using CloneBookingAPI.Services.Generators;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,11 +19,13 @@ namespace CloneBookingAPI.Controllers
     public class UsersController : Controller
     {
         private readonly ApartProjectDbContext _context;
+        private readonly CodesRepository _codesRepository;
         private readonly SHA256 sha256 = SHA256.Create();
 
-        public UsersController(ApartProjectDbContext context)
+        public UsersController(ApartProjectDbContext context, CodesRepository codesRepository)
         {
             _context = context;
+            _codesRepository = codesRepository;
         }
 
         [Route("userexists")]
@@ -70,12 +73,20 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(person.Email)    ||
+                if (string.IsNullOrWhiteSpace(person.Email) ||
                     string.IsNullOrWhiteSpace(person.Password) ||
                     string.IsNullOrWhiteSpace(person.VerificationCode))
                 {
                     return Json(new { code = 400 });
                 }
+
+                bool res = _codesRepository.IsValueCorrect(person.Email, person.VerificationCode);
+                if (res is false)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                _codesRepository.Repository.Remove(person.Email);
 
                 User newUser = new();
                 newUser.Email = person.Email.Trim();

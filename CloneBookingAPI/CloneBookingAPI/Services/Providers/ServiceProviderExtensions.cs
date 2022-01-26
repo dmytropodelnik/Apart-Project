@@ -8,12 +8,12 @@ namespace CloneBookingAPI.Services.Providers
     {
         public static void AddCodeGeneratorService(this IServiceCollection services)
         {
-            services.AddTransient<IGenerator, CodeGenerator>();
+            services.AddSingleton<IGenerator, CodeGenerator>();
         }
 
         public static void AddCodesRepositoryService(this IServiceCollection services)
         {
-            services.AddTransient<CodesRepository>();
+            services.AddSingleton<CodesRepository>();
         }
     }
 }

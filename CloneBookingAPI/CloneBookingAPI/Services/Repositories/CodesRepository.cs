@@ -11,7 +11,19 @@ namespace CloneBookingAPI.Services.Generators
     {
         public Dictionary<string, string> Repository { get; } = new();
 
-        public bool IsCodeCorrect(string key, string code)
+        public bool IsValueExists(string code)
+        {
+            foreach (var item in Repository)
+            {
+                if (item.Value == code)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool IsValueCorrect(string key, string code)
         {
             foreach (var item in Repository)
             {

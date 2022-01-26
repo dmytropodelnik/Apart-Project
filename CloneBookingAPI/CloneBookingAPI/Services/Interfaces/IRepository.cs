@@ -5,7 +5,12 @@ namespace CloneBookingAPI.Interfaces
 {
     public interface IRepository
     {
-        bool IsCodeCorrect(string key, string code)
+        bool IsValueExists(string code)
+        {
+            return false;
+        }
+
+        bool IsValueCorrect(string key, string code)
         {
             return false;
         }

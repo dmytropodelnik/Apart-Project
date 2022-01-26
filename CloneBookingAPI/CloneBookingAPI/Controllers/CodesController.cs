@@ -25,37 +25,6 @@ namespace CloneBookingAPI.Controllers
             _codesRepository = codesRepository;
         }
 
-        [Route("checkcode")]
-        [HttpGet]
-        public IActionResult CheckCode([FromBody] Services.POCOs.UserData person)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(person.Email) ||
-                    string.IsNullOrWhiteSpace(person.Password) ||
-                    string.IsNullOrWhiteSpace(person.VerificationCode))
-                {
-                    return Json(new { code = 400 });
-                }
-
-                bool res = _codesRepository.IsCodeCorrect(person.Email, person.VerificationCode);
-                if (res is false)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                _codesRepository.Repository.Remove(person.Email);
-
-                return RedirectToAction("Register", "Users", person);
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-        }
-
         [Route("generatecode")]
         [HttpPost]
         public IActionResult GenerateCode([FromBody] string email)

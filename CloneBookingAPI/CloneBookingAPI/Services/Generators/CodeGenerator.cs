@@ -23,7 +23,7 @@ namespace CloneBookingAPI.Services.Generators
                 do
                 {
                     _code = generator.Next(100000, 999999).ToString();
-                } while (_repository.IsCodeCorrect(key, _code));
+                } while (_repository.IsValueExists(_code));
 
                 _repository.Repository.Add(key, _code);
 
