@@ -20,7 +20,10 @@ namespace CloneBookingAPI.Controllers
         private readonly ApartProjectDbContext _context;
         private readonly IEmailSender _emailSender = new AuthEmailSender();
         private string _letterTemplate = "<p>HELLO TEST</p>";
+<<<<<<< HEAD
         private string _subjectLetterTemplate = "Confirmation code for registration!";
+=======
+>>>>>>> fad238bf51c380eaffc6456711e6e23a65b78def
 
         public AuthController(ApartProjectDbContext context)
         {
@@ -33,6 +36,7 @@ namespace CloneBookingAPI.Controllers
             return await _context.Users.ToListAsync();
         }
 
+<<<<<<< HEAD
         [Route("sendcodeletter")]
         [HttpGet]
         public async Task<IActionResult> SendCodeLetter(string emailTrim, string code)
@@ -53,14 +57,21 @@ namespace CloneBookingAPI.Controllers
             return Json(new { code = 200 });
         }
 
+=======
+>>>>>>> fad238bf51c380eaffc6456711e6e23a65b78def
         [Route("sendregisterletter")]
         [HttpGet]
         public async Task<ActionResult> SendRegisterLetter(string email)
         {
+<<<<<<< HEAD
             string emailTrim = email.Trim();
 
             var res = await _emailSender.SendEmailAsync(emailTrim, "Finish subscribing to get deals, inspiration, and more", _letterTemplate);
             if (res is true)
+=======
+            var res = await _emailSender.SendEmailAsync(email, "Finish subscribing to get deals, inspiration, and more", _letterTemplate);
+            if (res == true)
+>>>>>>> fad238bf51c380eaffc6456711e6e23a65b78def
             {
                 return Json(new { code = 200 });
             }
@@ -74,7 +85,11 @@ namespace CloneBookingAPI.Controllers
         public async Task<ActionResult> SendAuthLetter(string email)
         {
             var res = await _emailSender.SendEmailAsync(email, "Finish subscribing to get deals, inspiration, and more", _letterTemplate);
+<<<<<<< HEAD
             if (res is true)
+=======
+            if (res == true)
+>>>>>>> fad238bf51c380eaffc6456711e6e23a65b78def
             {
                 return Json(new { code = 200 });
             }
