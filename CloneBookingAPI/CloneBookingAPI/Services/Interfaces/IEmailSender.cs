@@ -6,7 +6,7 @@ namespace CloneBookingAPI.Interfaces
     {
         async Task<bool> SendEmailAsync(string email, string subject, string message)
         {
-            return false;
+            return false; 
         }
     }
 }
