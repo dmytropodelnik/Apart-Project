@@ -2,6 +2,7 @@
 using CloneBookingAPI.Services;
 using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
+using CloneBookingAPI.Services.Generators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace CloneBookingAPI.Controllers
     {
         private readonly ApartProjectDbContext _context;
         private readonly IEmailSender _emailSender = new AuthEmailSender();
+        private string _letterTemplate = "<p>HELLO TEST</p>";
+        private string _subjectLetterTemplate = "Confirmation code for registration!";
 
         public AuthController(ApartProjectDbContext context)
         {
@@ -26,16 +29,57 @@ namespace CloneBookingAPI.Controllers
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetLanguages()
-        {
+        { 
             return await _context.Users.ToListAsync();
         }
 
-        // GET: api/<AuthController>
-        [Route("sendmessage")]
+        [Route("sendcodeletter")]
         [HttpGet]
-        public async void Get()
+        public async Task<IActionResult> SendCodeLetter(string emailTrim, string code)
         {
-            await _emailSender.SendEmailAsync("kanyesupreme@ukr.net", "Test", "<p>HELLO TEST</p>");
+            if (string.IsNullOrWhiteSpace(emailTrim) || string.IsNullOrWhiteSpace(code))
+            {
+                return Json(new { code = 400 });
+            }
+
+            string correctEmail = emailTrim.Trim();
+
+            bool res = await _emailSender.SendEmailAsync(correctEmail, _subjectLetterTemplate, code);
+            if (res is false)
+            {
+                return Json(new { code = 400 });
+            }
+
+            return Json(new { code = 200 });
+        }
+
+        [Route("sendregisterletter")]
+        [HttpGet]
+        public async Task<ActionResult> SendRegisterLetter(string email)
+        {
+            string emailTrim = email.Trim();
+
+            var res = await _emailSender.SendEmailAsync(emailTrim, "Finish subscribing to get deals, inspiration, and more", _letterTemplate);
+            if (res is true)
+            {
+                return Json(new { code = 200 });
+            }
+
+            return Json(new { code = 400 });
+        }
+
+        // GET: api/<AuthController>
+        [Route("sendauthletter")]
+        [HttpGet]
+        public async Task<ActionResult> SendAuthLetter(string email)
+        {
+            var res = await _emailSender.SendEmailAsync(email, "Finish subscribing to get deals, inspiration, and more", _letterTemplate);
+            if (res is true)
+            {
+                return Json(new { code = 200 });
+            }
+
+            return Json(new { code = 400 });
         }
 
         // GET api/<AuthController>/5

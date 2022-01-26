@@ -4,9 +4,9 @@ namespace CloneBookingAPI.Interfaces
 {
     public interface IEmailSender
     {
-        async Task SendEmailAsync(string email, string subject, string message)
+        async Task<bool> SendEmailAsync(string email, string subject, string message)
         {
-
+            return false;
         }
     }
 }

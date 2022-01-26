@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CloneBookingAPI.Services.Database.Configurations
 {
-    public class ImagesConfiguration : IEntityTypeConfiguration<Image>
+    public class FileModelConfiguration : IEntityTypeConfiguration<FileModel>
     {
-        public void Configure(EntityTypeBuilder<Image> builder)
+        public void Configure(EntityTypeBuilder<FileModel> builder)
         {
             builder.HasData(
-              new Image[]
+              new FileModel[]
               {
 
               });
