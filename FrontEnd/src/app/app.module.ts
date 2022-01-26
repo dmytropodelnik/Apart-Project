@@ -23,6 +23,7 @@ import { CitiesListComponent } from './admin-panel/lists/cities-list/cities-list
 import { RegionsListComponent } from './regions-list/regions-list.component';
 import { DistrictsListComponent } from './admin-panel/lists/districts-list/districts-list.component';
 import { AdminAuthComponent } from './admin-auth/admin-auth.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { AdminAuthComponent } from './admin-auth/admin-auth.component';
     CitiesListComponent,
     RegionsListComponent,
     DistrictsListComponent,
-    AdminAuthComponent
+    AdminAuthComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,

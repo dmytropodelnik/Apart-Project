@@ -20,6 +20,7 @@ export class AuthComponent implements OnInit {
   isPasswordEqual = false;
   registerForm: FormGroup;
   submitted = false;
+  isPasswordsEqual = false;
 
   constructor(
     private authService: AuthorizationService,
@@ -93,8 +94,55 @@ export class AuthComponent implements OnInit {
       this.isPasswordEqual = true;
     } else {
       alert("Password not Equal!");
+      return;
     }
 
+    let user = {
+      email: this.email,
+    };
+
+    fetch('https://localhost:44381/api/codes/generatecode', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+       },
+      body: JSON.stringify(this.email),
+    })
+    .then((r) => r.json())
+    .then((data) => {
+        alert(data.code);
+        console.log(data);
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+
+  }
+
+  confirmEmail() {
+    let user = {
+      email: this.email,
+      password: this.password,
+      verificationCode: this.verificationCode,
+    };
+
+    fetch('https://localhost:44381/api/codes/checkcode', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+       },
+      body: JSON.stringify(user),
+    })
+    .then((r) => r.json())
+    .then((data) => {
+        alert(data.code);
+        console.log(data);
+
+        this.router.navigate(['']);
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   ngOnInit(): void {}

@@ -6,14 +6,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloneBookingAPI.Services.Database.Models
 {
-    [Table("Images")]
-    public class Image
+    [Table("Files")]
+    public class FileModel
     {
         [Column("Id")]  // Можно было не указывать потому, что так было бы по умолчанию, благодаря соглашению о наименованиях EF
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
-        public string ImagePath { get; set; }
+        public string Name { get; set; }
+        public string Path { get; set; }
 
         public List<UserProfile.UserProfile> UserProfiles { get; set; } = new();
         public List<Facility> Facilities { get; set; } = new();

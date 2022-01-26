@@ -35,7 +35,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public List<ReviewCategory> AdditionalServices { get; set; } = new();
         public List<SuggestionReviewGrade> SuggestionReviewGrades { get; set; } = new();
         public List<Favorite> Favorites { get; set; } = new();
-        public List<Image> Images { get; set; } = new();
+        public List<FileModel> Images { get; set; } = new();
         public List<SuggestionHighlight> Highlights { get; set; } = new();
         public List<Facility> Facilities { get; set; } = new();
         public List<RoomType> RoomTypes { get; set; } = new();

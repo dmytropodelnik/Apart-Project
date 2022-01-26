@@ -3,8 +3,12 @@ using CloneBookingAPI.Services.Database.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers
@@ -14,6 +18,7 @@ namespace CloneBookingAPI.Controllers
     public class UsersController : Controller
     {
         private readonly ApartProjectDbContext _context;
+        private readonly SHA256 sha256 = SHA256.Create();
 
         public UsersController(ApartProjectDbContext context)
         {
@@ -57,6 +62,36 @@ namespace CloneBookingAPI.Controllers
             }
 
             return user;
+        }
+
+        [Route("register")]
+        [HttpPost]
+        public async Task<IActionResult> Register([FromBody] Services.POCOs.UserData person)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(person.Email)    ||
+                    string.IsNullOrWhiteSpace(person.Password) ||
+                    string.IsNullOrWhiteSpace(person.VerificationCode))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                User newUser = new();
+                newUser.Email = person.Email.Trim();
+                newUser.Password = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(person.Password.Trim())));
+
+                await _context.Users.AddAsync(newUser);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
     }
 }

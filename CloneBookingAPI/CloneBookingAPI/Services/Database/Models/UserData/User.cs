@@ -21,13 +21,11 @@ namespace CloneBookingAPI.Services.Database.Models
         public string Title { get; set; }
 
         [Display(Name = "First name")]
-        [Required(ErrorMessage = "Enter a first name")]
         [DataType(DataType.Text)]
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string FirstName { get; set; }
 
         [Display(Name = "Last name")]
-        [Required(ErrorMessage = "Enter a last name")]
         [DataType(DataType.Text)]
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string LastName { get; set; }

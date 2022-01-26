@@ -22,6 +22,6 @@ namespace CloneBookingAPI.Services.Database.Models.Location
 
         public int? ImageId { get; set; }
         [ForeignKey("ImageId")]
-        public Image Image { get; set; }
+        public FileModel Image { get; set; }
     }
 }

@@ -12,7 +12,7 @@ namespace CloneBookingAPI.Services
         private const string _emailSender = "clonebooking.itstep@gmail.com";
         private const string _emailPassword = "clonebooking_2022!";
 
-        public async Task SendEmailAsync(string email, string subject, string message)
+        public async Task<bool> SendEmailAsync(string email, string subject, string message)
         {
             try
             {
@@ -34,10 +34,14 @@ namespace CloneBookingAPI.Services
 
                     await client.DisconnectAsync(true);
                 }
+
+                return true;
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+
+                return false;
             }
         }
     }

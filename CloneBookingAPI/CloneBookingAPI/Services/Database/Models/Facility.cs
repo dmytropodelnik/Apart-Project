@@ -18,7 +18,7 @@ namespace CloneBookingAPI.Services.Database.Models
 
         public int? ImageId { get; set; }
         [ForeignKey("ImageId")]
-        public Image Image { get; set; }
+        public FileModel Image { get; set; }
 
         public int? FacilityTypeId { get; set; }
         [ForeignKey("FacilityTypeId")]
