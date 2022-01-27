@@ -302,9 +302,8 @@ a.a11y-skip-to-content {
     font-family: Roboto;
     font-style: normal;
     font-weight: normal;
-    font-size: 18px;
-    color: #000000;
-    margin-left: 5px;
+    font-size: 30px;
+    color: #fff;
 }
 .bui-button__text {
     position: relative;
