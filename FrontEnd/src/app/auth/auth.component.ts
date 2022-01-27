@@ -42,12 +42,12 @@ export class AuthComponent implements OnInit {
       email: this.email,
       password: this.password,
     };
-    fetch('https://localhost:44381/api/users/userexists?email=' + user.email, {
+    fetch(`https://localhost:44381/api/users/userexists?email=${user.email}`, {
       method: 'GET',
     })
-      .then((r) => r.text())
+      .then((r) => r.json())
       .then((data) => {
-        if (data === 'true') {
+        if (data.code == 200) {
           this.isAccountExists = true;
         }
         this.isExistUser = true;
@@ -101,7 +101,7 @@ export class AuthComponent implements OnInit {
       email: this.email,
     };
 
-    fetch('https://localhost:44381/api/codes/generatecode', {
+    fetch('https://localhost:44381/api/codes/generateregistercode', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -126,7 +126,7 @@ export class AuthComponent implements OnInit {
       verificationCode: this.verificationCode,
     };
 
-    fetch('https://localhost:44381/api/codes/checkcode', {
+    fetch('https://localhost:44381/api/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -134,15 +134,21 @@ export class AuthComponent implements OnInit {
       body: JSON.stringify(user),
     })
     .then((r) => r.json())
-    .then((data) => {
-        alert(data.code);
-        console.log(data);
+    .then((response) => {
+        alert(response.code);
+        console.log(response);
 
-        this.router.navigate(['']);
+        if (response.code === 200) {
+          this.router.navigate(['']);
+        }
       })
       .catch((ex) => {
         alert(ex);
       });
+  }
+
+  verifyEnter() {
+
   }
 
   ngOnInit(): void {}
