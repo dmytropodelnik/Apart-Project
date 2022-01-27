@@ -24,6 +24,7 @@ import { RegionsListComponent } from './regions-list/regions-list.component';
 import { DistrictsListComponent } from './admin-panel/lists/districts-list/districts-list.component';
 import { AdminAuthComponent } from './admin-auth/admin-auth.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { VerifyEnterComponent } from './verify-enter/verify-enter.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { FileUploadComponent } from './file-upload/file-upload.component';
     RegionsListComponent,
     DistrictsListComponent,
     AdminAuthComponent,
-    FileUploadComponent
+    FileUploadComponent,
+    VerifyEnterComponent
   ],
   imports: [
     BrowserModule,

@@ -10,6 +10,13 @@
     left: 0;
 }
 
+.logo-text {
+  font-size: 25px;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 10px;
+}
+
 a.a11y-skip-to-content {
     display: inline-block;
     position: absolute;
@@ -772,5 +779,5 @@ a:link {
         right: 10px;
         top: 10px;
     }
-    
+
 }
