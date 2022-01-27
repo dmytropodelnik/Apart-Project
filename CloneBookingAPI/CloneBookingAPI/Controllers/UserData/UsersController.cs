@@ -80,13 +80,13 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                bool res = _codesRepository.IsValueCorrect(person.Email, person.VerificationCode);
+                bool res = _codesRepository.IsValueCorrect(person.Email.Trim(), person.VerificationCode.Trim());
                 if (res is false)
                 {
                     return Json(new { code = 400 });
                 }
 
-                _codesRepository.Repository.Remove(person.Email);
+                _codesRepository.Repository.Remove(person.Email.Trim());
 
                 User newUser = new();
                 newUser.Email = person.Email.Trim();
