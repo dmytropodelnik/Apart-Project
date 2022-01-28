@@ -67,13 +67,19 @@
         <ng-template #SignUp>
           <ng-container *ngIf="isPasswordEqual === false; then ConfirmPass; else verifyCode;"></ng-container>
           <ng-template #ConfirmPass>
-            <div class="mt-4 mb-3">
-              <label for="password">Password</label>
-              <input type="password" class="auth-input" name="password" [(ngModel)]="password" />
-              <label for="confirmPassword">Confirm Password</label>
-              <input type="password" class="auth-input" name="confirmPassword" [(ngModel)]="confirmPassword" />
-            </div>
-            <div><button class="auth-btn" (click)="userSignUp()">Sign up</button></div>
+            <form [formGroup]="registerForm">
+              <div class="form-group" class="mt-4 mb-3">
+                <label for="password">Password</label>
+                <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid':f.password.errors }" name="password" [(ngModel)]="password"/>
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid':f.confirmPassword.errors }" name="confirmPassword" [(ngModel)]="confirmPassword"/>
+                <div *ngIf="f.password.errors && f.confirmPassword.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors.required || f.confirmPassword.errors.required">Passwords are required</div>
+                  <div *ngIf="f.password.errors.minlength || f.confirmPassword.errors.minlength">Passwords must be at least 6 characters</div>
+                </div>
+              </div>
+              <div><button class="auth-btn" (click)="userSignUp()">Sign up</button></div>
+            </form>
           </ng-template>
           <ng-template #verifyCode>
             <div class="mt-4 mb-3">

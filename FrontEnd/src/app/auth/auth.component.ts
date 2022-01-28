@@ -29,7 +29,8 @@ export class AuthComponent implements OnInit {
   ) {
     this.registerForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
+      password: ['', [Validators.required, Validators.minLength(6)]],
+      confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
   get f() { return this.registerForm.controls; }
