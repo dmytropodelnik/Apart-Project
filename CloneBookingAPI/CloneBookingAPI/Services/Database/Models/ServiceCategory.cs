@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloneBookingAPI.Services.Database.Models
 {
-    [Table("Services")]
+    [Table("ServiceCategories")]
     public class ServiceCategory
     {
         [Column("Id")]  // Можно было не указывать потому, что так было бы по умолчанию, благодаря соглашению о наименованиях EF
@@ -18,7 +18,7 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(30, MinimumLength = 3, ErrorMessage = "Incorrect length")]
         public string Category { get; set; }
 
-        public List<StayBooking> Bookings { get; set; } = new();
+        public List<StayBooking> StayBookings { get; set; } = new();
         public List<Suggestion> Suggestions { get; set; } = new();
     }
 }

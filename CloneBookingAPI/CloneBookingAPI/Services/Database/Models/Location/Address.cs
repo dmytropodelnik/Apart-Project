@@ -17,9 +17,17 @@ namespace CloneBookingAPI.Services.Database.Models.Location
         [ForeignKey("CountryId")]
         public Country Country { get; set; }
 
-        public int CityId { get; set; }
+        public int? CityId { get; set; }
         [ForeignKey("CityId")]
         public City City { get; set; }
+
+        public int? DistrictId { get; set; }
+        [ForeignKey("DistrictId")]
+        public District District { get; set; }
+
+        public int? RegionId { get; set; }
+        [ForeignKey("RegionId")]
+        public Region Region { get; set; }
 
         [Display(Name = "Zip Code")]
         [DataType(DataType.Text)]
@@ -38,7 +46,7 @@ namespace CloneBookingAPI.Services.Database.Models.Location
         [MinLength(2)]
         public string AddressText { get; set; }
 
-        public List<StayBooking> Booking { get; set; } = new();
+        public List<StayBooking> StayBooking { get; set; } = new();
         public List<Suggestion> Suggestions { get; set; } = new();
         public List<UserProfile.UserProfile> UserProfiles { get; set; } = new();
     }

@@ -35,9 +35,9 @@ namespace CloneBookingAPI.Services.Database.Models
         [ForeignKey("PriceId")]
         public BookingPrice Price { get; set; }
 
-        public int? AddressId { get; set; }
-        [ForeignKey("AddressId")]
-        public Address Address { get; set; }
+        //  public int? AddressId { get; set; }
+        //  [ForeignKey("AddressId")]
+        //  public Address Address { get; set; }
 
         [Display(Name = "Check-in")]
         [Required]

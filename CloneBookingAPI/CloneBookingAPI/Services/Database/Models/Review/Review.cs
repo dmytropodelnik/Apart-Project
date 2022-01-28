@@ -21,16 +21,16 @@ namespace CloneBookingAPI.Services.Database.Models.Review
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }
 
-        public int? BookingId { get; set; }
-        [ForeignKey("BookingId")]
-        public StayBooking Booking { get; set; }
+        public int? StayBookingId { get; set; }
+        [ForeignKey("StayBookingId")]
+        public StayBooking StayBooking { get; set; }
 
         [Required]
         public DateTime ReviewedDate { get; set; }
 
-        public int? MessageId { get; set; }
-        [ForeignKey("MessageId")]
-        public ReviewMessage Message { get; set; }
+        public int? ReviewMessageId { get; set; }
+        [ForeignKey("ReviewMessageId")]
+        public ReviewMessage ReviewMessage { get; set; }
 
         [Required]
         public uint LikesAmount { get; set; }

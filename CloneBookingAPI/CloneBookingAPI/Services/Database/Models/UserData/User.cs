@@ -64,6 +64,8 @@ namespace CloneBookingAPI.Services.Database.Models
 
         public UserProfile.UserProfile Profile { get; set; }
 
+        public List<Review.Review> Reviews { get; set; } = new();
+        public List<Notification> Notifications { get; set; } = new();
         public List<Suggestion> Suggestions { get; set; } = new();
         public List<StayBooking> StayBookings { get; set; } = new();
         public List<FlightBooking> FlightBookings { get; set; } = new();
