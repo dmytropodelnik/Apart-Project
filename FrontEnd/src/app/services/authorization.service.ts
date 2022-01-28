@@ -12,13 +12,11 @@ export class AuthorizationService {
     }
 
     getTokenKey(): string | null {
-      console.log(this.token);
       return this.token;
     }
 
     toggleLogCondition(): void {
       this.isLogged = !this.isLogged;
-      console.log(this.isLogged);
     }
 
   }

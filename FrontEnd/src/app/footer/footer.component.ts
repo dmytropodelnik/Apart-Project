@@ -9,17 +9,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class FooterComponent implements OnInit {
 
   public isCollapsed = true;
-  email: string | undefined;
-  registerForm: FormGroup;
-  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"; 
+  email: string  = '';
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
 
-  constructor(private formBuilder: FormBuilder) {
-    this.registerForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-    });
-   }
-   get f() { return this.registerForm.controls; }
+  constructor() {
+
+  }
+
   fetchRequest() {
+    if (!this.email.match('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')) {
+      alert('Incorrect email pattern!');
+      return;
+    }
+
     fetch('https://localhost:44381/api/deals/sendbestdealsletter?email=' + this.email, {
       method: 'GET',
     })
