@@ -91,10 +91,9 @@ export class AuthComponent implements OnInit {
   }
 
   userSignUp(): void {
-    if (this.password === this.confirmPassword){
+    if (this.password === this.confirmPassword) {
       this.isPasswordEqual = true;
     } else {
-      alert("Password not Equal!");
       return;
     }
 
