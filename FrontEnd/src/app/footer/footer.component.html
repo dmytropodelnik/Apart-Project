@@ -12,25 +12,24 @@
         Enter your email address and we'll send you our best deals
       </label>
       <div class="subscription_form_wrap position-relative">
-        <input type="email" name="to" autocapitalize="off" required="true" id="newsletter_to" [(ngModel)]="email"
-          class="input_newsletter_subscription_to" placeholder="Your email" title="" value="" data-ajax-submit="">
-        <button id="newsletter_button_footer" (click)="fetchRequest()" (click)="collapse.toggle()" [attr.aria-expanded]="!isCollapsed"
-        aria-controls="collapseExample">
+        <input name="email" autocapitalize="off" required="true" id="newsletter_to"
+          class="input_newsletter_subscription_to" placeholder="Your email" title="" value="" required [pattern]="emailPattern" #offEmail="ngModel" [ngModel]="email">
+        <button id="newsletter_button_footer" (click)="fetchRequest()">
           Subscribe
         </button>
-        <div class="custom-alert" #collapse="ngbCollapse" [(ngbCollapse)]="isCollapsed">
-          <div class="d-flex align-items-center">
-            <div class="alert-gold-i"><i class="fas fa-info"></i></div>
-            <div class="custom-alert-text ml-3">
-              Please Include an '@' in the email address. 'value' is missing an '@'.
-            </div>
-          </div>
-        </div>
       </div>
     </div>
+    <div class="subscriptionValidator" *ngIf="offEmail.errors"> 
+      <div *ngIf="offEmail.errors.required"> 
+          Email required
+      </div>			   
+      <div *ngIf="offEmail.errors.pattern"> 
+          Email not valid
+      </div>	
+   </div> 
 
   </div>
-  <input name="recaptcha_enabled" value="1" type="hidden" data-ajax-submit="">
+  <input name="recaptcha_enabled" value="1" type="hidden">
   <style nonce="em3UjxXo2q0cjXc">
     .grecaptcha-badge {
       display: none;

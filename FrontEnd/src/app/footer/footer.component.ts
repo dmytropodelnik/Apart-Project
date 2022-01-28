@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-footer',
@@ -9,9 +10,15 @@ export class FooterComponent implements OnInit {
 
   public isCollapsed = true;
   email: string | undefined;
+  registerForm: FormGroup;
+  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"; 
 
-  constructor() { }
-
+  constructor(private formBuilder: FormBuilder) {
+    this.registerForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
+    });
+   }
+   get f() { return this.registerForm.controls; }
   fetchRequest() {
     fetch('https://localhost:44381/api/deals/sendbestdealsletter?email=' + this.email, {
       method: 'GET',
