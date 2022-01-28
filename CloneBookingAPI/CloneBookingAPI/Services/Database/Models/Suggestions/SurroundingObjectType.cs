@@ -14,7 +14,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [Required]
         [DataType(DataType.Text)]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Incorrect length")]
-        public string Title { get; set; }
+        public string Type { get; set; }
 
         public List<SurroundingObject> SurroundingObjects { get; set; } = new(); 
     }

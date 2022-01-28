@@ -25,8 +25,8 @@ namespace CloneBookingAPI.Services.Database.Models
         [ForeignKey("EmitterId")]
         public User EmitterUser { get; set; }
 
-        public int? UserId { get; set; }
-        [ForeignKey("UserId")]
+        public int? RecipientUserId { get; set; }
+        [ForeignKey("RecipientUserId")]
         public User RecipientUser { get; set; }
     }
 }

@@ -30,7 +30,6 @@ namespace CloneBookingAPI.Services.Database.Models.Payment
         [Display(Name = "CVC")]
         [Required(ErrorMessage = "Enter a CVC")]
         [DataType(DataType.Password)]
-        [StringLength(3)]
         public string CVC { get; set; }
 
         public int? CardTypeId { get; set; }
