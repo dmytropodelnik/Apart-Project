@@ -14,8 +14,18 @@ namespace CloneBookingAPI.Services.Database.Models
         [Display(Name = "Currency")]
         [Required]
         [DataType(DataType.Text)]
-        [StringLength(10, MinimumLength = 1, ErrorMessage = "Incorrect length")]
+        [StringLength(20, MinimumLength = 1, ErrorMessage = "Incorrect length")]
         public string Value { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [StringLength(10, MinimumLength = 1, ErrorMessage = "Incorrect length")]
+        public string Abbreviation { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [StringLength(5, MinimumLength = 1, ErrorMessage = "Incorrect length")]
+        public string BankCode { get; set; }
 
         public List<UserProfile.UserProfile> UserProfiles { get; set; } = new();
     }

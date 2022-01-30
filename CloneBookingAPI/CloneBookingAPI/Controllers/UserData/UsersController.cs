@@ -1,5 +1,6 @@
 ﻿using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
+using CloneBookingAPI.Services.Database.Models.UserProfile;
 using CloneBookingAPI.Services.Generators;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -92,8 +93,25 @@ namespace CloneBookingAPI.Controllers
                 User newUser = new();
                 newUser.Email = person.Email.Trim();
                 newUser.Password = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(person.Password.Trim())));
+                newUser.RoleId = 2;
 
-                await _context.Users.AddAsync(newUser);
+                Favorite favorite = new();
+                var newFavorite = _context.Favorites.Add(favorite);
+                newUser.FavoriteId = newFavorite.Entity.Id;
+
+                UserProfile userProfile = new();
+                userProfile.RegisterDate = DateTime.Now;
+                var newUserProfile = _context.UserProfiles.Add(userProfile);
+                await _context.SaveChangesAsync();
+
+                newUser.ProfileId = newUserProfile.Entity.Id;
+                newUser.FavoriteId = newFavorite.Entity.Id;
+
+                var addedUser = _context.Users.Add(newUser);
+                await _context.SaveChangesAsync();
+
+                var updateProfile = await _context.UserProfiles.FirstOrDefaultAsync(up => up.Id == newUser.ProfileId);
+                updateProfile.UserId = addedUser.Entity.Id;
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });

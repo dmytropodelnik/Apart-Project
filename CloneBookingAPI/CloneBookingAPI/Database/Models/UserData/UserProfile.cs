@@ -17,7 +17,7 @@ namespace CloneBookingAPI.Services.Database.Models.UserProfile
 
         [Display(Name = "Date of birth")]
         [DataType(DataType.Date)]
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         [Required]
         public DateTime RegisterDate { get; set; }
