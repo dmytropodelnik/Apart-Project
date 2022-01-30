@@ -67,29 +67,12 @@
         <ng-template #SignUp>
           <ng-container *ngIf="isPasswordEqual === false; then ConfirmPass; else verifyCode;"></ng-container>
           <ng-template #ConfirmPass>
-            <form [formGroup]="registerForm">
-              <div class="form-group" class="mt-4 mb-3">
-                <label for="password">Password</label>
-                <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid':f.password.errors }" name="password" [(ngModel)]="password"/>
-                <div class="invalid-feedback">
-                  <div *ngIf="(f.password.errors?.required || f.confirmPassword.errors?.required) &&
-                              (!f.password.errors?.minlength && !f.confirmPassword.errors?.minlength)">
-                              Passwords are required</div>
-                  <div *ngIf="f.password.errors?.minlength || f.confirmPassword.errors?.minlength">Passwords must be at least 6 characters</div>
-                </div>
-              </div>
-            </form>
-            <form [formGroup]="registerForm">
+            <div class="mt-4 mb-3">
+              <label for="password">Password</label>
+              <input type="password" class="auth-input" name="password" [(ngModel)]="password" />
               <label for="confirmPassword">Confirm Password</label>
-                <input type="password" formControlName="confirmPassword" class="form-control" [ngClass]="{ 'is-invalid':f.confirmPassword.errors }" name="confirmPassword" [(ngModel)]="confirmPassword"/>
-                <div class="invalid-feedback">
-                  <div *ngIf="(f.password.errors?.required || f.confirmPassword.errors?.required) &&
-                              (!f.password.errors?.minlength && !f.confirmPassword.errors?.minlength)">
-                              Passwords are required</div>
-                  <div *ngIf="f.password.errors?.minlength || f.confirmPassword.errors?.minlength">Passwords must be at least 6 characters</div>
-                  <div *ngIf="f.confirmPassword.errors?.require">Passwords are required</div>
-                </div>
-            </form>
+              <input type="password" class="auth-input" name="confirmPassword" [(ngModel)]="confirmPassword" />
+            </div>
             <div><button class="auth-btn" (click)="userSignUp()">Sign up</button></div>
           </ng-template>
           <ng-template #verifyCode>

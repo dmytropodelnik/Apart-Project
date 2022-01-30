@@ -5,6 +5,7 @@ using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Generators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -18,15 +19,16 @@ namespace CloneBookingAPI.Controllers
     public class AuthController : Controller
     {
         private readonly ApartProjectDbContext _context;
-        private readonly IEmailSender _emailSender = new AuthEmailSender();
+        private readonly IEmailSender _emailSender;
         private string _letterTemplate = "<p>HELLO TEST</p>";
         private string _subjectLetterTemplate = "Confirmation code for registration!";
         private string _subjectVerifyLetterTemplate = "Verify email for enter!";
         private string _verificationLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate\">Verify enter</a>";
 
-        public AuthController(ApartProjectDbContext context)
+        public AuthController(ApartProjectDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _emailSender = new AuthEmailSender(configuration);
         }
 
         [HttpGet]

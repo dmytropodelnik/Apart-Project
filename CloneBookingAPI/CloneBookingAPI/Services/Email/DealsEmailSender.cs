@@ -1,5 +1,6 @@
 ﻿using CloneBookingAPI.Interfaces;
 using MailKit.Net.Smtp;
+using Microsoft.Extensions.Configuration;
 using MimeKit;
 using System;
 using System.Diagnostics;
@@ -9,8 +10,18 @@ namespace CloneBookingAPI.Services.Email
 {
     public class DealsEmailSender : IEmailSender
     {
-        private const string _emailSender = "clonebooking.itstep@gmail.com";
-        private const string _emailPassword = "clonebooking_2022!";
+        private readonly string _emailSender    = default;
+        private readonly string _emailPassword  = default;
+        private readonly string _smtpHost       = default;
+        private readonly string _smtpPort       = default;
+
+        public DealsEmailSender(IConfiguration configuration)
+        {
+            _emailSender    = configuration["EmitterData:EmmiterEmail"];
+            _emailPassword  = configuration["EmitterData:EmmiterPass"];
+            _smtpHost       = configuration["EmitterData:SmtpData:Gmail:Host"];
+            _smtpPort       = configuration["EmitterData:SmtpData:Gmail:Port"];
+        }
 
         public async Task<bool> SendEmailAsync(string email, string subject, string message)
         {
@@ -28,7 +39,7 @@ namespace CloneBookingAPI.Services.Email
 
                 using (var client = new SmtpClient())
                 {
-                    await client.ConnectAsync("smtp.gmail.com", 587, false);
+                    await client.ConnectAsync(_smtpHost, _smtpPort, false);
                     await client.AuthenticateAsync(_emailSender, _emailPassword);
                     await client.SendAsync(emailMessage);
 
