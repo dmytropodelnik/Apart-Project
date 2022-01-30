@@ -31,6 +31,9 @@ namespace CloneBookingAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
             services.AddTransient(provider => Configuration);
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                                 .AddJwtBearer(options =>
@@ -85,6 +88,7 @@ namespace CloneBookingAPI
                 // app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CloneBookingAPI v1"));
             }
 
+            app.UseSession();
             app.UseCors(builder =>
                 builder
                     //.AllowCredentials()

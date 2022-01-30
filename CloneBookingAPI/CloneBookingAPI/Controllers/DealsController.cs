@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Interfaces;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Interfaces;
 using CloneBookingAPI.Services;
 using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Email;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers
 {
+    [TypeFilter(typeof(AuthFilter))]
     [Route("api/[controller]")]
     // [ApiController]
     public class DealsController : Controller
