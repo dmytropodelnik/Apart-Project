@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import AuthHelper from '../utils/authHelper';
 import { AuthorizationService } from '../services/authorization.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
 
 @Component({
   selector: 'app-auth',
@@ -18,7 +18,9 @@ export class AuthComponent implements OnInit {
   isExistUser = false;
   isAccountExists = false;
   isPasswordEqual = false;
-  registerForm: FormGroup;
+  passwordForm: FormGroup;
+  codeForm: FormGroup;
+  emailForm: FormGroup;
   submitted = false;
   isPasswordsEqual = false;
 
@@ -27,18 +29,25 @@ export class AuthComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder
   ) {
-    this.registerForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email,Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', [Validators.required, Validators.minLength(6)]]
+    this.passwordForm = this.formBuilder.group({
+      password: ['', [Validators.required, Validators.minLength(8)]],
+      confirmPassword: ['', [Validators.required]],
+    },{
+      validator: this.MustMatch('password','confirmPassword')
+    }
+    );
+    this.codeForm = this.formBuilder.group({
+      verificationCode: ['', [Validators.required, Validators.minLength(6)]]
+    });
+    this.emailForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
     });
   }
-  get f() { return this.registerForm.controls; }
+  get f() {return this.emailForm.controls; }
+  get f1() { return this.passwordForm.controls; }
+  get f2() { return this.codeForm.controls; }
 
   userCheck(): void {
-    if (!this.email.match('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')) {
-      return;
-    }
     let user = {
       email: this.email,
       password: this.password,
@@ -91,13 +100,6 @@ export class AuthComponent implements OnInit {
   }
 
   userSignUp(): void {
-    if (this.password === this.confirmPassword){
-      this.isPasswordEqual = true;
-    } else {
-      alert("Password not Equal!");
-      return;
-    }
-
     let user = {
       email: this.email,
     };
@@ -119,7 +121,24 @@ export class AuthComponent implements OnInit {
       });
 
   }
+  MustMatch(controlName: string, matchingControlName: string) {
+    return (formGroup: FormGroup) => {
+        const control = formGroup.controls[controlName];
+        const matchingControl = formGroup.controls[matchingControlName];
 
+        if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+            // return if another validator has already found an error on the matchingControl
+            return;
+        }
+
+        // set error on matchingControl if validation fails
+        if (control.value !== matchingControl.value) {
+            matchingControl.setErrors({ mustMatch: true });
+        } else {
+            matchingControl.setErrors(null);
+        }
+    }
+}
   confirmEmail() {
     let user = {
       email: this.email,
