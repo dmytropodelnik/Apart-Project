@@ -1,0 +1,28 @@
+{
+  "EmitterData": {
+    "SmtpData": {
+      "Gmail": {
+        "Host": "smtp.gmail.com",
+        "Port": "587"
+      },
+      "UkrNet": {
+        "Host": "",
+        "Port": ""
+      }
+    },
+    "EmmiterEmail": "clonebooking.itstep@gmail.com",
+    "EmmiterPass": "clonebooking_2022!",
+    "SenderName": "Apart.com"
+  },
+  "SendTemplates": {
+    "DealsLetter": {
+      "Template": ""
+    },
+    "AuthLetter": {
+      "Template": ""
+    },
+    "VerifyEnterLetter": {
+      "Template": ""
+    }
+  }
+}
