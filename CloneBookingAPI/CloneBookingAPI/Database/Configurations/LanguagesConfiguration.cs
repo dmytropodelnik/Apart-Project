@@ -11,7 +11,11 @@ namespace CloneBookingAPI.Services.Database.Configurations
             builder.HasData(
               new Language[]
               {
-
+                  new Language { Id = 1, Title = "English" },
+                  new Language { Id = 2, Title = "Ukrainian" },
+                  new Language { Id = 3, Title = "Russian" },
+                  new Language { Id = 4, Title = "German" },
+                  new Language { Id = 5, Title = "Polish" },
               });
         }
     }

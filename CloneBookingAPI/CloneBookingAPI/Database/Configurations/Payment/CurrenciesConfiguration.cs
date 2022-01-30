@@ -11,7 +11,9 @@ namespace CloneBookingAPI.Services.Database.Configurations.Payment
             builder.HasData(
               new Currency[]
               {
-
+                  new Currency { Id = 1, Value = "USA Dollar", Abbreviation = "USD", BankCode = "$" },
+                  new Currency { Id = 2, Value = "Euro", Abbreviation = "EUR", BankCode = "€" },
+                  new Currency { Id = 3, Value = "Рубль", Abbreviation = "RUB", BankCode = "₽" },
               });
         }
     }

@@ -13,11 +13,13 @@ namespace CloneBookingAPI.Services.Database.Configurations.UserProfile
               {
                   new Models.UserProfile.UserProfile
                   {
-                      Id = 1, RegisterDate = DateTime.Now, GenderId = 1,
+                      Id = 1, RegisterDate = DateTime.Now, GenderId = 1, AddressId = 1, CurrencyId = 1, LanguageId = 1,
+                      UserId = 1,
                   },
                   new Models.UserProfile.UserProfile
                   {
-                      Id = 2, RegisterDate = DateTime.Now, GenderId = 1,
+                      Id = 2, RegisterDate = DateTime.Now, GenderId = 1, AddressId = 2, CurrencyId = 2, LanguageId = 2,
+                      UserId = 2,
                   },
               });
         }
