@@ -100,6 +100,10 @@ export class AuthComponent implements OnInit {
   }
 
   userSignUp(): void {
+    if (this.password === this.confirmPassword){
+      this.isPasswordEqual = true;
+    }
+
     let user = {
       email: this.email,
     };

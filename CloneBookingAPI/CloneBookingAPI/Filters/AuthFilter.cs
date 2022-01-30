@@ -1,6 +1,14 @@
-﻿namespace CloneBookingAPI.Filters
+﻿using Microsoft.AspNetCore.Mvc.Filters;
+using System;
+using System.Threading.Tasks;
+
+namespace CloneBookingAPI.Filters
 {
-    public class AuthFilter
+    public class AuthFilter : Attribute, IAsyncAuthorizationFilter
     {
+        public Task OnAuthorizationAsync(AuthorizationFilterContext context)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
