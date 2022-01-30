@@ -11,7 +11,8 @@ namespace CloneBookingAPI.Services.Database.Configurations.UserProfile
             builder.HasData(
               new Gender[]
               {
-                  
+                  new Gender { Id = 1, Title = "Male" },
+                  new Gender { Id = 2, Title = "Female" },
               });
         }
     }

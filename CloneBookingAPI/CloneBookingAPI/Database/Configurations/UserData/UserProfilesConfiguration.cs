@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace CloneBookingAPI.Services.Database.Configurations.UserProfile
 {
@@ -10,7 +11,14 @@ namespace CloneBookingAPI.Services.Database.Configurations.UserProfile
             builder.HasData(
               new Models.UserProfile.UserProfile[]
               {
-
+                  new Models.UserProfile.UserProfile
+                  {
+                      Id = 1, RegisterDate = DateTime.Now, GenderId = 1,
+                  },
+                  new Models.UserProfile.UserProfile
+                  {
+                      Id = 2, RegisterDate = DateTime.Now, GenderId = 1,
+                  },
               });
         }
     }

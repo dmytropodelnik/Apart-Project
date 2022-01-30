@@ -11,7 +11,7 @@ namespace CloneBookingAPI.Services.Database.Configurations.Location
             builder.HasData(
               new Address[]
               {
-
+                  new Address { Id = 1, }
               });
         }
     }

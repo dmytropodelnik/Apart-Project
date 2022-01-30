@@ -62,6 +62,7 @@ namespace CloneBookingAPI.Services.Database.Models
 
         public Cart Cart { get; set; }
 
+        public int ProfileId { get; set; }
         public UserProfile.UserProfile Profile { get; set; }
 
         public List<Review.Review> Reviews { get; set; } = new();
