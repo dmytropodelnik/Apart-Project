@@ -1,6 +1,7 @@
 ﻿using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Helpers;
+using CloneBookingAPI.Services.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -17,15 +18,18 @@ namespace CloneBookingAPI.Controllers
     public class IdentityController : Controller
     {
 		private readonly ApartProjectDbContext _context;
+        private readonly JwtRepository _repository;
 
-		public IdentityController(ApartProjectDbContext context)
+		public IdentityController(ApartProjectDbContext context, JwtRepository repository)
 		{
 			_context = context;
+            _repository = repository;
 		}
 
 		[Route("token")]
 		[HttpPost]
-		public async Task<IActionResult> Token([FromBody] User user)
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Token([FromBody] User user)
 		{
             var claims = await GetIdentity(user.Email, user.Password);
             if (claims is null)
@@ -43,6 +47,12 @@ namespace CloneBookingAPI.Controllers
                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
 
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+            if (encodedJwt is null)
+            {
+                return Json(new { code = 400 });
+            }
+            
+            _repository.Repository.Add(user.Email, encodedJwt);
 
             return Json(encodedJwt);
 		}

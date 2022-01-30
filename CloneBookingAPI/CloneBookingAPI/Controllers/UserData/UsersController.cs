@@ -71,6 +71,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("register")]
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register([FromBody] Services.POCOs.UserData person)
         {
             try

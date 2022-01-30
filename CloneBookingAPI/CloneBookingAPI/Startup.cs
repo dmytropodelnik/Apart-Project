@@ -70,6 +70,7 @@ namespace CloneBookingAPI
             //     c.SwaggerDoc("v1", new OpenApiInfo { Title = "ApartProjectAPI", Version = "v1" });
             // });
 
+            services.AddJwtRepositoryService();
             services.AddCodesRepositoryService();
             services.AddCodeGeneratorService();
         }
