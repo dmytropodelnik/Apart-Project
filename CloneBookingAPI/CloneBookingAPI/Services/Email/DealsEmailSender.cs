@@ -39,7 +39,7 @@ namespace CloneBookingAPI.Services.Email
 
                 using (var client = new SmtpClient())
                 {
-                    await client.ConnectAsync(_smtpHost, _smtpPort, false);
+                    await client.ConnectAsync(_smtpHost, int.Parse(_smtpPort), false);
                     await client.AuthenticateAsync(_emailSender, _emailPassword);
                     await client.SendAsync(emailMessage);
 

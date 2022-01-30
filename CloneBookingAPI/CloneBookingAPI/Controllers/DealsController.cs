@@ -4,6 +4,7 @@ using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Email;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,13 +16,14 @@ namespace CloneBookingAPI.Controllers
     // [ApiController]
     public class DealsController : Controller
     {
-        private readonly ApartProjectDbContext _context;
-        private readonly IEmailSender _emailSender = new DealsEmailSender();
+        private readonly ApartProjectDbContext  _context;
+        private readonly IEmailSender           _emailSender;
         private string _letterTemplate = "<p>HELLO TEST</p>";
 
-        public DealsController(ApartProjectDbContext context)
+        public DealsController(ApartProjectDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _emailSender = new DealsEmailSender(configuration);
         }
 
         // GET: api/<AuthController>
