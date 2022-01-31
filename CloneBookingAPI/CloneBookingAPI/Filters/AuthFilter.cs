@@ -24,7 +24,7 @@ namespace CloneBookingAPI.Filters
             // var res1 = SessionExtensions.Get<TokenModel>(context.HttpContext.Session, "tokenKey");
             // _repository.IsValueCorrect(email, key);
 
-            context.Result = new ContentResult { StatusCode = 400, Content = "You are not authorized." };
+            // context.Result = new ContentResult { StatusCode = 400, Content = "You are not authorized." };
         }
     }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import AuthHelper from '../utils/authHelper';
 
 @Component({
   selector: 'app-footer',
@@ -24,6 +25,10 @@ export class FooterComponent implements OnInit {
 
     fetch('https://localhost:44381/api/deals/sendbestdealsletter?email=' + this.email, {
       method: 'GET',
+      headers: {
+        "Accept": "application/json",
+        "Authorization": "Bearer " + AuthHelper.getToken(),
+       },
     })
     .then(r => r.json())
     .then(r => {

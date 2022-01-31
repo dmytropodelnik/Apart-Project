@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace CloneBookingAPI.Controllers
 {
-    // [Authorize(Roles = "admin")]
+    [Authorize(Roles = "admin")]
     [Route("api/[controller]")]
     //[ApiController]
     public class AdminController : Controller
@@ -41,6 +41,7 @@ namespace CloneBookingAPI.Controllers
         }
 
         // POST api/<AdminController>
+        [AllowAnonymous]
         [Route("login")]
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] User person)

@@ -52,16 +52,15 @@ namespace CloneBookingAPI.Controllers
                 return Json(new { code = 400 });
             }
             
-            _repository.Repository.Add(user.Email, encodedJwt);
-            TokenModel tokenModel = new TokenModel(user.Email, encodedJwt);
-            HttpContext.Session.Set("tokenKey", Encoding.Default.GetBytes(tokenModel.ToString()));
-            var res = HttpContext.Session;
+            // _repository.Repository.Add(user.Email, encodedJwt);
+            // TokenModel tokenModel = new TokenModel(user.Email, encodedJwt);
+        
 
             return Json(encodedJwt);
 		}
 		private async Task<IReadOnlyCollection<Claim>> GetIdentity(string email, string password)
 		{
-			List<Claim> claims = null;
+			List<Claim> claims = default;
 
             var user = await _context.Users
                 .Include(u => u.Role)
