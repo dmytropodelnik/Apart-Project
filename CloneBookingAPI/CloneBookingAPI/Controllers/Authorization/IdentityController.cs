@@ -1,6 +1,7 @@
 ﻿using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Helpers;
+using CloneBookingAPI.Services.POCOs;
 using CloneBookingAPI.Services.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +29,6 @@ namespace CloneBookingAPI.Controllers
 
 		[Route("token")]
 		[HttpPost]
-        [ValidateAntiForgeryToken]
         public async Task<IActionResult> Token([FromBody] User user)
 		{
             var claims = await GetIdentity(user.Email, user.Password);
@@ -53,6 +53,9 @@ namespace CloneBookingAPI.Controllers
             }
             
             _repository.Repository.Add(user.Email, encodedJwt);
+            TokenModel tokenModel = new TokenModel(user.Email, encodedJwt);
+            HttpContext.Session.Set("tokenKey", Encoding.Default.GetBytes(tokenModel.ToString()));
+            var res = HttpContext.Session;
 
             return Json(encodedJwt);
 		}

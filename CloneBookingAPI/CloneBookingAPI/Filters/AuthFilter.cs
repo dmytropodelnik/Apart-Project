@@ -1,4 +1,6 @@
-﻿using CloneBookingAPI.Services.Repositories;
+﻿using CloneBookingAPI.Services.POCOs;
+using CloneBookingAPI.Services.Repositories;
+using CloneBookingAPI.Services.Session;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System;
@@ -17,17 +19,10 @@ namespace CloneBookingAPI.Filters
         public void OnAuthorization(AuthorizationFilterContext context)
         {
             string jwtToken = default;
-            var keys = context.HttpContext.Session.Keys;
-            foreach (var key in keys)
-            {
-                if (key == "tokenKey")
-                {
-                    // _repository.IsValueCorrect(email, key);
-                    jwtToken = key;
 
-                    return;
-                }
-            }
+            // var res = context.HttpContext.Session.Get<TokenModel>("tokenKey");
+            // var res1 = SessionExtensions.Get<TokenModel>(context.HttpContext.Session, "tokenKey");
+            // _repository.IsValueCorrect(email, key);
 
             context.Result = new ContentResult { StatusCode = 400, Content = "You are not authorized." };
         }
