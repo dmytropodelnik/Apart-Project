@@ -6,12 +6,10 @@ namespace CloneBookingAPI.Services.Helpers
     public class AuthOptions
     {
 		public const string ISSUER = "ApartProject";
-		public const string AUDIENCE = "ApartProjectUser";
-		const string KEY = "authentification_security_key!qwe123";
+		public const string AUDIENCE = "ApartProjectClient";
+		const string KEY = "authentification_security_key!apartproject2022qweq";
 		public const int LIFETIME = 5;
-		public static SymmetricSecurityKey GetSymmetricSecurityKey()
-		{
-			return new SymmetricSecurityKey(Encoding.ASCII.GetBytes(KEY));
-		}
+		public static SymmetricSecurityKey GetSymmetricSecurityKey() =>
+			 new SymmetricSecurityKey(Encoding.UTF8.GetBytes(KEY));
 	}
 }

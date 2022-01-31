@@ -11,7 +11,6 @@ namespace CloneBookingAPI.Services.Providers
         {
             services.AddSingleton<IGenerator, CodeGenerator>();
         }
-
         public static void AddCodesRepositoryService(this IServiceCollection services)
         {
             services.AddSingleton<CodesRepository>();
@@ -19,6 +18,10 @@ namespace CloneBookingAPI.Services.Providers
         public static void AddJwtRepositoryService(this IServiceCollection services)
         {
             services.AddSingleton<JwtRepository>();
+        }
+        public static void AddSaltGeneratorService(this IServiceCollection services)
+        {
+            services.AddSingleton<SaltGenerator>();
         }
     }
 }

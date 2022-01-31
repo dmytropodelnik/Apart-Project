@@ -83,35 +83,6 @@ namespace CloneBookingAPI.Controllers
             return Json(new { code = 200 });
         }
 
-        [Route("sendregisterletter")]
-        [HttpGet]
-        public async Task<ActionResult> SendRegisterLetter(string email)
-        {
-            string emailTrim = email.Trim();
-
-            var res = await _emailSender.SendEmailAsync(emailTrim, "Finish subscribing to get deals, inspiration, and more", _letterTemplate);
-            if (res is true)
-            {
-                return Json(new { code = 200 });
-            }
-
-            return Json(new { code = 400 });
-        }
-
-        // GET: api/<AuthController>
-        [Route("sendauthletter")]
-        [HttpGet]
-        public async Task<ActionResult> SendAuthLetter(string email)
-        {
-            var res = await _emailSender.SendEmailAsync(email, "Finish subscribing to get deals, inspiration, and more", _letterTemplate);
-            if (res is true)
-            {
-                return Json(new { code = 200 });
-            }
-
-            return Json(new { code = 400 });
-        }
-
         // GET api/<AuthController>/5
         [HttpGet("{id}")]
         public string Get(int id)

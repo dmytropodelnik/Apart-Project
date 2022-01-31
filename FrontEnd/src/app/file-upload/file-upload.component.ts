@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import AuthHelper from '../utils/authHelper';
 
 @Component({
   selector: 'app-file-upload',
@@ -20,6 +21,11 @@ export class FileUploadComponent implements OnInit {
 
       fetch('https://localhost:44381/api/fileuploader/uploadfile', {
         method: 'POST',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          "Accept": "application/json",
+          "Authorization": "Bearer " + AuthHelper.getToken(),
+         },
         body: fData,
       })
       .then(r => r.json())

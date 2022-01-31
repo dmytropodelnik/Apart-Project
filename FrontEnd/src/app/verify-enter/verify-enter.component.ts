@@ -38,13 +38,14 @@ export class VerifyEnterComponent implements OnInit {
         if (data.code === 200) {
           let user = {
             email: this.email,
-            password: "123",
+            password: '123',
           };
 
           fetch('https://localhost:44381/token', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json; charset=utf-8',
+              Accept: 'application/json',
             },
             body: JSON.stringify(user),
           })
