@@ -1,8 +1,11 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Interfaces;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
+using CloneBookingAPI.Services.Generators;
 using CloneBookingAPI.Services.Helpers;
 using CloneBookingAPI.Services.POCOs;
 using CloneBookingAPI.Services.Repositories;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -19,13 +22,16 @@ namespace CloneBookingAPI.Controllers
     public class IdentityController : Controller
     {
 		private readonly ApartProjectDbContext _context;
-        private readonly JwtRepository _repository;
+        private readonly SaltGenerator _saltGenerator;
 
-		public IdentityController(ApartProjectDbContext context, JwtRepository repository)
+        public IdentityController(
+            ApartProjectDbContext context, 
+            SaltGenerator saltGenerator)
 		{
 			_context = context;
-            _repository = repository;
-		}
+            _saltGenerator = saltGenerator;
+
+        }
 
 		[Route("token")]
 		[HttpPost]
@@ -68,10 +74,9 @@ namespace CloneBookingAPI.Controllers
 
             if (user is not null)
             {
-                SHA256 sha256 = SHA256.Create();
-                var passwordHash = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(password)));
+                string hashedPassword = _saltGenerator.GenerateCode(password);
 
-                if (passwordHash == user.Password)
+                if (hashedPassword == user.Password)
                 {
                     claims = new List<Claim>
                     {

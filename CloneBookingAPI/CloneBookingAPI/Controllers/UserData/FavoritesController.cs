@@ -1,4 +1,5 @@
 ﻿using CloneBookingAPI.Filters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -6,7 +7,7 @@ using System.Collections.Generic;
 
 namespace CloneBookingAPI.Controllers.UserData
 {
-    [TypeFilter(typeof(AuthFilter))]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FavoritesController : ControllerBase

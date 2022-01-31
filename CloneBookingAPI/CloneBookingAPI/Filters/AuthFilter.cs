@@ -18,7 +18,7 @@ namespace CloneBookingAPI.Filters
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            string jwtToken = default;
+            // string jwtToken = default;
 
             // var res = context.HttpContext.Session.Get<TokenModel>("tokenKey");
             // var res1 = SessionExtensions.Get<TokenModel>(context.HttpContext.Session, "tokenKey");

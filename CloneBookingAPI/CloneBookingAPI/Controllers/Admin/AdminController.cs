@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CloneBookingAPI.Services.Database.Models;
 using Microsoft.AspNetCore.Authorization;
+using CloneBookingAPI.Services.Generators;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,11 +20,14 @@ namespace CloneBookingAPI.Controllers
     public class AdminController : Controller
     {
         private readonly ApartProjectDbContext _context;
-        private readonly SHA256 sha256 = SHA256.Create();
+        private readonly SaltGenerator _saltGenerator;
 
-        public AdminController(ApartProjectDbContext context)
+        public AdminController(
+            ApartProjectDbContext context,
+            SaltGenerator saltGenerator)
         {
             _context = context;
+            _saltGenerator = saltGenerator;
         }
 
         // GET: api/<AdminController>
@@ -51,10 +55,11 @@ namespace CloneBookingAPI.Controllers
             {
                 return Json(new { code = 400 });
             }
+            string hashedPassword = _saltGenerator.GenerateCode(person.Password);
 
             var user = await _context.Users.FirstOrDefaultAsync(u =>
                                     u.Email == person.Email &&
-                                    u.Password == Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(person.Password)))
+                                    u.Password == hashedPassword
             );
 
             if (user is null)

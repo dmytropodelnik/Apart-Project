@@ -21,12 +21,16 @@ namespace CloneBookingAPI.Controllers
     {
         private readonly ApartProjectDbContext _context;
         private readonly CodesRepository _codesRepository;
-        private readonly SHA256 sha256 = SHA256.Create();
+        private readonly SaltGenerator _saltGenerator;
 
-        public UsersController(ApartProjectDbContext context, CodesRepository codesRepository)
+        public UsersController(
+            ApartProjectDbContext context, 
+            CodesRepository codesRepository,
+            SaltGenerator saltGenerator)
         {
             _context = context;
             _codesRepository = codesRepository;
+            _saltGenerator = saltGenerator;
         }
 
         [Route("userexists")]
@@ -90,9 +94,11 @@ namespace CloneBookingAPI.Controllers
 
                 _codesRepository.Repository.Remove(person.Email.Trim());
 
+                string hashedPassword = _saltGenerator.GenerateCode(person.Password.Trim());
+
                 User newUser = new();
                 newUser.Email = person.Email.Trim();
-                newUser.Password = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(person.Password.Trim())));
+                newUser.Password = hashedPassword;
                 newUser.RoleId = 2;
 
                 Favorite favorite = new();
