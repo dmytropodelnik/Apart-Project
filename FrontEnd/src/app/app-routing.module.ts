@@ -6,6 +6,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { AdminAuthComponent } from './admin-auth/admin-auth.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { VerifyEnterComponent } from './verify-enter/verify-enter.component';
+import { FlightsComponent } from './flights/flights.component';
 
 const routes: Routes = [
   {path: '', component: LayoutComponent},
@@ -13,7 +14,8 @@ const routes: Routes = [
   {path: 'admin', component: AdminPanelComponent},
   {path: 'adminlogin', component: AdminAuthComponent},
   {path: 'upload', component: FileUploadComponent},
-  {path: 'confirmemail', component: VerifyEnterComponent}
+  {path: 'confirmemail', component: VerifyEnterComponent},
+  {path: 'flights', component: FlightsComponent},
 ];
 
 @NgModule({

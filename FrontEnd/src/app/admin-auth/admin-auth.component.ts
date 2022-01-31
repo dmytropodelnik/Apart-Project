@@ -1,23 +1,32 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-admin-auth',
   templateUrl: './admin-auth.component.html',
-  styleUrls: ['./admin-auth.component.css']
+  styleUrls: ['./admin-auth.component.css'],
 })
 export class AdminAuthComponent implements OnInit {
-
   login: string | undefined;
   password: string | undefined;
+  loginForm: FormGroup;
 
-  constructor(
-    private router: Router
-    ) {
-
-   }
-
-  loginAdmin() : void {
+  constructor(private router: Router, private formBuilder: FormBuilder) {
+    this.loginForm = this.formBuilder.group({
+      login: ['', [Validators.required, Validators.minLength(8)]],
+      password: ['', [Validators.required, Validators.minLength(8)]],
+    });
+  }
+  get f() {
+    return this.loginForm.controls;
+  }
+  loginAdmin(): void {
     let user = {
       email: this.login,
       password: this.password,
@@ -26,8 +35,8 @@ export class AdminAuthComponent implements OnInit {
     fetch('https://localhost:44381/api/admin/login', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
-       },
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(user),
     })
       .then((r) => r.json())
@@ -35,7 +44,7 @@ export class AdminAuthComponent implements OnInit {
         if (data.code === 200) {
           this.router.navigate(['/admin']);
         } else {
-          alert("Incorrect data");
+          alert('Incorrect data');
         }
       })
       .catch((ex) => {
@@ -43,7 +52,5 @@ export class AdminAuthComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

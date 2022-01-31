@@ -19,16 +19,16 @@
   display: block;
   color: #008009;
 }
-.buttonFigma{
+.buttonFigma {
   position: flex;
   width: 217px;
   height: 63px;
 
-  background: #FFFFFF;
+  background: #ffffff;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
 }
-.figmaText{
+.figmaText {
   position: flex;
   width: 135px;
   height: 35px;
@@ -39,9 +39,9 @@
   font-size: 30px;
   line-height: 35px;
 
-  color: #ED6648;
+  color: #ed6648;
 }
-.subscriptionValidator{
+.subscriptionValidator {
   position: flex;
   margin-right: 130px;
   color: red;
@@ -111,7 +111,7 @@
   border-radius: 3px;
   font-weight: 100;
   padding: 10px;
-  width: 65%
+  width: 65%;
 }
 
 .emk_footer_form_layout {
@@ -120,7 +120,7 @@
 }
 
 body.zh .emk_footer_form_layout {
-  max-width: 100%
+  max-width: 100%;
 }
 
 .subscription_form_wrap {
@@ -166,7 +166,6 @@ body.zh .emk_footer_form_layout {
   display: block;
   text-align: left;
 }
-
 
 .footerconstraint {
   border-top: 1px solid #fafcff;
@@ -222,7 +221,7 @@ a:link {
 
 .footerconstraint #footernote,
 .footerconstraint #footerrefid {
-  font-size: 80%
+  font-size: 80%;
 }
 
 .footerconstraint #footernav {
@@ -245,7 +244,7 @@ a:link {
 }
 
 .footerconstraint #signup_label em {
-  margin-top: .2em;
+  margin-top: 0.2em;
   color: #333;
 }
 
@@ -434,38 +433,37 @@ a:active {
   color: #a30000 !important;
 }
 
-@media (max-width : 767px) {
-  .footerconstraint-inner{
+@media (max-width: 767px) {
+  .footerconstraint-inner {
     min-width: auto;
   }
 
-  .emk_footer_form_layout{
+  .emk_footer_form_layout {
     max-width: 75%;
   }
 
-  .subscription_form_wrap{
+  .subscription_form_wrap {
     flex-direction: column;
     width: 100%;
   }
 
-  .input_newsletter_subscription_to{
+  .input_newsletter_subscription_to {
     width: 100%;
   }
 
-  .emk_footer_form_layout button#newsletter_button_footer{
+  .emk_footer_form_layout button#newsletter_button_footer {
     margin: 0;
     margin-top: 10px;
     padding-top: 10px;
     padding-bottom: 10px;
   }
 
-  .footer-navigation-links-column{
+  .footer-navigation-links-column {
     width: 50%;
   }
-  
 }
 
-.custom-alert{
+.custom-alert {
   background-color: #fff;
   padding: 12px;
   border-radius: 4px;
@@ -474,7 +472,7 @@ a:active {
   bottom: -60px;
 }
 
-.custom-alert .alert-gold-i{
+.custom-alert .alert-gold-i {
   background-color: gold;
   padding: 6px 8px;
   color: #fff;

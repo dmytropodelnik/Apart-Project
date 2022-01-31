@@ -18,9 +18,7 @@ export class HeaderComponent implements OnInit {
     config: NgbModalConfig,
     private modalService: NgbModal,
     public authService: AuthorizationService
-    ) {
-
-  }
+  ) {}
 
   ngOnInit(): void {}
 

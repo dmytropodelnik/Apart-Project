@@ -4,41 +4,40 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.component.html',
-  styleUrls: ['./footer.component.css']
+  styleUrls: ['./footer.component.css'],
 })
 export class FooterComponent implements OnInit {
-
   public isCollapsed = true;
-  email: string  = '';
-  emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$";
+  email: string = '';
+  emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$';
 
-  constructor() {
-
-  }
+  constructor() {}
 
   fetchRequest() {
-    if (!this.email.match('^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$')) {
+    if (!this.email.match('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')) {
       alert('Incorrect email pattern!');
       return;
     }
 
-    fetch('https://localhost:44381/api/deals/sendbestdealsletter?email=' + this.email, {
-      method: 'GET',
-    })
-    .then(r => r.json())
-    .then(r => {
-      if (r.code === 200) {
-        alert("A letter has been successfully sent to your email address!");
-      } else {
-        alert("Error!");
+    fetch(
+      'https://localhost:44381/api/deals/sendbestdealsletter?email=' +
+        this.email,
+      {
+        method: 'GET',
       }
-    })
-    .catch(err => {
-      alert(err);
-    });
+    )
+      .then((r) => r.json())
+      .then((r) => {
+        if (r.code === 200) {
+          alert('A letter has been successfully sent to your email address!');
+        } else {
+          alert('Error!');
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }
