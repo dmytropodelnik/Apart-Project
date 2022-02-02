@@ -7,11 +7,12 @@ import { AdminAuthComponent } from './admin-auth/admin-auth.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { VerifyEnterComponent } from './verify-enter/verify-enter.component';
 import { FlightsComponent } from './flights/flights.component';
+import { AdminPanelGuard } from './admin-panel/admin-main-body/admin-panel.guard';
 
 const routes: Routes = [
   {path: '', component: LayoutComponent},
   {path: 'auth', component: AuthComponent},
-  {path: 'admin', component: AdminPanelComponent},
+  {path: 'admin', component: AdminPanelComponent, canActivate: [AdminPanelGuard]},
   {path: 'adminlogin', component: AdminAuthComponent},
   {path: 'upload', component: FileUploadComponent},
   {path: 'confirmemail', component: VerifyEnterComponent},
@@ -20,6 +21,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AdminPanelGuard],
 })
 export class AppRoutingModule { }

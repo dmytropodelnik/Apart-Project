@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { AuthorizationService } from '../services/authorization.service';
+
 import {
   FormBuilder,
   FormGroup,
@@ -17,7 +20,10 @@ export class AdminAuthComponent implements OnInit {
   password: string | undefined;
   loginForm: FormGroup;
 
-  constructor(private router: Router, private formBuilder: FormBuilder) {
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private authService: AuthorizationService) {
     this.loginForm = this.formBuilder.group({
       login: ['', [Validators.required, Validators.minLength(8)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -42,6 +48,7 @@ export class AdminAuthComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
+          this.authService.setIsAdmin(true);
           this.router.navigate(['/admin']);
         } else {
           alert('Incorrect data');
