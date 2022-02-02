@@ -51,18 +51,19 @@ namespace CloneBookingAPI.Controllers
         public async Task<IActionResult> Login([FromBody] User person)
         {
 
-            if (string.IsNullOrWhiteSpace(person.Email) || string.IsNullOrWhiteSpace(person.Password))
+            if (string.IsNullOrWhiteSpace(person.Email) || string.IsNullOrWhiteSpace(person.PasswordHash))
             {
                 return Json(new { code = 400 });
             }
-            string hashedPassword = _saltGenerator.GenerateCode(person.Password);
 
             var user = await _context.Users.FirstOrDefaultAsync(u =>
                                     u.Email == person.Email &&
-                                    u.Password == hashedPassword
-            );
+                                    u.RoleId == 1);
+            string hashedPassword = _saltGenerator.GeneratePassHash(
+                            person.PasswordHash,
+                            user.SaltHash);
 
-            if (user is null)
+            if (user is null || hashedPassword != user.PasswordHash)
             {
                 return Json(new { code = 400 });
             }

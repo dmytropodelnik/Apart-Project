@@ -2,29 +2,45 @@
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace CloneBookingAPI.Services.Generators
 {
     public class SaltGenerator : BaseGenerator, IGenerator
     {
+        private byte[] _salt = new byte[128 / 8];
+        // private readonly string _salt = "saltforpassapartproject321WE";
         public string GenerateCode(string str)
         {
-            // generate a 128-bit salt using a cryptographically strong random sequence of nonzero values
             byte[] salt = new byte[128 / 8];
+            // generate a 128 - bit salt using a cryptographically strong random sequence of nonzero values
             using (var rngCsp = RandomNumberGenerator.Create())
             {
                 rngCsp.GetNonZeroBytes(salt);
             }
+            _salt = salt;
 
+            GeneratePassHash(str, Convert.ToBase64String(_salt));
+
+            return _code;
+        }
+        public string GeneratePassHash(string password, string saltstr)
+        {
+            byte[] salt = Encoding.Default.GetBytes(saltstr);
             // derive a 256-bit subkey (use HMACSHA256 with 100,000 iterations)
             _code = Convert.ToBase64String(KeyDerivation.Pbkdf2(
-                password: str,
-                salt: salt,
+                password: password,
+                salt: salt,  // Encoding.Default.GetBytes(_salt),
                 prf: KeyDerivationPrf.HMACSHA256,
                 iterationCount: 100000,
                 numBytesRequested: 256 / 8));
 
             return _code;
+        }
+
+        public string Salt
+        {
+            get => Convert.ToBase64String(_salt);
         }
     }
 }

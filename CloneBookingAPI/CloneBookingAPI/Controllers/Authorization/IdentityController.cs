@@ -37,7 +37,7 @@ namespace CloneBookingAPI.Controllers
 		[HttpPost]
         public async Task<IActionResult> Token([FromBody] User user)
 		{
-            var claims = await GetIdentity(user.Email, user.Password);
+            var claims = await GetIdentity(user.Email, user.PasswordHash);
             if (claims is null)
             {
                 return Unauthorized();
@@ -76,7 +76,7 @@ namespace CloneBookingAPI.Controllers
             {
                 string hashedPassword = _saltGenerator.GenerateCode(password);
 
-                if (hashedPassword == user.Password)
+                if (hashedPassword == user.PasswordHash)
                 {
                     claims = new List<Claim>
                     {

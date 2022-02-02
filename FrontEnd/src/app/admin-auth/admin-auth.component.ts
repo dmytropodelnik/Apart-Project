@@ -35,7 +35,7 @@ export class AdminAuthComponent implements OnInit {
   loginAdmin(): void {
     let user = {
       email: this.login,
-      password: this.password,
+      passwordHash: this.password,
     };
 
     fetch('https://localhost:44381/api/admin/login', {

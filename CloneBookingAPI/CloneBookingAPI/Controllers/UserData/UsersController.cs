@@ -2,6 +2,7 @@
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Database.Models.UserProfile;
 using CloneBookingAPI.Services.Generators;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +48,7 @@ namespace CloneBookingAPI.Controllers
             return Json(new { code = 202, enter = false });
         }
 
+        [Authorize(Roles = "admin")]
         [Route("getusers")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers(string email)
@@ -54,6 +56,7 @@ namespace CloneBookingAPI.Controllers
             return await _context.Users.ToListAsync();
         }
 
+        [Authorize(Roles = "admin")]
         [Route("getuser")]
         [HttpGet]
         public async Task<ActionResult<User>> GetUser(string email)
@@ -98,7 +101,8 @@ namespace CloneBookingAPI.Controllers
 
                 User newUser = new();
                 newUser.Email = person.Email.Trim();
-                newUser.Password = hashedPassword;
+                newUser.PasswordHash = hashedPassword;
+                newUser.SaltHash = _saltGenerator.Salt;
                 newUser.RoleId = 2;
 
                 Favorite favorite = new();

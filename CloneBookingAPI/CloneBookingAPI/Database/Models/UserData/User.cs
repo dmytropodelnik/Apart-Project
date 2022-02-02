@@ -50,7 +50,12 @@ namespace CloneBookingAPI.Services.Database.Models
         [Required(ErrorMessage = "Enter a password")]
         [DataType(DataType.Password)]
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
-        public string Password { get; set; }
+        public string PasswordHash { get; set; }
+
+        [Required]
+        [DataType(DataType.Password)]
+        [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
+        public string SaltHash { get; set; }
 
         public int? FavoriteId { get; set; }
         [ForeignKey("FavoriteId")]
