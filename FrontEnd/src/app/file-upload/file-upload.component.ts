@@ -7,22 +7,21 @@ import AuthHelper from '../utils/authHelper';
   styleUrls: ['./file-upload.component.css']
 })
 export class FileUploadComponent implements OnInit {
-  fileToUpload: File | null = null;
+  uploadedFile: File | null = null;
 
   constructor() { }
 
   uploadFile() {
     let fData = new FormData();
-    if (this.fileToUpload != null) {
-      fData.append('uploadedFile', this.fileToUpload);
+    if (this.uploadedFile != null) {
+      fData.append('uploadedFile', this.uploadedFile);
     }
 
-    console.log(this.fileToUpload);
+    console.log(this.uploadedFile);
 
       fetch('https://localhost:44381/api/fileuploader/uploadfile', {
         method: 'POST',
         headers: {
-          'Content-Type': 'multipart/form-data',
           "Accept": "application/json",
           "Authorization": "Bearer " + AuthHelper.getToken(),
          },
@@ -43,7 +42,7 @@ export class FileUploadComponent implements OnInit {
 
   handleFileInput(files: FileList): void {
     if (files !== null) {
-      this.fileToUpload = files.item(0);
+      this.uploadedFile = files.item(0);
     }
   }
 
