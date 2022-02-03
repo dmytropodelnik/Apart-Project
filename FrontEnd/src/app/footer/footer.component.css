@@ -262,11 +262,14 @@ a:link {
   border-top: 1px solid #fff;
 }
 
-.footerconstraint .footercopyright .copyright_text {
+.footerconstraint .footercopyright {
   padding: 1em 0;
-  float: left;
+  align-items: center;
 }
-
+.copyright_text {
+  display: flex;
+  justify-content: center;
+}
 #footerrefid {
   clear: left;
 }

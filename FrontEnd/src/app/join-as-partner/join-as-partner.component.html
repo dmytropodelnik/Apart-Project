@@ -1,1 +1,207 @@
-<p>join-as-partner works!</p>
+<header class="bui-header">
+  <nav class="bui-header__bar">
+    <div class="bui-header__main">
+      <div class="bui-header__logo">
+        <span>
+          <label class="robotoregular" routerLink="">Apart.com</label>
+        </span>
+      </div>
+    </div>
+
+    <div>
+      <a href="javascript:void(0)" class="d-block d-md-none text-white"></a>
+      <div
+        class="bui-group bui-button-group bui-group--inline bui-group--align-end bui-group--vertical-align-middle"
+      >
+        <div class="bui-group__item">
+          <button
+            class="bui-button bui-button--light bui-button--large"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Choose your language"
+          >
+            <span class="bui-button__text">
+              <div class="bui-avatar bui-avatar--small" aria-hidden="true">
+                <img
+                  class="bui-avatar__image"
+                  src="assets/images/us-flag.png"
+                  alt=""
+                />
+              </div>
+              <span class="bui-u-sr-only">
+                Choose your language. Your current language is English (US)
+              </span>
+            </span>
+          </button>
+        </div>
+        <div class="bui-group__item">
+          <a
+            class="bui-button bui-button--light bui-button--large"
+            href="javascript:void(0)"
+          >
+            <span class="bui-button__icon">
+              <span aria-hidden="true" class="bui-icon bui-icon--large">
+                <svg
+                  class="bk-icon -streamline-question_mark_circle"
+                  height="24"
+                  width="24"
+                  viewBox="0 0 24 24"
+                  role="presentation"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M9.75 9a2.25 2.25 0 1 1 3 2.122 2.25 2.25 0 0 0-1.5 2.122v1.006a.75.75 0 0 0 1.5 0v-1.006c0-.318.2-.602.5-.708A3.75 3.75 0 1 0 8.25 9a.75.75 0 1 0 1.5 0zM12 16.5a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25.75.75 0 0 0 0 1.5.375.375 0 1 1 0-.75.375.375 0 0 1 0 .75.75.75 0 0 0 0-1.5zM22.5 12c0 5.799-4.701 10.5-10.5 10.5S1.5 17.799 1.5 12 6.201 1.5 12 1.5 22.5 6.201 22.5 12zm1.5 0c0-6.627-5.373-12-12-12S0 5.373 0 12s5.373 12 12 12 12-5.373 12-12z"
+                  ></path>
+                </svg>
+              </span>
+              <span class="bui-u-sr-only">
+                Get help with your reservation
+              </span>
+            </span>
+          </a>
+        </div>
+        <div class="bui-group__item">
+          <svg
+            class="bk-icon -streamline-property_add"
+            height="24"
+            style="display: none"
+            width="24"
+            viewBox="0 0 24 24"
+            role="presentation"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <path
+              d="M8.25 19h-3a.75.75 0 0 1-.75-.75v-7.5a.75.75 0 0 0-1.5 0v7.5a2.25 2.25 0 0 0 2.25 2.25h3a.75.75 0 0 0 0-1.5zM1.234 9.823l8.782-7.43a.75.75 0 0 1 .969 0l7.279 6.159a.75.75 0 1 0 .968-1.146l-7.279-6.159a2.25 2.25 0 0 0-2.906 0L.265 8.678a.75.75 0 1 0 .968 1.146zM15.75 2.5h3L18 1.75v3a.75.75 0 0 0 1.5 0v-3a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0 0 1.5zm6.75 14.25a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0zm1.5 0a6.75 6.75 0 1 0-13.5 0 6.75 6.75 0 0 0 13.5 0zm-7.5-3v6a.75.75 0 0 0 1.5 0v-6a.75.75 0 0 0-1.5 0zm-2.25 3.75h6a.75.75 0 0 0 0-1.5h-6a.75.75 0 0 0 0 1.5z"
+            ></path>
+          </svg>
+        </div>
+        <div *ngIf="login === false; then thenBlock; else elseBlock"></div>
+        <ng-template #thenBlock>
+          <div class="bui-group__item">
+            <a
+              class="bui-button bui-button--secondary js-header-login-link"
+              routerLink="/auth"
+              href="javascript:void(0)"
+            >
+              <span class="bui-button__text"> Register </span>
+            </a>
+          </div>
+          <div class="bui-group__item">
+            <svg
+              class="bk-icon -streamline-account_create"
+              height="24"
+              style="display: none"
+              width="24"
+              viewBox="0 0 24 24"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M22.5 17.25a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0zm1.5 0a6.75 6.75 0 1 0-13.5 0 6.75 6.75 0 0 0 13.5 0zm-7.5-3v6a.75.75 0 0 0 1.5 0v-6a.75.75 0 0 0-1.5 0zM14.25 18h6a.75.75 0 0 0 0-1.5h-6a.75.75 0 0 0 0 1.5zM1.5 17.25a6.003 6.003 0 0 1 8.356-5.518.75.75 0 0 0 .588-1.38A7.504 7.504 0 0 0 0 17.25a.75.75 0 0 0 1.5 0zm9.375-12.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0zm1.5 0a4.875 4.875 0 1 0-9.75 0 4.875 4.875 0 0 0 9.75 0z"
+              ></path>
+            </svg>
+            <a
+              class="bui-button bui-button--secondary js-header-login-link"
+              routerLink="/auth"
+              href="javascript:void(0)"
+            >
+              <span class="bui-button__text"> Sign in </span>
+            </a>
+          </div>
+        </ng-template>
+        <ng-template #elseBlock>
+          <div class="bui-group__item" class="dropdown">
+            <button
+              class="bui-button bui-button--light bui-button--large"
+              data-toggle="dropdown"
+            >
+              <div class="bui-avatar bui-avatar--small" aria-hidden="true">
+                <img
+                  class="bui-avatar__image"
+                  src="assets/images/User1.png"
+                  alt=""
+                />
+              </div>
+              <span class="bui-avatar--button-auth">
+                <span aria-hidden="true"> Alkateb Heider </span>
+              </span>
+            </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="#"
+                  ><span class="mdi mdi-account-outline"></span
+                  ><i class="robotomonoregular">Admin login</i></a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"
+                  ><span
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-gear"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"
+                      />
+                      <path
+                        d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"
+                      /></svg></span
+                  ><i class="robotomonoregular">Settings</i></a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"
+                  ><span
+                    ><svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      class="bi bi-briefcase"
+                      viewBox="0 0 16 16"
+                    >
+                      <path
+                        d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"
+                      /></svg></span
+                  ><i class="robotomonoregular">Home</i></a
+                >
+              </li>
+            </ul>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </nav>
+</header>
+<body>
+  <div class="joinpartnerInfo">
+    <div class="joinpartnerInfo2">
+      <h1 class="">
+        <div class="joinpartnerText">
+          Alkateb Heider, list your
+          <div class="">
+            <div class="">
+              <p class="joinpartnerText">apartment</p>
+            </div>
+          </div>
+          on Booking.com
+        </div>
+        <!-- <div class="joinpartnerText">
+          Alkateb Heider, list anything on Booking.com
+        </div> -->
+      </h1>
+      <h3 class="joinpartnerText">
+        Registration can take as little as 15 minutes to complete – get started
+        today
+      </h3>
+    </div>
+  </div>
+</body>
+<app-footer></app-footer>
