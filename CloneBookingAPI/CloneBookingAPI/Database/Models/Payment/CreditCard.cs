@@ -13,17 +13,19 @@ namespace CloneBookingAPI.Services.Database.Models.Payment
         public int Id { get; set; }
 
         [Display(Name = "Cardholder's Name")]
-        [Required(ErrorMessage = "Enter a last name")]
+        [Required]
         [DataType(DataType.Text)]
         [StringLength(50, MinimumLength = 4, ErrorMessage = "Incorrect length")]
         public string Cardholder { get; set; }
 
         [Display(Name = "Card Number")]
+        [Required]
         [DataType(DataType.CreditCard)]
         [StringLength(20, MinimumLength = 6, ErrorMessage = "Incorrect length")]
         public string CardNumber { get; set; }
 
         [Display(Name = "Expiration Date")]
+        [Required]
         [DataType(DataType.Date)]
         public DateTime ExpirationDate { get; set; }
 
@@ -32,7 +34,7 @@ namespace CloneBookingAPI.Services.Database.Models.Payment
         [DataType(DataType.Password)]
         public string CVC { get; set; }
 
-        public int? CardTypeId { get; set; }
+        public int CardTypeId { get; set; }
         [ForeignKey("CardTypeId")]
         public CardType CardType { get; set; }
 

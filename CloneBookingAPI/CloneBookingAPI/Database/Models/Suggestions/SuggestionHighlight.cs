@@ -24,7 +24,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [ForeignKey("FileId")]
         public FileModel Image { get; set; }
 
-        public int? SuggestionId { get; set; }
+        public int SuggestionId { get; set; }
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }
 

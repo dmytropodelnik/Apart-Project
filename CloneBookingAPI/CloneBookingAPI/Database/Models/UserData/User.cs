@@ -47,7 +47,7 @@ namespace CloneBookingAPI.Services.Database.Models
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Password")]
-        [Required(ErrorMessage = "Enter a password")]
+        [Required]
         [DataType(DataType.Password)]
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string PasswordHash { get; set; }
@@ -57,11 +57,12 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string SaltHash { get; set; }
 
+        // !!!!! CASCASE 
         public int? FavoriteId { get; set; }
         [ForeignKey("FavoriteId")]
         public Favorite Favorite { get; set; }
 
-        public int? RoleId { get; set; }
+        public int RoleId { get; set; }
         [ForeignKey("RoleId")]
         public Role Role { get; set; }
 

@@ -12,7 +12,11 @@ namespace CloneBookingAPI.Services.Database.Models
         [Column("Id")]  // Можно было не указывать потому, что так было бы по умолчанию, благодаря соглашению о наименованиях EF
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public string Path { get; set; }
 
         public List<UserProfile.UserProfile> UserProfiles { get; set; } = new();
@@ -23,5 +27,6 @@ namespace CloneBookingAPI.Services.Database.Models
         public List<Country> Countries { get; set; } = new();
         public List<Region> Regions { get; set; } = new();
         public List<District> Districts { get; set; } = new();
+        public List<Notification> Notifications { get; set; } = new();
     }
 }

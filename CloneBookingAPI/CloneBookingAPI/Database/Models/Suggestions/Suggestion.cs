@@ -14,19 +14,19 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int? AddressId { get; set; }
+        public int AddressId { get; set; }
         [ForeignKey("AddressId")]
         public Address Address { get; set; }
 
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
 
-        public int? ServiceCategoryId { get; set; }
+        public int ServiceCategoryId { get; set; }
         [ForeignKey("ServiceCategoryId")]
         public ServiceCategory ServiceCategory { get; set; }
 
-        public int? BookingCategoryId { get; set; }
+        public int BookingCategoryId { get; set; }
         [ForeignKey("BookingCategoryId")]
         public BookingCategory BookingCategory { get; set; }
 

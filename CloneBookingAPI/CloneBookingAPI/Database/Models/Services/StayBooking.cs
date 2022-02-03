@@ -18,20 +18,23 @@ namespace CloneBookingAPI.Services.Database.Models
 
         [Required]
         public bool IsForWork { get; set; }
+
         [Required]
         public bool IsRequestedAirportShuttle { get; set; }
+
         [Required]
         public bool IsRequestedRentingCar { get; set; }
+
         [Display(Name = "Special Requests")]
         [DataType(DataType.Text)]
         [StringLength(1000, MinimumLength = 6, ErrorMessage = "Incorrect length")]
         public string SpecialRequests { get; set; }
 
-        public int? PaymentId { get; set; }
+        public int PaymentId { get; set; }
         [ForeignKey("PaymentId")]
         public Payment.Payment Payment { get; set; }
 
-        public int? PriceId { get; set; }
+        public int PriceId { get; set; }
         [ForeignKey("PriceId")]
         public BookingPrice Price { get; set; }
 
@@ -65,15 +68,7 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(20, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string UniqueNumber { get; set; }
 
-        public int? ServiceCategoryId { get; set; }
-        [ForeignKey("ServiceCategoryId")]
-        public ServiceCategory ServiceCategory { get; set; }
-
-        public int? BookingCategoryId { get; set; }
-        [ForeignKey("BookingCategoryId")]
-        public BookingCategory BookingCategory { get; set; }
-
-        public int? SuggestionId { get; set; }
+        public int SuggestionId { get; set; }
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }
 

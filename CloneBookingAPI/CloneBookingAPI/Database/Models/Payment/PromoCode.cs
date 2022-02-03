@@ -11,6 +11,7 @@ namespace CloneBookingAPI.Services.Database.Models
         public int Id { get; set; }
 
         [Display(Name = "Promo code")]
+        [Required]
         [DataType(DataType.Text)]
         [StringLength(20, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string Code { get; set; }

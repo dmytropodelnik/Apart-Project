@@ -13,6 +13,7 @@ namespace CloneBookingAPI.Services.Database.Models
 
         [Column("Language")]
         [Display(Name = "Language")]
+        [Required]
         [DataType(DataType.Text)]
         [MinLength(3)]
         public string Title { get; set; }

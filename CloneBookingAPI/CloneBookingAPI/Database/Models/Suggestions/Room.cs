@@ -13,19 +13,23 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
 
         [Required]
         public ushort Sleeps { get; set; }
+
         [Required]
         public ushort RoomSize { get; set; }
+
         [Required]
         public bool IsSmokingAllowed { get; set; }
+
         [Required]
         public bool IsSuite { get; set; }
 
         [Display(Name = "Description")]
+        [Required]
         [DataType(DataType.Text)]
         [StringLength(1000, MinimumLength = 6, ErrorMessage = "Incorrect length")]
         public string Description { get; set; }
 
-        public int? RoomTypeId { get; set; }
+        public int RoomTypeId { get; set; }
         [ForeignKey("RoomTypeId")]
         public RoomType RoomType { get; set; }
 

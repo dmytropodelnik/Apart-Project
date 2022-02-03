@@ -27,10 +27,6 @@ namespace CloneBookingAPI.Services.Database.Models.UserProfile
         [StringLength(50, MinimumLength = 2, ErrorMessage = "Incorrect length")]
         public string Nationality { get; set; }
 
-        [Display(Name = "Image")]
-        [DataType(DataType.Text)]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Incorrect length")]
-
         public int? GenderId { get; set; }
         [ForeignKey("GenderId")]
         public Gender Gender { get; set; }

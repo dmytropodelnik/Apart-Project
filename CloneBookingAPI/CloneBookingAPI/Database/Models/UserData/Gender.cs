@@ -13,6 +13,7 @@ namespace CloneBookingAPI.Services.Database.Models.UserProfile
 
         [Column("Gender")]
         [Display(Name = "Gender")]
+        [Required]
         [DataType(DataType.Text)]
         [MinLength(3)]
         public string Title { get; set; }

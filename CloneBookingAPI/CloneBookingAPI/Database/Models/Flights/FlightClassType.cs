@@ -11,6 +11,7 @@ namespace CloneBookingAPI.Services.Database.Models.Flights
         public int Id { get; set; }
 
         [Column("Type")]
+        [Required]
         [Display(Name = "Flight Class Type")]
         [DataType(DataType.Text)]
         [MinLength(2)]

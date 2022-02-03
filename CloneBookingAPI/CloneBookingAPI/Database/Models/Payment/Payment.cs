@@ -11,11 +11,11 @@ namespace CloneBookingAPI.Services.Database.Models.Payment
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int? PaymentTypeId { get; set; }
+        public int PaymentTypeId { get; set; }
         [ForeignKey("PaymentTypeId")]
         public PaymentType PaymentType { get; set; }
 
-        public int? CreditCardId { get; set; }
+        public int CreditCardId { get; set; }
         [ForeignKey("CreditCardId")]
         public CreditCard CreditCard { get; set; }
     }

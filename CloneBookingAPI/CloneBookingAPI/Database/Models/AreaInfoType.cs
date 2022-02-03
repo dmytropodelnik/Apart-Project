@@ -12,6 +12,7 @@ namespace CloneBookingAPI.Services.Database.Models
         public int Id { get; set; }
 
         [DataType(DataType.Text)]
+        [Required]
         [MinLength(2)]
         public string Type { get; set; }
 

@@ -10,7 +10,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public int? SurroundingObjectTypeId { get; set; }
+        public int SurroundingObjectTypeId { get; set; }
         [ForeignKey("SurroundingObjectTypeId")]
         public SurroundingObjectType SurroundingObjectType { get; set; }
 

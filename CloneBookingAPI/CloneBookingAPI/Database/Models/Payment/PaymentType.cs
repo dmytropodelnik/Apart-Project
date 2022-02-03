@@ -12,6 +12,7 @@ namespace CloneBookingAPI.Services.Database.Models
         public int Id { get; set; }
 
         [Display(Name = "Payment Type")]
+        [Required]
         [DataType(DataType.Text)]
         [MinLength(2)]
         public string Type { get; set; }

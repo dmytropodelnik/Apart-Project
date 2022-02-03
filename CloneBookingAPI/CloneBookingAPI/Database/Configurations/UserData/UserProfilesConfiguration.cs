@@ -8,6 +8,9 @@ namespace CloneBookingAPI.Services.Database.Configurations.UserProfile
     {
         public void Configure(EntityTypeBuilder<Models.UserProfile.UserProfile> builder)
         {
+            builder.Property(up => up.RegisterDate).HasDefaultValue(DateTime.Now);
+            builder.Property(up => up.LanguageId).HasDefaultValue(1);
+
             builder.HasData(
               new Models.UserProfile.UserProfile[]
               {

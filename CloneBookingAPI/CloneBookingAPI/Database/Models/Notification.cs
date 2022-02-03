@@ -16,12 +16,11 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(1000, MinimumLength = 1, ErrorMessage = "Incorrect length")]
         public string Value { get; set; }
 
-        [Display(Name = "Image")]
-        [DataType(DataType.Text)]
-        [StringLength(50, MinimumLength = 3, ErrorMessage = "Incorrect length")]
-        public string Image { get; set; }
+        public int? ImageId { get; set; }
+        [ForeignKey("ImageId")]
+        public FileModel Image { get; set; }
 
-        public int? EmitterId { get; set; }
+        public int EmitterId { get; set; }
         [ForeignKey("EmitterId")]
         public User EmitterUser { get; set; }
 
