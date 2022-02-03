@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class JoinAsPartnerComponent implements OnInit {
 
+  login = false;
+
   constructor() { }
 
   ngOnInit(): void {
