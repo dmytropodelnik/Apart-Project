@@ -10,7 +10,10 @@ namespace CloneBookingAPI.Services.Database.Configurations.UserProfile
             builder.HasData(
               new Models.UserProfile.Favorite[]
               {
-
+                  new Models.UserProfile.Favorite { Id = 1, UserId = 1 },
+                  new Models.UserProfile.Favorite { Id = 2, UserId = 2 },
+                  new Models.UserProfile.Favorite { Id = 3, UserId = 3 },
+                  new Models.UserProfile.Favorite { Id = 4, UserId = 4 },
               });
         }
     }

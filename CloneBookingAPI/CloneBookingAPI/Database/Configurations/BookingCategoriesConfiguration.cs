@@ -21,6 +21,23 @@ namespace CloneBookingAPI.Services.Database.Configurations
                   new BookingCategory { Id = 8, Category = "B&Bs" },
                   new BookingCategory { Id = 9, Category = "Guest houses" },
                   new BookingCategory { Id = 10, Category = "Unique places to stay" },
+                  new BookingCategory { Id = 11, Category = "Vacation Homes" },
+                  new BookingCategory { Id = 12, Category = "Serviced Apartments" },
+                  new BookingCategory { Id = 13, Category = "Glamping" },
+                  new BookingCategory { Id = 14, Category = "Cottages" },
+                  new BookingCategory { Id = 15, Category = "Cabins" },
+                  new BookingCategory { Id = 16, Category = "Motels" },
+                  new BookingCategory { Id = 17, Category = "Ryokans" },
+                  new BookingCategory { Id = 18, Category = "Riads" },
+                  new BookingCategory { Id = 19, Category = "Resort Villages" },
+                  new BookingCategory { Id = 20, Category = "Homestays" },
+                  new BookingCategory { Id = 21, Category = "Campgrounds" },
+                  new BookingCategory { Id = 22, Category = "Country Houses" },
+                  new BookingCategory { Id = 23, Category = "Farm Stays" },
+                  new BookingCategory { Id = 24, Category = "Boats" },
+                  new BookingCategory { Id = 25, Category = "Luxury Tents" },
+                  new BookingCategory { Id = 26, Category = "Self-catering Accommodations" },
+                  new BookingCategory { Id = 27, Category = "Tiny houses" },
               });
         }
     }

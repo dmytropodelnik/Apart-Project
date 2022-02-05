@@ -11,7 +11,7 @@ namespace CloneBookingAPI.Services.Database.Configurations
             builder.HasData(
               new FileModel[]
               {
-
+                  new FileModel { Id = 1, Name = "1pBnHFqQXE7qBTAZnKfokySQ3emLkc+eFl6zirsp3SM=.jpg", Path = "/files/1pBnHFqQXE7qBTAZnKfokySQ3emLkc+eFl6zirsp3SM=.jpg", },
               });
         }
     }

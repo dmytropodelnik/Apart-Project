@@ -14,6 +14,7 @@ namespace CloneBookingAPI.Services.Database.Models.UserProfile
 
         public List<Suggestion> Suggestions { get; set; } = new();
 
+        public int UserId { get; set; }
         public User User { get; set; }
     }
 }
