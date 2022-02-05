@@ -23,7 +23,8 @@
     <Folder Include="Services\Logging\" />
     <Folder Include="ViewModels\" />
     <Folder Include="wwwroot\files\images\" />
-    <Folder Include="wwwroot\files\" />
+    <Folder Include="wwwroot\files\flags\" />
+    <Folder Include="wwwroot\files\cities\" />
   </ItemGroup>
 
 </Project>

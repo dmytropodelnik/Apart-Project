@@ -161,20 +161,20 @@
         </div>
         <div class="bui-spacer--largest popular-destinations-carousel-block">
           <div class="bui-title bui-title--headline_3 bui-spacer--large p-2">
-            <span class="bui-title__text">Explore Pakistan</span>
+            <span class="bui-title__text">Explore Ukraine</span>
             <span class="bui-title__subtitle">These popular destinations have a lot to offer</span>
           </div>
           <div class="container-fluid px-0">
             <div class="slick-wrapper">
               <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
-                <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+                <div ngxSlickItem *ngFor="let city of cities" class="slide">
                   <div>
-                    <img src="assets/images/21.webp" class="w-100" alt="">
+                    <img src="assets/images/28.webp" class="w-100" alt="">
                   </div>
                   <div class="bui-card__content">
                     <div class="bui-title bui-title--strong_1 bui-card__title">
-                      <span class="bui-card__title">Islamabad</span>
-                      <span class="bui-title__subtitle">293 properties</span>
+                      <span class="bui-card__title">{{city.title}}</span>
+                      <span class="bui-title__subtitle">{{cities?.length}} properties</span>
                     </div>
                   </div>
                 </div>
@@ -322,17 +322,17 @@
           <div class="container-fluid px-0">
             <div class="slick-wrapper">
               <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
-                <div ngxSlickItem *ngFor="let slide of slides" class="slide">
+                <div ngxSlickItem *ngFor="let category of bookingCategories" class="slide">
                   <div>
-                    <img src="assets/images/28.webp" class="w-100" alt="">
+                    <img src="assets/images/28.webp" class="w-100" alt="categoryImage">
                   </div>
                   <div class="bui-card__content">
                     <h3 class="bui-card__title">
                       <a href="javascript:void(0)" target="_blank" class="bui-card__title d-bh-promotion--theme-title">
-                        Hotels
+                        {{category.category}}
                       </a>
                     </h3>
-                    <p class="bui-card__subtitle">831,123 hotels</p>
+                    <p class="bui-card__subtitle">{{bookingCategories?.length}} {{category.category.toLowerCase()}}</p>
                   </div>
                 </div>
               </ngx-slick-carousel>

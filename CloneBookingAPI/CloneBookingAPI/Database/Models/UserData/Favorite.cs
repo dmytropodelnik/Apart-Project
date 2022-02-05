@@ -14,7 +14,9 @@ namespace CloneBookingAPI.Services.Database.Models.UserProfile
 
         public List<Suggestion> Suggestions { get; set; } = new();
 
-        public int UserId { get; set; }
+        // CASCADE!!!!
+        public int? UserId { get; set; }
+        [ForeignKey("UserId")]
         public User User { get; set; }
     }
 }

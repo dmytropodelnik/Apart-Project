@@ -11,10 +11,20 @@ namespace CloneBookingAPI.Services.Database.Configurations.Location
             builder.HasData(
               new City[]
               {
-                  new City { Id = 1, Title = "Odesa" },
-                  new City { Id = 2, Title = "Kyiv" },
-                  new City { Id = 3, Title = "New York" },
-                  new City { Id = 4, Title = "Berlin" },
+                  new City { Id = 1, Title = "Odesa", ImageId = 2, CountryId = 1, },
+                  new City { Id = 2, Title = "Kyiv", ImageId = 2, CountryId = 1, },
+                  new City { Id = 3, Title = "Kyiv", ImageId = 2, CountryId = 1, },
+                  new City { Id = 4, Title = "Kyiv", ImageId = 2, CountryId = 1, },
+                  new City { Id = 5, Title = "Kyiv", ImageId = 2, CountryId = 1, },
+                  new City { Id = 6, Title = "Kyiv", ImageId = 2, CountryId = 1, },
+                  new City { Id = 7, Title = "Kyiv", ImageId = 2, CountryId = 1, },
+                  new City { Id = 8, Title = "Kyiv", ImageId = 2, CountryId = 1, },
+                  new City { Id = 9, Title = "Kyiv", ImageId = 2, CountryId = 1, },
+                  new City { Id = 10, Title = "Kyiv", ImageId = 2, CountryId = 1, },
+                  new City { Id = 11, Title = "Kyiv", ImageId = 2, CountryId = 1, },
+                  new City { Id = 12, Title = "Kyiv", ImageId = 2, CountryId = 1, },
+                  new City { Id = 13, Title = "New York", ImageId = 1, },
+                  new City { Id = 14, Title = "Berlin", ImageId = 1, },
               });
         }
     }

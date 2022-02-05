@@ -24,6 +24,16 @@ namespace CloneBookingAPI.Services.Database.Configurations.UserProfile
                       Id = 2, RegisterDate = DateTime.Now, GenderId = 1, AddressId = 2, CurrencyId = 2, LanguageId = 2,
                       UserId = 2,
                   },
+                  new Models.UserProfile.UserProfile
+                  {
+                      Id = 3, RegisterDate = DateTime.Now, GenderId = 1, AddressId = 3, CurrencyId = 2, LanguageId = 1,
+                      UserId = 3,
+                  },
+                  new Models.UserProfile.UserProfile
+                  {
+                      Id = 4, RegisterDate = DateTime.Now, GenderId = 1, AddressId = 4, CurrencyId = 2, LanguageId = 2,
+                      UserId = 4,
+                  },
               });
         }
     }

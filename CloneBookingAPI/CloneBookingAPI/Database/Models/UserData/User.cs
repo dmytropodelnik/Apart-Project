@@ -57,9 +57,9 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string SaltHash { get; set; }
 
-        // !!!!! CASCASE 
-        public int? FavoriteId { get; set; }
-        [ForeignKey("FavoriteId")]
+        // !!!!! CASCADE 
+        // public int? FavoriteId { get; set; }
+        // [ForeignKey("FavoriteId")]
         public Favorite Favorite { get; set; }
 
         public int RoleId { get; set; }
@@ -68,6 +68,7 @@ namespace CloneBookingAPI.Services.Database.Models
 
         public Cart Cart { get; set; }
 
+        // REDUNDANT
         public int ProfileId { get; set; }
         public UserProfile.UserProfile Profile { get; set; }
 

@@ -107,7 +107,7 @@ namespace CloneBookingAPI.Controllers
 
                 Favorite favorite = new();
                 var newFavorite = _context.Favorites.Add(favorite);
-                newUser.FavoriteId = newFavorite.Entity.Id;
+                newUser.Favorite = favorite;
 
                 UserProfile userProfile = new();
                 userProfile.RegisterDate = DateTime.Now;
@@ -115,7 +115,6 @@ namespace CloneBookingAPI.Controllers
                 await _context.SaveChangesAsync();
 
                 newUser.ProfileId = newUserProfile.Entity.Id;
-                newUser.FavoriteId = newFavorite.Entity.Id;
 
                 var addedUser = _context.Users.Add(newUser);
                 await _context.SaveChangesAsync();

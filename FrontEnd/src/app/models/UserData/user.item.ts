@@ -4,7 +4,7 @@ export class User {
   content: string;
   username: string;
   date: string;
-  comments: any;
+  comments: any; 
   tags: string;
   // image: File = null;
 

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BookingCategory } from '../models/bookingcategory.item';
+import { City } from '../models/Location/city.item';
 
 @Component({
   selector: 'app-home',
@@ -15,6 +17,9 @@ export class HomeComponent implements OnInit {
   navigation = 'arrows';
   showWeekNumbers = false;
   outsideDays = 'hidden';
+
+  bookingCategories: BookingCategory[] | undefined;
+  cities: City[] | undefined;
 
   slides = [
     {text:"Educational Consulting", img:"assets/images/21.png"},
@@ -93,6 +98,39 @@ export class HomeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    fetch(
+      'https://localhost:44381/api/bookingcategories/getcategories', {
+        method: 'GET',
+      }
+    )
+      .then((r) => r.json())
+      .then((r) => {
+        if (r.code === 200) {
+          this.bookingCategories = r.bookingCategories;
+        } else {
+          alert('Booking categories fetching error!');
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
+
+      fetch(
+        'https://localhost:44381/api/cities/getcountrycities?country=Ukraine', {
+          method: 'GET',
+        }
+      )
+        .then((r) => r.json())
+        .then((r) => {
+          if (r.code === 200) {
+            this.cities = r.cities;
+          } else {
+            alert('Cities fetching error!');
+          }
+        })
+        .catch((err) => {
+          alert(err);
+        });
   }
 
 }
