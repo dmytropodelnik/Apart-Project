@@ -1,5 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CloneBookingAPI.Services.Database;
+using CloneBookingAPI.Services.Database.Models;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -7,13 +11,20 @@ namespace CloneBookingAPI.Controllers.UserData
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RolesController : ControllerBase
+    public class RolesController : Controller
     {
-        // GET: api/<RolesController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+        private readonly ApartProjectDbContext _context;
+
+        public RolesController(ApartProjectDbContext context)
         {
-            return new string[] { "value1", "value2" };
+            _context = context;
+        }
+
+        [Route("getroles")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Role>>> GetCountries()
+        {
+            return await _context.Roles.ToListAsync();
         }
 
         // GET api/<RolesController>/5

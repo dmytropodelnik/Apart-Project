@@ -1,5 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CloneBookingAPI.Services.Database;
+using CloneBookingAPI.Services.Database.Models.Location;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -7,38 +14,188 @@ namespace CloneBookingAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DistrictsController : ControllerBase
+    public class DistrictsController : Controller
     {
-        // GET: api/<DistrictsController>
+        private readonly ApartProjectDbContext _context;
+
+        public DistrictsController(ApartProjectDbContext context)
+        {
+            _context = context;
+        }
+
+        [Route("getdistricts")]
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<District>>> GetCountries()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                return await _context.Districts.ToListAsync();
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
 
-        // GET api/<DistrictsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<DistrictsController>
+        [Route("adddistrict")]
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> AddCountry([FromBody] string district, IFormFile uploadedFile)
         {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(district))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var res = await _context.Countries.FirstOrDefaultAsync(c => c.Title == district);
+                if (res is null)
+                {
+                    District newDistrict = new();
+                    newDistrict.Title = district;
+                    _context.Districts.Add(newDistrict);
+                    await _context.SaveChangesAsync();
+
+                    return Json(new { code = 200 });
+                }
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
 
-        // PUT api/<DistrictsController>/5
+        [Route("changedistrictbyname")]
+        [HttpPut]
+        public async Task<IActionResult> ChangeCountryByName(string district, string newName)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(district) || string.IsNullOrWhiteSpace(newName))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resDistrict = await _context.Districts.FirstOrDefaultAsync(d => d.Title == district);
+                if (resDistrict is null)
+                {
+                    return Json(new { code = 400 });
+                }
+                resDistrict.Title = newName;
+
+                _context.Districts.Update(resDistrict);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("changedistrict")]
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> ChangeDistrict(int id, string newName)
         {
+            try
+            {
+                if (id < 1 || string.IsNullOrWhiteSpace(newName))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resDistrict = await _context.Districts.FirstOrDefaultAsync(d => d.Id == id);
+                if (resDistrict is null)
+                {
+                    return Json(new { code = 400 });
+                }
+                resDistrict.Title = newName;
+
+                _context.Districts.Update(resDistrict);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
 
-        // DELETE api/<DistrictsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [Route("deletedistrictbyname")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteDistrictByName(string district)
         {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(district))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resDistrict = await _context.Districts.FirstOrDefaultAsync(d => d.Title == district);
+                if (resDistrict is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                _context.Districts.Remove(resDistrict);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("deletedistrict")]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteDistrict(int id)
+        {
+            try
+            {
+                if (id < 1)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resDistrict = await _context.Districts.FirstOrDefaultAsync(d => d.Id == id);
+                if (resDistrict is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                _context.Districts.Remove(resDistrict);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
     }
 }

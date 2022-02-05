@@ -1,5 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CloneBookingAPI.Services.Database;
+using CloneBookingAPI.Services.Database.Models.Location;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -7,38 +12,85 @@ namespace CloneBookingAPI.Controllers.Payment
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PaymentsController : ControllerBase
+    public class PaymentsController : Controller
     {
-        // GET: api/<PaymentsController>
+        private readonly ApartProjectDbContext _context;
+
+        public PaymentsController(ApartProjectDbContext context)
+        {
+            _context = context;
+        }
+
+        [Route("getpayments")]
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<Services.Database.Models.Payment.Payment>>> GetPayments()
         {
-            return new string[] { "value1", "value2" };
+            return await _context.Payments.ToListAsync();
         }
 
-        // GET api/<PaymentsController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<PaymentsController>
+        [Route("addpayment")]
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> AddPayment([FromBody] string payment, IFormFile uploadedFile)
         {
+            if (string.IsNullOrWhiteSpace(payment))
+            {
+                return Json(new { code = 400 });
+            }
+
+            var res = await _context.Countries.FirstOrDefaultAsync(c => c.Title == payment);
+            if (res is null)
+            {
+                Country newCountry = new();
+                newCountry.Title = payment;
+                _context.Countries.Add(newCountry);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            return Json(new { code = 400 });
         }
 
-        // PUT api/<PaymentsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [Route("changepaymentbyname")]
+        [HttpPut]
+        public async Task<IActionResult> ChangeCountryByName(string country, string newName)
         {
+            if (string.IsNullOrWhiteSpace(country) || string.IsNullOrWhiteSpace(newName))
+            {
+                return Json(new { code = 400 });
+            }
+
+            var resCountry = await _context.Countries.FirstOrDefaultAsync(c => c.Title == country);
+            if (resCountry is null)
+            {
+                return Json(new { code = 400 });
+            }
+            resCountry.Title = newName;
+
+            _context.Countries.Update(resCountry);
+            await _context.SaveChangesAsync();
+
+            return Json(new { code = 200 });
         }
 
-        // DELETE api/<PaymentsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [Route("deletecountrybyname")]
+        [HttpDelete]
+        public async Task<IActionResult> Delete(string country)
         {
+            if (string.IsNullOrWhiteSpace(country))
+            {
+                return Json(new { code = 400 });
+            }
+
+            var resCountry = await _context.Countries.FirstOrDefaultAsync(c => c.Title == country);
+            if (resCountry is null)
+            {
+                return Json(new { code = 400 });
+            }
+
+            _context.Countries.Remove(resCountry);
+            await _context.SaveChangesAsync();
+
+            return Json(new { code = 200 });
         }
     }
 }

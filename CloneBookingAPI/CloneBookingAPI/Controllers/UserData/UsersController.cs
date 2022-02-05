@@ -25,7 +25,7 @@ namespace CloneBookingAPI.Controllers
         private readonly SaltGenerator _saltGenerator;
 
         public UsersController(
-            ApartProjectDbContext context, 
+            ApartProjectDbContext context,
             CodesRepository codesRepository,
             SaltGenerator saltGenerator)
         {
@@ -39,7 +39,7 @@ namespace CloneBookingAPI.Controllers
         public async Task<IActionResult> UserExists(string email)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-            
+
             if (user is not null)
             {
                 return RedirectToAction("GenerateEnterCode", "Codes", new { email });
@@ -51,7 +51,7 @@ namespace CloneBookingAPI.Controllers
         [Authorize(Roles = "admin")]
         [Route("getusers")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers(string email)
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
             return await _context.Users.ToListAsync();
         }
@@ -122,6 +122,86 @@ namespace CloneBookingAPI.Controllers
 
                 var updateProfile = await _context.UserProfiles.FirstOrDefaultAsync(up => up.Id == newUser.ProfileId);
                 updateProfile.UserId = addedUser.Entity.Id;
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("changeusersemail")]
+        [HttpPut]
+        public async Task<IActionResult> ChangeUsersEmail([FromBody] Services.POCOs.UserData user)
+        {
+            try
+            {
+                if (user is null                            ||
+                    string.IsNullOrWhiteSpace(user.Email)   ||
+                    string.IsNullOrWhiteSpace(user.NewEmail))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
+                if (resUser is null)
+                {
+                    return Json(new { code = 400 });
+                }
+                resUser.Email = user.NewEmail;
+
+                _context.Users.Update(resUser);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("changeusersinfo")]
+        [HttpPut]
+        public async Task<IActionResult> ChangeUsersInfo([FromBody] User user)
+        {
+            try
+            {
+                if (user is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
+                if (resUser is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                if (!string.IsNullOrWhiteSpace(user.Title))
+                {
+                    resUser.Title = user.Title;
+                }
+                if (!string.IsNullOrWhiteSpace(user.FirstName))
+                {
+                    resUser.FirstName = user.FirstName;
+                }
+                if (!string.IsNullOrWhiteSpace(user.LastName))
+                {
+                    resUser.LastName = user.LastName;
+                }
+                if (!string.IsNullOrWhiteSpace(user.DisplayName))
+                {
+                    resUser.DisplayName = user.DisplayName;
+                }
+
+                _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });

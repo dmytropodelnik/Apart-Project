@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloneBookingAPI.Services.Database.Models.Location
@@ -18,5 +19,7 @@ namespace CloneBookingAPI.Services.Database.Models.Location
         public int? ImageId { get; set; }
         [ForeignKey("ImageId")]
         public FileModel Image { get; set; }
+
+        public List<City> Cities { get; set; } = new();
     }
 }
