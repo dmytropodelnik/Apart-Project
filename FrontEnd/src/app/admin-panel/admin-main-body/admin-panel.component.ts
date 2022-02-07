@@ -12,11 +12,12 @@ export class AdminPanelComponent implements OnInit {
   content: string | undefined;
 
   constructor() {
-    this.content = "users";
+    // this.content = "users";
   }
 
   setContent(newContent: string) {
     this.content = newContent;
+    console.log(this.content);
   }
 
   ngOnInit(): void {
