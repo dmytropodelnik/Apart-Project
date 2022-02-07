@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Favorite } from 'src/app/models/UserData/favorite.item';
 
 @Component({
   selector: 'app-favorites-list',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./favorites-list.component.css']
 })
 export class FavoritesListComponent implements OnInit {
+
+  favorites: Favorite[] | null = null;
 
   constructor() { }
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SuggestionRuleType } from 'src/app/models/Suggestions/suggestionruletype.item';
 
 @Component({
   selector: 'app-suggestion-rule-types-list',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./suggestion-rule-types-list.component.css']
 })
 export class SuggestionRuleTypesListComponent implements OnInit {
+
+  ruleTypes: SuggestionRuleType[] | null = null;
 
   constructor() { }
 

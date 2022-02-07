@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Room } from 'src/app/models/Suggestions/room.item';
 
 @Component({
   selector: 'app-rooms-list',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./rooms-list.component.css']
 })
 export class RoomsListComponent implements OnInit {
+
+  rooms: Room[] | null = null;
 
   constructor() { }
 

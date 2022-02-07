@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FileModel } from 'src/app/models/filemodel.item';
 
 @Component({
   selector: 'app-file-models-list',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./file-models-list.component.css']
 })
 export class FileModelsListComponent implements OnInit {
+
+  files: FileModel[] | null = null;
 
   constructor() { }
 

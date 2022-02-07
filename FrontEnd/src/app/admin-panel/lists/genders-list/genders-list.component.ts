@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Gender } from 'src/app/models/UserData/gender.item';
 
 @Component({
   selector: 'app-genders-list',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./genders-list.component.css']
 })
 export class GendersListComponent implements OnInit {
+
+  genders: Gender[] | null = null;
 
   constructor() { }
 

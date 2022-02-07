@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Suggestion } from 'src/app/models/Suggestions/suggestion.item';
 
 @Component({
   selector: 'app-suggestions-list',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./suggestions-list.component.css']
 })
 export class SuggestionsListComponent implements OnInit {
+
+  suggestions: Suggestion[] | null = null;
 
   constructor() { }
 

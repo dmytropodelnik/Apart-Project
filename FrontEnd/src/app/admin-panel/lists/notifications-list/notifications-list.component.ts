@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NotificationsListComponent implements OnInit {
 
+  notifications: Notification[] | null = null;
+
   constructor() { }
 
   ngOnInit(): void {
