@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Airport } from 'src/app/models/Location/airport.item';
 
 @Component({
   selector: 'app-airports-list',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./airports-list.component.css']
 })
 export class AirportsListComponent implements OnInit {
+
+  airports: Airport[] | null = null;
 
   constructor() { }
 

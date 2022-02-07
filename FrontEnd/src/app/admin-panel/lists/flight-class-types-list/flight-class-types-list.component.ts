@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FlightClassType } from 'src/app/models/Flights/flightclasstype.item';
 
 @Component({
   selector: 'app-flight-class-types-list',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./flight-class-types-list.component.css']
 })
 export class FlightClassTypesListComponent implements OnInit {
+
+  types: FlightClassType[] | null = null;
 
   constructor() { }
 
