@@ -9,7 +9,7 @@ import { User } from '../../../models/UserData/user.item';
 })
 export class UserListComponent implements OnInit {
 
-  users: User[] | undefined;
+  users: User[] | null = null;
 
   constructor() { }
 

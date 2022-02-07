@@ -16,7 +16,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminPanelComponent,
-    canActivate: [AdminPanelGuard],
+    // canActivate: [AdminPanelGuard],
   },
   { path: 'adminlogin', component: AdminAuthComponent },
   { path: 'upload', component: FileUploadComponent },
@@ -28,6 +28,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [AdminPanelGuard],
+  // providers: [AdminPanelGuard],
 })
 export class AppRoutingModule { }
