@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 namespace CloneBookingAPI.Controllers
 {
     [Route("api/[controller]")]
-    [ApiController]
+    // [ApiController]
     public class UsersController : Controller
     {
         private readonly ApartProjectDbContext _context;

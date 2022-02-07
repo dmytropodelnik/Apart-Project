@@ -53,11 +53,10 @@ export class VerifyEnterComponent implements OnInit {
             .then((response) => {
               alert(response);
               console.log(response);
-
               console.log(this.authService.getLogCondition());
 
+              this.authService.setTokenKey(response);
               AuthHelper.saveAuth(user.email, response);
-
               this.authService.toggleLogCondition();
 
               alert('You have successfully authenticated!');
