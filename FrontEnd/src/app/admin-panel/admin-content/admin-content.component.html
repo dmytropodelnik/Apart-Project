@@ -14,118 +14,155 @@
 
         <div [ngSwitch]="content">
           <ng-template ngSwitchCase="users">
-            <app-user-list></app-user-list>
+            <app-users-list></app-users-list>
           </ng-template>
+
           <ng-template ngSwitchCase="user-profiles">
-
+            <app-user-profiles-list></app-user-profiles-list>
           </ng-template>
+
           <ng-template ngSwitchCase="temp-users">
-
+              <app-temp-users-list></app-temp-users-list>
           </ng-template>
+
           <ng-template ngSwitchCase="roles">
             <app-roles-list></app-roles-list>
           </ng-template>
+
           <ng-template ngSwitchCase="genders">
             <app-genders-list></app-genders-list>
           </ng-template>
+
           <ng-template ngSwitchCase="favorites">
             <app-favorites-list></app-favorites-list>
           </ng-template>
+
           <ng-template ngSwitchCase="stay-bookings">
-
+            <app-stay-bookings-list></app-stay-bookings-list>
           </ng-template>
+
           <ng-template ngSwitchCase="flight-bookings">
-
+            <app-flight-bookings-list></app-flight-bookings-list>
           </ng-template>
+
           <ng-template ngSwitchCase="car-rental-bookings">
-
+            <app-car-rental-bookings-list></app-car-rental-bookings-list>
           </ng-template>
+
           <ng-template ngSwitchCase="attraction-bookings">
-
+            <app-attraction-bookings-list></app-attraction-bookings-list>
           </ng-template>
+
           <ng-template ngSwitchCase="airport-taxi-bookings">
-
+            <app-airport-taxi-bookings-list></app-airport-taxi-bookings-list>
           </ng-template>
+
           <ng-template ngSwitchCase="addresses">
-
+            <app-addresses-list></app-addresses-list>
           </ng-template>
+
           <ng-template ngSwitchCase="airports">
-
+            <app-airports-list></app-airports-list>
           </ng-template>
+
           <ng-template ngSwitchCase="cities">
-
+            <app-cities-list></app-cities-list>
           </ng-template>
+
           <ng-template ngSwitchCase="countries">
-
+            <app-countries-list></app-countries-list>
           </ng-template>
+
           <ng-template ngSwitchCase="districts">
-
+            <app-districts-list></app-districts-list>
           </ng-template>
+
           <ng-template ngSwitchCase="regions">
-
+            <app-regions-list></app-regions-list>
           </ng-template>
+
           <ng-template ngSwitchCase="suggestions">
-
+            <app-suggestions-list></app-suggestions-list>
           </ng-template>
+
           <ng-template ngSwitchCase="suggestions-highlights">
-
+            <app-suggestion-highlights-list></app-suggestion-highlights-list>
           </ng-template>
+
           <ng-template ngSwitchCase="suggestions-rules">
-
+            <app-suggestion-rules-list></app-suggestion-rules-list>
           </ng-template>
+
           <ng-template ngSwitchCase="suggestions-rule-types">
-
+            <app-suggestion-rule-types-list></app-suggestion-rule-types-list>
           </ng-template>
+
           <ng-template ngSwitchCase="suggestions-review-grades">
-
+            <app-suggestion-review-grades-list></app-suggestion-review-grades-list>
           </ng-template>
+
           <ng-template ngSwitchCase="surrounding-objects">
-
+            <app-surrounding-objects-list></app-surrounding-objects-list>
           </ng-template>
+
           <ng-template ngSwitchCase="surrounding-object-types">
-
+            <app-surrounding-object-types-list></app-surrounding-object-types-list>
           </ng-template>
+
           <ng-template ngSwitchCase="rooms">
-
+            <app-rooms-list></app-rooms-list>
           </ng-template>
+
           <ng-template ngSwitchCase="room-types">
-
+            <app-room-types-list></app-room-types-list>
           </ng-template>
+
           <ng-template ngSwitchCase="reviews">
-
+            <app-reviews-list></app-reviews-list>
           </ng-template>
+
           <ng-template ngSwitchCase="review-categories">
-
+            <app-review-categories-list></app-review-categories-list>
           </ng-template>
+
           <ng-template ngSwitchCase="review-messages">
-
+            <app-review-messages-list></app-review-messages-list>
           </ng-template>
+
           <ng-template ngSwitchCase="payments">
-
+            <app-payments-list></app-payments-list>
           </ng-template>
+
           <ng-template ngSwitchCase="payment-types">
-
+            <app-payment-types-list></app-payment-types-list>
           </ng-template>
+
           <ng-template ngSwitchCase="promo-codes">
-
+            <app-promo-codes-list></app-promo-codes-list>
           </ng-template>
+
           <ng-template ngSwitchCase="currencies">
-
+            <app-currencies-list></app-currencies-list>
           </ng-template>
+
           <ng-template ngSwitchCase="card-types">
-
+            <app-card-types-list></app-card-types-list>
           </ng-template>
+
           <ng-template ngSwitchCase="credit-cards">
-
+            <app-credit-cards-list></app-credit-cards-list>
           </ng-template>
+
           <ng-template ngSwitchCase="booking-prices">
-
+            <app-booking-prices-list></app-booking-prices-list>
           </ng-template>
+
           <ng-template ngSwitchCase="flight-class-types">
-
+            <app-flight-class-types-list></app-flight-class-types-list>
           </ng-template>
-          <ng-template ngSwitchDefault>
 
+          <ng-template ngSwitchDefault>
+            <app-users-list></app-users-list>
           </ng-template>
         </div>
       </div>
