@@ -20,13 +20,14 @@ import { UserListComponent } from './admin-panel/lists/users-list/user-list.comp
 import { UserProfileListComponent } from './admin-panel/lists/user-profiles-list/user-profile-list.component';
 import { CountriesListComponent } from './admin-panel/lists/countries-list/countries-list.component';
 import { CitiesListComponent } from './admin-panel/lists/cities-list/cities-list.component';
-import { RegionsListComponent } from './regions-list/regions-list.component';
+import { RegionsListComponent } from './admin-panel/lists/regions-list/regions-list.component';
 import { DistrictsListComponent } from './admin-panel/lists/districts-list/districts-list.component';
 import { AdminAuthComponent } from './admin-auth/admin-auth.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { VerifyEnterComponent } from './verify-enter/verify-enter.component';
 import { FlightsComponent } from './flights/flights.component';
 import { JoinAsPartnerComponent } from './join-as-partner/join-as-partner.component';
+import { RolesListComponent } from './roles-list/roles-list.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { JoinAsPartnerComponent } from './join-as-partner/join-as-partner.compon
     FileUploadComponent,
     VerifyEnterComponent,
     FlightsComponent,
-    JoinAsPartnerComponent
+    JoinAsPartnerComponent,
+    RolesListComponent
   ],
   imports: [
     BrowserModule,
