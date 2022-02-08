@@ -1,4 +1,4 @@
-<div class="xpi__content__wrapper xpi__content__wrappergray ">
+<div class="xpi__content__wrapper xpi__content__wrappergray">
   <div class="xpi__content__container">
     <div class="xpi__searchbox js-ds-layout-events-search-form">
       <h1 class="sb-searchbox__title">
@@ -10,31 +10,69 @@
         From cozy country homes to funky city apartments
       </div>
       <div class="sb-searchbox__outer">
-        <form id="frm" role="search" class="sb-searchbox sb-searchbox--painted sb-searchbox--xp js--sb-searchbox">
-          <div class="xp__fieldset js--sb-fieldset accommodation">
+        <form
+          id="frm"
+          role="search"
+          class="sb-searchbox sb-searchbox--painted sb-searchbox--xp js--sb-searchbox"
+        >
+          <div class="xp__fieldset">
             <div class="row m-0 p-0">
               <div class="col-md-10 p-0">
                 <div class="row m-0 p-0">
                   <div class="col-md-5 px-6">
                     <div class="input-with-icon">
-                      <img src="assets/images/9.svg" alt="">
-                      <input type="text" class="header-input pl-50" placeholder="Where are you going?">
+                      <img src="assets/images/9.svg" alt="" />
+                      <input
+                        type="text"
+                        class="header-input pl-50"
+                        placeholder="Where are you going?"
+                      />
                     </div>
                   </div>
                   <div class="col-md-3 my-1 my-md-0 px-6">
                     <div class="input-with-icon">
                       <span class="input-icon">
-                        <svg aria-hidden="true" class="bk-icon -experiments-calendar sb-date-picker_icon-svg" fill="#BDBDBD" focusable="false" height="20" role="presentation" width="20" viewBox="0 0 128 128"><path d="m112 16h-16v-8h-8v8h-48v-8h-8v8h-16c-4.4 0-8 3.9-8 8.7v86.6c0 4.8 3.6 8.7 8 8.7h96c4.4 0 8-3.9 8-8.7v-86.6c0-4.8-3.6-8.7-8-8.7zm0 95.3a1.1 1.1 0 0 1 -.2.7h-95.6a1.1 1.1 0 0 1 -.2-.7v-71.3h96zm-68-43.3h-12v-12h12zm0 28h-12v-12h12zm26-28h-12v-12h12zm0 28h-12v-12h12zm26 0h-12v-12h12zm0-28h-12v-12h12z" fill-rule="evenodd"></path></svg>
+                        <svg
+                          aria-hidden="true"
+                          class="bk-icon -experiments-calendar sb-date-picker_icon-svg"
+                          fill="#BDBDBD"
+                          focusable="false"
+                          height="20"
+                          role="presentation"
+                          width="20"
+                          viewBox="0 0 128 128"
+                        >
+                          <path
+                            d="m112 16h-16v-8h-8v8h-48v-8h-8v8h-16c-4.4 0-8 3.9-8 8.7v86.6c0 4.8 3.6 8.7 8 8.7h96c4.4 0 8-3.9 8-8.7v-86.6c0-4.8-3.6-8.7-8-8.7zm0 95.3a1.1 1.1 0 0 1 -.2.7h-95.6a1.1 1.1 0 0 1 -.2-.7v-71.3h96zm-68-43.3h-12v-12h12zm0 28h-12v-12h12zm26-28h-12v-12h12zm0 28h-12v-12h12zm26 0h-12v-12h12zm0-28h-12v-12h12z"
+                            fill-rule="evenodd"
+                          ></path>
+                        </svg>
                       </span>
-                      <input  (click)="d.toggle()" class="header-input pl-50" placeholder="Check-in - Check-out" name="dp" [displayMonths]="displayMonths" [navigation]="navigation" [outsideDays]="outsideDays"
-                      [showWeekNumbers]="showWeekNumbers" ngbDatepicker #d="ngbDatepicker">
+                      <input
+                        (click)="d.toggle()"
+                        class="header-input pl-50"
+                        placeholder="Check-in - Check-out"
+                        name="dp"
+                        [displayMonths]="displayMonths"
+                        [navigation]="navigation"
+                        [outsideDays]="outsideDays"
+                        [showWeekNumbers]="showWeekNumbers"
+                        ngbDatepicker
+                        #d="ngbDatepicker"
+                      />
                     </div>
                   </div>
                   <div class="col-md-4 px-6">
-                    <div class="input-with-icon icon-2" type="button" data-toggle="dropdown">
-                      <img src="assets/images/39.svg" alt="">
-                      <button type="text" class="header-input px-40">2 adults . 0 children . 1 room</button>
-                      <i><img src="assets/images/44.svg" alt=""></i>
+                    <div
+                      class="input-with-icon icon-2"
+                      type="button"
+                      data-toggle="dropdown"
+                    >
+                      <img src="assets/images/39.svg" alt="" />
+                      <button type="text" class="header-input px-40">
+                        2 adults . 0 children . 1 room
+                      </button>
+                      <i><img src="assets/images/44.svg" alt="" /></i>
                     </div>
                     <div class="dropdown-menu">
                       <form class="dropdownFormReservation">
@@ -44,21 +82,31 @@
                               <span class="dropdownSubSectionText">Adults</span>
                             </div>
                             <div class="dropdownSubSectionButtons">
-                              <button class="bui-button bui-button--secondary"><span class="bui-button__text">-</span></button>
+                              <button class="bui-button bui-button--secondary">
+                                <span class="bui-button__text">-</span>
+                              </button>
                               <span class="dropdownSubSectionText">1</span>
-                              <button class="bui-button bui-button--secondary"><span class="bui-button__text">+</span></button>
+                              <button class="bui-button bui-button--secondary">
+                                <span class="bui-button__text">+</span>
+                              </button>
                             </div>
                           </div>
                         </div>
                         <div class="form-group">
                           <div class="dropdownSubSection">
                             <div>
-                              <span class="dropdownSubSectionText">Children</span>
+                              <span class="dropdownSubSectionText"
+                                >Children</span
+                              >
                             </div>
                             <div class="dropdownSubSectionButtons">
-                              <button class="bui-button bui-button--secondary"><span class="bui-button__text">-</span></button>
+                              <button class="bui-button bui-button--secondary">
+                                <span class="bui-button__text">-</span>
+                              </button>
                               <span class="dropdownSubSectionText">1</span>
-                              <button class="bui-button bui-button--secondary"><span class="bui-button__text">+</span></button>
+                              <button class="bui-button bui-button--secondary">
+                                <span class="bui-button__text">+</span>
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -68,9 +116,13 @@
                               <span class="dropdownSubSectionText">Rooms</span>
                             </div>
                             <div class="dropdownSubSectionButtons">
-                              <button class="bui-button bui-button--secondary"><span class="bui-button__text">-</span></button>
+                              <button class="bui-button bui-button--secondary">
+                                <span class="bui-button__text">-</span>
+                              </button>
                               <span class="dropdownSubSectionText">1</span>
-                              <button class="bui-button bui-button--secondary"><span class="bui-button__text">+</span></button>
+                              <button class="bui-button bui-button--secondary">
+                                <span class="bui-button__text">+</span>
+                              </button>
                             </div>
                           </div>
                         </div>
@@ -80,13 +132,15 @@
                 </div>
               </div>
               <div class="col-md-2 mt-1 mt-md-0 px-6">
-                <div><a href="javascript:void(0)" class="btn btn-blue">Search</a></div>
+                <div>
+                  <a href="javascript:void(0)" class="btn btn-blue">Search</a>
+                </div>
               </div>
             </div>
           </div>
           <label class="custom-checkbox">
             <span class="fs-14 fw-400 lh-20">I'm traveling for work</span>
-            <input type="checkbox" checked="checked">
+            <input type="checkbox" checked="checked" />
             <span class="checkmark"></span>
           </label>
         </form>
@@ -98,19 +152,35 @@
 <div id="bodyconstraint" class="   ">
   <div id="bodyconstraint-inner">
     <div class="lp_flexible_layout_content_wrapper">
-      <div class="bui-card bui-u-bleed@small coronavirus-banner__container coronavirus-banner__container--overrides">
-        <span class="coronavirus-banner__icon coronavirus-banner__icon--overrides">
-          <svg class="bk-icon -streamline-info_sign" height="20" width="20" viewBox="0 0 24 24" role="presentation"
-            aria-hidden="true" focusable="false">
+      <div
+        class="bui-card bui-u-bleed@small coronavirus-banner__container coronavirus-banner__container--overrides"
+      >
+        <span
+          class="coronavirus-banner__icon coronavirus-banner__icon--overrides"
+        >
+          <svg
+            class="bk-icon -streamline-question_mark_circle"
+            height="24"
+            width="24"
+            viewBox="0 0 24 24"
+            role="presentation"
+            aria-hidden="true"
+            focusable="false"
+          >
             <path
-              d="M14.25 15.75h-.75a.75.75 0 0 1-.75-.75v-3.75a1.5 1.5 0 0 0-1.5-1.5h-.75a.75.75 0 0 0 0 1.5h.75V15a2.25 2.25 0 0 0 2.25 2.25h.75a.75.75 0 0 0 0-1.5zM11.625 6a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25.75.75 0 0 0 0 1.5.375.375 0 1 1 0-.75.375.375 0 0 1 0 .75.75.75 0 0 0 0-1.5zM22.5 12c0 5.799-4.701 10.5-10.5 10.5S1.5 17.799 1.5 12 6.201 1.5 12 1.5 22.5 6.201 22.5 12zm1.5 0c0-6.627-5.373-12-12-12S0 5.373 0 12s5.373 12 12 12 12-5.373 12-12z">
-            </path>
+              d="M9.75 9a2.25 2.25 0 1 1 3 2.122 2.25 2.25 0 0 0-1.5 2.122v1.006a.75.75 0 0 0 1.5 0v-1.006c0-.318.2-.602.5-.708A3.75 3.75 0 1 0 8.25 9a.75.75 0 1 0 1.5 0zM12 16.5a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25.75.75 0 0 0 0 1.5.375.375 0 1 1 0-.75.375.375 0 0 1 0 .75.75.75 0 0 0 0-1.5zM22.5 12c0 5.799-4.701 10.5-10.5 10.5S1.5 17.799 1.5 12 6.201 1.5 12 1.5 22.5 6.201 22.5 12zm1.5 0c0-6.627-5.373-12-12-12S0 5.373 0 12s5.373 12 12 12 12-5.373 12-12z"
+            ></path>
           </svg>
         </span>
         <div class="bui-alert__description coronavirus-banner__description">
           <p class="bui-alert__text coronavirus_banner__text">
-            Get the advice you need. Check the latest COVID-19 restrictions before you travel.
-            <a class="bui-link coronavirus-banner__link" href="javascript:void(0)" target="_blank">
+            Get the advice you need. Check the latest COVID-19 restrictions
+            before you travel.
+            <a
+              class="bui-link coronavirus-banner__link"
+              href="javascript:void(0)"
+              target="_blank"
+            >
               Learn more
             </a>
           </p>
@@ -120,37 +190,54 @@
         <div></div>
       </div>
       <div id="basiclayout" role="main" class="basiclayout_pe">
-        <div class="promo-section">
-        </div>
+        <div class="promo-section"></div>
         <div></div>
-        <div class="js-ds-layout-events-promo lp_flexible_layout_content_wrapper promo-section__wrapper">
+        <div
+          class="js-ds-layout-events-promo lp_flexible_layout_content_wrapper promo-section__wrapper"
+        >
           <div role="main" class="basiclayout basiclayout_pe">
             <div class="promo-section" style="margin: 0">
-              <div class="bui-card bui-u-bleed@small bui-spacer--large ge-branded_container--index">
-                <div class="bui-banner__image-container ge-branded__image--index">
-                  <img class="bui-banner__image" alt="Illustration of a globe with the blue Genius logo"
-                    src="assets/images/40.png">
+              <div
+                class="bui-card bui-u-bleed@small bui-spacer--large ge-branded_container--index"
+              >
+                <div
+                  class="bui-banner__image-container ge-branded__image--index"
+                >
+                  <img
+                    class="bui-banner__image"
+                    alt="Illustration of a globe with the blue Genius logo"
+                    src="assets/images/40.png"
+                  />
                 </div>
                 <div class="bui-banner__content">
-                  <div class="bui-banner__slot bui-card__content ge-branded__content-block">
+                  <div
+                    class="bui-banner__slot bui-card__content ge-branded__content-block"
+                  >
                     <header class="bui-card__header">
-                      <h3 class=" bui-card__title bui-spacer--small bui_font_display_two ">
+                      <h3
+                        class="bui-card__title bui-spacer--small bui_font_display_two"
+                      >
                         Get instant discounts
                       </h3>
-                      <h4 class="bui-card__subtitle bui-icon--color-neutral bui_font_featured">
-                        Just sign into your Booking.com account and look for the blue Genius logo to save
+                      <h4
+                        class="bui-card__subtitle bui-icon--color-neutral bui_font_featured"
+                      >
+                        Just sign into your Booking.com account and look for the
+                        blue Genius logo to save
                       </h4>
                     </header>
                     <div class="bui-group bui-group--inline bui-card__actions">
-                      <a href="javascript:void(0)" class=" bui-button bui-button--secondary">
-                        <span class="bui-button__text">
-                          Sign in
-                        </span>
+                      <a
+                        href="javascript:void(0)"
+                        class="bui-button bui-button--secondary"
+                      >
+                        <span class="bui-button__text"> Sign in </span>
                       </a>
-                      <a href="javascript:void(0)" class="bui-button bui-button--tertiary">
-                        <span class="bui-button__text">
-                          Register
-                        </span>
+                      <a
+                        href="javascript:void(0)"
+                        class="bui-button bui-button--tertiary"
+                      >
+                        <span class="bui-button__text"> Register </span>
                       </a>
                     </div>
                   </div>
@@ -162,8 +249,39 @@
         <div class="bui-spacer--largest popular-destinations-carousel-block">
           <div class="bui-title bui-title--headline_3 bui-spacer--large p-2">
             <span class="bui-title__text">Explore Ukraine</span>
-            <span class="bui-title__subtitle">These popular destinations have a lot to offer</span>
+            <span class="bui-title__subtitle"
+              >These popular destinations have a lot to offer</span
+            >
           </div>
+          <div class="container-fluid px-0">
+            <div class="slick-wrapper">
+              <ngx-slick-carousel
+                class="carousel"
+                #slickModal="slick-carousel"
+                [config]="slideConfig"
+              >
+                <div ngxSlickItem *ngFor="let city of cities" class="slide">
+                  <div>
+                    <img src="assets/images/21.webp" class="w-100" alt="" />
+                    <div class="bui-card__content">
+                      <div class="bui-card__title">{{city.title}}</div>
+                      <div class="bui-title__subtitle">{{cities?.length}} properties</div>
+                    </div>
+                  </div>
+                </div>
+              </ngx-slick-carousel>
+            </div>
+          </div>
+        </div>
+        <div
+          class="d-index__section bui-spacer--largest js-ds-layout-events-bh_promotions"
+        >
+          <h2
+            class="bui-f-font-display_two bui-spacer--large d-index__header-section"
+            id="bh-promotion-accommodation-types"
+          >
+            Browse by property type
+          </h2>
           <div class="container-fluid px-0">
             <div class="slick-wrapper">
               <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
@@ -182,32 +300,52 @@
             </div>
           </div>
         </div>
-        <svg class="bk-icon -iconset-heart" height="128" style="display:none;" width="128" viewBox="0 0 128 128"
-          role="presentation" aria-hidden="true" focusable="false">
+        <svg
+          class="bk-icon -iconset-heart"
+          height="128"
+          style="display: none"
+          width="128"
+          viewBox="0 0 128 128"
+          role="presentation"
+          aria-hidden="true"
+          focusable="false"
+        >
           <path
-            d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z">
-          </path>
+            d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z"
+          ></path>
         </svg>
         <h2 class="screen_reader_heading">Recommended destinations</h2>
         <div class="d-index__section bui-spacer--large">
-          <div class="promotion-postcards__row js-ds-layout-events-postcards u-clearfix">
+          <div
+            class="promotion-postcards__row js-ds-layout-events-postcards u-clearfix"
+          >
             <div class="promotion-postcard__large mb-lg-3">
               <div>
                 <div
-                  class="unified-postcard unified-postcard--no-description-padding   unified-postcard__pe     unified-postcard__idr  unified-postcard--padding">
-                  <div class="unified-postcard__content  js-lazy-image  unified-postcard__content_pe "
-                    style="background-position: center center; background-repeat: no-repeat; background-size: cover; background-image: url('assets/images/24.webp')">
+                  class="unified-postcard unified-postcard--no-description-padding unified-postcard__pe unified-postcard__idr unified-postcard--padding"
+                >
+                  <div
+                    class="unified-postcard__content js-lazy-image unified-postcard__content_pe"
+                    style="
+                      background-position: center center;
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      background-image: url('assets/images/24.webp');
+                    "
+                  >
                     <div class="unified-postcard__overlay">
                       <div class="unified-postcard__header">
                         <h3>
                           <a href="javascript:void(0)">
                             Dublin
-                            <img src="assets/images/42.png" alt="United States of America" valign="middle">
+                            <img
+                              src="assets/images/42.png"
+                              alt="United States of America"
+                              valign="middle"
+                            />
                           </a>
                         </h3>
-                        <p>
-                          25 properties
-                        </p>
+                        <p>25 properties</p>
                       </div>
                     </div>
                   </div>
@@ -217,20 +355,30 @@
             <div class="promotion-postcard__large mb-lg-3">
               <div>
                 <div
-                  class="unified-postcard unified-postcard--no-description-padding   unified-postcard__pe     unified-postcard__idr  unified-postcard--padding">
-                  <div class="unified-postcard__content  js-lazy-image  unified-postcard__content_pe "
-                    style="background-position: center center; background-repeat: no-repeat; background-size: cover; background-image: url('assets/images/23.webp');">
+                  class="unified-postcard unified-postcard--no-description-padding unified-postcard__pe unified-postcard__idr unified-postcard--padding"
+                >
+                  <div
+                    class="unified-postcard__content js-lazy-image unified-postcard__content_pe"
+                    style="
+                      background-position: center center;
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      background-image: url('assets/images/23.webp');
+                    "
+                  >
                     <div class="unified-postcard__overlay">
                       <div class="unified-postcard__header">
                         <h3>
                           <a href="javascript:void(0)">
                             Truckee
-                            <img src="assets/images/42.png" alt="United States of America" valign="middle">
+                            <img
+                              src="assets/images/42.png"
+                              alt="United States of America"
+                              valign="middle"
+                            />
                           </a>
                         </h3>
-                        <p>
-                          494 properties
-                        </p>
+                        <p>494 properties</p>
                       </div>
                     </div>
                   </div>
@@ -238,25 +386,37 @@
               </div>
             </div>
           </div>
-          <div class="promotion-postcards__row js-ds-layout-events-postcards u-clearfix">
+          <div
+            class="promotion-postcards__row js-ds-layout-events-postcards u-clearfix"
+          >
             <div class="promotion-postcard__small">
               <div>
                 <div
-                  class="unified-postcard unified-postcard--no-description-padding   unified-postcard__pe   unified-postcard__idr  unified-postcard--padding"
-                  data-idr-ufi="20016087">
-                  <div class="unified-postcard__content  js-lazy-image  unified-postcard__content_pe "
-                    style="background-position: center center; background-repeat: no-repeat; background-size: cover; background-image: url('assets/images/18.webp');">
+                  class="unified-postcard unified-postcard--no-description-padding unified-postcard__pe unified-postcard__idr unified-postcard--padding"
+                  data-idr-ufi="20016087"
+                >
+                  <div
+                    class="unified-postcard__content js-lazy-image unified-postcard__content_pe"
+                    style="
+                      background-position: center center;
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      background-image: url('assets/images/18.webp');
+                    "
+                  >
                     <div class="unified-postcard__overlay">
                       <div class="unified-postcard__header">
                         <h3>
                           <a href="javascript:void(0)">
                             South Lake Tahoe
-                            <img src="assets/images/42.png" alt="United States of America" valign="middle">
+                            <img
+                              src="assets/images/42.png"
+                              alt="United States of America"
+                              valign="middle"
+                            />
                           </a>
                         </h3>
-                        <p>
-                          664 properties
-                        </p>
+                        <p>664 properties</p>
                       </div>
                     </div>
                   </div>
@@ -266,21 +426,31 @@
             <div class="promotion-postcard__small">
               <div>
                 <div
-                  class="unified-postcard unified-postcard--no-description-padding with_airport_tooltip   unified-postcard__pe     unified-postcard__idr  unified-postcard--padding"
-                  data-idr-ufi="20126394">
-                  <div class="unified-postcard__content  js-lazy-image  unified-postcard__content_pe "
-                    style="background-position: center center; background-repeat: no-repeat; background-size: cover; background-image: url('assets/images/19.webp');">
+                  class="unified-postcard unified-postcard--no-description-padding with_airport_tooltip unified-postcard__pe unified-postcard__idr unified-postcard--padding"
+                  data-idr-ufi="20126394"
+                >
+                  <div
+                    class="unified-postcard__content js-lazy-image unified-postcard__content_pe"
+                    style="
+                      background-position: center center;
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      background-image: url('assets/images/19.webp');
+                    "
+                  >
                     <div class="unified-postcard__overlay">
                       <div class="unified-postcard__header">
                         <h3>
                           <a href="javascript:void(0)">
                             Austin
-                            <img src="assets/images/42.png" alt="United States of America" valign="middle">
+                            <img
+                              src="assets/images/42.png"
+                              alt="United States of America"
+                              valign="middle"
+                            />
                           </a>
                         </h3>
-                        <p>
-                          720 properties
-                        </p>
+                        <p>720 properties</p>
                       </div>
                     </div>
                   </div>
@@ -290,21 +460,31 @@
             <div class="promotion-postcard__small">
               <div>
                 <div
-                  class="unified-postcard unified-postcard--no-description-padding with_airport_tooltip   unified-postcard__pe     unified-postcard__idr  unified-postcard--padding"
-                  data-idr-ufi="20079268">
-                  <div class="unified-postcard__content  js-lazy-image  unified-postcard__content_pe "
-                    style="background-position: center center; background-repeat: no-repeat; background-size: cover; background-image: url('assets/images/19.webp');">
+                  class="unified-postcard unified-postcard--no-description-padding with_airport_tooltip unified-postcard__pe unified-postcard__idr unified-postcard--padding"
+                  data-idr-ufi="20079268"
+                >
+                  <div
+                    class="unified-postcard__content js-lazy-image unified-postcard__content_pe"
+                    style="
+                      background-position: center center;
+                      background-repeat: no-repeat;
+                      background-size: cover;
+                      background-image: url('assets/images/19.webp');
+                    "
+                  >
                     <div class="unified-postcard__overlay">
                       <div class="unified-postcard__header">
                         <h3>
                           <a href="javascript:void(0)">
                             Reno
-                            <img src="assets/images/42.png" alt="United States of America" valign="middle">
+                            <img
+                              src="assets/images/42.png"
+                              alt="United States of America"
+                              valign="middle"
+                            />
                           </a>
                         </h3>
-                        <p>
-                          77 properties
-                        </p>
+                        <p>77 properties</p>
                       </div>
                     </div>
                   </div>
@@ -346,100 +526,188 @@
           </h2>
           <div class="promote-articles__wrapper bui-u-clearfix">
             <div class="d-md-flex">
-              <a href="javascript:void(0)" class="promote_article  ">
-                <div class="js-lazy-image promote_article_img" style="background-image: url('assets/images/30.webp');">
-                </div>
+              <a href="javascript:void(0)" class="promote_article">
+                <div
+                  class="js-lazy-image promote_article_img"
+                  style="background-image: url('assets/images/30.webp')"
+                ></div>
                 <div class="promote_article__overlay"></div>
                 <div class="promote_article__content">
-                  <h3 class="promote_article__header" id="promote_article_title_1">Best Coffee Cities in the US</h3>
-                  <p id="promote_article_desc_1" class="promote_article__description">The best cities to visit to get
-                    your
-                    caffeine fix.</p>
-                </div>
-              </a>
-              <a href="javascript:void(0)" class="promote_article  ">
-                <div class="js-lazy-image promote_article_img" style="background-image: url('assets/images/35.webp');">
-                </div>
-                <div class="promote_article__overlay"></div>
-                <div class="promote_article__content">
-                  <h3 class="promote_article__header" id="promote_article_title_2">Las Vegas Beyond the Casinos</h3>
-                  <p id="promote_article_desc_2" class="promote_article__description">Sin City isn't just casinos and
-                    neon, it's full of surprising, alternative attractions.</p>
-                </div>
-              </a>
-              <a href="javascript:void(0)" class="promote_article   promote-articles-margin">
-                <div class="js-lazy-image promote_article_img" style="background-image: url('assets/images/32.webp');">
-                </div>
-                <div class="promote_article__overlay"></div>
-                <div class="promote_article__content">
-                  <h3 class="promote_article__header" id="promote_article_title_3">5 soulful yoga retreat destinations
+                  <h3
+                    class="promote_article__header"
+                    id="promote_article_title_1"
+                  >
+                    Best Coffee Cities in the US
                   </h3>
-                  <p id="promote_article_desc_3" class="promote_article__description">Take your vinyasa on vacation at
-                    these dreamy yoga stays around the world.</p>
+                  <p
+                    id="promote_article_desc_1"
+                    class="promote_article__description"
+                  >
+                    The best cities to visit to get your caffeine fix.
+                  </p>
+                </div>
+              </a>
+              <a href="javascript:void(0)" class="promote_article">
+                <div
+                  class="js-lazy-image promote_article_img"
+                  style="background-image: url('assets/images/35.webp')"
+                ></div>
+                <div class="promote_article__overlay"></div>
+                <div class="promote_article__content">
+                  <h3
+                    class="promote_article__header"
+                    id="promote_article_title_2"
+                  >
+                    Las Vegas Beyond the Casinos
+                  </h3>
+                  <p
+                    id="promote_article_desc_2"
+                    class="promote_article__description"
+                  >
+                    Sin City isn't just casinos and neon, it's full of
+                    surprising, alternative attractions.
+                  </p>
+                </div>
+              </a>
+              <a
+                href="javascript:void(0)"
+                class="promote_article promote-articles-margin"
+              >
+                <div
+                  class="js-lazy-image promote_article_img"
+                  style="background-image: url('assets/images/32.webp')"
+                ></div>
+                <div class="promote_article__overlay"></div>
+                <div class="promote_article__content">
+                  <h3
+                    class="promote_article__header"
+                    id="promote_article_title_3"
+                  >
+                    5 soulful yoga retreat destinations
+                  </h3>
+                  <p
+                    id="promote_article_desc_3"
+                    class="promote_article__description"
+                  >
+                    Take your vinyasa on vacation at these dreamy yoga stays
+                    around the world.
+                  </p>
                 </div>
               </a>
             </div>
             <div class="d-md-flex">
-              <a href="javascript:void(0)" class="promote_article  promote-articles-2-col ">
-                <div class="js-lazy-image promote_article_img" style="background-image: url('assets/images/34.webp');">
-                </div>
+              <a
+                href="javascript:void(0)"
+                class="promote_article promote-articles-2-col"
+              >
+                <div
+                  class="js-lazy-image promote_article_img"
+                  style="background-image: url('assets/images/34.webp')"
+                ></div>
                 <div class="promote_article__overlay"></div>
                 <div class="promote_article__content">
-                  <h3 class="promote_article__header" id="promote_article_title_4">Destination Inspiration: San Juan,
-                    Puerto Rico</h3>
-                  <p id="promote_article_desc_4" class="promote_article__description">Revel in the eclectic energy of
-                    this
-                    centuries-old Caribbean capital.</p>
+                  <h3
+                    class="promote_article__header"
+                    id="promote_article_title_4"
+                  >
+                    Destination Inspiration: San Juan, Puerto Rico
+                  </h3>
+                  <p
+                    id="promote_article_desc_4"
+                    class="promote_article__description"
+                  >
+                    Revel in the eclectic energy of this centuries-old Caribbean
+                    capital.
+                  </p>
                 </div>
               </a>
-              <a href="javascript:void(0)" class="promote_article  promote-articles-2-col ">
-                <div class="js-lazy-image promote_article_img" style="background-image: url('assets/images/34.webp');">
-                </div>
+              <a
+                href="javascript:void(0)"
+                class="promote_article promote-articles-2-col"
+              >
+                <div
+                  class="js-lazy-image promote_article_img"
+                  style="background-image: url('assets/images/34.webp')"
+                ></div>
                 <div class="promote_article__overlay"></div>
                 <div class="promote_article__content">
-                  <h3 class="promote_article__header" id="promote_article_title_5">7 unmissable hot air balloon rides
+                  <h3
+                    class="promote_article__header"
+                    id="promote_article_title_5"
+                  >
+                    7 unmissable hot air balloon rides
                   </h3>
-                  <p id="promote_article_desc_5" class="promote_article__description">We found seven of the best
-                    locations
-                    to go up, up, and away.</p>
+                  <p
+                    id="promote_article_desc_5"
+                    class="promote_article__description"
+                  >
+                    We found seven of the best locations to go up, up, and away.
+                  </p>
                 </div>
               </a>
             </div>
-
           </div>
         </div>
-        <svg class="bk-icon -iconset-square_rating" height="128" style="display:none;" width="128" viewBox="0 0 128 128"
-          role="presentation" aria-hidden="true" focusable="false">
+        <svg
+          class="bk-icon -iconset-square_rating"
+          height="128"
+          style="display: none"
+          width="128"
+          viewBox="0 0 128 128"
+          role="presentation"
+          aria-hidden="true"
+          focusable="false"
+        >
           <path
-            d="M104 8H24A16 16 0 0 0 8 24v96h96a16 16 0 0 0 16-16V24a16 16 0 0 0-16-16zM64 88a24 24 0 1 1 24-24 24 24 0 0 1-24 24z">
-          </path>
+            d="M104 8H24A16 16 0 0 0 8 24v96h96a16 16 0 0 0 16-16V24a16 16 0 0 0-16-16zM64 88a24 24 0 1 1 24-24 24 24 0 0 1-24 24z"
+          ></path>
         </svg>
         <div
-          class="d-index__section bui-spacer--largest bh-carousel--new js-ds-layout-events-bh_carousel js-bh-carousel-async-wrapper">
-          <h2 class="bui-f-font-display_two bui-spacer--large d-index__header-section">
+          class="d-index__section bui-spacer--largest bh-carousel--new js-ds-layout-events-bh_carousel js-bh-carousel-async-wrapper"
+        >
+          <h2
+            class="bui-f-font-display_two bui-spacer--large d-index__header-section"
+          >
             Homes guests love
           </h2>
           <div class="container-fluid px-0">
             <div class="slick-wrapper">
-              <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig1">
-                <div ngxSlickItem *ngFor="let slide of slides" class="slide slide-h">
+              <ngx-slick-carousel
+                class="carousel"
+                #slickModal="slick-carousel"
+                [config]="slideConfig1"
+              >
+                <div
+                  ngxSlickItem
+                  *ngFor="let slide of slides"
+                  class="slide slide-h"
+                >
                   <div class="slide-img">
-                    <img src="assets/images/41.jpg" class="w-100" alt="">
+                    <img src="assets/images/41.jpg" class="w-100" alt="" />
                   </div>
                   <div class="bui-card__content bh-carousel--new__content">
-                    <h3 class="bui-card__title bh-carousel--new__title"><span>Villa Wellness</span></h3>
+                    <h3 class="bui-card__title bh-carousel--new__title">
+                      <span>Villa Wellness</span>
+                    </h3>
                     <p class="bui-card__subtitle">Budapest</p>
-                    <p class="bh-carousel--new__price bui_color_black">Starting from Euro&nbsp;55.550</p>
+                    <p class="bh-carousel--new__price bui_color_black">
+                      Starting from Euro&nbsp;55.550
+                    </p>
                     <div style="margin-top: 4px">
-                      <div class="bui-review-score c-score bui-review-score--inline bui-review-score--small">
-                        <div class="bui-review-score__badge" aria-label="Scored 0 "> 9.2 </div>
+                      <div
+                        class="bui-review-score c-score bui-review-score--inline bui-review-score--small"
+                      >
+                        <div
+                          class="bui-review-score__badge"
+                          aria-label="Scored 0 "
+                        >
+                          9.2
+                        </div>
                         <div class="bui-review-score__content">
-                          <div class="bui-review-score__title"> Wonderful
-                          </div>
-                          <div class="bui-review-score__text"> 22 reviews </div>
+                          <div class="bui-review-score__title">Wonderful</div>
+                          <div class="bui-review-score__text">22 reviews</div>
                         </div>
                       </div>
-
                     </div>
                   </div>
                 </div>
@@ -447,60 +715,15 @@
             </div>
           </div>
         </div>
-        <div style="clear:both;"> </div>
-        <div class="
-    desktop-communities-recommendations
-    js-ds-layout-events-travel-communities desktop-communities-recommendations--desktop
-    ">
-          <div class="desktop-communities-recommendations__title-wrapper">
-            <h2 class="bui-f-font-display_two bui-spacer--large d-index__header-section">
-              Connect with other travelers
-            </h2>
-            <div class="row mx-0">
-              <div class="col-md-4 pl-0">
-                <a href="javascript:void(0)"
-                  class="bui-card bui-card--media bui-card--transparent desktop-communities-recommendations__item-card js-desktop-communities-recommendations__box">
-                  <div class="bui-card__image-container desktop-communities-recommendations__image-wrapper">
-                    <img class="bui-card__image desktop-communities-recommendations__image js-lazy-image"
-                      src="assets/images/12.jpg">
-                  </div>
-                  <div class="bui-card__content">
-                    <h3 class="bui-card__title desktop-communities-recommendations__card-title">
-                      Travel Talk
-                    </h3>
-                    <div class="bui-card__subtitle">
-                      General discussion
-                    </div>
-                    <div class="bui-card__subtitle">
-                      559,436 travelers
-                    </div>
-                  </div>
-                </a>
-              </div>
-              <div class="col-md-4 p-0">
-                <a href="javascript:void(0)"
-                  class="bui-card bui-card--media bui-card--transparent desktop-communities-recommendations__item-card js-desktop-communities-recommendations__box">
-                  <div class="bui-card__image-container desktop-communities-recommendations__image-wrapper">
-                    <img class="bui-card__image desktop-communities-recommendations__image js-lazy-image"
-                      src="assets/images/38.png">
-                  </div>
-                  <div class="bui-card__content">
-                    <h3 class="bui-card__title desktop-communities-recommendations__card-title">
-                      More communities
-                    </h3>
-                    <div class="bui-card__subtitle">
-                      View all
-                    </div>
-                    <div class="bui-card__subtitle">
-                      10,103,767 travelers
-                    </div>
-                  </div>
-                </a>
-              </div>
-            </div>
-
-          </div>
-          <h2 class="bui-f-font-display_two bui-spacer--large d-index__header-section my-4">Destinations we love</h2>
+        <div style="clear: both"></div>
+        <div
+          class="desktop-communities-recommendations js-ds-layout-events-travel-communities desktop-communities-recommendations--desktop"
+        >
+          <h2
+            class="bui-f-font-display_two bui-spacer--large d-index__header-section my-4"
+          >
+            Destinations we love
+          </h2>
           <ul ngbNav #nav="ngbNav" class="nav-tabs">
             <li [ngbNavItem]="1">
               <a ngbNavLink>Regions</a>
@@ -510,39 +733,27 @@
                     <ul class="inner-tabs-links">
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <ul class="inner-tabs-links">
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                     </ul>
                   </div>
@@ -550,39 +761,27 @@
                     <ul class="inner-tabs-links">
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <ul class="inner-tabs-links">
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                     </ul>
                   </div>
@@ -590,19 +789,83 @@
                     <ul class="inner-tabs-links">
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <ul class="inner-tabs-links">
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <ul class="inner-tabs-links">
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                     </ul>
                   </div>
@@ -617,39 +880,27 @@
                     <ul class="inner-tabs-links">
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <ul class="inner-tabs-links">
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                     </ul>
                   </div>
@@ -657,39 +908,27 @@
                     <ul class="inner-tabs-links">
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <ul class="inner-tabs-links">
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                     </ul>
                   </div>
@@ -697,19 +936,83 @@
                     <ul class="inner-tabs-links">
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <ul class="inner-tabs-links">
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <ul class="inner-tabs-links">
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                     </ul>
                   </div>
@@ -724,39 +1027,27 @@
                     <ul class="inner-tabs-links">
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <ul class="inner-tabs-links">
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                     </ul>
                   </div>
@@ -764,39 +1055,27 @@
                     <ul class="inner-tabs-links">
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <ul class="inner-tabs-links">
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                     </ul>
                   </div>
@@ -804,19 +1083,83 @@
                     <ul class="inner-tabs-links">
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                       <li>
                         <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">1,382 properties</div>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <ul class="inner-tabs-links">
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <ul class="inner-tabs-links">
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a href="javascript:void(0)">Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
                       </li>
                     </ul>
                   </div>
@@ -826,9 +1169,9 @@
           </ul>
 
           <div [ngbNavOutlet]="nav" class="mt-4"></div>
-
         </div>
-      </div> <!-- /basiclayout -->
+      </div>
+      <!-- /basiclayout -->
     </div>
   </div>
 </div>

@@ -133,7 +133,7 @@ a:active {
   left: 0;
   height: 20px;
   width: 20px;
-  border: 1px solid #949494;
+  border: 1px solid #ed6648;
   border-radius: 2px;
 }
 
@@ -141,7 +141,7 @@ a:active {
 
 /* When the checkbox is checked, add a blue background */
 .custom-checkbox input:checked ~ .checkmark {
-  background-color: #0071c2;
+  background-color: #ed6648;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
