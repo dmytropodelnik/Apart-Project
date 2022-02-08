@@ -1,8 +1,6 @@
 <body data-topbar="dark">
-
   <!-- Begin page -->
   <div id="layout-wrapper">
-
     <header id="page-topbar">
       <div class="navbar-header">
         <div class="d-flex">
@@ -20,12 +18,13 @@
             </a>
           </div>
 
-          <button type="button" class="btn btn-sm px-3 font-size-24 header-item waves-effect d-lg-none"
-            id="vertical-menu-btn">
+          <button
+            type="button"
+            class="btn btn-sm px-3 font-size-24 header-item waves-effect d-lg-none"
+            id="vertical-menu-btn"
+          >
             <i class="mdi mdi-menu"></i>
           </button>
-
-
         </div>
 
         <div class="d-flex">
@@ -34,7 +33,9 @@
           </div>
 
           <div class="d-none d-md-inline-block">
-            <a routerLink="" target="_blank" class="header-item">Need Customization?</a>
+            <a routerLink="" target="_blank" class="header-item"
+              >Need Customization?</a
+            >
           </div>
 
           <div class="d-inline-block">
@@ -42,50 +43,65 @@
           </div>
 
           <div class="d-inline-block">
-            <h5 class="header-item m-0"><span class="badge badge-danger">ADMIN</span></h5>
+            <h5 class="header-item m-0">
+              <span class="badge badge-danger">ADMIN</span>
+            </h5>
           </div>
-
         </div>
       </div>
     </header>
 
     <!-- ========== Left Sidebar Start ========== -->
     <div class="vertical-menu">
-
       <div data-simplebar class="h-100">
-
-
         <div class="accordion" id="accordionExample">
           <!--- Sidemenu -->
           <div id="sidebar-menu">
             <!-- Left Menu Start -->
             <ul class="metismenu list-unstyled" id="side-menu">
-
               <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
-                  <li class="menu-title" class="accordion-button" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseOneUserData" aria-expanded="true" aria-controls="collapseOneUserData">
+                  <li
+                    class="menu-title"
+                    class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOneUserData"
+                    aria-expanded="true"
+                    aria-controls="collapseOneUserData"
+                  >
                     User data
                   </li>
                 </h2>
-                <div id="collapseOneUserData" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                  data-bs-parent="#accordionUserData">
+                <div
+                  id="collapseOneUserData"
+                  class="accordion-collapse collapse show"
+                  aria-labelledby="headingOne"
+                  data-bs-parent="#accordionUserData"
+                >
                   <li>
-                    <a routerLink="#" class="waves-effect" (click)="setContent('users')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('users')"
+                    >
                       <i class="mdi mdi-account-circle"></i>
                       <span>Users</span>
                     </a>
                   </li>
 
                   <li>
-                    <a class="waves-effect" (click)="setContent('user-profiles')">
+                    <a
+                      class="waves-effect"
+                      (click)="setContent('user-profiles')"
+                    >
                       <i class="mdi mdi-account-box"></i>
                       <span>User profiles</span>
                     </a>
                   </li>
 
                   <li>
-                    <a class=" waves-effect" (click)="setContent('temp-users')">
+                    <a class="waves-effect" (click)="setContent('temp-users')">
                       <i class="mdi mdi-account-box-outline"></i>
                       <span>Temp users</span>
                     </a>
@@ -99,194 +115,275 @@
                   </li>
 
                   <li>
-                    <a class=" waves-effect" (click)="setContent('genders')">
+                    <a class="waves-effect" (click)="setContent('genders')">
                       <i class="mdi mdi-account-circle"></i>
                       <span>Genders</span>
                     </a>
                   </li>
 
                   <li>
-                    <a class=" waves-effect" (click)="setContent('favorites')">
+                    <a class="waves-effect" (click)="setContent('favorites')">
                       <i class="mdi mdi-account-heart"></i>
                       <span>Favorites</span>
                     </a>
                   </li>
-
                 </div>
               </div>
 
               <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
-                  <li class="menu-title" class="accordion-button" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseOneServices" aria-expanded="true" aria-controls="collapseOneServices">
+                  <li
+                    class="menu-title"
+                    class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOneServices"
+                    aria-expanded="true"
+                    aria-controls="collapseOneServices"
+                  >
                     Services
                   </li>
                 </h2>
-                <div id="collapseOneServices" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                  data-bs-parent="#accordionFlights">
-
+                <div
+                  id="collapseOneServices"
+                  class="accordion-collapse collapse show"
+                  aria-labelledby="headingOne"
+                  data-bs-parent="#accordionFlights"
+                >
                   <li>
-                    <a class=" waves-effect" (click)="setContent('stay-bookings')">
+                    <a
+                      class="waves-effect"
+                      (click)="setContent('stay-bookings')"
+                    >
                       <i class="mdi mdi-home"></i>
                       <span>Stay bookings</span>
                     </a>
                   </li>
 
                   <li>
-                    <a class=" waves-effect" (click)="setContent('flight-bookings')">
+                    <a
+                      class="waves-effect"
+                      (click)="setContent('flight-bookings')"
+                    >
                       <i class="mdi mdi-airplane"></i>
                       <span>Flight bookings</span>
                     </a>
                   </li>
 
                   <li>
-                    <a class=" waves-effect" (click)="setContent('car-rental-bookings')">
+                    <a
+                      class="waves-effect"
+                      (click)="setContent('car-rental-bookings')"
+                    >
                       <i class="mdi mdi-car"></i>
                       <span>Car rental bookings</span>
                     </a>
                   </li>
 
                   <li>
-                    <a class=" waves-effect" (click)="setContent('attraction-bookings')">
+                    <a
+                      class="waves-effect"
+                      (click)="setContent('attraction-bookings')"
+                    >
                       <i class="mdi mdi-gamepad"></i>
                       <span>Attraction bookings</span>
                     </a>
                   </li>
 
                   <li>
-                    <a class=" waves-effect" (click)="setContent('airport-taxi-bookings')">
+                    <a
+                      class="waves-effect"
+                      (click)="setContent('airport-taxi-bookings')"
+                    >
                       <i class="mdi mdi-taxi"></i>
                       <span>Airport taxi bookings</span>
                     </a>
                   </li>
-
                 </div>
               </div>
 
               <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
-                  <li class="menu-title" class="accordion-button" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseOneLocation" aria-expanded="true" aria-controls="collapseOneLocation">
+                  <li
+                    class="menu-title"
+                    class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOneLocation"
+                    aria-expanded="true"
+                    aria-controls="collapseOneLocation"
+                  >
                     Location
                   </li>
                 </h2>
-                <div id="collapseOneLocation" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                  data-bs-parent="#accordionLocation">
-
+                <div
+                  id="collapseOneLocation"
+                  class="accordion-collapse collapse show"
+                  aria-labelledby="headingOne"
+                  data-bs-parent="#accordionLocation"
+                >
                   <li>
-                    <a class=" waves-effect" (click)="setContent('addresses')">
+                    <a class="waves-effect" (click)="setContent('addresses')">
                       <i class="mdi mdi-map"></i>
                       <span>Addresses</span>
                     </a>
                   </li>
 
                   <li>
-                    <a class=" waves-effect" (click)="setContent('airports')">
+                    <a class="waves-effect" (click)="setContent('airports')">
                       <i class="mdi mdi-airplane-takeoff"></i>
                       <span>Airports</span>
                     </a>
                   </li>
 
                   <li>
-                    <a class=" waves-effect" (click)="setContent('cities')">
+                    <a class="waves-effect" (click)="setContent('cities')">
                       <i class="mdi mdi-city"></i>
                       <span>Cities</span>
                     </a>
                   </li>
 
                   <li>
-                    <a class=" waves-effect" (click)="setContent('countries')">
+                    <a class="waves-effect" (click)="setContent('countries')">
                       <i class="mdi mdi-map-marker-radius"></i>
                       <span>Countries</span>
                     </a>
                   </li>
 
                   <li>
-                    <a class=" waves-effect" (click)="setContent('districts')">
+                    <a class="waves-effect" (click)="setContent('districts')">
                       <i class="mdi mdi-map-marker-outline"></i>
                       <span>Districts</span>
-                    </>
+                    </a>
                   </li>
 
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('regions')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('regions')"
+                    >
                       <i class="mdi mdi-map-marker-circle"></i>
                       <span>Regions</span>
                     </a>
                   </li>
-
                 </div>
               </div>
 
               <div class="accordion-item">
                 <h2 id="headingOne">
-                  <li class="menu-title" class="accordion-button" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseOneSuggestions" aria-expanded="true"
-                    aria-controls="collapseOneSuggestions">
+                  <li
+                    class="menu-title"
+                    class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOneSuggestions"
+                    aria-expanded="true"
+                    aria-controls="collapseOneSuggestions"
+                  >
                     Suggestions
                   </li>
                 </h2>
-                <div id="collapseOneSuggestions" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                  data-bs-parent="#accordionSuggestions">
-
+                <div
+                  id="collapseOneSuggestions"
+                  class="accordion-collapse collapse show"
+                  aria-labelledby="headingOne"
+                  data-bs-parent="#accordionSuggestions"
+                >
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('suggestions')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('suggestions')"
+                    >
                       <i class="mdi mdi-home-variant"></i>
                       <span>Suggestions</span>
                     </a>
                   </li>
 
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('suggestions-highlights')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('suggestions-highlights')"
+                    >
                       <i class="mdi mdi-lightbulb-on-outline"></i>
                       <span>Suggestions highlights</span>
                     </a>
                   </li>
 
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('suggestions-review-grades')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('suggestions-review-grades')"
+                    >
                       <i class="mdi mdi-bookmark-check"></i>
                       <span>Suggestion review grades</span>
                     </a>
                   </li>
 
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('suggestions-rules')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('suggestions-rules')"
+                    >
                       <i class="mdi mdi-information-variant"></i>
                       <span>Suggestion rules</span>
                     </a>
                   </li>
 
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('suggestions-rule-types')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('suggestions-rule-types')"
+                    >
                       <i class="mdi mdi-information-variant"></i>
                       <span>Suggestion rule types</span>
                     </a>
                   </li>
 
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('surrounding-objects')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('surrounding-objects')"
+                    >
                       <i class="mdi mdi-home-map-marker"></i>
                       <span>Surrounding objects</span>
                     </a>
                   </li>
 
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('surrounding-object-types')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('surrounding-object-types')"
+                    >
                       <i class="mdi mdi-home-map-marker"></i>
                       <span>Surrounding object types</span>
                     </a>
                   </li>
 
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('room-types')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('room-types')"
+                    >
                       <i class="mdi mdi-home-modern"></i>
                       <span>Room types</span>
                     </a>
                   </li>
 
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('rooms')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('rooms')"
+                    >
                       <i class="mdi mdi-home-modern"></i>
                       <span>Rooms</span>
                     </a>
@@ -296,120 +393,190 @@
 
               <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
-                  <li class="menu-title" class="accordion-button" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseOneReviews" aria-expanded="true" aria-controls="collapseOneReviews">
+                  <li
+                    class="menu-title"
+                    class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOneReviews"
+                    aria-expanded="true"
+                    aria-controls="collapseOneReviews"
+                  >
                     Reviews
                   </li>
                 </h2>
-                <div id="collapseOneReviews" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                  data-bs-parent="#accordionReviews">
-
+                <div
+                  id="collapseOneReviews"
+                  class="accordion-collapse collapse show"
+                  aria-labelledby="headingOne"
+                  data-bs-parent="#accordionReviews"
+                >
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('reviews')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('reviews')"
+                    >
                       <i class="mdi mdi-bookmark-outline"></i>
                       <span>Reviews</span>
                     </a>
                   </li>
 
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('review-categories')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('review-categories')"
+                    >
                       <i class="mdi mdi-bookmark"></i>
                       <span>Review categories</span>
                     </a>
                   </li>
 
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('review-messages')">
-                      <i class=" mdi mdi-message-text-outline"></i>
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('review-messages')"
+                    >
+                      <i class="mdi mdi-message-text-outline"></i>
                       <span>Review messages</span>
                     </a>
                   </li>
-
                 </div>
               </div>
 
               <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
-                  <li class="menu-title" class="accordion-button" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseOnePayment" aria-expanded="true" aria-controls="collapseOnePayment">
+                  <li
+                    class="menu-title"
+                    class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOnePayment"
+                    aria-expanded="true"
+                    aria-controls="collapseOnePayment"
+                  >
                     Payment
                   </li>
                 </h2>
-                <div id="collapseOnePayment" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                  data-bs-parent="#accordionPayment">
-
+                <div
+                  id="collapseOnePayment"
+                  class="accordion-collapse collapse show"
+                  aria-labelledby="headingOne"
+                  data-bs-parent="#accordionPayment"
+                >
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('payments')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('payments')"
+                    >
                       <i class="mdi mdi-wallet"></i>
                       <span>Payment</span>
                     </a>
                   </li>
 
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('payment-types')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('payment-types')"
+                    >
                       <i class="mdi mdi-wallet-travel"></i>
                       <span>Payment types</span>
                     </a>
                   </li>
 
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('promo-codes')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('promo-codes')"
+                    >
                       <i class="mdi mdi-barcode"></i>
                       <span>Promo codes</span>
                     </a>
                   </li>
 
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('currencies')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('currencies')"
+                    >
                       <i class="mdi mdi-currency-usd"></i>
                       <span>Currencies</span>
                     </a>
                   </li>
 
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('credit-cards')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('credit-cards')"
+                    >
                       <i class="mdi mdi-credit-card"></i>
                       <span>Credit cards</span>
                     </a>
                   </li>
 
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('card-types')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('card-types')"
+                    >
                       <i class="mdi mdi-credit-card-multiple"></i>
                       <span>Card types</span>
                     </a>
                   </li>
 
                   <li>
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('booking-prices')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('booking-prices')"
+                    >
                       <i class="mdi mdi-white-balance-sunny"></i>
                       <span>Booking prices</span>
                     </a>
                   </li>
-
                 </div>
               </div>
 
               <div class="accordion-item">
                 <h2 class="accordion-header" id="headingOne">
-                  <li class="menu-title" class="accordion-button" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseOneFlights" aria-expanded="true" aria-controls="collapseOneFlights">
+                  <li
+                    class="menu-title"
+                    class="accordion-button"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#collapseOneFlights"
+                    aria-expanded="true"
+                    aria-controls="collapseOneFlights"
+                  >
                     Flights
                   </li>
                 </h2>
-                <div id="collapseOneFlights" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-                  data-bs-parent="#accordionFlights">
-
+                <div
+                  id="collapseOneFlights"
+                  class="accordion-collapse collapse show"
+                  aria-labelledby="headingOne"
+                  data-bs-parent="#accordionFlights"
+                >
                   <li class="accordion-body">
-                    <a routerLink="#" class=" waves-effect" (click)="setContent('flight-class-types')">
+                    <a
+                      routerLink="#"
+                      class="waves-effect"
+                      (click)="setContent('flight-class-types')"
+                    >
                       <i class="mdi mdi-airplane"></i>
                       <span>Flight class types</span>
                     </a>
                   </li>
-
                 </div>
               </div>
-
             </ul>
           </div>
           <!-- Sidebar -->
@@ -422,21 +589,24 @@
     <!-- Start right Content here -->
     <!-- ============================================================== -->
     <div class="main-content">
-
       <app-admin-content></app-admin-content>
-
 
       <footer class="footer">
         <div class="container-fluid">
           <div class="row">
             <div class="col-sm-6">
-              <p> Copyright &copy; 2021 - {{ currentYear }} Apart All Rights Reserved</p>
+              <p>
+                Copyright &copy; 2021 - {{ currentYear }} Apart All Rights
+                Reserved
+              </p>
               <!-- ?????? -->
             </div>
             <div class="col-sm-6">
               <div class="text-sm-right d-none d-sm-block">
-                Designed <i class="mdi mdi-heart text-danger"></i> by <a routerLink="" target="_blank"
-                  class="text-muted">Apart Team</a>
+                Designed <i class="mdi mdi-heart text-danger"></i> by
+                <a routerLink="" target="_blank" class="text-muted"
+                  >Apart Team</a
+                >
               </div>
             </div>
           </div>
@@ -444,7 +614,6 @@
       </footer>
     </div>
     <!-- end main content-->
-
   </div>
   <!-- END layout-wrapper -->
 </body>

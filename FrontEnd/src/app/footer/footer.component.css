@@ -44,7 +44,7 @@
 .subscriptionValidator {
   position: flex;
   margin-right: 130px;
-  color: red;
+  color: white;
 }
 .emk-subscription-entry-point.subscription-submitted .-submitted {
   display: block;
@@ -67,7 +67,7 @@
 
 .emk_footer_update_space {
   padding: 50px 0;
-  background-color: #00224f;
+  background-color: #ed6648;
   color: #fff;
 }
 
@@ -90,7 +90,7 @@
 }
 
 .footer-top-partners {
-  border-bottom: 1px solid #bad4f7;
+  border-bottom: 1px solid #ed6648;
 }
 
 .emk_footer_centered .emk_footer_subbanner_block {
@@ -150,8 +150,8 @@ body.zh .emk_footer_form_layout {
   line-height: 28px;
   font-weight: 300;
   height: 48px;
-  color: #fff;
-  background-color: #0071c2;
+  color: #ed6648;
+  background-color: white;
   -webkit-box-shadow: none;
   box-shadow: none;
   -webkit-box-flex: 1;
@@ -159,6 +159,12 @@ body.zh .emk_footer_form_layout {
   -ms-flex: 1;
   flex: 1;
   margin: 0 5px;
+}
+
+.emk_footer_form_layout button#newsletter_button_footer:hover {
+  color: white;
+  background-color: #ed6648;
+  border: 1px solid white;
 }
 
 .emk_footer_gta_addition_left {
@@ -187,15 +193,14 @@ body.zh .emk_footer_form_layout {
 }
 
 .extranet_link_container {
-  border-top: 1px solid #fff;
-  border-bottom: 1px solid #fff;
   margin-top: 3em;
   padding: 0;
   text-align: center;
+  text-decoration: underline;
 }
 
 a:link {
-  color: #0071c2;
+  color: black;
   font-weight: bold;
 }
 
@@ -205,7 +210,8 @@ a:link {
   margin: 0 10px;
   padding: 1em 0;
   text-align: center;
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-color: #000;
 }
 
 .t_m_viewport .footerconstraint-inner {
@@ -268,6 +274,8 @@ a:link {
 }
 .copyright_text {
   display: flex;
+  color: black;
+  font-weight: bold;
   justify-content: center;
 }
 #footerrefid {
@@ -283,7 +291,8 @@ a:link {
 .footer__priceline {
   width: 100%;
   min-height: 90px;
-  color: #6b6b6b;
+  color: black;
+  font-weight: bold;
   text-align: center;
   font-size: 12px;
   padding-top: 0;
@@ -309,20 +318,20 @@ a:link {
 }
 
 a.footer__priceline__title {
-  color: #6b6b6b;
-  font-weight: normal;
+  color: black;
+  font-weight: bold;
 }
 
 .footer-top-menu {
-  background-color: #003580;
+  background-color: white;
   font-size: 13px;
   padding: 0;
 }
 
 .footer-top-partners .footer-top-button {
-  border: 1px solid #fff;
+  border: 1px solid #ed6648;
   border-radius: 3px;
-  color: #fff;
+  color: #ed6648;
   display: inline-block;
   font-weight: normal;
   padding: 0 15px;
@@ -330,7 +339,7 @@ a.footer__priceline__title {
 }
 
 .footerconstraint-inner .footer-top-button:hover {
-  background: rgba(255, 255, 255, 0.2) !important;
+  background-color: #ed6648;
   color: #fff !important;
 }
 
@@ -360,13 +369,14 @@ a.footer__priceline__title {
 .footer-top-link {
   float: left;
   list-style-type: none;
-  border-right: 1px solid #003580;
 }
-
+.footercolor {
+  background-color: #ed6648;
+}
 .footer-top-link a,
 .footer-top-link input,
 .footer-top-link span {
-  color: #fff;
+  color: #ed6648;
   font-weight: bold;
   text-decoration: underline;
   padding: 15px 10px;
@@ -429,7 +439,8 @@ a.footer__priceline__title {
 }
 
 a:hover {
-  color: #bc5b01 !important;
+  color: #ffffff !important;
+  background-color: #ed6648 !important;
 }
 
 a:active {
