@@ -123,10 +123,10 @@
             <span class="bui-button__text"> List your property </span>
           </a>
         </div>
-        <!-- authService.getLogCondition() === false || -->
+        <!-- authService.getLogCondition() === false || authService.getTokenKey() ===  -->
         <div
           *ngIf="
-              authService.getTokenKey() === getToken() &&
+              getToken() !== null &&
               authService.getLogCondition() === true;
             then thenBlock;
             else elseBlock

@@ -3,11 +3,11 @@ export default {
     saveAuth: (userName : string, token : any) => {
         sessionStorage.setItem('tokenKey', JSON.stringify({ userName: userName, access_token: token }));
     },
-  
+
     clearAuth: () => {
         sessionStorage.removeItem('tokenKey');
     },
-  
+
     getLogin: () => {
         let item = sessionStorage.getItem('tokenKey');
         let login = '';
@@ -16,7 +16,7 @@ export default {
         }
         return login;
     },
-  
+
     isLogged: () => {
         let item = sessionStorage.getItem('tokenKey');
         if (item) {
@@ -24,8 +24,8 @@ export default {
         } else {
             return false;
         }
-    },
-  
+    }, 
+
     getToken: () => {
         let item = sessionStorage.getItem('tokenKey');
         let token = null;

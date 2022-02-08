@@ -30,7 +30,9 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    if (this.getToken() !== null) {
+      this.authService.setLogCondition(true);
+    }
   }
 
   open() {

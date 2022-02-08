@@ -16,6 +16,10 @@ export class AuthorizationService {
       this.isAdmin = value;
     }
 
+    setLogCondition(value: boolean): void {
+      this.isLogged = value;
+    }
+
     getLogCondition(): boolean {
       return this.isLogged;
     }

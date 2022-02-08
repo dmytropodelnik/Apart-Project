@@ -1,5 +1,5 @@
 import { ThisReceiver } from '@angular/compiler';
-import { Component, OnInit } from '@angular/core';
+import { Input, Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-admin-content',
@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminContentComponent implements OnInit {
 
-  content: string | undefined;
+  @Input() content: string | undefined;
 
   constructor() {
     this.content = "users";

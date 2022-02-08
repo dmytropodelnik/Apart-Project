@@ -3,3 +3,8 @@
   font-weight: bold;
   color: lightgrey;
 }
+
+.btn {
+  text-align: start;
+  margin-left: -17px;
+}
