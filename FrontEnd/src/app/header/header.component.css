@@ -316,6 +316,8 @@ a.a11y-skip-to-content {
 .bui-avatar--button-auth {
   position: relative;
   left: 5px;
+  font-size: 15px;
+  color:#ed6648
 }
 
 .bui-avatar--small {
@@ -638,8 +640,43 @@ a:link {
   vertical-align: middle;
   position: relative;
   color: #fff;
-  min-height: 36px;
-  min-width: 36px;
+  min-height: 50px;
+  min-width: 50px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, sans-serif;
+  background: transparent;
+  border: 0px solid #ed6648;
+  border-radius: 5px;
+}
+.bui-button1 {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  text-align: left;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  vertical-align: middle;
+  position: relative;
+  color: #fff;
+  min-height: 15px;
+  min-width: 15px;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;

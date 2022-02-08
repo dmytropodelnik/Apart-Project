@@ -10,11 +10,11 @@ namespace CloneBookingAPI.Filters
 {
     public class AuthFilter : Attribute, IAuthorizationFilter
     {
-        private readonly JwtRepository _repository;
-        public AuthFilter(JwtRepository repository)
-        {
-            _repository = repository;
-        }
+        //private readonly JwtRepository _repository;
+        //public AuthFilter(JwtRepository repository)
+        //{
+        //    _repository = repository;
+        //}
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
