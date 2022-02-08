@@ -8,3 +8,7 @@
   text-align: start;
   margin-left: -17px;
 }
+
+.footer{
+  position: fixed !important;
+}
