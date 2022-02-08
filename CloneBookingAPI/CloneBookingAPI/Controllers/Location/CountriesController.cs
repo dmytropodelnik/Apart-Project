@@ -30,7 +30,9 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                return await _context.Countries.ToListAsync();
+                var res = await _context.Countries.ToListAsync();
+
+                return Json(new { code = 200, countries = res });
             }
             catch (ArgumentNullException ex)
             {

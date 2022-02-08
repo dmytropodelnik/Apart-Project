@@ -17,10 +17,10 @@ export class AdminPanelComponent implements OnInit {
 
   setContent(newContent: string) {
     this.content = newContent;
-    console.log(this.content);
   }
 
   ngOnInit(): void {
+
   }
 
 }

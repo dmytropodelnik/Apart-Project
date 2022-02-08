@@ -15,27 +15,14 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of ">
+    <tr *ngFor="let item of countries">
       <th scope="row">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
         </div>
       </th>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td></td>
+      <td>{{item.title}}</td>
+      <td>{{item.image}}</td>
     </tr>
   </tbody>
 </table>
