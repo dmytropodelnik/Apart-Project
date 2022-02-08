@@ -13,6 +13,20 @@ export class SuggestionRulesListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    fetch('https://localhost:44381/api/countries/getcountries', {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.rules = data.rules;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
 }

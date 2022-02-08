@@ -13,6 +13,20 @@ export class LanguagesListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    fetch('https://localhost:44381/api/countries/getcountries', {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.languages = data.languages;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
 }
