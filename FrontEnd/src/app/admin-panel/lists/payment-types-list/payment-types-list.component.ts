@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PaymentType } from 'src/app/models/Payment/paymenttype.item';
 
 @Component({
   selector: 'app-payment-types-list',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./payment-types-list.component.css']
 })
 export class PaymentTypesListComponent implements OnInit {
+
+  types: PaymentType[] | null = null;
 
   constructor() { }
 

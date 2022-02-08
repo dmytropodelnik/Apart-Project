@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PromoCode } from 'src/app/models/Payment/promocode.item';
 
 @Component({
   selector: 'app-promo-codes-list',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./promo-codes-list.component.css']
 })
 export class PromoCodesListComponent implements OnInit {
+
+  codes: PromoCode[] | null = null;
 
   constructor() { }
 
