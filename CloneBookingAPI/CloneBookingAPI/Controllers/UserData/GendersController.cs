@@ -1,5 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using CloneBookingAPI.Services.Database;
+using CloneBookingAPI.Services.Database.Models.UserProfile;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.UserData
 {
@@ -7,6 +14,35 @@ namespace CloneBookingAPI.Controllers.UserData
     [ApiController]
     public class GendersController : Controller
     {
+        private readonly ApartProjectDbContext _context;
 
+        public GendersController(ApartProjectDbContext context)
+        {
+            _context = context;
+        }
+
+        [Route("getgenders")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Gender>>> GetGenders()
+        {
+            try
+            {
+                var res = await _context.Genders.ToListAsync();
+
+                return Json(new { code = 200, genders = res });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
     }
 }
