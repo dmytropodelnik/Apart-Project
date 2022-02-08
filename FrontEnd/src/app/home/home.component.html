@@ -264,8 +264,10 @@
                   <div>
                     <img src="assets/images/21.webp" class="w-100" alt="" />
                     <div class="bui-card__content">
-                      <div class="bui-card__title">{{city.title}}</div>
-                      <div class="bui-title__subtitle">{{cities?.length}} properties</div>
+                      <div class="bui-card__title">{{ city.title }}</div>
+                      <div class="bui-title__subtitle">
+                        {{ cities?.length }} properties
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -284,15 +286,21 @@
           </h2>
           <div class="container-fluid px-0">
             <div class="slick-wrapper">
-              <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+              <ngx-slick-carousel
+                class="carousel"
+                #slickModal="slick-carousel"
+                [config]="slideConfig"
+              >
                 <div ngxSlickItem *ngFor="let city of cities" class="slide">
                   <div>
-                    <img src="assets/images/28.webp" class="w-100" alt="">
+                    <img src="assets/images/28.webp" class="w-100" alt="" />
                   </div>
                   <div class="bui-card__content">
                     <div class="bui-title bui-title--strong_1 bui-card__title">
-                      <span class="bui-card__title">{{city.title}}</span>
-                      <span class="bui-title__subtitle">{{cities?.length}} properties</span>
+                      <span class="bui-card__title">{{ city.title }}</span>
+                      <span class="bui-title__subtitle"
+                        >{{ cities?.length }} properties</span
+                      >
                     </div>
                   </div>
                 </div>
@@ -493,35 +501,14 @@
             </div>
           </div>
         </div>
-        <div class="clearfix"></div>
-        <div class="d-index__section bui-spacer--largest js-ds-layout-events-bh_promotions">
-          <h2 class="bui-f-font-display_two bui-spacer--large d-index__header-section"
-            id="bh-promotion-accommodation-types">
-            Browse by property type
-          </h2>
-          <div class="container-fluid px-0">
-            <div class="slick-wrapper">
-              <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
-                <div ngxSlickItem *ngFor="let category of bookingCategories" class="slide">
-                  <div>
-                    <img src="assets/images/28.webp" class="w-100" alt="categoryImage">
-                  </div>
-                  <div class="bui-card__content">
-                    <h3 class="bui-card__title">
-                      <a href="javascript:void(0)" target="_blank" class="bui-card__title d-bh-promotion--theme-title">
-                        {{category.category}}
-                      </a>
-                    </h3>
-                    <p class="bui-card__subtitle">{{bookingCategories?.length}} {{category.category.toLowerCase()}}</p>
-                  </div>
-                </div>
-              </ngx-slick-carousel>
-            </div>
-          </div>
-        </div>
-        <div class="d-index__section bui-spacer--largest promote_articles js-ds-layout-events-promote_articles"
-          data-et-click=" customGoal:cCHObTRVDEZRdPQBcGCfTKYCcaYO:4  goal:www_inspiration_articles_click  ">
-          <h2 class="bui-f-font-display_two bui-spacer--large d-index__header-section">
+
+        <div
+          class="d-index__section bui-spacer--largest promote_articles js-ds-layout-events-promote_articles"
+          data-et-click=" customGoal:cCHObTRVDEZRdPQBcGCfTKYCcaYO:4  goal:www_inspiration_articles_click  "
+        >
+          <h2
+            class="bui-f-font-display_two bui-spacer--large d-index__header-section"
+          >
             Get inspiration for your next trip
           </h2>
           <div class="promote-articles__wrapper bui-u-clearfix">
