@@ -30,65 +30,65 @@ namespace CloneBookingAPI.Controllers.Payment
 
         [Route("addpayment")]
         [HttpPost]
-        public async Task<IActionResult> AddPayment([FromBody] string payment, IFormFile uploadedFile)
+        public async Task<IActionResult> AddPayment([FromBody] Services.Database.Models.Payment.Payment payment)
         {
-            if (string.IsNullOrWhiteSpace(payment))
+            if (payment is null)
             {
                 return Json(new { code = 400 });
             }
 
-            var res = await _context.Countries.FirstOrDefaultAsync(c => c.Title == payment);
-            if (res is null)
-            {
-                Country newCountry = new();
-                newCountry.Title = payment;
-                _context.Countries.Add(newCountry);
-                await _context.SaveChangesAsync();
+            //var res = await _context.Payments.FirstOrDefaultAsync(c => c.Title == payment);
+            //if (res is null)
+            //{
+            //    Country newCountry = new();
+            //    newCountry.Title = payment;
+            //    _context.Countries.Add(newCountry);
+            //    await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
-            }
+            //    return Json(new { code = 200 });
+            //}
             return Json(new { code = 400 });
         }
 
-        [Route("changepaymentbyname")]
+        [Route("changepayment")]
         [HttpPut]
-        public async Task<IActionResult> ChangeCountryByName(string country, string newName)
+        public async Task<IActionResult> ChangePayment(Services.Database.Models.Payment.Payment payment)
         {
-            if (string.IsNullOrWhiteSpace(country) || string.IsNullOrWhiteSpace(newName))
+            if (payment is null)
             {
                 return Json(new { code = 400 });
             }
 
-            var resCountry = await _context.Countries.FirstOrDefaultAsync(c => c.Title == country);
-            if (resCountry is null)
-            {
-                return Json(new { code = 400 });
-            }
-            resCountry.Title = newName;
+            //var resPayment = await _context.Payments.FirstOrDefaultAsync(p => p. == country);
+            //if (resPayment is null)
+            //{
+            //    return Json(new { code = 400 });
+            //}
+            //resPayment.Title = newName;
 
-            _context.Countries.Update(resCountry);
-            await _context.SaveChangesAsync();
+            // _context.Payments.Update(resPayment);
+            // await _context.SaveChangesAsync();
 
             return Json(new { code = 200 });
         }
 
-        [Route("deletecountrybyname")]
+        [Route("deletepayment")]
         [HttpDelete]
-        public async Task<IActionResult> Delete(string country)
+        public async Task<IActionResult> DeletePayment(Services.Database.Models.Payment.Payment payment)
         {
-            if (string.IsNullOrWhiteSpace(country))
+            if (payment is null)
             {
                 return Json(new { code = 400 });
             }
 
-            var resCountry = await _context.Countries.FirstOrDefaultAsync(c => c.Title == country);
-            if (resCountry is null)
-            {
-                return Json(new { code = 400 });
-            }
+            //var resCountry = await _context.Payments.FirstOrDefaultAsync(c => c.Title == country);
+            //if (resCountry is null)
+            //{
+            //    return Json(new { code = 400 });
+            //}
 
-            _context.Countries.Remove(resCountry);
-            await _context.SaveChangesAsync();
+            //_context.Payments.Remove(resCountry);
+            //await _context.SaveChangesAsync();
 
             return Json(new { code = 200 });
         }

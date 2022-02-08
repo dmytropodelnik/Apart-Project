@@ -23,20 +23,13 @@ namespace CloneBookingAPI.Controllers
             _context = context;
         }
 
-
         [Route("getcategories")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookingCategory>>> GetCategories()
         {
             try
             {
-                var categories = await _context.BookingCategories.ToListAsync();
-                if (categories is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                return Json(new { code = 200, bookingCategories = categories });
+                return await _context.BookingCategories.ToListAsync();
             }
             catch (ArgumentNullException ex)
             {
@@ -54,25 +47,83 @@ namespace CloneBookingAPI.Controllers
 
         [Route("addcategory")]
         [HttpPost]
-        public async Task<IActionResult> AddCategory([FromBody] BookingCategory newCategory, IFormFile uploadedFile)
+        public async Task<IActionResult> AddCategory([FromBody] string category)
         {
             try
             {
-                if (newCategory is null)
+                if (string.IsNullOrWhiteSpace(type))
                 {
                     return Json(new { code = 400 });
                 }
 
-                var resCategory = await _context.BookingCategories.FirstOrDefaultAsync(c => c.Category == newCategory.Category);
-                if (resCategory is not null)
+                var res = await _context.BookingCategories.FirstOrDefaultAsync(c => c.Category == category);
+                if (res is null)
                 {
-                    return Json(new { code = 400, message = "Category alredy exists" });
+                    BookingCategory newCategory = new();
+                    newCategory.Category = category;
+                    _context.BookingCategories.Add(newCategory);
+                    await _context.SaveChangesAsync();
+
+                    return Json(new { code = 200 });
+                }
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("deletecategorybyname")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCategoryByName(string category)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(category))
+                {
+                    return Json(new { code = 400 });
                 }
 
-                BookingCategory category = new();
-                category.Category = newCategory.Category;
+                var resCategory = await _context.BookingCategories.FirstOrDefaultAsync(c => c.Category == category);
+                if (resCategory is null)
+                {
+                    return Json(new { code = 400 });
+                }
 
-                _context.BookingCategories.Add(category);
+                _context.BookingCategories.Remove(resCategory);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("deletecategory")]
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCategory(int id)
+        {
+            try
+            {
+                if (id < 1)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resType = await _context.BookingCategories.FirstOrDefaultAsync(c => c.Id == id);
+                if (resType is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                _context.BookingCategories.Remove(resType);
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });
