@@ -13,7 +13,7 @@ export class GendersListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    fetch('https://localhost:44381/api/countries/getcountries', {
+    fetch('https://localhost:44381/api/genders/getgenders', {
       method: 'GET',
     })
       .then((r) => r.json())

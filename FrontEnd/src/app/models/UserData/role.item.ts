@@ -1,6 +1,6 @@
 export class Role {
   id: number | null = null;
-  title: string = '';
+  name: string = '';
 
   constructor () {
 

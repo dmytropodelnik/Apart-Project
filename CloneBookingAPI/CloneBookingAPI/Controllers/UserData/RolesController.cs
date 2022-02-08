@@ -24,7 +24,8 @@ namespace CloneBookingAPI.Controllers.UserData
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Role>>> GetCountries()
         {
-            return await _context.Roles.ToListAsync();
+            var res = await _context.Roles.ToListAsync();
+            return Json(new { code = 200, roles = res });
         }
 
         // GET api/<RolesController>/5

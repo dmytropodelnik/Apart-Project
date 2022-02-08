@@ -10,7 +10,9 @@
   <thead>
     <tr>
       <th scope="col text-center align-self-center">#</th>
-      <th scope="col">Role</th>
+      <th scope="col">Value</th>
+      <th scope="col">Abbrevation</th>
+      <th scope="col">Bank code</th>
     </tr>
   </thead>
   <tbody>
@@ -20,7 +22,9 @@
           <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
         </div>
       </th>
-      <td></td>
+      <td>{{item.value}}</td>
+      <td>{{item.abbreviation}}</td>
+      <td>{{item.bankCode}}</td>
     </tr>
   </tbody>
 </table>

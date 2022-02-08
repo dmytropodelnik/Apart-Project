@@ -13,7 +13,7 @@ export class LanguagesListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    fetch('https://localhost:44381/api/countries/getcountries', {
+    fetch('https://localhost:44381/api/languages/getlanguages', {
       method: 'GET',
     })
       .then((r) => r.json())
