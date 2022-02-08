@@ -51,7 +51,7 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(type))
+                if (string.IsNullOrWhiteSpace(category))
                 {
                     return Json(new { code = 400 });
                 }
