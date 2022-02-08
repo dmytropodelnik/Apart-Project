@@ -14,6 +14,8 @@ export class HeaderComponent implements OnInit {
   public isCollapsed = false;
   user: User | null = null;
 
+  isActive1 = true;
+
   @ViewChild('content') content!: TemplateRef<any>;
   @ViewChild('content1') content1!: TemplateRef<any>;
 

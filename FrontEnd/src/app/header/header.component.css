@@ -42,7 +42,7 @@ a.a11y-skip-to-content {
   left: 202px;
   top: 105px;
 
-  font-family: Hello Katterine;                
+  font-family: Hello Katterine;
   font-style: normal;
   font-weight: normal;
   font-size: 150px;
@@ -238,6 +238,38 @@ a.a11y-skip-to-content {
   border-color: transparent;
   background-color: transparent;
 }
+.dropdown-menu {
+  border: 1px solid #ed6648 !important;
+  margin-top: 5px;
+  padding: 0px 0px 10px 0px !important;
+}
+
+.dropdown-item {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.dropdown-item:hover {
+  border-top: 1px solid #ed6648;
+  border-bottom: 1px solid #ed6648;
+  color: #ed6648 !important;
+  background-color: #cfcfcf;
+}
+
+.dropdown-itemproperty {
+  display: block;
+  width: 100%;
+  padding: 10px 16px;
+  clear: both;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  color: white;
+  background-color: #ed6648;
+  border: 0;
+}
+.dropdown-itemproperty:hover {
+  background-color: #c24b30;
+}
 
 .bui-dropdown-menu__button {
   position: relative;
@@ -258,12 +290,12 @@ a.a11y-skip-to-content {
   margin-left: 5px;
 }
 .robotomonoregular {
-  font-family: Roboto Mono;
+  /* font-family: Roboto; */
   font-style: normal;
   font-weight: normal;
-  font-size: 18px;
+  font-size: 17px;
+  line-height: 20px;
   margin-left: 5px;
-  color: #000000;
 }
 .robotoregular {
   font-family: Roboto;
@@ -572,7 +604,7 @@ a:link {
   text-decoration: none;
 }
 
-.bui-button:hover{
+.bui-button:hover {
   background-color: #003580 !important;
 }
 

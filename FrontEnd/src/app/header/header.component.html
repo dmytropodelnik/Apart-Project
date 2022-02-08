@@ -101,37 +101,8 @@
             </span>
           </a>
         </div>
-        <div class="bui-group__item">
-          <svg
-            class="bk-icon -streamline-property_add"
-            height="24"
-            style="display: none"
-            width="24"
-            viewBox="0 0 24 24"
-            role="presentation"
-            aria-hidden="true"
-            focusable="false"
-          >
-            <path
-              d="M8.25 19h-3a.75.75 0 0 1-.75-.75v-7.5a.75.75 0 0 0-1.5 0v7.5a2.25 2.25 0 0 0 2.25 2.25h3a.75.75 0 0 0 0-1.5zM1.234 9.823l8.782-7.43a.75.75 0 0 1 .969 0l7.279 6.159a.75.75 0 1 0 .968-1.146l-7.279-6.159a2.25 2.25 0 0 0-2.906 0L.265 8.678a.75.75 0 1 0 .968 1.146zM15.75 2.5h3L18 1.75v3a.75.75 0 0 0 1.5 0v-3a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0 0 1.5zm6.75 14.25a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0zm1.5 0a6.75 6.75 0 1 0-13.5 0 6.75 6.75 0 0 0 13.5 0zm-7.5-3v6a.75.75 0 0 0 1.5 0v-6a.75.75 0 0 0-1.5 0zm-2.25 3.75h6a.75.75 0 0 0 0-1.5h-6a.75.75 0 0 0 0 1.5z"
-            ></path>
-          </svg>
-          <a
-            class="bui-button bui-button--light bui-traveller-header__product-action"
-            routerLink="/joinpartner"
-          >
-            <span class="bui-button__text"> List your property </span>
-          </a>
-        </div>
         <!-- authService.getLogCondition() === false || -->
-        <div
-          *ngIf="
-              authService.getTokenKey() === getToken() &&
-              authService.getLogCondition() === true;
-            then thenBlock;
-            else elseBlock
-          "
-        ></div>
+        <div *ngIf="isActive1 === true; then thenBlock; else elseBlock"></div>
         <ng-template #thenBlock>
           <div class="bui-group__item" class="dropdown">
             <button
@@ -146,14 +117,19 @@
                 />
               </div>
               <span class="bui-avatar--button-auth">
-                <span aria-hidden="true"> {{user?.email}} </span>
+                <span aria-hidden="true"> {{ user?.email }} </span>
               </span>
             </button>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu dropdown-menu-right">
+              <li>
+                <a class="dropdown-itemproperty" routerLink="/joinpartner">
+                  <span class="robotomonoregular"> List your property </span>
+                </a>
+              </li>
               <li>
                 <a class="dropdown-item" href="#"
                   ><span class="mdi mdi-account-outline"></span
-                  ><i class="robotomonoregular">Admin login</i></a
+                  ><span class="robotomonoregular">Admin login</span></a
                 >
               </li>
               <li>
@@ -191,6 +167,11 @@
                         d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"
                       /></svg></span
                   ><i class="robotomonoregular">Home</i></a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="#"
+                  ><i class="robotomonoregular">Logout</i></a
                 >
               </li>
             </ul>
