@@ -239,18 +239,6 @@ a.a11y-skip-to-content {
   background-color: transparent;
 }
 
-.bui-button:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  -webkit-transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-  transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
-  pointer-events: none;
-  background-color: #0071c2;
-}
 .bui-dropdown-menu__button {
   position: relative;
   width: 100%;
@@ -582,6 +570,10 @@ a:link {
 .bui-button:visited {
   color: #fff;
   text-decoration: none;
+}
+
+.bui-button:hover{
+  background-color: #003580 !important;
 }
 
 .bui-button--light {
