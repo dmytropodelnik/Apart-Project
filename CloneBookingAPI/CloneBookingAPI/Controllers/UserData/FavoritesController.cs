@@ -4,7 +4,9 @@ using CloneBookingAPI.Services.Database.Models.UserProfile;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -25,9 +27,26 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("getfavorites")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Favorite>>> GetCountries()
+        public async Task<ActionResult<IEnumerable<Favorite>>> GetFavorites()
         {
-            return await _context.Favorites.ToListAsync();
+            try
+            {
+                var res = await _context.Favorites.ToListAsync();
+
+                return Json(new { code = 200, favorites = res });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
 
         // GET api/<FavoritesController>/5

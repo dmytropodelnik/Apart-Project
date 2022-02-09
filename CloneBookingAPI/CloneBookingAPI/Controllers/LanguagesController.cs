@@ -47,21 +47,22 @@ namespace CloneBookingAPI.Controllers
 
         [Route("addlanguage")]
         [HttpPost]
-        public async Task<IActionResult> AddLanguage([FromBody] string lang)
+        public async Task<IActionResult> AddLanguage([FromBody] Language lang)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(lang))
+                if (lang is null || string.IsNullOrWhiteSpace(lang.Title))
                 {
                     return Json(new { code = 400 });
                 }
 
-                var res = await _context.Languages.FirstOrDefaultAsync(l => l.Title == lang);
+                var res = await _context.Languages.FirstOrDefaultAsync(l => l.Title == lang.Title);
                 if (res is null)
                 {
-                    Language newLanguage = new();
-                    newLanguage.Title = lang;
-                    _context.Languages.Add(newLanguage);
+                    // Language newLanguage = new();
+                    // newLanguage.Title = lang.Title;
+
+                    _context.Languages.Add(lang);
                     await _context.SaveChangesAsync();
 
                     return Json(new { code = 200 });

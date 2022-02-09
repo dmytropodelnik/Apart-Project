@@ -1,17 +1,17 @@
 <div class="row">
   <div class="btn-group" role="group" aria-label="Basic example">
-    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#add">Add</button>
-    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit">Edit</button>
-    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete">Delete</button>
+    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addReviewMessage">Add</button>
+    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#editReviewMessage">Edit</button>
+    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#deleteReviewMessage">Delete</button>
   </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
+<!-- Add Modal -->
+<div class="modal fade" id="addReviewMessage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addLabel">Modal title</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Add review message</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -25,11 +25,12 @@
   </div>
 </div>
 
-<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+<!-- Edit Modal -->
+<div class="modal fade" id="editReviewMessage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editLabel">Modal title</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Edit review message</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -43,19 +44,20 @@
   </div>
 </div>
 
-<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
+<!-- Delete Modal -->
+<div class="modal fade" id="deleteReviewMessage" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="deleteLabel">Modal title</h5>
+        <h5 class="modal-title" id="staticBackdropLabel">Are you sure to delete this item?</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+      <div class="modal-footer">
+        ...
       </div>
     </div>
   </div>

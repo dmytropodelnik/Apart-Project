@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Gender } from 'src/app/models/UserData/gender.item';
 
+import AuthHelper from '../../../utils/authHelper';
+
 @Component({
   selector: 'app-genders-list',
   templateUrl: './genders-list.component.html',

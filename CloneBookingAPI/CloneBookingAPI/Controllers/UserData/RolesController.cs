@@ -2,7 +2,9 @@
 using CloneBookingAPI.Services.Database.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -24,8 +26,24 @@ namespace CloneBookingAPI.Controllers.UserData
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Role>>> GetCountries()
         {
-            var res = await _context.Roles.ToListAsync();
-            return Json(new { code = 200, roles = res });
+            try
+            {
+                var res = await _context.Roles.ToListAsync();
+
+                return Json(new { code = 200, roles = res });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
 
         // GET api/<RolesController>/5

@@ -1,7 +1,9 @@
+import { Facility } from "./facility.item";
+
 export class FacilityType {
   id: number | null = null;
-  title: string = '';
-  image: File | null = null;
+  type: string = '';
+  facilities: Facility[] | null = null;
 
   constructor () {
 

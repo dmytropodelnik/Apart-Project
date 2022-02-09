@@ -28,6 +28,7 @@ namespace CloneBookingAPI.Controllers.Payment
             try
             {
                 var res = await _context.Currencies.ToListAsync();
+
                 return Json(new { code = 200, currencies = res });
             }
             catch (ArgumentNullException ex)

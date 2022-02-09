@@ -25,7 +25,9 @@ namespace CloneBookingAPI.Controllers.Payment
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Services.Database.Models.Payment.Payment>>> GetPayments()
         {
-            return await _context.Payments.ToListAsync();
+            var res = await _context.Payments.ToListAsync();
+
+            return Json(new { code = 200, payments = res });
         }
 
         [Route("addpayment")]

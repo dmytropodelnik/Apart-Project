@@ -18,10 +18,6 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(60, MinimumLength = 2, ErrorMessage = "Incorrect length")]
         public string Category { get; set; }
 
-        public int? ImageId { get; set; }
-        [ForeignKey("ImageId")]
-        public FileModel Image { get; set; }
-
         public List<StayBooking> Bookings { get; set; } = new();
         public List<Suggestion> Suggestions { get; set; } = new();
     }

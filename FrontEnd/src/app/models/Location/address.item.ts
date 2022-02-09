@@ -12,7 +12,6 @@ export class Address {
   city: City | null = null;
   district: District | null = null;
   region: Region | null = null;
-  image: File | null = null;
 
   constructor () {
 

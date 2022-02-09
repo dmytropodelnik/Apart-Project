@@ -153,6 +153,22 @@
             <app-flight-class-types-list></app-flight-class-types-list>
           </ng-template>
 
+          <ng-template ngSwitchCase="booking-categories">
+            <app-booking-categories-list></app-booking-categories-list>
+          </ng-template>
+
+          <ng-template ngSwitchCase="service-categories">
+            <app-service-categories-list></app-service-categories-list>
+          </ng-template>
+
+          <ng-template ngSwitchCase="facility">
+            <app-facilities-list></app-facilities-list>
+          </ng-template>
+
+          <ng-template ngSwitchCase="facility-types">
+            <app-facility-types-list></app-facility-types-list>
+          </ng-template>
+
           <ng-template ngSwitchDefault>
             <app-users-list></app-users-list>
           </ng-template>

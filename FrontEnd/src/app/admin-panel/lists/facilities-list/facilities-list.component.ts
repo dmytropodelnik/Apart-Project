@@ -13,7 +13,7 @@ export class FacilitiesListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    fetch('https://localhost:44381/api/countries/getcountries', {
+    fetch('https://localhost:44381/api/facilities/getfacilities', {
       method: 'GET',
     })
       .then((r) => r.json())
