@@ -13,7 +13,7 @@ import { ViewPropertyComponent } from './view-property/view-property.component';
 import { AddPropertyComponent } from './add-property/add-property.component';
 
 const routes: Routes = [
-  { path: '', component: LayoutComponent },
+  { path: '', redirectTo:'stays', pathMatch:'full'},
   { path: 'stays', component: LayoutComponent },
   { path: 'auth', component: AuthComponent },
   {
