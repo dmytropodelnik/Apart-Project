@@ -64,6 +64,8 @@ import { AirportTaxiBookingsListComponent } from './admin-panel/lists/airport-ta
 import { ReviewsListComponent } from './admin-panel/lists/reviews-list/reviews-list.component';
 import { ReviewCategoriesListComponent } from './admin-panel/lists/review-categories-list/review-categories-list.component';
 import { ReviewMessagesListComponent } from './admin-panel/lists/review-messages-list/review-messages-list.component';
+import { ViewPropertyComponent } from './view-property/view-property.component';
+import { AddPropertyComponent } from './add-property/add-property.component';
 
 @NgModule({
   declarations: [
@@ -122,7 +124,9 @@ import { ReviewMessagesListComponent } from './admin-panel/lists/review-messages
     AirportTaxiBookingsListComponent,
     ReviewsListComponent,
     ReviewCategoriesListComponent,
-    ReviewMessagesListComponent
+    ReviewMessagesListComponent,
+    ViewPropertyComponent,
+    AddPropertyComponent
   ],
   imports: [
     BrowserModule,

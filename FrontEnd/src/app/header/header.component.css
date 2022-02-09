@@ -317,7 +317,7 @@ a.a11y-skip-to-content {
   position: relative;
   left: 5px;
   font-size: 15px;
-  color:#ed6648
+  color: black;
 }
 
 .bui-avatar--small {
@@ -607,7 +607,7 @@ a:link {
 }
 
 .bui-button:hover {
-  background-color: #003580 !important;
+  background-color: #802f0093 !important;
 }
 
 .bui-button--light {
@@ -701,6 +701,11 @@ a:link {
 }
 
 .bui-tab--light .bui-tab__link:hover {
+  background-color: white;
+  color: #ed6648;
+  border: 1px solid #ed6648;
+}
+.bui-tab--light .bui-tab__item .bui-tab__link li:active {
   background-color: white;
   color: #ed6648;
   border: 1px solid #ed6648;

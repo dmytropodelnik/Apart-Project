@@ -9,6 +9,8 @@ import { VerifyEnterComponent } from './verify-enter/verify-enter.component';
 import { FlightsComponent } from './flights/flights.component';
 import { AdminPanelGuard } from './admin-panel/admin-main-body/admin-panel.guard';
 import { JoinAsPartnerComponent } from './join-as-partner/join-as-partner.component';
+import { ViewPropertyComponent } from './view-property/view-property.component';
+import { AddPropertyComponent } from './add-property/add-property.component';
 
 const routes: Routes = [
   { path: '', component: LayoutComponent },
@@ -23,6 +25,8 @@ const routes: Routes = [
   { path: 'confirmemail', component: VerifyEnterComponent },
   { path: 'flights', component: FlightsComponent },
   { path: 'joinpartner', component: JoinAsPartnerComponent },
+  { path: 'viewproperty', component: ViewPropertyComponent },
+  { path: 'addproperty', component: AddPropertyComponent },
 ];
 
 @NgModule({
