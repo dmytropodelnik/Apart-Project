@@ -44,7 +44,7 @@ export class LanguagesListComponent implements OnInit {
   }
 
   editLang(): void {
-
+    
   }
 
   deleteLang(): void {
