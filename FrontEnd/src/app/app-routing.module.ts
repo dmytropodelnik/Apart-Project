@@ -14,6 +14,7 @@ import { AddPropertyComponent } from './add-property/add-property.component';
 
 const routes: Routes = [
   { path: '', component: LayoutComponent },
+  { path: 'stays', component: LayoutComponent },
   { path: 'auth', component: AuthComponent },
   {
     path: 'admin',

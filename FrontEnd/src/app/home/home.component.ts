@@ -112,7 +112,7 @@ export class HomeComponent implements OnInit {
         }
       })
       .catch((err) => {
-        alert(err);
+        //alert(err);
       });
 
       fetch(
