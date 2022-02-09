@@ -648,10 +648,6 @@ div#basiclayout {
   align-self: center;
 }
 
-.bui-alert__description,
-.bui-alert__title {
-}
-
 .bui-alert__description {
   font-size: 14px;
   font-weight: 400;
@@ -669,10 +665,6 @@ div#basiclayout {
   -ms-flex-direction: column;
   -webkit-flex-direction: column;
   flex-direction: column;
-}
-
-.bui-title--headline_3 .bui-title__subtitle,
-.bui-title--headline_3 .bui-title__text {
 }
 
 .bui-title--headline_3 .bui-title__text {
@@ -697,10 +689,6 @@ div#basiclayout {
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-}
-
-.bui-title--headline_3 .bui-title__subtitle,
-.bui-title--headline_3 .bui-title__text {
 }
 
 .bui-title__subtitle {
@@ -1608,7 +1596,6 @@ a.promote_article {
   background-position: 50% 50%;
   -webkit-transition: all 0.4s;
   transition: all 0.4s;
-  -webkit-backface-visibility: hidden;
   -ms-transform: translateZ(0);
   -webkit-transform: translateZ(0);
   transform: translateZ(0);
@@ -1705,7 +1692,7 @@ a.bui-card:link {
   border-color: #ed6648;
   border: 1px solid;
 }
-.nav-tabs{
+.nav-tabs {
   border-bottom: 0 !important;
 }
 .nav-tabs .nav-link.active:hover {

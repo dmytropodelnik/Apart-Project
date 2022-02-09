@@ -415,6 +415,12 @@ a.a11y-skip-to-content {
   font-size: 0;
 }
 
+.activeRoute{
+  color: #ed6648 !important;
+  background-color: white !important;
+  border: 1px solid #ed6648 !important;
+}
+
 .bui-tab--rounded .bui-tab__item:first-child {
   margin-left: -8px;
 }
@@ -433,25 +439,10 @@ a.a11y-skip-to-content {
   padding-left: 8px;
 }
 
-.bui-tab--light.bui-tab--rounded .bui-tab__link--selected {
-  background-color: hsla(0, 0%, 100%, 0.1);
-  border-color: #fff;
-}
-
-.bui-tab--rounded .bui-tab__link--selected {
-  background: rgba(0, 113, 194, 0.06);
-  border-color: #0071c2;
-}
-
 .bui-tab--rounded .bui-tab__link {
   border-radius: 999px;
   padding: 11px 15px;
   border: 1px solid transparent;
-}
-
-.bui-tab--light .bui-tab__link,
-.bui-tab--light .bui-tab__link--selected {
-  color: #fff;
 }
 
 .bui-tab__link:link {
@@ -463,15 +454,6 @@ a.a11y-skip-to-content {
   text-decoration: none;
 }
 
-a:link {
-  color: #0071c2;
-  font-weight: bold;
-}
-
-.bui-tab__link--selected {
-  color: #0071c2;
-}
-
 .bui-tab__link {
   font-size: 14px;
   font-weight: 500;
@@ -481,7 +463,7 @@ a:link {
   display: block;
   border: 0;
   background: #ed6648;
-  color: #262626;
+  color: white;
   padding: 16px;
   text-decoration: none;
   max-width: none;
@@ -506,11 +488,6 @@ a:link {
 .bui-icon {
   display: inline-block;
   fill: currentColor;
-}
-
-.bui-tab--light .bui-tab__link,
-.bui-tab--light .bui-tab__link--selected {
-  color: #fff;
 }
 
 .bui-icon--large {
@@ -701,11 +678,6 @@ a:link {
 }
 
 .bui-tab--light .bui-tab__link:hover {
-  background-color: white;
-  color: #ed6648;
-  border: 1px solid #ed6648;
-}
-.bui-tab--light .bui-tab__item .bui-tab__link li:active {
   background-color: white;
   color: #ed6648;
   border: 1px solid #ed6648;
