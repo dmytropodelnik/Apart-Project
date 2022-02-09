@@ -64,12 +64,9 @@ import { AirportTaxiBookingsListComponent } from './admin-panel/lists/airport-ta
 import { ReviewsListComponent } from './admin-panel/lists/reviews-list/reviews-list.component';
 import { ReviewCategoriesListComponent } from './admin-panel/lists/review-categories-list/review-categories-list.component';
 import { ReviewMessagesListComponent } from './admin-panel/lists/review-messages-list/review-messages-list.component';
-<<<<<<< HEAD
+import { BookingCategoriesListComponent } from './admin-panel/lists/booking-categories-list/booking-categories-list.component';
 import { ViewPropertyComponent } from './view-property/view-property.component';
 import { AddPropertyComponent } from './add-property/add-property.component';
-=======
-import { BookingCategoriesListComponent } from './admin-panel/lists/booking-categories-list/booking-categories-list.component';
->>>>>>> backend
 
 @NgModule({
   declarations: [
@@ -129,12 +126,9 @@ import { BookingCategoriesListComponent } from './admin-panel/lists/booking-cate
     ReviewsListComponent,
     ReviewCategoriesListComponent,
     ReviewMessagesListComponent,
-<<<<<<< HEAD
     ViewPropertyComponent,
-    AddPropertyComponent
-=======
+    AddPropertyComponent,
     BookingCategoriesListComponent
->>>>>>> backend
   ],
   imports: [
     BrowserModule,
