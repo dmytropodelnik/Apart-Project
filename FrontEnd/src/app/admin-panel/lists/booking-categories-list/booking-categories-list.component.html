@@ -10,19 +10,18 @@
   <thead>
     <tr>
       <th scope="col text-center align-self-center">#</th>
-      <th scope="col">Title</th>
-      <th scope="col">Address</th>
-      <th scope="col">Image</th>
+      <th scope="col">Category</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let region of regions">
+    <tr *ngFor="let category of categories">
       <th scope="row">
         <div class="form-check">
           <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
         </div>
       </th>
-      <td></td>
+      <td>{{category.category}}</td>
     </tr>
   </tbody>
 </table>
+

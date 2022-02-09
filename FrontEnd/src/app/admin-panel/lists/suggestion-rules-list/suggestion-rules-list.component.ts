@@ -13,7 +13,7 @@ export class SuggestionRulesListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    fetch('https://localhost:44381/api/countries/getcountries', {
+    fetch('https://localhost:44381/api/suggestionrules/getrules', {
       method: 'GET',
     })
       .then((r) => r.json())

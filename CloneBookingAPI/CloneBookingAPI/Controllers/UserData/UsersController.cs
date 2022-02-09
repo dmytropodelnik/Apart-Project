@@ -38,22 +38,48 @@ namespace CloneBookingAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> UserExists(string email)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-
-            if (user is not null)
+            try
             {
-                return RedirectToAction("GenerateEnterCode", "Codes", new { email });
-            }
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
 
-            return Json(new { code = 202, enter = false });
+                if (user is not null)
+                {
+                    return RedirectToAction("GenerateEnterCode", "Codes", new { email });
+                }
+
+                return Json(new { code = 202, enter = false });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
 
-        [Authorize(Roles = "admin")]
+        // [Authorize(Roles = "admin")]
         [Route("getusers")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
         {
-            return await _context.Users.ToListAsync();
+            try
+            {
+                var res = await _context.Users.ToListAsync();
+
+                return Json(new { code = 200, users = res });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
 
         [Authorize(Roles = "admin")]
@@ -61,19 +87,28 @@ namespace CloneBookingAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<User>> GetUser(string email)
         {
-            if (string.IsNullOrWhiteSpace(email))
+            try
             {
-                return NotFound();
-            }
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return NotFound();
+                }
 
-            var user = await _context.Users
-                .FirstOrDefaultAsync(m => m.Email == email);
-            if (user is null)
+                var user = await _context.Users
+                    .FirstOrDefaultAsync(m => m.Email == email);
+                if (user is null)
+                {
+                    return NotFound();
+                }
+
+                return user;
+            }
+            catch (Exception ex)
             {
-                return NotFound();
-            }
+                Debug.WriteLine(ex.Message);
 
-            return user;
+                return Json(new { code = 400 });
+            }
         }
 
         [Route("register")]

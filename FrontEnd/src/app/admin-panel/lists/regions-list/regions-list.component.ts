@@ -13,7 +13,7 @@ export class RegionsListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    fetch('https://localhost:44381/api/countries/getcountries', {
+    fetch('https://localhost:44381/api/regions/getregions', {
       method: 'GET',
     })
       .then((r) => r.json())

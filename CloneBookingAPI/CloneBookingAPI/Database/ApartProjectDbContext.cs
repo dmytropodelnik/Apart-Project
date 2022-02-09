@@ -8,6 +8,7 @@ using CloneBookingAPI.Services.Database.Configurations.Suggestions;
 using CloneBookingAPI.Services.Database.Configurations.UserData;
 using CloneBookingAPI.Services.Database.Configurations.UserProfile;
 using CloneBookingAPI.Services.Database.Models;
+using CloneBookingAPI.Services.Database.Models.Flights;
 using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Payment;
 using CloneBookingAPI.Services.Database.Models.Review;
@@ -49,6 +50,7 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<SuggestionRuleType> SuggestionRuleTypes { get; set; }
         public DbSet<SuggestionReviewGrade> SuggestionReviewGrades { get; set; }
         public DbSet<SuggestionHighlight> SuggestionHighlights { get; set; }
+        public DbSet<FlightClassType> FlightClassTypes { get; set; }
         public DbSet<Suggestion> Suggestions { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<RoomType> RoomTypes { get; set; }

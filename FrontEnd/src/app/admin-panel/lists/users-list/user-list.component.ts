@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { User } from '../../../models/UserData/user.item';
+import { User } from '../../../models/user.item';
 
 @Component({
   selector: 'app-users-list',
@@ -14,7 +14,7 @@ export class UserListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    fetch('https://localhost:44381/api/countries/getcountries', {
+    fetch('https://localhost:44381/api/users/getusers', {
       method: 'GET',
     })
       .then((r) => r.json())
