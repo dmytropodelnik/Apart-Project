@@ -27,9 +27,9 @@ namespace CloneBookingAPI.Controllers.Payment
         {
             try
             {
-                var res = await _context.PromoCodes.ToListAsync();
+                var codes = await _context.PromoCodes.ToListAsync();
 
-                return Json(new { code = 200, codes = res });
+                return Json(new { code = 200, codes });
             }
             catch (ArgumentNullException ex)
             {

@@ -27,9 +27,9 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                var res = await _context.Languages.ToListAsync();
+                var languages = await _context.Languages.ToListAsync();
 
-                return Json(new { code = 200, languages = res });
+                return Json(new { code = 200, languages });
             }
             catch (ArgumentNullException ex)
             {
@@ -59,9 +59,6 @@ namespace CloneBookingAPI.Controllers
                 var res = await _context.Languages.FirstOrDefaultAsync(l => l.Title == lang.Title);
                 if (res is null)
                 {
-                    // Language newLanguage = new();
-                    // newLanguage.Title = lang.Title;
-
                     _context.Languages.Add(lang);
                     await _context.SaveChangesAsync();
 

@@ -3,7 +3,9 @@ using CloneBookingAPI.Services.Database.Models.Location;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -25,9 +27,24 @@ namespace CloneBookingAPI.Controllers.Payment
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Services.Database.Models.Payment.Payment>>> GetPayments()
         {
-            var res = await _context.Payments.ToListAsync();
+            try
+            {
+                var payments = await _context.Payments.ToListAsync();
 
-            return Json(new { code = 200, payments = res });
+                return Json(new { code = 200, payments });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
 
         [Route("addpayment")]

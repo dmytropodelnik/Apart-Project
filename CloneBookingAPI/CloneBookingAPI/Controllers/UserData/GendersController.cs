@@ -27,9 +27,9 @@ namespace CloneBookingAPI.Controllers.UserData
         {
             try
             {
-                var res = await _context.Genders.ToListAsync();
+                var genders = await _context.Genders.ToListAsync();
 
-                return Json(new { code = 200, genders = res });
+                return Json(new { code = 200, genders });
             }
             catch (ArgumentNullException ex)
             {

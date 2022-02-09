@@ -47,21 +47,19 @@ namespace CloneBookingAPI.Controllers
 
         [Route("addfacilitytype")]
         [HttpPost]
-        public async Task<IActionResult> AddFacilityType([FromBody] string type)
+        public async Task<IActionResult> AddFacilityType([FromBody] FacilityType type)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(type))
+                if (type is null || string.IsNullOrWhiteSpace(type.Type))
                 {
                     return Json(new { code = 400 });
                 }
 
-                var res = await _context.FacilityTypes.FirstOrDefaultAsync(f => f.Type == type);
+                var res = await _context.FacilityTypes.FirstOrDefaultAsync(f => f.Type == type.Type);
                 if (res is null)
                 {
-                    FacilityType newType = new();
-                    newType.Type = type;
-                    _context.FacilityTypes.Add(newType);
+                    _context.FacilityTypes.Add(type);
                     await _context.SaveChangesAsync();
 
                     return Json(new { code = 200 });

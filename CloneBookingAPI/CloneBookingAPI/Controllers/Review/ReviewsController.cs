@@ -26,7 +26,9 @@ namespace CloneBookingAPI.Controllers.Review
         {
             try
             {
-                return await _context.Reviews.ToListAsync();
+                var reviews = await _context.Reviews.ToListAsync();
+
+                return Json(new { code = 200, reviews });
             }
             catch (ArgumentNullException ex)
             {
@@ -53,9 +55,7 @@ namespace CloneBookingAPI.Controllers.Review
                     return Json(new { code = 400 });
                 }
 
-                Services.Database.Models.Review.Review newReview = new();
-                newReview.ReviewMessage = review.ReviewMessage;
-                _context.Reviews.Add(newReview);
+                _context.Reviews.Add(review);
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });

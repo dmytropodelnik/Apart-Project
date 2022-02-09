@@ -27,9 +27,9 @@ namespace CloneBookingAPI.Controllers.Payment
         {
             try
             {
-                var res = await _context.Currencies.ToListAsync();
+                var currencies = await _context.Currencies.ToListAsync();
 
-                return Json(new { code = 200, currencies = res });
+                return Json(new { code = 200, currencies });
             }
             catch (ArgumentNullException ex)
             {
@@ -59,10 +59,7 @@ namespace CloneBookingAPI.Controllers.Payment
                 var res = await _context.Currencies.FirstOrDefaultAsync(c => c.Value == currency.Value);
                 if (res is null)
                 {
-                    Currency newCurrency = new();
-                    newCurrency.Value = currency.Value;
-                    newCurrency.Abbreviation = currency.Abbreviation;
-                    _context.Currencies.Add(newCurrency);
+                    _context.Currencies.Add(currency);
                     await _context.SaveChangesAsync();
 
                     return Json(new { code = 200 });

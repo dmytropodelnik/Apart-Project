@@ -27,9 +27,9 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                var res = await _context.SuggestionRuleTypes.ToListAsync();
+                var ruleTypes = await _context.SuggestionRuleTypes.ToListAsync();
 
-                return Json(new { code = 200, ruleTypes = res });
+                return Json(new { code = 200, ruleTypes });
             }
             catch (ArgumentNullException ex)
             {
@@ -59,10 +59,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 var res = await _context.SuggestionRuleTypes.FirstOrDefaultAsync(t => t.Type == type.Type);
                 if (res is null)
                 {
-                    SuggestionRuleType newType = new();
-                    newType.Type = type.Type;
-
-                    _context.SuggestionRuleTypes.Add(newType);
+                    _context.SuggestionRuleTypes.Add(type);
                     await _context.SaveChangesAsync();
 
                     return Json(new { code = 200 });

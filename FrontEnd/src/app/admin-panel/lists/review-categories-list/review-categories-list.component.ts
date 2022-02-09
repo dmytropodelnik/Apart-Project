@@ -13,7 +13,7 @@ export class ReviewCategoriesListComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    fetch('https://localhost:44381/api/countries/getcountries', {
+    fetch('https://localhost:44381/api/reviewcategories/getcategories', {
       method: 'GET',
     })
       .then((r) => r.json())

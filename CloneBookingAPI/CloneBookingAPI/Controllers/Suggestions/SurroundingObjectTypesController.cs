@@ -27,9 +27,9 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                var res = await _context.SurroundingObjectTypes.ToListAsync();
+                var types = await _context.SurroundingObjectTypes.ToListAsync();
 
-                return Json(new { code = 200, types = res });
+                return Json(new { code = 200, types });
             }
             catch (ArgumentNullException ex)
             {

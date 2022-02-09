@@ -56,18 +56,14 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
         [Route("addsuggestion")]
         [HttpPost]
-        public async Task<IActionResult> AddCategory([FromBody] Suggestion newSuggestion, IFormFileCollection uploads)
+        public async Task<IActionResult> AddCategory([FromBody] Suggestion suggestion, IFormFileCollection uploads)
         {
             try
             {
-                if (newSuggestion is null)
+                if (suggestion is null)
                 {
                     return Json(new { code = STATUS_400 });
                 }
-
-                Suggestion suggestion = new();
-                // suggestion.
-                // newSuggestion.Address
 
                 _context.Suggestions.Add(suggestion);
                 await _context.SaveChangesAsync();

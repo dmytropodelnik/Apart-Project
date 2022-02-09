@@ -27,9 +27,9 @@ namespace CloneBookingAPI.Controllers.Flights
         {
             try
             {
-                var res = await _context.FlightClassTypes.ToListAsync();
+                var types = await _context.FlightClassTypes.ToListAsync();
 
-                return Json(new { code = 200, types = res });
+                return Json(new { code = 200, types });
             }
             catch (ArgumentNullException ex)
             {

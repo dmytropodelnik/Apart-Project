@@ -24,13 +24,13 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("getroles")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Role>>> GetCountries()
+        public async Task<ActionResult<IEnumerable<Role>>> GetRoles()
         {
             try
             {
-                var res = await _context.Roles.ToListAsync();
+                var roles = await _context.Roles.ToListAsync();
 
-                return Json(new { code = 200, roles = res });
+                return Json(new { code = 200, roles });
             }
             catch (ArgumentNullException ex)
             {
@@ -46,29 +46,29 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
-        // GET api/<RolesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<RolesController>
+        [Route("addrole")]
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<IActionResult> AddRole([FromBody] Role role)
         {
-        }
+            try
+            {
+                if (role is null || string.IsNullOrWhiteSpace(role.Name))
+                {
+                    return Json(new { code = 400 });
+                }
 
-        // PUT api/<RolesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+                _context.Roles.Add(role);
+                await _context.SaveChangesAsync();
 
-        // DELETE api/<RolesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+                return Json(new { code = 200 });
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
     }
 }

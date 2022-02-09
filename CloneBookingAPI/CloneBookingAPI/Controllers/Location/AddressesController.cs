@@ -29,9 +29,9 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                var res = await _context.Addresses.ToListAsync();
+                var addresses = await _context.Addresses.ToListAsync();
 
-                return Json(new { code = 200, addresses = res });
+                return Json(new { code = 200, addresses });
             }
             catch (ArgumentNullException ex)
             {
@@ -84,17 +84,17 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                Address newAddress = new();
-                newAddress.CountryId = address.CountryId;
-                newAddress.CityId = address.CityId;
-                newAddress.DistrictId = address.DistrictId;
-                newAddress.RegionId = address.RegionId;
-                newAddress.AddressText = address.AddressText;
-                newAddress.ZipCode = address.ZipCode;
-                newAddress.PhoneNumber = address.PhoneNumber;
-                newAddress.AddressText = address.AddressText;
+                //Address newAddress = new();
+                //newAddress.CountryId = address.CountryId;
+                //newAddress.CityId = address.CityId;
+                //newAddress.DistrictId = address.DistrictId;
+                //newAddress.RegionId = address.RegionId;
+                //newAddress.AddressText = address.AddressText;
+                //newAddress.ZipCode = address.ZipCode;
+                //newAddress.PhoneNumber = address.PhoneNumber;
+                //newAddress.AddressText = address.AddressText;
 
-                _context.Addresses.Add(newAddress);
+                _context.Addresses.Add(address);
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });

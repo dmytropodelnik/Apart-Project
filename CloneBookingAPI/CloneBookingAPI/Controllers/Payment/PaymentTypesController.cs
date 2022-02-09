@@ -27,9 +27,9 @@ namespace CloneBookingAPI.Controllers.Payment
         {
             try
             {
-                var res = await _context.PaymentTypes.ToListAsync();
+                var types = await _context.PaymentTypes.ToListAsync();
 
-                return Json(new { code = 200, types = res });
+                return Json(new { code = 200, types });
             }
             catch (ArgumentNullException ex)
             {
@@ -59,9 +59,7 @@ namespace CloneBookingAPI.Controllers.Payment
                 var res = await _context.PaymentTypes.FirstOrDefaultAsync(t => t.Type == type.Type);
                 if (res is null)
                 {
-                    PaymentType newType = new();
-                    newType.Type = type.Type;
-                    _context.PaymentTypes.Add(newType);
+                    _context.PaymentTypes.Add(type);
                     await _context.SaveChangesAsync();
 
                     return Json(new { code = 200 });

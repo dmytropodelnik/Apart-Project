@@ -29,9 +29,9 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                var res = await _context.Regions.ToListAsync();
+                var regions = await _context.Regions.ToListAsync();
 
-                return Json(new { code = 200, regions = res });
+                return Json(new { code = 200, regions });
             }
             catch (ArgumentNullException ex)
             {
@@ -49,21 +49,19 @@ namespace CloneBookingAPI.Controllers
 
         [Route("addregion")]
         [HttpPost]
-        public async Task<IActionResult> AddRegion([FromBody] string region, IFormFile uploadedFile)
+        public async Task<IActionResult> AddRegion([FromBody] Region region, IFormFile uploadedFile)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(region))
+                if (region is null || string.IsNullOrWhiteSpace(region.Title))
                 {
                     return Json(new { code = 400 });
                 }
 
-                var res = await _context.Regions.FirstOrDefaultAsync(c => c.Title == region);
+                var res = await _context.Regions.FirstOrDefaultAsync(c => c.Title == region.Title);
                 if (res is null)
                 {
-                    Region newRegion = new();
-                    newRegion.Title = region;
-                    _context.Regions.Add(newRegion);
+                    _context.Regions.Add(region);
                     await _context.SaveChangesAsync();
 
                     return Json(new { code = 200 });

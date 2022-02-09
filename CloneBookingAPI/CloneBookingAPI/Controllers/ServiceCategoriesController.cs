@@ -27,9 +27,9 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                var res = await _context.ServiceCategories.ToListAsync();
+                var categories = await _context.ServiceCategories.ToListAsync();
 
-                return Json(new { code = 200, categories = res });
+                return Json(new { code = 200, categories });
             }
             catch (ArgumentNullException ex)
             {
@@ -47,21 +47,19 @@ namespace CloneBookingAPI.Controllers
 
         [Route("addcategory")]
         [HttpPost]
-        public async Task<IActionResult> AddCategory([FromBody] string category)
+        public async Task<IActionResult> AddCategory([FromBody] ServiceCategory category)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(category))
+                if (category is null || string.IsNullOrWhiteSpace(category.Category))
                 {
                     return Json(new { code = 400 });
                 }
 
-                var res = await _context.ServiceCategories.FirstOrDefaultAsync(c => c.Category == category);
+                var res = await _context.ServiceCategories.FirstOrDefaultAsync(c => c.Category == category.Category);
                 if (res is null)
                 {
-                    ServiceCategory newCategory = new();
-                    newCategory.Category = category;
-                    _context.ServiceCategories.Add(newCategory);
+                    _context.ServiceCategories.Add(category);
                     await _context.SaveChangesAsync();
 
                     return Json(new { code = 200 });

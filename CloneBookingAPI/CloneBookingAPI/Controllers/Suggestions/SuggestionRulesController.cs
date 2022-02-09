@@ -56,11 +56,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     return Json(new { code = 400 });
                 }
 
-                SuggestionRule newRule = new();
-                newRule.Title = rule.Title;
-                newRule.Text = rule.Text;
-
-                _context.SuggestionRules.Add(newRule);
+                _context.SuggestionRules.Add(rule);
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });

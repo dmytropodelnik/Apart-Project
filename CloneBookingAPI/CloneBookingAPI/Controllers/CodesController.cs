@@ -84,23 +84,5 @@ namespace CloneBookingAPI.Controllers
 
             return Json(new { code = 200 });
         }
-
-        // POST api/<ConfirmationsController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<ConfirmationsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ConfirmationsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

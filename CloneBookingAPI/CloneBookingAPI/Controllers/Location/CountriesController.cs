@@ -30,9 +30,9 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                var res = await _context.Countries.ToListAsync();
+                var countries = await _context.Countries.ToListAsync();
 
-                return Json(new { code = 200, countries = res });
+                return Json(new { code = 200, countries });
             }
             catch (ArgumentNullException ex)
             {
@@ -50,21 +50,19 @@ namespace CloneBookingAPI.Controllers
 
         [Route("addcountry")]
         [HttpPost]
-        public async Task<IActionResult> AddCountry([FromBody] string country, IFormFile uploadedFile)
+        public async Task<IActionResult> AddCountry([FromBody] Country country, IFormFile uploadedFile)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(country))
+                if (country is null || string.IsNullOrWhiteSpace(country.Title))
                 {
                     return Json(new { code = 400 });
                 }
 
-                var res = await _context.Countries.FirstOrDefaultAsync(c => c.Title == country);
+                var res = await _context.Countries.FirstOrDefaultAsync(c => c.Title == country.Title);
                 if (res is null)
                 {
-                    Country newCountry = new();
-                    newCountry.Title = country;
-                    _context.Countries.Add(newCountry);
+                    _context.Countries.Add(country);
                     await _context.SaveChangesAsync();
 
                     return Json(new { code = 200 });

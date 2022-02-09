@@ -31,9 +31,9 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                var res = await _context.Cities.ToListAsync();
+                var cities = await _context.Cities.ToListAsync();
 
-                return Json(new { code = 200, cities = res });
+                return Json(new { code = 200, cities });
             }
             catch (ArgumentNullException ex)
             {
@@ -81,22 +81,20 @@ namespace CloneBookingAPI.Controllers
 
         [Route("addcity")]
         [HttpPost]
-        public async Task<IActionResult> AddCity([FromBody] string city, IFormFile uploadedFile)
+        public async Task<IActionResult> AddCity([FromBody] City city, IFormFile uploadedFile)
         {
             try
             {
 
-                if (string.IsNullOrWhiteSpace(city))
+                if (city is null || string.IsNullOrWhiteSpace(city.Title))
                 {
                     return Json(new { code = 400 });
                 }
 
-                var res = await _context.Cities.FirstOrDefaultAsync(c => c.Title == city);
+                var res = await _context.Cities.FirstOrDefaultAsync(c => c.Title == city.Title);
                 if (res is null)
                 {
-                    City newCity = new();
-                    newCity.Title = city;
-                    _context.Cities.Add(newCity);
+                    _context.Cities.Add(city);
                     await _context.SaveChangesAsync();
 
                     return Json(new { code = 200 });

@@ -25,13 +25,13 @@ namespace CloneBookingAPI.Controllers
 
         [Route("getdistricts")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<District>>> GetCountries()
+        public async Task<ActionResult<IEnumerable<District>>> GetDistricts()
         {
             try
             {
-                var res = await _context.Districts.ToListAsync();
+                var districts = await _context.Districts.ToListAsync();
 
-                return Json(new { code = 200, districts = res });
+                return Json(new { code = 200, districts });
             }
             catch (ArgumentNullException ex)
             {
@@ -49,21 +49,19 @@ namespace CloneBookingAPI.Controllers
 
         [Route("adddistrict")]
         [HttpPost]
-        public async Task<IActionResult> AddCountry([FromBody] string district, IFormFile uploadedFile)
+        public async Task<IActionResult> AddDistrict([FromBody] District district, IFormFile uploadedFile)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(district))
+                if (district is null || string.IsNullOrWhiteSpace(district.Title))
                 {
                     return Json(new { code = 400 });
                 }
 
-                var res = await _context.Countries.FirstOrDefaultAsync(c => c.Title == district);
+                var res = await _context.Districts.FirstOrDefaultAsync(d => d.Title == district.Title);
                 if (res is null)
                 {
-                    District newDistrict = new();
-                    newDistrict.Title = district;
-                    _context.Districts.Add(newDistrict);
+                    _context.Districts.Add(district);
                     await _context.SaveChangesAsync();
 
                     return Json(new { code = 200 });
@@ -80,7 +78,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("changedistrictbyname")]
         [HttpPut]
-        public async Task<IActionResult> ChangeCountryByName(string district, string newName)
+        public async Task<IActionResult> ChangeDistrictByName(string district, string newName)
         {
             try
             {
