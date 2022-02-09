@@ -403,15 +403,41 @@
 
                   <li>
                     <a class="btn waves-effect" (click)="setContent('booking-categories')">
-                      <i class="mdi mdi-white-balance-sunny"></i>
+                      <i class="mdi mdi-book-multiple"></i>
                       <span>Booking categories</span>
                     </a>
                   </li>
 
                   <li>
                     <a class="btn waves-effect" (click)="setContent('service-categories')">
-                      <i class="mdi mdi-white-balance-sunny"></i>
+                      <i class="mdi mdi-book-open-page-variant"></i>
                       <span>Service categories</span>
+                    </a>
+                  </li>
+                </div>
+              </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <li class="menu-title" class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseOneFacilities" aria-expanded="true" aria-controls="collapseOneFacilities">
+                    Facilities
+                  </li>
+                </h2>
+                <div id="collapseOneFacilities" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                  data-bs-parent="#accordionFacilities">
+
+                  <li>
+                    <a class="btn waves-effect" (click)="setContent('facility')">
+                      <i class="mdi mdi-calendar-blank"></i>
+                      <span>Facilities</span>
+                    </a>
+                  </li>
+
+                  <li>
+                    <a class="btn waves-effect" (click)="setContent('facility-types')">
+                      <i class="mdi mdi-calendar-multiple"></i>
+                      <span>Facility types</span>
                     </a>
                   </li>
                 </div>
