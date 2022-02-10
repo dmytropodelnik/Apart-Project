@@ -70,5 +70,61 @@ namespace CloneBookingAPI.Controllers.UserData
                 return Json(new { code = 400 });
             }
         }
+
+        [Route("editrole")]
+        [HttpPost]
+        public async Task<IActionResult> EditRole([FromBody] Role role)
+        {
+            try
+            {
+                if (role is null || string.IsNullOrWhiteSpace(role.Name))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == role.Name);
+                if (resRole is not null)
+                {
+                    resRole.Name = role.Name;
+
+                    _context.Roles.Update(resRole);
+                    await _context.SaveChangesAsync();
+
+                    return Json(new { code = 200 });
+                }
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("deleterole")]
+        [HttpPost]
+        public async Task<IActionResult> DeleteRole([FromBody] Role role)
+        {
+            try
+            {
+                if (role is null || string.IsNullOrWhiteSpace(role.Name))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                _context.Roles.Remove(role);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
     }
 }

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Role } from 'src/app/models/UserData/role.item';
 
+import AuthHelper from '../../../utils/authHelper';
+
 @Component({
   selector: 'app-roles-list',
   templateUrl: './roles-list.component.html',
@@ -9,10 +11,98 @@ import { Role } from 'src/app/models/UserData/role.item';
 export class RolesListComponent implements OnInit {
 
   roles: Role[] | null = null;
+  role: string | null = null;
+  checkedRole: number | null = null;
 
   constructor() { }
 
-  ngOnInit(): void {
+  addRole(): void {
+    let role = {
+      name: this.role,
+    };
+
+    fetch('https://localhost:44381/api/roles/addrole', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        "Accept": "application/json",
+        "Authorization": "Bearer " + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(role),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.getRoles();
+        } else {
+          alert('Adding error!');
+        }
+        this.role = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+
+  editRole(): void {
+    let role = {
+      name: this.role,
+    };
+
+    fetch('https://localhost:44381/api/roles/editrole', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        "Accept": "application/json",
+        "Authorization": "Bearer " + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(role),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.getRoles();
+        } else {
+          alert('Editing error!');
+        }
+        this.role = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  deleteRole(): void {
+    let role = {
+      id: this.checkedRole,
+      name: this.role,
+    };
+
+    fetch('https://localhost:44381/api/roles/deleterole', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        "Accept": "application/json",
+        "Authorization": "Bearer " + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(role),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.getRoles();
+        } else {
+          alert('Editing error!');
+        }
+        this.role = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  getRoles(): void {
     fetch('https://localhost:44381/api/roles/getroles', {
       method: 'GET',
     })
@@ -27,6 +117,15 @@ export class RolesListComponent implements OnInit {
       .catch((ex) => {
         alert(ex);
       });
+  }
+
+  setRole(id: number | null, role: string): void {
+    this.checkedRole = id;
+    this.role = role;
+  }
+
+  ngOnInit(): void {
+    this.getRoles();
   }
 
 }
