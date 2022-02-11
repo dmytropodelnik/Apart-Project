@@ -73,7 +73,8 @@
     <tr *ngFor="let rule of rules">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{rule.id}}
+          (click)="setRule(rule.id, rule.text)" >
         </div>
       </th>
       <td>{{rule.text}}</td>

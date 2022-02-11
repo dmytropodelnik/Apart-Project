@@ -100,7 +100,8 @@
     <tr *ngFor="let user of users">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{user.id}}
+          (click)="setUser(user.id, user.title)" >
         </div>
       </th>
       <td>{{user.title}}</td>

@@ -1,11 +1,11 @@
-import { Review } from "./Review/review.item";
-import { AirportTaxiBooking } from "./Services/airporttaxibooking.item";
-import { AttractionBooking } from "./Services/attractionbooking.item";
-import { CarRentalBooking } from "./Services/carrentalbooking.item";
-import { FlightBooking } from "./Services/flightbooking.item";
-import { StayBooking } from "./Services/staybooking.item";
-import { Suggestion } from "./Suggestions/suggestion.item";
-import { UserProfile } from "./UserData/useprofile.item";
+import { Review } from "../Review/review.item";
+import { AirportTaxiBooking } from "../Services/airporttaxibooking.item";
+import { AttractionBooking } from "../Services/attractionbooking.item";
+import { CarRentalBooking } from "../Services/carrentalbooking.item";
+import { FlightBooking } from "../Services/flightbooking.item";
+import { StayBooking } from "../Services/staybooking.item";
+import { Suggestion } from "../Suggestions/suggestion.item";
+import { UserProfile } from "./useprofile.item";
 
 export class User {
   id: number | null = null;

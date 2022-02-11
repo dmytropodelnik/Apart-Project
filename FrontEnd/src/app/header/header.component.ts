@@ -1,6 +1,6 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
-import { User } from '../models/user.item';
+import { User } from '../models/UserData/user.item';
 import AuthHelper from '../utils/authHelper';
 
 import { AuthorizationService } from '../services/authorization.service';

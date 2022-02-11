@@ -119,7 +119,7 @@ export class SurroundingObjectsListComponent implements OnInit {
       });
   }
 
-  setObject(id: number | null, object: string): void {
+  setObject(id: number | null, object: any): void {
     this.checkedObject = id;
     this.object = object;
 

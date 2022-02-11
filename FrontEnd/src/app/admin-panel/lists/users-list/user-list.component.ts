@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../../../models/user.item';
+import { User } from '../../../models/UserData/user.item';
 
 import AuthHelper from '../../../utils/authHelper';
 
@@ -119,7 +119,7 @@ export class UserListComponent implements OnInit {
       });
   }
 
-  setUser(id: number | null, user: string): void {
+  setUser(id: number | null, user: string | null): void {
     this.checkedUser = id;
     this.user = user;
 

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Address } from 'src/app/models/Location/address.item';
 
+import AuthHelper from '../../../utils/authHelper';
+
 @Component({
   selector: 'app-addresses-list',
   templateUrl: './addresses-list.component.html',
@@ -9,11 +11,99 @@ import { Address } from 'src/app/models/Location/address.item';
 export class AddressesListComponent implements OnInit {
 
   addresses: Address[] | null = null;
+  address: string | null = null;
+  checkedAddress: number | null = null;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-    fetch('https://localhost:44381/api/addresses/getaddresses', {
+  addAddress(): void {
+    let address = {
+      name: this.address,
+    };
+
+    fetch('https://localhost:44381/api/addresses/addaddress', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(address),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.getAddresses();
+        } else {
+          alert('Adding error!');
+        }
+        this.address = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  editAddress(): void {
+    let address = {
+      id: this.checkedAddress,
+      name: this.address,
+    };
+
+    fetch('https://localhost:44381/api/addresses/editaddress', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(address),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.getAddresses();
+        } else {
+          alert('Editing error!');
+        }
+        this.address = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  deleteAddress(): void {
+    let address = {
+      id: this.checkedAddress,
+      name: this.address,
+    };
+
+    fetch('https://localhost:44381/api/addresses/deleteaddress', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(address),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.getAddresses();
+        } else {
+          alert('Editing error!');
+        }
+        this.address = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  getAddresses(): void {
+    fetch('https://localhost:44381/api/roles/getroles', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -27,6 +117,18 @@ export class AddressesListComponent implements OnInit {
       .catch((ex) => {
         alert(ex);
       });
+  }
+
+  setAddress(id: number | null, address: string): void {
+    this.checkedAddress = id;
+    this.address = address;
+
+    document.getElementById('editButton')?.removeAttribute('disabled');
+    document.getElementById('deleteButton')?.removeAttribute('disabled');
+  }
+
+  ngOnInit(): void {
+    this.getAddresses();
   }
 
 }

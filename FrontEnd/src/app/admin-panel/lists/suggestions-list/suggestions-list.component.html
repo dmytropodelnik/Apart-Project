@@ -76,7 +76,8 @@
     <tr *ngFor="let suggestion of suggestions">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{suggestion.id}}
+          (click)="setSuggestion(suggestion.id, suggestion.title)" >
         </div>
       </th>
       <td>{{suggestion.title}}</td>

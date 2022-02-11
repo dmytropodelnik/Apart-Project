@@ -69,10 +69,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let room of roomTypes">
+    <tr *ngFor="let type of roomTypes">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{type.id}}
+          (click)="setType(type.id, type.title)" >
         </div>
       </th>
       <td></td>
