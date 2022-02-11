@@ -1996,7 +1996,9 @@ a.bui-card:link {
     align-items: center;
     text-align: center;
   }
-
+  .ssubscriptionValidator {
+    margin-right: auto;
+  }
   .promotion-postcard__small {
     width: 50%;
   }
