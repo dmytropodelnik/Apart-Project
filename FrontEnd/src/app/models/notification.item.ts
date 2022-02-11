@@ -1,6 +1,6 @@
-export class Notification {
+export default class Notification {
   id: number | null = null;
-  title: string = '';
+  value: string = '';
   image: File | null = null;
 
   constructor () {

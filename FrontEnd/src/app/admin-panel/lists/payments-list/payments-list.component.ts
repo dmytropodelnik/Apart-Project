@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Payment } from 'src/app/models/Payment/payment.item';
+import { PaymentType } from 'src/app/models/Payment/paymenttype.item';
 
 import AuthHelper from '../../../utils/authHelper';
 
@@ -11,7 +12,7 @@ import AuthHelper from '../../../utils/authHelper';
 export class PaymentsListComponent implements OnInit {
 
   payments: Payment[] | null = null;
-  payment: string | null = null;
+  payment: PaymentType | null = null;
   checkedPayment: number | null = null;
 
   constructor() {}
@@ -37,7 +38,7 @@ export class PaymentsListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.payment = '';
+        this.payment = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -66,7 +67,7 @@ export class PaymentsListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.payment = '';
+        this.payment = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -95,7 +96,7 @@ export class PaymentsListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.payment = '';
+        this.payment = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -119,7 +120,7 @@ export class PaymentsListComponent implements OnInit {
       });
   }
 
-  setPayment(id: number | null, payment: string): void {
+  setPayment(id: number | null, payment: PaymentType | null): void {
     this.checkedPayment = id;
     this.payment = payment;
 

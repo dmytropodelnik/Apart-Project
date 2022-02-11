@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import Notification from '../../../models/notification.item';
+
 import AuthHelper from '../../../utils/authHelper';
 
 @Component({
@@ -118,9 +120,9 @@ export class NotificationsListComponent implements OnInit {
       });
   }
 
-  setNotification(id: number | null, notification: string): void {
+  setNotification(id: number | null, notif: string): void {
     this.checkedNotification = id;
-    this.notification = notification;
+    this.notification = notif;
 
     document.getElementById('editButton')?.removeAttribute('disabled');
     document.getElementById('deleteButton')?.removeAttribute('disabled');

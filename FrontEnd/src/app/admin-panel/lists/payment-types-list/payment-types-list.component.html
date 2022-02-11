@@ -72,7 +72,8 @@
     <tr *ngFor="let type of types">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{type.id}}
+          (click)="setType(type.id, type.type)" >
         </div>
       </th>
       <td></td>

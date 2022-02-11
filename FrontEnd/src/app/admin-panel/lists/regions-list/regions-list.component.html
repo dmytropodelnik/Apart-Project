@@ -74,7 +74,8 @@
     <tr *ngFor="let region of regions">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{region.id}}
+          (click)="setRegion(region.id, region.title)" >
         </div>
       </th>
       <td></td>
