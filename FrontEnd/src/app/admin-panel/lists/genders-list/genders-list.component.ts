@@ -14,6 +14,9 @@ export class GendersListComponent implements OnInit {
   gender: string | null = null;
   checkedGender: number | null = null;
 
+  isEditEnabled: boolean = true;
+  isDeleteEnabled: boolean = true;
+
   constructor() {}
 
   addGender(): void {
@@ -123,6 +126,9 @@ export class GendersListComponent implements OnInit {
   setGender(id: number | null, gender: string): void {
     this.checkedGender = id;
     this.gender = gender;
+    
+    document.getElementById('editButton')?.removeAttribute('disabled');
+    document.getElementById('deleteButton')?.removeAttribute('disabled');
   }
 
   ngOnInit(): void {

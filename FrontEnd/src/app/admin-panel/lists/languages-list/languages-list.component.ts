@@ -105,6 +105,9 @@ export class LanguagesListComponent implements OnInit {
   setLang(id: number | null, lang: string): void {
     this.checkedLang = id;
     this.lang = lang;
+
+    document.getElementById('editButton')?.removeAttribute('disabled');
+    document.getElementById('deleteButton')?.removeAttribute('disabled');
   }
 
   getLangs(): void {

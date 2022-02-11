@@ -122,6 +122,9 @@ export class RolesListComponent implements OnInit {
   setRole(id: number | null, role: string): void {
     this.checkedRole = id;
     this.role = role;
+
+    document.getElementById('editButton')?.removeAttribute('disabled');
+    document.getElementById('deleteButton')?.removeAttribute('disabled');
   }
 
   ngOnInit(): void {
