@@ -45,6 +45,35 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [Route("addlanguage")]
+        [HttpPost]
+        public async Task<IActionResult> AddLanguage([FromBody] Language lang)
+        {
+            try
+            {
+                if (lang is null || string.IsNullOrWhiteSpace(lang.Title))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var res = await _context.Languages.FirstOrDefaultAsync(l => l.Title == lang.Title);
+                if (res is null)
+                {
+                    _context.Languages.Add(lang);
+                    await _context.SaveChangesAsync();
+
+                    return Json(new { code = 200 });
+                }
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
         [Route("editlanguage")]
         [HttpPut]
         public async Task<IActionResult> EditLanguage([FromBody] Language lang)
@@ -56,10 +85,12 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                var res = await _context.Languages.FirstOrDefaultAsync(l => l.Id == lang.Id);
-                if (res is null)
+                var resLang = await _context.Languages.FirstOrDefaultAsync(l => l.Id == lang.Id);
+                if (resLang is not null)
                 {
-                    _context.Languages.Add(lang);
+                    resLang.Title = lang.Title;
+
+                    _context.Languages.Update(resLang);
                     await _context.SaveChangesAsync();
 
                     return Json(new { code = 200 });
@@ -106,16 +137,16 @@ namespace CloneBookingAPI.Controllers
 
         [Route("deletelang")]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteLang(int id)
+        public async Task<IActionResult> DeleteLang([FromBody] Language lang)
         {
             try
             {
-                if (id < 1)
+                if (lang is null || lang.Id < 1)
                 {
                     return Json(new { code = 400 });
                 }
 
-                var resLang = await _context.Languages.FirstOrDefaultAsync(l => l.Id == id);
+                var resLang = await _context.Languages.FirstOrDefaultAsync(l => l.Id == lang.Id);
                 if (resLang is null)
                 {
                     return Json(new { code = 400 });
