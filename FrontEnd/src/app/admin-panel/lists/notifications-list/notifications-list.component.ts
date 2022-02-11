@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import AuthHelper from '../../../utils/authHelper';
+
 @Component({
   selector: 'app-notifications-list',
   templateUrl: './notifications-list.component.html',
@@ -8,11 +10,99 @@ import { Component, OnInit } from '@angular/core';
 export class NotificationsListComponent implements OnInit {
 
   notifications: Notification[] | null = null;
+  notification: string | null = null;
+  checkedNotification: number | null = null;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-    fetch('https://localhost:44381/api/countries/getcountries', {
+  addNotification(): void {
+    let notification = {
+      name: this.notification,
+    };
+
+    fetch('https://localhost:44381/api/notifications/addnotification', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(notification),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.getNotifications();
+        } else {
+          alert('Adding error!');
+        }
+        this.notification = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  editNotification(): void {
+    let notification = {
+      id: this.checkedNotification,
+      name: this.notification,
+    };
+
+    fetch('https://localhost:44381/api/notifications/editnotification', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(notification),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.getNotifications();
+        } else {
+          alert('Editing error!');
+        }
+        this.notification = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  deleteNotification(): void {
+    let notification = {
+      id: this.checkedNotification,
+      name: this.notification,
+    };
+
+    fetch('https://localhost:44381/api/notifications/deletenotification', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(notification),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.getNotifications();
+        } else {
+          alert('Editing error!');
+        }
+        this.notification = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  getNotifications(): void {
+    fetch('https://localhost:44381/api/notifications/getnotifications', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -26,6 +116,18 @@ export class NotificationsListComponent implements OnInit {
       .catch((ex) => {
         alert(ex);
       });
+  }
+
+  setNotification(id: number | null, notification: string): void {
+    this.checkedNotification = id;
+    this.notification = notification;
+
+    document.getElementById('editButton')?.removeAttribute('disabled');
+    document.getElementById('deleteButton')?.removeAttribute('disabled');
+  }
+
+  ngOnInit(): void {
+    this.getNotifications();
   }
 
 }
