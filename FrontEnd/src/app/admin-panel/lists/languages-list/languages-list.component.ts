@@ -6,14 +6,15 @@ import AuthHelper from '../../../utils/authHelper';
 @Component({
   selector: 'app-languages-list',
   templateUrl: './languages-list.component.html',
-  styleUrls: ['./languages-list.component.css']
+  styleUrls: ['./languages-list.component.css'],
 })
 export class LanguagesListComponent implements OnInit {
-
   title: string = '';
   languages: Language[] | null = null;
+  lang: string | null = null;
+  checkedLang: number | null = null;
 
-  constructor() { }
+  constructor() {}
 
   addLang(): void {
     let lang = {
@@ -24,19 +25,19 @@ export class LanguagesListComponent implements OnInit {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        "Accept": "application/json",
-        "Authorization": "Bearer " + AuthHelper.getToken(),
-       },
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
       body: JSON.stringify(lang),
     })
-    .then((r) => r.json())
-    .then((response) => {
-        alert(response.code);
-        console.log(response);
-
-        if (response.code === 200) {
-          alert("Language has been successfully added");
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.getLangs();
+        } else {
+          alert('Adding error!');
         }
+        this.lang = '';
       })
       .catch((ex) => {
         alert(ex);
@@ -44,14 +45,69 @@ export class LanguagesListComponent implements OnInit {
   }
 
   editLang(): void {
-    
+    let lang = {
+      id: this.checkedLang,
+      title: this.lang,
+    };
+
+    fetch('https://localhost:44381/api/languages/editlang', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(lang),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.getLangs();
+        } else {
+          alert('Editing error!');
+        }
+        this.lang = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   deleteLang(): void {
+    let lang = {
+      id: this.checkedLang,
+      title: this.lang,
+    };
 
+    fetch('https://localhost:44381/api/languages/deletelang', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(lang),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.getLangs();
+        } else {
+          alert('Editing error!');
+        }
+        this.lang = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
-  ngOnInit(): void {
+  setLang(id: number | null, lang: string): void {
+    this.checkedLang = id;
+    this.lang = lang;
+  }
+
+  getLangs(): void {
     fetch('https://localhost:44381/api/languages/getlanguages', {
       method: 'GET',
     })
@@ -68,4 +124,7 @@ export class LanguagesListComponent implements OnInit {
       });
   }
 
+  ngOnInit(): void {
+    this.getLangs();
+  }
 }

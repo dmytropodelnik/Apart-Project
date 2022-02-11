@@ -45,9 +45,9 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        [Route("addlanguage")]
-        [HttpPost]
-        public async Task<IActionResult> AddLanguage([FromBody] Language lang)
+        [Route("editlanguage")]
+        [HttpPut]
+        public async Task<IActionResult> EditLanguage([FromBody] Language lang)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                var res = await _context.Languages.FirstOrDefaultAsync(l => l.Title == lang.Title);
+                var res = await _context.Languages.FirstOrDefaultAsync(l => l.Id == lang.Id);
                 if (res is null)
                 {
                     _context.Languages.Add(lang);

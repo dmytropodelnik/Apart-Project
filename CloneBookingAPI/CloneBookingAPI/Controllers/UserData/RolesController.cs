@@ -72,7 +72,7 @@ namespace CloneBookingAPI.Controllers.UserData
         }
 
         [Route("editrole")]
-        [HttpPost]
+        [HttpPut]
         public async Task<IActionResult> EditRole([FromBody] Role role)
         {
             try
@@ -82,7 +82,7 @@ namespace CloneBookingAPI.Controllers.UserData
                     return Json(new { code = 400 });
                 }
 
-                var resRole = await _context.Roles.FirstOrDefaultAsync(r => r.Name == role.Name);
+                var resRole = await _context.Roles.FirstOrDefaultAsync(r => r.Id == role.Id);
                 if (resRole is not null)
                 {
                     resRole.Name = role.Name;
@@ -103,7 +103,7 @@ namespace CloneBookingAPI.Controllers.UserData
         }
 
         [Route("deleterole")]
-        [HttpPost]
+        [HttpDelete]
         public async Task<IActionResult> DeleteRole([FromBody] Role role)
         {
             try

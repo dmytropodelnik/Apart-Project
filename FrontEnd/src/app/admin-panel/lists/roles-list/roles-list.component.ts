@@ -6,15 +6,14 @@ import AuthHelper from '../../../utils/authHelper';
 @Component({
   selector: 'app-roles-list',
   templateUrl: './roles-list.component.html',
-  styleUrls: ['./roles-list.component.css']
+  styleUrls: ['./roles-list.component.css'],
 })
 export class RolesListComponent implements OnInit {
-
   roles: Role[] | null = null;
   role: string | null = null;
   checkedRole: number | null = null;
 
-  constructor() { }
+  constructor() {}
 
   addRole(): void {
     let role = {
@@ -25,8 +24,8 @@ export class RolesListComponent implements OnInit {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
-        "Accept": "application/json",
-        "Authorization": "Bearer " + AuthHelper.getToken(),
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
       },
       body: JSON.stringify(role),
     })
@@ -44,18 +43,18 @@ export class RolesListComponent implements OnInit {
       });
   }
 
-
   editRole(): void {
     let role = {
+      id: this.checkedRole,
       name: this.role,
     };
 
     fetch('https://localhost:44381/api/roles/editrole', {
-      method: 'POST',
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
-        "Accept": "application/json",
-        "Authorization": "Bearer " + AuthHelper.getToken(),
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
       },
       body: JSON.stringify(role),
     })
@@ -66,6 +65,7 @@ export class RolesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
+        console.log(data);
         this.role = '';
       })
       .catch((ex) => {
@@ -83,8 +83,8 @@ export class RolesListComponent implements OnInit {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
-        "Accept": "application/json",
-        "Authorization": "Bearer " + AuthHelper.getToken(),
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
       },
       body: JSON.stringify(role),
     })
@@ -127,5 +127,4 @@ export class RolesListComponent implements OnInit {
   ngOnInit(): void {
     this.getRoles();
   }
-
 }

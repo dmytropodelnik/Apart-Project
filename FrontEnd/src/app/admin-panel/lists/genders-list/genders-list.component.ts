@@ -11,10 +11,99 @@ import AuthHelper from '../../../utils/authHelper';
 export class GendersListComponent implements OnInit {
 
   genders: Gender[] | null = null;
+  gender: string | null = null;
+  checkedGender: number | null = null;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
+  addGender(): void {
+    let gender = {
+      title: this.gender,
+    };
+
+    fetch('https://localhost:44381/api/genders/addgender', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(gender),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.getGenders();
+        } else {
+          alert('Adding error!');
+        }
+        this.gender = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  editGender(): void {
+    let gender = {
+      id: this.checkedGender,
+      title: this.gender,
+    };
+
+    fetch('https://localhost:44381/api/genders/editgender', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(gender),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.getGenders();
+        } else {
+          alert('Editing error!');
+        }
+        console.log(data);
+        this.gender = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  deleteGender(): void {
+    let gender = {
+      id: this.checkedGender,
+      title: this.gender,
+    };
+
+    fetch('https://localhost:44381/api/genders/deletegender', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(gender),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.getGenders();
+        } else {
+          alert('Editing error!');
+        }
+        this.gender = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  getGenders(): void {
     fetch('https://localhost:44381/api/genders/getgenders', {
       method: 'GET',
     })
@@ -29,6 +118,15 @@ export class GendersListComponent implements OnInit {
       .catch((ex) => {
         alert(ex);
       });
+  }
+
+  setGender(id: number | null, gender: string): void {
+    this.checkedGender = id;
+    this.gender = gender;
+  }
+
+  ngOnInit(): void {
+    this.getGenders();
   }
 
 }

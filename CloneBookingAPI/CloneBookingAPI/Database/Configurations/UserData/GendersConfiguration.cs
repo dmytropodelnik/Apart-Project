@@ -13,6 +13,7 @@ namespace CloneBookingAPI.Services.Database.Configurations.UserProfile
               {
                   new Gender { Id = 1, Title = "Male" },
                   new Gender { Id = 2, Title = "Female" },
+                  new Gender { Id = 3, Title = "test" },
               });
         }
     }

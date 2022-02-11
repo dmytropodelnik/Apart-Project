@@ -11,15 +11,20 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addLabel">Modal title</h5>
+        <h5 class="modal-title" id="addLabel">Add gender</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form>
+          <div class="mb-3">
+            <label for="newRole" class="form-label">New gender</label>
+            <input type="text" class="form-control" id="newLang" aria-describedby="emailHelp" name="gender" [(ngModel)]="gender">
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="addGender()">Save</button>
+        <button type="button" class="btn btn-primary" >Close</button>
       </div>
     </div>
   </div>
@@ -29,15 +34,20 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editLabel">Modal title</h5>
+        <h5 class="modal-title" id="editLabel">Edit gender</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form>
+          <div class="mb-3">
+            <label for="editRole" class="form-label">Gender</label>
+            <input type="text" class="form-control" id="editGender" aria-describedby="emailHelp" name="role" [(ngModel)]="gender">
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="editGender()">Save</button>
+        <button type="button" class="btn btn-primary" aria-label="Close">Close</button>
       </div>
     </div>
   </div>
@@ -47,15 +57,21 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="deleteLabel">Modal title</h5>
+        <h5 class="modal-title" id="deleteLabel">Delete gender</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form>
+          <div class="mb-3">
+            <label for="deleteRole" class="form-label">Gender</label>
+            <input type="text" class="form-control" id="deleteGender" aria-describedby="emailHelp" name="gender" [(ngModel)]="gender"
+                   readonly />
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteGender()">Delete</button>
+        <button type="button" class="btn btn-primary" aria-label="Close">Cancel</button>
       </div>
     </div>
   </div>
@@ -72,7 +88,8 @@
     <tr *ngFor="let gender of genders">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="radio" name="langRadio" id="langRadio" value={{gender.id}}
+                 (click)="setGender(gender.id, gender.title)" >
         </div>
       </th>
       <td>{{gender.title}}</td>

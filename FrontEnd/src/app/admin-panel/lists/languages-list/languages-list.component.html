@@ -11,15 +11,20 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addLabel">Modal title</h5>
+        <h5 class="modal-title" id="addLabel">Add language</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form>
+          <div class="mb-3">
+            <label for="newRole" class="form-label">New language</label>
+            <input type="text" class="form-control" id="newLang" aria-describedby="emailHelp" name="role" [(ngModel)]="lang">
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="addLang()">Save</button>
+        <button type="button" class="btn btn-primary" >Close</button>
       </div>
     </div>
   </div>
@@ -29,15 +34,20 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editLabel">Modal title</h5>
+        <h5 class="modal-title" id="editLabel">Edit language</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form>
+          <div class="mb-3">
+            <label for="editRole" class="form-label">Language</label>
+            <input type="text" class="form-control" id="editRole" aria-describedby="emailHelp" name="role" [(ngModel)]="lang">
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="editLang()">Save</button>
+        <button type="button" class="btn btn-primary" aria-label="Close">Close</button>
       </div>
     </div>
   </div>
@@ -47,15 +57,21 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="deleteLabel">Modal title</h5>
+        <h5 class="modal-title" id="deleteLabel">Delete language</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form>
+          <div class="mb-3">
+            <label for="deleteRole" class="form-label">Language</label>
+            <input type="text" class="form-control" id="deleteRole" aria-describedby="emailHelp" name="role" [(ngModel)]="lang"
+                   readonly />
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteLang()">Delete</button>
+        <button type="button" class="btn btn-primary" aria-label="Close">Cancel</button>
       </div>
     </div>
   </div>
@@ -72,7 +88,8 @@
     <tr *ngFor="let lang of languages">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="radio" name="langRadio" id="langRadio" value={{lang.id}}
+                 (click)="setLang(lang.id, lang.title)" >
         </div>
       </th>
       <td>{{lang.title}}</td>

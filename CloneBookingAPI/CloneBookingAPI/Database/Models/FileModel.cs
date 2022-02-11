@@ -27,7 +27,6 @@ namespace CloneBookingAPI.Services.Database.Models
         public List<Country> Countries { get; set; } = new();
         public List<Region> Regions { get; set; } = new();
         public List<District> Districts { get; set; } = new();
-        public List<BookingCategory> BookingCategories { get; set; } = new();
         public List<Notification> Notifications { get; set; } = new();
     }
 }

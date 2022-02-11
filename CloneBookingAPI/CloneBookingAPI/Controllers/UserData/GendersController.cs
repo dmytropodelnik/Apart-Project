@@ -44,5 +44,86 @@ namespace CloneBookingAPI.Controllers.UserData
                 return Json(new { code = 400 });
             }
         }
+
+        [Route("addgender")]
+        [HttpPost]
+        public async Task<IActionResult> AddGender([FromBody] Gender gender)
+        {
+            try
+            {
+                if (gender is null || string.IsNullOrWhiteSpace(gender.Title))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                _context.Genders.Add(gender);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("editgender")]
+        [HttpPut]
+        public async Task<IActionResult> EditGender([FromBody] Gender gender)
+        {
+            try
+            {
+                if (gender is null || string.IsNullOrWhiteSpace(gender.Title))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resGender = await _context.Genders.FirstOrDefaultAsync(g => g.Id == gender.Id);
+                if (resGender is not null)
+                {
+                    resGender.Title = gender.Title;
+
+                    _context.Genders.Update(resGender);
+                    await _context.SaveChangesAsync();
+
+                    return Json(new { code = 200 });
+                }
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("deletegender")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteGender([FromBody] Gender gender)
+        {
+            try
+            {
+                if (gender is null || string.IsNullOrWhiteSpace(gender.Title))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                _context.Genders.Remove(gender);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
     }
 }
