@@ -1,3 +1,4 @@
 {
-    "appService.defaultWebAppToDeploy": "None"
+  "appService.defaultWebAppToDeploy": "/subscriptions/4f4d1dc0-4661-4f5d-bb95-0e25ba7d9e30/resourceGroups/AngularWebApp/providers/Microsoft.Web/sites/ApartProject1",
+  "appService.deploySubpath": "dist\\booking"
 }

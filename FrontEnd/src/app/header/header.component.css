@@ -72,10 +72,12 @@ a.a11y-skip-to-content {
   -webkit-box-align: center;
   -ms-flex-align: center;
   -webkit-align-items: center;
-  align-items: center;
+  justify-content: space-between;
+  align-items: left;
   max-width: 1140px;
   margin: 0 auto;
   margin-bottom: 50px;
+  
 }
 
 .bui-header__main {
