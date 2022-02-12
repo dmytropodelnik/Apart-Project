@@ -80,7 +80,7 @@ export class CountriesListComponent implements OnInit {
     };
 
     fetch('https://localhost:44381/api/countries/deletecountry', {
-      method: 'POST',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',

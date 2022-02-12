@@ -2,6 +2,8 @@
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Database.Models.UserProfile;
 using CloneBookingAPI.Services.Generators;
+using CloneBookingAPI.Services.POCOs;
+using CloneBookingAPI.Services.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,16 +24,19 @@ namespace CloneBookingAPI.Controllers
     {
         private readonly ApartProjectDbContext _context;
         private readonly CodesRepository _codesRepository;
+        private readonly JwtRepository _jwtRepository;
         private readonly SaltGenerator _saltGenerator;
 
         public UsersController(
             ApartProjectDbContext context,
             CodesRepository codesRepository,
-            SaltGenerator saltGenerator)
+            SaltGenerator saltGenerator,
+            JwtRepository jwtRepository)
         {
-            _context = context;
-            _codesRepository = codesRepository;
-            _saltGenerator = saltGenerator;
+            _context            = context;
+            _codesRepository    = codesRepository;
+            _jwtRepository      = jwtRepository;
+            _saltGenerator      = saltGenerator;
         }
 
         [Route("userexists")]
@@ -175,8 +180,8 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                if (user is null                            ||
-                    string.IsNullOrWhiteSpace(user.Email)   ||
+                if (user is null ||
+                    string.IsNullOrWhiteSpace(user.Email) ||
                     string.IsNullOrWhiteSpace(user.NewEmail))
                 {
                     return Json(new { code = 400 });
@@ -311,6 +316,35 @@ namespace CloneBookingAPI.Controllers
 
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("logout")]
+        [HttpPost]
+        public IActionResult LogOut([FromBody] TokenModel model)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(model.Username) || string.IsNullOrWhiteSpace(model.AccessToken))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                bool res = _jwtRepository.IsValueCorrect(model.Username, model.AccessToken);
+                if (res is false)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                _jwtRepository.Repository.Remove(model.Username);
 
                 return Json(new { code = 200 });
             }

@@ -80,7 +80,7 @@ export class ServiceCategoriesListComponent implements OnInit {
     };
 
     fetch('https://localhost:44381/api/categories/deletecategory', {
-      method: 'POST',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',

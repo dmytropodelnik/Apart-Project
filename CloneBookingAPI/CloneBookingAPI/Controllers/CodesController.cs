@@ -1,6 +1,8 @@
 ﻿using CloneBookingAPI.Interfaces;
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Generators;
+using CloneBookingAPI.Services.POCOs;
+using CloneBookingAPI.Services.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -18,11 +20,16 @@ namespace CloneBookingAPI.Controllers
     {
         private readonly IGenerator _codeGenerator;
         private readonly CodesRepository _codesRepository;
+        private readonly JwtRepository _jwtRepository;
 
-        public CodesController(IGenerator codeGenerator, CodesRepository codesRepository)
+        public CodesController(
+            IGenerator codeGenerator, 
+            CodesRepository codesRepository,
+            JwtRepository jwtRepository)
         {
             _codeGenerator = codeGenerator;
             _codesRepository = codesRepository;
+            _jwtRepository = jwtRepository;
         }
 
         [Route("generateregistercode")]
@@ -81,6 +88,24 @@ namespace CloneBookingAPI.Controllers
             }
 
             _codesRepository.Repository.Remove(email);
+
+            return Json(new { code = 200 });
+        }
+
+        [Route("refreshauth")]
+        [HttpPost]
+        public IActionResult RefreshAuth([FromBody] TokenModel model)
+        {
+            if (string.IsNullOrWhiteSpace(model.AccessToken) || string.IsNullOrWhiteSpace(model.Username))
+            {
+                return Json(new { code = 400 });
+            }
+
+            bool res = _jwtRepository.IsValueCorrect(model.Username, model.AccessToken);
+            if (res is false)
+            {
+                return Json(new { code = 400 });
+            }
 
             return Json(new { code = 200 });
         }

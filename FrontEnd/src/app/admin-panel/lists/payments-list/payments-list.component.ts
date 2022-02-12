@@ -81,7 +81,7 @@ export class PaymentsListComponent implements OnInit {
     };
 
     fetch('https://localhost:44381/api/payments/deletepayment', {
-      method: 'POST',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',

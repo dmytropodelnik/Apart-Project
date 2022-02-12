@@ -88,13 +88,7 @@ export class AuthComponent implements OnInit {
     })
       .then(response => response.json())
       .then(response => {
-        alert(response);
-        console.log(response);
-
-        console.log(this.authService.getLogCondition());
-
         AuthHelper.saveAuth(user.email, response);
-
         this.authService.toggleLogCondition();
 
         alert('You have successfully authenticated!');
@@ -173,6 +167,7 @@ export class AuthComponent implements OnInit {
         console.log(response);
 
         if (response.code === 200) {
+          this.userSignIn();
           this.router.navigate(['']);
         }
       })

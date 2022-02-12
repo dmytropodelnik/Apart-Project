@@ -31,10 +31,37 @@ export class HeaderComponent implements OnInit {
     return AuthHelper.getToken();
   }
 
+  logout(): void {
+    let model = {
+      username: AuthHelper.getLogin(),
+      accessToken: AuthHelper.getToken(),
+    };
+
+    fetch('https://localhost:44381/api/users/logout', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(model),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.authService.setLogCondition(false);
+          AuthHelper.clearAuth();
+        } else {
+          alert("Refresh auth error!");
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
   ngOnInit(): void {
-    if (this.getToken() !== null) {
-      this.authService.setLogCondition(true);
-    }
+
   }
 
   open() {

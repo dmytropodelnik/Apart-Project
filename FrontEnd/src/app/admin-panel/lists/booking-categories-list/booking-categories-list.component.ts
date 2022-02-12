@@ -79,7 +79,7 @@ export class BookingCategoriesListComponent implements OnInit {
     };
 
     fetch('https://localhost:44381/api/roles/deleterole', {
-      method: 'POST',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',

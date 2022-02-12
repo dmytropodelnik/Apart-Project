@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AuthorizationService } from '../services/authorization.service';
+
 import AuthHelper from '../utils/authHelper';
 
 @Component({
@@ -51,10 +52,6 @@ export class VerifyEnterComponent implements OnInit {
           })
             .then((response) => response.json())
             .then((response) => {
-              alert(response);
-              console.log(response);
-              console.log(this.authService.getLogCondition());
-
               this.authService.setTokenKey(response);
               AuthHelper.saveAuth(user.email, response);
               this.authService.toggleLogCondition();

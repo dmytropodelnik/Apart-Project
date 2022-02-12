@@ -80,7 +80,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
     };
 
     fetch('https://localhost:44381/api/highlights/deletehighlight', {
-      method: 'POST',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
