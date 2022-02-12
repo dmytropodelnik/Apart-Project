@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "apis1": {
+      "apiEndpoint": "https://clonebookingapiapi.azure-api.net/",
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/CloneBookingAPIapi/apis/CloneBookingAPI",
       "type": "apis.azure"
     },
@@ -8,12 +9,7 @@
       "secretStore": "AzureAppSettings",
       "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/apartproject/databases/ApartProject",
       "type": "mssql.azure",
-      "connectionId": "ConnectionStrings:DefaultConnection"
-    },
-    "apis1": {
-      "apiEndpoint": "https://clonebookingapiapi.azure-api.net/",
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.ApiManagement/service/CloneBookingAPIapi/apis/CloneBookingAPI",
-      "type": "apis.azure"
+      "connectionId": "ConnectionStrings:AzureConnection"
     }
   }
 }
