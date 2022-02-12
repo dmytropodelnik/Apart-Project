@@ -22,10 +22,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
-    public authService: AuthorizationService,
-  ) {
-
-  }
+    public authService: AuthorizationService
+  ) {}
 
   getToken(): string {
     return AuthHelper.getToken();
@@ -48,15 +46,14 @@ export class HeaderComponent implements OnInit {
     })
       .then((response) => response.json())
       .then((response) => {
-        console.log(response);
-        if (response.code === 200) {
-          console.log(AuthHelper.getToken());
+        if (response.code == 200) {
+          this.authService.setLogCondition(false);
           AuthHelper.clearAuth();
 
           this.authService.setLogCondition(false);
           console.log(AuthHelper.getToken());
         } else {
-          alert("Refresh auth error!");
+          alert('Refresh auth error!');
         }
       })
       .catch((ex) => {
@@ -64,9 +61,7 @@ export class HeaderComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   open() {
     this.modalService.open(this.content, { size: 'lg', centered: true });
