@@ -52,7 +52,7 @@ export class AuthComponent implements OnInit {
       email: this.email,
       password: this.password,
     };
-    fetch(`https://localhost:44381/api/users/userexists?email=${user.email}`, {
+    fetch(`https://apartproject.azurewebsites.net/api/users/userexists?email=${user.email}`, {
       method: 'GET',
       headers: {
         "Accept": "application/json",
@@ -78,7 +78,7 @@ export class AuthComponent implements OnInit {
       password: this.password,
     };
 
-    fetch('https://localhost:44381/token', {
+    fetch('https://apartproject.azurewebsites.net/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -109,7 +109,7 @@ export class AuthComponent implements OnInit {
       email: this.email,
     };
 
-    fetch('https://localhost:44381/api/codes/generateregistercode', {
+    fetch('https://apartproject.azurewebsites.net/api/codes/generateregistercode', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -153,7 +153,7 @@ export class AuthComponent implements OnInit {
       verificationCode: this.verificationCode,
     };
 
-    fetch('https://localhost:44381/api/users/register', {
+    fetch('https://apartproject.azurewebsites.net/api/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

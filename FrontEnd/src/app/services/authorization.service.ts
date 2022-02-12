@@ -12,7 +12,7 @@ export class AuthorizationService {
     };
 
     if (AuthHelper.getToken()) {
-      fetch('https://localhost:44381/api/codes/refreshauth', {
+      fetch('https://apartproject.azurewebsites.net/api/codes/refreshauth', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',

@@ -29,7 +29,7 @@ export class VerifyEnterComponent implements OnInit {
     console.log(this.code);
 
     fetch(
-      `https://localhost:44381/api/codes/verifyenteruser?email=${this.email}&code=${this.code}`,
+      `https://apartproject.azurewebsites.net/api/codes/verifyenteruser?email=${this.email}&code=${this.code}`,
       {
         method: 'GET',
       }
@@ -42,7 +42,7 @@ export class VerifyEnterComponent implements OnInit {
             password: '123',
           };
 
-          fetch('https://localhost:44381/token', {
+          fetch('https://apartproject.azurewebsites.net/token', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json; charset=utf-8',
