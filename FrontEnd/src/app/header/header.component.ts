@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
       accessToken: AuthHelper.getToken(),
     };
 
-    fetch('https://apartproject.azurewebsites.net/api/users/logout', {
+    fetch('https://localhost:44381/api/users/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
