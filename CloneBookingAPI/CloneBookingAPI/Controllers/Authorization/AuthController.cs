@@ -23,18 +23,12 @@ namespace CloneBookingAPI.Controllers
         private string _letterTemplate = "<p>HELLO TEST</p>";
         private string _subjectLetterTemplate = "Confirmation code for registration!";
         private string _subjectVerifyLetterTemplate = "Verify email for enter!";
-        private string _verificationLinkTemplate = "<a href=\"https://apartfrontend.azurewebsites.net/confirmemail?email=emailTemplate&code=codeTemplate\">Verify enter</a>";
+        private string _verificationLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate\">Verify enter</a>";
 
         public AuthController(ApartProjectDbContext context, IConfiguration configuration)
         {
             _context = context;
             _emailSender = new AuthEmailSender(configuration);
-        }
-
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetLanguages()
-        { 
-            return await _context.Users.ToListAsync();
         }
 
         [Route("sendcodeletter")]

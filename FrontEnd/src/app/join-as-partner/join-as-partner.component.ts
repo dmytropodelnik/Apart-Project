@@ -41,6 +41,7 @@ export class JoinAsPartnerComponent implements OnInit {
         } else {
           alert("Refresh auth error!");
         }
+
       })
       .catch((ex) => {
         alert(ex);

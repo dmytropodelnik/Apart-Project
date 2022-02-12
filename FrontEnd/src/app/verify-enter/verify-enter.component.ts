@@ -29,7 +29,7 @@ export class VerifyEnterComponent implements OnInit {
     console.log(this.code);
 
     fetch(
-      `https://apartproject.azurewebsites.net/api/codes/verifyenteruser?email=${this.email}&code=${this.code}`,
+      `https://localhost:44381/api/codes/verifyenteruser?email=${this.email}&code=${this.code}`,
       {
         method: 'GET',
       }
@@ -39,10 +39,10 @@ export class VerifyEnterComponent implements OnInit {
         if (data.code === 200) {
           let user = {
             email: this.email,
-            password: '123',
+            password: '12341234qwe',
           };
 
-          fetch('https://apartproject.azurewebsites.net/token', {
+          fetch('https://localhost:44381/token', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json; charset=utf-8',
@@ -55,6 +55,8 @@ export class VerifyEnterComponent implements OnInit {
               this.authService.setTokenKey(response);
               AuthHelper.saveAuth(user.email, response);
               this.authService.toggleLogCondition();
+
+              console.log(response);
 
               alert('You have successfully authenticated!');
               this.router.navigate(['']);

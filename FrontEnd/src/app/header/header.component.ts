@@ -37,7 +37,7 @@ export class HeaderComponent implements OnInit {
       accessToken: AuthHelper.getToken(),
     };
 
-    fetch('https://apartproject.azurewebsites.net/api/users/logout', {
+    fetch('https://localhost:44381/api/users/logout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -48,9 +48,13 @@ export class HeaderComponent implements OnInit {
     })
       .then((response) => response.json())
       .then((response) => {
+        console.log(response);
         if (response.code === 200) {
-          this.authService.setLogCondition(false);
+          console.log(AuthHelper.getToken());
           AuthHelper.clearAuth();
+
+          this.authService.setLogCondition(false);
+          console.log(AuthHelper.getToken());
         } else {
           alert("Refresh auth error!");
         }
