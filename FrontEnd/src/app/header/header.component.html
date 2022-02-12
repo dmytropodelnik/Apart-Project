@@ -101,7 +101,7 @@
           </a>
         </div>
         <!-- authService.getLogCondition() === false || -->
-        <div *ngIf="isActive1 === true; then thenBlock; else elseBlock"></div>
+        <div *ngIf="authService.getLogCondition() === true; then thenBlock; else elseBlock"></div>
         <ng-template #thenBlock>
           <div class="bui-group__item" class="dropdown">
             <button
@@ -170,7 +170,7 @@
               </li>
               <li>
                 <a class="dropdown-item" href="#"
-                  ><i class="robotomonoregular">Logout</i></a
+                  ><i class="robotomonoregular" (click)="logout()">Logout</i></a
                 >
               </li>
             </ul>

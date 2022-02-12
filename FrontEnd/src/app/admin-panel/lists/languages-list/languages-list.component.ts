@@ -18,7 +18,7 @@ export class LanguagesListComponent implements OnInit {
 
   addLang(): void {
     let lang = {
-      title: this.title,
+      title: this.lang,
     };
 
     fetch('https://localhost:44381/api/languages/addlanguage', {
@@ -50,8 +50,8 @@ export class LanguagesListComponent implements OnInit {
       title: this.lang,
     };
 
-    fetch('https://localhost:44381/api/languages/editlang', {
-      method: 'POST',
+    fetch('https://localhost:44381/api/languages/editlanguage', {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
@@ -66,6 +66,7 @@ export class LanguagesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
+        console.log(data);
         this.lang = '';
       })
       .catch((ex) => {
@@ -80,7 +81,7 @@ export class LanguagesListComponent implements OnInit {
     };
 
     fetch('https://localhost:44381/api/languages/deletelang', {
-      method: 'POST',
+      method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
@@ -105,6 +106,9 @@ export class LanguagesListComponent implements OnInit {
   setLang(id: number | null, lang: string): void {
     this.checkedLang = id;
     this.lang = lang;
+
+    document.getElementById('editButton')?.removeAttribute('disabled');
+    document.getElementById('deleteButton')?.removeAttribute('disabled');
   }
 
   getLangs(): void {

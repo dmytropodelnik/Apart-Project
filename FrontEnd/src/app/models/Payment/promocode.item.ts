@@ -1,6 +1,6 @@
 export class PromoCode {
   id: number | null = null;
-  title: string = '';
+  code: string = '';
   image: File | null = null;
 
   constructor () {

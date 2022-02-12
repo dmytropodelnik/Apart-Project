@@ -1,8 +1,8 @@
 <div class="row">
   <div class="btn-group" role="group" aria-label="Basic example">
     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#add">Add</button>
-    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit">Edit</button>
-    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete">Delete</button>
+    <button type="button" id="editButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit" disabled>Edit</button>
+    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete" disabled>Delete</button>
   </div>
 </div>
 
@@ -65,7 +65,7 @@
   <thead>
     <tr>
       <th scope="col text-center align-self-center">#</th>
-      <th scope="col">SurroundingObjectType</th>
+      <th scope="col">Surrounding object type</th>
       <th scope="col">Suggestion</th>
     </tr>
   </thead>
@@ -73,7 +73,8 @@
     <tr *ngFor="let obj of objects">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{obj.id}}
+          (click)="setObject(obj.id, obj.suggestionObjectType)" >
         </div>
       </th>
       <td>{{obj.suggestionObjectType}}</td>

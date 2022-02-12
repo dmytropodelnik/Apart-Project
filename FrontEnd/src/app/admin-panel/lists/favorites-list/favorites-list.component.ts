@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Favorite } from 'src/app/models/UserData/favorite.item';
 
+import AuthHelper from '../../../utils/authHelper';
+
 @Component({
   selector: 'app-favorites-list',
   templateUrl: './favorites-list.component.html',
@@ -9,11 +11,99 @@ import { Favorite } from 'src/app/models/UserData/favorite.item';
 export class FavoritesListComponent implements OnInit {
 
   favorites: Favorite[] | null = null;
+  favorite: string | null = null;
+  checkedFavorite: number | null = null;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-    fetch('https://localhost:44381/api/countries/getcountries', {
+  addFavorite(): void {
+    let favorite = {
+      name: this.favorite,
+    };
+
+    fetch('https://localhost:44381/api/favorites/addfavorite', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(favorite),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.getFavorites();
+        } else {
+          alert('Adding error!');
+        }
+        this.favorite = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  editFavorite(): void {
+    let favorite = {
+      id: this.checkedFavorite,
+      name: this.favorite,
+    };
+
+    fetch('https://localhost:44381/api/favorites/editfavorite', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(favorite),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.getFavorites();
+        } else {
+          alert('Editing error!');
+        }
+        this.favorite = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  deleteFavorite(): void {
+    let favorite = {
+      id: this.checkedFavorite,
+      name: this.favorite,
+    };
+
+    fetch('https://localhost:44381/api/favorites/deletefavorite', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(favorite),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.getFavorites();
+        } else {
+          alert('Editing error!');
+        }
+        this.favorite = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  getFavorites(): void {
+    fetch('https://localhost:44381/api/favorites/getfavorites', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -27,6 +117,18 @@ export class FavoritesListComponent implements OnInit {
       .catch((ex) => {
         alert(ex);
       });
+  }
+
+  setFavorite(id: number | null, favorite: string): void {
+    this.checkedFavorite = id;
+    this.favorite = favorite;
+
+    document.getElementById('editButton')?.removeAttribute('disabled');
+    document.getElementById('deleteButton')?.removeAttribute('disabled');
+  }
+
+  ngOnInit(): void {
+    this.getFavorites();
   }
 
 }

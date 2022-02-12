@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Review } from 'src/app/models/Review/review.item';
 import { Gender } from 'src/app/models/UserData/gender.item';
 
 import AuthHelper from '../../../utils/authHelper';
@@ -13,6 +14,9 @@ export class GendersListComponent implements OnInit {
   genders: Gender[] | null = null;
   gender: string | null = null;
   checkedGender: number | null = null;
+
+  isEditEnabled: boolean = true;
+  isDeleteEnabled: boolean = true;
 
   constructor() {}
 
@@ -66,7 +70,6 @@ export class GendersListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        console.log(data);
         this.gender = '';
       })
       .catch((ex) => {
@@ -123,6 +126,9 @@ export class GendersListComponent implements OnInit {
   setGender(id: number | null, gender: string): void {
     this.checkedGender = id;
     this.gender = gender;
+
+    document.getElementById('editButton')?.removeAttribute('disabled');
+    document.getElementById('deleteButton')?.removeAttribute('disabled');
   }
 
   ngOnInit(): void {

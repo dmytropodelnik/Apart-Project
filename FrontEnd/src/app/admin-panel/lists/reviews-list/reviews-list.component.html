@@ -1,8 +1,8 @@
 <div class="row">
   <div class="btn-group" role="group" aria-label="Basic example">
     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#addReview">Add</button>
-    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#editReview">Edit</button>
-    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#deleteReview">Delete</button>
+    <button type="button" id="editButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#editReview" disabled>Edit</button>
+    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#deleteReview" disabled>Delete</button>
   </div>
 </div>
 
@@ -11,20 +11,20 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addLabel">Add role</h5>
+        <h5 class="modal-title" id="addLabel">Add review</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form>
           <div class="mb-3">
-            <label for="newRole" class="form-label">New role</label>
+            <label for="newRole" class="form-label">New review</label>
             <input type="text" class="form-control" id="newRole" aria-describedby="emailHelp">
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="addReview()">Save</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -34,20 +34,20 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editLabel">Edit role</h5>
+        <h5 class="modal-title" id="editLabel">Edit review</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form>
           <div class="mb-3">
-            <label for="editRole" class="form-label">Role</label>
+            <label for="editRole" class="form-label">Review</label>
             <input type="text" class="form-control" id="editRole" aria-describedby="emailHelp">
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="editReview()">Save</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -57,20 +57,20 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="deleteLabel">Delete role</h5>
+        <h5 class="modal-title" id="deleteLabel">Delete review</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form>
           <div class="mb-3">
-            <label for="deleteRole" class="form-label">Role</label>
+            <label for="deleteRole" class="form-label">Review</label>
             <input type="text" class="form-control" id="deleteRole" aria-describedby="emailHelp">
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Delete</button>
-        <button type="button" class="btn btn-primary">Cancel</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteReview()">Delete</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
@@ -87,7 +87,8 @@
     <tr *ngFor="let item of reviews">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{item.id}}
+          (click)="setReview(item.id, item.title)" >
         </div>
       </th>
       <td></td>

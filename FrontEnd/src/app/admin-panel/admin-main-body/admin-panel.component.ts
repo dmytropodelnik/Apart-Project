@@ -12,7 +12,7 @@ export class AdminPanelComponent implements OnInit {
   content: string | undefined;
 
   constructor() {
-    // this.content = "users";
+
   }
 
   setContent(newContent: string) {

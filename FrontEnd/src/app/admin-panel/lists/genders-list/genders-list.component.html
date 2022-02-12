@@ -1,10 +1,13 @@
 <div class="row">
   <div class="btn-group" role="group" aria-label="Basic example">
     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#add">Add</button>
-    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit">Edit</button>
-    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete">Delete</button>
+    <button type="button" id="editButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit" disabled>Edit</button>
+    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete" disabled>Delete</button>
   </div>
 </div>
+<script>
+
+</script>
 
 <!-- Modal -->
 <div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
@@ -24,7 +27,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="addGender()">Save</button>
-        <button type="button" class="btn btn-primary" >Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -47,7 +50,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="editGender()">Save</button>
-        <button type="button" class="btn btn-primary" aria-label="Close">Close</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
@@ -71,7 +74,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteGender()">Delete</button>
-        <button type="button" class="btn btn-primary" aria-label="Close">Cancel</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>

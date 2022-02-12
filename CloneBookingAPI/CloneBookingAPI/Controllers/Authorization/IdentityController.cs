@@ -23,14 +23,16 @@ namespace CloneBookingAPI.Controllers
     {
         private readonly ApartProjectDbContext _context;
         private readonly SaltGenerator _saltGenerator;
+        private readonly JwtRepository _repository;
 
         public IdentityController(
             ApartProjectDbContext context,
-            SaltGenerator saltGenerator)
+            SaltGenerator saltGenerator,
+            JwtRepository repository)
         {
             _context = context;
             _saltGenerator = saltGenerator;
-
+            _repository = repository;
         }
 
         [Route("token")]
@@ -58,7 +60,7 @@ namespace CloneBookingAPI.Controllers
                 return Json(new { code = 400 });
             }
 
-            // _repository.Repository.Add(user.Email, encodedJwt);
+            _repository.Repository.Add(user.Email, encodedJwt);
             // TokenModel tokenModel = new TokenModel(user.Email, encodedJwt);
 
 
