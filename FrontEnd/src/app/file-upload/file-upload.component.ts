@@ -19,7 +19,7 @@ export class FileUploadComponent implements OnInit {
 
     console.log(this.uploadedFile);
 
-      fetch('https://localhost:44381/api/fileuploader/uploadfile', {
+      fetch('https://apartproject.azurewebsites.net/api/fileuploader/uploadfile', {
         method: 'POST',
         headers: {
           "Accept": "application/json",

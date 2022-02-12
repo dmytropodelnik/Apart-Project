@@ -38,7 +38,7 @@ export class AdminAuthComponent implements OnInit {
       passwordHash: this.password,
     };
 
-    fetch('https://localhost:44381/api/admin/login', {
+    fetch('https://apartproject.azurewebsites.net/api/admin/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
