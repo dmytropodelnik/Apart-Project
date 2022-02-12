@@ -58,7 +58,7 @@ namespace CloneBookingAPI.Controllers
         {
             if (string.IsNullOrWhiteSpace(email))
             {
-                return Json(new { code = 400 });
+                return Json(new { code = 410 });
             }
 
             string emailTrim = email.Trim();
@@ -66,7 +66,7 @@ namespace CloneBookingAPI.Controllers
             var code = _codeGenerator.GenerateCode(emailTrim);
             if (code is null)
             {
-                return Json(new { code = 400 });
+                return Json(new { code = 411 });
             }
 
             return RedirectToAction("SendVerifyLetter", "Auth", new { emailTrim, code });

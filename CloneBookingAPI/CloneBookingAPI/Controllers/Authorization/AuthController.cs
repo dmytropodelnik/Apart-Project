@@ -19,7 +19,7 @@ namespace CloneBookingAPI.Controllers
     public class AuthController : Controller
     {
         private readonly ApartProjectDbContext _context;
-        private readonly IEmailSender _emailSender;
+        private readonly AuthEmailSender _emailSender;
         private string _letterTemplate = "<p>HELLO TEST</p>";
         private string _subjectLetterTemplate = "Confirmation code for registration!";
         private string _subjectVerifyLetterTemplate = "Verify email for enter!";
@@ -63,7 +63,7 @@ namespace CloneBookingAPI.Controllers
         {
             if (string.IsNullOrWhiteSpace(emailTrim) || string.IsNullOrWhiteSpace(code))
             {
-                return Json(new { code = 400 });
+                return Json(new { code = 415 });
             }
 
             string correctEmail = emailTrim.Trim();
@@ -77,7 +77,7 @@ namespace CloneBookingAPI.Controllers
                 linkTemplate);
             if (res is false)
             {
-                return Json(new { code = 400 });
+                return Json(new { code = 416 });
             }
 
             return Json(new { code = 200 });
