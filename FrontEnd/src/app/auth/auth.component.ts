@@ -65,6 +65,7 @@ export class AuthComponent implements OnInit {
           this.isAccountExists = true;
         }
         this.isExistUser = true;
+        console.log(data);
       })
       .catch((ex) => {
         alert(ex);
