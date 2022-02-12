@@ -61,7 +61,7 @@ export class AuthComponent implements OnInit {
     })
       .then((r) => r.json())
       .then((data) => {
-        if (data.code == 200) {
+        if (data.code == 202) {
           this.isAccountExists = true;
         }
         this.isExistUser = true;
