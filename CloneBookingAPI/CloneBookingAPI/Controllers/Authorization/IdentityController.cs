@@ -39,6 +39,11 @@ namespace CloneBookingAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> Token([FromBody] User user)
         {
+            if (user is null || string.IsNullOrWhiteSpace(user.Email))
+            {
+                return Json(new { code = 400 });
+            }
+
             var claims = await GetIdentity(user.Email, user.PasswordHash);
             if (claims is null)
             {
@@ -59,8 +64,12 @@ namespace CloneBookingAPI.Controllers
             {
                 return Json(new { code = 400 });
             }
-
-            _repository.Repository.Add(user.Email, encodedJwt);
+            /// ???
+            bool res = _repository.Repository.TryAdd(user.Email, encodedJwt);
+            if (res is false)
+            {
+                return Json(new { code = 400 });
+            }
             // TokenModel tokenModel = new TokenModel(user.Email, encodedJwt);
 
 

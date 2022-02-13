@@ -45,6 +45,11 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return Json(new { code = 400 });
+                }
+
                 var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
 
                 if (user is not null)
@@ -52,7 +57,7 @@ namespace CloneBookingAPI.Controllers
                     return RedirectToAction("GenerateEnterCode", "Codes", new { email });
                 }
 
-                return Json(new { code = 200, enter = false });
+                return Json(new { code = 202, enter = false });
             }
             catch (Exception ex)
             {
@@ -87,7 +92,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        [Authorize(Roles = "admin")]
+        // [Authorize(Roles = "admin")]
         [Route("getuser")]
         [HttpGet]
         public async Task<ActionResult<User>> GetUser(string email)
@@ -122,7 +127,8 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(person.Email) ||
+                if (person is null                             ||
+                    string.IsNullOrWhiteSpace(person.Email)    ||
                     string.IsNullOrWhiteSpace(person.Password) ||
                     string.IsNullOrWhiteSpace(person.VerificationCode))
                 {
@@ -162,6 +168,37 @@ namespace CloneBookingAPI.Controllers
                 var updateProfile = await _context.UserProfiles.FirstOrDefaultAsync(up => up.Id == newUser.ProfileId);
                 updateProfile.UserId = addedUser.Entity.Id;
                 await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("signoutuser")]
+        [HttpPost]
+        public IActionResult SignOutUser([FromBody] TokenModel model)
+        {
+            try
+            {
+                if (model is null                             || 
+                    string.IsNullOrWhiteSpace(model.Username) ||
+                    string.IsNullOrWhiteSpace(model.AccessToken))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                bool res = _jwtRepository.IsValueCorrect(model.Username, model.AccessToken);
+                if (res is false)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                _jwtRepository.Repository.Remove(model.Username);
 
                 return Json(new { code = 200 });
             }
@@ -316,35 +353,6 @@ namespace CloneBookingAPI.Controllers
 
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
-
-                return Json(new { code = 200 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-        }
-
-        [Route("logout")]
-        [HttpPost]
-        public IActionResult LogOut([FromBody] TokenModel model)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(model.Username) || string.IsNullOrWhiteSpace(model.AccessToken))
-                {
-                    return Json(new { code = 400 });
-                }
-
-                bool res = _jwtRepository.IsValueCorrect(model.Username, model.AccessToken);
-                if (res is false)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                _jwtRepository.Repository.Remove(model.Username);
 
                 return Json(new { code = 200 });
             }

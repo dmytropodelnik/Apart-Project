@@ -6,7 +6,9 @@ using CloneBookingAPI.Services.Generators;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -35,46 +37,64 @@ namespace CloneBookingAPI.Controllers
         [HttpGet]
         public async Task<IActionResult> SendCodeLetter(string emailTrim, string code)
         {
-            if (string.IsNullOrWhiteSpace(emailTrim) || string.IsNullOrWhiteSpace(code))
+            try
             {
+                if (string.IsNullOrWhiteSpace(emailTrim) || string.IsNullOrWhiteSpace(code))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                string correctEmail = emailTrim.Trim();
+
+                bool res = await _emailSender.SendEmailAsync(correctEmail, _subjectLetterTemplate, code);
+                if (res is false)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
                 return Json(new { code = 400 });
             }
-
-            string correctEmail = emailTrim.Trim();
-
-            bool res = await _emailSender.SendEmailAsync(correctEmail, _subjectLetterTemplate, code);
-            if (res is false)
-            {
-                return Json(new { code = 400 });
-            }
-
-            return Json(new { code = 200 });
         }
 
         [Route("sendverifyletter")]
         [HttpGet]
         public async Task<IActionResult> SendVerifyLetter(string emailTrim, string code)
         {
-            if (string.IsNullOrWhiteSpace(emailTrim) || string.IsNullOrWhiteSpace(code))
+            try
             {
-                return Json(new { code = 415 });
+                if (string.IsNullOrWhiteSpace(emailTrim) || string.IsNullOrWhiteSpace(code))
+                {
+                    return Json(new { code = 415 });
+                }
+
+                string correctEmail = emailTrim.Trim();
+                string linkTemplate = _verificationLinkTemplate
+                        .Replace("codeTemplate", code);
+                linkTemplate = linkTemplate.Replace("emailTemplate", correctEmail);
+
+                bool res = await _emailSender.SendEmailAsync(
+                    correctEmail,
+                    _subjectVerifyLetterTemplate,
+                    linkTemplate);
+                if (res is false)
+                {
+                    return Json(new { code = 416 });
+                }
+
+                return Json(new { code = 200 });
             }
-
-            string correctEmail = emailTrim.Trim();
-            string linkTemplate = _verificationLinkTemplate
-                    .Replace("codeTemplate", code);
-            linkTemplate = linkTemplate.Replace("emailTemplate", correctEmail);
-
-            bool res = await _emailSender.SendEmailAsync(
-                correctEmail,
-                _subjectVerifyLetterTemplate,
-                linkTemplate);
-            if (res is false)
+            catch (Exception ex)
             {
-                return Json(new { code = 416 });
-            }
+                Debug.WriteLine(ex.Message);
 
-            return Json(new { code = 200 });
+                return Json(new { code = 400 });
+            }
         }
 
         // GET api/<AuthController>/5
