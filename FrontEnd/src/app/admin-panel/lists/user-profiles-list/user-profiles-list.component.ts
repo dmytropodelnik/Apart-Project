@@ -20,7 +20,7 @@ export class UserProfilesListComponent implements OnInit {
 
   addProfile(): void {
     let profile = {
-      name: this.profile,
+      birthDate: this.birthDate,
     };
 
     fetch('https://localhost:44381/api/profiles/addprofile', {
@@ -85,7 +85,7 @@ export class UserProfilesListComponent implements OnInit {
   deleteProfile(): void {
     let profile = {
       id: this.checkedProfile,
-      name: this.birthDate,
+      birthDate: this.birthDate,
     };
 
     fetch('https://localhost:44381/api/profiles/deleteprofile', {
