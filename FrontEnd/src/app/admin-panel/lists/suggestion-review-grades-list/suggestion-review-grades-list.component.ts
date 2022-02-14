@@ -22,7 +22,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
       name: this.grade,
     };
 
-    fetch('https://localhost:44381/api/grades/addgrade', {
+    fetch('https://localhost:44381/api/suggestionreviewgrades/addgrade', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -51,7 +51,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
       name: this.grade,
     };
 
-    fetch('https://localhost:44381/api/grades/editgrade', {
+    fetch('https://localhost:44381/api/suggestionreviewgrades/editgrade', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -81,7 +81,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
       name: this.grade,
     };
 
-    fetch('https://localhost:44381/api/grades/deletegrade', {
+    fetch('https://localhost:44381/api/suggestionreviewgrades/deletegrade', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -106,7 +106,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
   }
 
   getGrades(): void {
-    fetch('https://localhost:44381/api/grades/getgrades', {
+    fetch('https://localhost:44381/api/suggestionreviewgrades/getgrades', {
       method: 'GET',
     })
       .then((r) => r.json())

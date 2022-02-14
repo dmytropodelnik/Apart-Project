@@ -74,7 +74,8 @@
     <tr *ngFor="let item of districts">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{item.id}}
+          (click)="setDistrict(item.id, item.title)" >
         </div>
       </th>
       <td>{{item.title}}</td>

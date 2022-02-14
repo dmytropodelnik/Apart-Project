@@ -22,7 +22,7 @@ export class ReviewMessagesListComponent implements OnInit {
       name: this.message,
     };
 
-    fetch('https://localhost:44381/api/messages/addmessage', {
+    fetch('https://localhost:44381/api/reviewmessages/addmessage', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -51,7 +51,7 @@ export class ReviewMessagesListComponent implements OnInit {
       name: this.message,
     };
 
-    fetch('https://localhost:44381/api/messages/editmessage', {
+    fetch('https://localhost:44381/api/reviewmessages/editmessage', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -81,7 +81,7 @@ export class ReviewMessagesListComponent implements OnInit {
       name: this.message,
     };
 
-    fetch('https://localhost:44381/api/messages/deletemessage', {
+    fetch('https://localhost:44381/api/reviewmessages/deletemessage', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -106,7 +106,7 @@ export class ReviewMessagesListComponent implements OnInit {
   }
 
   getMessages(): void {
-    fetch('https://localhost:44381/api/messages/getmessages', {
+    fetch('https://localhost:44381/api/reviewmessages/getmessages', {
       method: 'GET',
     })
       .then((r) => r.json())

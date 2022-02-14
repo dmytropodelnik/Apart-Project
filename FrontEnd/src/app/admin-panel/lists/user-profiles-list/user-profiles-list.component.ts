@@ -13,7 +13,7 @@ import ListHelper from '../../../utils/listHelper';
 export class UserProfilesListComponent implements OnInit {
 
   profiles: UserProfile[] | null = null;
-  profile: string | null = null;
+  birthDate: string | null = null;
   checkedProfile: number | null = null;
 
   constructor() {}
@@ -40,7 +40,7 @@ export class UserProfilesListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.profile = '';
+        this.birthDate = '';
       })
       .catch((ex) => {
         alert(ex);
@@ -50,7 +50,7 @@ export class UserProfilesListComponent implements OnInit {
   editProfile(): void {
     let profile = {
       id: this.checkedProfile,
-      name: this.profile,
+      birthDate: this.birthDate,
     };
 
     fetch('https://localhost:44381/api/profiles/editprofile', {
@@ -70,7 +70,7 @@ export class UserProfilesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.profile = '';
+        this.birthDate = '';
       })
       .catch((ex) => {
         alert(ex);
@@ -85,7 +85,7 @@ export class UserProfilesListComponent implements OnInit {
   deleteProfile(): void {
     let profile = {
       id: this.checkedProfile,
-      name: this.profile,
+      name: this.birthDate,
     };
 
     fetch('https://localhost:44381/api/profiles/deleteprofile', {
@@ -105,7 +105,7 @@ export class UserProfilesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.profile = '';
+        this.birthDate = '';
       })
       .catch((ex) => {
         alert(ex);
@@ -129,9 +129,9 @@ export class UserProfilesListComponent implements OnInit {
       });
   }
 
-  setProfile(id: number | null, profile: string): void {
+  setProfile(id: number | null, birthDate: string | null): void {
     this.checkedProfile = id;
-    this.profile = profile;
+    this.birthDate = birthDate;
 
     document.getElementById('editButton')?.removeAttribute('disabled');
     document.getElementById('deleteButton')?.removeAttribute('disabled');
@@ -140,5 +140,4 @@ export class UserProfilesListComponent implements OnInit {
   ngOnInit(): void {
     this.getProfiles();
   }
-
 }

@@ -73,7 +73,8 @@
     <tr *ngFor="let city of cities">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{city.id}}
+          (click)="setCity(city.id, city.title)" >
         </div>
       </th>
       <td>{{city.title}}</td>
