@@ -73,7 +73,7 @@ export class BookingPricesListComponent implements OnInit {
       });
   }
 
-  deleteBooking(): void {
+  deletePrice(): void {
     let bookings = {
       id: this.checkedBooking,
       name: this.bookings,
