@@ -155,18 +155,13 @@ namespace CloneBookingAPI.Controllers
                 var newFavorite = _context.Favorites.Add(favorite);
                 newUser.Favorite = favorite;
 
+                _context.Users.Add(newUser);
+
                 UserProfile userProfile = new();
                 userProfile.RegisterDate = DateTime.Now;
-                var newUserProfile = _context.UserProfiles.Add(userProfile);
-                await _context.SaveChangesAsync();
+                userProfile.User = newUser;
 
-                newUser.ProfileId = newUserProfile.Entity.Id;
-
-                var addedUser = _context.Users.Add(newUser);
-                await _context.SaveChangesAsync();
-
-                var updateProfile = await _context.UserProfiles.FirstOrDefaultAsync(up => up.Id == newUser.ProfileId);
-                updateProfile.UserId = addedUser.Entity.Id;
+                _context.UserProfiles.Add(userProfile);
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });

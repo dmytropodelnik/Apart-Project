@@ -12,7 +12,7 @@
     </div>
 
     <div>
-      <a href="javascript:void(0)" class="d-block d-md-none text-white"></a>
+      <a class="d-block d-md-none text-white"></a>
       <div
         class="bui-group bui-button-group bui-group--inline bui-group--align-end bui-group--vertical-align-middle"
       >
@@ -52,7 +52,6 @@
         <div class="bui-group__item">
           <a
             class="bui-button bui-button--light bui-button--large"
-            href="javascript:void(0)"
           >
             <span class="bui-button__icon">
               <span aria-hidden="true" class="bui-icon1 bui-icon--large">
@@ -79,7 +78,6 @@
         <div class="bui-group__item">
           <a
             class="bui-button bui-button--light bui-button--large"
-            href="javascript:void(0)"
           >
             <span class="bui-button__icon">
               <span aria-hidden="true" class="bui-icon1 bui-icon--large">
@@ -134,8 +132,8 @@
                 >
               </li>
               <li>
-                <a class="dropdown-item"
-                  ><i class="robotomonoregular" (click)="logout()">Logout</i></a
+                <a class="dropdown-item" (click)="logout()"
+                  ><i class="robotomonoregular">Logout</i></a
                 >
               </li>
             </ul>
@@ -145,8 +143,6 @@
           <div class="bui-group__item">
             <a
               class="bui-button bui-button--secondary js-header-login-link"
-              routerLink="/auth"
-              href="javascript:void(0)"
             >
               <span class="bui-button__text"> Register </span>
             </a>
@@ -169,7 +165,6 @@
             <a
               class="bui-button bui-button--secondary js-header-login-link"
               routerLink="/auth"
-              href="javascript:void(0)"
             >
               <span class="bui-button__text"> Sign in </span>
             </a>
