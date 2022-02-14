@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Role } from 'src/app/models/UserData/role.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-roles-list',
@@ -62,6 +63,7 @@ export class RolesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getRoles();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +94,7 @@ export class RolesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getRoles();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

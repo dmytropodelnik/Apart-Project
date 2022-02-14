@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CarRentalBooking } from 'src/app/models/Services/carrentalbooking.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-car-rental-bookings-list',
@@ -63,6 +64,7 @@ export class CarRentalBookingsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getBookings();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +94,7 @@ export class CarRentalBookingsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getBookings();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

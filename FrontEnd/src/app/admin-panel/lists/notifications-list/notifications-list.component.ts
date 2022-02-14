@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import Notification from '../../../models/notification.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-notifications-list',
@@ -64,6 +65,7 @@ export class NotificationsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getNotifications();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -93,6 +95,7 @@ export class NotificationsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getNotifications();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

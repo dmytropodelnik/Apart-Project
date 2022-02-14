@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReviewMessage } from 'src/app/models/Review/reviewmessage.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-review-messages-list',
@@ -63,6 +64,7 @@ export class ReviewMessagesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getMessages();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +94,7 @@ export class ReviewMessagesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getMessages();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SuggestionReviewGrade } from 'src/app/models/Suggestions/suggestionreviewgrade.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-suggestion-review-grades-list',
@@ -63,6 +64,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getGrades();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +94,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getGrades();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

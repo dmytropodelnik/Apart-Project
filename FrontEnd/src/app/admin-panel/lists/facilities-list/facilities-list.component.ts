@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Facility } from 'src/app/models/facility.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-facilities-list',
@@ -63,6 +64,7 @@ export class FacilitiesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getFacilities();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +94,7 @@ export class FacilitiesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getFacilities();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServiceCategory } from 'src/app/models/servicecategory.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-service-categories-list',
@@ -63,6 +64,7 @@ export class ServiceCategoriesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCategories();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +94,7 @@ export class ServiceCategoriesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCategories();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

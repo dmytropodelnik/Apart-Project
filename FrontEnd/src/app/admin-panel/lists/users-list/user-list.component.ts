@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../../models/UserData/user.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-users-list',
@@ -63,6 +64,7 @@ export class UserListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getUsers();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +94,7 @@ export class UserListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getUsers();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

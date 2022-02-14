@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SuggestionRule } from 'src/app/models/Suggestions/suggestionrule.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-suggestion-rules-list',
@@ -63,6 +64,7 @@ export class SuggestionRulesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getRules();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +94,7 @@ export class SuggestionRulesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getRules();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

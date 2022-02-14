@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PromoCode } from 'src/app/models/Payment/promocode.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-promo-codes-list',
@@ -63,6 +64,7 @@ export class PromoCodesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCodes();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +94,7 @@ export class PromoCodesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCodes();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

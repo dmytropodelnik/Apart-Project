@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FileModel } from 'src/app/models/filemodel.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-file-models-list',
@@ -63,6 +64,7 @@ export class FileModelsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getFiles();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +94,7 @@ export class FileModelsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getFiles();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

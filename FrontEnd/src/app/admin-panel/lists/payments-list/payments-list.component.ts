@@ -3,6 +3,7 @@ import { Payment } from 'src/app/models/Payment/payment.item';
 import { PaymentType } from 'src/app/models/Payment/paymenttype.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-payments-list',
@@ -64,6 +65,7 @@ export class PaymentsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getPayments();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -93,6 +95,7 @@ export class PaymentsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getPayments();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

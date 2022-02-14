@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Country } from 'src/app/models/Location/country.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-countries-list',
@@ -63,6 +64,7 @@ export class CountriesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCountries();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +94,7 @@ export class CountriesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCountries();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

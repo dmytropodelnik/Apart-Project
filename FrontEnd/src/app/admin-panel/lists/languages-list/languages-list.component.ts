@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Language } from 'src/app/models/language.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-languages-list',
@@ -63,6 +64,7 @@ export class LanguagesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getLangs();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -93,6 +95,7 @@ export class LanguagesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getLangs();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

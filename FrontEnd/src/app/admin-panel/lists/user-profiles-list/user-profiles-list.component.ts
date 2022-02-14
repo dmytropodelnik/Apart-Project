@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserProfile } from 'src/app/models/UserData/useprofile.item';
+import { isThisTypeNode } from 'typescript';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-user-profiles-list',
@@ -34,6 +36,7 @@ export class UserProfilesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getProfiles();
+          this.disableButtons();
         } else {
           alert('Adding error!');
         }
@@ -63,6 +66,7 @@ export class UserProfilesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getProfiles();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -71,6 +75,11 @@ export class UserProfilesListComponent implements OnInit {
       .catch((ex) => {
         alert(ex);
       });
+  }
+
+  disableButtons(): void {
+    document.getElementById('editButton')?.setAttribute('disabled', 'disabled');
+    document.getElementById('deleteButton')?.setAttribute('disabled', 'disabled');
   }
 
   deleteProfile(): void {
@@ -92,6 +101,7 @@ export class UserProfilesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getProfiles();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

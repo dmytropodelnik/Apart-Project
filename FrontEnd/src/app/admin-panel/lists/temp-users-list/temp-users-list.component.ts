@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TempUser } from 'src/app/models/UserData/tempuser.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-temp-users-list',
@@ -63,6 +64,7 @@ export class TempUsersListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getUsers();
+          this.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -71,6 +73,11 @@ export class TempUsersListComponent implements OnInit {
       .catch((ex) => {
         alert(ex);
       });
+  }
+
+  disableButtons(): void {
+    document.getElementById('editButton')?.setAttribute('disabled', 'disabled');
+    document.getElementById('deleteButton')?.setAttribute('disabled', 'disabled');
   }
 
   deleteUser(): void {
@@ -92,6 +99,7 @@ export class TempUsersListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getUsers();
+          this.disableButtons();
         } else {
           alert('Editing error!');
         }

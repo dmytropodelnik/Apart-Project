@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Currency } from 'src/app/models/Payment/currency.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-currencies-list',
@@ -63,6 +64,7 @@ export class CurrenciesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCurrencies();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -93,6 +95,7 @@ export class CurrenciesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCurrencies();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

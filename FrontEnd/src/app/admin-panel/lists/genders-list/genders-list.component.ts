@@ -3,6 +3,7 @@ import { Review } from 'src/app/models/Review/review.item';
 import { Gender } from 'src/app/models/UserData/gender.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-genders-list',
@@ -67,6 +68,7 @@ export class GendersListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getGenders();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -96,6 +98,7 @@ export class GendersListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getGenders();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

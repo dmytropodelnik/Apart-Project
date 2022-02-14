@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReviewCategory } from 'src/app/models/Review/reviewcategory.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-review-categories-list',
@@ -63,6 +64,7 @@ export class ReviewCategoriesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCategories();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +94,7 @@ export class ReviewCategoriesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCategories();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

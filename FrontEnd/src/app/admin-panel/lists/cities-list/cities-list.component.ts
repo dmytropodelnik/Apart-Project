@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { City } from 'src/app/models/Location/city.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-cities-list',
@@ -63,6 +64,7 @@ export class CitiesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCities();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +94,7 @@ export class CitiesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCities();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

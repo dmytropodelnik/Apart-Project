@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SuggestionHighlight } from 'src/app/models/Suggestions/suggestionhighlight.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-suggestion-highlights-list',
@@ -63,6 +64,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getHighlights();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +94,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getHighlights();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
