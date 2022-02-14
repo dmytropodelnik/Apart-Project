@@ -121,7 +121,7 @@ export class BookingCategoriesListComponent implements OnInit {
       });
   }
 
-  setCategory(id: number | null, category: string): void {
+  setCategory(id: number | null, category: string | null): void {
     this.checkedCategory = id;
     this.category = category;
 
