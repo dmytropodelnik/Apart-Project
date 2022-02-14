@@ -22,7 +22,7 @@ export class SuggestionRulesListComponent implements OnInit {
       name: this.rule,
     };
 
-    fetch('https://localhost:44381/api/rules/addrule', {
+    fetch('https://localhost:44381/api/suggestionrules/addrule', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -51,7 +51,7 @@ export class SuggestionRulesListComponent implements OnInit {
       name: this.rule,
     };
 
-    fetch('https://localhost:44381/api/rules/editrule', {
+    fetch('https://localhost:44381/api/suggestionrules/editrule', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -81,7 +81,7 @@ export class SuggestionRulesListComponent implements OnInit {
       name: this.rule,
     };
 
-    fetch('https://localhost:44381/api/rules/deleterule', {
+    fetch('https://localhost:44381/api/suggestionrules/deleterule', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -106,7 +106,7 @@ export class SuggestionRulesListComponent implements OnInit {
   }
 
   getRules(): void {
-    fetch('https://localhost:44381/api/rules/getrules', {
+    fetch('https://localhost:44381/api/suggestionrules/getrules', {
       method: 'GET',
     })
       .then((r) => r.json())

@@ -80,7 +80,7 @@ export class BookingCategoriesListComponent implements OnInit {
       name: this.category,
     };
 
-    fetch('https://localhost:44381/api/roles/deleterole', {
+    fetch('https://localhost:44381/api/bookingcategories/deletecategory', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -105,7 +105,7 @@ export class BookingCategoriesListComponent implements OnInit {
   }
 
   getCategories(): void {
-    fetch('https://localhost:44381/api/bookingcategories/getroles', {
+    fetch('https://localhost:44381/api/bookingcategories/getcategories', {
       method: 'GET',
     })
       .then((r) => r.json())

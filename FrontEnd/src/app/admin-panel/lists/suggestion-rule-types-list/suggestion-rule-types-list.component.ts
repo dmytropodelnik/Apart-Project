@@ -22,7 +22,7 @@ export class SuggestionRuleTypesListComponent implements OnInit {
       name: this.type,
     };
 
-    fetch('https://localhost:44381/api/types/addtype', {
+    fetch('https://localhost:44381/api/suggestionruletypes/addtype', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -51,7 +51,7 @@ export class SuggestionRuleTypesListComponent implements OnInit {
       name: this.type,
     };
 
-    fetch('https://localhost:44381/api/types/edittype', {
+    fetch('https://localhost:44381/api/suggestionruletypes/edittype', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -81,7 +81,7 @@ export class SuggestionRuleTypesListComponent implements OnInit {
       name: this.type,
     };
 
-    fetch('https://localhost:44381/api/types/deletetype', {
+    fetch('https://localhost:44381/api/suggestionruletypes/deletetype', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -106,7 +106,7 @@ export class SuggestionRuleTypesListComponent implements OnInit {
   }
 
   getTypes(): void {
-    fetch('https://localhost:44381/api/types/gettypes', {
+    fetch('https://localhost:44381/api/suggestionruletypes/gettypes', {
       method: 'GET',
     })
       .then((r) => r.json())

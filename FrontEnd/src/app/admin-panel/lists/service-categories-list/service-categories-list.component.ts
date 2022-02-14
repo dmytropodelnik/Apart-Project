@@ -22,7 +22,7 @@ export class ServiceCategoriesListComponent implements OnInit {
       name: this.category,
     };
 
-    fetch('https://localhost:44381/api/categories/addcategory', {
+    fetch('https://localhost:44381/api/servicecategories/addcategory', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -51,7 +51,7 @@ export class ServiceCategoriesListComponent implements OnInit {
       name: this.category,
     };
 
-    fetch('https://localhost:44381/api/categories/editcategory', {
+    fetch('https://localhost:44381/api/servicecategories/editcategory', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -81,7 +81,7 @@ export class ServiceCategoriesListComponent implements OnInit {
       name: this.category,
     };
 
-    fetch('https://localhost:44381/api/categories/deletecategory', {
+    fetch('https://localhost:44381/api/servicecategories/deletecategory', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -106,7 +106,7 @@ export class ServiceCategoriesListComponent implements OnInit {
   }
 
   getCategories(): void {
-    fetch('https://localhost:44381/api/categories/getcategories', {
+    fetch('https://localhost:44381/api/servicecategories/getcategories', {
       method: 'GET',
     })
       .then((r) => r.json())

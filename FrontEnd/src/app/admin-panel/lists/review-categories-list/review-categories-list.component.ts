@@ -106,7 +106,7 @@ export class ReviewCategoriesListComponent implements OnInit {
   }
 
   getCategories(): void {
-    fetch('https://localhost:44381/api/categories/getcategories', {
+    fetch('https://localhost:44381/api/reviewcategories/getcategories', {
       method: 'GET',
     })
       .then((r) => r.json())
