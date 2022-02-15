@@ -100,7 +100,7 @@
           </a>
         </div>
         <!-- authService.getLogCondition() === false || -->
-        <div *ngIf="login === false; then thenBlock; else elseBlock"></div>
+        <div *ngIf="authService.getLogCondition() === true; then thenBlock; else elseBlock"></div>
         <ng-template #thenBlock>
           <div class="bui-group__item" class="dropdown">
             <button
