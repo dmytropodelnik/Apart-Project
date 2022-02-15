@@ -3,6 +3,7 @@ import { FileModel } from 'src/app/models/filemodel.item';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
+import ImageHelper from '../../../utils/imageHelper';
 
 @Component({
   selector: 'app-file-models-list',
@@ -12,17 +13,20 @@ import ListHelper from '../../../utils/listHelper';
 export class FileModelsListComponent implements OnInit {
 
   files: FileModel[] | null = null;
-  file: string | null = null;
+  name: string | null = null;
+  path: string | null = null;
   checkedFile: number | null = null;
+  imageHelper: any = ImageHelper;
 
   constructor() {}
 
   addFile(): void {
     let file = {
-      name: this.file,
+      name: this.name,
+      path: this.path,
     };
 
-    fetch('https://localhost:44381/api/files/addfile', {
+    fetch('https://localhost:44381/api/files/addimage', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -38,37 +42,8 @@ export class FileModelsListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.file = '';
-      })
-      .catch((ex) => {
-        alert(ex);
-      });
-  }
-
-  editFile(): void {
-    let file = {
-      id: this.checkedFile,
-      name: this.file,
-    };
-
-    fetch('https://localhost:44381/api/files/editfile', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(file),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.code === 200) {
-          this.getFiles();
-          ListHelper.disableButtons();
-        } else {
-          alert('Editing error!');
-        }
-        this.file = '';
+        this.name = '';
+        this.path = '';
       })
       .catch((ex) => {
         alert(ex);
@@ -78,10 +53,11 @@ export class FileModelsListComponent implements OnInit {
   deleteFile(): void {
     let file = {
       id: this.checkedFile,
-      name: this.file,
+      name: this.name,
+      path: this.path,
     };
 
-    fetch('https://localhost:44381/api/files/deletefile', {
+    fetch('https://localhost:44381/api/files/deleteimage', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -96,9 +72,10 @@ export class FileModelsListComponent implements OnInit {
           this.getFiles();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          alert('Deleting error!');
         }
-        this.file = '';
+        this.name = '';
+        this.path = '';
       })
       .catch((ex) => {
         alert(ex);
@@ -106,7 +83,7 @@ export class FileModelsListComponent implements OnInit {
   }
 
   getFiles(): void {
-    fetch('https://localhost:44381/api/files/getfiles', {
+    fetch('https://localhost:44381/api/files/getimages', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -122,11 +99,11 @@ export class FileModelsListComponent implements OnInit {
       });
   }
 
-  setFile(id: number | null, file: string): void {
+  setFile(id: number | null, name: string, path: string): void {
     this.checkedFile = id;
-    this.file = file;
+    this.name = name;
+    this.path = path;
 
-    document.getElementById('editButton')?.removeAttribute('disabled');
     document.getElementById('deleteButton')?.removeAttribute('disabled');
   }
 

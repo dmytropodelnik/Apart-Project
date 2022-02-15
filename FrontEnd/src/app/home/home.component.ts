@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { BookingCategory } from '../models/bookingcategory.item';
 import { City } from '../models/Location/city.item';
 
+import ImageHelper from '../utils/imageHelper';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -14,9 +16,11 @@ export class HomeComponent implements OnInit {
   navigation = 'arrows';
   showWeekNumbers = false;
   outsideDays = 'hidden';
+  imageHelper: any = ImageHelper;
 
   bookingCategories: BookingCategory[] | undefined;
   cities: City[] | undefined;
+  imagePath: string = "123";
 
   slides = [
     { text: 'Educational Consulting', img: 'assets/images/21.png' },
@@ -84,7 +88,8 @@ export class HomeComponent implements OnInit {
     ],
   };
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit(): void {
     fetch(

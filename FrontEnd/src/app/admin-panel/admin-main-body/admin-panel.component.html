@@ -449,6 +449,25 @@
                   </li>
                 </div>
               </div>
+
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingOne">
+                  <li class="menu-title" class="accordion-button" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseOneFiles" aria-expanded="true" aria-controls="collapseOneFiles">
+                    Files
+                  </li>
+                </h2>
+                <div id="collapseOneFiles" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+                  data-bs-parent="#accordionFiles">
+
+                  <li>
+                    <a class="btn waves-effect" (click)="setContent('file-models')">
+                      <i class="mdi mdi-file-multiple"></i>
+                      <span>Files</span>
+                    </a>
+                  </li>
+                </div>
+              </div>
             </ul>
           </div>
           <!-- Sidebar -->
