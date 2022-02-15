@@ -110,7 +110,7 @@ export class PaymentTypesListComponent implements OnInit {
   }
 
   getTypes(): void {
-    fetch('https://localhost:44381/api/paymenttypes/gettypes', {
+    fetch('https://localhost:44381/api/paymenttypes/getpaymenttypes', {
       method: 'GET',
     })
       .then((r) => r.json())
