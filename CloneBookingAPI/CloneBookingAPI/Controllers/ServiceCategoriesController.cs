@@ -74,36 +74,6 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        [Route("deletecategorybyname")]
-        [HttpDelete]
-        public async Task<IActionResult> DeleteCategoryByName(string category)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(category))
-                {
-                    return Json(new { code = 400 });
-                }
-
-                var resCategory = await _context.ServiceCategories.FirstOrDefaultAsync(c => c.Category == category);
-                if (resCategory is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                _context.ServiceCategories.Remove(resCategory);
-                await _context.SaveChangesAsync();
-
-                return Json(new { code = 200 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-        }
-
         [Route("editcategory")]
         [HttpPut]
         public async Task<IActionResult> EditCategory([FromBody] ServiceCategory category)
@@ -123,6 +93,36 @@ namespace CloneBookingAPI.Controllers
                 resCategory.Category = category.Category;
 
                 _context.ServiceCategories.Update(resCategory);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("deletecategorybyname")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCategoryByName(string category)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(category))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resCategory = await _context.ServiceCategories.FirstOrDefaultAsync(c => c.Category == category);
+                if (resCategory is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                _context.ServiceCategories.Remove(resCategory);
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });
