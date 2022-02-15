@@ -23,9 +23,9 @@
         <form>
           <div class="mb-3">
             <label for="addType" class="form-label">Text</label>
-            <input type="text" class="form-control" id="addType" name="facility.text" [(ngModel)]="facility.text"
-                   />
-            <select id="facilityTypes" class="form-select" [(ngModel)]="facility.facilityType!.type"></select>
+            <input type="text" class="form-control" id="addType" name="facility.text" [(ngModel)]="facility.text"/>
+
+            <select id="addFacilityTypes" class="form-select facilityTypes" name="facilityType.facilityTypeId" [(ngModel)]="facility.facilityTypeId"></select>
           </div>
         </form>
       </div>
@@ -48,11 +48,9 @@
         <form>
           <div class="mb-3">
             <label for="editType" class="form-label">Text</label>
-            <input type="text" class="form-control" id="editType" name="facility.text" [(ngModel)]="facility.text"
-                   />
-            <label for="editType" class="form-label">Facility Type</label>
-            <input type="text" class="form-control" id="editType" name="facility.facilityType" [(ngModel)]="facility.facilityType"
-                   />
+            <input type="text" class="form-control" id="editType" name="facility.text" [(ngModel)]="facility.text"/>
+
+            <select id="editFacilityTypes" class="form-select facilityTypes" name="facilityType.facilityTypeId" [(ngModel)]="facility.facilityTypeId"></select>
           </div>
         </form>
       </div>
@@ -75,11 +73,10 @@
         <form>
           <div class="mb-3">
             <label for="deleteType" class="form-label">Text</label>
-            <input type="text" class="form-control" id="deleteType" name="facility.text" [(ngModel)]="facility.text"
+            <input type="text" class="form-control" id="deleteTypeText" name="facility.text" [(ngModel)]="facility.text"
                    readonly />
 
-            <label for="deleteType" class="form-label">Facility Type</label>
-            <input type="text" class="form-control" id="deleteType" name="facility.facilityType" [(ngModel)]="facility.facilityType"
+            <input type="text" class="form-control facilityTypes" id="deleteFacilityType" name="facility.text" [(ngModel)]="facility.text"
                    readonly />
           </div>
         </form>
@@ -97,7 +94,7 @@
     <tr>
       <th scope="col text-center align-self-center">#</th>
       <th scope="col">Facility</th>
-      <th scope="col">FacilityType</th>
+      <th scope="col">Facility type</th>
       <th scope="col">Suggestion</th>
       <th scope="col">Image</th>
     </tr>
@@ -111,7 +108,7 @@
         </div>
       </th>
       <td>{{facility.text}}</td>
-      <td>{{facility.facilityType}}</td>
+      <td>{{facility.facilityTypeId}}</td>
       <td>{{facility.suggestion}}</td>
       <td>{{facility.image}}</td>
     </tr>

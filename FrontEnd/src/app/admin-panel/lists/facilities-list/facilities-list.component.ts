@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Facility } from 'src/app/models/facility.item';
+import { FacilityType } from 'src/app/models/facilitytype.item';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -22,9 +23,10 @@ export class FacilitiesListComponent implements OnInit {
     let facility = {
       text: this.facility.text,
       image: null,
-      facilityType: null,
+      facilityTypeId: this.facility.facilityTypeId,
       suggestion: null,
     };
+    console.log(facility);
 
     fetch('https://localhost:44381/api/facilities/addfacility', {
       method: 'POST',
@@ -118,7 +120,7 @@ export class FacilitiesListComponent implements OnInit {
   resetFacility(): void {
     this.facility.text = '';
     this.facility.image = null;
-    this.facility.facilityType = null;
+    this.facility.facilityTypeId = null;
     this.facility.suggestion = null;
   }
 
@@ -143,25 +145,26 @@ export class FacilitiesListComponent implements OnInit {
     this.checkedFacility = facility.id;
     this.facility.text = facility.text;
     this.facility.image = facility.image;
-    this.facility.facilityType = facility.facilityType;
     this.facility.suggestion = facility.suggestion;
 
     document.getElementById('editButton')?.removeAttribute('disabled');
     document.getElementById('deleteButton')?.removeAttribute('disabled');
   }
 
-  getFacilityTypes(): void {
+  getFacilityTypes(value: string): void {
     fetch('https://localhost:44381/api/facilitytypes/gettypes', {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          let types = document.getElementById('facilityTypes');
+          let types = document.getElementById(value);
           let newOption;
+          let counter = 1;
           for (let type of data.types) {
-            newOption = new Option(type.type, type.type);
+            newOption = new Option(type.type, counter.toString());
             types?.append(newOption);
+            counter++;
           }
         } else {
           alert('Fetch error!');
@@ -174,6 +177,7 @@ export class FacilitiesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFacilities();
-    this.getFacilityTypes();
+    this.getFacilityTypes('addFacilityTypes');
+    this.getFacilityTypes('editFacilityTypes');
   }
 }
