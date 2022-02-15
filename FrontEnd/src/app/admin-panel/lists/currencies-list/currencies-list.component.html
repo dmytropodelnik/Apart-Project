@@ -15,10 +15,22 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form>
+          <div class="mb-3">
+            <label for="addValueCurrency" class="form-label"></label>
+            <input type="text" class="form-control" id="addValueCurrency" name="currency.value" [(ngModel)]="currency.value"
+                    />
+            <label for="addAbbrCurrency" class="form-label"></label>
+            <input type="text" class="form-control" id="addAbbrCurrency" name="currency.abbreviation" [(ngModel)]="currency.abbreviation"
+                    />
+            <label for="addBankCodeCurrency" class="form-label"></label>
+            <input type="text" class="form-control" id="addBankCodeCurrency" name="currency.bankCode" [(ngModel)]="currency.bankCode"
+                    />
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Save</button>
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="addCurrency()">Save</button>
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
@@ -33,10 +45,22 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form>
+          <div class="mb-3">
+            <label for="editValueCurrency" class="form-label"></label>
+            <input type="text" class="form-control" id="editValueCurrency" name="currency.value" [(ngModel)]="currency.value"
+                    />
+            <label for="editAbbrCurrency" class="form-label"></label>
+            <input type="text" class="form-control" id="editAbbrCurrency" name="currency.abbreviation" [(ngModel)]="currency.abbreviation"
+                    />
+            <label for="editBankCodeCurrency" class="form-label"></label>
+            <input type="text" class="form-control" id="editBankCodeCurrency" name="currency.bankCode" [(ngModel)]="currency.bankCode"
+                    />
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Save</button>
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="editCurrency()">Save</button>
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
@@ -51,7 +75,19 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form>
+          <div class="mb-3">
+            <label for="deleteValueCurrency" class="form-label"></label>
+            <input type="text" class="form-control" id="deleteValueCurrency" name="currency.value" [(ngModel)]="currency.value"
+                    readonly />
+            <label for="deleteAbbrCurrency" class="form-label"></label>
+            <input type="text" class="form-control" id="deleteAbbrCurrency" name="currency.abbreviation" [(ngModel)]="currency.abbreviation"
+                    readonly />
+            <label for="deleteBankCodeCurrency" class="form-label"></label>
+            <input type="text" class="form-control" id="deleteBankCodeCurrency" name="currency.bankCode" [(ngModel)]="currency.bankCode"
+                    readonly />
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteCurrency()">Delete</button>
@@ -74,8 +110,8 @@
     <tr *ngFor="let item of currencies">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{item.id}}
-                 (click)="setCurrency(item.id, item.value)" >
+          <input class="form-check-input" type="radio" name="currencyRadio" id="currencyRadio" value={{item.id}}
+                 (click)="setCurrency(item)" >
         </div>
       </th>
       <td>{{item.value}}</td>
