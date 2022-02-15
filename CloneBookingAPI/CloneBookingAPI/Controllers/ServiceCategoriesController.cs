@@ -104,18 +104,49 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        [Route("deletecategory")]
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory(int id)
+        [Route("editcategory")]
+        [HttpPut]
+        public async Task<IActionResult> EditCategory([FromBody] ServiceCategory category)
         {
             try
             {
-                if (id < 1)
+                if (category is null || string.IsNullOrWhiteSpace(category.Category))
                 {
                     return Json(new { code = 400 });
                 }
 
-                var resCategory = await _context.ServiceCategories.FirstOrDefaultAsync(c => c.Id == id);
+                var resCategory = await _context.ServiceCategories.FirstOrDefaultAsync(c => c.Id == category.Id);
+                if (resCategory is null)
+                {
+                    return Json(new { code = 400 });
+                }
+                resCategory.Category = category.Category;
+
+                _context.ServiceCategories.Update(resCategory);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("deletecategory")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCategory([FromBody] ServiceCategory category)
+        {
+            try
+            {
+                if (category is null || category.Id < 1)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resCategory = await _context.ServiceCategories.FirstOrDefaultAsync(c => c.Id == category.Id);
                 if (resCategory is null)
                 {
                     return Json(new { code = 400 });
