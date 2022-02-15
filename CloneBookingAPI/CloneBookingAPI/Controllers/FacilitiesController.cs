@@ -74,18 +74,49 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        [Route("deletefacilitybyname")]
-        [HttpDelete]
-        public async Task<IActionResult> DeleteFacilityByName(string facility)
+        [Route("editfacility")]
+        [HttpPut]
+        public async Task<IActionResult> EditFacility([FromBody] Facility facility)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(facility))
+                if (facility is null || string.IsNullOrWhiteSpace(facility.Text))
                 {
                     return Json(new { code = 400 });
                 }
 
-                var resFacility = await _context.Facilities.FirstOrDefaultAsync(f => f.Text == facility);
+                var resFacility = await _context.Facilities.FirstOrDefaultAsync(f => f.Id == facility.Id);
+                if (resFacility is null)
+                {
+                    return Json(new { code = 400 });
+                }
+                resFacility.Text = facility.Text;
+
+                _context.Facilities.Update(resFacility);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("deletefacilitybyname")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteFacilityByName([FromBody] Facility facility)
+        {
+            try
+            {
+                if (facility is null || string.IsNullOrWhiteSpace(facility.Text))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resFacility = await _context.Facilities.FirstOrDefaultAsync(f => f.Id == facility.Id);
                 if (resFacility is null)
                 {
                     return Json(new { code = 400 });
@@ -105,17 +136,17 @@ namespace CloneBookingAPI.Controllers
         }
 
         [Route("deletefacility")]
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteFacility(int id)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteFacility([FromBody] Facility facility)
         {
             try
             {
-                if (id < 1)
+                if (facility is null || string.IsNullOrWhiteSpace(facility.Text))
                 {
                     return Json(new { code = 400 });
                 }
 
-                var resFacility = await _context.Facilities.FirstOrDefaultAsync(f => f.Id == id);
+                var resFacility = await _context.Facilities.FirstOrDefaultAsync(f => f.Id == facility.Id);
                 if (resFacility is null)
                 {
                     return Json(new { code = 400 });

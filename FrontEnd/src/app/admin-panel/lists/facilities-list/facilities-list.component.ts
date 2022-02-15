@@ -7,19 +7,23 @@ import ListHelper from '../../../utils/listHelper';
 @Component({
   selector: 'app-facilities-list',
   templateUrl: './facilities-list.component.html',
-  styleUrls: ['./facilities-list.component.css']
+  styleUrls: ['./facilities-list.component.css'],
 })
 export class FacilitiesListComponent implements OnInit {
-
   facilities: Facility[] | null = null;
-  facility: string | null = null;
+  facility: Facility;
   checkedFacility: number | null = null;
 
-  constructor() {}
+  constructor() {
+    this.facility = new Facility();
+  }
 
   addFacility(): void {
     let facility = {
-      name: this.facility,
+      text: this.facility.text,
+      image: null,
+      facilityType: null,
+      suggestion: null,
     };
 
     fetch('https://localhost:44381/api/facilities/addfacility', {
@@ -38,7 +42,7 @@ export class FacilitiesListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.facility = '';
+        this.resetFacility();
       })
       .catch((ex) => {
         alert(ex);
@@ -48,7 +52,10 @@ export class FacilitiesListComponent implements OnInit {
   editFacility(): void {
     let facility = {
       id: this.checkedFacility,
-      name: this.facility,
+      text: this.facility.text,
+      image: null,
+      facilityType: null,
+      suggestion: null,
     };
 
     fetch('https://localhost:44381/api/facilities/editfacility', {
@@ -68,7 +75,7 @@ export class FacilitiesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.facility = '';
+        this.resetFacility();
       })
       .catch((ex) => {
         alert(ex);
@@ -78,7 +85,10 @@ export class FacilitiesListComponent implements OnInit {
   deleteFacility(): void {
     let facility = {
       id: this.checkedFacility,
-      name: this.facility,
+      text: this.facility.text,
+      image: null,
+      facilityType: null,
+      suggestion: null,
     };
 
     fetch('https://localhost:44381/api/facilities/deletefacility', {
@@ -98,11 +108,18 @@ export class FacilitiesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.facility = '';
+        this.resetFacility();
       })
       .catch((ex) => {
         alert(ex);
       });
+  }
+
+  resetFacility(): void {
+    this.facility.text = '';
+    this.facility.image = null;
+    this.facility.facilityType = null;
+    this.facility.suggestion = null;
   }
 
   getFacilities(): void {
@@ -122,16 +139,41 @@ export class FacilitiesListComponent implements OnInit {
       });
   }
 
-  setFacility(id: number | null, facility: string): void {
-    this.checkedFacility = id;
-    this.facility = facility;
+  setFacility(facility: Facility): void {
+    this.checkedFacility = facility.id;
+    this.facility.text = facility.text;
+    this.facility.image = facility.image;
+    this.facility.facilityType = facility.facilityType;
+    this.facility.suggestion = facility.suggestion;
 
     document.getElementById('editButton')?.removeAttribute('disabled');
     document.getElementById('deleteButton')?.removeAttribute('disabled');
   }
 
-  ngOnInit(): void {
-    this.getFacilities();
+  getFacilityTypes(): void {
+    fetch('https://localhost:44381/api/facilitytypes/gettypes', {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          let types = document.getElementById('facilityTypes');
+          let newOption;
+          for (let type of data.types) {
+            newOption = new Option(type.type, type.type);
+            types?.append(newOption);
+          }
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
+  ngOnInit(): void {
+    this.getFacilities();
+    this.getFacilityTypes();
+  }
 }

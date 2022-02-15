@@ -31,9 +31,9 @@ namespace CloneBookingAPI.Controllers.UserData
         {
             try
             {
-                var res = await _context.Favorites.ToListAsync();
+                var favorites = await _context.Favorites.ToListAsync();
 
-                return Json(new { code = 200, favorites = res });
+                return Json(new { code = 200, favorites });
             }
             catch (ArgumentNullException ex)
             {

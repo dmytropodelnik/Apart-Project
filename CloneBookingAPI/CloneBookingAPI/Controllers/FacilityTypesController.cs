@@ -56,7 +56,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                var res = await _context.FacilityTypes.FirstOrDefaultAsync(f => f.Type == type.Type);
+                var res = await _context.FacilityTypes.FirstOrDefaultAsync(t => t.Type == type.Type);
                 if (res is null)
                 {
                     _context.FacilityTypes.Add(type);
@@ -85,7 +85,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                var resType = await _context.FacilityTypes.FirstOrDefaultAsync(c => c.Id == type.Id);
+                var resType = await _context.FacilityTypes.FirstOrDefaultAsync(t => t.Id == type.Id);
                 if (resType is null)
                 {
                     return Json(new { code = 400 });
@@ -116,7 +116,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                var resType = await _context.FacilityTypes.FirstOrDefaultAsync(f => f.Type == type.Type);
+                var resType = await _context.FacilityTypes.FirstOrDefaultAsync(t => t.Type == type.Type);
                 if (resType is null)
                 {
                     return Json(new { code = 400 });
@@ -146,7 +146,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                var resType = await _context.FacilityTypes.FirstOrDefaultAsync(f => f.Id == type.Id);
+                var resType = await _context.FacilityTypes.FirstOrDefaultAsync(t => t.Id == type.Id);
                 if (resType is null)
                 {
                     return Json(new { code = 400 });
