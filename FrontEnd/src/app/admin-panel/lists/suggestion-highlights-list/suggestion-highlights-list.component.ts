@@ -13,6 +13,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
 
   highlights: SuggestionHighlight[] | null = null;
   highlight: string | null = null;
+  searchHighlight: string = '';
   checkedHighlight: number | null = null;
 
   constructor() {}

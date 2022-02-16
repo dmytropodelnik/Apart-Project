@@ -75,10 +75,11 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let user of ">
+    <tr *ngFor="let price of prices">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{price.id}}
+          (click)="setPrice(price)" >
         </div>
       </th>
       <td></td>

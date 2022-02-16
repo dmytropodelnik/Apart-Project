@@ -11,15 +11,15 @@ import ListHelper from '../../../utils/listHelper';
 })
 export class BookingPricesListComponent implements OnInit {
 
-  bookings: BookingPrice[] | null = null;
-  booking: string | null = null;
+  prices: BookingPrice[] | null = null;
+  price: BookingPrice | null = null;
   checkedBooking: number | null = null;
 
   constructor() {}
 
-  addBooking(): void {
+  addPrice(): void {
     let booking = {
-      name: this.booking,
+      name: this.price,
     };
 
     fetch('https://localhost:44381/api/bookingprices/addprice', {
@@ -34,21 +34,21 @@ export class BookingPricesListComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          this.getBookings();
+          this.getPrices();
         } else {
           alert('Adding error!');
         }
-        this.booking = '';
+        this.price = null;
       })
       .catch((ex) => {
         alert(ex);
       });
   }
 
-  editBooking(): void {
+  editPrice(): void {
     let booking = {
       id: this.checkedBooking,
-      name: this.booking,
+      name: this.price,
     };
 
     fetch('https://localhost:44381/api/bookingprices/editprices', {
@@ -63,12 +63,12 @@ export class BookingPricesListComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          this.getBookings();
+          this.getPrices();
           ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
-        this.booking = '';
+        this.price = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -78,7 +78,7 @@ export class BookingPricesListComponent implements OnInit {
   deletePrice(): void {
     let bookings = {
       id: this.checkedBooking,
-      name: this.bookings,
+      name: this.price,
     };
 
     fetch('https://localhost:44381/api/bookingprices/deleteprice', {
@@ -93,26 +93,26 @@ export class BookingPricesListComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          this.getBookings();
+          this.getPrices();
           ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
-        this.booking = '';
+        this.price = null;
       })
       .catch((ex) => {
         alert(ex);
       });
   }
 
-  getBookings(): void {
+  getPrices(): void {
     fetch('https://localhost:44381/api/bookingprices/getprices', {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          this.bookings = data.bookings;
+          this.prices = data.bookings;
         } else {
           alert('Fetch error!');
         }
@@ -122,16 +122,16 @@ export class BookingPricesListComponent implements OnInit {
       });
   }
 
-  setBooking(id: number | null, booking: string): void {
-    this.checkedBooking = id;
-    this.booking = booking;
+  setPrice(price: BookingPrice): void {
+    this.checkedBooking = price.id;
+    this.price = price;
 
     document.getElementById('editButton')?.removeAttribute('disabled');
     document.getElementById('deleteButton')?.removeAttribute('disabled');
   }
 
   ngOnInit(): void {
-    this.getBookings();
+    this.getPrices();
   }
 
 }

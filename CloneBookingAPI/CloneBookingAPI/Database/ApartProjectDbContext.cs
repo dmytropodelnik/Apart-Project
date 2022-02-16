@@ -29,7 +29,7 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<Payment> Payments { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
         public DbSet<CreditCard> CreditCards { get; set; }
-        public DbSet<BookingPrice> Prices { get; set; }
+        public DbSet<BookingPrice> BookingPrices { get; set; }
         public DbSet<PromoCode> PromoCodes { get; set; }
         public DbSet<Review> Reviews { get; set; }
         public DbSet<ReviewCategory> ReviewCategories { get; set; }
