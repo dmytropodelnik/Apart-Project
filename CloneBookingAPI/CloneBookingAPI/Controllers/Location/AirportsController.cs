@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -31,6 +32,50 @@ namespace CloneBookingAPI.Controllers
             try
             {
                 var airports = await _context.Airports.ToListAsync();
+
+                return Json(new { code = 200, airports });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("search")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Airport>>> Search(string airport)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(airport))
+                {
+                    var res = await _context.Airports.ToListAsync();
+
+                    return Json(new { code = 200, airports = res });
+                }
+
+                var airports = await _context.Airports
+                    .Include(a => a.Address)
+                        .ThenInclude(addr => addr.Country)
+                    .Include(a => a.Address.City)
+                    .Include(a => a.Address.District)
+                    .Include(a => a.Address.Region)
+                    .Where(a => a.Address.AddressText.Contains(airport)     ||
+                                a.Address.Country.Title.Contains(airport)   ||
+                                a.Address.City.Title.Contains(airport)      ||
+                                a.Address.District.Title.Contains(airport)  ||
+                                a.Address.Region.Title.Contains(airport)    ||
+                                a.Title.Contains(airport)                   ||
+                                a.Abbreviation.Contains(airport))
+                    .ToListAsync();
 
                 return Json(new { code = 200, airports });
             }

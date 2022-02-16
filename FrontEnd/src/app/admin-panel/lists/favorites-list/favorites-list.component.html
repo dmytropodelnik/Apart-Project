@@ -31,17 +31,20 @@
   <thead>
     <tr>
       <th scope="col text-center align-self-center">#</th>
-      <th scope="col">Role</th>
+      <th scope="col">User</th>
+      <th scope="col">Suggestion</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let item of favorites">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="radio" name="favoriteRadio" id="favoriteRadio" value={{item.id}}
+          (click)="setFavorite(item)" >
         </div>
       </th>
-      <td></td>
+      <td>{{item.user}}</td>
+      <td>{{item.suggestions}}</td>
     </tr>
   </tbody>
 </table>

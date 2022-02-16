@@ -13,9 +13,32 @@ export class CountriesListComponent implements OnInit {
 
   countries: Country[] | null = null;
   country: string | null = null;
+  searchCountry: string = '';
   checkedCountry: number | null = null;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/countries/search?country=' + this.searchCountry, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.countries = data.countries;
+        } else {
+          alert('Search error!');
+        }
+        this.searchCountry = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addCountry(): void {
     let country = {

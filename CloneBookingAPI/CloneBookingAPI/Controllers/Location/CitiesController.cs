@@ -49,6 +49,43 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [Route("search")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<City>>> Search(string city)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(city))
+                {
+                    var res = await _context.Cities
+                        .Include(c => c.Country)
+                        .Where(c => c.Country.Title.Contains(city) ||
+                                    c.Title.Contains(city))
+                        .ToListAsync();
+
+                    return Json(new { code = 200, cities = res });
+                }
+
+                var cities = await _context.Cities
+                    .Where(c => c.Title.Contains(city))
+                    .ToListAsync();
+
+                return Json(new { code = 200, cities });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
         [Route("getcountrycities")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<City>>> GetCountryCities(string country)

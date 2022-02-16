@@ -19,7 +19,7 @@ export class UserListComponent implements OnInit {
   constructor() {}
 
   search(): void {
-    fetch('https://localhost:44381/api/users/searchusers?user=' + this.searchUser, {
+    fetch('https://localhost:44381/api/users/search?user=' + this.searchUser, {
       method: 'GET',
       headers: {
         Accept: 'application/json',

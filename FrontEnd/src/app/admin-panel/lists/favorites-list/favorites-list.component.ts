@@ -12,7 +12,7 @@ import ListHelper from '../../../utils/listHelper';
 export class FavoritesListComponent implements OnInit {
 
   favorites: Favorite[] | null = null;
-  favorite: string | null = null;
+  favorite: Favorite | null = null;
   checkedFavorite: number | null = null;
 
   constructor() {}
@@ -38,7 +38,7 @@ export class FavoritesListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.favorite = '';
+        this.favorite = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -67,7 +67,7 @@ export class FavoritesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.favorite = '';
+        this.favorite = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -97,7 +97,7 @@ export class FavoritesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.favorite = '';
+        this.favorite = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -121,8 +121,8 @@ export class FavoritesListComponent implements OnInit {
       });
   }
 
-  setFavorite(id: number | null, favorite: string): void {
-    this.checkedFavorite = id;
+  setFavorite(favorite: Favorite): void {
+    this.checkedFavorite = favorite.id;
     this.favorite = favorite;
 
     document.getElementById('editButton')?.removeAttribute('disabled');

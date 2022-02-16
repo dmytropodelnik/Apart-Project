@@ -18,7 +18,7 @@ export class RolesListComponent implements OnInit {
   constructor() {}
 
   search(): void {
-    fetch('https://localhost:44381/api/roles/searchroles?role=' + this.searchRole, {
+    fetch('https://localhost:44381/api/roles/search?role=' + this.searchRole, {
       method: 'GET',
       headers: {
         Accept: 'application/json',

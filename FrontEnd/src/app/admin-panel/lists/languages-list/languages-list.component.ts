@@ -18,7 +18,7 @@ export class LanguagesListComponent implements OnInit {
   constructor() {}
 
   search(): void {
-    fetch('https://localhost:44381/api/languages/searchlangs?lang=' + this.searchLang, {
+    fetch('https://localhost:44381/api/languages/search?lang=' + this.searchLang, {
       method: 'GET',
       headers: {
         Accept: 'application/json',

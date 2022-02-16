@@ -46,9 +46,9 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        [Route("searchlangs")]
+        [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Language>>> SearchLangs(string lang)
+        public async Task<ActionResult<IEnumerable<Language>>> Search(string lang)
         {
             try
             {

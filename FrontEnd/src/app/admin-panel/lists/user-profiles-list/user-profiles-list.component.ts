@@ -23,7 +23,7 @@ export class UserProfilesListComponent implements OnInit {
       birthDate: this.birthDate,
     };
 
-    fetch('https://localhost:44381/api/profiles/addprofile', {
+    fetch('https://localhost:44381/api/userprofiles/addprofile', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -53,7 +53,7 @@ export class UserProfilesListComponent implements OnInit {
       birthDate: this.birthDate,
     };
 
-    fetch('https://localhost:44381/api/profiles/editprofile', {
+    fetch('https://localhost:44381/api/userprofiles/editprofile', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -88,7 +88,7 @@ export class UserProfilesListComponent implements OnInit {
       birthDate: this.birthDate,
     };
 
-    fetch('https://localhost:44381/api/profiles/deleteprofile', {
+    fetch('https://localhost:44381/api/userprofiles/deleteprofile', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -113,7 +113,7 @@ export class UserProfilesListComponent implements OnInit {
   }
 
   getProfiles(): void {
-    fetch('https://localhost:44381/api/profiles/getprofiles', {
+    fetch('https://localhost:44381/api/userprofiles/getprofiles', {
       method: 'GET',
     })
       .then((r) => r.json())

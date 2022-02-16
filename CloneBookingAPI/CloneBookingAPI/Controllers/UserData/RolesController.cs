@@ -47,9 +47,9 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
-        [Route("searchroles")]
+        [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Role>>> SearchRoles(string role)
+        public async Task<ActionResult<IEnumerable<Role>>> Search(string role)
         {
             try
             {

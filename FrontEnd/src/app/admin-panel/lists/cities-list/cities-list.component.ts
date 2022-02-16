@@ -13,9 +13,32 @@ export class CitiesListComponent implements OnInit {
 
   cities: City[] | null = null;
   city: string | null = null;
+  searchCity: string = '';
   checkedCity: number | null = null;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/cities/search?city=' + this.searchCity, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.cities = data.cities;
+        } else {
+          alert('Search error!');
+        }
+        this.searchCity = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addCity(): void {
     let city = {

@@ -46,9 +46,9 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
-        [Route("searchgenders")]
+        [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Gender>>> SearchGenders(string gender)
+        public async Task<ActionResult<IEnumerable<Gender>>> Search(string gender)
         {
             try
             {

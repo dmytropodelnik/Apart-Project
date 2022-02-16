@@ -92,9 +92,9 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        [Route("searchusers")]
+        [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> SearchUsers(string user)
+        public async Task<ActionResult<IEnumerable<User>>> Search(string user)
         {
             try
             {

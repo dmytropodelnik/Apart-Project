@@ -23,7 +23,7 @@ export class GendersListComponent implements OnInit {
   constructor() {}
 
   search(): void {
-    fetch('https://localhost:44381/api/genders/searchgenders?gender=' + this.searchGender, {
+    fetch('https://localhost:44381/api/genders/search?gender=' + this.searchGender, {
       method: 'GET',
       headers: {
         Accept: 'application/json',

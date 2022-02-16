@@ -22,7 +22,7 @@ export class TempUsersListComponent implements OnInit {
       name: this.user,
     };
 
-    fetch('https://localhost:44381/api/users/adduser', {
+    fetch('https://localhost:44381/api/tempusers/adduser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -51,7 +51,7 @@ export class TempUsersListComponent implements OnInit {
       name: this.user,
     };
 
-    fetch('https://localhost:44381/api/users/edituser', {
+    fetch('https://localhost:44381/api/tempusers/edituser', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -86,7 +86,7 @@ export class TempUsersListComponent implements OnInit {
       name: this.user,
     };
 
-    fetch('https://localhost:44381/api/users/deleteuser', {
+    fetch('https://localhost:44381/api/tempusers/deleteuser', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -111,7 +111,7 @@ export class TempUsersListComponent implements OnInit {
   }
 
   getUsers(): void {
-    fetch('https://localhost:44381/api/users/getusers', {
+    fetch('https://localhost:44381/api/tempusers/getusers', {
       method: 'GET',
     })
       .then((r) => r.json())
