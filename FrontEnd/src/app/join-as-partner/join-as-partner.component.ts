@@ -10,21 +10,22 @@ import { AuthorizationService } from '../services/authorization.service';
   styleUrls: ['./join-as-partner.component.css']
 })
 export class JoinAsPartnerComponent implements OnInit {
-
+  authHelper: any = AuthHelper;
   login = false;
+
   constructor(
     public authService: AuthorizationService,
   ) {
 
   }
 
-  logout(): void {
+  userSignOut(): void {
     let model = {
       username: AuthHelper.getLogin(),
       accessToken: AuthHelper.getToken(),
     };
 
-    fetch('https://localhost:44381/api/users/logout', {
+    fetch('https://localhost:44381/api/users/signoutuser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -39,9 +40,8 @@ export class JoinAsPartnerComponent implements OnInit {
           this.authService.setLogCondition(false);
           AuthHelper.clearAuth();
         } else {
-          alert("Refresh auth error!");
+          alert("Logout error!");
         }
-
       })
       .catch((ex) => {
         alert(ex);

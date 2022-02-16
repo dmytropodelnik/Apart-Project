@@ -99,7 +99,6 @@
             </span>
           </a>
         </div>
-        <!-- authService.getLogCondition() === false || -->
         <div *ngIf="authService.getLogCondition() === true; then thenBlock; else elseBlock"></div>
         <ng-template #thenBlock>
           <div class="bui-group__item" class="dropdown">
@@ -115,7 +114,7 @@
                 />
               </div>
               <span class="bui-avatar--button-auth">
-                <span aria-hidden="true"> Heider Alkateb </span>
+                <span aria-hidden="true"> {{authHelper.getLogin()}} </span>
               </span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
@@ -132,7 +131,7 @@
                 >
               </li>
               <li>
-                <a class="dropdown-item" (click)="logout()"
+                <a class="dropdown-item" (click)="userSignOut()"
                   ><i class="robotomonoregular">Logout</i></a
                 >
               </li>
@@ -179,7 +178,7 @@
     <div class="joinpartnerInfo2">
       <h1 class="">
         <div class="joinpartnerText">
-          Alkateb Heider, list your
+          {{authHelper.getLogin()}}, list your
           <div class="">
             <div class="">
               <p class="joinpartnerText">apartment</p>
@@ -188,7 +187,7 @@
           on Booking.com
         </div>
         <!-- <div class="joinpartnerText">
-          Alkateb Heider, list anything on Booking.com
+          {{authHelper.getLogin()}}, list anything on Booking.com
         </div> -->
       </h1>
       <h3 class="joinpartnerText">

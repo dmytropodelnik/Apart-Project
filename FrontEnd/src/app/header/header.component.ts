@@ -13,6 +13,7 @@ import { AuthorizationService } from '../services/authorization.service';
 export class HeaderComponent implements OnInit {
   public isCollapsed = false;
   user: User | null = null;
+  authHelper: any = AuthHelper;
 
   isActive1 = true;
 
@@ -56,7 +57,6 @@ export class HeaderComponent implements OnInit {
       .catch((ex) => {
         alert(ex);
       });
-
   }
 
   ngOnInit(): void {}
