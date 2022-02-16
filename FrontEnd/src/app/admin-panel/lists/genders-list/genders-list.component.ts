@@ -14,12 +14,35 @@ export class GendersListComponent implements OnInit {
 
   genders: Gender[] | null = null;
   gender: string | null = null;
+  searchGender: string = '';
   checkedGender: number | null = null;
 
   isEditEnabled: boolean = true;
   isDeleteEnabled: boolean = true;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/genders/searchgenders?gender=' + this.searchGender, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.genders = data.genders;
+        } else {
+          alert('Search error!');
+        }
+        this.searchGender = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addGender(): void {
     let gender = {

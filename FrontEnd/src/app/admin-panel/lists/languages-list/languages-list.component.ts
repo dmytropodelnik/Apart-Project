@@ -10,12 +10,34 @@ import ListHelper from '../../../utils/listHelper';
   styleUrls: ['./languages-list.component.css'],
 })
 export class LanguagesListComponent implements OnInit {
-  title: string = '';
   languages: Language[] | null = null;
   lang: string | null = null;
+  searchLang: string = '';
   checkedLang: number | null = null;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/languages/searchlangs?lang=' + this.searchLang, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.languages = data.languages;
+        } else {
+          alert('Search error!');
+        }
+        this.searchLang = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addLang(): void {
     let lang = {

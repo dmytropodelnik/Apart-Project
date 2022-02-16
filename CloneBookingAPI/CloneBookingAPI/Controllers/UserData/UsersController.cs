@@ -92,6 +92,44 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [Route("searchusers")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<User>>> SearchUsers(string user)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(user))
+                {
+                    var res = await _context.Users.ToListAsync();
+
+                    return Json(new { code = 200, users = res });
+                }
+
+                var users = await _context.Users
+                    .Where(u => u.Title.Contains(user)       ||
+                                u.FirstName.Contains(user)   ||
+                                u.LastName.Contains(user)    ||
+                                u.Email.Contains(user)       ||
+                                u.PhoneNumber.Contains(user) ||
+                                u.DisplayName.Contains(user))
+                    .ToListAsync();
+
+                return Json(new { code = 200, users });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
         // [Authorize(Roles = "admin")]
         [Route("getuser")]
         [HttpGet]

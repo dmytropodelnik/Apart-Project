@@ -13,9 +13,32 @@ export class UserListComponent implements OnInit {
 
   users: User[] | null = null;
   user: string | null = null;
+  searchUser: string = '';
   checkedUser: number | null = null;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/users/searchusers?user=' + this.searchUser, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.users = data.users;
+        } else {
+          alert('Search error!');
+        }
+        this.searchUser = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addUser(): void {
     let user = {

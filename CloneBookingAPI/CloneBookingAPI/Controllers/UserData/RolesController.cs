@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -29,6 +30,39 @@ namespace CloneBookingAPI.Controllers.UserData
             try
             {
                 var roles = await _context.Roles.ToListAsync();
+
+                return Json(new { code = 200, roles });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("searchroles")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Role>>> SearchRoles(string role)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(role))
+                {
+                    var res = await _context.Roles.ToListAsync();
+
+                    return Json(new { code = 200, roles = res });
+                }
+
+                var roles = await _context.Roles
+                    .Where(r => r.Name.Contains(role))
+                    .ToListAsync();
 
                 return Json(new { code = 200, roles });
             }

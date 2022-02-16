@@ -80,5 +80,10 @@ namespace CloneBookingAPI.Services.Database.Models
         public List<CarRentalBooking> CarRentalBookings { get; set; } = new();
         public List<AttractionBooking> AttractionBookings { get; set; } = new();
         public List<AirportTaxiBooking> AirportTaxiBookings { get; set; } = new();
+
+        public override string ToString()
+        {
+            return Email;
+        }
     }
 }
