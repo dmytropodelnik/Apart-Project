@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.UserData
 {
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FavoritesController : Controller
@@ -42,6 +42,36 @@ namespace CloneBookingAPI.Controllers.UserData
                 return Json(new { code = 400 });
             }
             catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("editfavorite")]
+        [HttpPut]
+        public async Task<IActionResult> EditFacility([FromBody] Favorite favorite)
+        {
+            try
+            {
+                if (favorite is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resFavorite = await _context.Favorites.FirstOrDefaultAsync(f => f.Id == favorite.Id);
+                if (resFavorite is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                _context.Favorites.Update(resFavorite);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 

@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit {
           this.authService.setLogCondition(false);
           AuthHelper.clearAuth();
         } else {
-          alert("Refresh auth error!");
+          alert("Logout error!");
         }
       })
       .catch((ex) => {

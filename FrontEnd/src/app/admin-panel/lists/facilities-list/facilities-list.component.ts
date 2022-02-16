@@ -151,19 +151,27 @@ export class FacilitiesListComponent implements OnInit {
     document.getElementById('deleteButton')?.removeAttribute('disabled');
   }
 
-  getFacilityTypes(value: string): void {
+  getFacilityTypes(): void {
     fetch('https://localhost:44381/api/facilitytypes/gettypes', {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          let types = document.getElementById(value);
+          let typesAdd = document.getElementById('addFacilityTypes');
           let newOption;
           let counter = 1;
           for (let type of data.types) {
             newOption = new Option(type.type, counter.toString());
-            types?.append(newOption);
+            typesAdd?.append(newOption);
+            counter++;
+          }
+
+          let typesEdit = document.getElementById('editFacilityTypes');
+          counter = 1;
+          for (let type of data.types) {
+            newOption = new Option(type.type, counter.toString());
+            typesEdit?.append(newOption);
             counter++;
           }
         } else {
@@ -177,7 +185,6 @@ export class FacilitiesListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getFacilities();
-    this.getFacilityTypes('addFacilityTypes');
-    this.getFacilityTypes('editFacilityTypes');
+    this.getFacilityTypes();
   }
 }

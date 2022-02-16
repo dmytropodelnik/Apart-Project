@@ -48,7 +48,6 @@ export class FavoritesListComponent implements OnInit {
   editFavorite(): void {
     let favorite = {
       id: this.checkedFavorite,
-      name: this.favorite,
     };
 
     fetch('https://localhost:44381/api/favorites/editfavorite', {
