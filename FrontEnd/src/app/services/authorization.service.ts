@@ -28,7 +28,6 @@ export class AuthorizationService {
           } else {
             alert("Refresh auth error!");
           }
-          console.log(response);
         })
         .catch((ex) => {
           alert(ex);

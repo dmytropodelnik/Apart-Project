@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserProfile } from 'src/app/models/UserData/useprofile.item';
+import { isThisTypeNode } from 'typescript';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-user-profiles-list',
@@ -11,17 +13,17 @@ import AuthHelper from '../../../utils/authHelper';
 export class UserProfilesListComponent implements OnInit {
 
   profiles: UserProfile[] | null = null;
-  profile: string | null = null;
+  birthDate: string | null = null;
   checkedProfile: number | null = null;
 
   constructor() {}
 
   addProfile(): void {
     let profile = {
-      name: this.profile,
+      birthDate: this.birthDate,
     };
 
-    fetch('https://localhost:44381/api/profiles/addprofile', {
+    fetch('https://localhost:44381/api/userprofiles/addprofile', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -34,10 +36,11 @@ export class UserProfilesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getProfiles();
+          this.disableButtons();
         } else {
           alert('Adding error!');
         }
-        this.profile = '';
+        this.birthDate = '';
       })
       .catch((ex) => {
         alert(ex);
@@ -47,10 +50,10 @@ export class UserProfilesListComponent implements OnInit {
   editProfile(): void {
     let profile = {
       id: this.checkedProfile,
-      name: this.profile,
+      birthDate: this.birthDate,
     };
 
-    fetch('https://localhost:44381/api/profiles/editprofile', {
+    fetch('https://localhost:44381/api/userprofiles/editprofile', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -63,23 +66,29 @@ export class UserProfilesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getProfiles();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
-        this.profile = '';
+        this.birthDate = '';
       })
       .catch((ex) => {
         alert(ex);
       });
   }
 
+  disableButtons(): void {
+    document.getElementById('editButton')?.setAttribute('disabled', 'disabled');
+    document.getElementById('deleteButton')?.setAttribute('disabled', 'disabled');
+  }
+
   deleteProfile(): void {
     let profile = {
       id: this.checkedProfile,
-      name: this.profile,
+      birthDate: this.birthDate,
     };
 
-    fetch('https://localhost:44381/api/profiles/deleteprofile', {
+    fetch('https://localhost:44381/api/userprofiles/deleteprofile', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -92,10 +101,11 @@ export class UserProfilesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getProfiles();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
-        this.profile = '';
+        this.birthDate = '';
       })
       .catch((ex) => {
         alert(ex);
@@ -103,7 +113,7 @@ export class UserProfilesListComponent implements OnInit {
   }
 
   getProfiles(): void {
-    fetch('https://localhost:44381/api/profiles/getprofiles', {
+    fetch('https://localhost:44381/api/userprofiles/getprofiles', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -119,9 +129,9 @@ export class UserProfilesListComponent implements OnInit {
       });
   }
 
-  setProfile(id: number | null, profile: string): void {
+  setProfile(id: number | null, birthDate: string | null): void {
     this.checkedProfile = id;
-    this.profile = profile;
+    this.birthDate = birthDate;
 
     document.getElementById('editButton')?.removeAttribute('disabled');
     document.getElementById('deleteButton')?.removeAttribute('disabled');
@@ -130,5 +140,4 @@ export class UserProfilesListComponent implements OnInit {
   ngOnInit(): void {
     this.getProfiles();
   }
-
 }

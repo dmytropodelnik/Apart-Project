@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Airport } from 'src/app/models/Location/airport.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-airports-list',
@@ -63,6 +64,7 @@ export class AirportsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getAirports();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +94,7 @@ export class AirportsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getAirports();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

@@ -3,7 +3,12 @@ import { Component, OnInit } from '@angular/core';
 import AuthHelper from '../utils/authHelper';
 import { AuthorizationService } from '../services/authorization.service';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-auth',
@@ -11,10 +16,10 @@ import { FormBuilder, FormGroup, Validators, AbstractControl} from '@angular/for
   styleUrls: ['./auth.component.css'],
 })
 export class AuthComponent implements OnInit {
-  email: string  = '';
+  email: string = '';
   password: string = '';
   confirmPassword: string = '';
-  verificationCode : string = '';
+  verificationCode: string = '';
   isExistUser = false;
   isAccountExists = false;
   isPasswordEqual = false;
@@ -29,39 +34,55 @@ export class AuthComponent implements OnInit {
     private router: Router,
     private formBuilder: FormBuilder
   ) {
-    this.passwordForm = this.formBuilder.group({
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      confirmPassword: ['', [Validators.required]],
-    },{
-      validator: this.MustMatch('password','confirmPassword')
-    }
+    this.passwordForm = this.formBuilder.group(
+      {
+        password: ['', [Validators.required, Validators.minLength(8)]],
+        confirmPassword: ['', [Validators.required]],
+      },
+      {
+        validator: this.MustMatch('password', 'confirmPassword'),
+      }
     );
     this.codeForm = this.formBuilder.group({
-      verificationCode: ['', [Validators.required, Validators.minLength(6)]]
+      verificationCode: ['', [Validators.required, Validators.minLength(6)]],
     });
     this.emailForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email, Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$')]]
+      email: [
+        '',
+        [
+          Validators.required,
+          Validators.email,
+          Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
+        ],
+      ],
     });
   }
-  get f() {return this.emailForm.controls; }
-  get f1() { return this.passwordForm.controls; }
-  get f2() { return this.codeForm.controls; }
+  get f() {
+    return this.emailForm.controls;
+  }
+  get f1() {
+    return this.passwordForm.controls;
+  }
+  get f2() {
+    return this.codeForm.controls;
+  }
 
   userCheck(): void {
     let user = {
       email: this.email,
       password: this.password,
     };
+    console.log(user);
     fetch(`https://localhost:44381/api/users/userexists?email=${user.email}`, {
       method: 'GET',
       headers: {
-        "Accept": "application/json",
-        "Authorization": "Bearer " + AuthHelper.getToken(),
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
       },
     })
       .then((r) => r.json())
       .then((data) => {
-        if (data.code == 200) {
+        if (data.code === 200) {
           this.isAccountExists = true;
         }
         this.isExistUser = true;
@@ -82,18 +103,22 @@ export class AuthComponent implements OnInit {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
-        "Accept": "application/json",
-        "Authorization": "Bearer " + AuthHelper.getToken(),
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
       },
       body: JSON.stringify(user),
     })
       .then(response => response.json())
       .then(response => {
-        AuthHelper.saveAuth(user.email, response);
-        this.authService.toggleLogCondition();
-
-        alert('You have successfully authenticated!');
-        this.router.navigate(['']);
+        if (response.code !== 400) {
+          this.authService.setTokenKey(response);
+          AuthHelper.saveAuth(user.email, response);
+          this.authService.toggleLogCondition();
+          alert('You have successfully authenticated!');
+          this.router.navigate(['']);
+        } else {
+          alert("Token fetching error!");
+        }
       })
       .catch((ex) => {
         alert(ex);
@@ -101,7 +126,7 @@ export class AuthComponent implements OnInit {
   }
 
   userSignUp(): void {
-    if (this.password === this.confirmPassword){
+    if (this.password === this.confirmPassword) {
       this.isPasswordEqual = true;
     }
 
@@ -113,39 +138,38 @@ export class AuthComponent implements OnInit {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        "Accept": "application/json",
-        "Authorization": "Bearer " + AuthHelper.getToken(),
-       },
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
       body: JSON.stringify(this.email),
     })
-    .then((r) => r.json())
-    .then((data) => {
+      .then((r) => r.json())
+      .then((data) => {
         alert(data.code);
         console.log(data);
       })
       .catch((ex) => {
         alert(ex);
       });
-
   }
   MustMatch(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {
-        const control = formGroup.controls[controlName];
-        const matchingControl = formGroup.controls[matchingControlName];
+      const control = formGroup.controls[controlName];
+      const matchingControl = formGroup.controls[matchingControlName];
 
-        if (matchingControl.errors && !matchingControl.errors.mustMatch) {
-            // return if another validator has already found an error on the matchingControl
-            return;
-        }
+      if (matchingControl.errors && !matchingControl.errors.mustMatch) {
+        // return if another validator has already found an error on the matchingControl
+        return;
+      }
 
-        // set error on matchingControl if validation fails
-        if (control.value !== matchingControl.value) {
-            matchingControl.setErrors({ mustMatch: true });
-        } else {
-            matchingControl.setErrors(null);
-        }
-    }
-}
+      // set error on matchingControl if validation fails
+      if (control.value !== matchingControl.value) {
+        matchingControl.setErrors({ mustMatch: true });
+      } else {
+        matchingControl.setErrors(null);
+      }
+    };
+  }
   confirmEmail() {
     let user = {
       email: this.email,
@@ -157,13 +181,13 @@ export class AuthComponent implements OnInit {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        "Accept": "application/json",
-        "Authorization": "Bearer " + AuthHelper.getToken(),
-       },
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
       body: JSON.stringify(user),
     })
-    .then((r) => r.json())
-    .then((response) => {
+      .then((r) => r.json())
+      .then((response) => {
         alert(response.code);
         console.log(response);
 
@@ -177,10 +201,7 @@ export class AuthComponent implements OnInit {
       });
   }
 
-  verifyEnter() {
-
-  }
+  verifyEnter() {}
 
   ngOnInit(): void {}
-
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SurroundingObject } from 'src/app/models/Suggestions/surroundingobject.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-surrounding-objects-list',
@@ -21,7 +22,7 @@ export class SurroundingObjectsListComponent implements OnInit {
       name: this.object,
     };
 
-    fetch('https://localhost:44381/api/objects/addobject', {
+    fetch('https://localhost:44381/api/surroundingobjects/addobject', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -50,7 +51,7 @@ export class SurroundingObjectsListComponent implements OnInit {
       name: this.object,
     };
 
-    fetch('https://localhost:44381/api/objects/editobject', {
+    fetch('https://localhost:44381/api/surroundingobjects/editobject', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -63,6 +64,7 @@ export class SurroundingObjectsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getObjects();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -79,7 +81,7 @@ export class SurroundingObjectsListComponent implements OnInit {
       name: this.object,
     };
 
-    fetch('https://localhost:44381/api/objects/deleteobject', {
+    fetch('https://localhost:44381/api/surroundingobjects/deleteobject', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -92,6 +94,7 @@ export class SurroundingObjectsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getObjects();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -103,7 +106,7 @@ export class SurroundingObjectsListComponent implements OnInit {
   }
 
   getObjects(): void {
-    fetch('https://localhost:44381/api/objects/getobjects', {
+    fetch('https://localhost:44381/api/surroundingobjects/getobjects', {
       method: 'GET',
     })
       .then((r) => r.json())

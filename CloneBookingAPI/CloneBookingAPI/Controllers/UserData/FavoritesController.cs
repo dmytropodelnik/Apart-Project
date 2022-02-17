@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.UserData
 {
-    [Authorize]
+    // [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class FavoritesController : Controller
@@ -31,9 +31,9 @@ namespace CloneBookingAPI.Controllers.UserData
         {
             try
             {
-                var res = await _context.Favorites.ToListAsync();
+                var favorites = await _context.Favorites.ToListAsync();
 
-                return Json(new { code = 200, favorites = res });
+                return Json(new { code = 200, favorites });
             }
             catch (ArgumentNullException ex)
             {
@@ -49,29 +49,34 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
-        // GET api/<FavoritesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [Route("editfavorite")]
+        [HttpPut]
+        public async Task<IActionResult> EditFacility([FromBody] Favorite favorite)
         {
-            return "value";
-        }
+            try
+            {
+                if (favorite is null)
+                {
+                    return Json(new { code = 400 });
+                }
 
-        // POST api/<FavoritesController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+                var resFavorite = await _context.Favorites.FirstOrDefaultAsync(f => f.Id == favorite.Id);
+                if (resFavorite is null)
+                {
+                    return Json(new { code = 400 });
+                }
 
-        // PUT api/<FavoritesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+                _context.Favorites.Update(resFavorite);
+                await _context.SaveChangesAsync();
 
-        // DELETE api/<FavoritesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
     }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FacilityType } from 'src/app/models/facilitytype.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-facility-types-list',
@@ -11,14 +12,16 @@ import AuthHelper from '../../../utils/authHelper';
 export class FacilityTypesListComponent implements OnInit {
 
   types: FacilityType[] | null = null;
-  type: string | null = null;
+  type: FacilityType;
   checkedType: number | null = null;
 
-  constructor() {}
+  constructor() {
+    this.type = new FacilityType();
+  }
 
   addType(): void {
     let type = {
-      name: this.type,
+      type: this.type.type,
     };
 
     fetch('https://localhost:44381/api/facilitytypes/addtype', {
@@ -37,7 +40,7 @@ export class FacilityTypesListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.type = '';
+        this.type.type = '';
       })
       .catch((ex) => {
         alert(ex);
@@ -47,7 +50,7 @@ export class FacilityTypesListComponent implements OnInit {
   editType(): void {
     let type = {
       id: this.checkedType,
-      name: this.type,
+      type: this.type.type,
     };
 
     fetch('https://localhost:44381/api/facilitytypes/edittype', {
@@ -63,10 +66,11 @@ export class FacilityTypesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getTypes();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
-        this.type = '';
+        this.type.type = '';
       })
       .catch((ex) => {
         alert(ex);
@@ -76,7 +80,7 @@ export class FacilityTypesListComponent implements OnInit {
   deleteType(): void {
     let type = {
       id: this.checkedType,
-      name: this.type,
+      type: this.type.type,
     };
 
     fetch('https://localhost:44381/api/facilitytypes/deletetype', {
@@ -92,10 +96,11 @@ export class FacilityTypesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getTypes();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
-        this.type = '';
+        this.type.type = '';
       })
       .catch((ex) => {
         alert(ex);
@@ -119,9 +124,9 @@ export class FacilityTypesListComponent implements OnInit {
       });
   }
 
-  setType(id: number | null, type: string): void {
-    this.checkedType = id;
-    this.type = type;
+  setType(type: FacilityType): void {
+    this.checkedType = type.id;
+    this.type.type = type.type;
 
     document.getElementById('editButton')?.removeAttribute('disabled');
     document.getElementById('deleteButton')?.removeAttribute('disabled');

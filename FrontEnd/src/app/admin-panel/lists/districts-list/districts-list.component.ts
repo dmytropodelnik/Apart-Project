@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { District } from 'src/app/models/Location/district.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-districts-list',
@@ -63,6 +64,7 @@ export class DistrictsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getDistricts();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +94,7 @@ export class DistrictsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getDistricts();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

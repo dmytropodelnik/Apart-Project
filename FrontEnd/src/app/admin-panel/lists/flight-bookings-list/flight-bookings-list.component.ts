@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FlightBooking } from 'src/app/models/Services/flightbooking.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-flight-bookings-list',
@@ -21,7 +22,7 @@ export class FlightBookingsListComponent implements OnInit {
       name: this.booking,
     };
 
-    fetch('https://localhost:44381/api/bookings/addbooking', {
+    fetch('https://localhost:44381/api/flightbookings/addbooking', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -50,7 +51,7 @@ export class FlightBookingsListComponent implements OnInit {
       name: this.booking,
     };
 
-    fetch('https://localhost:44381/api/bookings/editbooking', {
+    fetch('https://localhost:44381/api/flightbookings/editbooking', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -63,6 +64,7 @@ export class FlightBookingsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getBookings();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -79,7 +81,7 @@ export class FlightBookingsListComponent implements OnInit {
       name: this.booking,
     };
 
-    fetch('https://localhost:44381/api/bookings/deletebooking', {
+    fetch('https://localhost:44381/api/flightbookings/deletebooking', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -92,6 +94,7 @@ export class FlightBookingsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getBookings();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -103,7 +106,7 @@ export class FlightBookingsListComponent implements OnInit {
   }
 
   getBookings(): void {
-    fetch('https://localhost:44381/api/bookings/getbookings', {
+    fetch('https://localhost:44381/api/flightbookings/getbookings', {
       method: 'GET',
     })
       .then((r) => r.json())

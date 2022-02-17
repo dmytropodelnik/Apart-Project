@@ -1,5 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CloneBookingAPI.Services.Database;
+using CloneBookingAPI.Services.Database.Models.Payment;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -7,38 +13,67 @@ namespace CloneBookingAPI.Controllers.Payment
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BookingPricesController : ControllerBase
+    public class BookingPricesController : Controller
     {
-        // GET: api/<BookingPricesController>
+        private readonly ApartProjectDbContext _context;
+
+        public BookingPricesController(ApartProjectDbContext context)
+        {
+            _context = context;
+        }
+
+        [Route("getprices")]
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<BookingPrice>>> GetPrices()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                var prices = await _context.BookingPrices.ToListAsync();
+
+                return Json(new { code = 200, prices });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
 
-        // GET api/<BookingPricesController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        [Route("editprice")]
+        [HttpPut]
+        public async Task<IActionResult> EditPrice([FromBody] BookingPrice price)
         {
-            return "value";
-        }
+            try
+            {
+                if (price is null)
+                {
+                    return Json(new { code = 400 });
+                }
 
-        // POST api/<BookingPricesController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+                var resPrice = await _context.BookingPrices.FirstOrDefaultAsync(p => p.Id == price.Id);
+                if (resPrice is null)
+                {
+                    return Json(new { code = 400 });
+                }
 
-        // PUT api/<BookingPricesController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+                _context.BookingPrices.Update(resPrice);
+                await _context.SaveChangesAsync();
 
-        // DELETE api/<BookingPricesController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
     }
 }

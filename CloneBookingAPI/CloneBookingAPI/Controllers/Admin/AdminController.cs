@@ -30,20 +30,6 @@ namespace CloneBookingAPI.Controllers
             _saltGenerator = saltGenerator;
         }
 
-        // GET: api/<AdminController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<AdminController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
         // POST api/<AdminController>
         [AllowAnonymous]
         [Route("login")]
@@ -69,18 +55,6 @@ namespace CloneBookingAPI.Controllers
             }
 
             return Json(new { code = 200 });
-        }
-
-        // PUT api/<AdminController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<AdminController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
         }
     }
 }

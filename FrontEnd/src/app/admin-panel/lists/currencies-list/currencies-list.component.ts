@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Currency } from 'src/app/models/Payment/currency.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-currencies-list',
@@ -11,15 +12,21 @@ import AuthHelper from '../../../utils/authHelper';
 export class CurrenciesListComponent implements OnInit {
 
   currencies: Currency[] | null = null;
-  currency: string | null = null;
+  currency: Currency;
   checkedCurrency: number | null = null;
 
-  constructor() {}
+  constructor() {
+    this.currency = new Currency();
+  }
 
   addCurrency(): void {
     let currency = {
-      name: this.currency,
+      value:        this.currency.value,
+      abbreviation: this.currency.abbreviation,
+      bankCode:     this.currency.bankCode,
     };
+
+    console.log(currency);
 
     fetch('https://localhost:44381/api/currencies/addcurrency', {
       method: 'POST',
@@ -37,7 +44,9 @@ export class CurrenciesListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.currency = '';
+        this.currency.value = '';
+        this.currency.abbreviation = '';
+        this.currency.bankCode = '';
       })
       .catch((ex) => {
         alert(ex);
@@ -47,7 +56,9 @@ export class CurrenciesListComponent implements OnInit {
   editCurrency(): void {
     let currency = {
       id: this.checkedCurrency,
-      name: this.currency,
+      value:        this.currency.value,
+      abbreviation: this.currency.abbreviation,
+      bankCode:     this.currency.bankCode,
     };
 
     fetch('https://localhost:44381/api/currencies/editcurrency', {
@@ -63,11 +74,13 @@ export class CurrenciesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCurrencies();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
-        console.log(data);
-        this.currency = '';
+        this.currency.value = '';
+        this.currency.abbreviation = '';
+        this.currency.bankCode = '';
       })
       .catch((ex) => {
         alert(ex);
@@ -77,7 +90,9 @@ export class CurrenciesListComponent implements OnInit {
   deleteCurrency(): void {
     let currency = {
       id: this.checkedCurrency,
-      name: this.currency,
+      value:        this.currency.value,
+      abbreviation: this.currency.abbreviation,
+      bankCode:     this.currency.bankCode,
     };
 
     fetch('https://localhost:44381/api/currencies/deletecurrency', {
@@ -93,10 +108,13 @@ export class CurrenciesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCurrencies();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
-        this.currency = '';
+        this.currency.value = '';
+        this.currency.abbreviation = '';
+        this.currency.bankCode = '';
       })
       .catch((ex) => {
         alert(ex);
@@ -120,9 +138,12 @@ export class CurrenciesListComponent implements OnInit {
       });
   }
 
-  setCurrency(id: number | null, currency: string): void {
-    this.checkedCurrency = id;
-    this.currency = currency;
+  setCurrency(currency: Currency): void {
+    console.log(currency);
+    this.checkedCurrency = currency.id;
+    this.currency.value = currency.value;
+    this.currency.abbreviation = currency.abbreviation;
+    this.currency.bankCode = currency.bankCode;
 
     document.getElementById('editButton')?.removeAttribute('disabled');
     document.getElementById('deleteButton')?.removeAttribute('disabled');

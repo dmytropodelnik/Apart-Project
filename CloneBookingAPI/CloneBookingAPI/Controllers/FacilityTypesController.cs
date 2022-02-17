@@ -21,9 +21,9 @@ namespace CloneBookingAPI.Controllers
             _context = context;
         }
 
-        [Route("getfacilitytypes")]
+        [Route("gettypes")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FacilityType>>> GetFacilityType()
+        public async Task<ActionResult<IEnumerable<FacilityType>>> GetTypes()
         {
             try
             {
@@ -45,9 +45,9 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        [Route("addfacilitytype")]
+        [Route("addtype")]
         [HttpPost]
-        public async Task<IActionResult> AddFacilityType([FromBody] FacilityType type)
+        public async Task<IActionResult> AddType([FromBody] FacilityType type)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                var res = await _context.FacilityTypes.FirstOrDefaultAsync(f => f.Type == type.Type);
+                var res = await _context.FacilityTypes.FirstOrDefaultAsync(t => t.Type == type.Type);
                 if (res is null)
                 {
                     _context.FacilityTypes.Add(type);
@@ -74,18 +74,49 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        [Route("deletetypebyname")]
-        [HttpDelete]
-        public async Task<IActionResult> DeleteTypeByName(string type)
+        [Route("edittype")]
+        [HttpPut]
+        public async Task<IActionResult> EditType([FromBody] FacilityType type)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(type))
+                if (type is null || string.IsNullOrWhiteSpace(type.Type))
                 {
                     return Json(new { code = 400 });
                 }
 
-                var resType = await _context.FacilityTypes.FirstOrDefaultAsync(f => f.Type == type);
+                var resType = await _context.FacilityTypes.FirstOrDefaultAsync(t => t.Id == type.Id);
+                if (resType is null)
+                {
+                    return Json(new { code = 400 });
+                }
+                resType.Type = type.Type;
+
+                _context.FacilityTypes.Update(resType);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("deletetypebyname")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteTypeByName([FromBody] FacilityType type)
+        {
+            try
+            {
+                if (type is null || string.IsNullOrWhiteSpace(type.Type))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resType = await _context.FacilityTypes.FirstOrDefaultAsync(t => t.Type == type.Type);
                 if (resType is null)
                 {
                     return Json(new { code = 400 });
@@ -105,17 +136,17 @@ namespace CloneBookingAPI.Controllers
         }
 
         [Route("deletetype")]
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteType(int id)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteType([FromBody] FacilityType type)
         {
             try
             {
-                if (id < 1)
+                if (type is null || type.Id < 1)
                 {
                     return Json(new { code = 400 });
                 }
 
-                var resType = await _context.FacilityTypes.FirstOrDefaultAsync(f => f.Id == id);
+                var resType = await _context.FacilityTypes.FirstOrDefaultAsync(t => t.Id == type.Id);
                 if (resType is null)
                 {
                     return Json(new { code = 400 });

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PaymentType } from 'src/app/models/Payment/paymenttype.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-payment-types-list',
@@ -66,6 +67,7 @@ export class PaymentTypesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getTypes();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -96,6 +98,7 @@ export class PaymentTypesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getTypes();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -107,7 +110,7 @@ export class PaymentTypesListComponent implements OnInit {
   }
 
   getTypes(): void {
-    fetch('https://localhost:44381/api/paymenttypes/gettypes', {
+    fetch('https://localhost:44381/api/paymenttypes/getpaymenttypes', {
       method: 'GET',
     })
       .then((r) => r.json())

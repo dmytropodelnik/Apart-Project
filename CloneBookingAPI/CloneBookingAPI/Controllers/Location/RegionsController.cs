@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -30,6 +31,49 @@ namespace CloneBookingAPI.Controllers
             try
             {
                 var regions = await _context.Regions.ToListAsync();
+
+                return Json(new { code = 200, regions });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("search")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Region>>> Search(string region)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(region))
+                {
+                    var res = await _context.Regions.ToListAsync();
+
+                    return Json(new { code = 200, regions = res });
+                }
+
+                var regions = await _context.Regions
+                    .Include(a => a.Address)
+                        .ThenInclude(addr => addr.Country)
+                    .Include(a => a.Address.City)
+                    .Include(a => a.Address.District)
+                    .Include(a => a.Address.Region)
+                    .Where(a => a.Address.AddressText.Contains(region) ||
+                                a.Address.Country.Title.Contains(region) ||
+                                a.Address.City.Title.Contains(region) ||
+                                a.Address.District.Title.Contains(region) ||
+                                a.Address.Region.Title.Contains(region) ||
+                                a.Title.Contains(region))
+                    .ToListAsync();
 
                 return Json(new { code = 200, regions });
             }

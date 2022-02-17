@@ -82,18 +82,49 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        [Route("deletecategorybyname")]
-        [HttpDelete]
-        public async Task<IActionResult> DeleteCategoryByName(string category)
+        [Route("editcategory")]
+        [HttpPut]
+        public async Task<IActionResult> EditCategory([FromBody] BookingCategory category)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(category))
+                if (category is null || string.IsNullOrWhiteSpace(category.Category))
                 {
                     return Json(new { code = 400 });
                 }
 
-                var resCategory = await _context.BookingCategories.FirstOrDefaultAsync(c => c.Category == category);
+                var resCategory = await _context.BookingCategories.FirstOrDefaultAsync(c => c.Id == category.Id);
+                if (resCategory is null)
+                {
+                    return Json(new { code = 400 });
+                }
+                resCategory.Category = category.Category;
+
+                _context.BookingCategories.Update(resCategory);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("deletecategorybyname")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCategoryByName([FromBody] BookingCategory category)
+        {
+            try
+            {
+                if (category is null || string.IsNullOrWhiteSpace(category.Category))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resCategory = await _context.BookingCategories.FirstOrDefaultAsync(c => c.Category == category.Category);
                 if (resCategory is null)
                 {
                     return Json(new { code = 400 });
@@ -113,17 +144,17 @@ namespace CloneBookingAPI.Controllers
         }
 
         [Route("deletecategory")]
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCategory(int id)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCategory([FromBody] BookingCategory category)
         {
             try
             {
-                if (id < 1)
+                if (category is null || category.Id < 1)
                 {
                     return Json(new { code = 400 });
                 }
 
-                var resType = await _context.BookingCategories.FirstOrDefaultAsync(c => c.Id == id);
+                var resType = await _context.BookingCategories.FirstOrDefaultAsync(c => c.Id == category.Id);
                 if (resType is null)
                 {
                     return Json(new { code = 400 });

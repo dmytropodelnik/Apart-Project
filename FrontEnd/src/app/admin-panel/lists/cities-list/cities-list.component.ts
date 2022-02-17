@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { City } from 'src/app/models/Location/city.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-cities-list',
@@ -12,9 +13,32 @@ export class CitiesListComponent implements OnInit {
 
   cities: City[] | null = null;
   city: string | null = null;
+  searchCity: string = '';
   checkedCity: number | null = null;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/cities/search?city=' + this.searchCity, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.cities = data.cities;
+        } else {
+          alert('Search error!');
+        }
+        this.searchCity = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addCity(): void {
     let city = {
@@ -63,6 +87,7 @@ export class CitiesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCities();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +117,7 @@ export class CitiesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCities();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

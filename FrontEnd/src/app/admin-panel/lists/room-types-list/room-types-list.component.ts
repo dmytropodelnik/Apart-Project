@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RoomType } from 'src/app/models/Suggestions/roomtype.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-room-types-list',
@@ -24,7 +25,7 @@ export class RoomTypesListComponent implements OnInit {
       title: this.type,
     };
 
-    fetch('https://localhost:44381/api/types/addtype', {
+    fetch('https://localhost:44381/api/roomtypes/addtype', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -53,7 +54,7 @@ export class RoomTypesListComponent implements OnInit {
       title: this.type,
     };
 
-    fetch('https://localhost:44381/api/types/edittype', {
+    fetch('https://localhost:44381/api/roomtypes/edittype', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -66,6 +67,7 @@ export class RoomTypesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getTypes();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -82,7 +84,7 @@ export class RoomTypesListComponent implements OnInit {
       title: this.type,
     };
 
-    fetch('https://localhost:44381/api/types/deletetype', {
+    fetch('https://localhost:44381/api/roomtypes/deletetype', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -95,6 +97,7 @@ export class RoomTypesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getTypes();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -106,7 +109,7 @@ export class RoomTypesListComponent implements OnInit {
   }
 
   getTypes(): void {
-    fetch('https://localhost:44381/api/types/gettypes', {
+    fetch('https://localhost:44381/api/roomtypes/gettypes', {
       method: 'GET',
     })
       .then((r) => r.json())

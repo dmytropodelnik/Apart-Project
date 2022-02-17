@@ -69,7 +69,7 @@ namespace CloneBookingAPI.Services.Database.Models
         public Cart Cart { get; set; }
 
         // REDUNDANT
-        public int ProfileId { get; set; }
+        // public int ProfileId { get; set; }
         public UserProfile.UserProfile Profile { get; set; }
 
         public List<Review.Review> Reviews { get; set; } = new();
@@ -80,5 +80,10 @@ namespace CloneBookingAPI.Services.Database.Models
         public List<CarRentalBooking> CarRentalBookings { get; set; } = new();
         public List<AttractionBooking> AttractionBookings { get; set; } = new();
         public List<AirportTaxiBooking> AirportTaxiBookings { get; set; } = new();
+
+        public override string ToString()
+        {
+            return Email;
+        }
     }
 }

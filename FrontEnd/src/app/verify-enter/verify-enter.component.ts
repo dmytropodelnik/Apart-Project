@@ -39,7 +39,7 @@ export class VerifyEnterComponent implements OnInit {
         if (data.code === 200) {
           let user = {
             email: this.email,
-            password: '123',
+            password: '12341234qwe',
           };
 
           fetch('https://localhost:44381/token', {
@@ -47,17 +47,23 @@ export class VerifyEnterComponent implements OnInit {
             headers: {
               'Content-Type': 'application/json; charset=utf-8',
               Accept: 'application/json',
+              Authorization: 'Bearer ' + AuthHelper.getToken(),
             },
             body: JSON.stringify(user),
           })
             .then((response) => response.json())
             .then((response) => {
-              this.authService.setTokenKey(response);
-              AuthHelper.saveAuth(user.email, response);
-              this.authService.toggleLogCondition();
+              if (response.code !== 400) {
+                this.authService.setTokenKey(response);
+                AuthHelper.saveAuth(user.email, response);
+                this.authService.toggleLogCondition();
 
-              alert('You have successfully authenticated!');
-              this.router.navigate(['']);
+                alert('You have successfully authenticated!');
+                this.router.navigate(['']);
+              } else {
+                alert("Token fetching error!");
+              }
+              console.log(response);
             })
             .catch((ex) => {
               alert(ex);

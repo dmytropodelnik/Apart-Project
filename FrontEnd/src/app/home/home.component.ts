@@ -1,22 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BookingCategory } from '../models/bookingcategory.item';
 import { City } from '../models/Location/city.item';
+
+import ImageHelper from '../utils/imageHelper';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   card = [{ card: 1 }, { card: 1 }, { card: 1 }, { card: 1 }, { card: 1 }];
 
   displayMonths = 2;
   navigation = 'arrows';
   showWeekNumbers = false;
   outsideDays = 'hidden';
+  imageHelper: any = ImageHelper;
 
   bookingCategories: BookingCategory[] | undefined;
   cities: City[] | undefined;
+  imagePath: string = "123";
 
   slides = [
     { text: 'Educational Consulting', img: 'assets/images/21.png' },
@@ -84,11 +88,12 @@ export class HomeComponent implements OnInit {
     ],
   };
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit(): void {
     fetch(
-      'https://apartproject.azurewebsites.net/api/bookingcategories/getcategories',
+      'https://localhost:44381/api/bookingcategories/getcategories',
       {
         method: 'GET',
       }
@@ -106,7 +111,7 @@ export class HomeComponent implements OnInit {
       });
 
     fetch(
-      'https://apartproject.azurewebsites.net/api/cities/getcountrycities?country=Ukraine',
+      'https://localhost:44381/api/cities/getcountrycities?country=Ukraine',
       {
         method: 'GET',
       }
@@ -122,5 +127,9 @@ export class HomeComponent implements OnInit {
       .catch((err) => {
         alert(err);
       });
+  }
+
+  ngOnDestroy() {
+
   }
 }

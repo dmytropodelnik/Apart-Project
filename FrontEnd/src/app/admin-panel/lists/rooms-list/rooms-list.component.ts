@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Room } from 'src/app/models/Suggestions/room.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-rooms-list',
@@ -66,6 +67,7 @@ export class RoomsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getRooms();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -95,6 +97,7 @@ export class RoomsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getRooms();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

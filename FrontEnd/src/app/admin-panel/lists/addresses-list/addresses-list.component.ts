@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Address } from 'src/app/models/Location/address.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-addresses-list',
@@ -11,10 +12,33 @@ import AuthHelper from '../../../utils/authHelper';
 export class AddressesListComponent implements OnInit {
 
   addresses: Address[] | null = null;
-  address: string | null = null;
+  address: Address | null = null;
+  searchAddress: string = '';
   checkedAddress: number | null = null;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/addresses/search?address=' + this.searchAddress, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.addresses = data.addresses;
+        } else {
+          alert('Search error!');
+        }
+        this.searchAddress = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addAddress(): void {
     let address = {
@@ -37,7 +61,7 @@ export class AddressesListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.address = '';
+        this.address = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -63,10 +87,11 @@ export class AddressesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getAddresses();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
-        this.address = '';
+        this.address = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -92,10 +117,11 @@ export class AddressesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getAddresses();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
-        this.address = '';
+        this.address = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -103,7 +129,7 @@ export class AddressesListComponent implements OnInit {
   }
 
   getAddresses(): void {
-    fetch('https://localhost:44381/api/roles/getroles', {
+    fetch('https://localhost:44381/api/addresses/getaddresses', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -119,8 +145,8 @@ export class AddressesListComponent implements OnInit {
       });
   }
 
-  setAddress(id: number | null, address: string): void {
-    this.checkedAddress = id;
+  setAddress(address: Address): void {
+    this.checkedAddress = address.id;
     this.address = address;
 
     document.getElementById('editButton')?.removeAttribute('disabled');

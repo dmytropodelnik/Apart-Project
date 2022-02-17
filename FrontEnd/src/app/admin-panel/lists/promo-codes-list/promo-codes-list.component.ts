@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PromoCode } from 'src/app/models/Payment/promocode.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-promo-codes-list',
@@ -21,7 +22,7 @@ export class PromoCodesListComponent implements OnInit {
       name: this.code,
     };
 
-    fetch('https://localhost:44381/api/codes/addcode', {
+    fetch('https://localhost:44381/api/promocodes/addcode', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -50,7 +51,7 @@ export class PromoCodesListComponent implements OnInit {
       name: this.code,
     };
 
-    fetch('https://localhost:44381/api/codes/editcode', {
+    fetch('https://localhost:44381/api/promocodes/editcode', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -63,6 +64,7 @@ export class PromoCodesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCodes();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -79,7 +81,7 @@ export class PromoCodesListComponent implements OnInit {
       name: this.code,
     };
 
-    fetch('https://localhost:44381/api/codes/deletecode', {
+    fetch('https://localhost:44381/api/promocodes/deletecode', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -92,6 +94,7 @@ export class PromoCodesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCodes();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -103,7 +106,7 @@ export class PromoCodesListComponent implements OnInit {
   }
 
   getCodes(): void {
-    fetch('https://localhost:44381/api/codes/getcodes', {
+    fetch('https://localhost:44381/api/promocodes/getcodes', {
       method: 'GET',
     })
       .then((r) => r.json())

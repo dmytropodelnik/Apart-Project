@@ -1,7 +1,7 @@
 //eslint-disable-next-line import/no-anonymous-default-export
 export default {
     saveAuth: (userName : string, token : any) => {
-        sessionStorage.setItem('tokenKey', JSON.stringify({ userName: userName, access_token: token }));
+        sessionStorage.setItem('tokenKey', JSON.stringify({ userName: userName, accessToken: token }));
     },
 
     clearAuth: () => {
@@ -24,13 +24,13 @@ export default {
         } else {
             return false;
         }
-    }, 
+    },
 
     getToken: () => {
         let item = sessionStorage.getItem('tokenKey');
         let token = null;
         if (item) {
-            token = JSON.parse(item).access_token;
+            token = JSON.parse(item).accessToken;
         }
         return token;
     }

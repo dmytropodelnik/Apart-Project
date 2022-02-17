@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ServiceCategory } from 'src/app/models/servicecategory.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-service-categories-list',
@@ -11,17 +12,19 @@ import AuthHelper from '../../../utils/authHelper';
 export class ServiceCategoriesListComponent implements OnInit {
 
   categories: ServiceCategory[] | null = null;
-  category: string | null = null;
+  category: ServiceCategory;
   checkedCategory: number | null = null;
 
-  constructor() {}
+  constructor() {
+    this.category = new ServiceCategory();
+  }
 
   addCategory(): void {
     let category = {
-      name: this.category,
+      category: this.category.category,
     };
 
-    fetch('https://localhost:44381/api/categories/addcategory', {
+    fetch('https://localhost:44381/api/servicecategories/addcategory', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -37,7 +40,7 @@ export class ServiceCategoriesListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.category = '';
+        this.category.category = '';
       })
       .catch((ex) => {
         alert(ex);
@@ -47,10 +50,10 @@ export class ServiceCategoriesListComponent implements OnInit {
   editCategory(): void {
     let category = {
       id: this.checkedCategory,
-      name: this.category,
+      category: this.category.category,
     };
 
-    fetch('https://localhost:44381/api/categories/editcategory', {
+    fetch('https://localhost:44381/api/servicecategories/editcategory', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -63,10 +66,11 @@ export class ServiceCategoriesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCategories();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
-        this.category = '';
+        this.category.category = '';
       })
       .catch((ex) => {
         alert(ex);
@@ -76,10 +80,10 @@ export class ServiceCategoriesListComponent implements OnInit {
   deleteCategory(): void {
     let category = {
       id: this.checkedCategory,
-      name: this.category,
+      category: this.category.category,
     };
 
-    fetch('https://localhost:44381/api/categories/deletecategory', {
+    fetch('https://localhost:44381/api/servicecategories/deletecategory', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -92,10 +96,11 @@ export class ServiceCategoriesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCategories();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
-        this.category = '';
+        this.category.category = '';
       })
       .catch((ex) => {
         alert(ex);
@@ -103,7 +108,7 @@ export class ServiceCategoriesListComponent implements OnInit {
   }
 
   getCategories(): void {
-    fetch('https://localhost:44381/api/categories/getcategories', {
+    fetch('https://localhost:44381/api/servicecategories/getcategories', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -119,9 +124,9 @@ export class ServiceCategoriesListComponent implements OnInit {
       });
   }
 
-  setCategory(id: number | null, category: string): void {
-    this.checkedCategory = id;
-    this.category = category;
+  setCategory(category: ServiceCategory): void {
+    this.checkedCategory = category.id;
+    this.category.category = category.category;
 
     document.getElementById('editButton')?.removeAttribute('disabled');
     document.getElementById('deleteButton')?.removeAttribute('disabled');

@@ -23,8 +23,8 @@ namespace CloneBookingAPI.Services.Database.Configurations.Location
                   new City { Id = 10, Title = "Kyiv", ImageId = 2, CountryId = 1, },
                   new City { Id = 11, Title = "Kyiv", ImageId = 2, CountryId = 1, },
                   new City { Id = 12, Title = "Kyiv", ImageId = 2, CountryId = 1, },
-                  new City { Id = 13, Title = "New York", ImageId = 1, },
-                  new City { Id = 14, Title = "Berlin", ImageId = 1, },
+                  new City { Id = 13, Title = "New York", ImageId = 1, CountryId = 2, },
+                  new City { Id = 14, Title = "Berlin", ImageId = 1, CountryId = 114, },
               });
         }
     }

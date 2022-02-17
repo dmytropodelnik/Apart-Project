@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SuggestionRule } from 'src/app/models/Suggestions/suggestionrule.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-suggestion-rules-list',
@@ -21,7 +22,7 @@ export class SuggestionRulesListComponent implements OnInit {
       name: this.rule,
     };
 
-    fetch('https://localhost:44381/api/rules/addrule', {
+    fetch('https://localhost:44381/api/suggestionrules/addrule', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -50,7 +51,7 @@ export class SuggestionRulesListComponent implements OnInit {
       name: this.rule,
     };
 
-    fetch('https://localhost:44381/api/rules/editrule', {
+    fetch('https://localhost:44381/api/suggestionrules/editrule', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -63,6 +64,7 @@ export class SuggestionRulesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getRules();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -79,7 +81,7 @@ export class SuggestionRulesListComponent implements OnInit {
       name: this.rule,
     };
 
-    fetch('https://localhost:44381/api/rules/deleterule', {
+    fetch('https://localhost:44381/api/suggestionrules/deleterule', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -92,6 +94,7 @@ export class SuggestionRulesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getRules();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -103,7 +106,7 @@ export class SuggestionRulesListComponent implements OnInit {
   }
 
   getRules(): void {
-    fetch('https://localhost:44381/api/rules/getrules', {
+    fetch('https://localhost:44381/api/suggestionrules/getrules', {
       method: 'GET',
     })
       .then((r) => r.json())

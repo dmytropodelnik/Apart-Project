@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CardType } from 'src/app/models/Payment/cardtype.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-card-types-list',
@@ -63,6 +64,7 @@ export class CardTypesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getTypes();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +94,7 @@ export class CardTypesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getTypes();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

@@ -3,6 +3,7 @@ import { Review } from 'src/app/models/Review/review.item';
 
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-reviews-list',
@@ -38,6 +39,7 @@ export class ReviewsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getReviews();
+          ListHelper.disableButtons();
         } else {
           alert('Adding error!');
         }
@@ -67,6 +69,7 @@ export class ReviewsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getReviews();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

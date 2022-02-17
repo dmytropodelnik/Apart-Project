@@ -13,6 +13,7 @@ import { AuthorizationService } from '../services/authorization.service';
 export class HeaderComponent implements OnInit {
   public isCollapsed = false;
   user: User | null = null;
+  authHelper: any = AuthHelper;
 
   isActive1 = true;
 
@@ -29,13 +30,13 @@ export class HeaderComponent implements OnInit {
     return AuthHelper.getToken();
   }
 
-  logout(): void {
+  userSignOut(): void {
     let model = {
       username: AuthHelper.getLogin(),
       accessToken: AuthHelper.getToken(),
     };
 
-    fetch('https://localhost:44381/api/users/logout', {
+    fetch('https://localhost:44381/api/users/signoutuser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -46,11 +47,11 @@ export class HeaderComponent implements OnInit {
     })
       .then((response) => response.json())
       .then((response) => {
-        if (response.code == 200) {
+        if (response.code === 200) {
           this.authService.setLogCondition(false);
           AuthHelper.clearAuth();
         } else {
-          alert('Refresh auth error!');
+          alert("Logout error!");
         }
       })
       .catch((ex) => {

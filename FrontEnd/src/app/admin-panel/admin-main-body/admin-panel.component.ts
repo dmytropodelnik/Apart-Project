@@ -1,17 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+
+import { AuthorizationService } from '../../services/authorization.service';
+
+import AuthHelper from '../../utils/authHelper';
 
 @Component({
   selector: 'app-admin-panel',
   templateUrl: './admin-panel.component.html',
   styleUrls: ['./admin-panel.component.css']
 })
-export class AdminPanelComponent implements OnInit {
+export class AdminPanelComponent implements OnInit, OnDestroy {
 
 
   currentYear: number = new Date().getFullYear();
   content: string | undefined;
 
-  constructor() {
+  constructor(
+    private authService: AuthorizationService
+  ) {
 
   }
 
@@ -19,8 +25,41 @@ export class AdminPanelComponent implements OnInit {
     this.content = newContent;
   }
 
-  ngOnInit(): void {
+  userSignOut(): void {
+    let model = {
+      username: AuthHelper.getLogin(),
+      accessToken: AuthHelper.getToken(),
+    };
 
+    fetch('https://localhost:44381/api/users/signoutuser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(model),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.authService.setLogCondition(false);
+          this.authService.setIsAdmin(false);
+          AuthHelper.clearAuth();
+        } else {
+          alert("Logout error!");
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReviewCategory } from 'src/app/models/Review/reviewcategory.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-review-categories-list',
@@ -12,6 +13,7 @@ export class ReviewCategoriesListComponent implements OnInit {
 
   categories: ReviewCategory[] | null = null;
   category: string | null = null;
+  searchCategory: string = '';
   checkedCategory: number | null = null;
 
   constructor() {}
@@ -63,6 +65,7 @@ export class ReviewCategoriesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCategories();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +95,7 @@ export class ReviewCategoriesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCategories();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -103,7 +107,7 @@ export class ReviewCategoriesListComponent implements OnInit {
   }
 
   getCategories(): void {
-    fetch('https://localhost:44381/api/categories/getcategories', {
+    fetch('https://localhost:44381/api/reviewcategories/getcategories', {
       method: 'GET',
     })
       .then((r) => r.json())

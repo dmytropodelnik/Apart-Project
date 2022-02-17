@@ -1,3 +1,9 @@
+<div class="input-group">
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"
+         [(ngModel)]="searchLang" />
+  <button type="button" class="btn btn-dark" (click)="search()">search</button>
+</div>
+
 <div class="row">
   <div class="btn-group" role="group" aria-label="Basic example">
     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#add">Add</button>
