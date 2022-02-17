@@ -18,6 +18,29 @@ export class ReviewCategoriesListComponent implements OnInit {
 
   constructor() {}
 
+
+  search(): void {
+    fetch('https://localhost:44381/api/reviewcategories/search?category=' + this.searchCategory, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.categories = data.roles;
+        } else {
+          alert('Search error!');
+        }
+        this.searchCategory = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
   addCategory(): void {
     let category = {
       name: this.category,
