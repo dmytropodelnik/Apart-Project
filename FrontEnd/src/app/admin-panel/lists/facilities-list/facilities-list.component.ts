@@ -31,7 +31,7 @@ export class FacilitiesListComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          this.facilities = data.categories;
+          this.facilities = data.facilities;
         } else {
           alert('Search error!');
         }

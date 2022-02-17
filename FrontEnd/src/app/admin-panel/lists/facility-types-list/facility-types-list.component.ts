@@ -13,10 +13,33 @@ export class FacilityTypesListComponent implements OnInit {
 
   types: FacilityType[] | null = null;
   type: FacilityType;
+  searchType: string = '';
   checkedType: number | null = null;
 
   constructor() {
     this.type = new FacilityType();
+  }
+
+  search(): void {
+    fetch('https://localhost:44381/api/facilitytypes/search?type=' + this.searchType, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.types = data.types;
+        } else {
+          alert('Search error!');
+        }
+        this.searchType = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   addType(): void {
