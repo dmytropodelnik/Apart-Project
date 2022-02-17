@@ -161,7 +161,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("register")]
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody] Services.POCOs.UserData person)
+        public async Task<IActionResult> Register([FromBody] CloneBookingAPI.Services.POCOs.UserData person)
         {
             try
             {
@@ -246,7 +246,7 @@ namespace CloneBookingAPI.Controllers
         [Authorize]
         [Route("changeusersemail")]
         [HttpPut]
-        public async Task<IActionResult> ChangeUsersEmail([FromBody] Services.POCOs.UserData user)
+        public async Task<IActionResult> ChangeUsersEmail([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
         {
             try
             {
@@ -280,7 +280,7 @@ namespace CloneBookingAPI.Controllers
         [Authorize]
         [Route("changeuserspass")]
         [HttpPut]
-        public async Task<IActionResult> ChangeUsersPass([FromBody] Services.POCOs.UserData user)
+        public async Task<IActionResult> ChangeUsersPass([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
         {
             try
             {
@@ -318,7 +318,7 @@ namespace CloneBookingAPI.Controllers
         [Authorize]
         [Route("changeusersphone")]
         [HttpPut]
-        public async Task<IActionResult> ChangeUsersPhone([FromBody] Services.POCOs.UserData user)
+        public async Task<IActionResult> ChangeUsersPhone([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
         {
             try
             {

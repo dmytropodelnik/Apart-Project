@@ -20,7 +20,6 @@ const routes: Routes = [
     path: 'admin',
     component: AdminPanelComponent,
     // canActivate: [AdminPanelGuard],
-    canDeactivate: [AdminPanelGuard],
   },
   { path: 'adminlogin', component: AdminAuthComponent },
   { path: 'upload', component: FileUploadComponent },

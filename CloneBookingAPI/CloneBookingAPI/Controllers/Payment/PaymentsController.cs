@@ -25,7 +25,7 @@ namespace CloneBookingAPI.Controllers.Payment
 
         [Route("getpayments")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Services.Database.Models.Payment.Payment>>> GetPayments()
+        public async Task<ActionResult<IEnumerable<CloneBookingAPI.Services.Database.Models.Payment.Payment>>> GetPayments()
         {
             try
             {
@@ -49,7 +49,7 @@ namespace CloneBookingAPI.Controllers.Payment
 
         [Route("addpayment")]
         [HttpPost]
-        public async Task<IActionResult> AddPayment([FromBody] Services.Database.Models.Payment.Payment payment)
+        public async Task<IActionResult> AddPayment([FromBody] CloneBookingAPI.Services.Database.Models.Payment.Payment payment)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace CloneBookingAPI.Controllers.Payment
 
         [Route("changepayment")]
         [HttpPut]
-        public async Task<IActionResult> ChangePayment(Services.Database.Models.Payment.Payment payment)
+        public async Task<IActionResult> ChangePayment(CloneBookingAPI.Services.Database.Models.Payment.Payment payment)
         {
             try
             {
@@ -112,7 +112,7 @@ namespace CloneBookingAPI.Controllers.Payment
 
         [Route("deletepayment")]
         [HttpDelete]
-        public async Task<IActionResult> DeletePayment(Services.Database.Models.Payment.Payment payment)
+        public async Task<IActionResult> DeletePayment(CloneBookingAPI.Services.Database.Models.Payment.Payment payment)
         {
             try
             {
