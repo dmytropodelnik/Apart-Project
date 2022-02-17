@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BookingCategory } from '../models/bookingcategory.item';
 import { City } from '../models/Location/city.item';
 
@@ -9,7 +9,7 @@ import ImageHelper from '../utils/imageHelper';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
   card = [{ card: 1 }, { card: 1 }, { card: 1 }, { card: 1 }, { card: 1 }];
 
   displayMonths = 2;
@@ -127,5 +127,9 @@ export class HomeComponent implements OnInit {
       .catch((err) => {
         alert(err);
       });
+  }
+
+  ngOnDestroy() {
+
   }
 }

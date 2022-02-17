@@ -25,7 +25,7 @@ export class RoomTypesListComponent implements OnInit {
       title: this.type,
     };
 
-    fetch('https://localhost:44381/api/types/addtype', {
+    fetch('https://localhost:44381/api/roomtypes/addtype', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -54,7 +54,7 @@ export class RoomTypesListComponent implements OnInit {
       title: this.type,
     };
 
-    fetch('https://localhost:44381/api/types/edittype', {
+    fetch('https://localhost:44381/api/roomtypes/edittype', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -84,7 +84,7 @@ export class RoomTypesListComponent implements OnInit {
       title: this.type,
     };
 
-    fetch('https://localhost:44381/api/types/deletetype', {
+    fetch('https://localhost:44381/api/roomtypes/deletetype', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -109,7 +109,7 @@ export class RoomTypesListComponent implements OnInit {
   }
 
   getTypes(): void {
-    fetch('https://localhost:44381/api/types/gettypes', {
+    fetch('https://localhost:44381/api/roomtypes/gettypes', {
       method: 'GET',
     })
       .then((r) => r.json())

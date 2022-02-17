@@ -22,7 +22,7 @@ export class SurroundingObjectsListComponent implements OnInit {
       name: this.object,
     };
 
-    fetch('https://localhost:44381/api/objects/addobject', {
+    fetch('https://localhost:44381/api/surroundingobjects/addobject', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -51,7 +51,7 @@ export class SurroundingObjectsListComponent implements OnInit {
       name: this.object,
     };
 
-    fetch('https://localhost:44381/api/objects/editobject', {
+    fetch('https://localhost:44381/api/surroundingobjects/editobject', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -81,7 +81,7 @@ export class SurroundingObjectsListComponent implements OnInit {
       name: this.object,
     };
 
-    fetch('https://localhost:44381/api/objects/deleteobject', {
+    fetch('https://localhost:44381/api/surroundingobjects/deleteobject', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -106,7 +106,7 @@ export class SurroundingObjectsListComponent implements OnInit {
   }
 
   getObjects(): void {
-    fetch('https://localhost:44381/api/objects/getobjects', {
+    fetch('https://localhost:44381/api/surroundingobjects/getobjects', {
       method: 'GET',
     })
       .then((r) => r.json())

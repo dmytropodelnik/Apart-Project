@@ -1,5 +1,4 @@
 ﻿using CloneBookingAPI.Services.Database;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -22,7 +21,7 @@ namespace CloneBookingAPI.Controllers.Review
 
         [Route("getreviews")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Services.Database.Models.Review.Review>>> GetReviews()
+        public async Task<ActionResult<IEnumerable<CloneBookingAPI.Services.Database.Models.Review.Review>>> GetReviews()
         {
             try
             {
@@ -46,7 +45,7 @@ namespace CloneBookingAPI.Controllers.Review
 
         [Route("addreview")]
         [HttpPost]
-        public async Task<IActionResult> AddReview([FromBody] Services.Database.Models.Review.Review review)
+        public async Task<IActionResult> AddReview([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
         {
             try
             {
@@ -71,7 +70,7 @@ namespace CloneBookingAPI.Controllers.Review
 
         [Route("changereviewbyname")]
         [HttpPut]
-        public async Task<IActionResult> ChangeReview([FromBody] Services.Database.Models.Review.Review review)
+        public async Task<IActionResult> ChangeReview([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
         {
             try
             {
@@ -104,7 +103,7 @@ namespace CloneBookingAPI.Controllers.Review
 
         [Route("changereview")]
         [HttpPut("{id}")]
-        public async Task<IActionResult> ChangeCountry([FromBody] Services.Database.Models.Review.Review review)
+        public async Task<IActionResult> ChangeCountry([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
         {
             try
             {
@@ -135,7 +134,7 @@ namespace CloneBookingAPI.Controllers.Review
 
         [Route("deletereview")]
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteReview([FromBody] Services.Database.Models.Review.Review review)
+        public async Task<IActionResult> DeleteReview([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
         {
             try
             {
