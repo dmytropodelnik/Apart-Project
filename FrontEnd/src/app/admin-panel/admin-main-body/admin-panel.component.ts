@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { AuthorizationService } from '../../services/authorization.service';
 
@@ -9,7 +9,7 @@ import AuthHelper from '../../utils/authHelper';
   templateUrl: './admin-panel.component.html',
   styleUrls: ['./admin-panel.component.css']
 })
-export class AdminPanelComponent implements OnInit {
+export class AdminPanelComponent implements OnInit, OnDestroy {
 
 
   currentYear: number = new Date().getFullYear();
@@ -56,7 +56,10 @@ export class AdminPanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
 
+  ngOnDestroy(): void {
+    
   }
 
 }

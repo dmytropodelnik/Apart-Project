@@ -1,11 +1,13 @@
 ﻿using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers
@@ -15,10 +17,14 @@ namespace CloneBookingAPI.Controllers
     public class FilesController : Controller
     {
         private readonly ApartProjectDbContext _context;
+        private readonly IWebHostEnvironment _appEnvironment;
 
-        public FilesController(ApartProjectDbContext context)
+        public FilesController(
+            ApartProjectDbContext context,
+            IWebHostEnvironment appEnvironment)
         {
             _context = context;
+            _appEnvironment = appEnvironment;
         }
 
         [Route("getimages")]
@@ -43,6 +49,12 @@ namespace CloneBookingAPI.Controllers
 
                 return Json(new { code = 400 });
             }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
 
         [Route("deleteimage")]
@@ -62,6 +74,15 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
+                if (System.IO.File.Exists(_appEnvironment.WebRootPath + resFile.Path))
+                {
+                    System.IO.File.Delete(_appEnvironment.WebRootPath + resFile.Path);
+                }
+                else
+                {
+                    return Json(new { code = 400 });
+                }
+
                 _context.Files.Remove(resFile);
                 await _context.SaveChangesAsync();
 
@@ -74,6 +95,12 @@ namespace CloneBookingAPI.Controllers
                 return Json(new { code = 400 });
             }
             catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 

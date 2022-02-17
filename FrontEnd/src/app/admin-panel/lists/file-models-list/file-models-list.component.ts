@@ -17,6 +17,7 @@ export class FileModelsListComponent implements OnInit {
   path: string | null = null;
   checkedFile: number | null = null;
   imageHelper: any = ImageHelper;
+  uploadedFile: File | null = null;
 
   constructor() {}
 
@@ -97,6 +98,40 @@ export class FileModelsListComponent implements OnInit {
       .catch((ex) => {
         alert(ex);
       });
+  }
+
+  uploadFile() {
+    let fData = new FormData();
+    if (this.uploadedFile != null) {
+      fData.append('uploadedFile', this.uploadedFile);
+    }
+
+      fetch('https://localhost:44381/api/fileuploader/uploadfile', {
+        method: 'POST',
+        headers: {
+          "Accept": "application/json",
+          "Authorization": "Bearer " + AuthHelper.getToken(),
+         },
+        body: fData,
+      })
+      .then(r => r.json())
+      .then(r => {
+        if (r.code === 200) {
+          alert("File has been successfully uploaded!");
+          this.getFiles();
+        } else {
+          alert("Uploading error!");
+        }
+      })
+      .catch(err => {
+        alert(err);
+      });
+  }
+
+  handleFileInput(files: FileList): void {
+    if (files !== null) {
+      this.uploadedFile = files.item(0);
+    }
   }
 
   setFile(id: number | null, name: string, path: string): void {
