@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Review
@@ -38,6 +39,45 @@ namespace CloneBookingAPI.Controllers.Review
                 return Json(new { code = 400 });
             }
             catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("search")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ReviewCategory>>> Search(string category)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(category))
+                {
+                    var res = await _context.ReviewCategories.ToListAsync();
+
+                    return Json(new { code = 200, categories = res });
+                }
+
+                var categories = await _context.ReviewCategories
+                    .Where(c => c.Category.Contains(category))
+                    .ToListAsync();
+
+                return Json(new { code = 200, categories });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 

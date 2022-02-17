@@ -13,9 +13,32 @@ export class ReviewCategoriesListComponent implements OnInit {
 
   categories: ReviewCategory[] | null = null;
   category: string | null = null;
+  searchCategory: string = '';
   checkedCategory: number | null = null;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/reviewcategories/search?category=' + this.searchCategory, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.categories = data.categories;
+        } else {
+          alert('Search error!');
+        }
+        this.searchCategory = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addCategory(): void {
     let category = {
