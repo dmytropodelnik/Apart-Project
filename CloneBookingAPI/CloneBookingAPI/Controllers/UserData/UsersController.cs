@@ -45,6 +45,11 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return Json(new { code = 400 });
+                }
+
                 var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
 
                 if (user is not null)
@@ -52,7 +57,7 @@ namespace CloneBookingAPI.Controllers
                     return RedirectToAction("GenerateEnterCode", "Codes", new { email });
                 }
 
-                return Json(new { code = 200, enter = false });
+                return Json(new { code = 202, enter = false });
             }
             catch (Exception ex)
             {
