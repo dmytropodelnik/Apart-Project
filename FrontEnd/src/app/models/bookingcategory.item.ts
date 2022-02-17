@@ -1,5 +1,5 @@
 export class BookingCategory {
-  id: number | undefined;
+  id: number | null = null;
   category: string = '';
 
   constructor () {

@@ -109,17 +109,5 @@ namespace CloneBookingAPI.Controllers.UserData
 
         //    return RedirectToAction("Index");
         //}
-
-        // PUT api/<FileUploaderController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<FileUploaderController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
     }
 }

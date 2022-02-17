@@ -92,7 +92,45 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        [Authorize(Roles = "admin")]
+        [Route("search")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<User>>> Search(string user)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(user))
+                {
+                    var res = await _context.Users.ToListAsync();
+
+                    return Json(new { code = 200, users = res });
+                }
+
+                var users = await _context.Users
+                    .Where(u => u.Title.Contains(user)       ||
+                                u.FirstName.Contains(user)   ||
+                                u.LastName.Contains(user)    ||
+                                u.Email.Contains(user)       ||
+                                u.PhoneNumber.Contains(user) ||
+                                u.DisplayName.Contains(user))
+                    .ToListAsync();
+
+                return Json(new { code = 200, users });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        // [Authorize(Roles = "admin")]
         [Route("getuser")]
         [HttpGet]
         public async Task<ActionResult<User>> GetUser(string email)
@@ -127,7 +165,8 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(person.Email) ||
+                if (person is null                             ||
+                    string.IsNullOrWhiteSpace(person.Email)    ||
                     string.IsNullOrWhiteSpace(person.Password) ||
                     string.IsNullOrWhiteSpace(person.VerificationCode))
                 {
@@ -154,19 +193,45 @@ namespace CloneBookingAPI.Controllers
                 var newFavorite = _context.Favorites.Add(favorite);
                 newUser.Favorite = favorite;
 
+                _context.Users.Add(newUser);
+
                 UserProfile userProfile = new();
                 userProfile.RegisterDate = DateTime.Now;
-                var newUserProfile = _context.UserProfiles.Add(userProfile);
+                userProfile.User = newUser;
+
+                _context.UserProfiles.Add(userProfile);
                 await _context.SaveChangesAsync();
 
-                newUser.ProfileId = newUserProfile.Entity.Id;
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
 
-                var addedUser = _context.Users.Add(newUser);
-                await _context.SaveChangesAsync();
+                return Json(new { code = 400 });
+            }
+        }
 
-                var updateProfile = await _context.UserProfiles.FirstOrDefaultAsync(up => up.Id == newUser.ProfileId);
-                updateProfile.UserId = addedUser.Entity.Id;
-                await _context.SaveChangesAsync();
+        [Route("signoutuser")]
+        [HttpPost]
+        public IActionResult SignOutUser([FromBody] TokenModel model)
+        {
+            try
+            {
+                if (model is null                             || 
+                    string.IsNullOrWhiteSpace(model.Username) ||
+                    string.IsNullOrWhiteSpace(model.AccessToken))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                bool res = _jwtRepository.IsValueCorrect(model.Username, model.AccessToken);
+                if (res is false)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                _jwtRepository.Repository.Remove(model.Username);
 
                 return Json(new { code = 200 });
             }
@@ -321,35 +386,6 @@ namespace CloneBookingAPI.Controllers
 
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
-
-                return Json(new { code = 200 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-        }
-
-        [Route("logout")]
-        [HttpPost]
-        public IActionResult LogOut([FromBody] TokenModel model)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(model.Username) || string.IsNullOrWhiteSpace(model.AccessToken))
-                {
-                    return Json(new { code = 400 });
-                }
-
-                bool res = _jwtRepository.IsValueCorrect(model.Username, model.AccessToken);
-                if (res is false)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                _jwtRepository.Repository.Remove(model.Username);
 
                 return Json(new { code = 200 });
             }

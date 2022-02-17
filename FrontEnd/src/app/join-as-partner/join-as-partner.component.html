@@ -12,7 +12,7 @@
     </div>
 
     <div>
-      <a href="javascript:void(0)" class="d-block d-md-none text-white"></a>
+      <a class="d-block d-md-none text-white"></a>
       <div
         class="bui-group bui-button-group bui-group--inline bui-group--align-end bui-group--vertical-align-middle"
       >
@@ -52,7 +52,6 @@
         <div class="bui-group__item">
           <a
             class="bui-button bui-button--light bui-button--large"
-            href="javascript:void(0)"
           >
             <span class="bui-button__icon">
               <span aria-hidden="true" class="bui-icon1 bui-icon--large">
@@ -79,7 +78,6 @@
         <div class="bui-group__item">
           <a
             class="bui-button bui-button--light bui-button--large"
-            href="javascript:void(0)"
           >
             <span class="bui-button__icon">
               <span aria-hidden="true" class="bui-icon1 bui-icon--large">
@@ -101,8 +99,7 @@
             </span>
           </a>
         </div>
-        <!-- authService.getLogCondition() === false || -->
-        <div *ngIf="login === false; then thenBlock; else elseBlock"></div>
+        <div *ngIf="authService.getLogCondition() === true; then thenBlock; else elseBlock"></div>
         <ng-template #thenBlock>
           <div class="bui-group__item" class="dropdown">
             <button
@@ -117,7 +114,7 @@
                 />
               </div>
               <span class="bui-avatar--button-auth">
-                <span aria-hidden="true"> Heider Alkateb </span>
+                <span aria-hidden="true"> {{authHelper.getLogin()}} </span>
               </span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
@@ -134,8 +131,8 @@
                 >
               </li>
               <li>
-                <a class="dropdown-item"
-                  ><i class="robotomonoregular" (click)="logout()">Logout</i></a
+                <a class="dropdown-item" (click)="userSignOut()"
+                  ><i class="robotomonoregular">Logout</i></a
                 >
               </li>
             </ul>
@@ -145,8 +142,6 @@
           <div class="bui-group__item">
             <a
               class="bui-button bui-button--secondary js-header-login-link"
-              routerLink="/auth"
-              href="javascript:void(0)"
             >
               <span class="bui-button__text"> Register </span>
             </a>
@@ -169,7 +164,6 @@
             <a
               class="bui-button bui-button--secondary js-header-login-link"
               routerLink="/auth"
-              href="javascript:void(0)"
             >
               <span class="bui-button__text"> Sign in </span>
             </a>
@@ -184,7 +178,7 @@
     <div class="joinpartnerInfo2">
       <h1 class="">
         <div class="joinpartnerText">
-          Alkateb Heider, list your
+          {{authHelper.getLogin()}}, list your
           <div class="">
             <div class="">
               <p class="joinpartnerText">apartment</p>
@@ -193,7 +187,7 @@
           on Booking.com
         </div>
         <!-- <div class="joinpartnerText">
-          Alkateb Heider, list anything on Booking.com
+          {{authHelper.getLogin()}}, list anything on Booking.com
         </div> -->
       </h1>
       <h3 class="joinpartnerText">

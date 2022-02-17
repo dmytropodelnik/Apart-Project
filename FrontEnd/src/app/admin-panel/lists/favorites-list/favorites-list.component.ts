@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Favorite } from 'src/app/models/UserData/favorite.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-favorites-list',
@@ -11,7 +12,7 @@ import AuthHelper from '../../../utils/authHelper';
 export class FavoritesListComponent implements OnInit {
 
   favorites: Favorite[] | null = null;
-  favorite: string | null = null;
+  favorite: Favorite | null = null;
   checkedFavorite: number | null = null;
 
   constructor() {}
@@ -37,7 +38,7 @@ export class FavoritesListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.favorite = '';
+        this.favorite = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -47,7 +48,6 @@ export class FavoritesListComponent implements OnInit {
   editFavorite(): void {
     let favorite = {
       id: this.checkedFavorite,
-      name: this.favorite,
     };
 
     fetch('https://localhost:44381/api/favorites/editfavorite', {
@@ -63,10 +63,11 @@ export class FavoritesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getFavorites();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
-        this.favorite = '';
+        this.favorite = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -92,10 +93,11 @@ export class FavoritesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getFavorites();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
-        this.favorite = '';
+        this.favorite = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -119,8 +121,8 @@ export class FavoritesListComponent implements OnInit {
       });
   }
 
-  setFavorite(id: number | null, favorite: string): void {
-    this.checkedFavorite = id;
+  setFavorite(favorite: Favorite): void {
+    this.checkedFavorite = favorite.id;
     this.favorite = favorite;
 
     document.getElementById('editButton')?.removeAttribute('disabled');

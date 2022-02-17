@@ -51,7 +51,6 @@
         <div class="bui-group__item">
           <a
             class="bui-button bui-button--light bui-button--large"
-            href="javascript:void(0)"
           >
             <span class="bui-button__icon">
               <span aria-hidden="true" class="bui-icon1 bui-icon--large">
@@ -78,7 +77,6 @@
         <div class="bui-group__item">
           <a
             class="bui-button bui-button--light bui-button--large"
-            href="javascript:void(0)"
           >
             <span class="bui-button__icon">
               <span aria-hidden="true" class="bui-icon1 bui-icon--large">
@@ -100,7 +98,6 @@
             </span>
           </a>
         </div>
-        <!-- authService.getLogCondition() === false || -->
         <div *ngIf="authService.getLogCondition() === true; then thenBlock; else elseBlock"></div>
         <ng-template #thenBlock>
           <div class="bui-group__item" class="dropdown">
@@ -112,11 +109,11 @@
                 <img
                   class="bui-avatar__image"
                   src="assets/images/User1.png"
-                  alt=""
+                  alt="user image"
                 />
               </div>
               <span class="bui-avatar--button-auth">
-                <span aria-hidden="true"> Heider Alkateb </span>
+                <span aria-hidden="true"> {{authHelper.getLogin()}} </span>
               </span>
             </button>
             <ul class="dropdown-menu dropdown-menu-right">
@@ -126,13 +123,13 @@
                 </a>
               </li>
               <li>
-                <a class="dropdown-item" href="#"
+                <a class="dropdown-item"
                   ><span class="mdi mdi-account-outline"></span
                   ><span class="robotomonoregular">Admin login</span></a
                 >
               </li>
               <li>
-                <a class="dropdown-item" href="#"
+                <a class="dropdown-item"
                   ><span
                     ><svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -169,8 +166,8 @@
                 >
               </li>
               <li>
-                <a class="dropdown-item" href="#"
-                  ><i class="robotomonoregular" (click)="logout()">Logout</i></a
+                <a class="dropdown-item" (click)="userSignOut()"
+                  ><i class="robotomonoregular">Logout</i></a
                 >
               </li>
             </ul>
@@ -181,7 +178,6 @@
             <a
               class="bui-button bui-button--secondary js-header-login-link"
               routerLink="/auth"
-              href="javascript:void(0)"
             >
               <span class="bui-button__text"> Register </span>
             </a>
@@ -204,7 +200,6 @@
             <a
               class="bui-button bui-button--secondary js-header-login-link"
               routerLink="/auth"
-              href="javascript:void(0)"
             >
               <span class="bui-button__text"> Sign in </span>
             </a>
@@ -275,7 +270,7 @@
         </a>
       </li>
       <li class="bui-tab__item">
-        <a class="bui-tab__link" href="javascript:void(0)">
+        <a class="bui-tab__link">
           <span
             aria-hidden="true"
             class="bui-icon bui-tab__icon bui-icon--medium"
@@ -321,7 +316,7 @@
         </a>
       </li>
       <li class="bui-tab__item">
-        <a class="bui-tab__link" href="javscript:void(0)">
+        <a class="bui-tab__link">
           <span
             aria-hidden="true"
             class="bui-icon bui-tab__icon bui-icon--medium"

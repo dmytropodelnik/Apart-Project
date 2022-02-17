@@ -28,6 +28,7 @@ const routes: Routes = [
   { path: 'joinpartner', component: JoinAsPartnerComponent },
   { path: 'viewproperty', component: ViewPropertyComponent },
   { path: 'addproperty', component: AddPropertyComponent },
+  { path: '**', redirectTo: 'stays', pathMatch:'full'},
 ];
 
 @NgModule({

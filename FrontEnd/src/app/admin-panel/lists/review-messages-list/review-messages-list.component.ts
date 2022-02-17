@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ReviewMessage } from 'src/app/models/Review/reviewmessage.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-review-messages-list',
@@ -21,7 +22,7 @@ export class ReviewMessagesListComponent implements OnInit {
       name: this.message,
     };
 
-    fetch('https://localhost:44381/api/messages/addmessage', {
+    fetch('https://localhost:44381/api/reviewmessages/addmessage', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -50,7 +51,7 @@ export class ReviewMessagesListComponent implements OnInit {
       name: this.message,
     };
 
-    fetch('https://localhost:44381/api/messages/editmessage', {
+    fetch('https://localhost:44381/api/reviewmessages/editmessage', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -63,6 +64,7 @@ export class ReviewMessagesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getMessages();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -79,7 +81,7 @@ export class ReviewMessagesListComponent implements OnInit {
       name: this.message,
     };
 
-    fetch('https://localhost:44381/api/messages/deletemessage', {
+    fetch('https://localhost:44381/api/reviewmessages/deletemessage', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -92,6 +94,7 @@ export class ReviewMessagesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getMessages();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -103,7 +106,7 @@ export class ReviewMessagesListComponent implements OnInit {
   }
 
   getMessages(): void {
-    fetch('https://localhost:44381/api/messages/getmessages', {
+    fetch('https://localhost:44381/api/reviewmessages/getmessages', {
       method: 'GET',
     })
       .then((r) => r.json())

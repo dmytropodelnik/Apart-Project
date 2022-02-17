@@ -27,7 +27,9 @@ namespace CloneBookingAPI.Controllers.Review
         {
             try
             {
-                return await _context.ReviewMessages.ToListAsync();
+                var messages = await _context.ReviewMessages.ToListAsync();
+
+                return Json(new { code = 200, messages });
             }
             catch (ArgumentNullException ex)
             {

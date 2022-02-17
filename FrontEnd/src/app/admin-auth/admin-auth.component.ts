@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 
 import { AuthorizationService } from '../services/authorization.service';
 
+import AuthHelper from '../utils/authHelper';
+
 import {
   FormBuilder,
   FormGroup,
@@ -16,14 +18,15 @@ import {
   styleUrls: ['./admin-auth.component.css'],
 })
 export class AdminAuthComponent implements OnInit {
-  login: string | undefined;
-  password: string | undefined;
+  login: string = '';
+  password: string = '';
   loginForm: FormGroup;
 
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private authService: AuthorizationService) {
+    private authService: AuthorizationService
+  ) {
     this.loginForm = this.formBuilder.group({
       login: ['', [Validators.required, Validators.minLength(8)]],
       password: ['', [Validators.required, Validators.minLength(8)]],
@@ -32,13 +35,14 @@ export class AdminAuthComponent implements OnInit {
   get f() {
     return this.loginForm.controls;
   }
+
   loginAdmin(): void {
     let user = {
       email: this.login,
       passwordHash: this.password,
     };
 
-    fetch('https://apartproject.azurewebsites.net/api/admin/login', {
+    fetch('https://localhost:44381/api/admin/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -48,8 +52,34 @@ export class AdminAuthComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          this.authService.setIsAdmin(true);
-          this.router.navigate(['/admin']);
+          fetch('https://localhost:44381/token', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json; charset=utf-8',
+              Accept: 'application/json',
+              Authorization: 'Bearer ' + AuthHelper.getToken(),
+            },
+            body: JSON.stringify(user),
+          })
+            .then((response) => response.json())
+            .then((response) => {
+              if (response.code !== 400) {
+                this.authService.setTokenKey(response);
+                this.authService.toggleLogCondition();
+                this.authService.setIsAdmin(true);
+
+                AuthHelper.saveAuth(user.email, response);
+
+                alert('You have successfully authenticated as an admin!');
+
+                this.router.navigate(['/admin']);
+              } else {
+                alert('Token fetching error!');
+              }
+            })
+            .catch((ex) => {
+              alert(ex);
+            });
         } else {
           alert('Incorrect data');
         }

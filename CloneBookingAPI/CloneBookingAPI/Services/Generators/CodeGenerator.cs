@@ -25,7 +25,11 @@ namespace CloneBookingAPI.Services.Generators
                     _code = generator.Next(100000, 999999).ToString();
                 } while (_repository.IsValueExists(_code));
 
-                _repository.Repository.Add(key, _code);
+                bool res = _repository.Repository.TryAdd(key, _code);
+                if (res is false)
+                {
+                    return null;
+                }
 
                 return _code;
             }

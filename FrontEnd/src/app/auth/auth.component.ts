@@ -108,13 +108,17 @@ export class AuthComponent implements OnInit {
       },
       body: JSON.stringify(user),
     })
-      .then((response) => response.json())
-      .then((response) => {
-        AuthHelper.saveAuth(user.email, response);
-        this.authService.toggleLogCondition();
-
-        alert('You have successfully authenticated!');
-        this.router.navigate(['']);
+      .then(response => response.json())
+      .then(response => {
+        if (response.code !== 400) {
+          this.authService.setTokenKey(response);
+          AuthHelper.saveAuth(user.email, response);
+          this.authService.toggleLogCondition();
+          alert('You have successfully authenticated!');
+          this.router.navigate(['']);
+        } else {
+          alert("Token fetching error!");
+        }
       })
       .catch((ex) => {
         alert(ex);

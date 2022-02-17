@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CreditCard } from 'src/app/models/Payment/creditcard.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-credit-cards-list',
@@ -11,17 +12,23 @@ import AuthHelper from '../../../utils/authHelper';
 export class CreditCardsListComponent implements OnInit {
 
   creditCards: CreditCard[] | null = null;
-  card: string | null = null;
+  card: CreditCard;
   checkedCard: number | null = null;
 
-  constructor() {}
+  constructor() {
+    this.card = new CreditCard();
+  }
 
   addCard(): void {
     let card = {
-      name: this.card,
+      cardHolder: this.card?.cardHolder,
+      cardNumber: this.card?.cardNumber,
+      expirationDate: this.card?.expirationDate,
+      cvc: this.card?.cvc,
+      cardTypeId: this.card?.cardType?.id,
     };
 
-    fetch('https://localhost:44381/api/creditcards/addcard', {
+    fetch('https://localhost:44381/api/creditcards/addcreditcard', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -37,7 +44,7 @@ export class CreditCardsListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.card = '';
+        this.resetCard();
       })
       .catch((ex) => {
         alert(ex);
@@ -46,8 +53,11 @@ export class CreditCardsListComponent implements OnInit {
 
   editCard(): void {
     let card = {
-      id: this.checkedCard,
-      name: this.card,
+      cardHolder: this.card?.cardHolder,
+      cardNumber: this.card?.cardNumber,
+      expirationDate: this.card?.expirationDate,
+      cvc: this.card?.cvc,
+      cardTypeId: this.card?.cardType?.id,
     };
 
     fetch('https://localhost:44381/api/creditcards/editcard', {
@@ -63,10 +73,11 @@ export class CreditCardsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCards();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
-        this.card = '';
+        this.resetCard();
       })
       .catch((ex) => {
         alert(ex);
@@ -76,10 +87,14 @@ export class CreditCardsListComponent implements OnInit {
   deleteCard(): void {
     let card = {
       id: this.checkedCard,
-      name: this.card,
+      cardHolder: null,
+      cardNumber: null,
+      expirationDate: null,
+      cvc: null,
+      cardType: null,
     };
 
-    fetch('https://localhost:44381/api/cards/deletecard', {
+    fetch('https://localhost:44381/api/creditcards/deletecard', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -92,18 +107,27 @@ export class CreditCardsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getCards();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
-        this.card = '';
+        this.resetCard();
       })
       .catch((ex) => {
         alert(ex);
       });
   }
 
+  resetCard(): void {
+    this.card.cardHolder = '';
+    this.card.cardNumber = '';
+    this.card.expirationDate = null;
+    this.card.cvc = '';
+    this.card.cardType = null;
+  }
+
   getCards(): void {
-    fetch('https://localhost:44381/api/cards/getcards', {
+    fetch('https://localhost:44381/api/creditcards/getcreditcards', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -119,9 +143,13 @@ export class CreditCardsListComponent implements OnInit {
       });
   }
 
-  setCard(id: number | null, card: string): void {
-    this.checkedCard = id;
-    this.card = card;
+  setCard(card: CreditCard): void {
+    this.checkedCard = card.id;
+    this.card.cardHolder = card.cardHolder;
+    this.card.cardNumber = card.cardNumber;
+    this.card.expirationDate = card.expirationDate;
+    this.card.cvc = card.cvc;
+    this.card.cardType = card.cardType;
 
     document.getElementById('editButton')?.removeAttribute('disabled');
     document.getElementById('deleteButton')?.removeAttribute('disabled');

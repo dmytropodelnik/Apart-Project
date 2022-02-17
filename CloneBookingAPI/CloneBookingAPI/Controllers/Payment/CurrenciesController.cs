@@ -74,24 +74,28 @@ namespace CloneBookingAPI.Controllers.Payment
             }
         }
 
-        [Route("deletecurrencybynumber")]
-        [HttpDelete]
-        public async Task<IActionResult> DeleteCurrencyByName(string currency)
+        [Route("editcurrency")]
+        [HttpPut]
+        public async Task<IActionResult> EditCurrency([FromBody] Currency currency)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(currency))
+                if (currency is null)
                 {
                     return Json(new { code = 400 });
                 }
 
-                var resCurrency = await _context.Currencies.FirstOrDefaultAsync(c => c.Value == currency);
+                var resCurrency = await _context.Currencies.FirstOrDefaultAsync(c => c.Id == currency.Id);
                 if (resCurrency is null)
                 {
                     return Json(new { code = 400 });
                 }
 
-                _context.Currencies.Remove(resCurrency);
+                resCurrency.Value = currency.Value;
+                resCurrency.Abbreviation = currency.Abbreviation;
+                resCurrency.BankCode = currency.BankCode;
+
+                _context.Currencies.Update(resCurrency);
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });
@@ -105,17 +109,17 @@ namespace CloneBookingAPI.Controllers.Payment
         }
 
         [Route("deletecurrency")]
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteCurrency(int id)
+        [HttpDelete]
+        public async Task<IActionResult> DeleteCurrency([FromBody] Currency currency)
         {
             try
             {
-                if (id < 1)
+                if (currency is null)
                 {
                     return Json(new { code = 400 });
                 }
 
-                var resCurrency = await _context.Currencies.FirstOrDefaultAsync(c => c.Id == id);
+                var resCurrency = await _context.Currencies.FirstOrDefaultAsync(c => c.Id == currency.Id);
                 if (resCurrency is null)
                 {
                     return Json(new { code = 400 });

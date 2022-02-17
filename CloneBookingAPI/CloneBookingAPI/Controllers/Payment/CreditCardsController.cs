@@ -105,7 +105,7 @@ namespace CloneBookingAPI.Controllers.Payment
         }
 
         [Route("deletecard")]
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteCard(int id)
         {
             try

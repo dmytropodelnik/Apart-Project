@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -30,6 +31,47 @@ namespace CloneBookingAPI.Controllers
             try
             {
                 var addresses = await _context.Addresses.ToListAsync();
+
+                return Json(new { code = 200, addresses });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("search")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Address>>> Search(string address)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(address))
+                {
+                    var res = await _context.Addresses.ToListAsync();
+
+                    return Json(new { code = 200, addresses = res });
+                }
+
+                var addresses = await _context.Addresses
+                    .Include(a => a.Country)
+                    .Include(a => a.City)
+                    .Include(a => a.District)
+                    .Include(a => a.Region)
+                    .Where(a => a.AddressText.Contains(address)     ||
+                                a.Country.Title.Contains(address)   ||
+                                a.City.Title.Contains(address)      ||
+                                a.District.Title.Contains(address)  ||
+                                a.Region.Title.Contains(address))
+                    .ToListAsync();
 
                 return Json(new { code = 200, addresses });
             }

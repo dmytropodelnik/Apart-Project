@@ -1,3 +1,8 @@
+<div class="input-group">
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+  <button type="button" class="btn btn-dark">search</button>
+</div>
+
 <div class="row">
   <div class="btn-group" role="group" aria-label="Basic example">
     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#add">Add</button>
@@ -11,15 +16,22 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addLabel">Modal title</h5>
+        <h5 class="modal-title" id="addLabel">Add facility</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form>
+          <div class="mb-3">
+            <label for="addType" class="form-label">Text</label>
+            <input type="text" class="form-control" id="addType" name="facility.text" [(ngModel)]="facility.text"/>
+
+            <select id="addFacilityTypes" class="form-select facilityTypes" name="facilityType.facilityTypeId" [(ngModel)]="facility.facilityTypeId"></select>
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="addFacility()">Save</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
@@ -29,15 +41,22 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editLabel">Modal title</h5>
+        <h5 class="modal-title" id="editLabel">Edit facility</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form>
+          <div class="mb-3">
+            <label for="editType" class="form-label">Text</label>
+            <input type="text" class="form-control" id="editType" name="facility.text" [(ngModel)]="facility.text"/>
+
+            <select id="editFacilityTypes" class="form-select facilityTypes" name="facilityType.facilityTypeId" [(ngModel)]="facility.facilityTypeId"></select>
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="editFacility()">Save</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
@@ -47,15 +66,24 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="deleteLabel">Modal title</h5>
+        <h5 class="modal-title" id="deleteLabel">Delete facility</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form>
+          <div class="mb-3">
+            <label for="deleteType" class="form-label">Text</label>
+            <input type="text" class="form-control" id="deleteTypeText" name="facility.text" [(ngModel)]="facility.text"
+                   readonly />
+
+            <input type="text" class="form-control facilityTypes" id="deleteFacilityType" name="facility.text" [(ngModel)]="facility.text"
+                   readonly />
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Understood</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteFacility()">Delete</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
@@ -66,7 +94,7 @@
     <tr>
       <th scope="col text-center align-self-center">#</th>
       <th scope="col">Facility</th>
-      <th scope="col">FacilityType</th>
+      <th scope="col">Facility type</th>
       <th scope="col">Suggestion</th>
       <th scope="col">Image</th>
     </tr>
@@ -75,11 +103,12 @@
     <tr *ngFor="let facility of facilities">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+          <input class="form-check-input" type="radio" name="facilityRadio" id="facilityRadio" value={{facility.id}}
+          (click)="setFacility(facility)" >
         </div>
       </th>
       <td>{{facility.text}}</td>
-      <td>{{facility.facilityType}}</td>
+      <td>{{facility.facilityTypeId}}</td>
       <td>{{facility.suggestion}}</td>
       <td>{{facility.image}}</td>
     </tr>

@@ -13,6 +13,7 @@ import { AuthorizationService } from '../services/authorization.service';
 export class HeaderComponent implements OnInit {
   public isCollapsed = false;
   user: User | null = null;
+  authHelper: any = AuthHelper;
 
   isActive1 = true;
 
@@ -22,22 +23,20 @@ export class HeaderComponent implements OnInit {
   constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
-    public authService: AuthorizationService,
-  ) {
-
-  }
+    public authService: AuthorizationService
+  ) {}
 
   getToken(): string {
     return AuthHelper.getToken();
   }
 
-  logout(): void {
+  userSignOut(): void {
     let model = {
       username: AuthHelper.getLogin(),
       accessToken: AuthHelper.getToken(),
     };
 
-    fetch('https://localhost:44381/api/users/logout', {
+    fetch('https://localhost:44381/api/users/signoutuser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -52,7 +51,7 @@ export class HeaderComponent implements OnInit {
           this.authService.setLogCondition(false);
           AuthHelper.clearAuth();
         } else {
-          alert("Refresh auth error!");
+          alert("Logout error!");
         }
       })
       .catch((ex) => {
@@ -60,9 +59,7 @@ export class HeaderComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   open() {
     this.modalService.open(this.content, { size: 'lg', centered: true });

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../../models/UserData/user.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-users-list',
@@ -12,9 +13,32 @@ export class UserListComponent implements OnInit {
 
   users: User[] | null = null;
   user: string | null = null;
+  searchUser: string = '';
   checkedUser: number | null = null;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/users/search?user=' + this.searchUser, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.users = data.users;
+        } else {
+          alert('Search error!');
+        }
+        this.searchUser = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addUser(): void {
     let user = {
@@ -63,6 +87,7 @@ export class UserListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getUsers();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +117,7 @@ export class UserListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getUsers();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

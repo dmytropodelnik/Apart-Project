@@ -21,7 +21,7 @@ namespace CloneBookingAPI.Controllers.Payment
             _context = context;
         }
 
-        [Route("getpromocodes")]
+        [Route("getcodes")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PromoCode>>> GetPromoCodes()
         {

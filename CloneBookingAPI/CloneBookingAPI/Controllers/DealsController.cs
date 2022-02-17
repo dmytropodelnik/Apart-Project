@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -33,13 +34,22 @@ namespace CloneBookingAPI.Controllers
         [HttpGet]
         public async Task<ActionResult> SendBestDealsLetter(string email)
         {
-            var res = await _emailSender.SendEmailAsync(email, "Finish subscribing to get deals, inspiration, and more", _letterTemplate);
-            if (res == true)
+            try
             {
-                return Json(new { code = 200 });
-            }
+                var res = await _emailSender.SendEmailAsync(email, "Finish subscribing to get deals, inspiration, and more", _letterTemplate);
+                if (res == true)
+                {
+                    return Json(new { code = 200 });
+                }
 
-            return Json(new { code = 400 });
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
     }
 }

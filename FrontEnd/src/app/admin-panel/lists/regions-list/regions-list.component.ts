@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Region } from 'src/app/models/Location/region.item';
 
 import AuthHelper from '../../../utils/authHelper';
-
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-regions-list',
@@ -64,6 +64,7 @@ export class RegionsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getRegions();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -94,6 +95,7 @@ export class RegionsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getRegions();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

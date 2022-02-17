@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Role } from 'src/app/models/UserData/role.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-roles-list',
@@ -11,9 +12,32 @@ import AuthHelper from '../../../utils/authHelper';
 export class RolesListComponent implements OnInit {
   roles: Role[] | null = null;
   role: string | null = null;
+  searchRole: string = '';
   checkedRole: number | null = null;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/roles/search?role=' + this.searchRole, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.roles = data.roles;
+        } else {
+          alert('Search error!');
+        }
+        this.searchRole = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addRole(): void {
     let role = {
@@ -62,6 +86,7 @@ export class RolesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getRoles();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +117,7 @@ export class RolesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getRoles();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }

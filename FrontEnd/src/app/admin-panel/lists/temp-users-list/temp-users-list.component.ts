@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TempUser } from 'src/app/models/UserData/tempuser.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-temp-users-list',
@@ -21,7 +22,7 @@ export class TempUsersListComponent implements OnInit {
       name: this.user,
     };
 
-    fetch('https://localhost:44381/api/users/adduser', {
+    fetch('https://localhost:44381/api/tempusers/adduser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -50,7 +51,7 @@ export class TempUsersListComponent implements OnInit {
       name: this.user,
     };
 
-    fetch('https://localhost:44381/api/users/edituser', {
+    fetch('https://localhost:44381/api/tempusers/edituser', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -63,6 +64,7 @@ export class TempUsersListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getUsers();
+          this.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -73,13 +75,18 @@ export class TempUsersListComponent implements OnInit {
       });
   }
 
+  disableButtons(): void {
+    document.getElementById('editButton')?.setAttribute('disabled', 'disabled');
+    document.getElementById('deleteButton')?.setAttribute('disabled', 'disabled');
+  }
+
   deleteUser(): void {
     let user = {
       id: this.checkedUser,
       name: this.user,
     };
 
-    fetch('https://localhost:44381/api/users/deleteuser', {
+    fetch('https://localhost:44381/api/tempusers/deleteuser', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -92,6 +99,7 @@ export class TempUsersListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getUsers();
+          this.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -103,7 +111,7 @@ export class TempUsersListComponent implements OnInit {
   }
 
   getUsers(): void {
-    fetch('https://localhost:44381/api/users/getusers', {
+    fetch('https://localhost:44381/api/tempusers/getusers', {
       method: 'GET',
     })
       .then((r) => r.json())

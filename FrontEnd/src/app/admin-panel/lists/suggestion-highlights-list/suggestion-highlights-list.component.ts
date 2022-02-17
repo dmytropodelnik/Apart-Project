@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SuggestionHighlight } from 'src/app/models/Suggestions/suggestionhighlight.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-suggestion-highlights-list',
@@ -12,6 +13,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
 
   highlights: SuggestionHighlight[] | null = null;
   highlight: string | null = null;
+  searchHighlight: string = '';
   checkedHighlight: number | null = null;
 
   constructor() {}
@@ -21,7 +23,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
       name: this.highlight,
     };
 
-    fetch('https://localhost:44381/api/highlights/addhighlight', {
+    fetch('https://localhost:44381/api/suggestionhighlights/addhighlight', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -50,7 +52,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
       name: this.highlight,
     };
 
-    fetch('https://localhost:44381/api/highlights/edithighlight', {
+    fetch('https://localhost:44381/api/suggestionhighlights/edithighlight', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -63,6 +65,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getHighlights();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -79,7 +82,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
       name: this.highlight,
     };
 
-    fetch('https://localhost:44381/api/highlights/deletehighlight', {
+    fetch('https://localhost:44381/api/suggestionhighlights/deletehighlight', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -92,6 +95,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getHighlights();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -103,7 +107,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
   }
 
   getHighlights(): void {
-    fetch('https://localhost:44381/api/highlights/gethighlights', {
+    fetch('https://localhost:44381/api/suggestionhighlights/gethighlights', {
       method: 'GET',
     })
       .then((r) => r.json())

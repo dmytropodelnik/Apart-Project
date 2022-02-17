@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SurroundingObject } from 'src/app/models/Suggestions/surroundingobject.item';
 
 import AuthHelper from '../../../utils/authHelper';
+import ListHelper from '../../../utils/listHelper';
 
 @Component({
   selector: 'app-surrounding-objects-list',
@@ -63,6 +64,7 @@ export class SurroundingObjectsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getObjects();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
@@ -92,6 +94,7 @@ export class SurroundingObjectsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.getObjects();
+          ListHelper.disableButtons();
         } else {
           alert('Editing error!');
         }
