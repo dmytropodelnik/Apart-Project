@@ -12,6 +12,7 @@ using CloneBookingAPI.Services.Database.Models.Flights;
 using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Payment;
 using CloneBookingAPI.Services.Database.Models.Review;
+using CloneBookingAPI.Services.Database.Models.Services;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Database.Models.UserData;
 using CloneBookingAPI.Services.Database.Models.UserProfile;
@@ -25,7 +26,11 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<TempUser> TempUsers { get; set; }
         public DbSet<Cart> Carts { get; set; }
-        public DbSet<StayBooking> Bookings { get; set; }
+        public DbSet<StayBooking> StayBookings { get; set; }
+        public DbSet<FlightBooking> FlightBookings { get; set; }
+        public DbSet<CarRentalBooking> CarRentalBookings { get; set; }
+        public DbSet<AttractionBooking> AttractionBookings { get; set; }
+        public DbSet<AirportTaxiBooking> AirportTaxiBookings { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
         public DbSet<CreditCard> CreditCards { get; set; }
@@ -65,14 +70,14 @@ namespace CloneBookingAPI.Services.Database
 
         public ApartProjectDbContext(DbContextOptions<ApartProjectDbContext> options) : base(options)
         {
-            //// If database already exists then delete it
-            //if (Database.CanConnect())
-            //{
-            //    Database.EnsureDeleted();
-            //}
+            // If database already exists then delete it
+            if (Database.CanConnect())
+            {
+                Database.EnsureDeleted();
+            }
 
-            //// Create database
-            //Database.EnsureCreated();
+            // Create database
+            Database.EnsureCreated();
         }
 
         /// <summary>
