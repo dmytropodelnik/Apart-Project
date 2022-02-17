@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     fetch(
-      'https://apartproject.azurewebsites.net/api/bookingcategories/getcategories',
+      'https://localhost:44381/api/bookingcategories/getcategories',
       {
         method: 'GET',
       }
@@ -111,7 +111,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
 
     fetch(
-      'https://apartproject.azurewebsites.net/api/cities/getcountrycities?country=Ukraine',
+      'https://localhost:44381/api/cities/getcountrycities?country=Ukraine',
       {
         method: 'GET',
       }

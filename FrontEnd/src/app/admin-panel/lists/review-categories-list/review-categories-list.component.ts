@@ -13,6 +13,7 @@ export class ReviewCategoriesListComponent implements OnInit {
 
   categories: ReviewCategory[] | null = null;
   category: string | null = null;
+  searchCategory: string = '';
   checkedCategory: number | null = null;
 
   constructor() {}
