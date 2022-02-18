@@ -145,9 +145,8 @@ export class UserListComponent implements OnInit {
       });
   }
 
-  setUser(id: number | null, user: string | null): void {
-    this.checkedUser = id;
-    this.user = user;
+  setUser(user: User): void {
+    this.checkedUser = user.id;
 
     document.getElementById('editButton')?.removeAttribute('disabled');
     document.getElementById('deleteButton')?.removeAttribute('disabled');

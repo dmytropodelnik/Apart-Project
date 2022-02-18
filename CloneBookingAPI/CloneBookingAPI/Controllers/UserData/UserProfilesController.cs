@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -27,13 +28,20 @@ namespace CloneBookingAPI.Controllers
         }
 
         // [Authorize(Roles = "admin")]
-        [Route("getuserprofiles")]
+        [Route("getprofiles")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserProfile>>> GetUserProfiles()
         {
             try
             {
-                var profiles = await _context.UserProfiles.ToListAsync();
+                var profiles = await _context.UserProfiles
+                    .Include(p => p.User)
+                    .Include(p => p.Gender)
+                    .Include(p => p.Language)
+                    .Include(p => p.Currency)
+                    .Include(p => p.Address)
+                    .Include(p => p.Image)
+                    .ToListAsync();
 
                 return Json(new { code = 200, profiles });
             }
@@ -50,6 +58,51 @@ namespace CloneBookingAPI.Controllers
                 return Json(new { code = 400 });
             }
         }
+
+        [Route("search")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<UserProfile>>> Search(string profile)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(profile))
+                {
+                    var res = await _context.UserProfiles.ToListAsync();
+
+                    return Json(new { code = 200, profiles = res });
+                }
+
+                var profiles = await _context.UserProfiles
+                    .Where(p => p.BirthDate.ToString().Contains(profile)      ||
+                                p.RegisterDate.ToString().Contains(profile)   ||
+                                p.Nationality.Contains(profile)               ||
+                                p.Gender.Title.Contains(profile)              ||
+                                p.Address.Country.Title.Contains(profile)     ||
+                                p.Address.City.Title.Contains(profile)        ||
+                                p.Address.District.Title.Contains(profile)    ||
+                                p.Address.Region.Title.Contains(profile)      ||
+                                p.Address.AddressText.Contains(profile)       ||
+                                p.Language.Title.Contains(profile)            ||
+                                p.User.Email.Contains(profile)                ||
+                                p.User.PhoneNumber.Contains(profile))
+                    .ToListAsync();
+
+                return Json(new { code = 200, profiles });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
 
         // [Authorize(Roles = "admin")]
         [Route("getuserprofile")]

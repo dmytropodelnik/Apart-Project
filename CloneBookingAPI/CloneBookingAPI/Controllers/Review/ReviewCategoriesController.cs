@@ -28,7 +28,9 @@ namespace CloneBookingAPI.Controllers.Review
         {
             try
             {
-                var categories = await _context.ReviewCategories.ToListAsync();
+                var categories = await _context.ReviewCategories
+                    .Include(c => c.Suggestion)
+                    .ToListAsync();
 
                 return Json(new { code = 200, categories });
             }
@@ -60,6 +62,7 @@ namespace CloneBookingAPI.Controllers.Review
                 }
 
                 var categories = await _context.ReviewCategories
+                    .Include(c => c.Suggestion)
                     .Where(c => c.Category.Contains(category))
                     .ToListAsync();
 

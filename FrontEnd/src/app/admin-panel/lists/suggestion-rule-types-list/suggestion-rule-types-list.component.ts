@@ -3,6 +3,7 @@ import { SuggestionRuleType } from 'src/app/models/Suggestions/suggestionruletyp
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
+import ImageHelper from '../../../utils/imageHelper';
 
 @Component({
   selector: 'app-suggestion-rule-types-list',
@@ -12,10 +13,34 @@ import ListHelper from '../../../utils/listHelper';
 export class SuggestionRuleTypesListComponent implements OnInit {
 
   ruleTypes: SuggestionRuleType[] | null = null;
-  type: string | null = null;
+  type: SuggestionRuleType | null = null;
+  searchType: string = '';
   checkedType: number | null = null;
+  imageHelper: any = ImageHelper;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/suggestionruletypes/search?type=' + this.searchType, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.ruleTypes = data.ruleTypes;
+        } else {
+          alert('Search error!');
+        }
+        this.searchType = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addType(): void {
     let type = {
@@ -38,7 +63,7 @@ export class SuggestionRuleTypesListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.type = '';
+        this.type = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -68,7 +93,7 @@ export class SuggestionRuleTypesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.type = '';
+        this.type = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -98,7 +123,7 @@ export class SuggestionRuleTypesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.type = '';
+        this.type = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -122,8 +147,8 @@ export class SuggestionRuleTypesListComponent implements OnInit {
       });
   }
 
-  setType(id: number | null, type: string): void {
-    this.checkedType = id;
+  setType(type: SuggestionRuleType): void {
+    this.checkedType = type.id;
     this.type = type;
 
     document.getElementById('editButton')?.removeAttribute('disabled');

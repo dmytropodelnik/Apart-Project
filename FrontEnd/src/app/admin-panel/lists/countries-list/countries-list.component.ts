@@ -3,6 +3,7 @@ import { Country } from 'src/app/models/Location/country.item';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
+import ImageHelper from '../../../utils/imageHelper';
 
 @Component({
   selector: 'app-countries-list',
@@ -12,9 +13,10 @@ import ListHelper from '../../../utils/listHelper';
 export class CountriesListComponent implements OnInit {
 
   countries: Country[] | null = null;
-  country: string | null = null;
+  country: Country | null = null;
   searchCountry: string = '';
   checkedCountry: number | null = null;
+  imageHelper: any = ImageHelper;
 
   constructor() {}
 
@@ -61,7 +63,7 @@ export class CountriesListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.country = '';
+        this.country = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -91,7 +93,7 @@ export class CountriesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.country = '';
+        this.country = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -121,7 +123,7 @@ export class CountriesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.country = '';
+        this.country = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -145,8 +147,8 @@ export class CountriesListComponent implements OnInit {
       });
   }
 
-  setCountry(id: number | null, country: string): void {
-    this.checkedCountry = id;
+  setCountry(country: Country): void {
+    this.checkedCountry = country.id;
     this.country = country;
 
     document.getElementById('editButton')?.removeAttribute('disabled');

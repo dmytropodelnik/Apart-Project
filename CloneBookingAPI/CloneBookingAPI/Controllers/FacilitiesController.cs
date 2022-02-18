@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers
@@ -27,7 +28,10 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                var facilities = await _context.Facilities.ToListAsync();
+                var facilities = await _context.Facilities
+                    .Include(f => f.FacilityType)
+                    .Include(f => f.Image)
+                    .ToListAsync();
 
                 return Json(new { code = 200, facilities });
             }
@@ -45,13 +49,56 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [Route("search")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Facility>>> Search(string facility)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(facility))
+                {
+                    var res = await _context.Facilities.ToListAsync();
+
+                    return Json(new { code = 200, facilities = res });
+                }
+
+                var facilities = await _context.Facilities
+                    .Include(f => f.FacilityType)
+                    .Include(f => f.Image)
+                    .Where(f => f.Text.Contains(facility)               ||
+                                f.FacilityType.Type.Contains(facility))
+                    .ToListAsync();
+
+                return Json(new { code = 200, facilities });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
         [Route("addfacility")]
         [HttpPost]
         public async Task<IActionResult> AddFacility([FromBody] Facility facility)
         {
             try
             {
-                if (facility is null || string.IsNullOrWhiteSpace(facility.Text))
+                if (facility is null || string.IsNullOrWhiteSpace(facility.Text)
+                    || facility.FacilityTypeId is null || facility.FacilityTypeId < 1)
                 {
                     return Json(new { code = 400 });
                 }

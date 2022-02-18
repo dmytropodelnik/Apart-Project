@@ -1,10 +1,11 @@
+import { FileModel } from "../filemodel.item";
 import { Country } from "./country.item";
 
 export class City {
   id: number | null = null;
   title: string = '';
-  county: Country | null = null;
-  image: File | null = null;
+  country: Country | null = null;
+  image: FileModel | null = null;
 
   constructor () {
 

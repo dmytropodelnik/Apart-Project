@@ -13,10 +13,33 @@ export class CurrenciesListComponent implements OnInit {
 
   currencies: Currency[] | null = null;
   currency: Currency;
+  searchCurrency: string = '';
   checkedCurrency: number | null = null;
 
   constructor() {
     this.currency = new Currency();
+  }
+
+  search(): void {
+    fetch('https://localhost:44381/api/currencies/search?currency=' + this.searchCurrency, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.currencies = data.currencies;
+        } else {
+          alert('Search error!');
+        }
+        this.searchCurrency = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   addCurrency(): void {

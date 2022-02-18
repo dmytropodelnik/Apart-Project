@@ -30,7 +30,12 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                var districts = await _context.Districts.ToListAsync();
+                var districts = await _context.Districts
+                    .Include(d => d.Address)
+                    // .Include(d => d.Address.City)
+                    // .Include(d => d.Address.Region)
+                    .Include(d => d.Image)
+                    .ToListAsync();
 
                 return Json(new { code = 200, districts });
             }
@@ -61,12 +66,12 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 200, districts = res });
                 }
 
-                var districts = await _context.Regions
+                var districts = await _context.Districts
                     .Include(a => a.Address)
                         .ThenInclude(addr => addr.Country)
-                    .Include(a => a.Address.City)
-                    .Include(a => a.Address.District)
-                    .Include(a => a.Address.Region)
+                    // .Include(a => a.Address.City)
+                    // .Include(a => a.Address.District)
+                    // .Include(a => a.Address.Region)
                     .Where(a => a.Address.AddressText.Contains(district) ||
                                 a.Address.Country.Title.Contains(district) ||
                                 a.Address.City.Title.Contains(district) ||

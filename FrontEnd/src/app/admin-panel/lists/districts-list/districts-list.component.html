@@ -1,6 +1,7 @@
 <div class="input-group">
-  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-  <button type="button" class="btn btn-dark">search</button>
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"
+         [(ngModel)]="searchDistrict" />
+  <button type="button" class="btn btn-dark" (click)="search()">search</button>
 </div>
 
 <div class="row">
@@ -69,9 +70,13 @@
 <table class="table table-dark table-bordered border-white">
   <thead>
     <tr>
+      <th scope="col text-center align-self-center"></th>
       <th scope="col text-center align-self-center">#</th>
       <th scope="col">Title</th>
       <th scope="col">Address</th>
+      <th scope="col">Country</th>
+      <th scope="col">City</th>
+      <th scope="col">Region</th>
       <th scope="col">Image</th>
     </tr>
   </thead>
@@ -80,10 +85,16 @@
       <th scope="row">
         <div class="form-check">
           <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{item.id}}
-          (click)="setDistrict(item.id, item.title)" >
+          (click)="setDistrict(item)" >
         </div>
       </th>
+      <td>{{item.id}}</td>
       <td>{{item.title}}</td>
+      <td>{{item.address?.addressText}}</td>
+      <td>{{item.address?.country?.title ?? 'null'}}</td>
+      <td>{{item.address?.city?.title ?? 'null'}}</td>
+      <td>{{item.address?.region?.title ?? 'null'}}</td>
+      <td class="text-center"><img width="70px" height="70px" src="{{imageHelper.getImageDirectoryPath()}}{{item.image?.name}}" /></td>
     </tr>
   </tbody>
 </table>

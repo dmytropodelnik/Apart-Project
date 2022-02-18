@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.UserData
@@ -28,6 +29,42 @@ namespace CloneBookingAPI.Controllers.UserData
             try
             {
                 var users = await _context.TempUsers.ToListAsync();
+
+                return Json(new { code = 200, users });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("search")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<TempUser>>> Search(string user)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(user))
+                {
+                    var res = await _context.TempUsers.ToListAsync();
+
+                    return Json(new { code = 200, users = res });
+                }
+
+                var users = await _context.TempUsers
+                    .Where(u => u.FirstName.Contains(user) ||
+                                u.LastName.Contains(user) ||
+                                u.Email.Contains(user) ||
+                                u.PhoneNumber.Contains(user))
+                    .ToListAsync();
 
                 return Json(new { code = 200, users });
             }

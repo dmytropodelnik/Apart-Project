@@ -31,7 +31,10 @@ namespace CloneBookingAPI.Controllers.UserData
         {
             try
             {
-                var favorites = await _context.Favorites.ToListAsync();
+                var favorites = await _context.Favorites
+                    .Include(f => f.User)
+                    .Include(f => f.Suggestions)
+                    .ToListAsync();
 
                 return Json(new { code = 200, favorites });
             }

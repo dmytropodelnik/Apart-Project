@@ -12,10 +12,33 @@ import ListHelper from '../../../utils/listHelper';
 export class BookingCategoriesListComponent implements OnInit {
   categories: BookingCategory[] | null = null;
   category: BookingCategory;
+  searchCategory: string = '';
   checkedCategory: number | null = null;
 
   constructor() {
     this.category = new BookingCategory();
+  }
+
+  search(): void {
+    fetch('https://localhost:44381/api/bookingcategories/search?category=' + this.searchCategory, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.categories = data.categories;
+        } else {
+          alert('Search error!');
+        }
+        this.searchCategory = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   addCategory(): void {
