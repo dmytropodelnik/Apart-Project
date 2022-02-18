@@ -31,7 +31,9 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                var countries = await _context.Countries.ToListAsync();
+                var countries = await _context.Countries
+                    .Include(c => c.Image)
+                    .ToListAsync();
 
                 return Json(new { code = 200, countries });
             }

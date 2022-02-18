@@ -31,7 +31,10 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                var cities = await _context.Cities.ToListAsync();
+                var cities = await _context.Cities
+                    .Include(c => c.Country)
+                    .Include(c => c.Image)
+                    .ToListAsync();
 
                 return Json(new { code = 200, cities });
             }
@@ -57,13 +60,17 @@ namespace CloneBookingAPI.Controllers
             {
                 if (string.IsNullOrWhiteSpace(city))
                 {
-                    var res = await _context.Cities.ToListAsync();
+                    var res = await _context.Cities
+                        .Include(c => c.Country)
+                        .Include(c => c.Image)
+                        .ToListAsync();
 
                     return Json(new { code = 200, cities = res });
                 }
 
                 var cities = await _context.Cities
-                    //.Include(c => c.Country)
+                    .Include(c => c.Country)
+                    .Include(c => c.Image)
                     .Where(c => c.Country.Title.Contains(city) ||
                                 c.Title.Contains(city))
                     .ToListAsync();

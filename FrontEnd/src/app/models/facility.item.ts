@@ -1,12 +1,13 @@
 import { FacilityType } from "./facilitytype.item";
+import { FileModel } from "./filemodel.item";
 import { Suggestion } from "./Suggestions/suggestion.item";
 
 export class Facility {
   id: number | null = null;
   text: string = '';
-  facilityTypeId: number | null = null;
+  facilityType: FacilityType | null = null;
   suggestion: Suggestion | null = null;
-  image: string | null = null;
+  image: FileModel | null = null;
 
   constructor () {
 

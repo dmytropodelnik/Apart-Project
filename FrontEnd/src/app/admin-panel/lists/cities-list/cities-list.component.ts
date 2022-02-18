@@ -3,6 +3,8 @@ import { City } from 'src/app/models/Location/city.item';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
+import ImageHelper from '../../../utils/imageHelper';
+
 
 @Component({
   selector: 'app-cities-list',
@@ -12,9 +14,10 @@ import ListHelper from '../../../utils/listHelper';
 export class CitiesListComponent implements OnInit {
 
   cities: City[] | null = null;
-  city: string | null = null;
+  city: City | null = null;
   searchCity: string = '';
   checkedCity: number | null = null;
+  imageHelper: any = ImageHelper;
 
   constructor() {}
 
@@ -61,7 +64,7 @@ export class CitiesListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.city = '';
+        this.city = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -91,7 +94,7 @@ export class CitiesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.city = '';
+        this.city = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -121,7 +124,7 @@ export class CitiesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.city = '';
+        this.city = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -145,8 +148,8 @@ export class CitiesListComponent implements OnInit {
       });
   }
 
-  setCity(id: number | null, city: string): void {
-    this.checkedCity = id;
+  setCity(city: City): void {
+    this.checkedCity = city.id;
     this.city = city;
 
     document.getElementById('editButton')?.removeAttribute('disabled');

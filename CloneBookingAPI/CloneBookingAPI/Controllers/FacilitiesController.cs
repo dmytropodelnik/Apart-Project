@@ -28,7 +28,10 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                var facilities = await _context.Facilities.ToListAsync();
+                var facilities = await _context.Facilities
+                    .Include(f => f.FacilityType)
+                    .Include(f => f.Image)
+                    .ToListAsync();
 
                 return Json(new { code = 200, facilities });
             }
@@ -60,7 +63,8 @@ namespace CloneBookingAPI.Controllers
                 }
 
                 var facilities = await _context.Facilities
-                    //.Include(f => f.FacilityType)
+                    .Include(f => f.FacilityType)
+                    .Include(f => f.Image)
                     .Where(f => f.Text.Contains(facility)               ||
                                 f.FacilityType.Type.Contains(facility))
                     .ToListAsync();

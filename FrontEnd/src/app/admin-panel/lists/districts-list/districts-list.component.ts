@@ -3,6 +3,7 @@ import { District } from 'src/app/models/Location/district.item';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
+import ImageHelper from '../../../utils/imageHelper';
 
 @Component({
   selector: 'app-districts-list',
@@ -12,9 +13,10 @@ import ListHelper from '../../../utils/listHelper';
 export class DistrictsListComponent implements OnInit {
 
   districts: District[] | null = null;
-  district: string | null = null;
+  district: District | null = null;
   searchDistrict: string = '';
   checkedDistrict: number | null = null;
+  imageHelper: any = ImageHelper;
 
   constructor() {}
 
@@ -61,7 +63,7 @@ export class DistrictsListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.district = '';
+        this.district = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -91,7 +93,7 @@ export class DistrictsListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.district = '';
+        this.district = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -121,7 +123,7 @@ export class DistrictsListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.district = '';
+        this.district = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -145,8 +147,8 @@ export class DistrictsListComponent implements OnInit {
       });
   }
 
-  setDistrict(id: number | null, district: string): void {
-    this.checkedDistrict = id;
+  setDistrict(district: District): void {
+    this.checkedDistrict = district.id;
     this.district = district;
 
     document.getElementById('editButton')?.removeAttribute('disabled');

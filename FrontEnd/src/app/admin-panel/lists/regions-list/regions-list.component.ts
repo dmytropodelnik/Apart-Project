@@ -3,6 +3,7 @@ import { Region } from 'src/app/models/Location/region.item';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
+import ImageHelper from '../../../utils/imageHelper';
 
 @Component({
   selector: 'app-regions-list',
@@ -12,9 +13,10 @@ import ListHelper from '../../../utils/listHelper';
 export class RegionsListComponent implements OnInit {
 
   regions: Region[] | null = null;
-  region: string | null = null;
+  region: Region | null = null;
   searchRegion: string = '';
   checkedRegion: number | null = null;
+  imageHelper: any = ImageHelper;
 
   constructor() {}
 
@@ -61,7 +63,7 @@ export class RegionsListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.region = '';
+        this.region = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -91,8 +93,7 @@ export class RegionsListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        console.log(data);
-        this.region = '';
+        this.region = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -122,7 +123,7 @@ export class RegionsListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.region = '';
+        this.region = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -146,8 +147,8 @@ export class RegionsListComponent implements OnInit {
       });
   }
 
-  setRegion(id: number | null, region: string): void {
-    this.checkedRegion = id;
+  setRegion(region: Region): void {
+    this.checkedRegion = region.id;
     this.region = region;
 
     document.getElementById('editButton')?.removeAttribute('disabled');
