@@ -1,6 +1,7 @@
 <div class="input-group">
-  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-  <button type="button" class="btn btn-dark">search</button>
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"
+         [(ngModel)]="searchUser" />
+  <button type="button" class="btn btn-dark" (click)="search()">search</button>
 </div>
 
 <div class="row">
@@ -70,7 +71,10 @@
   <thead>
     <tr>
       <th scope="col text-center align-self-center">#</th>
-      <th scope="col">Role</th>
+      <th scope="col">First name</th>
+      <th scope="col">Last name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone number</th>
     </tr>
   </thead>
   <tbody>
@@ -78,10 +82,13 @@
       <th scope="row">
         <div class="form-check">
           <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{user.id}}
-          (click)="setUser(user.id, user.title)" >
+          (click)="setUser(user)" >
         </div>
       </th>
-      <td></td>
+      <td>{{user.firstName}}</td>
+      <td>{{user.lastName}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.phoneNumber}}</td>
     </tr>
   </tbody>
 </table>

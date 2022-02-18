@@ -1,3 +1,4 @@
+import { FileModel } from "../filemodel.item";
 import { Address } from "./address.item";
 
 export class Airport {
@@ -5,7 +6,7 @@ export class Airport {
   title: string = '';
   abbreviation: string = '';
   address: Address | null = null;
-  image: File | null = null;
+  image: FileModel | null = null;
 
   constructor () {
 

@@ -4,6 +4,8 @@ import { FacilityType } from 'src/app/models/facilitytype.item';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
+import ImageHelper from '../../../utils/imageHelper';
+
 
 @Component({
   selector: 'app-facilities-list',
@@ -15,6 +17,7 @@ export class FacilitiesListComponent implements OnInit {
   facility: Facility;
   searchFacility: string = '';
   checkedFacility: number | null = null;
+  imageHelper: any = ImageHelper;
 
   constructor() {
     this.facility = new Facility();
@@ -46,10 +49,9 @@ export class FacilitiesListComponent implements OnInit {
     let facility = {
       text: this.facility.text,
       image: null,
-      facilityTypeId: this.facility.facilityTypeId,
+      facilityTypeId: this.facility.facilityType?.id,
       suggestion: null,
     };
-    console.log(facility);
 
     fetch('https://localhost:44381/api/facilities/addfacility', {
       method: 'POST',
@@ -79,7 +81,7 @@ export class FacilitiesListComponent implements OnInit {
       id: this.checkedFacility,
       text: this.facility.text,
       image: null,
-      facilityType: null,
+      facilityType: this.facility.facilityType?.id,
       suggestion: null,
     };
 
@@ -112,7 +114,7 @@ export class FacilitiesListComponent implements OnInit {
       id: this.checkedFacility,
       text: this.facility.text,
       image: null,
-      facilityType: null,
+      facilityType: this.facility.facilityType?.id,
       suggestion: null,
     };
 
@@ -143,7 +145,7 @@ export class FacilitiesListComponent implements OnInit {
   resetFacility(): void {
     this.facility.text = '';
     this.facility.image = null;
-    this.facility.facilityTypeId = null;
+    this.facility.facilityType = null;
     this.facility.suggestion = null;
   }
 

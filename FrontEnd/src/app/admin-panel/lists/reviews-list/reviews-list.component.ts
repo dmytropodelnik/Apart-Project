@@ -13,7 +13,7 @@ import ListHelper from '../../../utils/listHelper';
 export class ReviewsListComponent implements OnInit {
 
   reviews: Review[] | null = null;
-  review: string | null = null;
+  review: Review | null = null;
   checkedReview: number | null = null;
 
   isEditEnabled: boolean = true;
@@ -43,7 +43,7 @@ export class ReviewsListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.review = '';
+        this.review = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -73,7 +73,7 @@ export class ReviewsListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.review = '';
+        this.review = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -102,7 +102,7 @@ export class ReviewsListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.review = '';
+        this.review = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -126,8 +126,8 @@ export class ReviewsListComponent implements OnInit {
       });
   }
 
-  setReview(id: number | null, review: string): void {
-    this.checkedReview = id;
+  setReview(review: Review): void {
+    this.checkedReview = review.id;
     this.review = review;
 
     document.getElementById('editButton')?.removeAttribute('disabled');

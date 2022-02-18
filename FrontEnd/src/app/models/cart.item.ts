@@ -1,7 +1,7 @@
 export class Cart {
   id: number | null = null;
   title: string = '';
-  image: File | null = null;
+  image: string | null = null;
 
   constructor () {
 

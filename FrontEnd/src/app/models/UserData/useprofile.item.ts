@@ -1,3 +1,4 @@
+import { FileModel } from "../filemodel.item";
 import { Language } from "../language.item";
 import { Address } from "../Location/address.item";
 import { Currency } from "../Payment/currency.item";
@@ -13,7 +14,7 @@ export class UserProfile {
   currency: Currency | null = null;
   language: Language | null = null;
   user: User | null = null;
-  image: File | null = null;
+  image: FileModel | null = null;
 
   constructor () {
 

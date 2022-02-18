@@ -5,6 +5,7 @@ import { CarRentalBooking } from "../Services/carrentalbooking.item";
 import { FlightBooking } from "../Services/flightbooking.item";
 import { StayBooking } from "../Services/staybooking.item";
 import { Suggestion } from "../Suggestions/suggestion.item";
+import { Role } from "./role.item";
 import { UserProfile } from "./useprofile.item";
 
 export class User {
@@ -15,6 +16,7 @@ export class User {
   displayName: string | null = null;
   email: string | null = null;
   phoneNumber: string | null = null;
+  role: Role | null = null;
   profile: UserProfile | null = null;
   reviews: Review[] | null = null;
   notifications: Notification[] | null = null;
@@ -24,7 +26,7 @@ export class User {
   carRentalBookings: CarRentalBooking[] | null = null;
   attractionBookings: AttractionBooking[] | null = null;
   airportTaxiBookings: AirportTaxiBooking[] | null = null;
-  image: File | null = null;
+  image: string | null = null;
 
   constructor () {
 

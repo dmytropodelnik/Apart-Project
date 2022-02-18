@@ -28,7 +28,9 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                var res = await _context.SuggestionRules.ToListAsync();
+                var res = await _context.SuggestionRules
+                    .Include(r => r.SuggestionRuleType)
+                    .ToListAsync();
 
                 return Json(new { code = 200, rules = res });
             }
@@ -60,7 +62,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 }
 
                 var rules = await _context.SuggestionRules
-                    // .Include(r => r.SuggestionRuleType)
+                    .Include(r => r.SuggestionRuleType)
                     .Where(r => r.Title.Contains(rule) ||
                                 r.Text.Contains(rule)  ||
                                 r.SuggestionRuleType.Type.Contains(rule))

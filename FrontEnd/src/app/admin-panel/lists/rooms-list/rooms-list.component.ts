@@ -12,13 +12,36 @@ import ListHelper from '../../../utils/listHelper';
 export class RoomsListComponent implements OnInit {
 
   rooms: Room[] | null = null;
-  room: string | null = null;
+  room: Room | null = null;
+  searchRoom: string = '';
   checkedRoom: number | null = null;
 
   isEditEnabled: boolean = true;
   isDeleteEnabled: boolean = true;
 
   constructor() { }
+
+  search(): void {
+    fetch('https://localhost:44381/api/rooms/search?room=' + this.searchRoom, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.rooms = data.rooms;
+        } else {
+          alert('Search error!');
+        }
+        this.searchRoom = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addRoom(): void {
     let room = {
@@ -41,7 +64,7 @@ export class RoomsListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.room = '';
+        this.room = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -71,7 +94,7 @@ export class RoomsListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.room = '';
+        this.room = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -101,7 +124,7 @@ export class RoomsListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.room = '';
+        this.room = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -125,8 +148,8 @@ export class RoomsListComponent implements OnInit {
       });
   }
 
-  setRoom(id: number | null, room: string): void {
-    this.checkedRoom = id;
+  setRoom(room: Room): void {
+    this.checkedRoom = room.id;
     this.room = room;
 
     document.getElementById('editButton')?.removeAttribute('disabled');

@@ -3,6 +3,7 @@ import { Region } from 'src/app/models/Location/region.item';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
+import ImageHelper from '../../../utils/imageHelper';
 
 @Component({
   selector: 'app-regions-list',
@@ -12,10 +13,34 @@ import ListHelper from '../../../utils/listHelper';
 export class RegionsListComponent implements OnInit {
 
   regions: Region[] | null = null;
-  region: string | null = null;
+  region: Region | null = null;
+  searchRegion: string = '';
   checkedRegion: number | null = null;
+  imageHelper: any = ImageHelper;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/regions/search?region=' + this.searchRegion, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.regions = data.regions;
+        } else {
+          alert('Search error!');
+        }
+        this.searchRegion = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addRegion(): void {
     let region = {
@@ -38,7 +63,7 @@ export class RegionsListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.region = '';
+        this.region = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -68,8 +93,7 @@ export class RegionsListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        console.log(data);
-        this.region = '';
+        this.region = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -99,7 +123,7 @@ export class RegionsListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.region = '';
+        this.region = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -123,8 +147,8 @@ export class RegionsListComponent implements OnInit {
       });
   }
 
-  setRegion(id: number | null, region: string): void {
-    this.checkedRegion = id;
+  setRegion(region: Region): void {
+    this.checkedRegion = region.id;
     this.region = region;
 
     document.getElementById('editButton')?.removeAttribute('disabled');

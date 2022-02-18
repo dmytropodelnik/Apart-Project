@@ -46,6 +46,7 @@ namespace CloneBookingAPI.Services.Database.Models.UserProfile
         public int? UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
+
         public int? ImageId { get; set; }
         [ForeignKey("ImageId")]
         public FileModel Image { get; set; }

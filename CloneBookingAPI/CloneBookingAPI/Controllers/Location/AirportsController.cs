@@ -31,7 +31,13 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                var airports = await _context.Airports.ToListAsync();
+                var airports = await _context.Airports
+                    .Include(a => a.Address)
+                    .Include(a => a.Address.City)
+                    .Include(a => a.Address.District)
+                    .Include(a => a.Address.Region)
+                    .Include(a => a.Image)
+                    .ToListAsync();
 
                 return Json(new { code = 200, airports });
             }
@@ -68,6 +74,7 @@ namespace CloneBookingAPI.Controllers
                     .Include(a => a.Address.City)
                     .Include(a => a.Address.District)
                     .Include(a => a.Address.Region)
+                    .Include(a => a.Image)
                     .Where(a => a.Address.AddressText.Contains(airport)     ||
                                 a.Address.Country.Title.Contains(airport)   ||
                                 a.Address.City.Title.Contains(airport)      ||

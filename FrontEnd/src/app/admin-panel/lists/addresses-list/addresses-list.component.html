@@ -70,6 +70,7 @@
 <table class="table table-dark table-bordered border-white">
   <thead>
     <tr>
+      <th scope="col"></th>
       <th scope="col">#</th>
       <th scope="col">Address</th>
       <th scope="col">Country</th>
@@ -84,17 +85,18 @@
     <tr *ngFor="let item of addresses">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{item.id}}
+          <input class="form-check-input" type="radio" name="addressRadio" id="addressRadio" value={{item.id}}
           (click)="setAddress(item)" >
         </div>
       </th>
+      <td>{{item.id}}</td>
       <td>{{item.addressText}}</td>
-      <td>{{item.country}}</td>
-      <td>{{item.city}}</td>
-      <td>{{item.district}}</td>
-      <td>{{item.region}}</td>
-      <td>{{item.zipCode}}</td>
-      <td>{{item.phoneNumber}}</td>
+      <td>{{item.country?.title ?? "null"}}</td>
+      <td>{{item.city?.title ?? "null"}}</td>
+      <td>{{item.district?.title ?? "null"}}</td>
+      <td>{{item.region?.title ?? "null"}}</td>
+      <td>{{item.zipCode ?? "null"}}</td>
+      <td>{{item.phoneNumber ?? "null"}}</td>
     </tr>
   </tbody>
 </table>

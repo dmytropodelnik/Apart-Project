@@ -74,7 +74,10 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                var users = await _context.Users.ToListAsync();
+                var users = await _context.Users
+                    .Include(u => u.Profile)
+                    .Include(u => u.Role)
+                    .ToListAsync();
 
                 return Json(new { code = 200, users });
             }
@@ -90,6 +93,12 @@ namespace CloneBookingAPI.Controllers
 
                 return Json(new { code = 400 });
             }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
 
         [Route("search")]
@@ -100,12 +109,17 @@ namespace CloneBookingAPI.Controllers
             {
                 if (string.IsNullOrWhiteSpace(user))
                 {
-                    var res = await _context.Users.ToListAsync();
+                    var res = await _context.Users
+                        .Include(u => u.Profile)
+                        .Include(u => u.Role)
+                        .ToListAsync();
 
                     return Json(new { code = 200, users = res });
                 }
 
                 var users = await _context.Users
+                    .Include(u => u.Profile)
+                    .Include(u => u.Role)
                     .Where(u => u.Title.Contains(user)       ||
                                 u.FirstName.Contains(user)   ||
                                 u.LastName.Contains(user)    ||
@@ -123,6 +137,12 @@ namespace CloneBookingAPI.Controllers
                 return Json(new { code = 400 });
             }
             catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
@@ -196,7 +216,7 @@ namespace CloneBookingAPI.Controllers
                 _context.Users.Add(newUser);
 
                 UserProfile userProfile = new();
-                userProfile.RegisterDate = DateTime.Now;
+                userProfile.RegisterDate = DateTime.Now.ToUniversalTime();
                 userProfile.User = newUser;
 
                 _context.UserProfiles.Add(userProfile);
