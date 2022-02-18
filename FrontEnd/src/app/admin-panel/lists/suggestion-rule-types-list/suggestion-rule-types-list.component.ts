@@ -13,9 +13,32 @@ export class SuggestionRuleTypesListComponent implements OnInit {
 
   ruleTypes: SuggestionRuleType[] | null = null;
   type: string | null = null;
+  searchType: string = '';
   checkedType: number | null = null;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/suggestionruletypes/search?type=' + this.searchType, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.ruleTypes = data.ruleTypes;
+        } else {
+          alert('Search error!');
+        }
+        this.searchType = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addType(): void {
     let type = {

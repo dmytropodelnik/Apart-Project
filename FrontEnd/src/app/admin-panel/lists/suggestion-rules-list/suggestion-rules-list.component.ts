@@ -13,9 +13,32 @@ export class SuggestionRulesListComponent implements OnInit {
 
   rules: SuggestionRule[] | null = null;
   rule: string | null = null;
+  searchRule: string = '';
   checkedRule: number | null = null;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/suggestionrules/search?rule=' + this.searchRule, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.rules = data.rules;
+        } else {
+          alert('Search error!');
+        }
+        this.searchRule = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addRule(): void {
     let rule = {

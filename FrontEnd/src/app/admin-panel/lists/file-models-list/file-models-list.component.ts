@@ -44,7 +44,6 @@ export class FileModelsListComponent implements OnInit {
       });
   }
 
-
   addFile(): void {
     let file = {
       name: this.name,
