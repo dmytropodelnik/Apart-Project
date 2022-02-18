@@ -12,7 +12,7 @@ import ListHelper from '../../../utils/listHelper';
 export class ReviewCategoriesListComponent implements OnInit {
 
   categories: ReviewCategory[] | null = null;
-  category: string | null = null;
+  category: ReviewCategory | null = null;
   searchCategory: string = '';
   checkedCategory: number | null = null;
 
@@ -61,7 +61,7 @@ export class ReviewCategoriesListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.category = '';
+        this.category = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -91,7 +91,7 @@ export class ReviewCategoriesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.category = '';
+        this.category = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -121,7 +121,7 @@ export class ReviewCategoriesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.category = '';
+        this.category = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -145,8 +145,8 @@ export class ReviewCategoriesListComponent implements OnInit {
       });
   }
 
-  setCategory(id: number | null, category: string): void {
-    this.checkedCategory = id;
+  setCategory(category : ReviewCategory): void {
+    this.checkedCategory = category.id;
     this.category = category;
 
     document.getElementById('editButton')?.removeAttribute('disabled');

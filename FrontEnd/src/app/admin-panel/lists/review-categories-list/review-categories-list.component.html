@@ -70,6 +70,7 @@
 <table class="table table-dark table-bordered border-white">
   <thead>
     <tr>
+      <th scope="col text-center align-self-center"></th>
       <th scope="col text-center align-self-center">#</th>
       <th scope="col">Category</th>
       <th scope="col">Suggestion</th>
@@ -80,13 +81,14 @@
     <tr *ngFor="let item of categories">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{item.id}}
-          (click)="setCategory(item.id, item.category)" >
+          <input class="form-check-input" type="radio" name="categoryRadio" id="categoryRadio" value={{item.id}}
+          (click)="setCategory(item)" >
         </div>
       </th>
-      <td>{{item.category}}</td>
-      <td>{{item.suggestion}}</td>
-      <td>{{item.suggestionReviewGrades}}</td>
+      <td>{{item.id}}</td>
+      <td>{{item.category ?? 'null'}}</td>
+      <td>{{item.suggestion ?? 'null'}}</td>
+      <td>{{item.suggestionReviewGrades ?? 'null'}}</td>
     </tr>
   </tbody>
 </table>

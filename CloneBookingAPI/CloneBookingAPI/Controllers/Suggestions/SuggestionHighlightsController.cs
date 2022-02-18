@@ -27,7 +27,11 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                var highlights = await _context.SuggestionHighlights.ToListAsync();
+                var highlights = await _context.SuggestionHighlights
+                    .Include(h => h.Suggestion)
+                    .Include(h => h.Room)
+                    .Include(h => h.Image)
+                    .ToListAsync();
 
                 return Json(new { code = 200, highlights });
             }

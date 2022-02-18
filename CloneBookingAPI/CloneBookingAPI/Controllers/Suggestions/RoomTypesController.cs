@@ -28,7 +28,9 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                var rooms = await _context.RoomTypes.ToListAsync();
+                var rooms = await _context.RoomTypes
+                    .Include(t => t.Suggestion)
+                    .ToListAsync();
 
                 return Json(new { code = 200, rooms });
             }
@@ -60,6 +62,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 }
 
                 var types = await _context.RoomTypes
+                    .Include(t => t.Suggestion)
                     .Where(t => t.Title.Contains(type))
                     .ToListAsync();
 

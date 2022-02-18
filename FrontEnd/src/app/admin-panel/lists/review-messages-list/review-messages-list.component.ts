@@ -12,7 +12,7 @@ import ListHelper from '../../../utils/listHelper';
 export class ReviewMessagesListComponent implements OnInit {
 
   reviewMessages: ReviewMessage[] | null = null;
-  message: string | null = null;
+  message: ReviewMessage | null = null;
   checkedMessage: number | null = null;
 
   constructor() {}
@@ -38,7 +38,7 @@ export class ReviewMessagesListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.message = '';
+        this.message = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -68,7 +68,7 @@ export class ReviewMessagesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.message = '';
+        this.message = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -98,7 +98,7 @@ export class ReviewMessagesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.message = '';
+        this.message = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -122,8 +122,8 @@ export class ReviewMessagesListComponent implements OnInit {
       });
   }
 
-  setMessage(id: number | null, message: string): void {
-    this.checkedMessage = id;
+  setMessage(message: ReviewMessage): void {
+    this.checkedMessage = message.id;
     this.message = message;
 
     document.getElementById('editButton')?.removeAttribute('disabled');
