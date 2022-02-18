@@ -1,6 +1,5 @@
 ﻿using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Review;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -72,6 +71,12 @@ namespace CloneBookingAPI.Controllers.Review
                 return Json(new { code = 400 });
             }
             catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 

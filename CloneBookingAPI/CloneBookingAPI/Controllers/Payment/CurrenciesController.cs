@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Payment
@@ -38,6 +39,47 @@ namespace CloneBookingAPI.Controllers.Payment
                 return Json(new { code = 400 });
             }
             catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("search")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Currency>>> Search(string currency)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(currency))
+                {
+                    var res = await _context.Currencies.ToListAsync();
+
+                    return Json(new { code = 200, currencies = res });
+                }
+
+                var currencies = await _context.Currencies
+                    .Where(c => c.Value.Contains(currency)        ||
+                                c.Abbreviation.Contains(currency) ||
+                                c.BankCode.Contains(currency))
+                    .ToListAsync();
+
+                return Json(new { code = 200, currencies });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 

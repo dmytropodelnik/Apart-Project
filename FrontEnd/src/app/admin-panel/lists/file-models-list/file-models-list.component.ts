@@ -18,8 +18,31 @@ export class FileModelsListComponent implements OnInit {
   checkedFile: number | null = null;
   imageHelper: any = ImageHelper;
   uploadedFile: File | null = null;
+  searchFile: string = '';
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/files/search?file=' + this.searchFile, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.files = data.files;
+        } else {
+          alert('Search error!');
+        }
+        this.searchFile = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addFile(): void {
     let file = {

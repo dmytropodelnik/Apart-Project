@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers
@@ -34,6 +35,45 @@ namespace CloneBookingAPI.Controllers
             try
             {
                 var files = await _context.Files.ToListAsync();
+
+                return Json(new { code = 200, files });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("search")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<FileModel>>> Search(string file)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(file))
+                {
+                    var res = await _context.Files.ToListAsync();
+
+                    return Json(new { code = 200, files = res });
+                }
+
+                var files = await _context.Files
+                    .Where(f => f.Name.Contains(file))
+                    .ToListAsync();
 
                 return Json(new { code = 200, files });
             }

@@ -13,10 +13,33 @@ import ListHelper from '../../../utils/listHelper';
 export class FacilitiesListComponent implements OnInit {
   facilities: Facility[] | null = null;
   facility: Facility;
+  searchFacility: string = '';
   checkedFacility: number | null = null;
 
   constructor() {
     this.facility = new Facility();
+  }
+
+  search(): void {
+    fetch('https://localhost:44381/api/facilities/search?facility=' + this.searchFacility, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.facilities = data.facilities;
+        } else {
+          alert('Search error!');
+        }
+        this.searchFacility = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   addFacility(): void {

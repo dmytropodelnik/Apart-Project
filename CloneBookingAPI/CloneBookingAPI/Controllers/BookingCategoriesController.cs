@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -50,6 +51,45 @@ namespace CloneBookingAPI.Controllers
                 Debug.WriteLine(ex.Message);
 
                 return Json(new { code = ex.Message });
+            }
+        }
+
+        [Route("search")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<ServiceCategory>>> Search(string category)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(category))
+                {
+                    var res = await _context.BookingCategories.ToListAsync();
+
+                    return Json(new { code = 200, categories = res });
+                }
+
+                var categories = await _context.BookingCategories
+                    .Where(c => c.Category.Contains(category))
+                    .ToListAsync();
+
+                return Json(new { code = 200, categories });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
             }
         }
 

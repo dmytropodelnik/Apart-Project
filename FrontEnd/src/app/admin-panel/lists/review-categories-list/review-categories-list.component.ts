@@ -18,7 +18,6 @@ export class ReviewCategoriesListComponent implements OnInit {
 
   constructor() {}
 
-
   search(): void {
     fetch('https://localhost:44381/api/reviewcategories/search?category=' + this.searchCategory, {
       method: 'GET',
@@ -30,7 +29,7 @@ export class ReviewCategoriesListComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          this.categories = data.roles;
+          this.categories = data.categories;
         } else {
           alert('Search error!');
         }

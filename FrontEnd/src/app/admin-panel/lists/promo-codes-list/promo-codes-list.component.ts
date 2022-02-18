@@ -13,9 +13,32 @@ export class PromoCodesListComponent implements OnInit {
 
   codes: PromoCode[] | null = null;
   code: string | null = null;
+  searchCode: string = '';
   checkedCode: number | null = null;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/promocodes/search?code=' + this.searchCode, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.codes = data.codes;
+        } else {
+          alert('Search error!');
+        }
+        this.searchCode = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addCode(): void {
     let code = {
