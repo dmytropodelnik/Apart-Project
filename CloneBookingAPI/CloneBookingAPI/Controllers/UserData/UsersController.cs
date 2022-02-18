@@ -74,7 +74,9 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                var users = await _context.Users.ToListAsync();
+                var users = await _context.Users
+                    .Include(u => u.Profile)
+                    .ToListAsync();
 
                 return Json(new { code = 200, users });
             }
@@ -85,6 +87,12 @@ namespace CloneBookingAPI.Controllers
                 return Json(new { code = 400 });
             }
             catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
@@ -123,6 +131,12 @@ namespace CloneBookingAPI.Controllers
                 return Json(new { code = 400 });
             }
             catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
@@ -196,7 +210,7 @@ namespace CloneBookingAPI.Controllers
                 _context.Users.Add(newUser);
 
                 UserProfile userProfile = new();
-                userProfile.RegisterDate = DateTime.Now;
+                userProfile.RegisterDate = DateTime.Now.ToUniversalTime();
                 userProfile.User = newUser;
 
                 _context.UserProfiles.Add(userProfile);

@@ -1,6 +1,7 @@
 <div class="input-group">
-  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
-  <button type="button" class="btn btn-dark">search</button>
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"
+         [(ngModel)]="searchProfile" />
+  <button type="button" class="btn btn-dark" (click)="search()">search</button>
 </div>
 
 <div class="row">
@@ -84,18 +85,18 @@
     <tr *ngFor="let profile of profiles">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{profile.id}}
-          (click)="setProfile(profile.id, profile.birthDate)" >
+          <input class="form-check-input" type="radio" name="profileRadio" id="profileRadio" value={{profile.id}}
+          (click)="setProfile(profile)" >
         </div>
       </th>
       <td>{{profile.birthDate}}</td>
       <td>{{profile.registerDate}}</td>
-      <td>{{profile.gender}}</td>
-      <td>{{profile.address}}</td>
-      <td>{{profile.currency}}</td>
-      <td>{{profile.language}}</td>
-      <td>{{profile.user}}</td>
-      <td>{{profile.image}}</td>
+      <td>{{profile.genderId}}</td>
+      <td>{{profile.addressId}}</td>
+      <td>{{profile.currencyId}}</td>
+      <td>{{profile.languageId}}</td>
+      <td>{{profile.userId}}</td>
+      <td class="text-center"><img width="70px" height="70px" src="{{imageHelper.getImageDirectoryPath()}}{{profile.image?.name}}" /></td>
     </tr>
   </tbody>
 </table>

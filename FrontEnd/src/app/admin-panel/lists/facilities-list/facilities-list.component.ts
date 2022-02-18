@@ -49,7 +49,6 @@ export class FacilitiesListComponent implements OnInit {
       facilityTypeId: this.facility.facilityTypeId,
       suggestion: null,
     };
-    console.log(facility);
 
     fetch('https://localhost:44381/api/facilities/addfacility', {
       method: 'POST',

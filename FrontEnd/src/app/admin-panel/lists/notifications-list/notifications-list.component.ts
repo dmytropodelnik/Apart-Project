@@ -14,9 +14,32 @@ export class NotificationsListComponent implements OnInit {
 
   notifications: Notification[] | null = null;
   notification: string | null = null;
+  searchNotification: string = '';
   checkedNotification: number | null = null;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/notifications/search?notification=' + this.searchNotification, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.notifications = data.notifications;
+        } else {
+          alert('Search error!');
+        }
+        this.searchNotification = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addNotification(): void {
     let notification = {

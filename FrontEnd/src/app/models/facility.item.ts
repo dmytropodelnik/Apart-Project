@@ -6,7 +6,7 @@ export class Facility {
   text: string = '';
   facilityTypeId: number | null = null;
   suggestion: Suggestion | null = null;
-  image: File | null = null;
+  image: string | null = null;
 
   constructor () {
 

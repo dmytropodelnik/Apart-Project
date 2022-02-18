@@ -13,9 +13,32 @@ export class DistrictsListComponent implements OnInit {
 
   districts: District[] | null = null;
   district: string | null = null;
+  searchDistrict: string = '';
   checkedDistrict: number | null = null;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/districts/search?district=' + this.searchDistrict, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.districts = data.districts;
+        } else {
+          alert('Search error!');
+        }
+        this.searchDistrict = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addDistrict(): void {
     let district = {

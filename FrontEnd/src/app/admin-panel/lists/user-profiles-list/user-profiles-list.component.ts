@@ -4,6 +4,7 @@ import { isThisTypeNode } from 'typescript';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
+import ImageHelper from '../../../utils/imageHelper';
 
 @Component({
   selector: 'app-user-profiles-list',
@@ -14,9 +15,33 @@ export class UserProfilesListComponent implements OnInit {
 
   profiles: UserProfile[] | null = null;
   birthDate: string | null = null;
+  searchProfile: string = '';
   checkedProfile: number | null = null;
+  imageHelper: any = ImageHelper;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/userprofiles/search?profile=' + this.searchProfile, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.profiles = data.profiles;
+        } else {
+          alert('Search error!');
+        }
+        this.searchProfile = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addProfile(): void {
     let profile = {
@@ -129,9 +154,8 @@ export class UserProfilesListComponent implements OnInit {
       });
   }
 
-  setProfile(id: number | null, birthDate: string | null): void {
-    this.checkedProfile = id;
-    this.birthDate = birthDate;
+  setProfile(profile: UserProfile): void {
+    this.checkedProfile = profile.id;
 
     document.getElementById('editButton')?.removeAttribute('disabled');
     document.getElementById('deleteButton')?.removeAttribute('disabled');

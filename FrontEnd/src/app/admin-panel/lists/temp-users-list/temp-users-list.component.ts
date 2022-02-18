@@ -12,10 +12,33 @@ import ListHelper from '../../../utils/listHelper';
 export class TempUsersListComponent implements OnInit {
 
   users: TempUser[] | null = null;
-  user: string | null = null;
+  user: TempUser | null = null;
+  searchUser: string = '';
   checkedUser: number | null = null;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/tempusers/search?user=' + this.searchUser, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.users = data.users;
+        } else {
+          alert('Search error!');
+        }
+        this.searchUser = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addUser(): void {
     let user = {
@@ -38,7 +61,7 @@ export class TempUsersListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.user = '';
+        this.user = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -68,7 +91,7 @@ export class TempUsersListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.user = '';
+        this.user = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -103,7 +126,7 @@ export class TempUsersListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.user = '';
+        this.user = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -127,8 +150,8 @@ export class TempUsersListComponent implements OnInit {
       });
   }
 
-  setUser(id: number | null, user: string): void {
-    this.checkedUser = id;
+  setUser(user: TempUser): void {
+    this.checkedUser = user.id;
     this.user = user;
 
     document.getElementById('editButton')?.removeAttribute('disabled');

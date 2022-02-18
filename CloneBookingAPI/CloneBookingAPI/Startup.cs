@@ -64,7 +64,10 @@ namespace CloneBookingAPI
             services.AddDbContext<ApartProjectDbContext>(options =>
                 options.UseSqlServer(connection));
 
-            services.AddControllers();
+            services.AddControllers()
+                .AddNewtonsoftJson(options =>
+                    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddCors();
             // services.AddSwaggerGen(c =>
             // {

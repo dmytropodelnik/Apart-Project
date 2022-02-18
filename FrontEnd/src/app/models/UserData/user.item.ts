@@ -15,6 +15,7 @@ export class User {
   displayName: string | null = null;
   email: string | null = null;
   phoneNumber: string | null = null;
+  roleId: string | null = null;
   profile: UserProfile | null = null;
   reviews: Review[] | null = null;
   notifications: Notification[] | null = null;
@@ -24,7 +25,7 @@ export class User {
   carRentalBookings: CarRentalBooking[] | null = null;
   attractionBookings: AttractionBooking[] | null = null;
   airportTaxiBookings: AirportTaxiBooking[] | null = null;
-  image: File | null = null;
+  image: string | null = null;
 
   constructor () {
 

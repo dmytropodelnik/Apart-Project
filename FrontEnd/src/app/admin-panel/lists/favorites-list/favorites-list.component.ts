@@ -13,9 +13,32 @@ export class FavoritesListComponent implements OnInit {
 
   favorites: Favorite[] | null = null;
   favorite: Favorite | null = null;
+  searchFavorite: string = '';
   checkedFavorite: number | null = null;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/favorites/search?favorite=' + this.searchFavorite, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.favorites = data.favorites;
+        } else {
+          alert('Search error!');
+        }
+        this.searchFavorite = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addFavorite(): void {
     let favorite = {

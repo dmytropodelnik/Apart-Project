@@ -93,7 +93,8 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                if (facility is null || string.IsNullOrWhiteSpace(facility.Text))
+                if (facility is null || string.IsNullOrWhiteSpace(facility.Text)
+                    || facility.FacilityTypeId is null || facility.FacilityTypeId < 1)
                 {
                     return Json(new { code = 400 });
                 }

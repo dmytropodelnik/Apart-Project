@@ -13,9 +13,32 @@ export class RegionsListComponent implements OnInit {
 
   regions: Region[] | null = null;
   region: string | null = null;
+  searchRegion: string = '';
   checkedRegion: number | null = null;
 
   constructor() {}
+
+  search(): void {
+    fetch('https://localhost:44381/api/regions/search?region=' + this.searchRegion, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.regions = data.regions;
+        } else {
+          alert('Search error!');
+        }
+        this.searchRegion = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addRegion(): void {
     let region = {
