@@ -76,6 +76,7 @@ namespace CloneBookingAPI.Controllers
             {
                 var users = await _context.Users
                     .Include(u => u.Profile)
+                    .Include(u => u.Role)
                     .ToListAsync();
 
                 return Json(new { code = 200, users });

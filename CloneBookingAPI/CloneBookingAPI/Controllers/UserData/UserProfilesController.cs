@@ -35,6 +35,11 @@ namespace CloneBookingAPI.Controllers
             try
             {
                 var profiles = await _context.UserProfiles
+                    .Include(p => p.User)
+                    .Include(p => p.Gender)
+                    .Include(p => p.Language)
+                    .Include(p => p.Currency)
+                    .Include(p => p.Address)
                     .Include(p => p.Image)
                     .ToListAsync();
 

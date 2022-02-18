@@ -30,7 +30,12 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                var addresses = await _context.Addresses.ToListAsync();
+                var addresses = await _context.Addresses
+                    .Include(a => a.Country)
+                    .Include(a => a.City)
+                    .Include(a => a.District)
+                    .Include(a => a.Region)
+                    .ToListAsync();
 
                 return Json(new { code = 200, addresses });
             }
