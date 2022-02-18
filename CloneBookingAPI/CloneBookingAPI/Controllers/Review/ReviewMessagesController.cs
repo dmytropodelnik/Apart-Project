@@ -27,7 +27,9 @@ namespace CloneBookingAPI.Controllers.Review
         {
             try
             {
-                var messages = await _context.ReviewMessages.ToListAsync();
+                var messages = await _context.ReviewMessages
+                    .Include(m => m.Review)
+                    .ToListAsync();
 
                 return Json(new { code = 200, messages });
             }
@@ -45,7 +47,7 @@ namespace CloneBookingAPI.Controllers.Review
             }
         }
 
-        [Route("addreviewmessage")]
+        [Route("addmessage")]
         [HttpPost]
         public async Task<IActionResult> AddReview([FromBody] ReviewMessage message)
         {

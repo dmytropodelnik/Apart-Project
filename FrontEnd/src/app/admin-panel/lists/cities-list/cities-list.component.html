@@ -87,7 +87,7 @@
       </th>
       <td>{{city.id}}</td>
       <td>{{city.title}}</td>
-      <td>{{city.country?.title}}</td>
+      <td>{{city.country?.title ?? 'null'}}</td>
       <td class="text-center"><img width="70px" height="70px" src="{{imageHelper.getImageDirectoryPath()}}{{city.image?.name}}" /></td>
     </tr>
   </tbody>

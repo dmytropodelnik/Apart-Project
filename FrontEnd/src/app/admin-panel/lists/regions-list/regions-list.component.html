@@ -74,6 +74,9 @@
       <th scope="col text-center align-self-center">#</th>
       <th scope="col">Title</th>
       <th scope="col">Address</th>
+      <th scope="col">Country</th>
+      <th scope="col">City</th>
+      <th scope="col">District</th>
       <th scope="col">Image</th>
     </tr>
   </thead>
@@ -81,12 +84,15 @@
     <tr *ngFor="let region of regions">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{region.id}}
+          <input class="form-check-input" type="radio" name="regionRadio" id="regionRadio" value={{region.id}}
           (click)="setRegion(region)" >
         </div>
       </th>
       <td>{{region.id}}</td>
-      <td>{{region.title}}</td>
+      <td>{{region.address?.addressText}}</td>
+      <td>{{region.address?.country?.title ?? 'null'}}</td>
+      <td>{{region.address?.city?.title ?? 'null'}}</td>
+      <td>{{region.address?.district?.title ?? 'null'}}</td>
       <td class="text-center"><img width="70px" height="70px" src="{{imageHelper.getImageDirectoryPath()}}{{region.image?.name}}" /></td>
     </tr>
   </tbody>

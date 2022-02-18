@@ -25,7 +25,11 @@ namespace CloneBookingAPI.Controllers.Review
         {
             try
             {
-                var reviews = await _context.Reviews.ToListAsync();
+                var reviews = await _context.Reviews
+                    .Include(r => r.User)
+                    .Include(r => r.Suggestion)
+                    .Include(r => r.ReviewMessage)
+                    .ToListAsync();
 
                 return Json(new { code = 200, reviews });
             }
