@@ -12,13 +12,36 @@ import ListHelper from '../../../utils/listHelper';
 export class RoomTypesListComponent implements OnInit {
 
   roomTypes: RoomType[] | null = null;
-  type: string | null = null;
+  type: RoomType | null = null;
+  searchType: string = '';
   checkedType: number | null = null;
 
   isEditEnabled: boolean = true;
   isDeleteEnabled: boolean = true;
 
   constructor() { }
+
+  search(): void {
+    fetch('https://localhost:44381/api/roomtypes/search?type=' + this.searchType, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.roomTypes = data.roomTypes;
+        } else {
+          alert('Search error!');
+        }
+        this.searchType = '';
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addType(): void {
     let type = {
@@ -41,7 +64,7 @@ export class RoomTypesListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.type = '';
+        this.type = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -71,7 +94,7 @@ export class RoomTypesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.type = '';
+        this.type = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -99,9 +122,9 @@ export class RoomTypesListComponent implements OnInit {
           this.getTypes();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          alert('Deleting error!');
         }
-        this.type = '';
+        this.type = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -125,8 +148,8 @@ export class RoomTypesListComponent implements OnInit {
       });
   }
 
-  setType(id: number | null, type: string): void {
-    this.checkedType = id;
+  setType(type: RoomType): void {
+    this.checkedType = type.id;
     this.type = type;
 
     document.getElementById('editButton')?.removeAttribute('disabled');

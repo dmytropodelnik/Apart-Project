@@ -12,12 +12,12 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public int Id { get; set; }
 
         [Required]
-        public ushort RoomsLeft { get; set; }
-
-        [Required]
         [DataType(DataType.Text)]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Incorrect length")]
         public string Title { get; set; }
+
+        [Required]
+        public ushort RoomsLeft { get; set; }
 
         public int? SuggestionId { get; set; }
         [ForeignKey("SuggestionId")]
