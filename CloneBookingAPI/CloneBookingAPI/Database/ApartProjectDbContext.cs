@@ -67,7 +67,6 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Airport> Airports { get; set; }
-
         public ApartProjectDbContext(DbContextOptions<ApartProjectDbContext> options) : base(options)
         {
             // If database already exists then delete it

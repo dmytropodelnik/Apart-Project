@@ -1,0 +1,186 @@
+<header
+  class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs"
+>
+  <nav class="bui-header__bar">
+    <div class="bui-header__main">
+      <div class="bui-header__logo">
+        <span>
+          <label class="robotoregular" routerLink="">Apart.com</label>
+        </span>
+      </div>
+    </div>
+
+    <div>
+      <div class="bui-group__item">
+        <span class="bui-button__text">
+          <div class="bui-avatar bui-avatar--small" aria-hidden="true">
+            <img
+              class="bui-avatar__image"
+              src="assets/images/us-flag.png"
+              alt=""
+            />
+          </div>
+        </span>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<body>
+  <div class="navigation__container">
+    <div class="sections__container">
+      <div class="section__container section__container--disabled">
+        <button class="section_button">
+          <span class="">Name and location</span>
+        </button>
+        <div class="steps__container steps__container--visible">
+          <div
+            id="firstLine"
+            class="navstep__container navstep__container--active"
+          ></div>
+          <div id="secondLine" class="navstep__container"></div>
+          <div id="thirdLine" class="navstep__container"></div>
+        </div>
+      </div>
+      <div class="section__container section__container--active">
+        <button
+          id="automation_id_section_property_setup"
+          type="button"
+          disabled=""
+          class="section_button"
+        >
+          <span class="">Property setup</span>
+        </button>
+        <div class="steps__container">
+          <div
+            id="firstLine"
+            class="navstep__container navstep__container--active"
+          ></div>
+          <div id="secondLine" class="navstep__container"></div>
+          <div id="thirdLine" class="navstep__container"></div>
+          <div id="fourthLine" class="navstep__container"></div>
+          <div id="fifthLine" class="navstep__container"></div>
+          <div id="sixthLine" class="navstep__container"></div>
+          <div id="seventhLine" class="navstep__container"></div>
+        </div>
+      </div>
+      <div
+        class="section__container section__container--disabled automation_id_section_property_photos--disabled"
+      >
+        <button
+          id="automation_id_section_property_photos"
+          type="button"
+          disabled=""
+          class="_4310f7077 _ab6816951 e33c6840d8 section_button"
+        >
+          <span class="_b61fba663">Photos</span>
+        </button>
+        <div class="steps__container">
+          <div class="navstep__container"></div>
+        </div>
+      </div>
+      <div
+        class="section__container section__container--disabled automation_id_section_property_av--disabled"
+      >
+        <button
+          id="automation_id_section_property_av"
+          type="button"
+          disabled=""
+          class="_4310f7077 _ab6816951 e33c6840d8 section_button"
+        >
+          <span class="_b61fba663">Pricing and calendar</span>
+        </button>
+        <div class="steps__container">
+          <div class="navstep__container"></div>
+          <div class="navstep__container"></div>
+          <div class="navstep__container"></div>
+          <div class="navstep__container"></div>
+        </div>
+      </div>
+      <div
+        class="section__container section__container--disabled automation_id_section_property_legal--disabled"
+      >
+        <button
+          id="automation_id_section_property_legal"
+          type="button"
+          disabled=""
+          class="_4310f7077 _ab6816951 e33c6840d8 section_button"
+        >
+          <span class="_b61fba663">Legal information</span>
+        </button>
+        <div class="steps__container">
+          <div class="navstep__container"></div>
+        </div>
+      </div>
+      <div
+        class="section__container section__container--disabled automation_id_section_property_complete--disabled"
+      >
+        <button
+          id="automation_id_section_property_complete"
+          type="button"
+          disabled=""
+          class="_4310f7077 _ab6816951 e33c6840d8 section_button"
+        >
+          <span class="_b61fba663">Review and complete</span>
+        </button>
+        <div class="steps__container">
+          <div class="navstep__container"></div>
+        </div>
+      </div>
+    </div>
+    <hr class="_b1c8687ff" />
+  </div>
+  <ul [ngSwitch]="choice">
+    <li *ngSwitchDefault>
+      <div class="name-and-location-container">
+        <div class="header-name-and-location">
+          What's the name of your place?
+        </div>
+
+        <div class="Input-name-and-location">
+          <span class="name-and-location-text">Property name</span>
+          <input type="text" />
+        </div>
+        <button class="name-and-location-button" (click)="incrementChoice()">
+          Continue
+        </button>
+      </div>
+    </li>
+    <li *ngSwitchCase="1">
+      <div class="name-and-location-container">
+        <div class="header-name-and-location">
+          Where is the property you're listing?
+        </div>
+
+        <div class="header-name-and-location">
+          We may send a letter to confirm the location of your property, so make
+          sure that the address is correct – it’s difficult to make changes to
+          it later.
+        </div>
+        <div class="Input-name-and-location">
+          <span class="name-and-location-text">Property name</span>
+          <input type="text" />
+
+          <span class="name-and-location-text">Property name</span>
+          <input type="text" />
+        </div>
+        <button class="name-and-location-button" (click)="incrementChoice1()">
+          Continue
+        </button>
+      </div>
+    </li>
+    <li *ngSwitchCase="2">
+      <div class="name-and-location-container">
+        <div class="header-name-and-location">
+          What's the name of your place?
+        </div>
+
+        <div class="Input-name-and-location">
+          <span class="name-and-location-text">Property name</span>
+          <input type="text" />
+        </div>
+        <button class="name-and-location-button" routerLink="">Continue</button>
+      </div>
+    </li>
+  </ul>
+</body>
