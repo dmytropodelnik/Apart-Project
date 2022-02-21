@@ -20,14 +20,14 @@ export class AdminPanelGuard
     private authService: AuthorizationService,
     private router: Router
   ) {
-    
+
   }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
-    if (this.authService.getIsAdmin() == false) {
+    if (!this.authService.getIsAdmin()) {
       this.router.navigate(['']);
       return false;
     }

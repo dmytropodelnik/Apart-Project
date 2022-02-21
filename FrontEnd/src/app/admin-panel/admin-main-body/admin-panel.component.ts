@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { AuthorizationService } from '../../services/authorization.service';
 
@@ -16,7 +17,8 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   content: string | undefined;
 
   constructor(
-    private authService: AuthorizationService
+    private router: Router,
+    private authService: AuthorizationService,
   ) {
 
   }
@@ -25,7 +27,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
     this.content = newContent;
   }
 
-  userSignOut(): void {
+  async userSignOut(): Promise<void> {
     let model = {
       username: AuthHelper.getLogin(),
       accessToken: AuthHelper.getToken(),
@@ -46,6 +48,8 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
           this.authService.setLogCondition(false);
           this.authService.setIsAdmin(false);
           AuthHelper.clearAuth();
+
+          alert("Success logout!");
         } else {
           alert("Logout error!");
         }
@@ -56,10 +60,15 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if (!this.authService.getIsAdmin()      ||
+        !this.authService.getLogCondition()) {
+          this.router.navigate(['']);
+    }
   }
 
-  ngOnDestroy(): void {
-    
+  @HostListener('window:beforeunload')
+  async ngOnDestroy() {
+    await this.userSignOut();
   }
 
 }

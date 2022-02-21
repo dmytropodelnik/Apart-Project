@@ -130,6 +130,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-
+    console.log("123");
   }
 }

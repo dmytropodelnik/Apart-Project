@@ -27,7 +27,9 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                var grades = await _context.SuggestionReviewGrades.ToListAsync();
+                var grades = await _context.SuggestionReviewGrades
+                    .Include(g => g.ReviewCategory)
+                    .ToListAsync();
 
                 return Json(new { code = 200, grades });
             }

@@ -30,6 +30,6 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
 
         public int? RoomId { get; set; }
         [ForeignKey("RoomId")]
-        public RoomType Room { get; set; }
+        public Room Room { get; set; }
     }
 }

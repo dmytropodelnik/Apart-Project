@@ -77,8 +77,8 @@
     <tr *ngFor="let room of rooms">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{room.id}}
-          (click)="setRoom(room.id, room.title)" >
+          <input class="form-check-input" type="radio" name="roomRadio" id="roomRadio" value={{room.id}}
+          (click)="setRoom(room)" >
         </div>
       </th>
       <td></td>

@@ -3,7 +3,7 @@ import { SuggestionReviewGrade } from "../Suggestions/suggestionreviewgrade.item
 
 export class ReviewCategory {
   id: number | null = null;
-  category: string = '';
+  category: string | null = '';
   suggestion: Suggestion | null = null;
   suggestionReviewGrades: SuggestionReviewGrade[] | null = null;
 

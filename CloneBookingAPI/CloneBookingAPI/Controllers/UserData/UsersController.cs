@@ -109,12 +109,17 @@ namespace CloneBookingAPI.Controllers
             {
                 if (string.IsNullOrWhiteSpace(user))
                 {
-                    var res = await _context.Users.ToListAsync();
+                    var res = await _context.Users
+                        .Include(u => u.Profile)
+                        .Include(u => u.Role)
+                        .ToListAsync();
 
                     return Json(new { code = 200, users = res });
                 }
 
                 var users = await _context.Users
+                    .Include(u => u.Profile)
+                    .Include(u => u.Role)
                     .Where(u => u.Title.Contains(user)       ||
                                 u.FirstName.Contains(user)   ||
                                 u.LastName.Contains(user)    ||
