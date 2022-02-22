@@ -60,10 +60,10 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (!this.authService.getIsAdmin()      ||
-        !this.authService.getLogCondition()) {
-          this.router.navigate(['']);
-    }
+    // if (!this.authService.getIsAdmin()      ||
+    //     !this.authService.getLogCondition()) {
+    //       this.router.navigate(['']);
+    // }
   }
 
   @HostListener('window:beforeunload')

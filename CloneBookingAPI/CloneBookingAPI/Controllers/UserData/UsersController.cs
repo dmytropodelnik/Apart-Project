@@ -199,7 +199,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                _codesRepository.Repository.Remove(person.Email.Trim());
+                _codesRepository.Repository.Remove(KeyValuePair.Create(person.Email.Trim(), person.Password.Trim()));
 
                 string hashedPassword = _saltGenerator.GenerateCode(person.Password.Trim());
 
@@ -251,7 +251,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                _jwtRepository.Repository.Remove(model.Username);
+                _jwtRepository.Repository.Remove(KeyValuePair.Create(model.Username, model.AccessToken));
 
                 return Json(new { code = 200 });
             }

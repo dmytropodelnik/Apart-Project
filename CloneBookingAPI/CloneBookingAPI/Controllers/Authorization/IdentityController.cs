@@ -68,11 +68,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                bool res = _repository.Repository.TryAdd(user.Email, encodedJwt);
-                if (res is false)
-                {
-                    return Json(new { code = 400 });
-                }
+                _repository.Repository.Add(KeyValuePair.Create(user.Email, encodedJwt));
 
                 return Json(encodedJwt);
             }
