@@ -1,3 +1,4 @@
+import { nullSafeIsEquivalent } from "@angular/compiler/src/output/output_ast";
 import { Review } from "../Review/review.item";
 import { AirportTaxiBooking } from "../Services/airporttaxibooking.item";
 import { AttractionBooking } from "../Services/attractionbooking.item";
@@ -15,8 +16,9 @@ export class User {
   lastName: string | null = null;
   displayName: string | null = null;
   email: string | null = null;
+  passwordHash: string | null = null;
   phoneNumber: string | null = null;
-  role: Role | null = null;
+  role: Role = new Role();
   profile: UserProfile | null = null;
   reviews: Review[] | null = null;
   notifications: Notification[] | null = null;

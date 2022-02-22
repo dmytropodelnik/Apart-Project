@@ -51,7 +51,6 @@ export class FacilitiesListComponent implements OnInit {
       facilityTypeId: this.facility.facilityType.id,
       imageId: this.facility.image?.id,
     };
-    console.log(facility.facilityTypeId);
 
     fetch('https://localhost:44381/api/facilities/addfacility', {
       method: 'POST',

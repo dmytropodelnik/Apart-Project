@@ -26,6 +26,7 @@
             <label for="addType" class="form-label">Text</label>
             <input type="text" class="form-control" id="addType" name="facility.text" [(ngModel)]="facility.text"/>
 
+            <label for="addFacilityTypes" class="form-label">Facility type</label>
             <select id="addFacilityTypes" class="form-select facilityTypes" name="facility.facilityType.id" [(ngModel)]="facility.facilityType.id"></select>
           </div>
         </form>
@@ -51,6 +52,7 @@
             <label for="editType" class="form-label">Text</label>
             <input type="text" class="form-control" id="editType" name="facility.text" [(ngModel)]="facility.text"/>
 
+            <label for="editFacilityTypes" class="form-label">Facility type</label>
             <select id="editFacilityTypes" class="form-select facilityTypes" name="facilityType.facilityType" [(ngModel)]="facility.facilityType"></select>
           </div>
         </form>

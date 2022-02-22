@@ -181,19 +181,46 @@ namespace CloneBookingAPI.Controllers
 
         [Route("adduser")]
         [HttpPost]
-        public async Task<IActionResult> AddUser([FromBody] CloneBookingAPI.Services.POCOs.UserData person)
+        public async Task<IActionResult> AddUser([FromBody] User user)
         {
             try
             {
-                if (person is null ||
-                    string.IsNullOrWhiteSpace(person.Email) ||
-                    string.IsNullOrWhiteSpace(person.Password) ||
-                    string.IsNullOrWhiteSpace(person.VerificationCode))
+                if (user is null ||
+                    string.IsNullOrWhiteSpace(user.Email) ||
+                    string.IsNullOrWhiteSpace(user.PasswordHash) ||
+                    user.RoleId < 1)
                 {
                     return Json(new { code = 400 });
                 }
 
+                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
+                if (resUser is not null)
+                {
+                    return Json(new { code = 400 });
+                }
 
+                string hashedPassword = _saltGenerator.GenerateCode(user.PasswordHash.Trim());
+
+                User newUser = new();
+                newUser.Email = user.Email.Trim();
+                newUser.PasswordHash = hashedPassword;
+                newUser.SaltHash = _saltGenerator.Salt;
+                newUser.RoleId = user.RoleId;
+
+                Favorite favorite = new();
+                var newFavorite = _context.Favorites.Add(favorite);
+                newUser.Favorite = favorite;
+
+                _context.Users.Add(newUser);
+
+                UserProfile userProfile = new();
+                userProfile.RegisterDate = DateTime.Now.ToUniversalTime();
+                userProfile.User = newUser;
+
+                _context.UserProfiles.Add(userProfile);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
             }
             catch (Exception ex)
             {
@@ -224,6 +251,12 @@ namespace CloneBookingAPI.Controllers
                 }
 
                 _codesRepository.Repository.Remove(KeyValuePair.Create(person.Email.Trim(), person.Password.Trim()));
+
+                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == person.Email);
+                if (resUser is not null)
+                {
+                    return Json(new { code = 400 });
+                }
 
                 string hashedPassword = _saltGenerator.GenerateCode(person.Password.Trim());
 
