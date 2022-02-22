@@ -179,6 +179,30 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [Route("adduser")]
+        [HttpPost]
+        public async Task<IActionResult> AddUser([FromBody] CloneBookingAPI.Services.POCOs.UserData person)
+        {
+            try
+            {
+                if (person is null ||
+                    string.IsNullOrWhiteSpace(person.Email) ||
+                    string.IsNullOrWhiteSpace(person.Password) ||
+                    string.IsNullOrWhiteSpace(person.VerificationCode))
+                {
+                    return Json(new { code = 400 });
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
         [Route("register")]
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] CloneBookingAPI.Services.POCOs.UserData person)

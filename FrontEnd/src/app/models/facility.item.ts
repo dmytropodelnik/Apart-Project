@@ -5,7 +5,7 @@ import { Suggestion } from "./Suggestions/suggestion.item";
 export class Facility {
   id: number | null = null;
   text: string = '';
-  facilityType: FacilityType | null = null;
+  facilityType: FacilityType = new FacilityType();
   suggestion: Suggestion | null = null;
   image: FileModel | null = null;
 

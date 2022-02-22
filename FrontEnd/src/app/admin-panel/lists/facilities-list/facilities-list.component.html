@@ -26,7 +26,7 @@
             <label for="addType" class="form-label">Text</label>
             <input type="text" class="form-control" id="addType" name="facility.text" [(ngModel)]="facility.text"/>
 
-            <select id="addFacilityTypes" class="form-select facilityTypes" name="facilityType.facilityType" [(ngModel)]="facility.facilityType"></select>
+            <select id="addFacilityTypes" class="form-select facilityTypes" name="facility.facilityType.id" [(ngModel)]="facility.facilityType.id"></select>
           </div>
         </form>
       </div>
@@ -113,7 +113,7 @@
       <td>{{facility.text}}</td>
       <td>{{facility.facilityType?.type}}</td>
       <td>{{facility.suggestion}}</td>
-      <td class="text-center"><img width="70px" height="70px" src="{{imageHelper.getImageDirectoryPath()}}{{facility.image?.name}}" /></td>
+      <td id="thenblock" class="text-center"><img width="70px" height="70px" src="{{imageHelper.getImageDirectoryPath()}}{{facility.image?.name}}" /></td>
     </tr>
   </tbody>
 </table>
