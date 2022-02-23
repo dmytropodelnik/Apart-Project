@@ -48,9 +48,8 @@ export class FacilitiesListComponent implements OnInit {
   addFacility(): void {
     let facility = {
       text: this.facility.text,
-      image: null,
-      facilityTypeId: this.facility.facilityType?.id,
-      suggestion: null,
+      facilityTypeId: this.facility.facilityType.id,
+      imageId: this.facility.image?.id,
     };
 
     fetch('https://localhost:44381/api/facilities/addfacility', {
@@ -80,7 +79,6 @@ export class FacilitiesListComponent implements OnInit {
     let facility = {
       id: this.checkedFacility,
       text: this.facility.text,
-      image: null,
       facilityType: this.facility.facilityType?.id,
       suggestion: null,
     };
@@ -113,9 +111,8 @@ export class FacilitiesListComponent implements OnInit {
     let facility = {
       id: this.checkedFacility,
       text: this.facility.text,
-      image: null,
-      facilityType: this.facility.facilityType?.id,
-      suggestion: null,
+      facilityTypeId: this.facility.facilityType.id,
+      imageId: this.facility.image?.id,
     };
 
     fetch('https://localhost:44381/api/facilities/deletefacility', {
@@ -133,7 +130,7 @@ export class FacilitiesListComponent implements OnInit {
           this.getFacilities();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          alert('Deleting error!');
         }
         this.resetFacility();
       })
@@ -145,7 +142,7 @@ export class FacilitiesListComponent implements OnInit {
   resetFacility(): void {
     this.facility.text = '';
     this.facility.image = null;
-    this.facility.facilityType = null;
+    this.facility.facilityType = new FacilityType();
     this.facility.suggestion = null;
   }
 
@@ -171,6 +168,7 @@ export class FacilitiesListComponent implements OnInit {
     this.facility.text = facility.text;
     this.facility.image = facility.image;
     this.facility.suggestion = facility.suggestion;
+    this.facility.facilityType.id = facility.facilityType.id;
 
     document.getElementById('editButton')?.removeAttribute('disabled');
     document.getElementById('deleteButton')?.removeAttribute('disabled');

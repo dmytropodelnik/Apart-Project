@@ -69,9 +69,7 @@ import { ViewPropertyComponent } from './list-your-property/view-property/view-p
 import { AddPropertyComponent } from './list-your-property/add-property/add-property.component';
 import { LpNameAndLocationComponent } from './list-your-property/lp-name-and-location/lp-name-and-location.component';
 import { LpPropertySetupComponent } from './list-your-property/lp-property-setup/lp-property-setup.component';
-import { LpPhotosComponent } from './list-your-property/lp-photos/lp-photos.component';
-import { LpPricingAndCalenderComponent } from './list-your-property/lp-pricing-and-calender/lp-pricing-and-calender.component';
-import { LpReviewAndCompleteComponent } from './list-your-property/lp-review-and-complete/lp-review-and-complete.component';
+import { MainDataService } from './services/main-data.service';
 
 @NgModule({
   declarations: [
@@ -135,10 +133,7 @@ import { LpReviewAndCompleteComponent } from './list-your-property/lp-review-and
     AddPropertyComponent,
     BookingCategoriesListComponent,
     LpNameAndLocationComponent,
-    LpPropertySetupComponent,
-    LpPhotosComponent,
-    LpPricingAndCalenderComponent,
-    LpReviewAndCompleteComponent
+    LpPropertySetupComponent
   ],
   imports: [
     BrowserModule,
@@ -148,7 +143,7 @@ import { LpReviewAndCompleteComponent } from './list-your-property/lp-review-and
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthorizationService],
+  providers: [AuthorizationService, MainDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -11,6 +11,7 @@
     <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete" disabled>Delete</button>
   </div>
 </div>
+
 <!-- Modal -->
 <div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -22,19 +23,29 @@
       <div class="modal-body">
         <form>
           <div class="mb-3">
-            <label for="newRole" class="form-label">New user</label>
-            <input type="text" class="form-control" id="newRole" aria-describedby="emailHelp">
+            <label for="newEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="newEmail" name="user.email" [(ngModel)]="user.email">
+
+            <label for="newPass" class="form-label">Password</label>
+            <input type="password" class="form-control" id="newPass" name="user.passwordHash" [(ngModel)]="user.passwordHash">
+
+            <label for="newConfirmPass" class="form-label">Confirm password</label>
+            <input type="password" class="form-control" id="newConfirmPass" name="confirmPass" [(ngModel)]="confirmPass">
+
+            <label for="newRole" class="form-label">Role</label>
+            <select id="newRole" class="form-select userRoles" name="user.role.id" [(ngModel)]="user.role.id"></select>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Save</button>
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="addUser()">Save</button>
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Modal -->
 <div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -45,19 +56,29 @@
       <div class="modal-body">
         <form>
           <div class="mb-3">
-            <label for="editRole" class="form-label">User</label>
-            <input type="text" class="form-control" id="editRole" aria-describedby="emailHelp">
+            <label for="editEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="editEmail">
+
+            <label for="editPass" class="form-label">Password</label>
+            <input type="password" class="form-control" id="editPass">
+
+            <label for="editConfirmPass" class="form-label">Confirm password</label>
+            <input type="password" class="form-control" id="editConfirmPass">
+
+            <label for="editRole" class="form-label">Role</label>
+            <select id="editRole" class="form-select userRoles" name="user.role.id" [(ngModel)]="user.role.id"></select>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Save</button>
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="editUser()">Save</button>
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
   </div>
 </div>
 
+<!-- Modal -->
 <div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -68,13 +89,16 @@
       <div class="modal-body">
         <form>
           <div class="mb-3">
-            <label for="deleteRole" class="form-label">User</label>
-            <input type="text" class="form-control" id="deleteRole" aria-describedby="emailHelp">
+            <label for="deleteEmail" class="form-label">Email</label>
+            <input type="email" class="form-control" id="deleteEmail">
+
+            <label for="deleteRole" class="form-label">Role</label>
+            <select id="deleteRole" class="form-select userRoles" name="user.role.id" [(ngModel)]="user.role.id"></select>
           </div>
         </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteUser()">Delete</button>
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="deleteUser()">Save</button>
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
@@ -100,7 +124,7 @@
     <tr *ngFor="let user of users">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{user.id}}
+          <input class="form-check-input" type="radio" name="userRadio" id="userRadio" value={{user.id}}
           (click)="setUser(user)" >
         </div>
       </th>

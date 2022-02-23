@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BookingCategory } from '../models/bookingcategory.item';
 import { City } from '../models/Location/city.item';
+import { Suggestion } from '../models/Suggestions/suggestion.item';
+
+import { MainDataService } from '../services/main-data.service';
 
 import ImageHelper from '../utils/imageHelper';
 
@@ -19,8 +22,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   imageHelper: any = ImageHelper;
 
   bookingCategories: BookingCategory[] | undefined;
-  cities: City[] | undefined;
   imagePath: string = "123";
+  cities: City[] | undefined;
+  citySuggestions: any;
+  suggestions: any;
 
   slides = [
     { text: 'Educational Consulting', img: 'assets/images/21.png' },
@@ -88,30 +93,50 @@ export class HomeComponent implements OnInit, OnDestroy {
     ],
   };
 
-  constructor() {
+  constructor(
+    public mainDataService: MainDataService
+  ) {
   }
 
   ngOnInit(): void {
-    fetch(
-      'https://localhost:44381/api/bookingcategories/getcategories',
-      {
-        method: 'GET',
-      }
-    )
-      .then((r) => r.json())
-      .then((r) => {
-        if (r.code === 200) {
-          this.bookingCategories = r.bookingCategories;
-        } else {
-          alert('Booking categories fetching error!');
-        }
-      })
-      .catch((err) => {
-        //alert(err);
-      });
+    // fetch(
+    //   'https://localhost:44381/api/bookingcategories/getcategories',
+    //   {
+    //     method: 'GET',
+    //   }
+    // )
+    //   .then((r) => r.json())
+    //   .then((r) => {
+    //     if (r.code === 200) {
+    //       this.bookingCategories = r.bookingCategories;
+    //     } else {
+    //       alert('Booking categories fetching error!');
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     //alert(err);
+    //   });
+
+    // fetch(
+    //   'https://localhost:44381/api/cities/getcountrycities?country=Ukraine',
+    //   {
+    //     method: 'GET',
+    //   }
+    // )
+    //   .then((r) => r.json())
+    //   .then((r) => {
+    //     if (r.code === 200) {
+    //       this.cities = r.cities;
+    //     } else {
+    //       alert('Cities fetching error!');
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     alert(err);
+    //   });
 
     fetch(
-      'https://localhost:44381/api/cities/getcountrycities?country=Ukraine',
+      'https://localhost:44381/api/stayspage/getdata?country=Ukraine',
       {
         method: 'GET',
       }
@@ -120,9 +145,16 @@ export class HomeComponent implements OnInit, OnDestroy {
       .then((r) => {
         if (r.code === 200) {
           this.cities = r.cities;
+          this.citySuggestions = r.citySuggestions;
+          this.suggestions = r.suggestions;
+          this.bookingCategories = r.categories;
         } else {
-          alert('Cities fetching error!');
+          alert('Data fetching error!');
         }
+        console.log(r.categories);
+        console.log(r.cities);
+        console.log(r.suggestions);
+        console.log(r.citySuggestions);
       })
       .catch((err) => {
         alert(err);
@@ -130,6 +162,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log("123");
+
   }
 }

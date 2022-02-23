@@ -107,7 +107,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                _codesRepository.Repository.Remove(email);
+                _codesRepository.Repository.Remove(KeyValuePair.Create(email, code));
 
                 return Json(new { code = 200 });
             }

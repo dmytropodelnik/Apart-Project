@@ -7,7 +7,7 @@ namespace CloneBookingAPI.Services.Repositories
 {
     public class BaseRepository : IRepository
     {
-        public Dictionary<string, string> Repository { get; } = new();
+        public List<KeyValuePair<string, string>> Repository { get; } = new();
 
         public bool IsValueExists(string code)
         {

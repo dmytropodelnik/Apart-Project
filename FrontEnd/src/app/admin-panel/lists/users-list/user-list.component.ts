@@ -12,11 +12,14 @@ import ListHelper from '../../../utils/listHelper';
 export class UserListComponent implements OnInit {
 
   users: User[] | null = null;
-  user: string | null = null;
+  user: User;
   searchUser: string = '';
   checkedUser: number | null = null;
+  confirmPass: string = '';
 
-  constructor() {}
+  constructor() {
+    this.user = new User();
+  }
 
   search(): void {
     fetch('https://localhost:44381/api/users/search?user=' + this.searchUser, {
@@ -42,7 +45,9 @@ export class UserListComponent implements OnInit {
 
   addUser(): void {
     let user = {
-      name: this.user,
+      email: this.user.email,
+      passwordHash: this.user.passwordHash,
+      roleId: this.user.role.id,
     };
 
     fetch('https://localhost:44381/api/users/adduser', {
@@ -61,7 +66,7 @@ export class UserListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.user = '';
+        this.user = new User();
       })
       .catch((ex) => {
         alert(ex);
@@ -91,7 +96,7 @@ export class UserListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.user = '';
+        this.user = new User();
       })
       .catch((ex) => {
         alert(ex);
@@ -121,7 +126,7 @@ export class UserListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.user = '';
+        this.user = new User();
       })
       .catch((ex) => {
         alert(ex);
@@ -145,8 +150,46 @@ export class UserListComponent implements OnInit {
       });
   }
 
+  getUserRoles(): void {
+    fetch('https://localhost:44381/api/roles/getroles', {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          let rolesAdd = document.getElementById('newRole');
+          let newOption;
+          let counter = 1;
+          for (let role of data.roles) {
+            newOption = new Option(role.name, counter.toString());
+            rolesAdd?.append(newOption);
+            counter++;
+          }
+
+          let rolesEdit = document.getElementById('editRole');
+          counter = 1;
+          for (let role of data.roles) {
+            newOption = new Option(role.name, counter.toString());
+            rolesEdit?.append(newOption);
+            counter++;
+          }
+
+          this.user.role.id = 1;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
   setUser(user: User): void {
     this.checkedUser = user.id;
+
+    this.user.email = user.email;
+    this.user.passwordHash = user.passwordHash;
+    this.user.role.id = user.role.id;
 
     document.getElementById('editButton')?.removeAttribute('disabled');
     document.getElementById('deleteButton')?.removeAttribute('disabled');
@@ -154,6 +197,7 @@ export class UserListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsers();
+    this.getUserRoles();
   }
 
 }

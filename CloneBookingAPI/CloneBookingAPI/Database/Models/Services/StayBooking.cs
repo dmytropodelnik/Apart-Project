@@ -25,6 +25,8 @@ namespace CloneBookingAPI.Services.Database.Models
         [Required]
         public bool IsRequestedRentingCar { get; set; }
 
+        public bool IsFinished { get; set; }
+
         [Display(Name = "Special Requests")]
         [DataType(DataType.Text)]
         [StringLength(1000, MinimumLength = 6, ErrorMessage = "Incorrect length")]
