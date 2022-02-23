@@ -34,6 +34,9 @@ namespace CloneBookingAPI.Controllers.Pages
                 List<List<Suggestion>> citySuggestions = new();
 
                 var categories = await _context.BookingCategories.ToListAsync();
+                var footerCities = await _context.Cities
+                    .Take(50)
+                    .ToListAsync();
                 var suggestionsList = await _context.Suggestions
                     .Include(s => s.Images)
                     .Include(s => s.BookingCategory)
@@ -65,12 +68,22 @@ namespace CloneBookingAPI.Controllers.Pages
                     citySuggestions.Add(resCitySuggestion);
                 }
 
+                for (int i = 1; i <= cities.Count; i++)
+                {
+                    var resCitySuggestion = suggestionsList
+                        .Where(s => s.Address.Country.Title == cities[i].Title)
+                        .ToList();
+
+                    citySuggestions.Add(resCitySuggestion);
+                }
+
                 return Json(new { 
                     code = 200, 
                     categories,
                     cities,
                     suggestions,
                     citySuggestions,
+                    footerCities,
                 });
             }
             catch (ArgumentNullException ex)
