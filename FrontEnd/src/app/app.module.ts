@@ -70,6 +70,9 @@ import { AddPropertyComponent } from './list-your-property/add-property/add-prop
 import { LpNameAndLocationComponent } from './list-your-property/lp-name-and-location/lp-name-and-location.component';
 import { LpPropertySetupComponent } from './list-your-property/lp-property-setup/lp-property-setup.component';
 import { MainDataService } from './services/main-data.service';
+import { LpPhotosComponent } from './list-your-property/lp-photos/lp-photos.component';
+import { LpPricingAndCalenderComponent } from './list-your-property/lp-pricing-and-calender/lp-pricing-and-calender.component';
+import { LpReviewAndCompleteComponent } from './list-your-property/lp-review-and-complete/lp-review-and-complete.component';
 
 @NgModule({
   declarations: [
@@ -133,7 +136,10 @@ import { MainDataService } from './services/main-data.service';
     AddPropertyComponent,
     BookingCategoriesListComponent,
     LpNameAndLocationComponent,
-    LpPropertySetupComponent
+    LpPropertySetupComponent,
+    LpPhotosComponent,
+    LpPricingAndCalenderComponent,
+    LpReviewAndCompleteComponent
   ],
   imports: [
     BrowserModule,
