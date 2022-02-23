@@ -1,4 +1,4 @@
-export class DataService {
+export class AdminContentService {
 
   private content: string = '';
 

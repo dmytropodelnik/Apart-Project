@@ -67,6 +67,7 @@ import { ReviewMessagesListComponent } from './admin-panel/lists/review-messages
 import { BookingCategoriesListComponent } from './admin-panel/lists/booking-categories-list/booking-categories-list.component';
 import { ViewPropertyComponent } from './view-property/view-property.component';
 import { AddPropertyComponent } from './add-property/add-property.component';
+import { MainDataService } from './services/main-data.service';
 
 @NgModule({
   declarations: [
@@ -138,7 +139,7 @@ import { AddPropertyComponent } from './add-property/add-property.component';
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthorizationService],
+  providers: [AuthorizationService, MainDataService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
