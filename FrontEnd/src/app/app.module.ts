@@ -65,9 +65,14 @@ import { ReviewsListComponent } from './admin-panel/lists/reviews-list/reviews-l
 import { ReviewCategoriesListComponent } from './admin-panel/lists/review-categories-list/review-categories-list.component';
 import { ReviewMessagesListComponent } from './admin-panel/lists/review-messages-list/review-messages-list.component';
 import { BookingCategoriesListComponent } from './admin-panel/lists/booking-categories-list/booking-categories-list.component';
-import { ViewPropertyComponent } from './view-property/view-property.component';
-import { AddPropertyComponent } from './add-property/add-property.component';
+import { ViewPropertyComponent } from './list-your-property/view-property/view-property.component';
+import { AddPropertyComponent } from './list-your-property/add-property/add-property.component';
+import { LpNameAndLocationComponent } from './list-your-property/lp-name-and-location/lp-name-and-location.component';
+import { LpPropertySetupComponent } from './list-your-property/lp-property-setup/lp-property-setup.component';
 import { MainDataService } from './services/main-data.service';
+import { LpPhotosComponent } from './list-your-property/lp-photos/lp-photos.component';
+import { LpPricingAndCalenderComponent } from './list-your-property/lp-pricing-and-calender/lp-pricing-and-calender.component';
+import { LpReviewAndCompleteComponent } from './list-your-property/lp-review-and-complete/lp-review-and-complete.component';
 
 @NgModule({
   declarations: [
@@ -129,7 +134,12 @@ import { MainDataService } from './services/main-data.service';
     ReviewMessagesListComponent,
     ViewPropertyComponent,
     AddPropertyComponent,
-    BookingCategoriesListComponent
+    BookingCategoriesListComponent,
+    LpNameAndLocationComponent,
+    LpPropertySetupComponent,
+    LpPhotosComponent,
+    LpPricingAndCalenderComponent,
+    LpReviewAndCompleteComponent
   ],
   imports: [
     BrowserModule,

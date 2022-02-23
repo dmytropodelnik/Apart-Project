@@ -86,7 +86,6 @@ namespace CloneBookingAPI.Controllers.Review
                 return Json(new { code = 400 });
             }
         }
-
         [Route("addcategory")]
         [HttpPost]
         public async Task<IActionResult> AddCategory([FromBody] ReviewCategory category)

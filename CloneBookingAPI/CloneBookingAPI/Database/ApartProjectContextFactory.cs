@@ -20,7 +20,7 @@ namespace CloneBookingAPI.Services.Database
 
             // get connection string from file appsettings.json
             string connectionString = config.GetConnectionString("DefaultConnection");
-            optionsBuilder.UseSqlServer(connectionString, opts => opts.CommandTimeout((int)TimeSpan.FromMinutes(10).TotalSeconds));
+            optionsBuilder.UseSqlServer(connectionString, opts => opts.CommandTimeout((int)TimeSpan.FromMinutes(1).TotalSeconds));
             return new ApartProjectDbContext(optionsBuilder.Options);
         }
     }

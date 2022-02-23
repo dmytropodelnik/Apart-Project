@@ -32,7 +32,11 @@ namespace CloneBookingAPI.Controllers.Pages
             {
                 List<List<Suggestion>> suggestions = new();
                 List<List<Suggestion>> citySuggestions = new();
+                List<List<Suggestion>> regionsSuggestions = new();
+                List<List<Suggestion>> placesOfInterestSuggestions = new();
 
+                var placesOfInterests = await _context.InterestPlaces
+                    .ToListAsync();
                 var categories = await _context.BookingCategories.ToListAsync();
                 var footerCities = await _context.Cities
                     .Take(50)
@@ -48,6 +52,14 @@ namespace CloneBookingAPI.Controllers.Pages
                 var cities = citiesList
                     .Where(c => c.Country.Title == country)
                     .Take(10)
+                    .ToList();
+                var regionsList = await _context.Regions
+                    .Include(r => r.Address)
+                    .Include(r => r.Image)
+                    .ToListAsync();
+                var regions = regionsList
+                    // .Where(r => r.Address.Country.Title == country)
+                    .Take(20)
                     .ToList();
 
                 for (int i = 1; i <= categories.Count; i++)
@@ -68,6 +80,15 @@ namespace CloneBookingAPI.Controllers.Pages
                     citySuggestions.Add(resCitySuggestion);
                 }
 
+                for (int i = 1; i <= placesOfInterests.Count; i++)
+                {
+                    var resplacesOfInterestSuggestion = suggestionsList
+                        .Where(s => s.InterestPlaceId == i)
+                        .ToList();
+
+                    placesOfInterestSuggestions.Add(resplacesOfInterestSuggestion);
+                }
+
                 for (int i = 1; i <= cities.Count; i++)
                 {
                     var resCitySuggestion = suggestionsList
@@ -77,13 +98,26 @@ namespace CloneBookingAPI.Controllers.Pages
                     citySuggestions.Add(resCitySuggestion);
                 }
 
+                for (int i = 1; i <= regions.Count; i++)
+                {
+                    var resRegionSuggestion = suggestionsList
+                        .Where(s => s.Address.Country.Title == cities[i].Title)
+                        .ToList();
+
+                    regionsSuggestions.Add(resRegionSuggestion);
+                }
+
                 return Json(new { 
                     code = 200, 
                     categories,
                     cities,
+                    regions,
                     suggestions,
                     citySuggestions,
                     footerCities,
+                    placesOfInterestSuggestions,
+                    placesOfInterests,
+                    regionsSuggestions,
                 });
             }
             catch (ArgumentNullException ex)

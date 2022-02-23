@@ -27,6 +27,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   citySuggestions: any;
   suggestions: any;
   footerCities: any;
+  placesOfInterestSuggestions: any;
+  placesOfInterests: any;
+  regionsSuggestions: any;
+  regions: any;
 
   slides = [
     { text: 'Educational Consulting', img: 'assets/images/21.png' },
@@ -100,42 +104,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    // fetch(
-    //   'https://localhost:44381/api/bookingcategories/getcategories',
-    //   {
-    //     method: 'GET',
-    //   }
-    // )
-    //   .then((r) => r.json())
-    //   .then((r) => {
-    //     if (r.code === 200) {
-    //       this.bookingCategories = r.bookingCategories;
-    //     } else {
-    //       alert('Booking categories fetching error!');
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     //alert(err);
-    //   });
-
-    // fetch(
-    //   'https://localhost:44381/api/cities/getcountrycities?country=Ukraine',
-    //   {
-    //     method: 'GET',
-    //   }
-    // )
-    //   .then((r) => r.json())
-    //   .then((r) => {
-    //     if (r.code === 200) {
-    //       this.cities = r.cities;
-    //     } else {
-    //       alert('Cities fetching error!');
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     alert(err);
-    //   });
-
     fetch(
       'https://localhost:44381/api/stayspage/getdata?country=Ukraine',
       {
@@ -150,6 +118,10 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.suggestions = r.suggestions;
           this.bookingCategories = r.categories;
           this.footerCities = r.footerCities;
+          this.placesOfInterestSuggestions = r.placesOfInterestSuggestions;
+          this.placesOfInterests = r.placesOfInterests;
+          this.regions = r.regions;
+          this.regionsSuggestions = r.regionsSuggestions;
         } else {
           alert('Data fetching error!');
         }
@@ -158,6 +130,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log(r.suggestions);
         console.log(r.citySuggestions);
         console.log(r.footerCities);
+        console.log(r.placesOfInterestSuggestions);
+        console.log(r.placesOfInterests);
+        console.log(r.regions);
+        console.log(r.regionsSuggestions);
       })
       .catch((err) => {
         alert(err);

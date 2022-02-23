@@ -1,4 +1,6 @@
-﻿using CloneBookingAPI.Services.Database.Configurations;
+﻿using CloneBookingAPI.Database.Configurations;
+using CloneBookingAPI.Database.Models;
+using CloneBookingAPI.Services.Database.Configurations;
 using CloneBookingAPI.Services.Database.Configurations.Flights;
 using CloneBookingAPI.Services.Database.Configurations.Location;
 using CloneBookingAPI.Services.Database.Configurations.Payment;
@@ -46,6 +48,7 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<Facility> Facilities { get; set; }
         public DbSet<FacilityType> FacilityTypes { get; set; }
         public DbSet<BookingCategory> BookingCategories { get; set; }
+        public DbSet<InterestPlace> InterestPlaces { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
@@ -67,7 +70,6 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Airport> Airports { get; set; }
-
         public ApartProjectDbContext(DbContextOptions<ApartProjectDbContext> options) : base(options)
         {
             //// If database already exists then delete it
@@ -140,6 +142,7 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new SurroundingObjectsConfiguration());
             modelBuilder.ApplyConfiguration(new SurroundingObjectTypesConfiguration());
             modelBuilder.ApplyConfiguration(new BookingPricesConfiguration());
+            modelBuilder.ApplyConfiguration(new InterestPlacesConfiguration());
         }
     }
 }

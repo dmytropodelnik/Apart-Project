@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database.Models.Location;
+﻿using CloneBookingAPI.Database.Models;
+using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Review;
 using CloneBookingAPI.Services.Database.Models.UserProfile;
 using System.Collections.Generic;
@@ -29,6 +30,10 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public int BookingCategoryId { get; set; }
         [ForeignKey("BookingCategoryId")]
         public BookingCategory BookingCategory { get; set; }
+
+        public int InterestPlaceId { get; set; }
+        [ForeignKey("InterestPlaceId")]
+        public InterestPlace InterestPlace { get; set; }
 
         public List<Review.Review> Reviews { get; set; } = new();
         public List<StayBooking> StayBookings { get; set; } = new();
