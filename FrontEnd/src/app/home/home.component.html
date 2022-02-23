@@ -811,12 +811,14 @@
                 <div class="tabs-grid">
                   <div>
                     <ul class="inner-tabs-links">
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
+                      <div *ngFor="let city of footerCities; let i = index">
+                        <li>
+                          <a>{{city.title}}</a>
+                          <div class="wcu-seo-regions-poi ia_hotelnum">
+                            {{citySuggestions[i]?.length}} properties
+                          </div>
+                        </li>
+                      </div>
                     </ul>
                   </div>
                 </div>

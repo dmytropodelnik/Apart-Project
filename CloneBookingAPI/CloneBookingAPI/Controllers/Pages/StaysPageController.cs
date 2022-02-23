@@ -59,7 +59,7 @@ namespace CloneBookingAPI.Controllers.Pages
                     suggestions.Add(resSuggestion);
                 }
 
-                for (int i = 1; i <= cities.Count; i++)
+                for (int i = 1; i <= citiesList.Count; i++)
                 {
                     var resCitySuggestion = suggestionsList
                         .Where(s => s.Address.Country.Title == cities[i].Title)

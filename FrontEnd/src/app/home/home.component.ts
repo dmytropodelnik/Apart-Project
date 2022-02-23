@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   cities: City[] | undefined;
   citySuggestions: any;
   suggestions: any;
+  footerCities: any;
 
   slides = [
     { text: 'Educational Consulting', img: 'assets/images/21.png' },
@@ -148,6 +149,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.citySuggestions = r.citySuggestions;
           this.suggestions = r.suggestions;
           this.bookingCategories = r.categories;
+          this.footerCities = r.footerCities;
         } else {
           alert('Data fetching error!');
         }
@@ -155,6 +157,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         console.log(r.cities);
         console.log(r.suggestions);
         console.log(r.citySuggestions);
+        console.log(r.footerCities);
       })
       .catch((err) => {
         alert(err);
