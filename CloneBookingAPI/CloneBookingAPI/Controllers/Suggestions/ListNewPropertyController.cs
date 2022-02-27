@@ -28,8 +28,8 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                if (suggestion is null                          ||   
-                    string.IsNullOrWhiteSpace(suggestion.Name)  || 
+                if (suggestion is null ||
+                    string.IsNullOrWhiteSpace(suggestion.Name) ||
                     string.IsNullOrWhiteSpace(suggestion.Login))
                 {
                     return Json(new { code = 400 });
@@ -48,8 +48,9 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 var resSuggestion = _context.Suggestions.Add(newSuggestion);
                 await _context.SaveChangesAsync();
 
-                return Json(new { 
-                    code = 200, 
+                return Json(new
+                {
+                    code = 200,
                     savedSuggestionId = resSuggestion.Entity.Id,
                 });
             }
@@ -67,10 +68,10 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                if (suggestion is null                                           ||
-                    string.IsNullOrWhiteSpace(suggestion.Login)                  ||
-                    string.IsNullOrWhiteSpace(suggestion.Address.Country.Title)  ||
-                    string.IsNullOrWhiteSpace(suggestion.Address.City.Title)     ||
+                if (suggestion is null ||
+                    string.IsNullOrWhiteSpace(suggestion.Login) ||
+                    string.IsNullOrWhiteSpace(suggestion.Address.Country.Title) ||
+                    string.IsNullOrWhiteSpace(suggestion.Address.City.Title) ||
                     string.IsNullOrWhiteSpace(suggestion.Address.AddressText))
                 {
                     return Json(new { code = 400 });
@@ -98,6 +99,215 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     code = 200,
                     savedSuggestionId = resSuggestion.Id,
                 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("addbeds")]
+        [HttpPost]
+        public async Task<IActionResult> AddBeds([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                resSuggestion.Beds = suggestion.Beds;
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                    savedSuggestionId = resSuggestion.Id,
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("addfacilities")]
+        [HttpPost]
+        public async Task<IActionResult> AddFacilities([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                    savedSuggestionId = resSuggestion.Id,
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("addparking")]
+        [HttpPost]
+        public async Task<IActionResult> AddParking([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                resSuggestion.IsParkingAvailable = suggestion.IsParkingAvailable;
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                    savedSuggestionId = resSuggestion.Id,
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("addlanguages")]
+        [HttpPost]
+        public async Task<IActionResult> AddLanguages([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                resSuggestion.Languages = suggestion.Languages;
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                    savedSuggestionId = resSuggestion.Id,
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("addrules")]
+        [HttpPost]
+        public async Task<IActionResult> AddRules([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                resSuggestion.Facilities = suggestion.Facilities;
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                    savedSuggestionId = resSuggestion.Id,
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("addphotos")]
+        [HttpPost]
+        public async Task<IActionResult> AddPhotos(IFormFileCollection uploads)
+        {
+            try
+            {
+                string suggestionId = Request.QueryString.Value;
+
+                if (uploads is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var suggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == int.Parse(suggestionId));
+                if (suggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                return RedirectToAction("UploadFiles", "FileUploader", new { uploads, suggestion });
             }
             catch (Exception ex)
             {

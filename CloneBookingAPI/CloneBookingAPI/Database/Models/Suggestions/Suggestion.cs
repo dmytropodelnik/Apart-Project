@@ -1,4 +1,5 @@
 ﻿using CloneBookingAPI.Database.Models;
+using CloneBookingAPI.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Review;
 using CloneBookingAPI.Services.Database.Models.UserProfile;
@@ -16,6 +17,11 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public int Id { get; set; }
 
         public string Name { get; set; }
+
+        public uint GuestsAmount { get; set; }
+        public uint BathroomsAmount { get; set; }
+
+        public bool IsParkingAvailable { get; set; }
 
         public int? AddressId { get; set; }
         [ForeignKey("AddressId")]
@@ -46,6 +52,8 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public List<SuggestionHighlight> Highlights { get; set; } = new();
         public List<Facility> Facilities { get; set; } = new();
         public List<RoomType> RoomTypes { get; set; } = new();
+        public List<Bed> Beds { get; set; } = new();
+        public List<Language> Languages { get; set; } = new();
         public List<SuggestionRule> SuggestionRules { get; set; } = new();
         public List<SurroundingObject> SurroundingObjects { get; set; } = new();
     }

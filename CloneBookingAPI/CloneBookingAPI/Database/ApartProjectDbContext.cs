@@ -1,5 +1,6 @@
 ﻿using CloneBookingAPI.Database.Configurations;
 using CloneBookingAPI.Database.Models;
+using CloneBookingAPI.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Database.Configurations;
 using CloneBookingAPI.Services.Database.Configurations.Flights;
 using CloneBookingAPI.Services.Database.Configurations.Location;
@@ -70,6 +71,8 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Airport> Airports { get; set; }
+        public DbSet<Bed> Beds { get; set; }
+        public DbSet<BedType> BedTypes { get; set; }
         public ApartProjectDbContext(DbContextOptions<ApartProjectDbContext> options) : base(options)
         {
             //// If database already exists then delete it

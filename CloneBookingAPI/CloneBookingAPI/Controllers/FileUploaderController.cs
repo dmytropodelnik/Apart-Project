@@ -1,5 +1,6 @@
 ﻿using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
+using CloneBookingAPI.Services.Database.Models.Suggestions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -25,6 +26,7 @@ namespace CloneBookingAPI.Controllers.UserData
     {
         private const int STATUS_200 = 200;
         private const int STATUS_400 = 400;
+        private const int STATUS_500 = 500;
 
         private readonly ApartProjectDbContext _context;
         private readonly IWebHostEnvironment _appEnvironment;
@@ -89,25 +91,53 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
-        //[Route("uploadfiles")]
-        //[HttpPost]
-        //public async Task<IActionResult> UploadFiles(IFormFileCollection uploads)
-        //{
-        //    foreach (var uploadedFile in uploads)
-        //    {
-        //        // путь к папке Files
-        //        string path = "/Files/" + uploadedFile.FileName;
-        //        // сохраняем файл в папку Files в каталоге wwwroot
-        //        using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
-        //        {
-        //            await uploadedFile.CopyToAsync(fileStream);
-        //        }
-        //        FileModel file = new FileModel { Name = uploadedFile.FileName, Path = path };
-        //        _context.Files.Add(file);
-        //    }
-        //    _context.SaveChanges();
+        [Route("uploadfiles")]
+        [HttpPost]
+        public async Task<IActionResult> UploadFiles(IFormFileCollection uploads, Suggestion suggestion)
+        {
+            try
+            {
+                if (uploads is null)
+                {
+                    return Json(new { code = STATUS_400 });
+                }
 
-        //    return RedirectToAction("Index");
-        //}
+                foreach (var uploadedFile in uploads)
+                {
+                    // extension of file
+                    string extension = uploadedFile.FileName.Substring(uploadedFile.FileName.LastIndexOf("."));
+                    string newFileName = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(uploadedFile.FileName)));
+                    newFileName = newFileName.Replace("/", "")
+                                             .Replace("\\", "");
+
+                    string path = _storagePath + newFileName + extension;
+
+                    while (System.IO.File.Exists(_appEnvironment.WebRootPath + path))
+                    {
+                        newFileName = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(newFileName)));
+                        // path to folder Files
+                        path = _storagePath + newFileName + extension;
+                    }
+
+                    path = _storagePath + newFileName + extension;
+                    // save file to folder Files in a directory wwwroot
+                    using (var fileStream = new FileStream(_appEnvironment.WebRootPath + path, FileMode.Create))
+                    {
+                        await uploadedFile.CopyToAsync(fileStream);
+                    }
+                    FileModel file = new FileModel { Name = newFileName + extension, Path = path };
+                    _context.Files.Add(file);
+                }
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = STATUS_200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = STATUS_500 });
+            }
+        }
     }
 }
