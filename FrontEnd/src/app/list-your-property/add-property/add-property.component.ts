@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import AuthHelper from '../../utils/authHelper';
+
 @Component({
   selector: 'app-add-property',
   templateUrl: './add-property.component.html',
@@ -9,13 +11,15 @@ export class AddPropertyComponent implements OnInit {
   constructor() {}
   choice = 0;
 
-  addApartment(): void{
+  addApartment(): void {
     (this.choice = 1);
     console.log(this.choice);
   }
-  addHome(): void{
+  addHome(): void {
     (this.choice = 2);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
 }
