@@ -15,7 +15,7 @@ namespace CloneBookingAPI.Database.Models.Suggestions
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Incorrect length")]
         public string Description { get; set; }
 
-        public int BedsteadId { get; set; }
+        public int? BedsteadId { get; set; }
         [ForeignKey("BedsteadId")]
         public Bed Bedstead { get; set; }
     }

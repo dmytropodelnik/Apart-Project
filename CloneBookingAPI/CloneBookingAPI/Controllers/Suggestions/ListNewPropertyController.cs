@@ -295,8 +295,9 @@ namespace CloneBookingAPI.Controllers.Suggestions
             try
             {
                 string suggestionId = Request.QueryString.Value;
+                suggestionId = suggestionId.Substring(suggestionId.IndexOf("=") + 1);
 
-                if (uploads is null)
+                if (uploads is null || suggestionId is null)
                 {
                     return Json(new { code = 400 });
                 }

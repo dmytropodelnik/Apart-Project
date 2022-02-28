@@ -250,7 +250,7 @@ export class LpNameAndLocationComponent implements OnInit {
       }
     }
 
-    fetch('https://localhost:44381/api/fileuploader/uploadfiles?suggestionId=' + this.savedPropertyId, {
+    fetch('https://localhost:44381/api/listnewproperty/addphotos?suggestionId=' + 1, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -272,6 +272,6 @@ export class LpNameAndLocationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.addPropertyAddress();
+    this.addPropertyPhotos();
   }
 }

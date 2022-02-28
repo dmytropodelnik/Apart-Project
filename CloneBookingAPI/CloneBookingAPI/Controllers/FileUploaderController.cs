@@ -126,8 +126,12 @@ namespace CloneBookingAPI.Controllers.UserData
                         await uploadedFile.CopyToAsync(fileStream);
                     }
                     FileModel file = new FileModel { Name = newFileName + extension, Path = path };
+
+                    file.Suggestions.Add(suggestion);
+                    suggestion.Images.Add(file);
                     _context.Files.Add(file);
                 }
+                _context.Suggestions.Update(suggestion);
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = STATUS_200 });
