@@ -11,8 +11,6 @@ import AuthHelper from '../../utils/authHelper';
   styleUrls: ['./admin-panel.component.css']
 })
 export class AdminPanelComponent implements OnInit, OnDestroy {
-
-
   currentYear: number = new Date().getFullYear();
   content: string | undefined;
 

@@ -317,5 +317,42 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 return Json(new { code = 500 });
             }
         }
+
+        [Route("addprice")]
+        [HttpPost]
+        public async Task<IActionResult> AddPrice([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                resSuggestion.PriceInUS = suggestion.PriceInUS;
+                resSuggestion.PriceInUserCurrency = suggestion.PriceInUserCurrency;
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                    savedSuggestionId = resSuggestion.Id,
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
     }
 }

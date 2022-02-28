@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Address } from 'src/app/models/Location/address.item';
 
+import { ListNewPropertyService } from '../../services/list-new-property.service';
+
 import AuthHelper from '../../utils/authHelper';
 
 @Component({
@@ -14,7 +16,11 @@ export class LpNameAndLocationComponent implements OnInit {
   propertyAddress: Address | null = null;
   uploadedFiles: File[] | null = null;
 
-  constructor() {}
+  constructor(
+    private listNewPropertyService: ListNewPropertyService,
+  ) {
+
+  }
   choice: number = 0;
 
   incrementChoice() {

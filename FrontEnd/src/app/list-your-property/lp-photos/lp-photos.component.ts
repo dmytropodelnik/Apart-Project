@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ListNewPropertyService } from '../../services/list-new-property.service';
+
 import AuthHelper from '../../utils/authHelper';
 
 @Component({
@@ -12,7 +14,11 @@ export class LpPhotosComponent implements OnInit {
   uploadedFiles: File[] | null = null;
 
 
-  constructor() { }
+  constructor(
+    private listNewPropertyService: ListNewPropertyService,
+  ) {
+
+  }
 
   addPropertyPhotos(): void {
     let counter = 1;

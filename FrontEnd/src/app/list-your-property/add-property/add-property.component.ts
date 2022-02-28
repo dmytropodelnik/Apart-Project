@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import { ListNewPropertyService } from '../../services/list-new-property.service';
+
 import AuthHelper from '../../utils/authHelper';
 
 @Component({
@@ -8,7 +10,11 @@ import AuthHelper from '../../utils/authHelper';
   styleUrls: ['./add-property.component.css'],
 })
 export class AddPropertyComponent implements OnInit {
-  constructor() {}
+  constructor(
+    private listNewPropertyService: ListNewPropertyService,
+  ) {
+
+  }
   choice = 0;
 
   addApartment(): void {

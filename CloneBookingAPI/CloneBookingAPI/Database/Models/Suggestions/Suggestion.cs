@@ -21,6 +21,14 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public uint GuestsAmount { get; set; }
         public uint BathroomsAmount { get; set; }
 
+        [Required]
+        [DataType(DataType.Currency)]
+        public decimal PriceInUserCurrency { get; set; }
+
+        [Required]
+        [DataType(DataType.Currency)]
+        public decimal PriceInUS { get; set; }
+
         public bool IsParkingAvailable { get; set; }
 
         public int? AddressId { get; set; }
