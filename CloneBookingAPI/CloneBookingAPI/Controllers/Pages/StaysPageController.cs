@@ -148,7 +148,7 @@ namespace CloneBookingAPI.Controllers.Pages
             try
             {
                 List<List<Suggestion>> citySuggestions = new();
-                
+
                 var citiesList = await _context.Cities
                     .Include(c => c.Country)
                     .Include(c => c.Image)
@@ -160,6 +160,7 @@ namespace CloneBookingAPI.Controllers.Pages
 
                 var resCities = _context.Suggestions
                     .Include(s => s.Address)
+                        .ThenInclude(s => s.City)
                     .Include(s => s.Images)
                     .GroupBy(s => s.Address.City.Title)
                     .OrderBy(s => s.Count())
@@ -169,7 +170,7 @@ namespace CloneBookingAPI.Controllers.Pages
                 //{
                 //    citySuggestions.Add(item.Key.Count());
                 //}
-                    
+
                 return Json(new
                 {
                     code = 200,
@@ -194,6 +195,62 @@ namespace CloneBookingAPI.Controllers.Pages
 
                 return Json(new { code = ex.Message });
             }
+        }
+
+        [Route("getguestslovedata")]
+        [HttpGet]
+        public async Task<ActionResult> GetGuestsLoveData()
+        {
+            try
+            {
+                List<int> reviewsCount = new();
+
+                var resSuggestion = await _context.Suggestions
+                    .Include(s => s.Address)
+                    .Include(s => s.Reviews)
+                    .Include(s => s.SuggestionReviewGrades)
+                    .Where(s => s.SuggestionReviewGrades
+                                    .All(g => g.Value >= 9.0))
+                    .Take(5)
+                    .ToListAsync();
+
+                for (int i = 0; i < resSuggestion.Count; i++)
+                {
+                    var resReviews = await _context.Reviews
+                        .Include(r => r.Suggestion)
+                        .Where(r => r.SuggestionId == resSuggestion[i].Id)
+                        .ToListAsync();
+
+                    reviewsCount.Add(resReviews.Count);
+                }
+
+                return Json(new
+                {
+                    code = 200,
+                    resSuggestion,
+                    reviewsCount,
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = ex.Message });
+            }
+
+            bool LenghtIs3(string name) => name.Length == 3;
         }
     }
 }

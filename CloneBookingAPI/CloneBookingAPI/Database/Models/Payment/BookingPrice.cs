@@ -16,7 +16,7 @@ namespace CloneBookingAPI.Services.Database.Models.Payment
 
         [Required]
         [DataType(DataType.Currency)]
-        public decimal AmountInUS { get; set; }
+        public decimal AmountInUSD { get; set; }
 
         [Required]
         [DataType(DataType.Currency)]

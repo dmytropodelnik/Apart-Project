@@ -27,7 +27,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
 
         [Required]
         [DataType(DataType.Currency)]
-        public decimal PriceInUS { get; set; }
+        public decimal PriceInUSD { get; set; }
 
         public bool IsParkingAvailable { get; set; }
 

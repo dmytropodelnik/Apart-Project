@@ -34,6 +34,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   recommendedDestSuggestions: any;
 
+  homeGuestsSuggestions: any;
+  resSuggestion: any;
+  reviewsCount: any;
   slides = [
     { text: 'Educational Consulting', img: 'assets/images/21.png' },
     { text: 'University and Higher Education', img: 'assets/images/21.png' },
@@ -100,9 +103,29 @@ export class HomeComponent implements OnInit, OnDestroy {
     ],
   };
 
-  constructor(public mainDataService: MainDataService) {}
+  constructor(
+    public mainDataService: MainDataService
+    ) {
 
-  ngOnInit(): void {
+    }
+
+  getRecommendedDestData(): void {
+    fetch(`https://localhost:44381/api/stayspage/getrecommendeddestdata`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.recommendedDestSuggestions = data.citySuggestions;
+        }
+        console.log(data.resCities);
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  getMainData(): void {
     fetch('https://localhost:44381/api/stayspage/getdata?country=Ukraine', {
       method: 'GET',
     })
@@ -134,20 +157,29 @@ export class HomeComponent implements OnInit, OnDestroy {
       .catch((err) => {
         alert(err);
       });
+  }
 
-    fetch(`https://localhost:44381/api/stayspage/getrecommendeddestdata`, {
+  getGuestsLoveData(): void {
+    fetch(`https://localhost:44381/api/stayspage/getguestslovedata`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          this.recommendedDestSuggestions = data.citySuggestions;
+          this.homeGuestsSuggestions = data.resSuggestion;
+          this.reviewsCount = data.reviewsCount;
         }
         console.log(data.resCities);
       })
       .catch((ex) => {
         alert(ex);
       });
+  }
+
+  ngOnInit(): void {
+    this.getMainData();
+    this.getRecommendedDestData();
+    this.getGuestsLoveData();
   }
 
   ngOnDestroy() {}

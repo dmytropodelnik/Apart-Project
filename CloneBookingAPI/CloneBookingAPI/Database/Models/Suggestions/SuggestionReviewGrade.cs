@@ -16,7 +16,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [Required]
         [DataType(DataType.Text)]
         [StringLength(10, MinimumLength = 1, ErrorMessage = "Incorrect length")]
-        public string Value { get; set; }
+        public double Value { get; set; }
 
         public int ReviewCategoryId { get; set; }
         [ForeignKey("ReviewCategoryId")]

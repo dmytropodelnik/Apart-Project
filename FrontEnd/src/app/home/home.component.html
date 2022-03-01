@@ -619,7 +619,7 @@
               >
                 <div
                   ngxSlickItem
-                  *ngFor="let slide of slides"
+                  *ngFor="let item of homeGuestsSuggestions; let i = index"
                   class="slide slide-h"
                 >
                   <div class="slide-img">
@@ -627,11 +627,11 @@
                   </div>
                   <div class="bui-card__content bh-carousel--new__content">
                     <h3 class="bui-card__title bh-carousel--new__title">
-                      <span>Villa Wellness</span>
+                      <span>{{item?.name}}</span>
                     </h3>
-                    <p class="bui-card__subtitle">Budapest</p>
+                    <p class="bui-card__subtitle">{{item?.address?.city?.title}}</p>
                     <p class="bh-carousel--new__price bui_color_black">
-                      Starting from Euro&nbsp;55.550
+                      Starting from USD {{item?.priceInUSD}}
                     </p>
                     <div style="margin-top: 4px">
                       <div
@@ -645,7 +645,7 @@
                         </div>
                         <div class="bui-review-score__content">
                           <div class="bui-review-score__title">Wonderful</div>
-                          <div class="bui-review-score__text">22 reviews</div>
+                          <div class="bui-review-score__text">{{reviewsCount[i] ?? '0'}} reviews</div>
                         </div>
                       </div>
                     </div>

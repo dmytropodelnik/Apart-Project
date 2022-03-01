@@ -21,7 +21,7 @@ namespace CloneBookingAPI.Services.POCOs
 
         [Required]
         [DataType(DataType.Currency)]
-        public decimal PriceInUS { get; set; }
+        public decimal PriceInUSD { get; set; }
 
         public Address Address { get; set; }
 
