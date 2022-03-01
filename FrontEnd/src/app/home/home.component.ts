@@ -32,7 +32,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   regionsSuggestions: any;
   regions: any;
 
-  recommendedDestSuggestions: any;
+  recommendedSuggestionsCount: any;
+  recommendedCities: any;
 
   homeGuestsSuggestions: any;
   resSuggestion: any;
@@ -116,9 +117,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          this.recommendedDestSuggestions = data.citySuggestions;
+          this.recommendedSuggestionsCount = data.suggestionsCount;
+          this.recommendedCities = data.citiesList;
+        } else {
+          alert("Recommended dest data fetching error!");
         }
-        console.log(data.resCities);
+        console.log(data.suggestionsCount);
+        console.log(data.citiesList);
       })
       .catch((ex) => {
         alert(ex);

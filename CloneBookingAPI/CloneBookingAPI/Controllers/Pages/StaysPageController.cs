@@ -147,34 +147,30 @@ namespace CloneBookingAPI.Controllers.Pages
         {
             try
             {
-                List<List<Suggestion>> citySuggestions = new();
+                List<int> suggestionsCount = new();
 
                 var citiesList = await _context.Cities
                     .Include(c => c.Country)
                     .Include(c => c.Image)
+                    // .DistinctBy(c => c.Country.Title)
+                    .Take(5)
                     .ToListAsync();
 
-                var cities = citiesList
-                    .Take(5)
-                    .ToList();
+                for (int i = 0; i < citiesList.Count; i++)
+                {
+                    var resCities = await _context.Suggestions
+                        .Include(c => c.Address)
+                        .Where(c => c.Address.CityId == citiesList[i].Id)
+                        .ToListAsync();
 
-                var resCities = _context.Suggestions
-                    .Include(s => s.Address)
-                        .ThenInclude(s => s.City)
-                    .Include(s => s.Images)
-                    .GroupBy(s => s.Address.City.Title)
-                    .OrderBy(s => s.Count())
-                    .Take(5);
-
-                //foreach (var item in resCities)
-                //{
-                //    citySuggestions.Add(item.Key.Count());
-                //}
+                    suggestionsCount.Add(resCities.Count);
+                }
 
                 return Json(new
                 {
                     code = 200,
-                    citySuggestions,
+                    citiesList,
+                    suggestionsCount,
                 });
             }
             catch (ArgumentNullException ex)
@@ -249,8 +245,6 @@ namespace CloneBookingAPI.Controllers.Pages
 
                 return Json(new { code = ex.Message });
             }
-
-            bool LenghtIs3(string name) => name.Length == 3;
         }
     }
 }
