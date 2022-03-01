@@ -26,7 +26,7 @@ namespace CloneBookingAPI.Controllers.Pages
 
         [Route("getdata")]
         [HttpGet]
-        public async Task<ActionResult> GetCategories(string country)
+        public async Task<ActionResult> GetData(string country)
         {
             try
             {
@@ -44,7 +44,7 @@ namespace CloneBookingAPI.Controllers.Pages
                 var suggestionsList = await _context.Suggestions
                     .Include(s => s.Images)
                     .Include(s => s.BookingCategory)
-    .               ToListAsync();
+                    .ToListAsync();
                 var citiesList = await _context.Cities
                     .Include(c => c.Country)
                     .Include(c => c.Image)
@@ -107,8 +107,9 @@ namespace CloneBookingAPI.Controllers.Pages
                     regionsSuggestions.Add(resRegionSuggestion);
                 }
 
-                return Json(new { 
-                    code = 200, 
+                return Json(new
+                {
+                    code = 200,
                     categories,
                     cities,
                     regions,
@@ -118,6 +119,61 @@ namespace CloneBookingAPI.Controllers.Pages
                     placesOfInterestSuggestions,
                     placesOfInterests,
                     regionsSuggestions,
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = ex.Message });
+            }
+        }
+
+        [Route("getrecommendeddestdata")]
+        [HttpGet]
+        public async Task<ActionResult> GetRecommendedDestData()
+        {
+            try
+            {
+                List<List<Suggestion>> citySuggestions = new();
+                
+                var citiesList = await _context.Cities
+                    .Include(c => c.Country)
+                    .Include(c => c.Image)
+                    .ToListAsync();
+
+                var cities = citiesList
+                    .Take(5)
+                    .ToList();
+
+                var resCities = _context.Suggestions
+                    .Include(s => s.Address)
+                    .Include(s => s.Images)
+                    .GroupBy(s => s.Address.City.Title)
+                    .OrderBy(s => s.Count())
+                    .Take(5);
+
+                //foreach (var item in resCities)
+                //{
+                //    citySuggestions.Add(item.Key.Count());
+                //}
+                    
+                return Json(new
+                {
+                    code = 200,
+                    citySuggestions,
                 });
             }
             catch (ArgumentNullException ex)

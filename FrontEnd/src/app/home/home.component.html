@@ -133,7 +133,7 @@
               </div>
               <div class="col-md-2 mt-1 mt-md-0 px-6">
                 <div>
-                  <a href="javascript:void(0)" class="btn btn-blue">Search</a>
+                  <a class="btn btn-blue">Search</a>
                 </div>
               </div>
             </div>
@@ -290,16 +290,18 @@
                     <div class="unified-postcard__overlay">
                       <div class="unified-postcard__header">
                         <h3>
-                          <a href="javascript:void(0)">
+                          <a>
                             Dublin
                             <img
-                              src="assets/images/42.png"
+                              src="{{imageHelper.getImageDirectoryPath()}}{{'YSJu1Nj3YEKYuc+MC4TSlRWPvtybYtnfFT6dHXPt5k=.png'}}"
                               alt="United States of America"
                               valign="middle"
+                              width="23px"
+                              height="17px"
                             />
                           </a>
                         </h3>
-                        <p>25 properties</p>
+                        <p>{{recommendedDestSuggestions[0]?.length ?? '0'}} properties</p>
                       </div>
                     </div>
                   </div>
@@ -323,16 +325,18 @@
                     <div class="unified-postcard__overlay">
                       <div class="unified-postcard__header">
                         <h3>
-                          <a href="javascript:void(0)">
+                          <a>
                             Truckee
                             <img
-                              src="assets/images/42.png"
+                              src="{{imageHelper.getImageDirectoryPath()}}{{'YSJu1Nj3YEKYuc+MC4TSlRWPvtybYtnfFT6dHXPt5k=.png'}}"
                               alt="United States of America"
                               valign="middle"
+                              width="23px"
+                              height="17px"
                             />
                           </a>
                         </h3>
-                        <p>494 properties</p>
+                        <p>{{recommendedDestSuggestions[1]?.length ?? '0'}} properties</p>
                       </div>
                     </div>
                   </div>
@@ -364,13 +368,15 @@
                           <a>
                             South Lake Tahoe
                             <img
-                              src="assets/images/42.png"
+                              src="{{imageHelper.getImageDirectoryPath()}}{{'YSJu1Nj3YEKYuc+MC4TSlRWPvtybYtnfFT6dHXPt5k=.png'}}"
                               alt="United States of America"
                               valign="middle"
+                              width="23px"
+                              height="17px"
                             />
                           </a>
                         </h3>
-                        <p>664 properties</p>
+                        <p>{{recommendedDestSuggestions[2]?.length ?? '0'}} properties</p>
                       </div>
                     </div>
                   </div>
@@ -398,13 +404,15 @@
                           <a>
                             Austin
                             <img
-                              src="assets/images/42.png"
+                              src="{{imageHelper.getImageDirectoryPath()}}{{'YSJu1Nj3YEKYuc+MC4TSlRWPvtybYtnfFT6dHXPt5k=.png'}}"
                               alt="United States of America"
                               valign="middle"
+                              width="23px"
+                              height="17px"
                             />
                           </a>
                         </h3>
-                        <p>720 properties</p>
+                        <p>{{recommendedDestSuggestions[3]?.length ?? '0'}} properties</p>
                       </div>
                     </div>
                   </div>
@@ -429,16 +437,18 @@
                     <div class="unified-postcard__overlay">
                       <div class="unified-postcard__header">
                         <h3>
-                          <a href="javascript:void(0)">
+                          <a>
                             Reno
                             <img
-                              src="assets/images/42.png"
+                              src="{{imageHelper.getImageDirectoryPath()}}{{'YSJu1Nj3YEKYuc+MC4TSlRWPvtybYtnfFT6dHXPt5k=.png'}}"
                               alt="United States of America"
                               valign="middle"
+                              width="23px"
+                              height="17px"
                             />
                           </a>
                         </h3>
-                        <p>77 properties</p>
+                        <p>{{recommendedDestSuggestions[4]?.length ?? '0'}} properties</p>
                       </div>
                     </div>
                   </div>
@@ -459,7 +469,7 @@
           </h2>
           <div class="promote-articles__wrapper bui-u-clearfix">
             <div class="d-md-flex">
-              <a href="javascript:void(0)" class="promote_article">
+              <a class="promote_article">
                 <div
                   class="js-lazy-image promote_article_img"
                   style="background-image: url('assets/images/30.png')"
@@ -480,7 +490,7 @@
                   </p>
                 </div>
               </a>
-              <a href="javascript:void(0)" class="promote_article">
+              <a class="promote_article">
                 <div
                   class="js-lazy-image promote_article_img"
                   style="background-image: url('assets/images/35.png')"
@@ -503,7 +513,6 @@
                 </div>
               </a>
               <a
-                href="javascript:void(0)"
                 class="promote_article promote-articles-margin"
               >
                 <div
@@ -530,7 +539,6 @@
             </div>
             <div class="d-md-flex">
               <a
-                href="javascript:void(0)"
                 class="promote_article promote-articles-2-col"
               >
                 <div
@@ -555,7 +563,6 @@
                 </div>
               </a>
               <a
-                href="javascript:void(0)"
                 class="promote_article promote-articles-2-col"
               >
                 <div

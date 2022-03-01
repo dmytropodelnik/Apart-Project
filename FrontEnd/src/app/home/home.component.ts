@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   imageHelper: any = ImageHelper;
 
   bookingCategories: BookingCategory[] | undefined;
-  imagePath: string = "123";
+  imagePath: string = '123';
   cities: City[] | undefined;
   citySuggestions: any;
   suggestions: any;
@@ -31,6 +31,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   placesOfInterests: any;
   regionsSuggestions: any;
   regions: any;
+
+  recommendedDestSuggestions: any;
 
   slides = [
     { text: 'Educational Consulting', img: 'assets/images/21.png' },
@@ -98,18 +100,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     ],
   };
 
-  constructor(
-    public mainDataService: MainDataService
-  ) {
-  }
+  constructor(public mainDataService: MainDataService) {}
 
   ngOnInit(): void {
-    fetch(
-      'https://localhost:44381/api/stayspage/getdata?country=Ukraine',
-      {
-        method: 'GET',
-      }
-    )
+    fetch('https://localhost:44381/api/stayspage/getdata?country=Ukraine', {
+      method: 'GET',
+    })
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
@@ -125,22 +121,34 @@ export class HomeComponent implements OnInit, OnDestroy {
         } else {
           alert('Data fetching error!');
         }
-        console.log(r.categories);
-        console.log(r.cities);
-        console.log(r.suggestions);
-        console.log(r.citySuggestions);
-        console.log(r.footerCities);
-        console.log(r.placesOfInterestSuggestions);
-        console.log(r.placesOfInterests);
-        console.log(r.regions);
-        console.log(r.regionsSuggestions);
+        // console.log(r.categories);
+        // console.log(r.cities);
+        // console.log(r.suggestions);
+        // console.log(r.citySuggestions);
+        // console.log(r.footerCities);
+        // console.log(r.placesOfInterestSuggestions);
+        // console.log(r.placesOfInterests);
+        // console.log(r.regions);
+        // console.log(r.regionsSuggestions);
       })
       .catch((err) => {
         alert(err);
       });
+
+    fetch(`https://localhost:44381/api/stayspage/getrecommendeddestdata`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.recommendedDestSuggestions = data.citySuggestions;
+        }
+        console.log(data.resCities);
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
-  ngOnDestroy() {
-
-  }
+  ngOnDestroy() {}
 }
