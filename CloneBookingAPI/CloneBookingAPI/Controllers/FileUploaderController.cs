@@ -83,6 +83,18 @@ namespace CloneBookingAPI.Controllers.UserData
                 }
                 return Json(new { code = STATUS_400 });
             }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
@@ -136,11 +148,23 @@ namespace CloneBookingAPI.Controllers.UserData
 
                 return Json(new { code = STATUS_200 });
             }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = STATUS_500 });
+                return Json(new { code = STATUS_400 });
             }
         }
     }

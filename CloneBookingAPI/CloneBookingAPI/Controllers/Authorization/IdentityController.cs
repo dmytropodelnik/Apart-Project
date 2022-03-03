@@ -72,6 +72,30 @@ namespace CloneBookingAPI.Controllers
 
                 return Json(encodedJwt);
             }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (ArgumentException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (SecurityTokenEncryptionFailedException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
@@ -108,6 +132,18 @@ namespace CloneBookingAPI.Controllers
                     };
                 }
                 return claims;
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return null;
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return null;
             }
             catch (Exception ex)
             {

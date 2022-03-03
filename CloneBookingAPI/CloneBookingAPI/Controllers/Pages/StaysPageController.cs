@@ -137,7 +137,7 @@ namespace CloneBookingAPI.Controllers.Pages
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = ex.Message });
+                return Json(new { code = 400 });
             }
         }
 

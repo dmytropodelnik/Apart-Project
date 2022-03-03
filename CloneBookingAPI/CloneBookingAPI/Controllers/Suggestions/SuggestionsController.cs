@@ -52,6 +52,12 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
                 return Json(new { code = STATUS_400 });
             }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
 
         [Route("addsuggestion")]
@@ -70,11 +76,29 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
                 return Json(new { code = STATUS_200 });
             }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = STATUS_400 });
+                return Json(new { code = 400 });
             }
         }
     }

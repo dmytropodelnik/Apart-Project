@@ -4,6 +4,7 @@ using CloneBookingAPI.Services.Generators;
 using CloneBookingAPI.Services.POCOs;
 using CloneBookingAPI.Services.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -53,6 +54,12 @@ namespace CloneBookingAPI.Controllers
 
                 return RedirectToAction("SendCodeLetter", "Auth", new { emailTrim, code });
             }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
@@ -82,6 +89,12 @@ namespace CloneBookingAPI.Controllers
 
                 return RedirectToAction("SendVerifyLetter", "Auth", new { emailTrim, code });
             }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
@@ -110,6 +123,12 @@ namespace CloneBookingAPI.Controllers
                 _codesRepository.Repository.Remove(KeyValuePair.Create(email, code));
 
                 return Json(new { code = 200 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
             }
             catch (Exception ex)
             {

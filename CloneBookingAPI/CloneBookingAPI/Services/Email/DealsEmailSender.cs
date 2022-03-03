@@ -51,6 +51,7 @@ namespace CloneBookingAPI.Services.Email
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
+
                 return false;
             }
         }

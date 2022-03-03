@@ -44,6 +44,12 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
                 return Json(new { code = 400 });
             }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
         }
 
         [Route("search")]

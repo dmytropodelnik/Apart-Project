@@ -113,6 +113,24 @@ namespace CloneBookingAPI.Controllers
                 }
                 return Json(new { code = 400 });
             }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
@@ -144,6 +162,24 @@ namespace CloneBookingAPI.Controllers
 
                 return Json(new { code = 200 });
             }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
@@ -174,6 +210,24 @@ namespace CloneBookingAPI.Controllers
 
                 return Json(new { code = 200 });
             }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
@@ -203,6 +257,24 @@ namespace CloneBookingAPI.Controllers
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
             }
             catch (Exception ex)
             {

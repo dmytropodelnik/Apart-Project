@@ -89,11 +89,23 @@ namespace CloneBookingAPI.Controllers
 
                 return Json(new { code = 200 });
             }
-            catch (Exception ex)
+            catch (ArgumentNullException ex)
             {
                 Debug.WriteLine(ex.Message);
 
                 return Json(new { code = 400 });
+            }
+            catch (ArgumentException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = ex.Message });
             }
         }
     }
