@@ -3,6 +3,7 @@ using CloneBookingAPI.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Review;
 using CloneBookingAPI.Services.Database.Models.UserProfile;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,10 +17,15 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public uint GuestsAmount { get; set; }
+        [Required]
         public uint BathroomsAmount { get; set; }
+        [Required]
+        public uint RoomsAmount { get; set; }
 
         [Required]
         [DataType(DataType.Currency)]
@@ -29,6 +35,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [DataType(DataType.Currency)]
         public decimal PriceInUSD { get; set; }
 
+        [Required]
         public bool IsParkingAvailable { get; set; }
 
         public int? AddressId { get; set; }
@@ -47,10 +54,8 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [ForeignKey("BookingCategoryId")]
         public BookingCategory BookingCategory { get; set; }
 
-        public int? InterestPlaceId { get; set; }
-        [ForeignKey("InterestPlaceId")]
-        public InterestPlace InterestPlace { get; set; }
-
+        public List<InterestPlace> InterestPlaces { get; set; } = new();
+        public List<DateTime> ReservedDates { get; set; } = new();
         public List<Review.Review> Reviews { get; set; } = new();
         public List<StayBooking> StayBookings { get; set; } = new();
         public List<ReviewCategory> AdditionalServices { get; set; } = new();

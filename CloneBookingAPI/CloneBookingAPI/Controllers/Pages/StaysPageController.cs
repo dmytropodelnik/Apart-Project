@@ -2,6 +2,7 @@
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
+using CloneBookingAPI.Services.POCOs.Search;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -44,6 +45,7 @@ namespace CloneBookingAPI.Controllers.Pages
                 var suggestionsList = await _context.Suggestions
                     .Include(s => s.Images)
                     .Include(s => s.BookingCategory)
+                    .Include(s => s.InterestPlaces)
                     .ToListAsync();
                 var citiesList = await _context.Cities
                     .Include(c => c.Country)
@@ -82,11 +84,12 @@ namespace CloneBookingAPI.Controllers.Pages
 
                 for (int i = 1; i <= placesOfInterests.Count; i++)
                 {
-                    var resplacesOfInterestSuggestion = suggestionsList
-                        .Where(s => s.InterestPlaceId == i)
+                    var resPlacesOfInterestSuggestion = suggestionsList
+                        .Where(s => s.InterestPlaces
+                                        .All(p => p.Id == i))
                         .ToList();
 
-                    placesOfInterestSuggestions.Add(resplacesOfInterestSuggestion);
+                    placesOfInterestSuggestions.Add(resPlacesOfInterestSuggestion);
                 }
 
                 for (int i = 1; i <= cities.Count; i++)
@@ -125,19 +128,19 @@ namespace CloneBookingAPI.Controllers.Pages
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -177,13 +180,13 @@ namespace CloneBookingAPI.Controllers.Pages
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
@@ -231,13 +234,83 @@ namespace CloneBookingAPI.Controllers.Pages
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = ex.Message });
+            }
+        }
+
+        [Route("search")]
+        [HttpGet]
+        public async Task<ActionResult> Search(StaySearchPoco searchObj)
+        {
+            try
+            {
+                int pageHelper = searchObj.Page;
+
+                if (searchObj is null || pageHelper < 1)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                if (searchObj.Page == 1)
+                {
+                    pageHelper = 0;
+                }
+
+                string searchCounty = searchObj.Address.Country.Title    ?? "";
+                string searchCity = searchObj.Address.City.Title         ?? "";
+                string searchAddressText = searchObj.Address.AddressText ?? "";
+
+                var resSuggestions = await _context.Suggestions
+                       .Include(s => s.Address)
+                       .Include(s => s.Images)
+                       .Include(s => s.BookingCategory)
+                       .Include(s => s.Reviews)
+                       .Include(s => s.Beds)
+                       .Include(s => s.RoomTypes)
+                       .Include(s => s.AdditionalServices)
+                       .Include(s => s.SuggestionReviewGrades)
+                       .Where(s => s.Address.Country.Title.Contains(searchCounty)                  ||
+                                   s.Address.City.Title.Contains(searchCity)                       ||
+                                   s.Address.AddressText.Contains(searchAddressText)               ||
+                                   searchAddressText.Contains(s.Address.AddressText)               ||
+                                   searchCounty.Contains(s.Address.Country.Title)                  ||
+                                   searchCity.Contains(s.Address.City.Title)                       ||
+                                   !s.ReservedDates.Contains(Convert.ToDateTime(searchObj.Date))   &&
+                                   s.GuestsAmount >= searchObj.GuestsAmount                        &&
+                                   s.RoomsAmount >= searchObj.RoomsAmount)         
+                       .Skip((pageHelper - 1) * 25)
+                       .Take(25)
+                       .ToListAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                    resSuggestions,
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {

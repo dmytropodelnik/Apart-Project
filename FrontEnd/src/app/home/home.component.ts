@@ -181,6 +181,23 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
+  searchSuggestions(): void {
+    fetch(`https://localhost:44381/api/stayspage/search`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.homeGuestsSuggestions = data.resSuggestion;
+          this.reviewsCount = data.reviewsCount;
+        }
+        console.log(data.resCities);
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
   ngOnInit(): void {
     this.getMainData();
     this.getRecommendedDestData();
