@@ -28,7 +28,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
         [Route("getsuggestions")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BookingCategory>>> GetSuggestions()
+        public async Task<ActionResult<IEnumerable<Suggestion>>> GetSuggestions()
         {
             try
             {
@@ -59,6 +59,34 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 return Json(new { code = 400 });
             }
         }
+
+        //[Route("getsuggestions")]
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<Suggestion>>> GetSuggestions()
+        //{
+        //    try
+        //    {
+
+        //    }
+        //    catch (ArgumentNullException ex)
+        //    {
+        //        Debug.WriteLine(ex.Message);
+
+        //        return Json(new { code = STATUS_400 });
+        //    }
+        //    catch (OperationCanceledException ex)
+        //    {
+        //        Debug.WriteLine(ex.Message);
+
+        //        return Json(new { code = STATUS_400 });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine(ex.Message);
+
+        //        return Json(new { code = 400 });
+        //    }
+        //}
 
         [Route("addsuggestion")]
         [HttpPost]

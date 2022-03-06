@@ -28,6 +28,7 @@ namespace CloneBookingAPI.Controllers.Review
                 var reviews = await _context.Reviews
                     .Include(r => r.User)
                     .Include(r => r.Suggestion)
+                        .ThenInclude(s => s.StayBookings)
                     .Include(r => r.ReviewMessage)
                     .ToListAsync();
 

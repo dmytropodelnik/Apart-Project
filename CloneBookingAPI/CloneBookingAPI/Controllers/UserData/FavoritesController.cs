@@ -123,13 +123,20 @@ namespace CloneBookingAPI.Controllers.UserData
                     .Where(f => f.UserId == int.Parse(items.UserId) &&
                                 f.Suggestions
                                 .All(s => s.RoomsAmount > items.RoomAmount &&
-                                          s.ReservedDates
-                                            .Any(s =>
-                                                 s <= items.CheckIn || s >= items.CheckOut)))                   
+                                          s.StayBookings
+                                                .Any(b => (b.CheckIn  > Convert.ToDateTime(items.CheckIn) &&
+                                                           b.CheckIn  > Convert.ToDateTime(items.CheckOut)) ||
+                                                          (b.CheckOut < Convert.ToDateTime(items.CheckIn) &&
+                                                           b.CheckOut < Convert.ToDateTime(items.CheckOut)
+                                                          )
+                                                    )
+                                     )
+                           )
                     .ToListAsync();
 
-                return Json(new { 
-                    code = 200, 
+                return Json(new
+                {
+                    code = 200,
                     suggestions,
                 });
             }

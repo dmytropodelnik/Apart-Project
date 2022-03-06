@@ -70,6 +70,7 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(20, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string UniqueNumber { get; set; }
 
+        
         public int SuggestionId { get; set; }
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }

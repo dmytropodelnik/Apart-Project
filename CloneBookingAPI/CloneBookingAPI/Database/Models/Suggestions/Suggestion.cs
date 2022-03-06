@@ -21,11 +21,13 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public string Name { get; set; }
 
         [Required]
-        public uint GuestsAmount { get; set; }
+        public int GuestsAmount { get; set; }
         [Required]
-        public uint BathroomsAmount { get; set; }
+        public int BathroomsAmount { get; set; }
         [Required]
-        public uint RoomsAmount { get; set; }
+        public int RoomsAmount { get; set; }
+        [Required]
+        public int StarRating { get; set; }
 
         [Required]
         [DataType(DataType.Currency)]
@@ -55,7 +57,6 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public BookingCategory BookingCategory { get; set; }
 
         public List<InterestPlace> InterestPlaces { get; set; } = new();
-        public List<DateTime> ReservedDates { get; set; } = new();
         public List<Review.Review> Reviews { get; set; } = new();
         public List<StayBooking> StayBookings { get; set; } = new();
         public List<ReviewCategory> AdditionalServices { get; set; } = new();
