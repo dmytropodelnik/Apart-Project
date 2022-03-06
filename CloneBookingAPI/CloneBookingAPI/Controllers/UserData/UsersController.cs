@@ -33,10 +33,10 @@ namespace CloneBookingAPI.Controllers
             SaltGenerator saltGenerator,
             JwtRepository jwtRepository)
         {
-            _context            = context;
-            _codesRepository    = codesRepository;
-            _jwtRepository      = jwtRepository;
-            _saltGenerator      = saltGenerator;
+            _context = context;
+            _codesRepository = codesRepository;
+            _jwtRepository = jwtRepository;
+            _saltGenerator = saltGenerator;
         }
 
         [Route("userexists")]
@@ -138,10 +138,10 @@ namespace CloneBookingAPI.Controllers
                 var users = await _context.Users
                     .Include(u => u.Profile)
                     .Include(u => u.Role)
-                    .Where(u => u.Title.Contains(user)       ||
-                                u.FirstName.Contains(user)   ||
-                                u.LastName.Contains(user)    ||
-                                u.Email.Contains(user)       ||
+                    .Where(u => u.Title.Contains(user) ||
+                                u.FirstName.Contains(user) ||
+                                u.LastName.Contains(user) ||
+                                u.Email.Contains(user) ||
                                 u.PhoneNumber.Contains(user) ||
                                 u.DisplayName.Contains(user))
                     .ToListAsync();
@@ -290,8 +290,8 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                if (person is null                             ||
-                    string.IsNullOrWhiteSpace(person.Email)    ||
+                if (person is null ||
+                    string.IsNullOrWhiteSpace(person.Email) ||
                     string.IsNullOrWhiteSpace(person.Password) ||
                     string.IsNullOrWhiteSpace(person.VerificationCode))
                 {
@@ -367,7 +367,7 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                if (model is null                             || 
+                if (model is null ||
                     string.IsNullOrWhiteSpace(model.Username) ||
                     string.IsNullOrWhiteSpace(model.AccessToken))
                 {
@@ -410,170 +410,10 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        [Authorize]
-        [Route("changeusersemail")]
-        [HttpPut]
-        public async Task<IActionResult> ChangeUsersEmail([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
-        {
-            try
-            {
-                if (user is null ||
-                    string.IsNullOrWhiteSpace(user.Email) ||
-                    string.IsNullOrWhiteSpace(user.NewEmail))
-                {
-                    return Json(new { code = 400 });
-                }
-
-                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
-                if (resUser is null)
-                {
-                    return Json(new { code = 400 });
-                }
-                resUser.Email = user.NewEmail;
-
-                _context.Users.Update(resUser);
-                await _context.SaveChangesAsync();
-
-                return Json(new { code = 200 });
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (DbUpdateException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (OperationCanceledException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-        }
-
-        [Authorize]
-        [Route("changeuserspass")]
-        [HttpPut]
-        public async Task<IActionResult> ChangeUsersPass([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
-        {
-            try
-            {
-                if (user is null ||
-                    string.IsNullOrWhiteSpace(user.Email) ||
-                    string.IsNullOrWhiteSpace(user.NewPassword))
-                {
-                    return Json(new { code = 400 });
-                }
-
-                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
-                if (resUser is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                string hashedPassword = _saltGenerator.GenerateCode(user.Password.Trim());
-
-                resUser.PasswordHash = hashedPassword;
-                resUser.SaltHash = _saltGenerator.Salt;
-
-                _context.Users.Update(resUser);
-                await _context.SaveChangesAsync();
-
-                return Json(new { code = 200 });
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (DbUpdateException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (OperationCanceledException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-        }
-
-        [Authorize]
-        [Route("changeusersphone")]
-        [HttpPut]
-        public async Task<IActionResult> ChangeUsersPhone([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
-        {
-            try
-            {
-                if (user is null ||
-                    string.IsNullOrWhiteSpace(user.Email) ||
-                    string.IsNullOrWhiteSpace(user.PhoneNumber))
-                {
-                    return Json(new { code = 400 });
-                }
-
-                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
-                if (resUser is null)
-                {
-                    return Json(new { code = 400 });
-                }
-                resUser.PhoneNumber = user.PhoneNumber;
-
-                _context.Users.Update(resUser);
-                await _context.SaveChangesAsync();
-
-                return Json(new { code = 200 });
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (DbUpdateException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (OperationCanceledException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-        }
-
-        [Authorize]
-        [Route("changeusersinfo")]
-        [HttpPut]
-        public async Task<IActionResult> ChangeUsersInfo([FromBody] User user)
+        // [Authorize]
+        [Route("deleteuser")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUser([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
         {
             try
             {
@@ -588,24 +428,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                if (!string.IsNullOrWhiteSpace(user.Title))
-                {
-                    resUser.Title = user.Title;
-                }
-                if (!string.IsNullOrWhiteSpace(user.FirstName))
-                {
-                    resUser.FirstName = user.FirstName;
-                }
-                if (!string.IsNullOrWhiteSpace(user.LastName))
-                {
-                    resUser.LastName = user.LastName;
-                }
-                if (!string.IsNullOrWhiteSpace(user.DisplayName))
-                {
-                    resUser.DisplayName = user.DisplayName;
-                }
-
-                _context.Users.Update(resUser);
+                _context.Users.Remove(resUser);
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });

@@ -48,6 +48,6 @@ namespace CloneBookingAPI.Services.Database.Models.Location
 
         public List<StayBooking> StayBooking { get; set; } = new();
         public List<Suggestion> Suggestions { get; set; } = new();
-        public List<UserProfile.UserProfile> UserProfiles { get; set; } = new();
+        public UserProfile.UserProfile UserProfile { get; set; }
     }
 }

@@ -20,9 +20,7 @@ namespace CloneBookingAPI.Controllers
     {
         private readonly ApartProjectDbContext _context;
 
-        public UserProfilesController(
-            ApartProjectDbContext context
-            )
+        public UserProfilesController(ApartProjectDbContext context)
         {
             _context = context;
         }
