@@ -20,12 +20,20 @@ namespace CloneBookingAPI.Services.Generators
             try
             {
                 Random generator = new();
-                do
-                {
+                // do
+                // {
                     _code = generator.Next(100000, 999999).ToString();
-                } while (_repository.IsValueExists(_code));
+                // } while (_repository.IsValueExists(_code));
 
-                _repository.Repository.Add(KeyValuePair.Create(key, _code));
+                // _repository.Repository.Add(KeyValuePair.Create(key, _code));
+                if (_repository.Repository.ContainsKey(key))
+                {
+                    _repository.Repository[key].Add(_code);
+                }
+                else
+                {
+                    _repository.Repository.Add(key, new List<string> { _code });
+                }
 
                 return _code;
             }

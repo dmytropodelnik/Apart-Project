@@ -91,6 +91,8 @@ namespace CloneBookingAPI.Controllers.Search
                     filteredSuggestions = OrderByBestGrades(resSuggestions);
                 }
 
+                int countSuggestions = filteredSuggestions.Count;
+
                 // PAGINATION
                 filteredSuggestions
                     .Skip((pageHelper - 1) * 25)
@@ -100,6 +102,7 @@ namespace CloneBookingAPI.Controllers.Search
                 {
                     code = 200,
                     filteredSuggestions,
+                    countSuggestions,
                 });
             }
             catch (ArgumentNullException ex)
@@ -176,10 +179,13 @@ namespace CloneBookingAPI.Controllers.Search
                     .Where(s => s.BookingCategory.Category == category)
                     .ToListAsync();
 
+                int countSuggestions = resSuggestions.Count;
+
                 return Json(new
                 {
                     code = 200,
                     resSuggestions,
+                    countSuggestions
                 });
             }
             catch (ArgumentNullException ex)

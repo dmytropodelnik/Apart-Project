@@ -342,7 +342,16 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                _codesRepository.Repository.Remove(KeyValuePair.Create(person.Email.Trim(), person.Password.Trim()));
+                // _codesRepository.Repository.Remove(KeyValuePair.Create(person.Email.Trim(), person.Password.Trim()));
+                if (_codesRepository.Repository.ContainsKey(person.Email.Trim()))
+                {
+                    _codesRepository.Repository[person.Email.Trim()].Remove(person.Password.Trim());
+
+                    if (_codesRepository.Repository[person.Email.Trim()].Count == 0)
+                    {
+                        _codesRepository.Repository.Remove(person.Email.Trim());
+                    }
+                }
 
                 var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == person.Email);
                 if (resUser is not null)

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers
@@ -27,27 +28,73 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                var notifications = await _context.Notifications.ToListAsync();
+                var notifications = await _context.Notifications
+                    .Include(n => n.EmitterUser)
+                    .Include(n => n.Image)
+                    .ToListAsync();
 
-                return Json(new { code = 200, notifications });
+                return Json(new { 
+                    code = 200,
+                    notifications,
+                });
             }
             catch (ArgumentNullException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("getnotifications")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Notification>>> GetUserNotifications(string email)
+        {
+            try
+            {
+                var notifications = await _context.Notifications
+                    .Include(n => n.EmitterUser)
+                    .Where(n => n.EmitterUser.Email.Equals(email))
+                    .ToListAsync();
+                if (notifications is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                return Json(new { 
+                    code = 200,
+                    notifications,
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
             }
         }
 
@@ -77,25 +124,25 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
     }
