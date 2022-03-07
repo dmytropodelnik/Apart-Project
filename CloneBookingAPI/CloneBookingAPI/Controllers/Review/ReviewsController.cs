@@ -1,4 +1,5 @@
 ﻿using CloneBookingAPI.Services.Database;
+using CloneBookingAPI.Services.POCOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -162,6 +163,63 @@ namespace CloneBookingAPI.Controllers.Review
             }
         }
 
+        [Route("getsuggestionreviews")]
+        [HttpGet]
+        public async Task<IActionResult> GetSuggestionReviews([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                int pageHelper = suggestion.Page;
+
+                if (suggestion is null || pageHelper < 1)
+                {
+                    return NotFound();
+                }
+
+                if (suggestion.Page == 1)
+                {
+                    pageHelper = 0;
+                }
+
+                var reviews = await _context.Reviews
+                    .Include(r => r.ReviewMessage)
+                    .Include(r => r.Suggestion)
+                    .Include(r => r.User)
+                    .Where(r => r.SuggestionId == suggestion.Id)
+                    .ToListAsync();
+
+                // PAGINATION
+                reviews = reviews
+                    .Skip((pageHelper - 1) * 10)
+                    .Take(10)
+                    .ToList();
+
+                return Json(new
+                {
+                    code = 200,
+                    reviews,
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
         [Route("addreview")]
         [HttpPost]
         public async Task<IActionResult> AddReview([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
@@ -177,7 +235,6 @@ namespace CloneBookingAPI.Controllers.Review
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });
-
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -205,9 +262,9 @@ namespace CloneBookingAPI.Controllers.Review
             }
         }
 
-        [Route("changereviewbyname")]
+        [Route("editreview")]
         [HttpPut]
-        public async Task<IActionResult> ChangeReview([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
+        public async Task<IActionResult> EditReview([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
         {
             try
             {
@@ -256,9 +313,9 @@ namespace CloneBookingAPI.Controllers.Review
             }
         }
 
-        [Route("changereview")]
-        [HttpPut("{id}")]
-        public async Task<IActionResult> ChangeCountry([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
+        [Route("editreviewbyid")]
+        [HttpPut]
+        public async Task<IActionResult> EditReviewById([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
         {
             try
             {

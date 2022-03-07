@@ -10,6 +10,7 @@ namespace CloneBookingAPI.Services.POCOs
     public class SuggestionPoco
     {
         public int Id { get; set; }
+        public int Page { get; set; }
         public int UserId { get; set; }
         public string Name { get; set; }
         public string Login { get; set; }

@@ -94,9 +94,10 @@ namespace CloneBookingAPI.Controllers.Search
                 int countSuggestions = filteredSuggestions.Count;
 
                 // PAGINATION
-                filteredSuggestions
+                filteredSuggestions = filteredSuggestions
                     .Skip((pageHelper - 1) * 25)
-                    .Take(25);            
+                    .Take(25)
+                    .ToList();
 
                 return Json(new
                 {

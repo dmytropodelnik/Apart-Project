@@ -21,6 +21,7 @@ namespace CloneBookingAPI.Services.Database.Models
 
         public List<UserProfile.UserProfile> UserProfiles { get; set; } = new();
         public List<Facility> Facilities { get; set; } = new();
+        public List<FacilityType> FacilityTypes { get; set; } = new();
         public List<Suggestion> Suggestions { get; set; } = new();
         public List<SuggestionHighlight> SuggestionHighlights { get; set; } = new();
         public List<City> Cities { get; set; } = new();

@@ -13,6 +13,8 @@ namespace CloneBookingAPI.Services.Database.Models.Review
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        public double Grade { get; set; }
+
         public int? UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
