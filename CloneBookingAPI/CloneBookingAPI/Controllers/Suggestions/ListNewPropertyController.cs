@@ -44,6 +44,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 Suggestion newSuggestion = new();
                 newSuggestion.Name = suggestion.Name;
                 newSuggestion.UserId = owner.Id;
+                newSuggestion.Progress = 10;
 
                 var resSuggestion = _context.Suggestions.Add(newSuggestion);
                 await _context.SaveChangesAsync();
@@ -108,6 +109,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 }
 
                 resSuggestion.Address = suggestion.Address;
+                resSuggestion.Progress = 20;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -162,6 +164,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 }
 
                 resSuggestion.Beds = suggestion.Beds;
+                resSuggestion.Progress = 30;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -215,7 +218,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     return Json(new { code = 400 });
                 }
 
-
+                resSuggestion.Progress = 40;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -270,6 +273,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 }
 
                 resSuggestion.IsParkingAvailable = suggestion.IsParkingAvailable;
+                resSuggestion.Progress = 50;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -324,6 +328,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 }
 
                 resSuggestion.Languages = suggestion.Languages;
+                resSuggestion.Progress = 60;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -378,6 +383,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 }
 
                 resSuggestion.Facilities = suggestion.Facilities;
+                resSuggestion.Progress = 70;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -481,6 +487,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
                 resSuggestion.PriceInUSD = suggestion.PriceInUSD;
                 resSuggestion.PriceInUserCurrency = suggestion.PriceInUserCurrency;
+                resSuggestion.Progress = 100;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();

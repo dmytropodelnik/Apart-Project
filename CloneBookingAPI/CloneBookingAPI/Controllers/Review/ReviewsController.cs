@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Review
@@ -21,7 +22,7 @@ namespace CloneBookingAPI.Controllers.Review
 
         [Route("getreviews")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CloneBookingAPI.Services.Database.Models.Review.Review>>> GetReviews()
+        public async Task<IActionResult> GetReviews()
         {
             try
             {
@@ -38,19 +39,126 @@ namespace CloneBookingAPI.Controllers.Review
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
+            }
+        }
+
+
+        [Route("getuserreviews")]
+        [HttpGet]
+        public async Task<IActionResult> GetUserReviews(string email)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var reviews = await _context.Reviews
+                    .Include(r => r.User)
+                    .Where(r => r.User.Email.Equals(email))
+                    .ToListAsync();
+                if (reviews is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                return Json(new { 
+                    code = 200,
+                    reviews,
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        // [Authorize]
+        [Route("getuserpropertyreviews")]
+        [HttpGet]
+        public async Task<IActionResult> GetUserPropertyReviews(string email)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return NotFound();
+                }
+
+                List<List<CloneBookingAPI.Services.Database.Models.Review.Review>> reviewsList = new();
+
+                var suggestions = await _context.Suggestions
+                    .Include(s => s.User)
+                    .Where(s => s.User.Email.Equals(email))
+                    .ToListAsync();
+
+                var reviews = await _context.Reviews
+                    .Include(r => r.User)
+                    .Include(r => r.Suggestion)
+                    .Where(r => r.User.Email.Equals(email))
+                    .ToListAsync();
+
+                for (int i = 0; i < reviewsList.Count; i++)
+                {
+                    var exactReviews = reviews
+                    .Where(r => r.SuggestionId == suggestions[i].Id)
+                    .ToList();
+
+                    reviewsList.Add(exactReviews);
+                }
+
+                return Json(new
+                {
+                    code = 200,
+                    reviews,
+                    reviewsList,
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
             }
         }
 
@@ -75,25 +183,25 @@ namespace CloneBookingAPI.Controllers.Review
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -126,25 +234,25 @@ namespace CloneBookingAPI.Controllers.Review
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 

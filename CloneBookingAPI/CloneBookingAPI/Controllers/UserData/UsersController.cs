@@ -1,5 +1,6 @@
 ﻿using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
+using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Database.Models.UserProfile;
 using CloneBookingAPI.Services.Generators;
 using CloneBookingAPI.Services.POCOs;
@@ -189,13 +190,7 @@ namespace CloneBookingAPI.Controllers
 
                 return user;
             }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (DbUpdateException ex)
+            catch (ArgumentNullException ex)
             {
                 Debug.WriteLine(ex.Message);
 
@@ -212,6 +207,49 @@ namespace CloneBookingAPI.Controllers
                 Debug.WriteLine(ex.Message);
 
                 return Json(new { code = 400 });
+            }
+        }
+
+        // [Authorize]
+        [Route("getuserproperties")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Suggestion>>> GetUserProperties(string email)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return NotFound();
+                }
+
+                var suggestions = await _context.Suggestions
+                    .Include(r => r.User)
+                    .Where(r => r.User.Email.Equals(email))
+                    .ToListAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                    suggestions,
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
             }
         }
 

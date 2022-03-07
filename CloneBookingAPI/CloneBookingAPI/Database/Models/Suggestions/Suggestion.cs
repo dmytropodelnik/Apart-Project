@@ -28,6 +28,8 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public int RoomsAmount { get; set; }
         [Required]
         public int StarRating { get; set; }
+        [Required]
+        public int Progress { get; set; }
 
         [Required]
         [DataType(DataType.Currency)]

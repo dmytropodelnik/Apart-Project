@@ -143,6 +143,8 @@ namespace CloneBookingAPI.Controllers.UserData
                     suggestion.Images.Add(file);
                     _context.Files.Add(file);
                 }
+                suggestion.Progress = 90;
+
                 _context.Suggestions.Update(suggestion);
                 await _context.SaveChangesAsync();
 

@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Services
@@ -48,6 +49,52 @@ namespace CloneBookingAPI.Controllers.Services
                 Debug.WriteLine(ex.Message);
 
                 return Json(new { code = 400 });
+            }
+        }
+
+        [Route("getuserbookings")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<StayBooking>>> GetUserBookings(string email)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var stayBookings = await _context.StayBookings
+                    .Include(r => r.User)
+                    .Where(r => r.User.Email.Equals(email))
+                    .ToListAsync();
+                if (stayBookings is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                return Json(new
+                {
+                    code = 200,
+                    stayBookings,
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
             }
         }
 
