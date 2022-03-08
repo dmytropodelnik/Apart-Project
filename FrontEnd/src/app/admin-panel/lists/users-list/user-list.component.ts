@@ -186,10 +186,7 @@ export class UserListComponent implements OnInit {
 
   setUser(user: User): void {
     this.checkedUser = user.id;
-
-    this.user.email = user.email;
-    this.user.passwordHash = user.passwordHash;
-    this.user.role.id = user.role.id;
+    this.user = user;
 
     document.getElementById('editButton')?.removeAttribute('disabled');
     document.getElementById('deleteButton')?.removeAttribute('disabled');

@@ -17,13 +17,13 @@ namespace CloneBookingAPI.Services.Database.Configurations.Suggestions
                   new RoomType { Id = 4, Title = "Superior Twin Room", },
                   new RoomType { Id = 5, Title = "Studio", },
                   new RoomType { Id = 6, Title = "Standard Quadruple Room", },
-                  new RoomType { Id = 6, Title = "Apartment", },
-                  new RoomType { Id = 6, Title = "Double Room with Balcony", },
-                  new RoomType { Id = 6, Title = "Double Room with Extra Bed", },
-                  new RoomType { Id = 6, Title = "Contempo Double Room", },
-                  new RoomType { Id = 6, Title = "Double Room", },
-                  new RoomType { Id = 6, Title = "Deluxe Double Room", },
-                  new RoomType { Id = 6, Title = "Classic Suite", },
+                  new RoomType { Id = 7, Title = "Apartment", },
+                  new RoomType { Id = 8, Title = "Double Room with Balcony", },
+                  new RoomType { Id = 9, Title = "Double Room with Extra Bed", },
+                  new RoomType { Id = 10, Title = "Contempo Double Room", },
+                  new RoomType { Id = 11, Title = "Double Room", },
+                  new RoomType { Id = 12, Title = "Deluxe Double Room", },
+                  new RoomType { Id = 13, Title = "Classic Suite", },
               });
         }
     }

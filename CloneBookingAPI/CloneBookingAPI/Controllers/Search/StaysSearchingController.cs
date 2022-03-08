@@ -54,7 +54,7 @@ namespace CloneBookingAPI.Controllers.Search
                        .Include(s => s.Reviews)
                        .Include(s => s.Beds)
                        .Include(s => s.RoomTypes)
-                       .Include(s => s.AdditionalServices)
+                       .Include(s => s.ReviewCategories)
                        .Include(s => s.SuggestionReviewGrades)
                        .Where(s => s.Address.Country.Title.Contains(searchCounty)    ||
                                    s.Address.City.Title.Contains(searchCity)         ||

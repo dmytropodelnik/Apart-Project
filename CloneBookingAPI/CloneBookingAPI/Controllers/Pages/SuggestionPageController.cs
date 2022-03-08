@@ -125,7 +125,7 @@ namespace CloneBookingAPI.Controllers.Pages
                     .Include(s => s.ServiceCategory)
                     .Include(s => s.BookingCategory)
                     .Include(s => s.InterestPlaces)
-                    .Include(s => s.AdditionalServices)
+                    .Include(s => s.ReviewCategories)
                     .Include(s => s.SuggestionReviewGrades)
                     .Include(s => s.Images)
                     .Include(s => s.Highlights)

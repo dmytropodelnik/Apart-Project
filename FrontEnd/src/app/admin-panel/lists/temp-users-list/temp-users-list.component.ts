@@ -12,11 +12,13 @@ import ListHelper from '../../../utils/listHelper';
 export class TempUsersListComponent implements OnInit {
 
   users: TempUser[] | null = null;
-  user: TempUser | null = null;
+  user: TempUser;
   searchUser: string = '';
   checkedUser: number | null = null;
 
-  constructor() {}
+  constructor() {
+    this.user = new TempUser();
+  }
 
   search(): void {
     fetch('https://localhost:44381/api/tempusers/search?user=' + this.searchUser, {
@@ -61,7 +63,7 @@ export class TempUsersListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.user = null;
+        this.user = new TempUser();
       })
       .catch((ex) => {
         alert(ex);
@@ -91,7 +93,7 @@ export class TempUsersListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.user = null;
+        this.user = new TempUser();
       })
       .catch((ex) => {
         alert(ex);
@@ -126,7 +128,7 @@ export class TempUsersListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.user = null;
+        this.user = new TempUser();
       })
       .catch((ex) => {
         alert(ex);

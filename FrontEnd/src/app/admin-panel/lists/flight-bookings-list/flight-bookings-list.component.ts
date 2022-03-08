@@ -22,7 +22,7 @@ export class FlightBookingsListComponent implements OnInit {
       name: this.booking,
     };
 
-    fetch('https://localhost:44381/api/flightbookings/addbooking', {
+    fetch('https://localhost:44381/api/flights/addbooking', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -51,7 +51,7 @@ export class FlightBookingsListComponent implements OnInit {
       name: this.booking,
     };
 
-    fetch('https://localhost:44381/api/flightbookings/editbooking', {
+    fetch('https://localhost:44381/api/flights/editbooking', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -81,7 +81,7 @@ export class FlightBookingsListComponent implements OnInit {
       name: this.booking,
     };
 
-    fetch('https://localhost:44381/api/flightbookings/deletebooking', {
+    fetch('https://localhost:44381/api/flights/deletebooking', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -106,7 +106,7 @@ export class FlightBookingsListComponent implements OnInit {
   }
 
   getBookings(): void {
-    fetch('https://localhost:44381/api/flightbookings/getbookings', {
+    fetch('https://localhost:44381/api/flights/getbookings', {
       method: 'GET',
     })
       .then((r) => r.json())

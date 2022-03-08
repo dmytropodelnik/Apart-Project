@@ -56,14 +56,14 @@
       <div class="modal-body">
         <form>
           <div class="mb-3">
-            <label for="editEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="editEmail">
+            <label for="editFirstName" class="form-label">First name</label>
+            <input class="form-control" id="editFirstName" name="user.firstName" [(ngModel)]="user.firstName" />
 
-            <label for="editPass" class="form-label">Password</label>
-            <input type="password" class="form-control" id="editPass">
+            <label for="editLastName" class="form-label">Last name</label>
+            <input class="form-control" id="editLastName" name="user.lastName" [(ngModel)]="user.lastName" />
 
-            <label for="editConfirmPass" class="form-label">Confirm password</label>
-            <input type="password" class="form-control" id="editConfirmPass">
+            <label for="editDisplayName" class="form-label">Display name</label>
+            <input class="form-control" id="editDisplayName" name="user.displayName" [(ngModel)]="user.displayName" />
 
             <label for="editRole" class="form-label">Role</label>
             <select id="editRole" class="form-select userRoles" name="user.role.id" [(ngModel)]="user.role.id"></select>
@@ -89,11 +89,17 @@
       <div class="modal-body">
         <form>
           <div class="mb-3">
-            <label for="deleteEmail" class="form-label">Email</label>
-            <input type="email" class="form-control" id="deleteEmail">
+            <label for="deleteFirstName" class="form-label">First name</label>
+            <input class="form-control" id="deleteFirstName" name="user.firstName" [(ngModel)]="user.firstName" readonly />
+
+            <label for="deleteLastName" class="form-label">Last name</label>
+            <input class="form-control" id="deleteLastName" name="user.lastName" [(ngModel)]="user.lastName" readonly />
+
+            <label for="deleteDisplayName" class="form-label">Display name</label>
+            <input class="form-control" id="deleteDisplayName" name="user.displayName" [(ngModel)]="user.displayName" readonly />
 
             <label for="deleteRole" class="form-label">Role</label>
-            <select id="deleteRole" class="form-select userRoles" name="user.role.id" [(ngModel)]="user.role.id"></select>
+            <input class="form-control" id="deleteRole" name="user.role.id" [(ngModel)]="user.role.id" readonly />
           </div>
         </form>
       </div>

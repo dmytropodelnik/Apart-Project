@@ -22,7 +22,7 @@ export class AttractionBookingsListComponent implements OnInit {
       name: this.booking,
     };
 
-    fetch('https://localhost:44381/api/attractionbookings/addbooking', {
+    fetch('https://localhost:44381/api/attractions/addbooking', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -51,7 +51,7 @@ export class AttractionBookingsListComponent implements OnInit {
       name: this.booking,
     };
 
-    fetch('https://localhost:44381/api/attractionbookings/editbooking', {
+    fetch('https://localhost:44381/api/attractions/editbooking', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -81,7 +81,7 @@ export class AttractionBookingsListComponent implements OnInit {
       name: this.booking,
     };
 
-    fetch('https://localhost:44381/api/attractionbookings/deletebooking', {
+    fetch('https://localhost:44381/api/attractions/deletebooking', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -106,7 +106,7 @@ export class AttractionBookingsListComponent implements OnInit {
   }
 
   getBookings(): void {
-    fetch('https://localhost:44381/api/attractionbookings/getbookings', {
+    fetch('https://localhost:44381/api/attractions/getbookings', {
       method: 'GET',
     })
       .then((r) => r.json())

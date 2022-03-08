@@ -21,10 +21,24 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form>
+          <div class="mb-3">
+            <label for="addFirstName" class="form-label">First name</label>
+            <input class="form-control" id="addFirstName" name="user.firstName" [(ngModel)]="user.firstName" />
+
+            <label for="addLastName" class="form-label">Last name</label>
+            <input class="form-control" id="addLastName" name="user.lastName" [(ngModel)]="user.lastName" />
+
+            <label for="addDisplayName" class="form-label">Email</label>
+            <input type="email" class="form-control" id="addDisplayName" name="user.email" [(ngModel)]="user.email" />
+
+            <label for="addRole" class="form-label">Phone number</label>
+            <input class="form-control" id="addRole" name="user.phoneNumber" [(ngModel)]="user.phoneNumber" />
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Save</button>
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="addUser()">Save</button>
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
@@ -39,10 +53,24 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form>
+          <div class="mb-3">
+            <label for="editFirstName" class="form-label">First name</label>
+            <input class="form-control" id="editFirstName" name="user.firstName" [(ngModel)]="user.firstName" />
+
+            <label for="editLastName" class="form-label">Last name</label>
+            <input class="form-control" id="editLastName" name="user.lastName" [(ngModel)]="user.lastName" />
+
+            <label for="editDisplayName" class="form-label">Email</label>
+            <input type="email" class="form-control" id="editDisplayName" name="user.email" [(ngModel)]="user.email" />
+
+            <label for="editRole" class="form-label">Phone number</label>
+            <input class="form-control" id="editRole" name="user.phoneNumber" [(ngModel)]="user.phoneNumber" />
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Save</button>
+        <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="editUser()">Save</button>
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
@@ -57,7 +85,21 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        ...
+        <form>
+          <div class="mb-3">
+            <label for="deleteFirstName" class="form-label">First name</label>
+            <input class="form-control" id="deleteFirstName" name="user.firstName" [(ngModel)]="user.firstName" readonly />
+
+            <label for="deleteLastName" class="form-label">Last name</label>
+            <input class="form-control" id="deleteLastName" name="user.lastName" [(ngModel)]="user.lastName" readonly />
+
+            <label for="deleteDisplayName" class="form-label">Email</label>
+            <input type="email" class="form-control" id="deleteDisplayName" name="user.email" [(ngModel)]="user.email" readonly />
+
+            <label for="deleteRole" class="form-label">Phone number</label>
+            <input class="form-control" id="deleteRole" name="user.phoneNumber" [(ngModel)]="user.phoneNumber" readonly />
+          </div>
+        </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteUser()">Delete</button>
