@@ -107,5 +107,64 @@ namespace CloneBookingAPI.Controllers.Pages
                 return Json(new { code = 500 });
             }
         }
+
+        [Route("getsuggestiondata")]
+        [HttpGet]
+        public async Task<ActionResult> GetSuggestionData([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions
+                    .Include(s => s.Address)
+                    .Include(s => s.User)
+                    .Include(s => s.ServiceCategory)
+                    .Include(s => s.BookingCategory)
+                    .Include(s => s.InterestPlaces)
+                    .Include(s => s.AdditionalServices)
+                    .Include(s => s.SuggestionReviewGrades)
+                    .Include(s => s.Images)
+                    .Include(s => s.Highlights)
+                    .Include(s => s.Facilities)
+                    .Include(s => s.RoomTypes)
+                    .Include(s => s.Beds)
+                    .Include(s => s.Languages)
+                    .Include(s => s.SuggestionRules)
+                    .Include(s => s.SurroundingObjects)
+                    .FirstOrDefaultAsync(s => s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                return Json(new
+                {
+                    code = 200,
+                    resSuggestion,
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
     }
 }

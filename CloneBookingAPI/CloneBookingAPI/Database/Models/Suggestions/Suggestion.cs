@@ -32,6 +32,10 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public int Progress { get; set; }
 
         [Required]
+        [DataType(DataType.MultilineText)]
+        public string Description { get; set; }
+
+        [Required]
         [DataType(DataType.Currency)]
         public decimal PriceInUserCurrency { get; set; }
 

@@ -523,5 +523,59 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 return Json(new { code = 400 });
             }
         }
+
+        [Route("adddescription")]
+        [HttpPost]
+        public async Task<IActionResult> AddDescription([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                resSuggestion.Description = suggestion.Description;
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                    savedSuggestionId = resSuggestion.Id,
+                });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
     }
 }

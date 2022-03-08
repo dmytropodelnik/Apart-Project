@@ -427,7 +427,17 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                _jwtRepository.Repository.Remove(KeyValuePair.Create(model.Username, model.AccessToken));
+                // _jwtRepository.Repository.Remove(KeyValuePair.Create(model.Username, model.AccessToken));
+
+                if (_codesRepository.Repository.ContainsKey(model.Username))
+                {
+                    _codesRepository.Repository[model.Username].Remove(model.AccessToken);
+
+                    if (_codesRepository.Repository[model.Username].Count == 0)
+                    {
+                        _codesRepository.Repository.Remove(model.Username);
+                    }
+                }
 
                 return Json(new { code = 200 });
             }

@@ -82,10 +82,10 @@
       <th scope="row">
         <div class="form-check">
           <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{suggestion.id}}
-          (click)="setSuggestion(suggestion.id, suggestion.title)" >
+          (click)="setSuggestion(suggestion)" >
         </div>
       </th>
-      <td>{{suggestion.title}}</td>
+      <td>{{suggestion.name}}</td>
     </tr>
   </tbody>
 </table>

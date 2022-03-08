@@ -14,14 +14,11 @@ namespace CloneBookingAPI.Services.POCOs
         public int UserId { get; set; }
         public string Name { get; set; }
         public string Login { get; set; }
+        public string Description { get; set; }
         public bool IsParkingAvailable { get; set; }
 
-        [Required]
-        [DataType(DataType.Currency)]
         public decimal PriceInUserCurrency { get; set; }
 
-        [Required]
-        [DataType(DataType.Currency)]
         public decimal PriceInUSD { get; set; }
 
         public Address Address { get; set; }

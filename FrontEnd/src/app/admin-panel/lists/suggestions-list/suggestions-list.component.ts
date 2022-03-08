@@ -12,7 +12,7 @@ import ListHelper from '../../../utils/listHelper';
 export class SuggestionsListComponent implements OnInit {
 
   suggestions: Suggestion[] | null = null;
-  suggestion: string | null = null;
+  suggestion: Suggestion | null = null;
   checkedSuggestion: number | null = null;
 
   constructor() {}
@@ -38,7 +38,7 @@ export class SuggestionsListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.suggestion = '';
+        this.suggestion = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -68,7 +68,7 @@ export class SuggestionsListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.suggestion = '';
+        this.suggestion = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -98,7 +98,7 @@ export class SuggestionsListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.suggestion = '';
+        this.suggestion = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -122,8 +122,8 @@ export class SuggestionsListComponent implements OnInit {
       });
   }
 
-  setSuggestion(id: number | null, suggestion: string): void {
-    this.checkedSuggestion = id;
+  setSuggestion(suggestion: Suggestion): void {
+    this.checkedSuggestion = suggestion.id;
     this.suggestion = suggestion;
 
     document.getElementById('editButton')?.removeAttribute('disabled');
