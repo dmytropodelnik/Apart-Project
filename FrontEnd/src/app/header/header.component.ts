@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../models/UserData/user.item';
 import AuthHelper from '../utils/authHelper';
+import ImageHelper from '../utils/imageHelper';
 
 import { AuthorizationService } from '../services/authorization.service';
 
@@ -14,7 +15,11 @@ export class HeaderComponent implements OnInit {
   public isCollapsed = false;
   user: User | null = null;
   authHelper: any = AuthHelper;
-
+  displayMonths = 2;
+  navigation = 'arrows';
+  showWeekNumbers = false;
+  outsideDays = 'hidden';
+  imageHelper: any = ImageHelper;
   isActive1 = true;
 
   @ViewChild('content') content!: TemplateRef<any>;
@@ -51,7 +56,7 @@ export class HeaderComponent implements OnInit {
           this.authService.setLogCondition(false);
           AuthHelper.clearAuth();
         } else {
-          alert("Logout error!");
+          alert('Logout error!');
         }
       })
       .catch((ex) => {

@@ -139,7 +139,7 @@ import { LpReviewAndCompleteComponent } from './list-your-property/lp-review-and
     LpPropertySetupComponent,
     LpPhotosComponent,
     LpPricingAndCalenderComponent,
-    LpReviewAndCompleteComponent
+    LpReviewAndCompleteComponent,
   ],
   imports: [
     BrowserModule,

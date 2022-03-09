@@ -18,6 +18,15 @@ export class LpPropertySetupComponent implements OnInit {
 
   }
   choice: number = 0;
+  number1: number = 0;
+  
+  decrease() {
+    --this.number1;
+  }
+
+  increase() {
+      ++this.number1;
+  }
 
   incrementChoice() {
     let firstLine = document.getElementById('firstLine');

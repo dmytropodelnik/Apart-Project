@@ -32,6 +32,17 @@ a.a11y-skip-to-content {
   -webkit-transition: all 0.1s ease;
   transition: all 0.1s ease;
 }
+.header_text {
+  width: 124px;
+  height: 60px;
+  font-family: Bahnschrift;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 50px;
+  line-height: 60px;
+  /* identical to box height */
+  color: #fff;
+}
 
 /* header */
 
@@ -74,10 +85,9 @@ a.a11y-skip-to-content {
   -webkit-align-items: center;
   justify-content: space-between;
   align-items: left;
-  max-width: 1140px;
+  max-width: 1600px;
   margin: 0 auto;
-  margin-bottom: 50px;
-
+  margin-bottom: 20px;
 }
 
 .bui-header__main {
@@ -308,11 +318,39 @@ a.a11y-skip-to-content {
 }
 .bui-button__text {
   position: relative;
+  color: #fff;
+}
+.bui-button__text1 {
+  position: relative;
   color: #ed6648;
 }
 .bui-button-USD {
   position: relative;
   left: 5px;
+}
+
+.HeaderText {
+  display: grid;
+  justify-content: center;
+  margin: 20px;
+  justify-items: center;
+}
+.HeaderSubText {
+  font-family: Bahnschrift;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  line-height: 36px;
+  color: #ffffff;
+  padding: 5px;
+}
+.HeaderSubText1 {
+  font-family: Bahnschrift;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 15px;
+  line-height: 18px;
+  color: #ffffff;
 }
 
 .bui-avatar--button-auth {
@@ -409,18 +447,18 @@ a.a11y-skip-to-content {
 }
 
 .bui-tab__nav {
-  display: block;
+  display: flex;
+  flex-grow: 0;
   list-style: none;
   margin: 0;
   padding: 0 0 1px;
   position: relative;
   font-size: 0;
+  justify-content: center;
 }
 
-.activeRoute{
-  color: #ed6648 !important;
-  background-color: white !important;
-  border: 1px solid #ed6648 !important;
+.activeRoute {
+  border-bottom: 2px solid #ed6648 !important;
 }
 
 .bui-tab--rounded .bui-tab__item:first-child {
@@ -464,7 +502,6 @@ a.a11y-skip-to-content {
     Arial, sans-serif;
   display: block;
   border: 0;
-  background: #ed6648;
   color: white;
   padding: 16px;
   text-decoration: none;
@@ -503,7 +540,6 @@ a.a11y-skip-to-content {
 .bui-icon1 {
   display: inline-block;
   fill: currentColor;
-  color: #ed6648;
 }
 
 .bui-icon svg {
@@ -619,15 +655,16 @@ a.a11y-skip-to-content {
   vertical-align: middle;
   position: relative;
   color: #fff;
-  min-height: 50px;
-  min-width: 50px;
+  min-height: 15px;
+  min-width: 15px;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
   font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
     Arial, sans-serif;
   background: transparent;
-  border: 0px solid #ed6648;
+  background-color: #fff;
+  border: 0;
   border-radius: 5px;
 }
 .bui-button1 {
@@ -662,7 +699,8 @@ a.a11y-skip-to-content {
   font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
     Arial, sans-serif;
   background: transparent;
-  border: 1px solid #ed6648;
+  background-color: #ed6648;
+  border: 0;
   border-radius: 5px;
 }
 
@@ -677,12 +715,6 @@ a.a11y-skip-to-content {
   background-color: #e9620869;
   position: absolute;
   overflow: hidden;
-}
-
-.bui-tab--light .bui-tab__link:hover {
-  background-color: white;
-  color: #ed6648;
-  border: 1px solid #ed6648;
 }
 
 .flag {
