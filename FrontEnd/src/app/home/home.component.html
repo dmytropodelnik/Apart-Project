@@ -178,7 +178,7 @@
             before you travel.
             <a
               class="bui-link coronavirus-banner__link"
-              href="javascript:void(0)"
+              
               target="_blank"
             >
               Learn more
@@ -194,7 +194,9 @@
         <div></div>
         <div class="bui-spacer--largest popular-destinations-carousel-block">
           <div class="bui-title bui-title--headline_3 bui-spacer--large p-2">
-            <span class="bui-title__text">Explore {{mainDataService.getCurrentCountry()}}</span>
+            <span class="bui-title__text"
+              >Explore {{ mainDataService.getCurrentCountry() }}</span
+            >
             <span class="bui-title__subtitle"
               >These popular destinations have a lot to offer</span
             >
@@ -206,7 +208,11 @@
                 #slickModal="slick-carousel"
                 [config]="slideConfig"
               >
-                <div ngxSlickItem *ngFor="let city of cities; let i = index" class="slide">
+                <div
+                  ngxSlickItem
+                  *ngFor="let city of cities; let i = index"
+                  class="slide"
+                >
                   <div>
                     <img src="assets/images/21.png" class="w-100" alt="" />
                     <div class="bui-card__content">
@@ -237,13 +243,19 @@
                 #slickModal="slick-carousel"
                 [config]="slideConfig"
               >
-                <div ngxSlickItem *ngFor="let category of bookingCategories; let i = index" class="slide">
+                <div
+                  ngxSlickItem
+                  *ngFor="let category of bookingCategories; let i = index"
+                  class="slide"
+                >
                   <div>
                     <img src="assets/images/28.png" class="w-100" alt="" />
                   </div>
                   <div class="bui-card__content">
                     <div class="bui-title bui-title--strong_1 bui-card__title">
-                      <span class="bui-card__title">{{ category.category }}</span>
+                      <span class="bui-card__title">{{
+                        category.category
+                      }}</span>
                       <span class="bui-title__subtitle"
                         >{{ suggestions[i]?.length }} properties</span
                       >
@@ -311,7 +323,9 @@
             <div class="promotion-postcard__large mb-lg-3">
               <div>
                 <div
-                  class="unified-postcard unified-postcard--no-description-padding unified-postcard__pe unified-postcard__idr unified-postcard--padding"
+                  ngxSlickItem
+                  *ngFor="let slide of slides"
+                  class="slide slide-h"
                 >
                   <div
                     class="unified-postcard__content js-lazy-image unified-postcard__content_pe"
@@ -457,7 +471,6 @@
             </div>
           </div>
         </div>
-
         <div
           class="d-index__section bui-spacer--largest promote_articles js-ds-layout-events-promote_articles"
           data-et-click=" customGoal:cCHObTRVDEZRdPQBcGCfTKYCcaYO:4  goal:www_inspiration_articles_click  "

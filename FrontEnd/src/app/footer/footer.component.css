@@ -277,6 +277,9 @@ a:link {
   color: black;
   font-weight: bold;
   justify-content: center;
+  padding: 25px 0px;
+  background: #d1cfcf;
+  width: 100%;
 }
 #footerrefid {
   clear: left;
@@ -326,21 +329,25 @@ a.footer__priceline__title {
   background-color: white;
   font-size: 13px;
   padding: 0;
+  text-align: center;
 }
 
-.footer-top-partners .footer-top-button {
-  border: 1px solid #ed6648;
+.footer-top-button {
   border-radius: 3px;
-  color: #ed6648;
+  color: white;
+  background-color: #ed6648;
+  border: 1px solid #ed6648;
   display: inline-block;
   font-weight: normal;
-  padding: 0 15px;
+  padding: 15px 15px;
   text-decoration: none;
+  margin: 20px 0px;
 }
 
-.footerconstraint-inner .footer-top-button:hover {
-  background-color: #ed6648;
-  color: #fff !important;
+.footer-top-button:hover {
+  background-color: white !important;
+  color: #ed6648 !important;
+  border: 1px solid #ed6648 !important;
 }
 
 .footer-top-partner-buttons a {
@@ -369,9 +376,6 @@ a.footer__priceline__title {
 .footer-top-link {
   float: left;
   list-style-type: none;
-}
-.footercolor {
-  background-color: #ed6648;
 }
 .footer-top-link a,
 .footer-top-link input,
@@ -439,8 +443,7 @@ a.footer__priceline__title {
 }
 
 a:hover {
-  color: #ffffff !important;
-  background-color: #ed6648 !important;
+  color: #ed6648 !important;
 }
 
 a:active {
