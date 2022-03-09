@@ -77,13 +77,13 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<BedType> BedTypes { get; set; }
         public ApartProjectDbContext(DbContextOptions<ApartProjectDbContext> options) : base(options)
         {
-            //// If database already exists then delete it
+            //// if database already exists then delete it
             //if (Database.CanConnect())
             //{
             //    Database.EnsureDeleted();
             //}
 
-            //// Create database
+            //// create database
             //Database.EnsureCreated();
         }
 
