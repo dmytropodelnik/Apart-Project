@@ -217,6 +217,14 @@
   max-height: 450px;
   margin: 30px;
 }
+.Input-name-and-location1 {
+  display: flex;
+  min-width: 300px;
+  min-height: 300px;
+  max-width: 450px;
+  max-height: 450px;
+  margin: 30px;
+}
 .name-and-location-container {
   display: flex;
   flex-direction: column;
@@ -238,6 +246,29 @@
 }
 li::marker {
   color: #fff;
+}
+
+.dropdownSubSection {
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.dropdownSubSectionButtons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.dropdownSubSectionText {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+.bui-button {
+  border: 1px solid #ed6648;
+  width: 30px;
+  height: 30px;
 }
 
 @media (min-width: 992px) {

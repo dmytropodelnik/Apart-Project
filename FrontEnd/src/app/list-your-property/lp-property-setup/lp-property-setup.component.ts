@@ -8,6 +8,15 @@ import { Component, OnInit } from '@angular/core';
 export class LpPropertySetupComponent implements OnInit {
   constructor() {}
   choice: number = 0;
+  number1: number = 0;
+  
+  decrease() {
+    --this.number1;
+  }
+
+  increase() {
+      ++this.number1;
+  }
 
   incrementChoice() {
     let firstLine = document.getElementById('firstLine');

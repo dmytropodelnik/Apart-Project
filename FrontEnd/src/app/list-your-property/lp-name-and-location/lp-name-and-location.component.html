@@ -39,7 +39,6 @@
             class="navstep__container navstep__container--active"
           ></div>
           <div id="secondLine" class="navstep__container"></div>
-          <div id="thirdLine" class="navstep__container"></div>
         </div>
       </div>
       <div class="section__container section__container--disabled">
@@ -155,25 +154,20 @@
           it later.
         </div>
         <div class="Input-name-and-location">
-          <span class="name-and-location-text">Property name</span>
+          <select class="form-select" aria-label="Default select example">
+            <option selected>Select country/region</option>
+            <option value="1">Germany</option>
+            <option value="2">Ukraine</option>
+            <option value="3">Poland</option>
+          </select>
+
+          <span class="name-and-location-text">Adress</span>
           <input type="text" />
 
-          <span class="name-and-location-text">Property name</span>
+          <span class="name-and-location-text">Postal Code</span>
           <input type="text" />
-        </div>
-        <button class="name-and-location-button" (click)="incrementChoice1()">
-          Continue
-        </button>
-      </div>
-    </li>
-    <li *ngSwitchCase="2">
-      <div class="name-and-location-container">
-        <div class="header-name-and-location">
-          What's the name of your place?
-        </div>
 
-        <div class="Input-name-and-location">
-          <span class="name-and-location-text">Property name</span>
+          <span class="name-and-location-text">City</span>
           <input type="text" />
         </div>
         <button class="name-and-location-button" routerLink="/lp/propertysetup">
