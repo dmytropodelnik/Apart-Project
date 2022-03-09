@@ -15,17 +15,19 @@ namespace CloneBookingAPI.Services.Generators
         {
             _repository = repository;
         }
-        public string GenerateCode(string key)
+        public string GenerateKeyCode(string key)
         {
             try
             {
-                Random generator = new();
-                // do
-                // {
-                    _code = generator.Next(100000, 999999).ToString();
-                // } while (_repository.IsValueExists(_code));
+                if (string.IsNullOrEmpty(key))
+                {
+                    return null;
+                }
 
-                // _repository.Repository.Add(KeyValuePair.Create(key, _code));
+                Random generator = new();
+
+                _code = generator.Next(100000, 999999).ToString();
+
                 if (_repository.Repository.ContainsKey(key))
                 {
                     _repository.Repository[key].Add(_code);

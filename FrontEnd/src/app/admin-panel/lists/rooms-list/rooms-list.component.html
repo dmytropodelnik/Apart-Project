@@ -69,8 +69,15 @@
 <table class="table table-dark table-bordered border-white">
   <thead>
     <tr>
+      <th scope="col text-center align-self-center"></th>
       <th scope="col text-center align-self-center">#</th>
-      <th scope="col">Role</th>
+      <th scope="col">Sleeps</th>
+      <th scope="col">Room size</th>
+      <th scope="col">Smoking</th>
+      <th scope="col">Is suite</th>
+      <th scope="col">Room type</th>
+      <th scope="col">User currency price</th>
+      <th scope="col">USD price</th>
     </tr>
   </thead>
   <tbody>
@@ -81,7 +88,14 @@
           (click)="setRoom(room)" >
         </div>
       </th>
-      <td></td>
+      <td>{{room.id}}</td>
+      <td>{{room.sleeps}}</td>
+      <td>{{room.roomSize}}</td>
+      <td>{{room.isSmokingAllowed}}</td>
+      <td>{{room.isSuite}}</td>
+      <td>{{room.roomType?.title}}</td>
+      <td>{{room.priceInUserCurrency}}</td>
+      <td>{{room.priceInUSD}}</td>
     </tr>
   </tbody>
 </table>

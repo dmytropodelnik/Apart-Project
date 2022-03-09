@@ -32,7 +32,13 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                var suggestions = await _context.Suggestions.ToListAsync();
+                var suggestions = await _context.Suggestions
+                    .Include(s => s.User)
+                    .Include(s => s.Address)
+                    .Include(s => s.ContactDetails)
+                    .Include(s => s.ServiceCategory)
+                    .Include(s => s.BookingCategory)
+                    .ToListAsync();
                 if (suggestions is null)
                 {
                     return Json(new { code = STATUS_400 });

@@ -11,6 +11,7 @@ import { StayBooking } from "../Services/staybooking.item";
 import { Favorite } from "../UserData/favorite.item";
 import { User } from "../UserData/user.item";
 import { Bed } from "./bed.item";
+import { ContactDetails } from "./contactdetails.item";
 import { RoomType } from "./roomtype.item";
 import { SuggestionHighlight } from "./suggestionhighlight.item";
 import { SuggestionReviewGrade } from "./suggestionreviewgrade.item";
@@ -19,6 +20,7 @@ import { SurroundingObject } from "./surroundingobject.item";
 
 export class Suggestion {
   id: number | null = null;
+  uniqueCode: string = '';
   name: string = '';
   guestsAmount: number | null = null;
   bathroomsAmount: number | null = null;
@@ -28,9 +30,10 @@ export class Suggestion {
   description: string = '';
   priceInUserCurrency: number | null = null;
   priceInUSD: number | null = null;
-  IsParkingAvailable: boolean = false;
+  isParkingAvailable: boolean = false;
   address: Address | null = null;
   user: User | null = null;
+  contactDetails: ContactDetails | null = null;
   serviceCategory: ServiceCategory | null = null;
   bookingCategory: BookingCategory | null = null;
   interestPlaces: InterestPlace[] | null = null;

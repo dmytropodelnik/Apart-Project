@@ -1,6 +1,7 @@
 ﻿using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
+using CloneBookingAPI.Services.Generators;
 using CloneBookingAPI.Services.POCOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,10 +17,14 @@ namespace CloneBookingAPI.Controllers.Suggestions
     public class ListNewPropertyController : Controller
     {
         private readonly ApartProjectDbContext _context;
+        private readonly SuggestionIdGenerator _suggestionIdGenerator;
 
-        public ListNewPropertyController(ApartProjectDbContext context)
+        public ListNewPropertyController(
+            ApartProjectDbContext context,
+            SuggestionIdGenerator suggestionIdGenerator)
         {
             _context = context;
+            _suggestionIdGenerator = suggestionIdGenerator;
         }
 
         [Route("addname")]
@@ -44,6 +49,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 Suggestion newSuggestion = new();
                 newSuggestion.Name = suggestion.Name;
                 newSuggestion.UserId = owner.Id;
+                newSuggestion.UniqueCode = await _suggestionIdGenerator.GenerateCode();
                 newSuggestion.Progress = 10;
 
                 var resSuggestion = _context.Suggestions.Add(newSuggestion);

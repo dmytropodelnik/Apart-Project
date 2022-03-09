@@ -16,6 +16,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [Column("Id")]  // Можно было не указывать потому, что так было бы по умолчанию, благодаря соглашению о наименованиях EF
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        public string UniqueCode { get; set; }
 
         [Required]
         public string Name { get; set; }

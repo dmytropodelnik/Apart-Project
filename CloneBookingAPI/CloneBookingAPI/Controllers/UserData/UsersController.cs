@@ -273,7 +273,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                string hashedPassword = _saltGenerator.GenerateCode(user.PasswordHash.Trim());
+                string hashedPassword = _saltGenerator.GenerateKeyCode(user.PasswordHash.Trim());
 
                 User newUser = new();
                 newUser.Email = user.Email.Trim();
@@ -359,7 +359,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                string hashedPassword = _saltGenerator.GenerateCode(person.Password.Trim());
+                string hashedPassword = _saltGenerator.GenerateKeyCode(person.Password.Trim());
 
                 User newUser = new();
                 newUser.Email = person.Email.Trim();

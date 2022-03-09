@@ -7,7 +7,12 @@ namespace CloneBookingAPI.Interfaces
 {
     public interface IGenerator
     {
-        string GenerateCode(string key)
+        string GenerateKeyCode(string key)
+        {
+            return null;
+        }
+
+        string GenerateCode()
         {
             return null;
         }

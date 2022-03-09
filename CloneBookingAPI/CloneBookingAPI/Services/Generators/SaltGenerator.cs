@@ -11,10 +11,15 @@ namespace CloneBookingAPI.Services.Generators
     {
         private byte[] _salt = new byte[128 / 8];
         // private readonly string _salt = "saltforpassapartproject321WE";
-        public string GenerateCode(string str)
+        public string GenerateKeyCode(string str)
         {
             try
             {
+                if (string.IsNullOrEmpty(str))
+                {
+                    return null;
+                }
+
                 byte[] salt = new byte[128 / 8];
                 // generate a 128 - bit salt using a cryptographically strong random sequence of nonzero values
                 using (var rngCsp = RandomNumberGenerator.Create())

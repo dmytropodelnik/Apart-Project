@@ -28,29 +28,29 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                var rooms = await _context.RoomTypes
-                    .Include(t => t.Suggestion)
+                var types = await _context.RoomTypes
+                    .Include(t => t.Suggestions)
                     .ToListAsync();
 
-                return Json(new { code = 200, rooms });
+                return Json(new { code = 200, types });
             }
             catch (ArgumentNullException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -68,7 +68,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 }
 
                 var types = await _context.RoomTypes
-                    .Include(t => t.Suggestion)
+                    .Include(t => t.Suggestions)
                     .Where(t => t.Title.Contains(type))
                     .ToListAsync();
 
@@ -78,19 +78,19 @@ namespace CloneBookingAPI.Controllers.Suggestions
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -119,25 +119,25 @@ namespace CloneBookingAPI.Controllers.Suggestions
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -167,25 +167,25 @@ namespace CloneBookingAPI.Controllers.Suggestions
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
     }

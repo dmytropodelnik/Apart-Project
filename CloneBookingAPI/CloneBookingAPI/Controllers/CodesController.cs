@@ -46,7 +46,7 @@ namespace CloneBookingAPI.Controllers
 
                 string emailTrim = email.Trim();
 
-                var code = _codeGenerator.GenerateCode(emailTrim);
+                var code = _codeGenerator.GenerateKeyCode(emailTrim);
                 if (code is null)
                 {
                     return Json(new { code = 400 });
@@ -81,7 +81,7 @@ namespace CloneBookingAPI.Controllers
 
                 string emailTrim = email.Trim();
 
-                var code = _codeGenerator.GenerateCode(emailTrim);
+                var code = _codeGenerator.GenerateKeyCode(emailTrim);
                 if (code is null)
                 {
                     return Json(new { code = 411 });

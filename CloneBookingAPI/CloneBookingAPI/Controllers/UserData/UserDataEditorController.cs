@@ -264,7 +264,7 @@ namespace CloneBookingAPI.Controllers.UserData
                     return Json(new { code = 400 });
                 }
 
-                string hashedPassword = _saltGenerator.GenerateCode(user.Password.Trim());
+                string hashedPassword = _saltGenerator.GenerateKeyCode(user.Password.Trim());
 
                 resUser.PasswordHash = hashedPassword;
                 resUser.SaltHash = _saltGenerator.Salt;

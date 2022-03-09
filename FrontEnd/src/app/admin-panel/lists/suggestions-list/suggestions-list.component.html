@@ -5,8 +5,8 @@
 
 <div class="row">
   <div class="btn-group" role="group" aria-label="Basic example">
-    <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#add">Add</button>
-    <button type="button" id="editButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit" disabled>Edit</button>
+    <!-- <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#add">Add</button> -->
+    <!-- <button type="button" id="editButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit" disabled>Edit</button> -->
     <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete" disabled>Delete</button>
   </div>
 </div>
@@ -68,24 +68,49 @@
 <table class="table table-dark table-bordered border-white">
   <thead>
     <tr>
+      <th scope="col text-center align-self-center"></th>
       <th scope="col text-center align-self-center">#</th>
+      <th scope="col">Unique code</th>
+      <th scope="col">Name</th>
+      <th scope="col">Guests amount</th>
+      <th scope="col">Bathrooms amount</th>
+      <th scope="col">Rooms amount</th>
+      <th scope="col">Star rating</th>
+      <th scope="col">Progress</th>
+      <th scope="col">User currency price</th>
+      <th scope="col">USD price</th>
+      <th scope="col">Parking</th>
+      <th scope="col">Contact details</th>
       <th scope="col">Address</th>
       <th scope="col">User</th>
-      <th scope="col">ServiceCategory</th>
-      <th scope="col">BookingCategory</th>
-      <th scope="col">Title</th>
-      <th scope="col">Title</th>
+      <th scope="col">Service category</th>
+      <th scope="col">Booking category</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let suggestion of suggestions">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{suggestion.id}}
+          <input class="form-check-input" type="radio" name="suggestionRadio" id="suggestionRadio" value={{suggestion.id}}
           (click)="setSuggestion(suggestion)" >
         </div>
       </th>
+      <td>{{suggestion.id}}</td>
+      <td>{{suggestion.uniqueCode}}</td>
       <td>{{suggestion.name}}</td>
+      <td>{{suggestion.guestsAmount}}</td>
+      <td>{{suggestion.bathroomsAmount}}</td>
+      <td>{{suggestion.roomsAmount}}</td>
+      <td>{{suggestion.starRating}}</td>
+      <td>{{suggestion.progress}}</td>
+      <td>{{suggestion.priceInUserCurrency}}</td>
+      <td>{{suggestion.priceInUSD}}</td>
+      <td>{{suggestion.isParkingAvailable}}</td>
+      <td>{{suggestion.contactDetails?.contactName + ", " + suggestion.contactDetails?.phoneNumber}}</td>
+      <td>{{suggestion.address?.city?.title + ", " + suggestion.address?.country?.title}}</td>
+      <td>{{suggestion.user?.email}}</td>
+      <td>{{suggestion.serviceCategory?.category}}</td>
+      <td>{{suggestion.bookingCategory?.category}}</td>
     </tr>
   </tbody>
 </table>

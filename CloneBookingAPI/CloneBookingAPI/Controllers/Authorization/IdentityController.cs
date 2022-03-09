@@ -128,7 +128,7 @@ namespace CloneBookingAPI.Controllers
                 }
                 else
                 {
-                    hashedPassword = _saltGenerator.GenerateCode(password);
+                    hashedPassword = _saltGenerator.GenerateKeyCode(password);
                 }
 
                 if (hashedPassword == user.PasswordHash)
