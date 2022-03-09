@@ -1,4 +1,5 @@
 ﻿using CloneBookingAPI.Database.Configurations;
+using CloneBookingAPI.Database.Configurations.Suggestions;
 using CloneBookingAPI.Database.Models;
 using CloneBookingAPI.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Database.Configurations;
@@ -27,6 +28,7 @@ namespace CloneBookingAPI.Services.Database
     {
         public DbSet<User> Users { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<ContactDetails> ContactDetails { get; set; }
         public DbSet<TempUser> TempUsers { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<StayBooking> StayBookings { get; set; }
@@ -146,6 +148,9 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new SurroundingObjectTypesConfiguration());
             modelBuilder.ApplyConfiguration(new BookingPricesConfiguration());
             modelBuilder.ApplyConfiguration(new InterestPlacesConfiguration());
+            modelBuilder.ApplyConfiguration(new BedsConfiguration());
+            modelBuilder.ApplyConfiguration(new BedTypesConfiguration());
+            modelBuilder.ApplyConfiguration(new ContactDetailsConfiguration());
         }
     }
 }

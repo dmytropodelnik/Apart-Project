@@ -46,6 +46,8 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [Required]
         public bool IsParkingAvailable { get; set; }
 
+        public ContactDetails ContactDetails { get; set; }
+
         public int? AddressId { get; set; }
         [ForeignKey("AddressId")]
         public Address Address { get; set; }

@@ -1,30 +1,39 @@
 ﻿using CloneBookingAPI.Services.Database;
-using CloneBookingAPI.Services.Database.Models.Location;
+using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.POCOs;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace CloneBookingAPI.Controllers.Suggestions
+namespace CloneBookingAPI.Controllers.Properties
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ListNewPropertyController : Controller
+    public class PropertyEditorController : Controller
     {
         private readonly ApartProjectDbContext _context;
 
-        public ListNewPropertyController(ApartProjectDbContext context)
+        private readonly IWebHostEnvironment _appEnvironment;
+
+        public PropertyEditorController(
+            ApartProjectDbContext context,
+            IWebHostEnvironment appEnvironment)
         {
             _context = context;
+            _appEnvironment = appEnvironment;
         }
 
-        [Route("addname")]
-        [HttpPost]
-        public async Task<IActionResult> AddName([FromBody] SuggestionPoco suggestion)
+        // [Authorize]
+        [Route("editname")]
+        [HttpPut]
+        public async Task<IActionResult> EditName([FromBody] SuggestionPoco suggestion)
         {
             try
             {
@@ -35,81 +44,15 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     return Json(new { code = 400 });
                 }
 
-                var owner = await _context.Users.FirstOrDefaultAsync(u => u.Email == suggestion.Login);
-                if (owner is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                Suggestion newSuggestion = new();
-                newSuggestion.Name = suggestion.Name;
-                newSuggestion.UserId = owner.Id;
-                newSuggestion.Progress = 10;
-
-                var resSuggestion = _context.Suggestions.Add(newSuggestion);
-                await _context.SaveChangesAsync();
-
-                return Json(new
-                {
-                    code = 200,
-                    savedSuggestionId = resSuggestion.Entity.Id,
-                });
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (DbUpdateException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (OperationCanceledException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-        }
-
-        [Route("addaddress")]
-        [HttpPost]
-        public async Task<IActionResult> AddAddress([FromBody] SuggestionPoco suggestion)
-        {
-            try
-            {
-                if (suggestion is null ||
-                    string.IsNullOrWhiteSpace(suggestion.Login) ||
-                    string.IsNullOrWhiteSpace(suggestion.Address.Country.Title) ||
-                    string.IsNullOrWhiteSpace(suggestion.Address.City.Title) ||
-                    string.IsNullOrWhiteSpace(suggestion.Address.AddressText))
-                {
-                    return Json(new { code = 400 });
-                }
-
-                var owner = await _context.Users.FirstOrDefaultAsync(u => u.Email == suggestion.Login);
-                if (owner is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
+                var resSuggestion = await _context.Suggestions
+                    .Include(s => s.User)
+                    .FirstOrDefaultAsync(s => s.User.Email.Equals(suggestion.Login) && s.Id == suggestion.Id);
                 if (resSuggestion is null)
                 {
                     return Json(new { code = 400 });
                 }
 
-                resSuggestion.Address = suggestion.Address;
-                resSuggestion.Progress = 20;
+                resSuggestion.Name = suggestion.Name;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -117,7 +60,6 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 return Json(new
                 {
                     code = 200,
-                    savedSuggestionId = resSuggestion.Id,
                 });
             }
             catch (DbUpdateConcurrencyException ex)
@@ -146,189 +88,29 @@ namespace CloneBookingAPI.Controllers.Suggestions
             }
         }
 
-        [Route("addbeds")]
-        [HttpPost]
-        public async Task<IActionResult> AddBeds([FromBody] SuggestionPoco suggestion)
+        // [Authorize]
+        [Route("editlanguages")]
+        [HttpPut]
+        public async Task<IActionResult> EditLanguages([FromBody] SuggestionPoco suggestion)
         {
             try
             {
-                if (suggestion is null)
+                if (suggestion is null                           ||
+                    suggestion.Languages is null                 ||
+                    string.IsNullOrWhiteSpace(suggestion.Login))
                 {
                     return Json(new { code = 400 });
                 }
 
-                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
-                if (resSuggestion is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                resSuggestion.Beds = suggestion.Beds;
-                resSuggestion.Progress = 30;
-
-                _context.Suggestions.Update(resSuggestion);
-                await _context.SaveChangesAsync();
-
-                return Json(new
-                {
-                    code = 200,
-                    savedSuggestionId = resSuggestion.Id,
-                });
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (DbUpdateException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (OperationCanceledException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-        }
-
-        [Route("addfacilities")]
-        [HttpPost]
-        public async Task<IActionResult> AddFacilities([FromBody] SuggestionPoco suggestion)
-        {
-            try
-            {
-                if (suggestion is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
-                if (resSuggestion is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                resSuggestion.Progress = 40;
-
-                _context.Suggestions.Update(resSuggestion);
-                await _context.SaveChangesAsync();
-
-                return Json(new
-                {
-                    code = 200,
-                    savedSuggestionId = resSuggestion.Id,
-                });
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (DbUpdateException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (OperationCanceledException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-        }
-
-        [Route("addparking")]
-        [HttpPost]
-        public async Task<IActionResult> AddParking([FromBody] SuggestionPoco suggestion)
-        {
-            try
-            {
-                if (suggestion is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
-                if (resSuggestion is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                resSuggestion.IsParkingAvailable = suggestion.IsParkingAvailable;
-                resSuggestion.Progress = 50;
-
-                _context.Suggestions.Update(resSuggestion);
-                await _context.SaveChangesAsync();
-
-                return Json(new
-                {
-                    code = 200,
-                    savedSuggestionId = resSuggestion.Id,
-                });
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (DbUpdateException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (OperationCanceledException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-        }
-
-        [Route("addlanguages")]
-        [HttpPost]
-        public async Task<IActionResult> AddLanguages([FromBody] SuggestionPoco suggestion)
-        {
-            try
-            {
-                if (suggestion is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
+                var resSuggestion = await _context.Suggestions
+                    .Include(s => s.User)
+                    .FirstOrDefaultAsync(s => s.User.Email.Equals(suggestion.Login) && s.Id == suggestion.Id);
                 if (resSuggestion is null)
                 {
                     return Json(new { code = 400 });
                 }
 
                 resSuggestion.Languages = suggestion.Languages;
-                resSuggestion.Progress = 60;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -336,7 +118,6 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 return Json(new
                 {
                     code = 200,
-                    savedSuggestionId = resSuggestion.Id,
                 });
             }
             catch (DbUpdateConcurrencyException ex)
@@ -365,9 +146,185 @@ namespace CloneBookingAPI.Controllers.Suggestions
             }
         }
 
-        [Route("addrules")]
+        // [Authorize]
+        [Route("addlanguages")]
         [HttpPost]
-        public async Task<IActionResult> AddRules([FromBody] SuggestionPoco suggestion)
+        public async Task<IActionResult> AddLanguages([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null                           ||
+                    suggestion.Languages is null                 ||
+                    string.IsNullOrWhiteSpace(suggestion.Login))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions
+                    .Include(s => s.User)
+                    .Include(s => s.Languages)
+                    .FirstOrDefaultAsync(s => s.User.Email.Equals(suggestion.Login) && s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                resSuggestion.Languages.AddRange(suggestion.Languages);
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        // [Authorize]
+        [Route("editaddress")]
+        [HttpPut]
+        public async Task<IActionResult> EditAddress([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null ||
+                    suggestion.Address is null ||
+                    string.IsNullOrWhiteSpace(suggestion.Login))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions
+                    .Include(s => s.User)
+                    .FirstOrDefaultAsync(s => s.User.Email.Equals(suggestion.Login) && s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                resSuggestion.Address = suggestion.Address;
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        // [Authorize]
+        [Route("editfacilities")]
+        [HttpPut]
+        public async Task<IActionResult> EditFacilities([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null ||
+                    suggestion.Facilities is null ||
+                    string.IsNullOrWhiteSpace(suggestion.Login))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions
+                    .Include(s => s.User)
+                    .FirstOrDefaultAsync(s => s.User.Email.Equals(suggestion.Login) && s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                resSuggestion.Facilities = suggestion.Facilities;
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        // [Authorize]
+        [Route("editparking")]
+        [HttpPut]
+        public async Task<IActionResult> EditParking([FromBody] SuggestionPoco suggestion)
         {
             try
             {
@@ -376,14 +333,15 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     return Json(new { code = 400 });
                 }
 
-                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
+                var resSuggestion = await _context.Suggestions
+                    .Include(s => s.User)
+                    .FirstOrDefaultAsync(s => s.User.Email.Equals(suggestion.Login) && s.Id == suggestion.Id);
                 if (resSuggestion is null)
                 {
                     return Json(new { code = 400 });
                 }
 
-                resSuggestion.Facilities = suggestion.Facilities;
-                resSuggestion.Progress = 70;
+                resSuggestion.IsParkingAvailable = suggestion.IsParkingAvailable;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -420,21 +378,199 @@ namespace CloneBookingAPI.Controllers.Suggestions
             }
         }
 
+        // [Authorize]
+        [Route("editrules")]
+        [HttpPut]
+        public async Task<IActionResult> EditRules([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions
+                    .Include(s => s.User)
+                    .FirstOrDefaultAsync(s => s.User.Email.Equals(suggestion.Login) && s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                resSuggestion.SuggestionRules = suggestion.SuggestionRules;
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                    savedSuggestionId = resSuggestion.Id,
+                });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        // [Authorize]
+        [Route("editprice")]
+        [HttpPut]
+        public async Task<IActionResult> EditPrice([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions
+                    .Include(s => s.User)
+                    .FirstOrDefaultAsync(s => s.User.Email.Equals(suggestion.Login) && s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                resSuggestion.PriceInUSD = suggestion.PriceInUSD;
+                resSuggestion.PriceInUserCurrency = suggestion.PriceInUserCurrency;
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                    savedSuggestionId = resSuggestion.Id,
+                });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        // [Authorize]
+        [Route("editdescription")]
+        [HttpPut]
+        public async Task<IActionResult> EditDescription([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions
+                    .Include(s => s.User)
+                    .FirstOrDefaultAsync(s => s.User.Email.Equals(suggestion.Login) && s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                resSuggestion.Description = suggestion.Description;
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                    savedSuggestionId = resSuggestion.Id,
+                });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        // [Authorize]
         [Route("addphotos")]
         [HttpPost]
         public async Task<IActionResult> AddPhotos(IFormFileCollection uploads)
         {
             try
             {
-                string suggestionId = Request.QueryString.Value;
-                suggestionId = suggestionId.Substring(suggestionId.IndexOf("=") + 1);
+                string query = Request.QueryString.Value;
 
-                if (uploads is null || suggestionId is null)
+                string suggestionId = query.Substring(query.IndexOf("=") + 1);
+                string userLogin = query.Substring(query.LastIndexOf("=") + 1);
+
+                if (uploads is null || suggestionId is null || userLogin is null)
                 {
                     return Json(new { code = 400 });
                 }
 
-                var suggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == int.Parse(suggestionId));
+                var suggestion = await _context.Suggestions
+                    .Include(s => s.User)
+                    .FirstOrDefaultAsync(s => s.Id == int.Parse(suggestionId) &&
+                                         s.User.Email.Equals(userLogin));
                 if (suggestion is null)
                 {
                     return Json(new { code = 400 });
@@ -468,97 +604,48 @@ namespace CloneBookingAPI.Controllers.Suggestions
             }
         }
 
-        [Route("addprice")]
-        [HttpPost]
-        public async Task<IActionResult> AddPrice([FromBody] SuggestionPoco suggestion)
+        [Route("deleteimage")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteImage([FromBody] FilePoco file)
         {
             try
             {
+                string query = Request.QueryString.Value;
+
+                string suggestionId = query.Substring(query.IndexOf("=") + 1);
+
+                if (file is null || suggestionId is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var suggestion = await _context.Suggestions
+                    .Include(s => s.User)
+                    .FirstOrDefaultAsync(s => s.Id == int.Parse(suggestionId) &&
+                         s.User.Email.Equals(file.UserLogin));
                 if (suggestion is null)
                 {
                     return Json(new { code = 400 });
                 }
 
-                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
-                if (resSuggestion is null)
+                foreach (var item in suggestion.Images)
                 {
-                    return Json(new { code = 400 });
+                    if (item.Name.Equals(file.Name) &&
+                        item.Path.Equals(file.Path))
+                    {
+                        suggestion.Images.Remove(item);
+                        _context.Files.Remove(item);
+
+                        break;
+                    }
                 }
 
-                resSuggestion.PriceInUSD = suggestion.PriceInUSD;
-                resSuggestion.PriceInUserCurrency = suggestion.PriceInUserCurrency;
-                resSuggestion.Progress = 100;
-
-                _context.Suggestions.Update(resSuggestion);
+                _context.Suggestions.Update(suggestion);
                 await _context.SaveChangesAsync();
 
-                return Json(new
-                {
-                    code = 200,
-                    savedSuggestionId = resSuggestion.Id,
-                });
+                return Json(new { code = 200 });
             }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (DbUpdateException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (OperationCanceledException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-        }
-
-        [Route("adddescription")]
-        [HttpPost]
-        public async Task<IActionResult> AddDescription([FromBody] SuggestionPoco suggestion)
-        {
-            try
-            {
-                if (suggestion is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
-                if (resSuggestion is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                resSuggestion.Description = suggestion.Description;
-
-                _context.Suggestions.Update(resSuggestion);
-                await _context.SaveChangesAsync();
-
-                return Json(new
-                {
-                    code = 200,
-                    savedSuggestionId = resSuggestion.Id,
-                });
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (DbUpdateException ex)
+            catch (ArgumentNullException ex)
             {
                 Debug.WriteLine(ex.Message);
 

@@ -1,5 +1,6 @@
 ﻿using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -97,6 +98,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        // [Authorize]
         [Route("deleteimage")]
         [HttpDelete]
         public async Task<IActionResult> DeleteImage([FromBody] FileModel file)
