@@ -5,9 +5,8 @@
     },
     "mssql1": {
       "secretStore": "LocalSecretsFile",
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/apartproject/databases/ApartProject",
-      "type": "mssql.azure",
-      "connectionId": "ConnectionStrings:AzureConnection"
+      "type": "mssql.onprem",
+      "connectionId": "ConnectionStrings:DefaultConnection"
     }
   }
 }

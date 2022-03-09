@@ -1566,7 +1566,8 @@ a.coronavirus-banner__link {
 
 a.promote_article {
   width: 32.2%;
-  display: block;
+  display: flex;
+  flex-direction: column;
   background-size: cover;
   color: #fff;
   float: left;

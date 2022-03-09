@@ -133,7 +133,7 @@
               </div>
               <div class="col-md-2 mt-1 mt-md-0 px-6">
                 <div>
-                  <a href="javascript:void(0)" class="btn btn-blue">Search</a>
+                  <a  class="btn btn-blue">Search</a>
                 </div>
               </div>
             </div>
@@ -178,7 +178,7 @@
             before you travel.
             <a
               class="bui-link coronavirus-banner__link"
-              href="javascript:void(0)"
+              
               target="_blank"
             >
               Learn more
@@ -194,7 +194,9 @@
         <div></div>
         <div class="bui-spacer--largest popular-destinations-carousel-block">
           <div class="bui-title bui-title--headline_3 bui-spacer--large p-2">
-            <span class="bui-title__text">Explore {{mainDataService.getCurrentCountry()}}</span>
+            <span class="bui-title__text"
+              >Explore {{ mainDataService.getCurrentCountry() }}</span
+            >
             <span class="bui-title__subtitle"
               >These popular destinations have a lot to offer</span
             >
@@ -206,7 +208,11 @@
                 #slickModal="slick-carousel"
                 [config]="slideConfig"
               >
-                <div ngxSlickItem *ngFor="let city of cities; let i = index" class="slide">
+                <div
+                  ngxSlickItem
+                  *ngFor="let city of cities; let i = index"
+                  class="slide"
+                >
                   <div>
                     <img src="assets/images/21.png" class="w-100" alt="" />
                     <div class="bui-card__content">
@@ -237,13 +243,19 @@
                 #slickModal="slick-carousel"
                 [config]="slideConfig"
               >
-                <div ngxSlickItem *ngFor="let category of bookingCategories; let i = index" class="slide">
+                <div
+                  ngxSlickItem
+                  *ngFor="let category of bookingCategories; let i = index"
+                  class="slide"
+                >
                   <div>
                     <img src="assets/images/28.png" class="w-100" alt="" />
                   </div>
                   <div class="bui-card__content">
                     <div class="bui-title bui-title--strong_1 bui-card__title">
-                      <span class="bui-card__title">{{ category.category }}</span>
+                      <span class="bui-card__title">{{
+                        category.category
+                      }}</span>
                       <span class="bui-title__subtitle"
                         >{{ suggestions[i]?.length }} properties</span
                       >
@@ -254,347 +266,6 @@
             </div>
           </div>
         </div>
-        <svg
-          class="bk-icon -iconset-heart"
-          height="128"
-          style="display: none"
-          width="128"
-          viewBox="0 0 128 128"
-          role="presentation"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <path
-            d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z"
-          ></path>
-        </svg>
-        <h2 class="screen_reader_heading">Recommended destinations</h2>
-        <div class="d-index__section bui-spacer--large">
-          <div
-            class="promotion-postcards__row js-ds-layout-events-postcards u-clearfix"
-          >
-            <div class="promotion-postcard__large mb-lg-3">
-              <div>
-                <div
-                  class="unified-postcard unified-postcard--no-description-padding unified-postcard__pe unified-postcard__idr unified-postcard--padding"
-                >
-                  <div
-                    class="unified-postcard__content js-lazy-image unified-postcard__content_pe"
-                    style="
-                      background-position: center center;
-                      background-repeat: no-repeat;
-                      background-size: cover;
-                      background-image: url('assets/images/24.png');
-                    "
-                  >
-                    <div class="unified-postcard__overlay">
-                      <div class="unified-postcard__header">
-                        <h3>
-                          <a href="javascript:void(0)">
-                            Dublin
-                            <img
-                              src="assets/images/42.png"
-                              alt="United States of America"
-                              valign="middle"
-                            />
-                          </a>
-                        </h3>
-                        <p>25 properties</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="promotion-postcard__large mb-lg-3">
-              <div>
-                <div
-                  class="unified-postcard unified-postcard--no-description-padding unified-postcard__pe unified-postcard__idr unified-postcard--padding"
-                >
-                  <div
-                    class="unified-postcard__content js-lazy-image unified-postcard__content_pe"
-                    style="
-                      background-position: center center;
-                      background-repeat: no-repeat;
-                      background-size: cover;
-                      background-image: url('assets/images/23.png');
-                    "
-                  >
-                    <div class="unified-postcard__overlay">
-                      <div class="unified-postcard__header">
-                        <h3>
-                          <a href="javascript:void(0)">
-                            Truckee
-                            <img
-                              src="assets/images/42.png"
-                              alt="United States of America"
-                              valign="middle"
-                            />
-                          </a>
-                        </h3>
-                        <p>494 properties</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div
-            class="promotion-postcards__row js-ds-layout-events-postcards u-clearfix"
-          >
-            <div class="promotion-postcard__small">
-              <div>
-                <div
-                  class="unified-postcard unified-postcard--no-description-padding unified-postcard__pe unified-postcard__idr unified-postcard--padding"
-                  data-idr-ufi="20016087"
-                >
-                  <div
-                    class="unified-postcard__content js-lazy-image unified-postcard__content_pe"
-                    style="
-                      background-position: center center;
-                      background-repeat: no-repeat;
-                      background-size: cover;
-                      background-image: url('assets/images/18.png');
-                    "
-                  >
-                    <div class="unified-postcard__overlay">
-                      <div class="unified-postcard__header">
-                        <h3>
-                          <a>
-                            South Lake Tahoe
-                            <img
-                              src="assets/images/42.png"
-                              alt="United States of America"
-                              valign="middle"
-                            />
-                          </a>
-                        </h3>
-                        <p>664 properties</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="promotion-postcard__small">
-              <div>
-                <div
-                  class="unified-postcard unified-postcard--no-description-padding with_airport_tooltip unified-postcard__pe unified-postcard__idr unified-postcard--padding"
-                  data-idr-ufi="20126394"
-                >
-                  <div
-                    class="unified-postcard__content js-lazy-image unified-postcard__content_pe"
-                    style="
-                      background-position: center center;
-                      background-repeat: no-repeat;
-                      background-size: cover;
-                      background-image: url('assets/images/19.png');
-                    "
-                  >
-                    <div class="unified-postcard__overlay">
-                      <div class="unified-postcard__header">
-                        <h3>
-                          <a>
-                            Austin
-                            <img
-                              src="assets/images/42.png"
-                              alt="United States of America"
-                              valign="middle"
-                            />
-                          </a>
-                        </h3>
-                        <p>720 properties</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="promotion-postcard__small">
-              <div>
-                <div
-                  class="unified-postcard unified-postcard--no-description-padding with_airport_tooltip unified-postcard__pe unified-postcard__idr unified-postcard--padding"
-                  data-idr-ufi="20079268"
-                >
-                  <div
-                    class="unified-postcard__content js-lazy-image unified-postcard__content_pe"
-                    style="
-                      background-position: center center;
-                      background-repeat: no-repeat;
-                      background-size: cover;
-                      background-image: url('assets/images/20.png');
-                    "
-                  >
-                    <div class="unified-postcard__overlay">
-                      <div class="unified-postcard__header">
-                        <h3>
-                          <a href="javascript:void(0)">
-                            Reno
-                            <img
-                              src="assets/images/42.png"
-                              alt="United States of America"
-                              valign="middle"
-                            />
-                          </a>
-                        </h3>
-                        <p>77 properties</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div
-          class="d-index__section bui-spacer--largest promote_articles js-ds-layout-events-promote_articles"
-          data-et-click=" customGoal:cCHObTRVDEZRdPQBcGCfTKYCcaYO:4  goal:www_inspiration_articles_click  "
-        >
-          <h2
-            class="bui-f-font-display_two bui-spacer--large d-index__header-section"
-          >
-            Get inspiration for your next trip
-          </h2>
-          <div class="promote-articles__wrapper bui-u-clearfix">
-            <div class="d-md-flex">
-              <a href="javascript:void(0)" class="promote_article">
-                <div
-                  class="js-lazy-image promote_article_img"
-                  style="background-image: url('assets/images/30.png')"
-                ></div>
-                <div class="promote_article__overlay"></div>
-                <div class="promote_article__content">
-                  <h3
-                    class="promote_article__header"
-                    id="promote_article_title_1"
-                  >
-                    Best Coffee Cities in the US
-                  </h3>
-                  <p
-                    id="promote_article_desc_1"
-                    class="promote_article__description"
-                  >
-                    The best cities to visit to get your caffeine fix.
-                  </p>
-                </div>
-              </a>
-              <a href="javascript:void(0)" class="promote_article">
-                <div
-                  class="js-lazy-image promote_article_img"
-                  style="background-image: url('assets/images/35.png')"
-                ></div>
-                <div class="promote_article__overlay"></div>
-                <div class="promote_article__content">
-                  <h3
-                    class="promote_article__header"
-                    id="promote_article_title_2"
-                  >
-                    Las Vegas Beyond the Casinos
-                  </h3>
-                  <p
-                    id="promote_article_desc_2"
-                    class="promote_article__description"
-                  >
-                    Sin City isn't just casinos and neon, it's full of
-                    surprising, alternative attractions.
-                  </p>
-                </div>
-              </a>
-              <a
-                href="javascript:void(0)"
-                class="promote_article promote-articles-margin"
-              >
-                <div
-                  class="js-lazy-image promote_article_img"
-                  style="background-image: url('assets/images/32.png')"
-                ></div>
-                <div class="promote_article__overlay"></div>
-                <div class="promote_article__content">
-                  <h3
-                    class="promote_article__header"
-                    id="promote_article_title_3"
-                  >
-                    5 soulful yoga retreat destinations
-                  </h3>
-                  <p
-                    id="promote_article_desc_3"
-                    class="promote_article__description"
-                  >
-                    Take your vinyasa on vacation at these dreamy yoga stays
-                    around the world.
-                  </p>
-                </div>
-              </a>
-            </div>
-            <div class="d-md-flex">
-              <a
-                href="javascript:void(0)"
-                class="promote_article promote-articles-2-col"
-              >
-                <div
-                  class="js-lazy-image promote_article_img"
-                  style="background-image: url('assets/images/34.png')"
-                ></div>
-                <div class="promote_article__overlay"></div>
-                <div class="promote_article__content">
-                  <h3
-                    class="promote_article__header"
-                    id="promote_article_title_4"
-                  >
-                    Destination Inspiration: San Juan, Puerto Rico
-                  </h3>
-                  <p
-                    id="promote_article_desc_4"
-                    class="promote_article__description"
-                  >
-                    Revel in the eclectic energy of this centuries-old Caribbean
-                    capital.
-                  </p>
-                </div>
-              </a>
-              <a
-                href="javascript:void(0)"
-                class="promote_article promote-articles-2-col"
-              >
-                <div
-                  class="js-lazy-image promote_article_img"
-                  style="background-image: url('assets/images/33.png')"
-                ></div>
-                <div class="promote_article__overlay"></div>
-                <div class="promote_article__content">
-                  <h3
-                    class="promote_article__header"
-                    id="promote_article_title_5"
-                  >
-                    7 unmissable hot air balloon rides
-                  </h3>
-                  <p
-                    id="promote_article_desc_5"
-                    class="promote_article__description"
-                  >
-                    We found seven of the best locations to go up, up, and away.
-                  </p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-        <svg
-          class="bk-icon -iconset-square_rating"
-          height="128"
-          style="display: none"
-          width="128"
-          viewBox="0 0 128 128"
-          role="presentation"
-          aria-hidden="true"
-          focusable="false"
-        >
-          <path
-            d="M104 8H24A16 16 0 0 0 8 24v96h96a16 16 0 0 0 16-16V24a16 16 0 0 0-16-16zM64 88a24 24 0 1 1 24-24 24 24 0 0 1-24 24z"
-          ></path>
-        </svg>
         <div
           class="d-index__section bui-spacer--largest bh-carousel--new js-ds-layout-events-bh_carousel js-bh-carousel-async-wrapper"
         >
@@ -648,6 +319,153 @@
             </div>
           </div>
         </div>
+        <div
+          class="d-index__section bui-spacer--largest promote_articles js-ds-layout-events-promote_articles"
+          data-et-click=" customGoal:cCHObTRVDEZRdPQBcGCfTKYCcaYO:4  goal:www_inspiration_articles_click  "
+        >
+          <h2
+            class="bui-f-font-display_two bui-spacer--large d-index__header-section"
+          >
+            Get inspiration for your next trip
+          </h2>
+          <div class="promote-articles__wrapper bui-u-clearfix">
+            <div class="d-md-flex">
+              <a class="promote_article">
+                <div
+                  class="js-lazy-image promote_article_img"
+                  style="background-image: url('assets/images/30.png')"
+                ></div>
+                <div class="promote_article__overlay"></div>
+                <div class="promote_article__content">
+                  <h3
+                    class="promote_article__header"
+                    id="promote_article_title_1"
+                  >
+                    Best Coffee Cities in the US
+                  </h3>
+                  <p
+                    id="promote_article_desc_1"
+                    class="promote_article__description"
+                  >
+                    The best cities to visit to get your caffeine fix.
+                  </p>
+                </div>
+              </a>
+              <a class="promote_article">
+                <div
+                  class="js-lazy-image promote_article_img"
+                  style="background-image: url('assets/images/35.png')"
+                ></div>
+                <div class="promote_article__overlay"></div>
+                <div class="promote_article__content">
+                  <h3
+                    class="promote_article__header"
+                    id="promote_article_title_2"
+                  >
+                    Las Vegas Beyond the Casinos
+                  </h3>
+                  <p
+                    id="promote_article_desc_2"
+                    class="promote_article__description"
+                  >
+                    Sin City isn't just casinos and neon, it's full of
+                    surprising, alternative attractions.
+                  </p>
+                </div>
+              </a>
+              <a
+                
+                class="promote_article promote-articles-margin"
+              >
+                <div
+                  class="js-lazy-image promote_article_img"
+                  style="background-image: url('assets/images/32.png')"
+                ></div>
+                <div class="promote_article__overlay"></div>
+                <div class="promote_article__content">
+                  <h3
+                    class="promote_article__header"
+                    id="promote_article_title_3"
+                  >
+                    5 soulful yoga retreat destinations
+                  </h3>
+                  <p
+                    id="promote_article_desc_3"
+                    class="promote_article__description"
+                  >
+                    Take your vinyasa on vacation at these dreamy yoga stays
+                    around the world.
+                  </p>
+                </div>
+              </a>
+            </div>
+            <div class="d-md-flex">
+              <a
+                
+                class="promote_article promote-articles-2-col"
+              >
+                <div
+                  class="js-lazy-image promote_article_img"
+                  style="background-image: url('assets/images/34.png')"
+                ></div>
+                <div class="promote_article__overlay"></div>
+                <div class="promote_article__content">
+                  <h3
+                    class="promote_article__header"
+                    id="promote_article_title_4"
+                  >
+                    Destination Inspiration: San Juan, Puerto Rico
+                  </h3>
+                  <p
+                    id="promote_article_desc_4"
+                    class="promote_article__description"
+                  >
+                    Revel in the eclectic energy of this centuries-old Caribbean
+                    capital.
+                  </p>
+                </div>
+              </a>
+              <a
+                
+                class="promote_article promote-articles-2-col"
+              >
+                <div
+                  class="js-lazy-image promote_article_img"
+                  style="background-image: url('assets/images/33.png')"
+                ></div>
+                <div class="promote_article__overlay"></div>
+                <div class="promote_article__content">
+                  <h3
+                    class="promote_article__header"
+                    id="promote_article_title_5"
+                  >
+                    7 unmissable hot air balloon rides
+                  </h3>
+                  <p
+                    id="promote_article_desc_5"
+                    class="promote_article__description"
+                  >
+                    We found seven of the best locations to go up, up, and away.
+                  </p>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+        <svg
+          class="bk-icon -iconset-square_rating"
+          height="128"
+          style="display: none"
+          width="128"
+          viewBox="0 0 128 128"
+          role="presentation"
+          aria-hidden="true"
+          focusable="false"
+        >
+          <path
+            d="M104 8H24A16 16 0 0 0 8 24v96h96a16 16 0 0 0 16-16V24a16 16 0 0 0-16-16zM64 88a24 24 0 1 1 24-24 24 24 0 0 1-24 24z"
+          ></path>
+        </svg>
         <div style="clear: both"></div>
         <div
           class="desktop-communities-recommendations js-ds-layout-events-travel-communities desktop-communities-recommendations--desktop"
@@ -665,53 +483,25 @@
                   <div>
                     <ul class="inner-tabs-links">
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <ul class="inner-tabs-links">
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
@@ -721,53 +511,25 @@
                   <div>
                     <ul class="inner-tabs-links">
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <ul class="inner-tabs-links">
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
@@ -777,25 +539,81 @@
                   <div>
                     <ul class="inner-tabs-links">
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <ul class="inner-tabs-links">
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <ul class="inner-tabs-links">
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
@@ -812,53 +630,25 @@
                   <div>
                     <ul class="inner-tabs-links">
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <ul class="inner-tabs-links">
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
@@ -868,53 +658,25 @@
                   <div>
                     <ul class="inner-tabs-links">
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <ul class="inner-tabs-links">
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
@@ -924,25 +686,81 @@
                   <div>
                     <ul class="inner-tabs-links">
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <ul class="inner-tabs-links">
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <ul class="inner-tabs-links">
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
@@ -959,53 +777,25 @@
                   <div>
                     <ul class="inner-tabs-links">
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <ul class="inner-tabs-links">
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
@@ -1015,53 +805,25 @@
                   <div>
                     <ul class="inner-tabs-links">
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                    </ul>
-                  </div>
-                  <div>
-                    <ul class="inner-tabs-links">
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
-                        <div class="wcu-seo-regions-poi ia_hotelnum">
-                          1,382 properties
-                        </div>
-                      </li>
-                      <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
@@ -1071,25 +833,81 @@
                   <div>
                     <ul class="inner-tabs-links">
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
                       </li>
                       <li>
-                        <a href="javascript:void(0)">Times Square</a>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <ul class="inner-tabs-links">
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                  <div>
+                    <ul class="inner-tabs-links">
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a >Times Square</a>
+                        <div class="wcu-seo-regions-poi ia_hotelnum">
+                          1,382 properties
+                        </div>
+                      </li>
+                      <li>
+                        <a >Times Square</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           1,382 properties
                         </div>
