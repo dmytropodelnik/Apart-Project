@@ -19,7 +19,7 @@ export class LpPropertySetupComponent implements OnInit {
   }
   choice: number = 0;
   number1: number = 0;
-  
+
   decrease() {
     --this.number1;
   }
@@ -82,5 +82,7 @@ export class LpPropertySetupComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+  }
 }

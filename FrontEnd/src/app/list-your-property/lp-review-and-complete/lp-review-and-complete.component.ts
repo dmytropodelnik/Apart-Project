@@ -16,6 +16,7 @@ export class LpReviewAndCompleteComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    
   }
 
 }

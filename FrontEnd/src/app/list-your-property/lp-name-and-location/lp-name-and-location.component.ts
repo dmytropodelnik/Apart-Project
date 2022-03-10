@@ -278,6 +278,6 @@ export class LpNameAndLocationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.addPropertyPhotos();
+    // this.addPropertyPhotos();
   }
 }

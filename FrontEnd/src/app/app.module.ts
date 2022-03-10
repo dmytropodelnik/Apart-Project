@@ -73,6 +73,7 @@ import { MainDataService } from './services/main-data.service';
 import { LpPhotosComponent } from './list-your-property/lp-photos/lp-photos.component';
 import { LpPricingAndCalenderComponent } from './list-your-property/lp-pricing-and-calender/lp-pricing-and-calender.component';
 import { LpReviewAndCompleteComponent } from './list-your-property/lp-review-and-complete/lp-review-and-complete.component';
+import { ListNewPropertyService } from './services/list-new-property.service';
 
 @NgModule({
   declarations: [
@@ -149,7 +150,7 @@ import { LpReviewAndCompleteComponent } from './list-your-property/lp-review-and
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthorizationService, MainDataService],
+  providers: [AuthorizationService, MainDataService, ListNewPropertyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

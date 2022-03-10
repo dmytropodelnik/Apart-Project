@@ -47,6 +47,7 @@ export class LpPricingAndCalenderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
   }
 
 }

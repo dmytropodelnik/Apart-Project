@@ -26,7 +26,7 @@ export class LpPhotosComponent implements OnInit {
     this.selectedFiles = event.target.files;
 
     this.previews = [];
-    
+
     if (this.selectedFiles && this.selectedFiles[0]) {
       const numberOfFiles = this.selectedFiles.length;
       for (let i = 0; i < numberOfFiles; i++) {
@@ -74,6 +74,6 @@ export class LpPhotosComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.addPropertyPhotos();
+    // this.addPropertyPhotos();
   }
 }
