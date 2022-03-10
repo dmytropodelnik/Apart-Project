@@ -171,8 +171,9 @@
   min-height: 60px;
   width: 100%;
 }
-.section__container--active {
-}
+/* .section__container--active {
+
+} */
 .steps__container {
   display: flex;
   justify-content: space-between;
