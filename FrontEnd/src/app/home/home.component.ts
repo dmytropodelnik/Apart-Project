@@ -149,15 +149,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         } else {
           alert('Data fetching error!');
         }
-        // console.log(r.categories);
-        // console.log(r.cities);
-        // console.log(r.suggestions);
-        // console.log(r.citySuggestions);
-        // console.log(r.footerCities);
-        // console.log(r.placesOfInterestSuggestions);
-        // console.log(r.placesOfInterests);
-        // console.log(r.regions);
-        // console.log(r.regionsSuggestions);
+        console.log(this.citySuggestions);
       })
       .catch((err) => {
         alert(err);

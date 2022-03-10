@@ -11,10 +11,10 @@ namespace CloneBookingAPI.Services.Database.Configurations.Location
             builder.HasData(
               new Address[]
               {
-                  new Address { Id = 1, AddressText = "St. Deribasovskaya, 23", CountryId = 1 },
-                  new Address { Id = 2, AddressText = "St. Mark’s Place 23", },
-                  new Address { Id = 3, AddressText = "St. Legiendamm 4", },
-                  new Address { Id = 4, AddressText = "St. Khreshchatyk, 44", },
+                  new Address { Id = 1, AddressText = "St. Deribasovskaya, 23", CountryId = 1, RegionId = 1, CityId = 1, },
+                  new Address { Id = 2, AddressText = "St. Mark’s Place 23", CountryId = 2, RegionId = 2, CityId = 1,},
+                  new Address { Id = 3, AddressText = "St. Legiendamm 4", CountryId = 3, RegionId = 3, CityId = 2, },
+                  new Address { Id = 4, AddressText = "St. Khreshchatyk, 44", CountryId = 4, RegionId = 4, CityId = 3, },
               });
         }
     }

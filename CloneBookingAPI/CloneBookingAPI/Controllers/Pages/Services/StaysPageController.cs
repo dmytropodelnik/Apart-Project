@@ -44,6 +44,9 @@ namespace CloneBookingAPI.Controllers.Pages
                     .ToListAsync();
                 var suggestionsList = await _context.Suggestions
                     .Include(s => s.Images)
+                    .Include(s => s.Address)
+                        .ThenInclude(c => c.Country)
+                    .Include(s => s.Address.Region)
                     .Include(s => s.BookingCategory)
                     .Include(s => s.InterestPlaces)
                     .ToListAsync();
@@ -73,10 +76,10 @@ namespace CloneBookingAPI.Controllers.Pages
                     suggestions.Add(resSuggestion);
                 }
 
-                for (int i = 1; i <= citiesList.Count; i++)
+                for (int i = 1; i <= cities.Count; i++)
                 {
                     var resCitySuggestion = suggestionsList
-                        .Where(s => s.Address.Country.Title == cities[i].Title)
+                        .Where(s => s.Address.Country.Title == cities[i - 1].Title)
                         .ToList();
 
                     citySuggestions.Add(resCitySuggestion);
@@ -95,16 +98,19 @@ namespace CloneBookingAPI.Controllers.Pages
                 for (int i = 1; i <= cities.Count; i++)
                 {
                     var resCitySuggestion = suggestionsList
-                        .Where(s => s.Address.Country.Title == cities[i].Title)
+                        .Where(s => s.Address.City.Title == cities[i - 1].Title)
                         .ToList();
 
                     citySuggestions.Add(resCitySuggestion);
                 }
+                citySuggestions = citySuggestions
+                    .OrderByDescending(c => c.Count)
+                    .ToList();
 
                 for (int i = 1; i <= regions.Count; i++)
                 {
                     var resRegionSuggestion = suggestionsList
-                        .Where(s => s.Address.Country.Title == cities[i].Title)
+                        .Where(s => s.Address.Region.Title == regions[i - 1].Title)
                         .ToList();
 
                     regionsSuggestions.Add(resRegionSuggestion);

@@ -206,7 +206,7 @@
                     <div class="bui-card__content">
                       <div class="bui-card__title">{{ city.title }}</div>
                       <div class="bui-title__subtitle">
-                        {{ citySuggestions[i]?.length }} properties
+                        {{ citySuggestions[i]?.length ?? '0' }} properties
                       </div>
                     </div>
                   </div>
@@ -343,7 +343,7 @@
                 </div>
               </div>
             </div>
-        
+
           </div>
           <div
             class="promotion-postcards__row js-ds-layout-events-postcards u-clearfix"
