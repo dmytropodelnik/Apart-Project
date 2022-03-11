@@ -58,7 +58,7 @@ namespace CloneBookingAPI.Controllers
                     return RedirectToAction("GenerateEnterCode", "Codes", new { email });
                 }
 
-                return Json(new { code = 202, enter = false });
+                return Json(new { code = 202, userId = user.Id });
             }
             catch (DbUpdateConcurrencyException ex)
             {

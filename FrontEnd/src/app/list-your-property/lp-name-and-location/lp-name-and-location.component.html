@@ -135,9 +135,9 @@
 
         <div class="Input-name-and-location">
           <span class="name-and-location-text">Property name</span>
-          <input type="text" />
+          <input type="text" name="propertyName" [(ngModel)]="propertyName" />
         </div>
-        <button class="name-and-location-button" (click)="incrementChoice()">
+        <button class="name-and-location-button" (click)="addPropertyName()">
           Continue
         </button>
       </div>
@@ -154,23 +154,21 @@
           it later.
         </div>
         <div class="Input-name-and-location">
-          <select class="form-select" aria-label="Default select example">
+          <select class="form-select" aria-label="Default select example" id="countriesSelect"
+                  name="sCountry" [(ngModel)]="sCountry">
             <option selected>Select country/region</option>
-            <option value="1">Germany</option>
-            <option value="2">Ukraine</option>
-            <option value="3">Poland</option>
           </select>
 
-          <span class="name-and-location-text">Adress</span>
-          <input type="text" />
+          <span class="name-and-location-text">Address</span>
+          <input type="text" name="sAddress" [(ngModel)]="sAddress" />
 
           <span class="name-and-location-text">Postal Code</span>
-          <input type="text" />
+          <input type="text" name="sZipCode" [(ngModel)]="sZipCode" />
 
           <span class="name-and-location-text">City</span>
-          <input type="text" />
+          <input type="text" name="sCity" [(ngModel)]="sCity" />
         </div>
-        <button class="name-and-location-button" routerLink="/lp/propertysetup">
+        <button class="name-and-location-button" (click)="addPropertyAddress()">
           Continue
         </button>
       </div>

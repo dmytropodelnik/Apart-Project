@@ -93,9 +93,9 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                if (suggestion is null ||
-                    string.IsNullOrWhiteSpace(suggestion.Login) ||
-                    string.IsNullOrWhiteSpace(suggestion.Address.Country.Title) ||
+                if (suggestion is null || 
+                    suggestion.Address.CountryId < 1                         ||
+                    string.IsNullOrWhiteSpace(suggestion.Login)              ||
                     string.IsNullOrWhiteSpace(suggestion.Address.City.Title) ||
                     string.IsNullOrWhiteSpace(suggestion.Address.AddressText))
                 {
@@ -114,7 +114,34 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     return Json(new { code = 400 });
                 }
 
-                resSuggestion.Address = suggestion.Address;
+                // ???
+                var resCountry = await _context.Countries.FirstOrDefaultAsync(c => c.Id == suggestion.Address.CountryId);
+                if (resCountry is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var city = await _context.Cities.FirstOrDefaultAsync(c => c.Title.Equals(suggestion.Address.City.Title) &&
+                                                                          c.CountryId == suggestion.Address.CountryId);
+                if (city is null)
+                {
+                    City newCity = new();
+                    newCity.Title = suggestion.Address.City.Title;
+                    newCity.CountryId = suggestion.Address.CountryId;
+                    newCity.ImageId = resCountry.ImageId;  // ???
+                    _context.Cities.Add(newCity);
+
+                    Address newAddress = new();
+                    newAddress.City = newCity;
+                    newAddress.AddressText = suggestion.Address.AddressText;
+
+                    resSuggestion.Address = newAddress;
+                }
+                else
+                {
+                    resSuggestion.Address = suggestion.Address;
+                    resSuggestion.Address.CityId = city.Id;
+                }
                 resSuggestion.Progress = 20;
 
                 _context.Suggestions.Update(resSuggestion);
@@ -158,7 +185,8 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                if (suggestion is null)
+                if (suggestion is null ||
+                    suggestion.Beds is null)
                 {
                     return Json(new { code = 400 });
                 }

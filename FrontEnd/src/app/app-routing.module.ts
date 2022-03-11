@@ -32,7 +32,7 @@ const routes: Routes = [
   { path: 'flights', component: FlightsComponent },
   { path: 'joinpartner', component: JoinAsPartnerComponent },
   { path: 'viewproperty', component: ViewPropertyComponent },
-  { path: 'lp', component: AddPropertyComponent, pathMatch: 'full' },
+  { path: 'lp/addproperty', component: AddPropertyComponent, pathMatch: 'full' },
   {
     path: 'lp/nameandlocation',
     component: LpNameAndLocationComponent,

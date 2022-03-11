@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Address } from 'src/app/models/Location/address.item';
+import { Country } from 'src/app/models/Location/country.item';
+import { Router } from '@angular/router';
 
 import { ListNewPropertyService } from '../../services/list-new-property.service';
 
@@ -11,16 +13,21 @@ import AuthHelper from '../../utils/authHelper';
   styleUrls: ['./lp-name-and-location.component.css'],
 })
 export class LpNameAndLocationComponent implements OnInit {
-  savedPropertyId: string = '';
   propertyName: string = '';
   propertyAddress: Address | null = null;
   uploadedFiles: File[] | null = null;
 
+  sCountry: string = '';
+  sCity: string = '';
+  sZipCode: string = '';
+  sAddress: string = '';
+
   constructor(
     private listNewPropertyService: ListNewPropertyService,
-  ) {
+    private router: Router,
+    ) {
 
-  }
+    }
   choice: number = 0;
 
   incrementChoice() {
@@ -53,8 +60,8 @@ export class LpNameAndLocationComponent implements OnInit {
 
   addPropertyName(): void {
     let suggestion = {
-      name: 'test', // this.propertyName,
-      login: 'test', // AuthHelper.getLogin(),
+      name: this.propertyName,
+      login: AuthHelper.getLogin(),
     };
 
     fetch(`https://localhost:44381/api/listnewproperty/addname`, {
@@ -69,10 +76,39 @@ export class LpNameAndLocationComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200 && data.savedSuggestionId !== null) {
-          this.savedPropertyId = data.savedSuggestionId;
+          this.listNewPropertyService.setSavedPropertyId(
+            data.savedSuggestionId
+          );
+
+          this.incrementChoice();
+          this.getCountries();
         }
         console.log(data);
-        console.log(this.savedPropertyId);
+        console.log(this.listNewPropertyService.getSavedPropertyId());
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  getCountries(): void {
+    fetch('https://localhost:44381/api/countries/getcountries', {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          let countriesAdd = document.getElementById('countriesSelect');
+          let newOption;
+          let counter = 1;
+          for (let item of data.countries) {
+            newOption = new Option(item.title, counter.toString());
+            countriesAdd?.append(newOption);
+            counter++;
+          }
+        } else {
+          alert('Fetch error!');
+        }
       })
       .catch((ex) => {
         alert(ex);
@@ -81,19 +117,18 @@ export class LpNameAndLocationComponent implements OnInit {
 
   addPropertyAddress(): void {
     let suggestion = {
-      id: 1, // this.savedPropertyId,
+      id: this.listNewPropertyService.getSavedPropertyId(),
       address: {
-        country: {
-          title: 'testcountry',
-        },
+        countryId: this.sCountry,
         city: {
-          title: 'testcity',
+          title: this.sCity,
         },
-        zipCode: 'testzipcode',
-        addressText: 'texttest',
-      }, // this.propertyName,
-      login: 'test', // AuthHelper.getLogin(),
+        zipCode: this.sZipCode,
+        addressText: this.sAddress,
+      },
+      login: AuthHelper.getLogin(),
     };
+    console.log(this.sCountry);
 
     fetch(`https://localhost:44381/api/listnewproperty/addaddress`, {
       method: 'POST',
@@ -107,137 +142,8 @@ export class LpNameAndLocationComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-        }
-        console.log(data);
-      })
-      .catch((ex) => {
-        alert(ex);
-      });
-  }
-
-  addPropertyBeds(): void {
-    let suggestion = {
-      id: 1, // this.savedPropertyId,
-      name: 'test', // this.propertyName,
-      login: 'test', // AuthHelper.getLogin(),
-    };
-
-    fetch(`https://localhost:44381/api/listnewproperty/addbeds`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(suggestion),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.code === 200) {
-        }
-        console.log(data);
-      })
-      .catch((ex) => {
-        alert(ex);
-      });
-  }
-
-  addPropertyIsParkingAvailable(): void {
-    let suggestion = {
-      id: 1, // this.savedPropertyId,
-      isParkingAvailable: true,
-    };
-
-    fetch(`https://localhost:44381/api/listnewproperty/addparking`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(suggestion),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.code === 200) {
-        }
-        console.log(data);
-      })
-      .catch((ex) => {
-        alert(ex);
-      });
-  }
-
-  addPropertyLanguages(): void {
-    let suggestion = {
-      id: 1, // this.savedPropertyId,
-      languages: null, //
-    };
-
-    fetch(`https://localhost:44381/api/listnewproperty/addlanguages`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(suggestion),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.code === 200) {
-        }
-        console.log(data);
-      })
-      .catch((ex) => {
-        alert(ex);
-      });
-  }
-
-  addPropertyRules(): void {
-    let suggestion = {
-      id: 1, // this.savedPropertyId,
-      suggestionRules: null, //
-    };
-
-    fetch(`https://localhost:44381/api/listnewproperty/addrules`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(suggestion),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.code === 200) {
-        }
-        console.log(data);
-      })
-      .catch((ex) => {
-        alert(ex);
-      });
-  }
-
-  addPropertyFacilities(): void {
-    let suggestion = {
-      id: 1, // this.savedPropertyId,
-      facilities: null, //
-    };
-
-    fetch(`https://localhost:44381/api/listnewproperty/addrules`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(suggestion),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.code === 200) {
+          alert("ok");
+          this.router.navigate(['/lp/propertysetup']);
         }
         console.log(data);
       })
@@ -256,14 +162,17 @@ export class LpNameAndLocationComponent implements OnInit {
       }
     }
 
-    fetch('https://localhost:44381/api/listnewproperty/addphotos?suggestionId=' + 1, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
-      },
-      body: fData,
-    })
+    fetch(
+      'https://localhost:44381/api/listnewproperty/addphotos?suggestionId=' + 1,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          Authorization: 'Bearer ' + AuthHelper.getToken(),
+        },
+        body: fData,
+      }
+    )
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {

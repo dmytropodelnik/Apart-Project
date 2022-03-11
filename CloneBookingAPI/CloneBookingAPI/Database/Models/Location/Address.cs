@@ -40,7 +40,6 @@ namespace CloneBookingAPI.Services.Database.Models.Location
         public string PhoneNumber { get; set; }
 
         [Column("Address")]
-        [Display(Name = "Street")]
         [Required]
         [DataType(DataType.Text)]
         [MinLength(2)]

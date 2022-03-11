@@ -21,30 +21,30 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [Required]
         public string Name { get; set; }
 
-        [Required]
+        // [Required]
         public int GuestsAmount { get; set; }
-        [Required]
+        // [Required]
         public int BathroomsAmount { get; set; }
-        [Required]
+        // [Required]
         public int RoomsAmount { get; set; }
-        [Required]
+        // [Required]
         public int StarRating { get; set; }
         [Required]
         public int Progress { get; set; }
 
-        [Required]
+        // [Required]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        [Required]
+        // [Required]
         [DataType(DataType.Currency)]
         public decimal PriceInUserCurrency { get; set; }
 
-        [Required]
+        // [Required]
         [DataType(DataType.Currency)]
         public decimal PriceInUSD { get; set; }
 
-        [Required]
+        // [Required]
         public bool IsParkingAvailable { get; set; }
 
         public ContactDetails ContactDetails { get; set; }

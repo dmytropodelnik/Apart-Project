@@ -10,10 +10,11 @@ namespace CloneBookingAPI.Database.Models.Suggestions
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required]
         [DataType(DataType.Text)]
         [StringLength(100, MinimumLength = 2, ErrorMessage = "Incorrect length")]
         public string Description { get; set; }
+
+        public int Amount { get; set; }
 
         public int BedTypeId { get; set; }
         [ForeignKey("BedTypeId")]

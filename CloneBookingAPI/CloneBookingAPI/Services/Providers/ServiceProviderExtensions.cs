@@ -23,5 +23,9 @@ namespace CloneBookingAPI.Services.Providers
         {
             services.AddSingleton<SaltGenerator>();
         }
+        public static void AddSuggestionIdGeneratorService(this IServiceCollection services)
+        {
+            services.AddScoped<SuggestionIdGenerator>();
+        }
     }
 }

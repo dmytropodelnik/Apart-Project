@@ -78,6 +78,7 @@ namespace CloneBookingAPI
             services.AddCodesRepositoryService();
             services.AddCodeGeneratorService();
             services.AddSaltGeneratorService();
+            services.AddSuggestionIdGeneratorService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

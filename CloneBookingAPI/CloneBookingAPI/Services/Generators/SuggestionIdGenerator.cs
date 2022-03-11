@@ -28,7 +28,7 @@ namespace CloneBookingAPI.Services.Generators
                 do
                 {
                     _code = generator.Next(1000000, 9999999).ToString();
-                } while (suggestions.Any(s => s.UniqueCode.Equals(_code)));
+                } while (suggestions.Any(s => s.UniqueCode == _code));
 
                 return _code;
             }

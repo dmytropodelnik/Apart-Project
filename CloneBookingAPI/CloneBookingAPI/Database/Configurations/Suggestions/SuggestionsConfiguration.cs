@@ -9,6 +9,7 @@ namespace CloneBookingAPI.Services.Database.Configurations.Suggestions
         public void Configure(EntityTypeBuilder<Suggestion> builder)
         {
             builder.Property(s => s.Progress).HasDefaultValue(0);
+            builder.Property(s => s.UniqueCode).HasDefaultValue(string.Empty);
 
             builder.HasData(
               new Suggestion[]
