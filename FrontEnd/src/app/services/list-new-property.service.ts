@@ -6,22 +6,22 @@ export class ListNewPropertyService {
   private savedPropertyId: string = '';
 
   constructor() {
-    if (AuthHelper.getToken()) {
-      fetch('https://localhost:44381/api/users/userexists' + AuthHelper.getLogin(), {
-        method: 'GET',
-      })
-        .then((response) => response.json())
-        .then((response) => {
-          if (response.code === 200) {
-            this.savedPropertyId = response.userId;
-          } else {
-            alert("Refresh getting userId error!");
-          }
-        })
-        .catch((ex) => {
-          alert(ex);
-        });
-    }
+    // if (AuthHelper.getToken()) {
+    //   fetch('https://localhost:44381/api/users/userexists?email=' + AuthHelper.getLogin(), {
+    //     method: 'GET',
+    //   })
+    //     .then((response) => response.json())
+    //     .then((response) => {
+    //       if (response.code === 200) {
+    //         this.savedPropertyId = response.userId;
+    //       } else {
+    //         alert("Refresh getting userId error!");
+    //       }
+    //     })
+    //     .catch((ex) => {
+    //       alert(ex);
+    //     });
+    // }
   }
 
   getCurrentCountry(): string {

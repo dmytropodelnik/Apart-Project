@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CloneBookingAPI.Services.Database.Models.Suggestions;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloneBookingAPI.Database.Models.Suggestions
@@ -19,5 +21,7 @@ namespace CloneBookingAPI.Database.Models.Suggestions
         public int BedTypeId { get; set; }
         [ForeignKey("BedTypeId")]
         public BedType BedType { get; set; }
+
+        public List<Suggestion> Suggestions { get; set; } = new();
     }
 }

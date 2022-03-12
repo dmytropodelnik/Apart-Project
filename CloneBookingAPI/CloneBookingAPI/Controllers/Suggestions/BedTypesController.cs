@@ -25,7 +25,9 @@ namespace CloneBookingAPI.Database.Configurations.Suggestions
         {
             try
             {
-                var bedTypes = await _context.BedTypes.ToListAsync();
+                var bedTypes = await _context.BedTypes
+                    .Include(t => t.Beds)
+                    .ToListAsync();
 
                 return Json(new
                 {

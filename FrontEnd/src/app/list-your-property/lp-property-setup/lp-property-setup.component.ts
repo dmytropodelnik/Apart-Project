@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Facility } from 'src/app/models/facility.item';
 
 import { ListNewPropertyService } from '../../services/list-new-property.service';
 
@@ -12,6 +13,8 @@ import AuthHelper from '../../utils/authHelper';
 })
 export class LpPropertySetupComponent implements OnInit {
   savedPropertyId: string = '';
+  facilities: Facility[] | null = null;
+  includedFacilities: boolean[] = [];
 
   constructor(
     private listNewPropertyService: ListNewPropertyService,
@@ -19,8 +22,8 @@ export class LpPropertySetupComponent implements OnInit {
   ) {
 
   }
-  choice: number = 0;
-  bedTypesAmount = [0, 0, 0, 0, 0, 0, 0, 0];
+  choice: number = 1;
+  bedTypesAmount = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   decreaseBedTypeCount(value: number) {
     --this.bedTypesAmount[value];
@@ -72,6 +75,7 @@ export class LpPropertySetupComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
+          suggestion.beds.pop();
           for (let i = 0; i < data.bedTypes.length; i++) {
             suggestion.beds.push({
               bedTypeId: i + 1,
@@ -79,7 +83,6 @@ export class LpPropertySetupComponent implements OnInit {
             });
           }
         }
-        console.log(data);
       })
       .then(r => {
         fetch(`https://localhost:44381/api/listnewproperty/addbeds`, {
@@ -109,7 +112,7 @@ export class LpPropertySetupComponent implements OnInit {
 
   addPropertyIsParkingAvailable(): void {
     let suggestion = {
-      id: 1, // this.savedPropertyId,
+      id: this.listNewPropertyService.getSavedPropertyId(),
       isParkingAvailable: true,
     };
 
@@ -135,7 +138,7 @@ export class LpPropertySetupComponent implements OnInit {
 
   addPropertyLanguages(): void {
     let suggestion = {
-      id: 1, // this.savedPropertyId,
+      id: this.listNewPropertyService.getSavedPropertyId(),
       languages: null, //
     };
 
@@ -161,7 +164,7 @@ export class LpPropertySetupComponent implements OnInit {
 
   addPropertyRules(): void {
     let suggestion = {
-      id: 1, // this.savedPropertyId,
+      id: this.listNewPropertyService.getSavedPropertyId(),
       suggestionRules: null, //
     };
 
@@ -187,11 +190,11 @@ export class LpPropertySetupComponent implements OnInit {
 
   addPropertyFacilities(): void {
     let suggestion = {
-      id: 1, // this.savedPropertyId,
-      facilities: null, //
+      id: 1,
+      facilities: this.includedFacilities, //
     };
 
-    fetch(`https://localhost:44381/api/listnewproperty/addrules`, {
+    fetch(`https://localhost:44381/api/listnewproperty/addfacilities`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -203,8 +206,30 @@ export class LpPropertySetupComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
+          this.incrementChoice1();
         }
-        console.log(data);
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  getFacilities(): void {
+    fetch(`https://localhost:44381/api/facilities/getfacilities`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.facilities = data.facilities;
+          if (this.facilities !== null) {
+            for (let item of this.facilities) {
+              this.includedFacilities.push(false);
+            }
+          } else {
+            alert('Facilities fetching error!');
+          }
+        }
       })
       .catch((ex) => {
         alert(ex);
@@ -212,6 +237,6 @@ export class LpPropertySetupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.getFacilities();
   }
 }

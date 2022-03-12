@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Suggestions
@@ -241,7 +243,8 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                if (suggestion is null)
+                if (suggestion is null ||
+                    suggestion.Facilities is null)
                 {
                     return Json(new { code = 400 });
                 }
@@ -252,7 +255,20 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     return Json(new { code = 400 });
                 }
 
-                resSuggestion.Facilities = suggestion.Facilities;
+                List<int> facilitiesIds = new();
+                for (int i = 0; i < suggestion.Facilities.Count; i++)
+                {
+                    if (suggestion.Facilities[i])
+                    {
+                        facilitiesIds.Add(i + 1);
+                    }
+                }
+
+                var resFacilities = await _context.Facilities
+                    .Where(f => facilitiesIds.Contains(f.Id))
+                    .ToListAsync();
+
+                resSuggestion.Facilities = resFacilities;
                 resSuggestion.Progress = 40;
 
                 _context.Suggestions.Update(resSuggestion);

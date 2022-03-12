@@ -36,7 +36,8 @@ namespace CloneBookingAPI.Controllers.Pages
                     .Include(f => f.Facilities)
                         .ThenInclude(f => f.Image)
                     .Where(f => f.Facilities
-                                    .All(f => f.SuggestionId == suggestion.Id))
+                                    .All(f => f.Suggestions
+                                    .All(s => s.Id == suggestion.Id)))
                     .ToListAsync();
 
                 return Json(new { 

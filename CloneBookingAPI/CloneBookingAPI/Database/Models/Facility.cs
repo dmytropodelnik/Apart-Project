@@ -1,4 +1,5 @@
 ﻿using CloneBookingAPI.Services.Database.Models.Suggestions;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -24,8 +25,6 @@ namespace CloneBookingAPI.Services.Database.Models
         [ForeignKey("FacilityTypeId")]
         public FacilityType FacilityType { get; set; }
 
-        public int? SuggestionId { get; set; }
-        [ForeignKey("SuggestionId")]
-        public Suggestion Suggestion { get; set; }
+        public List<Suggestion> Suggestions { get; set; } = new();
     }
 }

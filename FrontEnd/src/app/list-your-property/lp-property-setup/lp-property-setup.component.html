@@ -1,6 +1,4 @@
-<header
-  class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs"
->
+<header class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs">
   <nav class="bui-header__bar">
     <div class="bui-header__main">
       <div class="bui-header__logo">
@@ -14,11 +12,7 @@
       <div class="bui-group__item">
         <span class="bui-button__text">
           <div class="bui-avatar bui-avatar--small" aria-hidden="true">
-            <img
-              class="bui-avatar__image"
-              src="assets/images/us-flag.png"
-              alt=""
-            />
+            <img class="bui-avatar__image" src="assets/images/us-flag.png" alt="" />
           </div>
         </span>
       </div>
@@ -30,12 +24,7 @@
   <div class="navigation__container">
     <div class="sections__container">
       <div class="section__container section__container--active">
-        <button
-          id="automation_id_section_property_setup"
-          type="button"
-          disabled=""
-          class="section_button"
-        >
+        <button id="automation_id_section_property_setup" type="button" disabled="" class="section_button">
           <span class="">Property setup</span>
         </button>
         <div class="steps__container">
@@ -61,12 +50,8 @@
         <div class="dropdownSubSection">
           <span class="dropdownSubSectionText">How many guests can stay?</span>
           <div class="dropdownSubSectionButtons">
-            <button
-              [disabled]="bedTypesAmount[0] === 0"
-              class="bui-button"
-              id="button1"
-              (click)="decreaseBedTypeCount(0)"
-            >
+            <button [disabled]="bedTypesAmount[0] === 0" class="bui-button" id="button1"
+              (click)="decreaseBedTypeCount(0)">
               <span class="bui-button__text">-</span>
             </button>
             <span>{{ bedTypesAmount[0] }}</span>
@@ -78,12 +63,8 @@
         <div class="dropdownSubSection">
           <span class="dropdownSubSectionText">How many guests can stay?</span>
           <div class="dropdownSubSectionButtons">
-            <button
-              [disabled]="bedTypesAmount[1] === 0"
-              class="bui-button"
-              id="button1"
-              (click)="decreaseBedTypeCount(1)"
-            >
+            <button [disabled]="bedTypesAmount[1] === 0" class="bui-button" id="button1"
+              (click)="decreaseBedTypeCount(1)">
               <span class="bui-button__text">-</span>
             </button>
             <span>{{ bedTypesAmount[1] }}</span>
@@ -95,12 +76,8 @@
         <div class="dropdownSubSection">
           <span class="dropdownSubSectionText">How many guests can stay?</span>
           <div class="dropdownSubSectionButtons">
-            <button
-              [disabled]="bedTypesAmount[2] === 0"
-              class="bui-button"
-              id="button1"
-              (click)="decreaseBedTypeCount(2)"
-            >
+            <button [disabled]="bedTypesAmount[2] === 0" class="bui-button" id="button1"
+              (click)="decreaseBedTypeCount(2)">
               <span class="bui-button__text">-</span>
             </button>
             <span>{{ bedTypesAmount[2] }}</span>
@@ -112,12 +89,8 @@
         <div class="dropdownSubSection">
           <span class="dropdownSubSectionText">How many guests can stay?</span>
           <div class="dropdownSubSectionButtons">
-            <button
-              [disabled]="bedTypesAmount[3] === 0"
-              class="bui-button"
-              id="button1"
-              (click)="decreaseBedTypeCount(3)"
-            >
+            <button [disabled]="bedTypesAmount[3] === 0" class="bui-button" id="button1"
+              (click)="decreaseBedTypeCount(3)">
               <span class="bui-button__text">-</span>
             </button>
             <span>{{ bedTypesAmount[3] }}</span>
@@ -129,12 +102,8 @@
         <div class="dropdownSubSection">
           <span class="dropdownSubSectionText">How many guests can stay?</span>
           <div class="dropdownSubSectionButtons">
-            <button
-              [disabled]="bedTypesAmount[4] === 0"
-              class="bui-button"
-              id="button1"
-              (click)="decreaseBedTypeCount(4)"
-            >
+            <button [disabled]="bedTypesAmount[4] === 0" class="bui-button" id="button1"
+              (click)="decreaseBedTypeCount(4)">
               <span class="bui-button__text">-</span>
             </button>
             <span>{{ bedTypesAmount[4] }}</span>
@@ -146,12 +115,8 @@
         <div class="dropdownSubSection">
           <span class="dropdownSubSectionText">How many guests can stay?</span>
           <div class="dropdownSubSectionButtons">
-            <button
-              [disabled]="bedTypesAmount[5] === 0"
-              class="bui-button"
-              id="button1"
-              (click)="decreaseBedTypeCount(5)"
-            >
+            <button [disabled]="bedTypesAmount[5] === 0" class="bui-button" id="button1"
+              (click)="decreaseBedTypeCount(5)">
               <span class="bui-button__text">-</span>
             </button>
             <span>{{ bedTypesAmount[5] }}</span>
@@ -161,16 +126,10 @@
           </div>
         </div>
         <div class="dropdownSubSection">
-          <span class="dropdownSubSectionText"
-            >How many bathrooms are there?</span
-          >
+          <span class="dropdownSubSectionText">How many bathrooms are there?</span>
           <div class="dropdownSubSectionButtons">
-            <button
-              [disabled]="bedTypesAmount[6] === 0"
-              class="bui-button"
-              id="button1"
-              (click)="decreaseBedTypeCount(6)"
-            >
+            <button [disabled]="bedTypesAmount[6] === 0" class="bui-button" id="button1"
+              (click)="decreaseBedTypeCount(6)">
               <span class="bui-button__text">-</span>
             </button>
             <span>{{ bedTypesAmount[6] }}</span>
@@ -179,123 +138,55 @@
             </button>
           </div>
         </div>
+        <div class="dropdownSubSection">
+          <span class="dropdownSubSectionText">How many bathrooms are there?</span>
+          <div class="dropdownSubSectionButtons">
+            <button [disabled]="bedTypesAmount[7] === 0" class="bui-button" id="button1"
+              (click)="decreaseBedTypeCount(7)">
+              <span class="bui-button__text">-</span>
+            </button>
+            <span>{{ bedTypesAmount[7] }}</span>
+            <button class="bui-button" (click)="increaseBedTypeCount(7)">
+              <span class="bui-button__text">+</span>
+            </button>
+          </div>
+        </div>
+        <div class="dropdownSubSection">
+          <span class="dropdownSubSectionText">How many bathrooms are there?</span>
+          <div class="dropdownSubSectionButtons">
+            <button [disabled]="bedTypesAmount[8] === 0" class="bui-button" id="button1"
+              (click)="decreaseBedTypeCount(8)">
+              <span class="bui-button__text">-</span>
+            </button>
+            <span>{{ bedTypesAmount[8] }}</span>
+            <button class="bui-button" (click)="increaseBedTypeCount(8)">
+              <span class="bui-button__text">+</span>
+            </button>
+          </div>
+        </div>
         <button class="name-and-location-button" (click)="addPropertyBeds()">
           Continue
         </button>
       </div>
+
     </li>
     <li *ngSwitchCase="1">
       <div class="name-and-location-container">
         <div class="header-name-and-location">
           What can guests use at your place?
         </div>
-
         <div class="Input-name-and-location">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              id="Air conditioning"
-              type="checkbox"
-            />
-            <label class="form-check-label" for="Air conditioning"
-              >Air conditioning</label
-            >
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" id="Heating" type="checkbox" />
-            <label class="form-check-label" for="Heating">Heating</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" id="Free WiFi" type="checkbox" />
-            <label class="form-check-label" for="Free WiFi">Free WiFi</label>
-          </div>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              id="Electric vehicle charging station"
-              type="checkbox"
-            />
-            <label
-              class="form-check-label"
-              for="Electric vehicle charging station"
-              >Electric vehicle charging station</label
-            >
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" id="Kitchen" type="checkbox" />
-            <label class="form-check-label" for="Kitchen">Kitchen</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" id="Kitchenette" type="checkbox" />
-            <label class="form-check-label" for="Kitchenette"
-              >Kitchenette</label
-            >
-          </div>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              id="Washing machine"
-              type="checkbox"
-            />
-            <label class="form-check-label" for="Washing machine"
-              >Washing machine</label
-            >
-          </div>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              id="Flat-screen TV"
-              type="checkbox"
-            />
-            <label class="form-check-label" for="Flat-screen TV"
-              >Flat-screen TV</label
-            >
-          </div>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              id="Swimming pool"
-              type="checkbox"
-            />
-            <label class="form-check-label" for="Swimming pool"
-              >Swimming pool</label
-            >
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" id="Hot tub" type="checkbox" />
-            <label class="form-check-label" for="Hot tub">Hot tub</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" id="Minibar" type="checkbox" />
-            <label class="form-check-label" for="Minibar">Minibar</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" id="Sauna" type="checkbox" />
-            <label class="form-check-label" for="Sauna">Sauna</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" id="Balcony" type="checkbox" />
-            <label class="form-check-label" for="Balcony">Balcony</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" id="Garden view" type="checkbox" />
-            <label class="form-check-label" for="Garden view"
-              >Garden view</label
-            >
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" id="Terrace" type="checkbox" />
-            <label class="form-check-label" for="Terrace">Terrace</label>
-          </div>
-          <div class="form-check">
-            <input class="form-check-input" id="View" type="checkbox" />
-            <label class="form-check-label" for="View">View</label>
+          <div *ngFor="let item of facilities; let i = index">
+            <div class="form-check">
+              <input class="form-check-input" id={{item.text}} type="checkbox" value="{{i}}" [(ngModel)]="includedFacilities[i]" />
+              <label class="form-check-label" for={{item.text}}>{{item.text}}</label>
+            </div>
           </div>
         </div>
-        <button class="name-and-location-button" (click)="incrementChoice1()">
-          Continue
-        </button>
       </div>
+      <button class="name-and-location-button" (click)="addPropertyFacilities()">
+        Continue
+      </button>
     </li>
     <li *ngSwitchCase="2">
       <div class="name-and-location-container">
@@ -305,21 +196,11 @@
 
         <div class="Input-name-and-location">
           <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="Yes, free"
-            />
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="Yes, free" />
             <label class="form-check-label" for="Yes, free"> Yes, free </label>
           </div>
           <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="No"
-            />
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="No" />
             <label class="form-check-label" for="No"> No </label>
           </div>
         </div>
@@ -367,40 +248,20 @@
 
         <div class="Input-name-and-location">
           <div class="form-check form-switch">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="Smoking allowed"
-            />
-            <label class="form-check-label" for="Smoking allowed"
-              >Smoking allowed</label
-            >
+            <input class="form-check-input" type="checkbox" id="Smoking allowed" />
+            <label class="form-check-label" for="Smoking allowed">Smoking allowed</label>
           </div>
           <div class="form-check form-switch">
             <input class="form-check-input" type="checkbox" id="Pets allowed" />
-            <label class="form-check-label" for="Pets allowed"
-              >Pets allowed</label
-            >
+            <label class="form-check-label" for="Pets allowed">Pets allowed</label>
           </div>
           <div class="form-check form-switch">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="Children allowed"
-            />
-            <label class="form-check-label" for="Children allowed"
-              >Children allowed</label
-            >
+            <input class="form-check-input" type="checkbox" id="Children allowed" />
+            <label class="form-check-label" for="Children allowed">Children allowed</label>
           </div>
           <div class="form-check form-switch">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="Parties/events allowed"
-            />
-            <label class="form-check-label" for="Parties/events allowed"
-              >Parties/events allowed</label
-            >
+            <input class="form-check-input" type="checkbox" id="Parties/events allowed" />
+            <label class="form-check-label" for="Parties/events allowed">Parties/events allowed</label>
           </div>
         </div>
         <button class="name-and-location-button" routerLink="/lp/photos">
