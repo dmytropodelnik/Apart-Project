@@ -7,7 +7,6 @@ export class MainDataService {
   }
 
   getCurrentCountry(): string {
-
       return this.currentCountry;
   }
 

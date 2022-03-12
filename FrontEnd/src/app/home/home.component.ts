@@ -3,6 +3,8 @@ import { BookingCategory } from '../models/bookingcategory.item';
 import { City } from '../models/Location/city.item';
 import { Suggestion } from '../models/Suggestions/suggestion.item';
 
+import { Router } from '@angular/router';
+
 import { MainDataService } from '../services/main-data.service';
 
 import ImageHelper from '../utils/imageHelper';
@@ -105,7 +107,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   };
 
   constructor(
-    public mainDataService: MainDataService
+    public mainDataService: MainDataService,
+    private router: Router,
     ) {
 
     }
@@ -122,16 +125,68 @@ export class HomeComponent implements OnInit, OnDestroy {
         } else {
           alert("Recommended dest data fetching error!");
         }
-        console.log(data.suggestionsCount);
-        console.log(data.citiesList);
       })
       .catch((ex) => {
         alert(ex);
       });
   }
 
-  getMainData(): void {
-    fetch('https://localhost:44381/api/stayspage/getdata?country=Ukraine', {
+  getCategoriesData(): void {
+    fetch('https://localhost:44381/api/stayspage/getcategoriesdata?country=' + this.mainDataService.getCurrentCountry(), {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((r) => {
+        if (r.code === 200) {
+          this.suggestions = r.suggestions;
+          this.bookingCategories = r.categories;
+        } else {
+          alert('Categories data fetching error!');
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
+
+  getRegionsData(): void {
+    fetch('https://localhost:44381/api/stayspage/getregionsdata', {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((r) => {
+        if (r.code === 200) {
+          this.regions = r.regions;
+          this.regionsSuggestions = r.regionsSuggestions;
+        } else {
+          alert('Data fetching error!');
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
+
+  getInterestPlacesData(): void {
+    fetch('https://localhost:44381/api/stayspage/getinterestplacesdata', {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((r) => {
+        if (r.code === 200) {
+          this.placesOfInterestSuggestions = r.placesOfInterestSuggestions;
+          this.placesOfInterests = r.placesOfInterests;
+        } else {
+          alert('Data fetching error!');
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
+
+  getCitiesData(): void {
+    fetch('https://localhost:44381/api/stayspage/getcitiesdata?country=' + this.mainDataService.getCurrentCountry(), {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -139,17 +194,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (r.code === 200) {
           this.cities = r.cities;
           this.citySuggestions = r.citySuggestions;
-          this.suggestions = r.suggestions;
-          this.bookingCategories = r.categories;
           this.footerCities = r.footerCities;
-          this.placesOfInterestSuggestions = r.placesOfInterestSuggestions;
-          this.placesOfInterests = r.placesOfInterests;
-          this.regions = r.regions;
-          this.regionsSuggestions = r.regionsSuggestions;
         } else {
           alert('Data fetching error!');
         }
-        console.log(this.citySuggestions);
       })
       .catch((err) => {
         alert(err);
@@ -166,7 +214,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.homeGuestsSuggestions = data.resSuggestion;
           this.reviewsCount = data.reviewsCount;
         }
-        console.log(data.resCities);
       })
       .catch((ex) => {
         alert(ex);
@@ -182,8 +229,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (data.code === 200) {
           this.homeGuestsSuggestions = data.resSuggestion;
           this.reviewsCount = data.reviewsCount;
+
+          // this.router.navigate(['']);
         }
-        console.log(data.resCities);
       })
       .catch((ex) => {
         alert(ex);
@@ -191,7 +239,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.getMainData();
+    this.getCategoriesData();
+    this.getRegionsData();
+    this.getInterestPlacesData();
+    this.getCitiesData();
     this.getRecommendedDestData();
     this.getGuestsLoveData();
   }

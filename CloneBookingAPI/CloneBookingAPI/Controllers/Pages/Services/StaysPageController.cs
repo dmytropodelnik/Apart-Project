@@ -25,47 +25,25 @@ namespace CloneBookingAPI.Controllers.Pages
             _context = context;
         }
 
-        [Route("getdata")]
+        [Route("getcategoriesdata")]
         [HttpGet]
-        public async Task<ActionResult> GetData(string country)
+        public async Task<ActionResult> GetCategoriesData(string country)
         {
             try
             {
                 List<List<Suggestion>> suggestions = new();
-                List<List<Suggestion>> citySuggestions = new();
-                List<List<Suggestion>> regionsSuggestions = new();
-                List<List<Suggestion>> placesOfInterestSuggestions = new();
 
-                var placesOfInterests = await _context.InterestPlaces
-                    .ToListAsync();
-                var categories = await _context.BookingCategories.ToListAsync();
-                var footerCities = await _context.Cities
-                    .Take(50)
-                    .ToListAsync();
                 var suggestionsList = await _context.Suggestions
                     .Include(s => s.Images)
                     .Include(s => s.Address)
                         .ThenInclude(c => c.Country)
-                    .Include(s => s.Address.Region)
-                    .Include(s => s.BookingCategory)
-                    .Include(s => s.InterestPlaces)
+                .Include(s => s.Address.Region)
+                .Include(s => s.BookingCategory)
+                .Include(s => s.InterestPlaces)
+                .ToListAsync();
+
+                var categories = await _context.BookingCategories
                     .ToListAsync();
-                var citiesList = await _context.Cities
-                    .Include(c => c.Country)
-                    .Include(c => c.Image)
-                    .ToListAsync();
-                var cities = citiesList
-                    .Where(c => c.Country.Title == country)
-                    .Take(10)
-                    .ToList();
-                var regionsList = await _context.Regions
-                    .Include(r => r.Address)
-                    .Include(r => r.Image)
-                    .ToListAsync();
-                var regions = regionsList
-                    // .Where(r => r.Address.Country.Title == country)
-                    .Take(20)
-                    .ToList();
 
                 for (int i = 1; i <= categories.Count; i++)
                 {
@@ -76,41 +54,62 @@ namespace CloneBookingAPI.Controllers.Pages
                     suggestions.Add(resSuggestion);
                 }
 
-                for (int i = 1; i <= cities.Count; i++)
+                return Json(new
                 {
-                    var resCitySuggestion = suggestionsList
-                        .Where(s => s.Address.Country.Title == cities[i - 1].Title)
-                        .ToList();
+                    code = 200,
+                    categories,
+                    suggestions,
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
 
-                    citySuggestions.Add(resCitySuggestion);
-                }
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
 
-                for (int i = 1; i <= placesOfInterests.Count; i++)
-                {
-                    var resPlacesOfInterestSuggestion = suggestionsList
-                        .Where(s => s.InterestPlaces
-                                        .All(p => p.Id == i))
-                        .ToList();
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
 
-                    placesOfInterestSuggestions.Add(resPlacesOfInterestSuggestion);
-                }
+                return Json(new { code = 500 });
+            }
+        }
 
-                for (int i = 1; i <= cities.Count; i++)
-                {
-                    var resCitySuggestion = suggestionsList
-                        .Where(s => s.Address.City.Title == cities[i - 1].Title)
-                        .ToList();
+        [Route("getregionsdata")]
+        [HttpGet]
+        public async Task<ActionResult> GetRegionsData()
+        {
+            try
+            {
+                List<List<Suggestion>> regionsSuggestions = new();
 
-                    citySuggestions.Add(resCitySuggestion);
-                }
-                citySuggestions = citySuggestions
-                    .OrderByDescending(c => c.Count)
+                var suggestionsList = await _context.Suggestions
+                    .Include(s => s.Images)
+                    .Include(s => s.Address)
+                        .ThenInclude(c => c.Country)
+                .Include(s => s.Address.Region)
+                .Include(s => s.BookingCategory)
+                .Include(s => s.InterestPlaces)
+                .ToListAsync();
+
+                var regionsList = await _context.Regions
+                    .Include(r => r.Address)
+                    .Include(r => r.Image)
+                    .ToListAsync();
+                var regions = regionsList
+                    .Take(20)
                     .ToList();
 
                 for (int i = 1; i <= regions.Count; i++)
                 {
                     var resRegionSuggestion = suggestionsList
-                        .Where(s => s.Address.Region.Title == regions[i - 1].Title)
+                        .Where(s => s.Address.Region.Id == regions[i - 1].Id)
                         .ToList();
 
                     regionsSuggestions.Add(resRegionSuggestion);
@@ -119,15 +118,136 @@ namespace CloneBookingAPI.Controllers.Pages
                 return Json(new
                 {
                     code = 200,
-                    categories,
-                    cities,
                     regions,
-                    suggestions,
-                    citySuggestions,
-                    footerCities,
-                    placesOfInterestSuggestions,
-                    placesOfInterests,
                     regionsSuggestions,
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("getinterestplacesdata")]
+        [HttpGet]
+        public async Task<ActionResult> GetInterestPlacesData()
+        {
+            try
+            {
+                List<List<Suggestion>> placesOfInterestSuggestions = new();
+
+                var suggestionsList = await _context.Suggestions
+                    .Include(s => s.Images)
+                    .Include(s => s.Address)
+                        .ThenInclude(c => c.Country)
+                .Include(s => s.Address.Region)
+                .Include(s => s.BookingCategory)
+                .Include(s => s.InterestPlaces)
+                .ToListAsync();
+
+                var placesOfInterests = await _context.InterestPlaces
+                    .ToListAsync();
+
+                for (int i = 1; i <= placesOfInterests.Count; i++)
+                {
+                    var resPlacesOfInterestSuggestion = suggestionsList
+                        .Where(s => s.InterestPlaces
+                                        .Any(p => p.Id == i))
+                        .ToList();
+
+                    placesOfInterestSuggestions.Add(resPlacesOfInterestSuggestion);
+                }
+
+                return Json(new
+                {
+                    code = 200,
+                    placesOfInterests,
+                    placesOfInterestSuggestions,
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("getcitiesdata")]
+        [HttpGet]
+        public async Task<ActionResult> GetCitiesData(string country)
+        {
+            try
+            {
+                List<List<Suggestion>> citySuggestions = new();
+
+                var suggestionsList = await _context.Suggestions
+                    .Include(s => s.Images)
+                    .Include(s => s.Address)
+                        .ThenInclude(c => c.Country)
+                .Include(s => s.Address.Region)
+                .Include(s => s.BookingCategory)
+                .Include(s => s.InterestPlaces)
+                .ToListAsync();
+
+                var citiesList = await _context.Cities
+                    .Include(c => c.Country)
+                    .Include(c => c.Image)
+                    .ToListAsync();
+
+                var footerCities = citiesList
+                    .Take(50)
+                    .ToList();
+
+                var cities = citiesList
+                    .Where(c => c.Country.Title == country)
+                    .Take(10)
+                    .ToList();
+
+                for (int i = 1; i <= cities.Count; i++)
+                {
+                    var resCitySuggestion = suggestionsList
+                        .Where(s => s.Address.City.Id == cities[i - 1].Id)
+                        .ToList();
+
+                    citySuggestions.Add(resCitySuggestion);
+                }
+                citySuggestions = citySuggestions
+                    .OrderByDescending(c => c.Count)
+                    .ToList();
+
+                return Json(new
+                {
+                    code = 200,
+                    cities,
+                    footerCities,
+                    citySuggestions,
                 });
             }
             catch (ArgumentNullException ex)
