@@ -111,7 +111,11 @@ namespace CloneBookingAPI.Controllers.Properties
                     return Json(new { code = 400 });
                 }
 
-                resSuggestion.Languages = suggestion.Languages;
+                var resLanguages = await _context.Languages
+                    .Where(f => suggestion.Languages.Contains(f.Title))
+    .               ToListAsync();
+
+                resSuggestion.Languages = resLanguages;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -170,7 +174,11 @@ namespace CloneBookingAPI.Controllers.Properties
                     return Json(new { code = 400 });
                 }
 
-                resSuggestion.Languages.AddRange(suggestion.Languages);
+                var resLanguages = await _context.Languages
+                    .Where(f => suggestion.Languages.Contains(f.Title))
+                    .ToListAsync();
+
+                resSuggestion.Languages.AddRange(resLanguages);
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -399,7 +407,8 @@ namespace CloneBookingAPI.Controllers.Properties
         {
             try
             {
-                if (suggestion is null)
+                if (suggestion is null ||
+                    suggestion.SuggestionRules is null)
                 {
                     return Json(new { code = 400 });
                 }
@@ -412,7 +421,20 @@ namespace CloneBookingAPI.Controllers.Properties
                     return Json(new { code = 400 });
                 }
 
-                resSuggestion.SuggestionRules = suggestion.SuggestionRules;
+                List<int> rulesIds = new();
+                for (int i = 0; i < suggestion.SuggestionRules.Count; i++)
+                {
+                    if (suggestion.SuggestionRules[i])
+                    {
+                        rulesIds.Add(i + 1);
+                    }
+                }
+
+                var resRules = await _context.SuggestionRules
+                    .Where(r => rulesIds.Contains(r.Id))
+                    .ToListAsync();
+
+                resSuggestion.SuggestionRules = resRules;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();

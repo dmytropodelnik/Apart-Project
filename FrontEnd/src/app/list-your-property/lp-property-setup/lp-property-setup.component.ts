@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Facility } from 'src/app/models/facility.item';
+import { SuggestionRule } from 'src/app/models/Suggestions/suggestionrule.item';
 
 import { ListNewPropertyService } from '../../services/list-new-property.service';
 
@@ -16,13 +17,29 @@ export class LpPropertySetupComponent implements OnInit {
   facilities: Facility[] | null = null;
   includedFacilities: boolean[] = [];
 
+  parking: boolean = false;
+
+  languages = [false, false, false, false, false, false, false, false];
+  correctLanguages = [
+    'English',
+    'Ukrainian',
+    'German',
+    'French',
+    'Russian',
+    'Spanish',
+    'Italian',
+    'Arabic',];
+
+  rules: SuggestionRule[] | null = null;
+  includedRules: boolean[] = [];
+
   constructor(
     private listNewPropertyService: ListNewPropertyService,
     private router: Router,
   ) {
 
   }
-  choice: number = 1;
+  choice: number = 4;
   bedTypesAmount = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   decreaseBedTypeCount(value: number) {
@@ -61,13 +78,25 @@ export class LpPropertySetupComponent implements OnInit {
     ++this.choice;
   }
 
+  setParking(value: boolean): void {
+    this.parking = value;
+  }
+
+  setCorrectLanguages(): void {
+    for (let i = 0, j = 0; i < this.languages.length; i++, j++) {
+      if (this.languages[i] === false) {
+        this.correctLanguages.splice(j, 1);
+        j--;
+      }
+    }
+  }
+
   addPropertyBeds(): void {
     let suggestion = {
       id: this.listNewPropertyService.getSavedPropertyId(),
       beds: [{}],
       login: AuthHelper.getLogin(),
     };
-    console.log(this.listNewPropertyService.getSavedPropertyId());
 
     fetch(`https://localhost:44381/api/bedtypes/getbedtypes`, {
       method: 'GET',
@@ -113,7 +142,7 @@ export class LpPropertySetupComponent implements OnInit {
   addPropertyIsParkingAvailable(): void {
     let suggestion = {
       id: this.listNewPropertyService.getSavedPropertyId(),
-      isParkingAvailable: true,
+      isParkingAvailable: this.parking,
     };
 
     fetch(`https://localhost:44381/api/listnewproperty/addparking`, {
@@ -128,8 +157,8 @@ export class LpPropertySetupComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
+          this.incrementChoice1();
         }
-        console.log(data);
       })
       .catch((ex) => {
         alert(ex);
@@ -137,9 +166,11 @@ export class LpPropertySetupComponent implements OnInit {
   }
 
   addPropertyLanguages(): void {
+    this.setCorrectLanguages();
+
     let suggestion = {
       id: this.listNewPropertyService.getSavedPropertyId(),
-      languages: null, //
+      languages: this.correctLanguages,
     };
 
     fetch(`https://localhost:44381/api/listnewproperty/addlanguages`, {
@@ -154,8 +185,8 @@ export class LpPropertySetupComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
+          this.incrementChoice1();
         }
-        console.log(data);
       })
       .catch((ex) => {
         alert(ex);
@@ -165,7 +196,7 @@ export class LpPropertySetupComponent implements OnInit {
   addPropertyRules(): void {
     let suggestion = {
       id: this.listNewPropertyService.getSavedPropertyId(),
-      suggestionRules: null, //
+      suggestionRules: this.includedRules,
     };
 
     fetch(`https://localhost:44381/api/listnewproperty/addrules`, {
@@ -180,8 +211,8 @@ export class LpPropertySetupComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
+          this.router.navigate(['/lp/photos']);
         }
-        console.log(data);
       })
       .catch((ex) => {
         alert(ex);
@@ -190,8 +221,8 @@ export class LpPropertySetupComponent implements OnInit {
 
   addPropertyFacilities(): void {
     let suggestion = {
-      id: 1,
-      facilities: this.includedFacilities, //
+      id: this.listNewPropertyService.getSavedPropertyId(),
+      facilities: this.includedFacilities,
     };
 
     fetch(`https://localhost:44381/api/listnewproperty/addfacilities`, {
@@ -236,7 +267,30 @@ export class LpPropertySetupComponent implements OnInit {
       });
   }
 
+  getRules(): void {
+    fetch(`https://localhost:44381/api/suggestionrules/getrules`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.rules = data.rules;
+          if (this.rules !== null) {
+            for (let item of this.rules) {
+              this.includedRules.push(false);
+            }
+          } else {
+            alert('Rules fetching error!');
+          }
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
   ngOnInit(): void {
     this.getFacilities();
+    this.getRules();
   }
 }

@@ -25,9 +25,9 @@ namespace CloneBookingAPI.Services.POCOs
         public Address Address { get; set; }
 
         public List<bool> Facilities { get; set; } = new();
-        public List<Language> Languages { get; set; } = new();
+        public List<string> Languages { get; set; } = new();
         public List<Bed> Beds { get; set; } = new();
-        public List<SuggestionRule> SuggestionRules { get; set; } = new();
+        public List<bool> SuggestionRules { get; set; } = new();
         public List<FileModel> Images { get; set; } = new();
     }
 }

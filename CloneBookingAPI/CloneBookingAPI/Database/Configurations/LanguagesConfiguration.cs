@@ -16,6 +16,9 @@ namespace CloneBookingAPI.Services.Database.Configurations
                   new Language { Id = 3, Title = "Russian" },
                   new Language { Id = 4, Title = "German" },
                   new Language { Id = 5, Title = "Polish" },
+                  new Language { Id = 6, Title = "Arabic" },
+                  new Language { Id = 7, Title = "Italian" },
+                  new Language { Id = 8, Title = "Spanish" },
               });
         }
     }

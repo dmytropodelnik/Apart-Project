@@ -53,6 +53,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 newSuggestion.UserId = owner.Id;
                 newSuggestion.UniqueCode = await _suggestionIdGenerator.GenerateCode();
                 newSuggestion.Progress = 10;
+                newSuggestion.ServiceCategoryId = 1;
 
                 var resSuggestion = _context.Suggestions.Add(newSuggestion);
                 await _context.SaveChangesAsync();
@@ -367,7 +368,8 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                if (suggestion is null)
+                if (suggestion is null ||
+                    suggestion.SuggestionRules is null)
                 {
                     return Json(new { code = 400 });
                 }
@@ -378,7 +380,11 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     return Json(new { code = 400 });
                 }
 
-                resSuggestion.Languages = suggestion.Languages;
+                var resLanguages = await _context.Languages
+                    .Where(f => suggestion.Languages.Contains(f.Title))
+                    .ToListAsync();
+
+                resSuggestion.Languages = resLanguages;
                 resSuggestion.Progress = 60;
 
                 _context.Suggestions.Update(resSuggestion);
@@ -422,7 +428,8 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                if (suggestion is null)
+                if (suggestion is null ||
+                    suggestion.SuggestionRules is null)
                 {
                     return Json(new { code = 400 });
                 }
@@ -433,7 +440,20 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     return Json(new { code = 400 });
                 }
 
-                resSuggestion.SuggestionRules = suggestion.SuggestionRules;
+                List<int> rulesIds = new();
+                for (int i = 0; i < suggestion.SuggestionRules.Count; i++)
+                {
+                    if (suggestion.SuggestionRules[i])
+                    {
+                        rulesIds.Add(i + 1);
+                    }
+                }
+
+                var resRules = await _context.SuggestionRules
+                    .Where(r => rulesIds.Contains(r.Id))
+                    .ToListAsync();
+
+                resSuggestion.SuggestionRules = resRules;
                 resSuggestion.Progress = 70;
 
                 _context.Suggestions.Update(resSuggestion);
