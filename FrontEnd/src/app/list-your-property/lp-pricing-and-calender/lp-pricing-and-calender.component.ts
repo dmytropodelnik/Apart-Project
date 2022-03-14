@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { ListNewPropertyService } from '../../services/list-new-property.service';
 
@@ -15,18 +16,19 @@ export class LpPricingAndCalenderComponent implements OnInit {
 
   constructor(
     private listNewPropertyService: ListNewPropertyService,
+    private router: Router,
   ) {
 
   }
 
   addPropertyPrice(): void {
     let suggestion = {
-      id: 1, // this.savedPropertyId,
-      priceInUs: 2,  //
-      priceInUserCurrency: 2,  //
+      id: this.listNewPropertyService.getSavedPropertyId(),
+      priceInUs: this.price,
+      priceInUserCurrency: this.price,
     };
 
-    fetch(`https://localhost:44381/api/listnewproperty/addrules`, {
+    fetch(`https://localhost:44381/api/listnewproperty/addprice`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -38,8 +40,8 @@ export class LpPricingAndCalenderComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
+          this.router.navigate(['/lp/reviewandcomplete']);
         }
-        console.log(data);
       })
       .catch((ex) => {
         alert(ex);
@@ -47,7 +49,7 @@ export class LpPricingAndCalenderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+
   }
 
 }

@@ -352,8 +352,7 @@ namespace CloneBookingAPI.Controllers.Pages
 
                 for (int i = 0; i < resSuggestion.Count; i++)
                 {
-                    suggestionGrades.Add(resSuggestion[i].SuggestionReviewGrades
-                        .Average(g => g.Value));                    
+                    suggestionGrades.Add(resSuggestion[i].SuggestionReviewGrades.Average(g => g.Value));                    
                 }
 
                 return Json(new

@@ -48,7 +48,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("uploadfile")]
         [HttpPost]
-        public async Task<IActionResult> UploadFile(IFormFile uploadedFile)
+        public async Task<IActionResult> UploadFile(IFormFile uploadedFile, Suggestion resSuggestion)
         {
             try
             {
@@ -76,8 +76,9 @@ namespace CloneBookingAPI.Controllers.UserData
                         await uploadedFile.CopyToAsync(fileStream);
                     }
                     FileModel file = new FileModel { Name = newFileName + extension, Path = path };
+
+                    //file.Suggestions.Add(resSuggestion);
                     _context.Files.Add(file);
-                    await _context.SaveChangesAsync();
 
                     return Json(new { code = STATUS_200 });
                 }
@@ -143,10 +144,6 @@ namespace CloneBookingAPI.Controllers.UserData
                     suggestion.Images.Add(file);
                     _context.Files.Add(file);
                 }
-                suggestion.Progress = 90;
-
-                _context.Suggestions.Update(suggestion);
-                await _context.SaveChangesAsync();
 
                 return Json(new { code = STATUS_200 });
             }

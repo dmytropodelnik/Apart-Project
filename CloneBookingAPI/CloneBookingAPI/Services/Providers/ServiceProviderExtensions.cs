@@ -1,4 +1,5 @@
 ﻿using CloneBookingAPI.Interfaces;
+using CloneBookingAPI.Services.Files;
 using CloneBookingAPI.Services.Generators;
 using CloneBookingAPI.Services.Repositories;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +27,10 @@ namespace CloneBookingAPI.Services.Providers
         public static void AddSuggestionIdGeneratorService(this IServiceCollection services)
         {
             services.AddScoped<SuggestionIdGenerator>();
+        }
+        public static void AddFileUploaderService(this IServiceCollection services)
+        {
+            services.AddScoped<FileUploader>();
         }
     }
 }

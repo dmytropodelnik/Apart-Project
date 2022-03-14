@@ -1,15 +1,21 @@
 ﻿using CloneBookingAPI.Services.Database;
+using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
+using CloneBookingAPI.Services.Files;
 using CloneBookingAPI.Services.Generators;
 using CloneBookingAPI.Services.POCOs;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Suggestions
@@ -21,12 +27,21 @@ namespace CloneBookingAPI.Controllers.Suggestions
         private readonly ApartProjectDbContext _context;
         private readonly SuggestionIdGenerator _suggestionIdGenerator;
 
+        private readonly IWebHostEnvironment _appEnvironment;
+        private readonly string _storagePath = "/files/";
+        private readonly SHA256 sha256 = SHA256.Create();
+        private readonly FileUploader _fileUploader;
+
         public ListNewPropertyController(
             ApartProjectDbContext context,
-            SuggestionIdGenerator suggestionIdGenerator)
+            SuggestionIdGenerator suggestionIdGenerator,
+            IWebHostEnvironment appEnvironment,
+            FileUploader fileUploader)
         {
             _context = context;
             _suggestionIdGenerator = suggestionIdGenerator;
+            _appEnvironment = appEnvironment;
+            _fileUploader = fileUploader;
         }
 
         [Route("addname")]
@@ -145,7 +160,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     resSuggestion.Address = suggestion.Address;
                     resSuggestion.Address.CityId = city.Id;
                 }
-                resSuggestion.Progress = 20;
+                resSuggestion.Progress = 15;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -201,7 +216,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 }
 
                 resSuggestion.Beds = suggestion.Beds;
-                resSuggestion.Progress = 30;
+                resSuggestion.Progress = 25;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -270,7 +285,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     .ToListAsync();
 
                 resSuggestion.Facilities = resFacilities;
-                resSuggestion.Progress = 40;
+                resSuggestion.Progress = 35;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -325,7 +340,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 }
 
                 resSuggestion.IsParkingAvailable = suggestion.IsParkingAvailable;
-                resSuggestion.Progress = 50;
+                resSuggestion.Progress = 40;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -385,7 +400,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     .ToListAsync();
 
                 resSuggestion.Languages = resLanguages;
-                resSuggestion.Progress = 60;
+                resSuggestion.Progress = 45;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -454,7 +469,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     .ToListAsync();
 
                 resSuggestion.SuggestionRules = resRules;
-                resSuggestion.Progress = 70;
+                resSuggestion.Progress = 50;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -493,49 +508,63 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
         [Route("addphotos")]
         [HttpPost]
-        public async Task<IActionResult> AddPhotos(IFormFileCollection uploads)
+        public async Task<IActionResult> AddPhotos(IFormFile uploadedFile)
         {
             try
             {
                 string suggestionId = Request.QueryString.Value;
                 suggestionId = suggestionId.Substring(suggestionId.IndexOf("=") + 1);
 
-                if (uploads is null || suggestionId is null)
+                if (uploadedFile is null ||
+                    suggestionId is null
+                    )
                 {
                     return Json(new { code = 400 });
                 }
 
-                var suggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == int.Parse(suggestionId));
-                if (suggestion is null)
+
+                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == int.Parse(suggestionId));
+                if (resSuggestion is null)
                 {
                     return Json(new { code = 400 });
                 }
 
-                return RedirectToAction("UploadFiles", "FileUploader", new { uploads, suggestion });
+                bool res = await _fileUploader.UploadSuggestionPhotoAsync(uploadedFile, resSuggestion);
+                if (!res)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                resSuggestion.Progress = 60;
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
             }
             catch (DbUpdateConcurrencyException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -545,7 +574,9 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                if (suggestion is null)
+                if (suggestion is null                  ||
+                    suggestion.PriceInUSD < 0           ||
+                    suggestion.PriceInUserCurrency < 0)
                 {
                     return Json(new { code = 400 });
                 }
@@ -558,7 +589,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
                 resSuggestion.PriceInUSD = suggestion.PriceInUSD;
                 resSuggestion.PriceInUserCurrency = suggestion.PriceInUserCurrency;
-                resSuggestion.Progress = 100;
+                resSuggestion.Progress = 65;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -613,6 +644,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 }
 
                 resSuggestion.Description = suggestion.Description;
+                resSuggestion.Progress = 70;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();

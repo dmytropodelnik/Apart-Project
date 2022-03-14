@@ -1,6 +1,4 @@
-<header
-  class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs"
->
+<header class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs">
   <nav class="bui-header__bar">
     <div class="bui-header__main">
       <div class="bui-header__logo">
@@ -14,11 +12,7 @@
       <div class="bui-group__item">
         <span class="bui-button__text">
           <div class="bui-avatar bui-avatar--small" aria-hidden="true">
-            <img
-              class="bui-avatar__image"
-              src="assets/images/us-flag.png"
-              alt=""
-            />
+            <img class="bui-avatar__image" src="assets/images/us-flag.png" alt="" />
           </div>
         </span>
       </div>
@@ -28,12 +22,7 @@
 
 <body>
   <div class="section__container">
-    <button
-      id="automation_id_section_property_photos"
-      type="button"
-      disabled=""
-      class="section_button"
-    >
+    <button id="automation_id_section_property_photos" type="button" disabled="" class="section_button">
       <span class="">Photos</span>
     </button>
     <div class="steps__container">
@@ -47,23 +36,15 @@
       <div class="row">
         <div class="col-8">
           <label class="btn btn-default p-0">
-            <input
-              type="file"
-              accept="image/*"
-              multiple
-              (change)="selectFiles($event)"
-            />
+            <input type="file" name="uploadedFile" (change)="selectFiles($event)"
+              (change)="handleFileInput($any($event).target.files)" multiple />
           </label>
         </div>
         <div class="imgpreview">
-          <img
-            *ngFor="let preview of previews"
-            [src]="preview"
-            class="preview"
-          />
+          <img *ngFor="let preview of previews" [src]="preview" class="preview" />
         </div>
       </div>
     </div>
-    <button class="name-and-location-button" routerLink="/lp/pricingandcalender">Continue</button>
+    <button class="name-and-location-button" (click)="addPropertyPhotos()">Continue</button>
   </div>
 </body>
