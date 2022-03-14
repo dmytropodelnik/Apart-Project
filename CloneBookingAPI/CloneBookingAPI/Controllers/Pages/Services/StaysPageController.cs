@@ -329,13 +329,14 @@ namespace CloneBookingAPI.Controllers.Pages
             try
             {
                 List<int> reviewsCount = new();
+                List<double> suggestionGrades = new();
 
                 var resSuggestion = await _context.Suggestions
                     .Include(s => s.Address)
                     .Include(s => s.Reviews)
                     .Include(s => s.SuggestionReviewGrades)
                     .Where(s => s.SuggestionReviewGrades
-                                    .All(g => g.Value >= 9.0))
+                                    .Average(g => g.Value) > 9.0)
                     .Take(5)
                     .ToListAsync();
 
@@ -349,11 +350,18 @@ namespace CloneBookingAPI.Controllers.Pages
                     reviewsCount.Add(resReviews.Count);
                 }
 
+                for (int i = 0; i < resSuggestion.Count; i++)
+                {
+                    suggestionGrades.Add(resSuggestion[i].SuggestionReviewGrades
+                        .Average(g => g.Value));                    
+                }
+
                 return Json(new
                 {
                     code = 200,
                     resSuggestion,
                     reviewsCount,
+                    suggestionGrades,
                 });
             }
             catch (ArgumentNullException ex)

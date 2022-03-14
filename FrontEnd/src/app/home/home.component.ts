@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { MainDataService } from '../services/main-data.service';
 
 import ImageHelper from '../utils/imageHelper';
+import MathHelper from '../utils/mathHelper';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   showWeekNumbers = false;
   outsideDays = 'hidden';
   imageHelper: any = ImageHelper;
+  mathHelper: any = MathHelper;
 
   bookingCategories: BookingCategory[] | undefined;
   imagePath: string = '123';
@@ -40,6 +42,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   homeGuestsSuggestions: any;
   resSuggestion: any;
   reviewsCount: any;
+  suggestionGrades: any;
   slides = [
     { text: 'Educational Consulting', img: 'assets/images/21.png' },
     { text: 'University and Higher Education', img: 'assets/images/21.png' },
@@ -213,6 +216,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (data.code === 200) {
           this.homeGuestsSuggestions = data.resSuggestion;
           this.reviewsCount = data.reviewsCount;
+          this.suggestionGrades = data.suggestionGrades;
         }
       })
       .catch((ex) => {

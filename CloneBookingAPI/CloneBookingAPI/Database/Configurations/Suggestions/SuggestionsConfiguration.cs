@@ -28,6 +28,16 @@ namespace CloneBookingAPI.Services.Database.Configurations.Suggestions
                     RoomsAmount = 5, StarRating = 5, Progress = 100, Description = "Test description of test suggestion 3",
                     PriceInUserCurrency = 2032, PriceInUSD = 21, IsParkingAvailable = true, UserId = 3, ServiceCategoryId = 1,
                     BookingCategoryId = 3, AddressId = 3, 
+                  },
+                  new Suggestion { Id = 4, Name = "Test Suggestion 4", GuestsAmount = 4, BathroomsAmount = 2,
+                    RoomsAmount = 4, StarRating = 5, Progress = 100, Description = "Test description of test suggestion 4",
+                    PriceInUserCurrency = 2100, PriceInUSD = 31, IsParkingAvailable = true, UserId = 1, ServiceCategoryId = 1,
+                    BookingCategoryId = 4, AddressId = 4,
+                  },
+                  new Suggestion { Id = 5, Name = "Test Suggestion 5", GuestsAmount = 3, BathroomsAmount = 3,
+                    RoomsAmount = 6, StarRating = 5, Progress = 100, Description = "Test description of test suggestion 5",
+                    PriceInUserCurrency = 1905, PriceInUSD = 24, IsParkingAvailable = false, UserId = 1, ServiceCategoryId = 1,
+                    BookingCategoryId = 5, AddressId = 1,
                   }
               });
         }

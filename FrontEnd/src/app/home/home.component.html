@@ -632,10 +632,26 @@
                           class="bui-review-score__badge"
                           aria-label="Scored 0 "
                         >
-                          9.2
+                          {{mathHelper.Round10(suggestionGrades[i])}}
                         </div>
                         <div class="bui-review-score__content">
-                          <div class="bui-review-score__title">Wonderful</div>
+                          <div *ngIf="mathHelper.Round10(suggestionGrades[i]) >= 9.7; then exceptionalBlock"></div>
+                          <ng-template #exceptionalBlock>Exceptional</ng-template>
+                          <div *ngIf="mathHelper.Round10(suggestionGrades[i]) >= 9.0 &&
+                                      mathHelper.Round10(suggestionGrades[i]) < 9.7; then wonderfulBlock"></div>
+                            <ng-template #wonderfulBlock>Wonderful</ng-template>
+                          <div *ngIf="mathHelper.Round10(suggestionGrades[i]) >= 8.7 &&
+                                      mathHelper.Round10(suggestionGrades[i]) < 9.0; then excellentBlock"></div>
+                          <ng-template #excellentBlock>Excellent</ng-template>
+                          <div *ngIf="mathHelper.Round10(suggestionGrades[i]) >= 8.2 &&
+                                      mathHelper.Round10(suggestionGrades[i]) < 8.7; then veryGoodBlock"></div>
+                          <ng-template #veryGoodBlock>Very Good</ng-template>
+                          <div *ngIf="mathHelper.Round10(suggestionGrades[i]) > 7.6 &&
+                                      mathHelper.Round10(suggestionGrades[i]) < 8.2; then goodBlock"></div>
+                          <ng-template #goodBlock>Good</ng-template>
+                          <div *ngIf="mathHelper.Round10(suggestionGrades[i]) >= 7.0 &&
+                                      mathHelper.Round10(suggestionGrades[i]) < 7.7; then pleasantBlock"></div>
+                          <ng-template #pleasantBlock>Normal</ng-template>
                           <div class="bui-review-score__text">{{reviewsCount[i] ?? '0'}} reviews</div>
                         </div>
                       </div>
