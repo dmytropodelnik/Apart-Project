@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloneBookingAPI.Services.Database.Models
@@ -17,9 +18,15 @@ namespace CloneBookingAPI.Services.Database.Models
         public string Code { get; set; }
 
         [Required]
-        public ushort PercentDiscount { get; set; }
+        public int PercentDiscount { get; set; }
         
         [Required]
         public bool IsActive { get; set; }
+
+        [Required]
+        public DateTime GeneratingDate { get; set; }
+
+        [Required]
+        public DateTime ExpirationDate { get; set; }
     }
 }

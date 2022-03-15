@@ -64,7 +64,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("editfavorite")]
         [HttpPut]
-        public async Task<IActionResult> EditFacility([FromBody] Favorite favorite)
+        public async Task<IActionResult> EditFavorite([FromBody] Favorite favorite)
         {
             try
             {

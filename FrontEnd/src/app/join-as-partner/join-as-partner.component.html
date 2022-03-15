@@ -178,7 +178,7 @@
     <div class="joinpartnerInfo2">
       <h1 class="">
         <div class="joinpartnerText">
-          {{authHelper.getLogin()}}, list your
+          {{authHelper.getLogin() == '' ? "Hi" : authHelper.getLogin()}}, list your
           <div class="">
             <div class="">
               <p class="joinpartnerText">apartment</p>

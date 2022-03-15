@@ -74,6 +74,7 @@ import { LpPhotosComponent } from './list-your-property/lp-photos/lp-photos.comp
 import { LpPricingAndCalenderComponent } from './list-your-property/lp-pricing-and-calender/lp-pricing-and-calender.component';
 import { LpReviewAndCompleteComponent } from './list-your-property/lp-review-and-complete/lp-review-and-complete.component';
 import { ListNewPropertyService } from './services/list-new-property.service';
+import { PromocodeGeneratorComponent } from './admin-panel/promocode-generator/promocode-generator.component';
 
 @NgModule({
   declarations: [
@@ -141,6 +142,7 @@ import { ListNewPropertyService } from './services/list-new-property.service';
     LpPhotosComponent,
     LpPricingAndCalenderComponent,
     LpReviewAndCompleteComponent,
+    PromocodeGeneratorComponent,
   ],
   imports: [
     BrowserModule,

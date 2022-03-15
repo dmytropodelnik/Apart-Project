@@ -80,6 +80,7 @@ namespace CloneBookingAPI
             services.AddSaltGeneratorService();
             services.AddSuggestionIdGeneratorService();
             services.AddFileUploaderService();
+            services.AddPromocodeGeneratorService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

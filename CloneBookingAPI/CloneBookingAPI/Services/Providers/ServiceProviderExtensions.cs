@@ -30,7 +30,11 @@ namespace CloneBookingAPI.Services.Providers
         }
         public static void AddFileUploaderService(this IServiceCollection services)
         {
-            services.AddScoped<FileUploader>();
+            services.AddTransient<FileUploader>();
+        }
+        public static void AddPromocodeGeneratorService(this IServiceCollection services)
+        {
+            services.AddTransient<PromoCodeGenerator>();
         }
     }
 }

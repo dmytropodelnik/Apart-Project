@@ -5,7 +5,8 @@ export class PromoCode {
   code: string | null = '';
   percentDiscount: number | null = null;
   isActive: boolean | null = null;
-  image: FileModel | null = null;
+  generatingDate: Date | null = null;
+  expirationDate: Date | null = null;
 
   constructor () {
 
