@@ -33,13 +33,15 @@ export class LpPropertySetupComponent implements OnInit {
   rules: SuggestionRule[] | null = null;
   includedRules: boolean[] = [];
 
+  description: string = '';
+
   constructor(
     private listNewPropertyService: ListNewPropertyService,
     private router: Router,
   ) {
 
   }
-  choice: number = 4;
+  choice: number = 1;
   bedTypesAmount = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   decreaseBedTypeCount(value: number) {
@@ -126,9 +128,8 @@ export class LpPropertySetupComponent implements OnInit {
           .then((r) => r.json())
           .then((data) => {
             if (data.code === 200) {
-              this.incrementChoice()
+              this.incrementChoice();
             }
-            console.log(data);
           })
           .catch((ex) => {
             alert(ex);
@@ -211,7 +212,8 @@ export class LpPropertySetupComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          this.router.navigate(['/lp/photos']);
+          // this.router.navigate(['/lp/photos']);
+          this.incrementChoice1();
         }
       })
       .catch((ex) => {
@@ -282,6 +284,32 @@ export class LpPropertySetupComponent implements OnInit {
           } else {
             alert('Rules fetching error!');
           }
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  addDescription(): void {
+    let suggestion = {
+      id: this.listNewPropertyService.getSavedPropertyId(),
+      description: this.description,
+    };
+
+    fetch(`https://localhost:44381/api/listnewproperty/adddescription`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(suggestion),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.router.navigate(['/lp/photos']);
         }
       })
       .catch((ex) => {

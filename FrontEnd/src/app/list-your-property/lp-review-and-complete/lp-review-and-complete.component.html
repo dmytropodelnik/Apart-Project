@@ -48,10 +48,10 @@
 
     <div class="Input-name-and-location">
       <span class="name-and-location-text">Name</span>
-      <input type="text" />
-      <span class="name-and-location-text">Telephone number</span>
-      <input type="text" />
+      <input type="text" name="contactDetails.contactName" [(ngModel)]="contactDetails.contactName" />
+      <span class="name-and-location-text">Phone number</span>
+      <input type="text" name="contactDetails.phoneNumber" [(ngModel)]="contactDetails.phoneNumber" />
     </div>
-    <button class="name-and-location-button">Continue</button>
+    <button class="name-and-location-button" (click)="addContactDetails()">Continue</button>
   </div>
 </body>

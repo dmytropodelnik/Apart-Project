@@ -281,5 +281,16 @@
         </button>
       </div>
     </li>
+    <li *ngSwitchCase="5">
+      <div class="name-and-location-container">
+        <div class="header-name-and-location">What's your contact information?</div>
+
+        <div class="Input-name-and-location">
+          <span class="name-and-location-text" name="description" [(ngModel)]="description">Description</span>
+          <input type="textarea" />
+        </div>
+        <button class="name-and-location-button" (click)="addDescription()">Continue</button>
+      </div>
+    </li>
   </ul>
 </body>

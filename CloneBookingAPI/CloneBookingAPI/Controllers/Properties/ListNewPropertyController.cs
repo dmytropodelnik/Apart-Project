@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Database.Models.Suggestions;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
@@ -645,6 +646,67 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
                 resSuggestion.Description = suggestion.Description;
                 resSuggestion.Progress = 70;
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                    savedSuggestionId = resSuggestion.Id,
+                });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("addcontactdetails")]
+        [HttpPost]
+        public async Task<IActionResult> AddContactDetails([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null              ||
+                    suggestion.ContactName is null  ||
+                    suggestion.ContactPhone is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+                ContactDetails contactDetails = new();
+                contactDetails.ContactName = suggestion.ContactName;
+                contactDetails.PhoneNumber = suggestion.ContactPhone;
+                _context.ContactDetails.Add(contactDetails);
+
+                resSuggestion.ContactDetails = contactDetails;
+                resSuggestion.Progress = 100;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
