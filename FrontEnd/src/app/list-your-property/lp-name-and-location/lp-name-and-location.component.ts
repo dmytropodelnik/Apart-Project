@@ -21,6 +21,7 @@ export class LpNameAndLocationComponent implements OnInit {
   sCity: string = '';
   sZipCode: string = '';
   sAddress: string = '';
+  sRegion: string = '';
 
   constructor(
     private listNewPropertyService: ListNewPropertyService,
@@ -83,8 +84,6 @@ export class LpNameAndLocationComponent implements OnInit {
           this.incrementChoice();
           this.getCountries();
         }
-        console.log(data);
-        console.log(this.listNewPropertyService.getSavedPropertyId());
       })
       .catch((ex) => {
         alert(ex);
@@ -123,12 +122,14 @@ export class LpNameAndLocationComponent implements OnInit {
         city: {
           title: this.sCity,
         },
+        region : {
+          title: this.sRegion,
+        },
         zipCode: this.sZipCode,
         addressText: this.sAddress,
       },
       login: AuthHelper.getLogin(),
     };
-    console.log(this.sCountry);
 
     fetch(`https://localhost:44381/api/listnewproperty/addaddress`, {
       method: 'POST',
@@ -145,7 +146,6 @@ export class LpNameAndLocationComponent implements OnInit {
           alert("ok");
           this.router.navigate(['/lp/propertysetup']);
         }
-        console.log(data);
       })
       .catch((ex) => {
         alert(ex);
@@ -187,6 +187,6 @@ export class LpNameAndLocationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.addPropertyPhotos();
+
   }
 }

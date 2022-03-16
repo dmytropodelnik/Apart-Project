@@ -139,11 +139,22 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     return Json(new { code = 400 });
                 }
 
+                City newCity = new();
+                Region newRegion = new();
+
+                var region = await _context.Regions.FirstOrDefaultAsync(r => r.Title.Equals(suggestion.Address.Region.Title));
+                if (region is null)
+                {
+                    newRegion.Title = suggestion.Address.Region.Title;
+                    newRegion.City = newCity;
+                    newRegion.ImageId = resCountry.ImageId;
+                    _context.Regions.Add(newRegion);
+                }
+
                 var city = await _context.Cities.FirstOrDefaultAsync(c => c.Title.Equals(suggestion.Address.City.Title) &&
                                                                           c.CountryId == suggestion.Address.CountryId);
                 if (city is null)
                 {
-                    City newCity = new();
                     newCity.Title = suggestion.Address.City.Title;
                     newCity.CountryId = suggestion.Address.CountryId;
                     newCity.ImageId = resCountry.ImageId;  // ???
@@ -153,10 +164,19 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     newAddress.City = newCity;
                     newAddress.AddressText = suggestion.Address.AddressText;
 
+                    if (region is null)
+                    {
+                        newAddress.Region = newRegion;
+                    }
+
                     resSuggestion.Address = newAddress;
                 }
                 else
                 {
+                    if (region is null)
+                    {
+                        suggestion.Address.Region = newRegion;
+                    }
                     resSuggestion.Address = suggestion.Address;
                     resSuggestion.Address.CityId = city.Id;
                 }

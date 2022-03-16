@@ -16,7 +16,9 @@ namespace CloneBookingAPI.Services.Database.Models.Location
         [MinLength(2)]
         public string Title { get; set; }
 
-        public Address Address { get; set; }
+        public int? CityId { get; set; }
+        [ForeignKey("CityId")]
+        public City City { get; set; }
 
         public int? ImageId { get; set; }
         [ForeignKey("ImageId")]

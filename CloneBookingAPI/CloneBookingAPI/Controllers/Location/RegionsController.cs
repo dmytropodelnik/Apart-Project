@@ -31,7 +31,7 @@ namespace CloneBookingAPI.Controllers
             try
             {
                 var regions = await _context.Regions
-                    .Include(d => d.Address)
+                    .Include(d => d.City)
                     //.Include(d => d.Address.City)
                     //.Include(d => d.Address.District)
                     //.Include(d => d.Address.Region)
@@ -74,17 +74,9 @@ namespace CloneBookingAPI.Controllers
                 }
 
                 var regions = await _context.Regions
-                    .Include(a => a.Address)
+                    .Include(r => r.City)
                         .ThenInclude(addr => addr.Country)
-                    //.Include(a => a.Address.City)
-                    //.Include(a => a.Address.District)
-                    //.Include(a => a.Address.Region)
-                    .Where(a => a.Address.AddressText.Contains(region) ||
-                                a.Address.Country.Title.Contains(region) ||
-                                a.Address.City.Title.Contains(region) ||
-                                a.Address.District.Title.Contains(region) ||
-                                a.Address.Region.Title.Contains(region) ||
-                                a.Title.Contains(region))
+                    .Where(r => r.Title.Contains(region))
                     .ToListAsync();
 
                 return Json(new { code = 200, regions });

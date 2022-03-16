@@ -93,13 +93,12 @@ namespace CloneBookingAPI.Controllers.Pages
                     .Include(s => s.Images)
                     .Include(s => s.Address)
                         .ThenInclude(c => c.Country)
-                .Include(s => s.Address.Region)
-                .Include(s => s.BookingCategory)
-                .Include(s => s.InterestPlaces)
-                .ToListAsync();
+                    .Include(s => s.BookingCategory)
+                    .Include(s => s.InterestPlaces)
+                    .ToListAsync();
 
                 var regionsList = await _context.Regions
-                    .Include(r => r.Address)
+                    .Include(r => r.City)
                     .Include(r => r.Image)
                     .ToListAsync();
                 var regions = regionsList

@@ -24,7 +24,6 @@ export class PromocodeGeneratorComponent implements OnInit {
 
   generatePromoCode(): void {
     let expirationDate = this.dp.year + '-' + this.dp.month + '-' + this.dp.day;
-    console.log(expirationDate);
 
     fetch(
       `https://localhost:44381/api/promocodes/generatecode?discount=${this.discount}&count=${this.count}&expirationDate=${expirationDate}`,
