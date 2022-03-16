@@ -169,6 +169,7 @@ namespace CloneBookingAPI.Controllers.Payment
                     newPromoCode.GeneratingDate = DateTime.Now.ToUniversalTime();
 
                     DateTime expiresDate = Convert.ToDateTime(expirationDate);
+                    expiresDate = expiresDate.AddDays(1);
                     
                     newPromoCode.ExpirationDate = expiresDate.ToUniversalTime();
 
@@ -190,6 +191,12 @@ namespace CloneBookingAPI.Controllers.Payment
                 return Json(new { code = 500 });
             }
             catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (ArgumentOutOfRangeException ex)
             {
                 Debug.WriteLine(ex.Message);
 

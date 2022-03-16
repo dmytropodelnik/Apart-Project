@@ -40,8 +40,11 @@ namespace CloneBookingAPI.Services.Generators
                         _builder.Append("-");
                     }
                 }
+                string res = _builder.ToString();
 
-                return _builder.ToString();
+                _builder.Clear();
+
+                return res;
             }
             catch (ArgumentNullException ex)
             {
