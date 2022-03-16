@@ -75,6 +75,16 @@ import { LpPricingAndCalenderComponent } from './list-your-property/lp-pricing-a
 import { LpReviewAndCompleteComponent } from './list-your-property/lp-review-and-complete/lp-review-and-complete.component';
 import { ListNewPropertyService } from './services/list-new-property.service';
 import { PromocodeGeneratorComponent } from './admin-panel/promocode-generator/promocode-generator.component';
+import { ManageAccountComponent } from './manage-account/manage-account-body/manage-account.component';
+import { ManageAccountContentComponent } from './manage-account/manage-account-content/manage-account-content.component';
+import { ManageAccountContentListComponent } from './manage-account/manage-account-content-list/other-features-list/manage-account-content-list.component';
+import { PersonalDetailsListComponent } from './manage-account/manage-account-content-list/personal-details-list/personal-details-list.component';
+import { PreferencesListComponent } from './manage-account/manage-account-content-list/preferences-list/preferences-list.component';
+import { SecurityListComponent } from './manage-account/manage-account-content-list/security-list/security-list.component';
+import { PaymentDetailsListComponent } from './manage-account/manage-account-content-list/payment-details-list/payment-details-list.component';
+import { EmailNotificationsListComponent } from './manage-account/manage-account-content-list/email-notifications-list/email-notifications-list.component';
+import { OtherTravelersListComponent } from './manage-account/manage-account-content-list/other-travelers-list/other-travelers-list.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
 
 @NgModule({
   declarations: [
@@ -142,6 +152,16 @@ import { PromocodeGeneratorComponent } from './admin-panel/promocode-generator/p
     LpPhotosComponent,
     LpPricingAndCalenderComponent,
     LpReviewAndCompleteComponent,
+    ManageAccountComponent,
+    ManageAccountContentComponent,
+    ManageAccountContentListComponent,
+    PersonalDetailsListComponent,
+    PreferencesListComponent,
+    SecurityListComponent,
+    PaymentDetailsListComponent,
+    EmailNotificationsListComponent,
+    OtherTravelersListComponent,
+    SearchResultsComponent,
     PromocodeGeneratorComponent,
   ],
   imports: [

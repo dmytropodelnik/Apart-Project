@@ -16,6 +16,8 @@ import { LpPhotosComponent } from './list-your-property/lp-photos/lp-photos.comp
 import { LpPricingAndCalenderComponent } from './list-your-property/lp-pricing-and-calender/lp-pricing-and-calender.component';
 import { LpPropertySetupComponent } from './list-your-property/lp-property-setup/lp-property-setup.component';
 import { LpReviewAndCompleteComponent } from './list-your-property/lp-review-and-complete/lp-review-and-complete.component';
+import { ManageAccountComponent } from './manage-account/manage-account-body/manage-account.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'stays', pathMatch: 'full' },
@@ -33,6 +35,8 @@ const routes: Routes = [
   { path: 'joinpartner', component: JoinAsPartnerComponent },
   { path: 'viewproperty', component: ViewPropertyComponent },
   { path: 'lp/addproperty', component: AddPropertyComponent, pathMatch: 'full' },
+  { path: 'mysettings', component: ManageAccountComponent },
+  { path: 'searchresults', component: SearchResultsComponent },
   {
     path: 'lp/nameandlocation',
     component: LpNameAndLocationComponent,

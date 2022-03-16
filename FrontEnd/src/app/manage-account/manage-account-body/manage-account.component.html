@@ -1,0 +1,79 @@
+<header
+  class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs"
+>
+  <nav class="bui-header__bar">
+    <div class="bui-header__main">
+      <div class="bui-header__logo">
+        <span>
+          <label class="robotoregular" routerLink="">Apart.com</label>
+        </span>
+      </div>
+    </div>
+
+    <div>
+      <div class="bui-group__item">
+        <span class="bui-button__text">
+          <div class="bui-avatar bui-avatar--small" aria-hidden="true">
+            <img
+              class="bui-avatar__image"
+              src="assets/images/us-flag.png"
+              alt=""
+            />
+          </div>
+        </span>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<body>
+  <div class="manageaccount">
+    <div class="">
+      <div class="accordion-collapse collapse show">
+        <li>
+          <a class="btn waves-effect" (click)="setContent('personal-details')">
+            <i class="mdi mdi-account-circle"></i>
+            <span>Personal Details</span>
+          </a>
+        </li>
+        <li>
+          <a class="btn waves-effect" (click)="setContent('preferences')">
+            <i class="mdi mdi-account-box"></i>
+            <span>Preferences</span>
+          </a>
+        </li>
+        <li>
+          <a class="btn waves-effect" (click)="setContent('security')">
+            <i class="mdi mdi-account-box-outline"></i>
+            <span>Security</span>
+          </a>
+        </li>
+        <!-- <li>
+        <a class="btn waves-effect" (click)="setContent('payment-details')">
+          <i class="mdi mdi-account-group"></i>
+          <span>Payment details</span>
+        </a>
+      </li>
+
+      <li>
+        <a class="btn waves-effect" (click)="setContent('email-notifications')">
+          <i class="mdi mdi-account-circle"></i>
+          <span>Email Notifications</span>
+        </a>
+      </li>
+
+      <li>
+        <a class="btn waves-effect" (click)="setContent('other-travelers')">
+          <i class="mdi mdi-emoticon-tongue"></i>
+          <span>Other travelers</span>
+        </a>
+      </li> -->
+      </div>
+    </div>
+    <div class="">
+      <app-manage-account-content
+        [content]="content"
+      ></app-manage-account-content>
+    </div>
+  </div>
+</body>
