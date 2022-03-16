@@ -1,0 +1,13 @@
+.personal_details_container {
+  display: flex;
+  flex-direction: column;
+  max-width: 3000px;
+}
+
+.personal-details_item {
+    display: flex;
+}
+
+.personal-details_item > * {
+    
+}
