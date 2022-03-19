@@ -9,10 +9,6 @@ namespace CloneBookingAPI.Interfaces
         {
             return false;
         }
-
-        bool IsValueCorrect(string key, string code)
-        {
-            return false;
-        }
+        bool IsValueCorrect(string key, string code);
     }
 }

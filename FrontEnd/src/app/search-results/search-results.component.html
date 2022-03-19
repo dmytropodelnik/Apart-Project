@@ -721,10 +721,10 @@
           <h3>Amsterdam: 1,047 properties found</h3>
         </div>
         <div class="search_results_top_buttons">
-          <button>Our top picks</button>
-          <button>Homes & apartments first</button>
-          <button>Stars (highest first)</button>
-          <button>Stars (lowest first)</button>
+          <button (click)="sortItems(sortState.TopReviewed)">Our top picks</button>
+          <button (click)="sortItems(sortState.HomeAndApartmentsFirst)">Homes & apartments first</button>
+          <button (click)="sortItems(sortState.StarsDesc)">Stars (highest first)</button>
+          <button (click)="sortItems(sortState.StarsAsc)">Stars (lowest first)</button>
         </div>
       </div>
       <div class="search_card">

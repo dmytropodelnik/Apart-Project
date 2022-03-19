@@ -2,9 +2,6 @@
 {
     public interface IPromoGenerator
     {
-        string GenerateCode(int widthRange, int amountRange)
-        {
-            return null;
-        }
+        string GenerateCode(int widthRange, int amountRange);
     }
 }

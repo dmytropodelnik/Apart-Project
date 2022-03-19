@@ -1,6 +1,10 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Controllers.Search.Filtering;
+using CloneBookingAPI.Controllers.Search.Pagination;
+using CloneBookingAPI.Controllers.Search.Sorting;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.POCOs.Search;
+using CloneBookingAPI.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,17 +23,29 @@ namespace CloneBookingAPI.Controllers.Search
     {
         private readonly ApartProjectDbContext _context;
 
-        public StaysSearchingController(ApartProjectDbContext context)
+        private readonly SuggestionsFilter _suggestionsFilter;
+        private readonly SuggestionsSorter _suggestionsSorter;
+        private readonly SuggestionsPaginator _suggestionsPaginator;
+
+        public StaysSearchingController(
+            ApartProjectDbContext context,
+            SuggestionsFilter suggestionsFilter,
+            SuggestionsSorter suggestionsSorter,
+            SuggestionsPaginator suggestionsPaginator)
         {
             _context = context;
+            _suggestionsFilter = suggestionsFilter;
+            _suggestionsSorter = suggestionsSorter;
+            _suggestionsPaginator = suggestionsPaginator;
         }
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult> Search(StaySearchPoco searchObj)
+        public async Task<ActionResult> Search([FromBody] SearchViewModel filters)
         {
             try
             {
+                /*
                 int pageHelper = searchObj.Page;
 
                 if (searchObj is null || pageHelper < 1)
@@ -99,11 +115,38 @@ namespace CloneBookingAPI.Controllers.Search
                     .Take(25)
                     .ToList();
 
+                */
+
+                if (filters is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                // FILTERING
+                var resSuggestions = _suggestionsFilter.FilterItems(filters.Suggestions, filters.SortOrder);
+                if (resSuggestions is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                // SORTING
+                resSuggestions = _suggestionsSorter.SortItems(resSuggestions, filters.SortOrder);
+                if (resSuggestions is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                // PAGINATION
+                resSuggestions = _suggestionsPaginator.SelectItems(resSuggestions, filters.Page, filters.PageSize);
+                if (resSuggestions is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
                 return Json(new
                 {
                     code = 200,
-                    filteredSuggestions,
-                    countSuggestions,
+                    suggestions = await resSuggestions.ToListAsync(),
                 });
             }
             catch (ArgumentNullException ex)
@@ -123,44 +166,6 @@ namespace CloneBookingAPI.Controllers.Search
                 Debug.WriteLine(ex.Message);
 
                 return Json(new { code = ex.Message });
-            }
-
-            List<Suggestion> OrderByLowestPrice(List<Suggestion> items)
-            {
-                var res = items
-                    .OrderBy(s => s.PriceInUSD)
-                    .ToList();
-
-                return res;
-            }
-
-            List<Suggestion> OrderByHighestPrice(List<Suggestion> items)
-            {
-                var res = items
-                    .OrderByDescending(s => s.PriceInUSD)
-                    .ToList();
-
-                return res;
-            }
-
-            List<Suggestion> FilterByHomesAndApartmentsFirst(List<Suggestion> items)
-            {
-                var res = items
-                    .Where(s => s.BookingCategory.Category.Equals("Homes") ||
-                                s.BookingCategory.Category.Equals("Apartments"))
-                    .ToList();
-
-                return res;
-            }
-
-            List<Suggestion> OrderByBestGrades(List<Suggestion> items)
-            {
-                var res = items
-                    .OrderByDescending(s => s.SuggestionReviewGrades
-                                        .Average(s => s.Value))
-                    .ToList();
-
-                return res;
             }
         }
 

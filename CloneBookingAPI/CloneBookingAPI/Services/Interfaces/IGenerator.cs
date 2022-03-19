@@ -11,7 +11,6 @@ namespace CloneBookingAPI.Interfaces
         {
             return null;
         }
-
         string GenerateCode()
         {
             return null;
