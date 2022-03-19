@@ -17,7 +17,7 @@ namespace CloneBookingAPI.Controllers.Search.Pagination
             _context = context;
         }
 
-        public IQueryable<Suggestion> SelectItems(IQueryable<Suggestion> suggestions, int page, int pageSize)
+        public IQueryable<Suggestion> SelectItems(IQueryable<Suggestion> suggestions, int page = 1, int pageSize = 25)
         {
             try
             {

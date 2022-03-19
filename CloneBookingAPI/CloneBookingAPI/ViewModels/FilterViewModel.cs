@@ -6,12 +6,7 @@ namespace CloneBookingAPI.ViewModels
 {
     public class FilterViewModel
     {
-        public FilterViewModel(List<Suggestion> suggestions, int? suggestion, string title)
-        {
-
-        }
-        public SelectList Companies { get; private set; } // список компаний
-        public int? SelectedCompany { get; private set; }   // выбранная компания
-        public string SelectedName { get; private set; }    // введенное имя
+      public string Filter { get; set; }
+      public int Value { get; set; }
     }
 }

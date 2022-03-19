@@ -1,5 +1,6 @@
 ﻿using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.POCOs.Search;
+using CloneBookingAPI.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -21,7 +22,7 @@ namespace CloneBookingAPI.Controllers.Pages
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult> Search(StaySearchPoco searchObj)
+        public async Task<ActionResult> Search([FromBody] SearchViewModel searchObj)
         {
             try
             {

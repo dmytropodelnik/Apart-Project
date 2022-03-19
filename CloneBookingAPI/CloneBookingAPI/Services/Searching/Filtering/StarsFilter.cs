@@ -1,24 +1,20 @@
 ﻿using CloneBookingAPI.Enums;
-using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Interfaces;
-using CloneBookingAPI.Services.Searching.Filtering;
 using CloneBookingAPI.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-namespace CloneBookingAPI.Controllers.Search.Filtering
+namespace CloneBookingAPI.Services.Searching.Filtering
 {
-    public class SuggestionsFilter : IFilter
+    public class StarsFilter : IFilter
     {
-        private readonly ApartProjectDbContext _context;
-        private List<IFilter> _appliedFilters = new();
-
-        public SuggestionsFilter(ApartProjectDbContext context)
+        private int _value;
+        public StarsFilter(int value)
         {
-            _context = context;
+            _value = value;
         }
 
         public IQueryable<Suggestion> FilterItems(IEnumerable<Suggestion> suggestions, IEnumerable<FilterViewModel> filters)
@@ -29,22 +25,15 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
                 {
                     return null;
                 }
+                if (filters is null)
+                {
+                    return suggestions.AsQueryable();
+                }
 
                 foreach (var filter in filters)
                 {
-                    if (filter.Filter.Equals("stars"))
-                    {
-                        _appliedFilters.Add(new StarsFilter(filter.Value));
-                    }
-                    else if (filter.Filter.Equals("stars"))
-                    {
-
-                    }
-                }
-
-                foreach (var filter in _appliedFilters)
-                {
-                    suggestions = filter.FilterItems(suggestions, filters);
+                    suggestions = suggestions
+                        .Where(s => s.StarsRating > _value);
                 }
 
                 return suggestions.AsQueryable();

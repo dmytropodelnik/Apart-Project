@@ -28,7 +28,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         // [Required]
         public int RoomsAmount { get; set; }
         // [Required]
-        public int StarRating { get; set; }
+        public int StarsRating { get; set; }
         [Required]
         public int Progress { get; set; }
 

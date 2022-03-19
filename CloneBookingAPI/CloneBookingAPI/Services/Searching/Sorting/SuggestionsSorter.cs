@@ -79,7 +79,7 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                     case SortState.StarsAsc:
 
                         suggestions = suggestions
-                            .OrderBy(s => s.StarRating)
+                            .OrderBy(s => s.StarsRating)
                             .AsQueryable();
 
                         break;
@@ -87,7 +87,7 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                     case SortState.StarsDesc:
 
                         suggestions = suggestions
-                            .OrderByDescending(s => s.StarRating)
+                            .OrderByDescending(s => s.StarsRating)
                             .AsQueryable();
 
                         break;
@@ -114,7 +114,7 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                     case SortState.StarRatingAndLowerPrice:
 
                         suggestions = suggestions
-                            .OrderByDescending(s => s.StarRating)
+                            .OrderByDescending(s => s.StarsRating)
                             .OrderBy(s => s.RoomTypes
                                 .Select(t => t.Rooms
                                     .Select(r => r.PriceInUSD)))
@@ -124,8 +124,6 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
 
                     default:
                        
-
-
                         break;
                 }
 
