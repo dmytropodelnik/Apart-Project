@@ -7,6 +7,8 @@ import { SortState } from '../enums/sortstate.item'
 import { Suggestion } from '../models/Suggestions/suggestion.item';
 import { SearchViewModel } from '../view-models/searchviewmodel.item';
 import { FilterViewModel } from '../view-models/filterviewmodel.item';
+import { BookingCategory } from '../models/bookingcategory.item';
+import { Facility } from '../models/facility.item';
 
 @Component({
   selector: 'app-search-results',
@@ -27,6 +29,9 @@ export class SearchResultsComponent implements OnInit {
   filters: SearchViewModel = new SearchViewModel();
   filterChecks: FilterViewModel[] = [];
   filterCheckBoxes: boolean[] = [];
+
+  bookingCategories: BookingCategory[] = [];
+  facilities: Facility[] = [];
 
   constructor() {
 
@@ -85,7 +90,42 @@ export class SearchResultsComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
+  getBookingCategories(): void {
+    fetch('https://localhost:44381/api/bookingcategories/getcategories', {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.bookingCategories = data.categories;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
+  getFacilities(): void {
+    fetch('https://localhost:44381/api/facilities/getfacilities', {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.facilities = data.facilities;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  ngOnInit(): void {
+    this.getBookingCategories();
+    this.getFacilities();
   }
 }

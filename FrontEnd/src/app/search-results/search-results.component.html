@@ -107,137 +107,94 @@
         <div class="filters_box">
           <h5>Fun things to do</h5>
           <div>
-            <input class="" type="checkbox" value="" id="Cycling" />
+            <input class="" type="checkbox" value="" id="Cycling"
+                   [(ngModel)]="filterCheckBoxes[6]" />
             <label class="filters_check_label" for="Cycling"> Cycling </label>
             <span>6000</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="Bike tours" />
+            <input class="" type="checkbox" value="" id="Bike tours"
+                   [(ngModel)]="filterCheckBoxes[7]"/>
             <label class="filters_check_label" for="Bike tours">
               Bike tours
             </label>
             <span>6000</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="Walking tours" />
+            <input class="" type="checkbox" value="" id="Walking tours"
+                   [(ngModel)]="filterCheckBoxes[8]" />
             <label class="filters_check_label" for="Walking tours">
               Walking tours
             </label>
             <span>6000</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="Fitness centre" />
+            <input class="" type="checkbox" value="" id="Fitness centre"
+                   [(ngModel)]="filterCheckBoxes[9]" />
             <label class="filters_check_label" for="Fitness centre">
               Fitness centre
             </label>
             <span>6000</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="Fitness" />
+            <input class="" type="checkbox" value="" id="Fitness"
+                   [(ngModel)]="filterCheckBoxes[10]" />
             <label class="filters_check_label" for="Fitness"> Fitness </label>
             <span>6000</span>
           </div>
         </div>
-        <div class="filters_box">
+        <div class="filters_box" *ngIf="bookingCategories.length != 0">
           <h5>Property type</h5>
-          <div>
-            <input class="" type="checkbox" value="" id="Hotels" />
-            <label class="filters_check_label" for="Hotels"> Hotels </label>
-            <span>6000</span>
-          </div>
-          <div>
-            <input class="" type="checkbox" value="" id="Bed and breakfasts" />
-            <label class="filters_check_label" for="Bed and breakfasts">
-              Bed and breakfasts
-            </label>
-            <span>6000</span>
-          </div>
-          <div>
-            <input class="" type="checkbox" value="" id="Apartments" />
-            <label class="filters_check_label" for="Apartments">
-              Apartments
-            </label>
-            <span>6000</span>
-          </div>
-          <div>
-            <input class="" type="checkbox" value="" id="Homestays" />
-            <label class="filters_check_label" for="Homestays">
-              Homestays
-            </label>
-            <span>6000</span>
-          </div>
-          <div>
-            <input class="" type="checkbox" value="" id="Hostels" />
-            <label class="filters_check_label" for="Hostels"> Hostels </label>
-            <span>6000</span>
-          </div>
-          <div>
-            <input class="" type="checkbox" value="" id="Guest houses" />
-            <label class="filters_check_label" for="Guest houses">
-              Guest houses
-            </label>
-            <span>6000</span>
-          </div>
-          <div>
-            <input class="" type="checkbox" value="" id="Boats" />
-            <label class="filters_check_label" for="Boats"> Boats </label>
-            <span>6000</span>
-          </div>
-          <div>
-            <input class="" type="checkbox" value="" id="Holiday homes" />
-            <label class="filters_check_label" for="Holiday homes">
-              Holiday homes
-            </label>
-            <span>6000</span>
-          </div>
-          <div>
-            <input class="" type="checkbox" value="" id="Villas" />
-            <label class="filters_check_label" for="Villas"> Villas </label>
-            <span>6000</span>
-          </div>
-          <div>
-            <input class="" type="checkbox" value="" id="Campsites" />
-            <label class="filters_check_label" for="Campsites">
-              Campsites
-            </label>
-            <span>6000</span>
+          <div *ngFor="let item of bookingCategories; let i = index">
+            <div>
+              <input class="" type="checkbox" value="" id="{{item.category}}"
+                     [(ngModel)]="filterCheckBoxes[11]" />
+              <label class="filters_check_label" for="{{item.category}}"> {{item.category}} </label>
+              <span>6000</span>
+            </div>
           </div>
         </div>
         <div class="filters_box">
           <h5>Review score</h5>
           <div>
-            <input class="" type="checkbox" value="" id="Superb: 9+" />
+            <input class="" type="checkbox" value="" id="Superb: 9+"
+                   [(ngModel)]="filterCheckBoxes[21]"/>
             <label class="filters_check_label" for="Superb: 9+">
               Superb: 9+
             </label>
             <span>6000</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="Very good: 8+" />
+            <input class="" type="checkbox" value="" id="Very good: 8+"
+                   [(ngModel)]="filterCheckBoxes[22]"/>
             <label class="filters_check_label" for="Very good: 8+">
               Very good: 8+
             </label>
             <span>6000</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="Good: 7+" />
+            <input class="" type="checkbox" value="" id="Good: 7+"
+                   [(ngModel)]="filterCheckBoxes[23]" />
             <label class="filters_check_label" for="Good: 7+"> Good: 7+ </label>
             <span>6000</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="Pleasant: 6+" />
+            <input class="" type="checkbox" value="" id="Pleasant: 6+"
+                   [(ngModel)]="filterCheckBoxes[24]" />
             <label class="filters_check_label" for="Pleasant: 6+">
               Pleasant: 6+
             </label>
             <span>6000</span>
           </div>
         </div>
-        <div class="filters_box">
+        <div class="filters_box" *ngIf="facilities.length != 0">
           <h5>Facilities</h5>
+          <div *ngFor="let item of facilities; let i = index">
           <div>
-            <input class="" type="checkbox" value="" id="Parking" />
-            <label class="filters_check_label" for="Parking"> Parking </label>
+            <input class="" type="checkbox" value="" id="{{item.text}}" />
+            <label class="filters_check_label" for="{{item.text}}"> {{item.text}} </label>
             <span>6000</span>
+          </div>
           </div>
           <div>
             <input class="" type="checkbox" value="" id="Restaurant" />

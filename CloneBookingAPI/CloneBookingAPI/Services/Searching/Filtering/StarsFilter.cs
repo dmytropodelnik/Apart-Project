@@ -37,24 +37,6 @@ namespace CloneBookingAPI.Services.Searching.Filtering
 
                 return null;
             }
-            catch (ArgumentException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return null;
-            }
-            catch (OperationCanceledException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return null;
-            }
-            catch (InvalidOperationException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return null;
-            }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
