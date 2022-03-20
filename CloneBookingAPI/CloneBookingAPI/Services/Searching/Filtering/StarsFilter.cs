@@ -17,7 +17,7 @@ namespace CloneBookingAPI.Services.Searching.Filtering
             _value = value;
         }
 
-        public IQueryable<Suggestion> FilterItems(IEnumerable<Suggestion> suggestions, IEnumerable<FilterViewModel> filters)
+        public IQueryable<Suggestion> FilterItems(IQueryable<Suggestion> suggestions)
         {
             try
             {
@@ -25,18 +25,11 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                 {
                     return null;
                 }
-                if (filters is null)
-                {
-                    return suggestions.AsQueryable();
-                }
 
-                foreach (var filter in filters)
-                {
-                    suggestions = suggestions
-                        .Where(s => s.StarsRating > _value);
-                }
+                suggestions = suggestions
+                    .Where(s => s.StarsRating == _value);
 
-                return suggestions.AsQueryable();
+                return suggestions;
             }
             catch (ArgumentNullException ex)
             {

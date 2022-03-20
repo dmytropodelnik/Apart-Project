@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace CloneBookingAPI.Controllers.Search.Filtering
 {
-    public class SuggestionsFilter : IFilter
+    public class SuggestionsFilter
     {
         private readonly ApartProjectDbContext _context;
         private List<IFilter> _appliedFilters = new();
@@ -21,13 +21,18 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
             _context = context;
         }
 
-        public IQueryable<Suggestion> FilterItems(IEnumerable<Suggestion> suggestions, IEnumerable<FilterViewModel> filters)
+        public IQueryable<Suggestion> FilterItems(IQueryable<Suggestion> suggestions, IEnumerable<FilterViewModel> filters)
         {
             try
             {
                 if (suggestions is null)
                 {
                     return null;
+                }
+                
+                if (filters is null)
+                {
+                    return suggestions;
                 }
 
                 foreach (var filter in filters)
@@ -42,12 +47,16 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
                     }
                 }
 
+                List<Suggestion> filtered = new();
+
                 foreach (var filter in _appliedFilters)
                 {
-                    suggestions = filter.FilterItems(suggestions, filters);
+                    filtered.AddRange(filter.FilterItems(suggestions));
                 }
 
-                return suggestions.AsQueryable();
+                return filtered
+                        .Distinct()
+                        .AsQueryable();
             }
             catch (ArgumentNullException ex)
             {

@@ -42,15 +42,15 @@ namespace CloneBookingAPI.Services.Providers
         }
         public static void AddFilterService(this IServiceCollection services)
         {
-            services.AddTransient<IFilter, SuggestionsFilter>();
+            services.AddTransient<SuggestionsFilter>();
         }
         public static void AddSortingService(this IServiceCollection services)
         {
-            services.AddTransient<ISorter, SuggestionsSorter>();
+            services.AddTransient<SuggestionsSorter>();
         }
         public static void AddPaginatorService(this IServiceCollection services)
         {
-            services.AddTransient<IPaginator, SuggestionsPaginator>();
+            services.AddTransient<SuggestionsPaginator>();
         }
     }
 }

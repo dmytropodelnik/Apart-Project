@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import AuthHelper from '../utils/authHelper';
+import MathHelper from '../utils/mathHelper';
 
 import { SortState } from '../enums/sortstate.item'
 import { Suggestion } from '../models/Suggestions/suggestion.item';
@@ -14,6 +15,8 @@ import { FilterViewModel } from '../view-models/filterviewmodel.item';
 })
 
 export class SearchResultsComponent implements OnInit {
+  mathHelper: any = MathHelper;
+
   // sorting
   sortState: any = SortState;
   sortOrder: any = SortState;
@@ -22,8 +25,8 @@ export class SearchResultsComponent implements OnInit {
   resSuggestions: Suggestion[] = [];
 
   filters: SearchViewModel = new SearchViewModel();
-
   filterChecks: FilterViewModel[] = [];
+  filterCheckBoxes: boolean[] = [];
 
   constructor() {
 
@@ -33,22 +36,34 @@ export class SearchResultsComponent implements OnInit {
   model1: any;
 
   addFilterCheck(filter: string, value: number): void {
-    this.filterChecks.push(new FilterViewModel(filter, value));
+      if (this.filterCheckBoxes[value]) {
+        this.filterChecks.push(new FilterViewModel(filter, value));
+      } else {
+        this.filterChecks = this.filterChecks.filter(f => {
+          if (f.value === value && f.filter === filter) {
+            return false;
+          } else {
+            return true;
+          }
+         });
+      }
+
+    this.sortItems();
   }
 
   setCurrentPage(page: number): void {
     this.filters.page = page;
   }
 
-  sortItems(value: SortState): void {
+  sortItems(value: SortState = this.sortState.TopReviewed): void {
     this.filters.sortOrder = value;
-    this.filters.suggestions = this.resSuggestions;
+    // this.filters.suggestions = this.resSuggestions;
     this.filters.pageSize = 25;
     this.filters.filters = this.filterChecks;
 
 
     fetch(`https://localhost:44381/api/stayssearching/filtersearch`, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
@@ -60,6 +75,7 @@ export class SearchResultsComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.resSuggestions = data.suggestions;
+          console.log(this.resSuggestions);
         } else {
           alert("Suggestions sort fetching error!");
         }

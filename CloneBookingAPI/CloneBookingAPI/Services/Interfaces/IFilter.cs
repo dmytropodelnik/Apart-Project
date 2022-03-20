@@ -8,6 +8,6 @@ namespace CloneBookingAPI.Services.Interfaces
 {
     public interface IFilter
     {
-        IQueryable<Suggestion> FilterItems(IEnumerable<Suggestion> suggestions, IEnumerable<FilterViewModel> filters);
+        IQueryable<Suggestion> FilterItems(IQueryable<Suggestion> suggestions);
     }
 }

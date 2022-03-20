@@ -35,8 +35,7 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
 
                         suggestions = suggestions
                             .OrderBy(s => s.BookingCategory.Category.Equals("Homes") ||
-                                          s.BookingCategory.Category.Equals("Apartments"))
-                            .AsQueryable();
+                                          s.BookingCategory.Category.Equals("Apartments"));
 
                         break;
 
@@ -45,8 +44,7 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                         suggestions = suggestions
                             .OrderBy(s => s.RoomTypes
                                 .Select(t => t.Rooms
-                                    .Select(r => r.PriceInUSD)))
-                            .AsQueryable();
+                                    .Select(r => r.PriceInUSD)));
 
                         break;
 
@@ -55,48 +53,42 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                         suggestions = suggestions
                             .OrderBy(s => s.RoomTypes
                                 .Select(t => t.Rooms
-                                    .Select(r => r.PriceInUSD)))
-                            .AsQueryable();
+                                    .Select(r => r.PriceInUSD)));
 
                         break;
 
                     case SortState.BestReviewed:
 
                         suggestions = suggestions
-                            .OrderByDescending(s => s.SuggestionReviewGrades.Average(g => g.Value))
-                            .AsQueryable();
+                            .OrderByDescending(s => s.SuggestionReviewGrades.Average(g => g.Value));
 
                         break;
 
                     case SortState.WorstReviewed:
 
                         suggestions = suggestions
-                            .OrderBy(s => s.SuggestionReviewGrades.Average(g => g.Value))
-                            .AsQueryable();
+                            .OrderBy(s => s.SuggestionReviewGrades.Average(g => g.Value));
 
                         break;
 
                     case SortState.StarsAsc:
 
                         suggestions = suggestions
-                            .OrderBy(s => s.StarsRating)
-                            .AsQueryable();
+                            .OrderBy(s => s.StarsRating);
 
                         break;
 
                     case SortState.StarsDesc:
 
                         suggestions = suggestions
-                            .OrderByDescending(s => s.StarsRating)
-                            .AsQueryable();
+                            .OrderByDescending(s => s.StarsRating);
 
                         break;
 
                     case SortState.TopReviewed:
 
                         suggestions = suggestions
-                            .OrderByDescending(s => s.Reviews.Count)
-                            .AsQueryable();
+                            .OrderByDescending(s => s.Reviews.Count);
 
                         break;
 
@@ -106,8 +98,7 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                             .OrderByDescending(s => s.SuggestionReviewGrades.Average(g => g.Value))
                             .OrderByDescending(s => s.RoomTypes
                                     .Select(t => t.Rooms
-                                        .Select(r => r.PriceInUSD)))
-                            .AsQueryable();
+                                        .Select(r => r.PriceInUSD)));
 
                         break;
 
@@ -117,8 +108,7 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                             .OrderByDescending(s => s.StarsRating)
                             .OrderBy(s => s.RoomTypes
                                 .Select(t => t.Rooms
-                                    .Select(r => r.PriceInUSD)))
-                            .AsQueryable();
+                                    .Select(r => r.PriceInUSD)));
 
                         break;
 
@@ -127,7 +117,7 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                         break;
                 }
 
-                return suggestions;
+                return suggestions.AsQueryable();
             }
             catch (ArgumentNullException ex)
             {

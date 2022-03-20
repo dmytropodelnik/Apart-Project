@@ -1,10 +1,12 @@
 ﻿using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Search.Pagination
 {
@@ -28,7 +30,7 @@ namespace CloneBookingAPI.Controllers.Search.Pagination
 
                 var resSuggestions = suggestions
                     .Skip((page - 1) * pageSize)
-                    .Take(pageSize);   
+                    .Take(pageSize);
 
                 return resSuggestions;
             }

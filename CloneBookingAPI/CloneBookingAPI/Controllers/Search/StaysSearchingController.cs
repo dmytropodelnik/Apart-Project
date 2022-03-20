@@ -3,6 +3,7 @@ using CloneBookingAPI.Controllers.Search.Pagination;
 using CloneBookingAPI.Controllers.Search.Sorting;
 using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
+using CloneBookingAPI.Services.Interfaces;
 using CloneBookingAPI.Services.POCOs.Search;
 using CloneBookingAPI.ViewModels;
 using Microsoft.AspNetCore.Http;
@@ -24,8 +25,8 @@ namespace CloneBookingAPI.Controllers.Search
         private readonly ApartProjectDbContext _context;
 
         private readonly SuggestionsFilter _suggestionsFilter;
-        private readonly SuggestionsSorter _suggestionsSorter;
-        private readonly SuggestionsPaginator _suggestionsPaginator;
+        private readonly ISorter _suggestionsSorter;
+        private readonly IPaginator _suggestionsPaginator;
 
         public StaysSearchingController(
             ApartProjectDbContext context,
@@ -104,7 +105,7 @@ namespace CloneBookingAPI.Controllers.Search
         }
 
         [Route("filtersearch")]
-        [HttpGet]
+        [HttpPost]
         public async Task<ActionResult> FilterSearch([FromBody] SearchViewModel filters)
         {
             try
@@ -114,8 +115,15 @@ namespace CloneBookingAPI.Controllers.Search
                     return Json(new { code = 400 });
                 }
 
+                var suggestions = await _context.Suggestions
+                    .Include(s => s.Address)
+                    .Include(s => s.Reviews)
+                    .Include(s => s.SuggestionReviewGrades)
+                    .Include(s => s.BookingCategory)
+                    .ToListAsync();
+
                 // FILTERING
-                var resSuggestions = _suggestionsFilter.FilterItems(filters.Suggestions, filters.Filters);
+                var resSuggestions = _suggestionsFilter.FilterItems(suggestions.AsQueryable(), filters.Filters);
                 if (resSuggestions is null)
                 {
                     return Json(new { code = 400 });
@@ -138,7 +146,7 @@ namespace CloneBookingAPI.Controllers.Search
                 return Json(new
                 {
                     code = 200,
-                    suggestions = await resSuggestions.ToListAsync(),
+                    suggestions = resSuggestions.ToList(),
                 });
             }
             catch (ArgumentNullException ex)
