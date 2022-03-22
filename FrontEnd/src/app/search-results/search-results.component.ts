@@ -63,7 +63,6 @@ export class SearchResultsComponent implements OnInit {
           }
          });
       }
-      console.log(this.filterChecks);
     this.sortItems();
   }
 
