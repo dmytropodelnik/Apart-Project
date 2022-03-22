@@ -1,17 +1,15 @@
-﻿using CloneBookingAPI.Enums;
-using CloneBookingAPI.Services.Database.Models.Suggestions;
+﻿using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Interfaces;
-using CloneBookingAPI.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
 namespace CloneBookingAPI.Services.Searching.Filtering
 {
-    public class StarsFilter : IFilter
+    public class BedTypesFilter : IFilter
     {
-        private int _value;
+        private string _value;
+
         private string _filter;
 
         public string Filter
@@ -23,7 +21,7 @@ namespace CloneBookingAPI.Services.Searching.Filtering
             }
         }
 
-        public StarsFilter(int value, string filter)
+        public BedTypesFilter(string value, string filter)
         {
             _value = value;
             _filter = filter;
@@ -39,7 +37,8 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                 }
 
                 suggestions = suggestions
-                    .Where(s => s.StarsRating == _value);
+                    .Where(s => s.Beds
+                                    .Any(b => b.BedType.Title.Equals(_value)));
 
                 return suggestions;
             }

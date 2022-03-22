@@ -7,6 +7,6 @@ namespace CloneBookingAPI.ViewModels
     public class FilterViewModel
     {
       public string Filter { get; set; }
-      public int Value { get; set; }
+      public string Value { get; set; }
     }
 }

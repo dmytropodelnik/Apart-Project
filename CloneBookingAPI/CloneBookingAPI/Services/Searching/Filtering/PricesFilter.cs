@@ -1,17 +1,14 @@
-﻿using CloneBookingAPI.Enums;
-using CloneBookingAPI.Services.Database.Models.Suggestions;
+﻿using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Interfaces;
-using CloneBookingAPI.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
 namespace CloneBookingAPI.Services.Searching.Filtering
 {
-    public class StarsFilter : IFilter
+    public class PricesFilter : IFilter
     {
-        private int _value;
+        private string _value;
         private string _filter;
 
         public string Filter
@@ -22,8 +19,7 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                 _filter = value;
             }
         }
-
-        public StarsFilter(int value, string filter)
+        public PricesFilter(string value, string filter)
         {
             _value = value;
             _filter = filter;
@@ -38,8 +34,23 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                     return null;
                 }
 
+                var priceRange = _value.Split("-");
+                if (priceRange is null)
+                {
+                    return suggestions;
+                }
+                if (string.IsNullOrWhiteSpace(priceRange[1]))
+                {
+                    priceRange[1] = int.MaxValue.ToString();
+                }
+
+                //suggestions = suggestions
+                //    .Where(s => s.RoomTypes
+                //                    .All(t => t.Rooms
+                //                                .All(r => r.PriceInUSD >= decimal.Parse(priceRange[0]) && r.PriceInUSD <= decimal.Parse(priceRange[1]))));
+
                 suggestions = suggestions
-                    .Where(s => s.StarsRating == _value);
+                     .Where(s => s.PriceInUSD >= decimal.Parse(priceRange[0]) && s.PriceInUSD <= decimal.Parse(priceRange[1]));
 
                 return suggestions;
             }

@@ -118,6 +118,13 @@ namespace CloneBookingAPI.Controllers.Search
                 var suggestions = await _context.Suggestions
                     .Include(s => s.Address)
                     .Include(s => s.Reviews)
+                    .Include(s => s.Facilities)
+                    .Include(s => s.Languages)
+                    .Include(s => s.Beds)
+                        .ThenInclude(b => b.BedType)
+                    .Include(s => s.Highlights)
+                    .Include(s => s.RoomTypes)
+                        .ThenInclude(t => t.Rooms)
                     .Include(s => s.SuggestionReviewGrades)
                     .Include(s => s.BookingCategory)
                     .ToListAsync();
