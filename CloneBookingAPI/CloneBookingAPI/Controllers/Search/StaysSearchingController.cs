@@ -143,6 +143,8 @@ namespace CloneBookingAPI.Controllers.Search
                     return Json(new { code = 400 });
                 }
 
+                int suggestionsAmount = resSuggestions.Count();
+
                 // PAGINATION
                 resSuggestions = _suggestionsPaginator.SelectItems(resSuggestions, filters.Page, filters.PageSize);
                 if (resSuggestions is null)
@@ -154,6 +156,7 @@ namespace CloneBookingAPI.Controllers.Search
                 {
                     code = 200,
                     suggestions = resSuggestions.ToList(),
+                    suggestionsAmount,
                 });
             }
             catch (ArgumentNullException ex)

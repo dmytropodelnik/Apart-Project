@@ -42,6 +42,9 @@ export class SearchResultsComponent implements OnInit {
   bedTypes: BedType[] = [];
 
   currentPage: number = 1;
+  totalPages: number = 1;
+
+  suggestionsAmount: number = 0;
 
   constructor() {
 
@@ -92,7 +95,10 @@ export class SearchResultsComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.resSuggestions = data.suggestions;
+          this.totalPages = Math.ceil(data.suggestionsAmount / 25);
+          this.suggestionsAmount = data.suggestionsAmount;
           console.log(this.resSuggestions);
+          console.log(this.totalPages);
         } else {
           alert("Suggestions sort fetching error!");
         }
