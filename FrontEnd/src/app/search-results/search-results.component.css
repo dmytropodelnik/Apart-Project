@@ -4,9 +4,14 @@
 }
 .search_results_top_buttons {
   display: flex;
+  min-width: 728px;
 }
 .search_results_top_buttons > * {
   flex: 1;
+  flex-wrap: nowrap;
+}
+.search_results_top_buttons > :last-child {
+  flex: unset;
 }
 
 .search_results_header {
@@ -60,8 +65,8 @@
   gap: 1rem;
   width: calc(100%-216px);
 }
-.image_container{
-    display: block;
+.image_container {
+  display: block;
 }
 .image_container > div > svg {
   width: 32px;
@@ -80,7 +85,7 @@
 .searchbox_form {
   display: flex;
   flex-direction: column;
-  width: max-content;
+  width: 264px;
   gap: 1rem;
   background-color: aquamarine;
   margin: 20px;
@@ -111,7 +116,7 @@
 .filters {
   display: flex;
   flex-direction: column;
-  width: max-content;
+  width: 264px;
   background-color: cadetblue;
   border: 1px solid black;
   margin: 20px;
@@ -129,11 +134,26 @@
 .filters_box > div > span {
   float: right;
 }
+.filters_box > div > div > span {
+  float: right;
+}
 .filters_check_label {
   margin-left: 5px;
   margin-right: 5px;
 }
+.pagination{
+  justify-content: center;
+}
+
+.pagination > *{
+}
 
 body {
   min-height: 100%;
+}
+
+@media screen and (max-width: 1038px) {
+  .basiclayout {
+    justify-content: flex-start;
+  }
 }

@@ -1,0 +1,90 @@
+.card_container {
+  max-width: 1052px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.carousel_table {
+  list-style: none;
+  padding: 0 16px;
+  margin: 20px;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.carousel_item {
+  box-sizing: border-box;
+  border: 1px solid #ed6648;
+}
+
+.carousel_item_img {
+  position: relative;
+  border-radius: 2px 2px 2px 2px;
+  overflow: hidden;
+}
+
+.carousel_item_img > img {
+  height: 240px;
+  width: 263px;
+}
+
+.carousel_item > * {
+  flex: 1;
+}
+
+.carousel_item_content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.item_header {
+}
+
+.header_titel {
+}
+
+.item_information {
+}
+
+.item_score {
+  display: flex;
+}
+
+.item_score_information{
+    display: flex;
+    flex-direction: column;
+}
+
+.bui-review-score__badge {
+  background: #ed6648;
+  color: #fff;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  vertical-align: baseline;
+  border-radius: 5.81818px 5.81818px 5.81818px 0;
+  height: 28px;
+  width: 28px;
+  min-width: 28px;
+  align-items: center;
+}
+
+.item_action {
+  margin: 10px;
+}
+
+.item_action > button {
+  border: 0;
+  background-color: #ed6648;
+  width: 100%;
+}
+
+.listview__remove_hotel_icon {
+}
