@@ -686,36 +686,6 @@
           </div>
         </div>
       </div>
-      <!-- <nav aria-label="...">
-        <ul class="pagination">
-          <li [ngClass]="{'page-item disabled' : currentPage == 1 }">
-            <a class="page-link" (click)="setCurrentPage(currentPage - 1)"
-              >Previous</a
-            >
-          </li>
-          <li class="page-item active disabled">
-            <a class="page-link" (click)="setCurrentPage(currentPage - 1)">{{
-              currentPage
-            }}</a>
-          </li>
-          <li class="page-item" *ngIf="totalPages / currentPage != 1">
-            <a class="page-link" (click)="setCurrentPage(currentPage + 1)"
-              >{{ currentPage + 1
-              }}<span class="visually-hidden">(current)</span></a
-            >
-          </li>
-          <li class="page-item" *ngIf="totalPages / (currentPage + 1) != 1">
-            <a class="page-link" (click)="setCurrentPage(currentPage + 2)">{{
-              currentPage + 2
-            }}</a>
-          </li>
-          <li class="page-item" [ngClass]="{'page-item disabled' : totalPages / currentPage == 1 }">
-            <a class="page-link" (click)="setCurrentPage(currentPage + 1)"
-              >Next</a
-            >
-          </li>
-        </ul>
-      </nav> -->
       <nav aria-label="...">
         <ul class="pagination">
           <li [ngClass]="{'page-item disabled' : currentPage == 1 }">
