@@ -41,6 +41,8 @@ export class SearchResultsComponent implements OnInit {
   staffLanguages: Language[] = [];
   bedTypes: BedType[] = [];
 
+  currentPage: number = 1;
+
   constructor() {
 
   }
@@ -66,7 +68,9 @@ export class SearchResultsComponent implements OnInit {
   }
 
   setCurrentPage(page: number): void {
-    this.filters.page = page;
+    this.currentPage = page;
+    this.filters.page = this.currentPage;
+    this.sortItems();
   }
 
   sortItems(value: SortState = this.sortState.TopReviewed): void {

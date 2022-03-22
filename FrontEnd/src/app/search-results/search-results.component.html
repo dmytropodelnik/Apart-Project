@@ -557,16 +557,16 @@
   </div>
   <nav aria-label="...">
     <ul class="pagination">
-      <li class="page-item disabled">
-        <a class="page-link">Previous</a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">1</a></li>
-      <li class="page-item active" aria-current="page">
-        <a class="page-link" href="#">2 <span class="visually-hidden">(current)</span></a>
-      </li>
-      <li class="page-item"><a class="page-link" href="#">3</a></li>
       <li class="page-item">
-        <a class="page-link" href="#">Next</a>
+        <a class="page-link" (click)="setCurrentPage(currentPage - 1)">Previous</a>
+      </li>
+      <li class="page-item"><a class="page-link" (click)="setCurrentPage(currentPage - 1)">{{currentPage}}</a></li>
+      <li class="page-item active">
+        <a class="page-link" (click)="setCurrentPage(currentPage)">{{currentPage + 1}}<span class="visually-hidden">(current)</span></a>
+      </li>
+      <li class="page-item"><a class="page-link" (click)="setCurrentPage(currentPage + 2)">{{currentPage + 2}}</a></li>
+      <li class="page-item">
+        <a class="page-link" (click)="setCurrentPage(currentPage + 1)">Next</a>
       </li>
     </ul>
   </nav>
