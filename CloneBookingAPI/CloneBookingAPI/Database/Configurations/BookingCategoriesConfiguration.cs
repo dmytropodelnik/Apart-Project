@@ -36,7 +36,7 @@ namespace CloneBookingAPI.Services.Database.Configurations
                   new BookingCategory { Id = 23, Category = "Farm Stays", },
                   new BookingCategory { Id = 24, Category = "Boats", },
                   new BookingCategory { Id = 25, Category = "Luxury Tents" },
-                  new BookingCategory { Id = 26, Category = "Self-catering Accommodations", },
+                  new BookingCategory { Id = 26, Category = "Selfcatering Accommodation", },
                   new BookingCategory { Id = 27, Category = "Tiny houses", },
               });
         }
