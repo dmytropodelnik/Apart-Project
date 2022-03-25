@@ -29,8 +29,8 @@ namespace CloneBookingAPI.Controllers.Review
             {
                 var reviews = await _context.Reviews
                     .Include(r => r.User)
-                    .Include(r => r.Suggestion)
-                        .ThenInclude(s => s.StayBookings)
+                    //.Include(r => r.Suggestion)
+                        //.ThenInclude(s => s.StayBookings)
                     .Include(r => r.ReviewMessage)
                     .ToListAsync();
 
@@ -123,7 +123,6 @@ namespace CloneBookingAPI.Controllers.Review
 
                 var reviews = await _context.Reviews
                     .Include(r => r.User)
-                    .Include(r => r.Suggestion)
                     .Where(r => r.User.Email.Equals(email))
                     .ToListAsync();
 
@@ -183,7 +182,7 @@ namespace CloneBookingAPI.Controllers.Review
 
                 var reviews = await _context.Reviews
                     .Include(r => r.ReviewMessage)
-                    .Include(r => r.Suggestion)
+                    //.Include(r => r.Suggestion)
                     .Include(r => r.User)
                     .Where(r => r.SuggestionId == suggestion.Id)
                     .ToListAsync();

@@ -75,8 +75,6 @@ namespace CloneBookingAPI.Controllers
                 }
 
                 var cities = await _context.Cities
-                    .Include(c => c.Country)
-                    .Include(c => c.Image)
                     .Where(c => c.Country.Title.Contains(city) ||
                                 c.Title.Contains(city))
                     .ToListAsync();

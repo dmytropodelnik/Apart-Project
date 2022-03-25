@@ -9,28 +9,8 @@ namespace CloneBookingAPI.Services.Repositories
     {
         public Dictionary<string, List<string>> Repository { get; } = new();
 
-        //public bool IsValueExists(string code)
-        //{
-        //    foreach (var item in Repository)
-        //    {
-        //        if (item.Value == code)
-        //        {
-        //            return true;
-        //        }
-        //    }
-        //    return false;
-        //}
-
         public bool IsValueCorrect(string key, string code)
         {
-            //foreach (var item in Repository)
-            //{
-            //    if (item.Key == key && item.Value == code)
-            //    {
-            //        return true;
-            //    }
-            //}
-            //return false;
 
             if (Repository.ContainsKey(key))
             {

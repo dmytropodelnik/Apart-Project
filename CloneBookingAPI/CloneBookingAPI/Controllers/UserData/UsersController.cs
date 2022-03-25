@@ -342,7 +342,6 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                // _codesRepository.Repository.Remove(KeyValuePair.Create(person.Email.Trim(), person.Password.Trim()));
                 if (_codesRepository.Repository.ContainsKey(person.Email.Trim()))
                 {
                     _codesRepository.Repository[person.Email.Trim()].Remove(person.Password.Trim());
@@ -426,8 +425,6 @@ namespace CloneBookingAPI.Controllers
                 {
                     return Json(new { code = 400 });
                 }
-
-                // _jwtRepository.Repository.Remove(KeyValuePair.Create(model.Username, model.AccessToken));
 
                 if (_codesRepository.Repository.ContainsKey(model.Username))
                 {

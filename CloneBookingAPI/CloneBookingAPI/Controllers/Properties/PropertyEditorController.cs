@@ -167,7 +167,7 @@ namespace CloneBookingAPI.Controllers.Properties
 
                 var resSuggestion = await _context.Suggestions
                     .Include(s => s.User)
-                    .Include(s => s.Languages)
+                    //.Include(s => s.Languages)
                     .FirstOrDefaultAsync(s => s.User.Email.Equals(suggestion.Login) && s.Id == suggestion.Id);
                 if (resSuggestion is null)
                 {

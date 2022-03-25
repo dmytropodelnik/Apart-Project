@@ -47,7 +47,7 @@ export class RegionsListComponent implements OnInit {
       name: this.region,
     };
 
-    fetch('https://localhost:44381/api/roles/addrole', {
+    fetch('https://localhost:44381/api/regions/addregion', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -106,7 +106,7 @@ export class RegionsListComponent implements OnInit {
       name: this.region,
     };
 
-    fetch('https://localhost:44381/api/roles/deleterole', {
+    fetch('https://localhost:44381/api/regions/deleteregion', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',

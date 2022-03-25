@@ -37,10 +37,10 @@ namespace CloneBookingAPI.Controllers.Pages
                     .Include(s => s.Images)
                     .Include(s => s.Address)
                         .ThenInclude(c => c.Country)
-                .Include(s => s.Address.Region)
-                .Include(s => s.BookingCategory)
-                .Include(s => s.InterestPlaces)
-                .ToListAsync();
+                    .Include(s => s.Address.Region)
+                    .Include(s => s.BookingCategory)
+                    .Include(s => s.InterestPlaces)
+                    .ToListAsync();
 
                 var categories = await _context.BookingCategories
                     .ToListAsync();
@@ -93,6 +93,7 @@ namespace CloneBookingAPI.Controllers.Pages
                     .Include(s => s.Images)
                     .Include(s => s.Address)
                         .ThenInclude(c => c.Country)
+                    .Include(s => s.Address.Region)
                     .Include(s => s.BookingCategory)
                     .Include(s => s.InterestPlaces)
                     .ToListAsync();
@@ -153,10 +154,10 @@ namespace CloneBookingAPI.Controllers.Pages
                     .Include(s => s.Images)
                     .Include(s => s.Address)
                         .ThenInclude(c => c.Country)
-                .Include(s => s.Address.Region)
-                .Include(s => s.BookingCategory)
-                .Include(s => s.InterestPlaces)
-                .ToListAsync();
+                    .Include(s => s.Address.Region)
+                    .Include(s => s.BookingCategory)
+                    .Include(s => s.InterestPlaces)
+                    .ToListAsync();
 
                 var placesOfInterests = await _context.InterestPlaces
                     .ToListAsync();
@@ -210,10 +211,10 @@ namespace CloneBookingAPI.Controllers.Pages
                     .Include(s => s.Images)
                     .Include(s => s.Address)
                         .ThenInclude(c => c.Country)
-                .Include(s => s.Address.Region)
-                .Include(s => s.BookingCategory)
-                .Include(s => s.InterestPlaces)
-                .ToListAsync();
+                    .Include(s => s.Address.Region)
+                    .Include(s => s.BookingCategory)
+                    .Include(s => s.InterestPlaces)
+                    .ToListAsync();
 
                 var citiesList = await _context.Cities
                     .Include(c => c.Country)
@@ -280,7 +281,6 @@ namespace CloneBookingAPI.Controllers.Pages
                 var citiesList = await _context.Cities
                     .Include(c => c.Country)
                     .Include(c => c.Image)
-                    // .DistinctBy(c => c.Country.Title)
                     .Take(5)
                     .ToListAsync();
 

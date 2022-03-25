@@ -605,7 +605,6 @@ namespace CloneBookingAPI.Controllers.UserData
 
                 var resProfile = await _context.UserProfiles
                     .Include(p => p.User)
-                    .Include(p => p.Language)
                     .FirstOrDefaultAsync(p => p.User.Email.Equals(user.Email));
                 if (resProfile is null)
                 {
@@ -664,7 +663,6 @@ namespace CloneBookingAPI.Controllers.UserData
 
                 var resProfile = await _context.UserProfiles
                     .Include(p => p.User)
-                    .Include(p => p.Currency)
                     .FirstOrDefaultAsync(p => p.User.Email.Equals(user.Email));
                 if (resProfile is null)
                 {

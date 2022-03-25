@@ -29,7 +29,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
             {
                 var objects = await _context.SurroundingObjects
                     .Include(o => o.SurroundingObjectType)
-                    .Include(o => o.Suggestion)
+                    //.Include(o => o.Suggestion)
                     .ToListAsync();
 
                 return Json(new { code = 200, objects });
