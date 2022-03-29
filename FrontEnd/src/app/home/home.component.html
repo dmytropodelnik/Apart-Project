@@ -206,7 +206,7 @@
                     <div class="bui-card__content">
                       <div class="bui-card__title">{{ city.title }}</div>
                       <div class="bui-title__subtitle">
-                        {{ citySuggestions[i]?.length ?? '0' }} properties
+                        {{ citySuggestionsLength[i] ?? '0' }} properties
                       </div>
                     </div>
                   </div>
@@ -620,7 +620,7 @@
                     <h3 class="bui-card__title bh-carousel--new__title">
                       <span>{{item?.name}}</span>
                     </h3>
-                    <p class="bui-card__subtitle">{{item?.address?.city?.title}}</p>
+                    <p class="bui-card__subtitle">{{item?.address?.city?.title + ", " + item?.address?.country?.title}}</p>
                     <p class="bh-carousel--new__price bui_color_black">
                       Starting from USD {{item?.priceInUSD}}
                     </p>
@@ -680,9 +680,9 @@
                     <ul class="inner-tabs-links">
                       <div *ngFor="let region of regions; let i = index">
                         <li>
-                          <a>{{region.title}}</a>
+                          <a>{{region?.title}}</a>
                           <div class="wcu-seo-regions-poi ia_hotelnum">
-                            {{regionsSuggestions[i]?.length}} properties
+                            {{regionsSuggestions[i] ?? '0'}} properties
                           </div>
                         </li>
                       </div>
@@ -699,9 +699,9 @@
                     <ul class="inner-tabs-links">
                       <div *ngFor="let city of footerCities; let i = index">
                         <li>
-                          <a>{{city.title}}</a>
+                          <a>{{city}}</a>
                           <div class="wcu-seo-regions-poi ia_hotelnum">
-                            {{citySuggestions[i]?.length}} properties
+                            {{ citySuggestionsLength[i] ?? '0' }} properties
                           </div>
                         </li>
                       </div>
@@ -718,9 +718,9 @@
                     <ul class="inner-tabs-links">
                       <div *ngFor="let place of placesOfInterests; let i = index">
                         <li>
-                          <a>{{place.place}}</a>
+                          <a>{{place}}</a>
                           <div class="wcu-seo-regions-poi ia_hotelnum">
-                            {{placesOfInterestSuggestions[i]?.length}} properties
+                            {{placesOfInterestSuggestions[i] ?? '0'}} properties
                           </div>
                         </li>
                       </div>

@@ -25,14 +25,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   imageHelper: any = ImageHelper;
   mathHelper: any = MathHelper;
 
+  citySuggestionsLength: number[] = [];
+
   bookingCategories: BookingCategory[] | undefined;
   imagePath: string = '123';
   cities: City[] | undefined;
   citySuggestions: any;
   suggestions: any;
-  footerCities: any;
-  placesOfInterestSuggestions: any;
-  placesOfInterests: any;
+  footerCities: string[] = [];
+  placesOfInterestSuggestions: number[] = [];
+  placesOfInterests: string[] = [];
   regionsSuggestions: any;
   regions: any;
 
@@ -196,7 +198,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .then((r) => {
         if (r.code === 200) {
           this.cities = r.cities;
-          this.citySuggestions = r.citySuggestions;
+          this.citySuggestionsLength = r.citySuggestionsLength;
           this.footerCities = r.footerCities;
         } else {
           alert('Data fetching error!');

@@ -23,8 +23,8 @@ namespace CloneBookingAPI.Services.Database.Configurations.Location
                   new Region { Id = 10, Title = "Test10", ImageId = 2, CityId = 2,},
                   new Region { Id = 11, Title = "Test11", ImageId = 2, CityId = 3,},
                   new Region { Id = 12, Title = "Test12", ImageId = 2, CityId = 4,},
-                  new Region { Id = 13, Title = "Test13", ImageId = 1, CityId = 1,},
-                  new Region { Id = 14, Title = "Test14", ImageId = 1, CityId = 2,},
+                  new Region { Id = 13, Title = "Test13", ImageId = 2, CityId = 1,},
+                  new Region { Id = 14, Title = "Test14", ImageId = 2, CityId = 2,},
               });
         }
     }

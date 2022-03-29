@@ -31,27 +31,21 @@ namespace CloneBookingAPI.Controllers.Pages
         {
             try
             {
-                List<List<Suggestion>> suggestions = new();
+                List<int> suggestions = new();
 
                 var suggestionsList = await _context.Suggestions
-                    .Include(s => s.Images)
-                    .Include(s => s.Address)
-                        .ThenInclude(c => c.Country)
-                    .Include(s => s.Address.Region)
-                    .Include(s => s.BookingCategory)
-                    .Include(s => s.InterestPlaces)
                     .ToListAsync();
 
                 var categories = await _context.BookingCategories
+                    .Include(c => c.Image)
                     .ToListAsync();
 
                 for (int i = 1; i <= categories.Count; i++)
                 {
-                    var resSuggestion = suggestionsList
-                        .Where(s => s.BookingCategoryId == i)
-                        .ToList();
+                    var resSuggestions = suggestionsList
+                        .Where(s => s.BookingCategoryId == i);
 
-                    suggestions.Add(resSuggestion);
+                    suggestions.Add(resSuggestions.Count());
                 }
 
                 return Json(new
@@ -87,32 +81,23 @@ namespace CloneBookingAPI.Controllers.Pages
         {
             try
             {
-                List<List<Suggestion>> regionsSuggestions = new();
+                List<int> regionsSuggestions = new();
 
                 var suggestionsList = await _context.Suggestions
-                    .Include(s => s.Images)
-                    .Include(s => s.Address)
-                        .ThenInclude(c => c.Country)
                     .Include(s => s.Address.Region)
-                    .Include(s => s.BookingCategory)
-                    .Include(s => s.InterestPlaces)
                     .ToListAsync();
 
-                var regionsList = await _context.Regions
-                    .Include(r => r.City)
-                    .Include(r => r.Image)
-                    .ToListAsync();
-                var regions = regionsList
+                var regions = await _context.Regions
+                    .Select(r => new { r.Id, r.Title })
                     .Take(20)
-                    .ToList();
+                    .ToListAsync();
 
                 for (int i = 1; i <= regions.Count; i++)
                 {
                     var resRegionSuggestion = suggestionsList
-                        .Where(s => s.Address.Region.Id == regions[i - 1].Id)
-                        .ToList();
+                        .Where(s => s.Address.Region.Id == regions[i - 1].Id);
 
-                    regionsSuggestions.Add(resRegionSuggestion);
+                    regionsSuggestions.Add(resRegionSuggestion.Count());
                 }
 
                 return Json(new
@@ -148,28 +133,23 @@ namespace CloneBookingAPI.Controllers.Pages
         {
             try
             {
-                List<List<Suggestion>> placesOfInterestSuggestions = new();
+                List<int> placesOfInterestSuggestions = new();
 
                 var suggestionsList = await _context.Suggestions
-                    .Include(s => s.Images)
-                    .Include(s => s.Address)
-                        .ThenInclude(c => c.Country)
-                    .Include(s => s.Address.Region)
-                    .Include(s => s.BookingCategory)
                     .Include(s => s.InterestPlaces)
                     .ToListAsync();
 
                 var placesOfInterests = await _context.InterestPlaces
+                    .Select(p => p.Place)
                     .ToListAsync();
 
                 for (int i = 1; i <= placesOfInterests.Count; i++)
                 {
                     var resPlacesOfInterestSuggestion = suggestionsList
                         .Where(s => s.InterestPlaces
-                                        .Any(p => p.Id == i))
-                        .ToList();
+                                        .Any(p => p.Id == i));
 
-                    placesOfInterestSuggestions.Add(resPlacesOfInterestSuggestion);
+                    placesOfInterestSuggestions.Add(resPlacesOfInterestSuggestion.Count());
                 }
 
                 return Json(new
@@ -205,41 +185,34 @@ namespace CloneBookingAPI.Controllers.Pages
         {
             try
             {
-                List<List<Suggestion>> citySuggestions = new();
+                List<int> citySuggestionsLength = new();
 
                 var suggestionsList = await _context.Suggestions
-                    .Include(s => s.Images)
-                    .Include(s => s.Address)
-                        .ThenInclude(c => c.Country)
-                    .Include(s => s.Address.Region)
-                    .Include(s => s.BookingCategory)
-                    .Include(s => s.InterestPlaces)
+                    .Include(s => s.Address.City)
                     .ToListAsync();
 
-                var citiesList = await _context.Cities
+                var footerCities = await _context.Cities
+                    .Select(c => c.Title)
+                    .Take(50)
+                    .ToListAsync();
+
+                var cities = await _context.Cities
                     .Include(c => c.Country)
                     .Include(c => c.Image)
-                    .ToListAsync();
-
-                var footerCities = citiesList
-                    .Take(50)
-                    .ToList();
-
-                var cities = citiesList
                     .Where(c => c.Country.Title == country)
+                    .Select(c => new { c.Id, c.Title, c.Image })
                     .Take(10)
-                    .ToList();
+                    .ToListAsync();
 
                 for (int i = 1; i <= cities.Count; i++)
                 {
                     var resCitySuggestion = suggestionsList
-                        .Where(s => s.Address.City.Id == cities[i - 1].Id)
-                        .ToList();
+                        .Where(s => s.Address.City.Id == cities[i - 1].Id);
 
-                    citySuggestions.Add(resCitySuggestion);
+                    citySuggestionsLength.Add(resCitySuggestion.Count());
                 }
-                citySuggestions = citySuggestions
-                    .OrderByDescending(c => c.Count)
+                citySuggestionsLength = citySuggestionsLength
+                    .OrderByDescending(c => c)
                     .ToList();
 
                 return Json(new
@@ -247,7 +220,7 @@ namespace CloneBookingAPI.Controllers.Pages
                     code = 200,
                     cities,
                     footerCities,
-                    citySuggestions,
+                    citySuggestionsLength,
                 });
             }
             catch (ArgumentNullException ex)
@@ -279,7 +252,6 @@ namespace CloneBookingAPI.Controllers.Pages
                 List<int> suggestionsCount = new();
 
                 var citiesList = await _context.Cities
-                    .Include(c => c.Country)
                     .Include(c => c.Image)
                     .Take(5)
                     .ToListAsync();
@@ -331,8 +303,9 @@ namespace CloneBookingAPI.Controllers.Pages
                 List<double> suggestionGrades = new();
 
                 var resSuggestion = await _context.Suggestions
-                    .Include(s => s.Address)
-                    .Include(s => s.Reviews)
+                    .Include(s => s.Images)
+                    .Include(s => s.Address.Country)
+                    .Include(s => s.Address.City)
                     .Include(s => s.SuggestionReviewGrades)
                     .Where(s => s.SuggestionReviewGrades
                                     .Average(g => g.Value) > 9.0)
@@ -342,7 +315,6 @@ namespace CloneBookingAPI.Controllers.Pages
                 for (int i = 0; i < resSuggestion.Count; i++)
                 {
                     var resReviews = await _context.Reviews
-                        .Include(r => r.Suggestion)
                         .Where(r => r.SuggestionId == resSuggestion[i].Id)
                         .ToListAsync();
 
