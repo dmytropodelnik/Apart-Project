@@ -11,8 +11,8 @@ namespace CloneBookingAPI.Services.Database.Configurations.Location
             builder.HasData(
               new Country[]
               {
-                  new Country { Id = 1, Title = "Ukraine", ImageId = 1 },
-                  new Country { Id = 2, Title = "USA", ImageId = 2 },
+                  new Country { Id = 1, Title = "Ukraine", ImageId = 2 },
+                  new Country { Id = 2, Title = "USA", ImageId = 1 },
                   new Country { Id = 3, Title = "UK", ImageId = 3 },
                   new Country { Id = 4, Title = "Belarus", ImageId = 1 },
                   new Country { Id = 5, Title = "Bosnia and Herzegovina", ImageId = 1 },

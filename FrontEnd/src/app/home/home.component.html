@@ -202,7 +202,12 @@
                   class="slide"
                 >
                   <div>
-                    <img src="assets/images/21.png" class="w-100" alt="" />
+                    <img src="{{imageHelper.getImageDirectoryPath()}}/cities/{{city.image?.name}}"
+                      class="w-100"
+                      alt="city"
+                      width="162px"
+                      height="162px"
+                    />
                     <div class="bui-card__content">
                       <div class="bui-card__title">{{ city.title }}</div>
                       <div class="bui-title__subtitle">
@@ -237,7 +242,12 @@
                   class="slide"
                 >
                   <div>
-                    <img src="assets/images/28.png" class="w-100" alt="" />
+                    <img src="{{imageHelper.getImageDirectoryPath()}}/booking-categories/{{category.image?.name}}"
+                    class="w-100"
+                    alt="category"
+                    width="162px"
+                    height="162px"
+                    />
                   </div>
                   <div class="bui-card__content">
                     <div class="bui-title bui-title--strong_1 bui-card__title">
@@ -284,7 +294,7 @@
                       background-position: center center;
                       background-repeat: no-repeat;
                       background-size: cover;
-                      background-image: url('assets/images/24.png');
+                      background-image: url('{{imageHelper.getImageDirectoryPath()}}/cities/{{recommendedCities[0]?.image.name}}');
                     "
                   >
                     <div class="unified-postcard__overlay">
@@ -293,8 +303,8 @@
                           <a>
                             {{recommendedCities[0]?.title}}
                             <img
-                              src="{{imageHelper.getImageDirectoryPath()}}{{recommendedCities[0]?.image.name}}"
-                              alt="United States of America"
+                              src="{{imageHelper.getImageDirectoryPath()}}{{recommendedCities[0]?.country.image.name}}"
+                              alt="Country image"
                               valign="middle"
                               width="23px"
                               height="17px"
@@ -319,7 +329,7 @@
                       background-position: center center;
                       background-repeat: no-repeat;
                       background-size: cover;
-                      background-image: url('assets/images/24.png');
+                      background-image: url('{{imageHelper.getImageDirectoryPath()}}/cities/{{recommendedCities[1]?.image.name}}');
                     "
                   >
                     <div class="unified-postcard__overlay">
@@ -328,8 +338,8 @@
                           <a>
                             {{recommendedCities[1]?.title}}
                             <img
-                              src="{{imageHelper.getImageDirectoryPath()}}{{recommendedCities[1]?.image.name}}"
-                              alt="United States of America"
+                              src="{{imageHelper.getImageDirectoryPath()}}{{recommendedCities[1]?.country.image.name}}"
+                              alt="Country image"
                               valign="middle"
                               width="23px"
                               height="17px"
@@ -360,7 +370,7 @@
                       background-position: center center;
                       background-repeat: no-repeat;
                       background-size: cover;
-                      background-image: url('assets/images/18.png');
+                      background-image: url('{{imageHelper.getImageDirectoryPath()}}/cities/{{recommendedCities[2]?.image.name}}');
                     "
                   >
                     <div class="unified-postcard__overlay">
@@ -369,8 +379,8 @@
                           <a>
                             {{recommendedCities[2]?.title}}
                             <img
-                              src="{{imageHelper.getImageDirectoryPath()}}{{recommendedCities[2]?.image.name}}"
-                              alt="United States of America"
+                              src="{{imageHelper.getImageDirectoryPath()}}{{recommendedCities[2]?.country.image.name}}"
+                              alt="Country image"
                               valign="middle"
                               width="23px"
                               height="17px"
@@ -396,7 +406,7 @@
                       background-position: center center;
                       background-repeat: no-repeat;
                       background-size: cover;
-                      background-image: url('assets/images/19.png');
+                      background-image: url('{{imageHelper.getImageDirectoryPath()}}/cities/{{recommendedCities[3]?.image.name}}');
                     "
                   >
                     <div class="unified-postcard__overlay">
@@ -405,8 +415,8 @@
                           <a>
                             {{recommendedCities[3]?.title}}
                             <img
-                              src="{{imageHelper.getImageDirectoryPath()}}{{recommendedCities[3]?.image.name}}"
-                              alt="United States of America"
+                              src="{{imageHelper.getImageDirectoryPath()}}{{recommendedCities[3]?.country.image.name}}"
+                              alt="Country image"
                               valign="middle"
                               width="23px"
                               height="17px"
@@ -432,7 +442,7 @@
                       background-position: center center;
                       background-repeat: no-repeat;
                       background-size: cover;
-                      background-image: url('assets/images/20.png');
+                      background-image: url('{{imageHelper.getImageDirectoryPath()}}/cities/{{recommendedCities[4]?.image.name}}');
                     "
                   >
                     <div class="unified-postcard__overlay">
@@ -441,8 +451,8 @@
                           <a>
                             {{recommendedCities[4]?.title}}
                             <img
-                              src="{{imageHelper.getImageDirectoryPath()}}{{recommendedCities[4]?.image.name}}"
-                              alt="United States of America"
+                              src="{{imageHelper.getImageDirectoryPath()}}{{recommendedCities[4]?.country.image.name}}"
+                              alt="Country image"
                               valign="middle"
                               width="23px"
                               height="17px"
@@ -614,7 +624,7 @@
                   class="slide slide-h"
                 >
                   <div class="slide-img">
-                    <img src="assets/images/41.jpg" class="w-100" alt="" />
+                    <img src="{{imageHelper.getImageDirectoryPath()}}{{item.images[0]}}" class="w-100" alt="" />
                   </div>
                   <div class="bui-card__content bh-carousel--new__content">
                     <h3 class="bui-card__title bh-carousel--new__title">

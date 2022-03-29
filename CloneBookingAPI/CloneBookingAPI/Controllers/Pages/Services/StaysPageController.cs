@@ -253,6 +253,7 @@ namespace CloneBookingAPI.Controllers.Pages
 
                 var citiesList = await _context.Cities
                     .Include(c => c.Image)
+                    .Include(c => c.Country.Image)
                     .Take(5)
                     .ToListAsync();
 
