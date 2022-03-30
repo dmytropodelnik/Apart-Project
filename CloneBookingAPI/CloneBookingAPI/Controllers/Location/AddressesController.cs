@@ -26,13 +26,25 @@ namespace CloneBookingAPI.Controllers
 
         [Route("getaddresses")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Address>>> GetAddresses()
+        public async Task<ActionResult<IEnumerable<Address>>> GetAddresses(int page = -1, int pageSize = -1)
         {
             try
             {
-                var addresses = await _context.Addresses
+                List<Address> addresses = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    addresses = await _context.Addresses
                     .Include(a => a.Country)
                     .ToListAsync();
+                }
+                else
+                {
+                    addresses = await _context.Addresses
+                    .Include(a => a.Country)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                }
 
                 return Json(new { code = 200, addresses });
             }
@@ -58,11 +70,11 @@ namespace CloneBookingAPI.Controllers
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Address>>> Search(string address)
+        public async Task<ActionResult<IEnumerable<Address>>> Search(string address, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(address))
+                if (string.IsNullOrWhiteSpace(address) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.Addresses.ToListAsync();
 
@@ -76,6 +88,8 @@ namespace CloneBookingAPI.Controllers
                                 a.City.Title.Contains(address)      ||
                                 a.District.Title.Contains(address)  ||
                                 a.Region.Title.Contains(address))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, addresses });

@@ -24,13 +24,25 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
         [Route("getrules")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SuggestionRule>>> GetRules()
+        public async Task<ActionResult<IEnumerable<SuggestionRule>>> GetRules(int page = -1, int pageSize = -1)
         {
             try
             {
-                var res = await _context.SuggestionRules
+                List<SuggestionRule> res = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    res = await _context.SuggestionRules
                     .Include(r => r.SuggestionRuleType)
                     .ToListAsync();
+                }
+                else
+                {
+                    res = await _context.SuggestionRules
+                        .Include(r => r.SuggestionRuleType)
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                }
 
                 return Json(new { code = 200, rules = res });
             }
@@ -56,11 +68,11 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SuggestionRule>>> Search(string rule)
+        public async Task<ActionResult<IEnumerable<SuggestionRule>>> Search(string rule, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(rule))
+                if (string.IsNullOrWhiteSpace(rule) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.SuggestionRules.ToListAsync();
 
@@ -72,6 +84,8 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     .Where(r => r.Title.Contains(rule) ||
                                 r.Text.Contains(rule)  ||
                                 r.SuggestionRuleType.Type.Contains(rule))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, rules });

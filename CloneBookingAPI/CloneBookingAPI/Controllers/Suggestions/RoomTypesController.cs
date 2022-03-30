@@ -24,13 +24,25 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
         [Route("gettypes")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RoomType>>> GetTypes()
+        public async Task<ActionResult<IEnumerable<RoomType>>> GetTypes(int page = -1, int pageSize = -1)
         {
             try
             {
-                var types = await _context.RoomTypes
+                List<RoomType> types = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    types = await _context.RoomTypes
                     //.Include(t => t.Suggestions)
                     .ToListAsync();
+                }
+                else
+                {
+                    types = await _context.RoomTypes
+                    //.Include(t => t.Suggestions)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                }
 
                 return Json(new { code = 200, types });
             }
@@ -56,11 +68,11 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RoomType>>> Search(string type)
+        public async Task<ActionResult<IEnumerable<RoomType>>> Search(string type, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(type))
+                if (string.IsNullOrWhiteSpace(type) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.RoomTypes.ToListAsync();
 
@@ -70,6 +82,8 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 var types = await _context.RoomTypes
                     //.Include(t => t.Suggestions)
                     .Where(t => t.Title.Contains(type))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, types });

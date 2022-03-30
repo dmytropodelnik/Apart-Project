@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Favorite } from 'src/app/models/UserData/favorite.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -16,7 +17,14 @@ export class FavoritesListComponent implements OnInit {
   searchFavorite: string = '';
   checkedFavorite: number | null = null;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 10;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   search(): void {
     fetch('https://localhost:44381/api/favorites/search?favorite=' + this.searchFavorite, {
@@ -128,13 +136,38 @@ export class FavoritesListComponent implements OnInit {
   }
 
   getFavorites(): void {
-    fetch('https://localhost:44381/api/favorites/getfavorites', {
+    fetch(`https://localhost:44381/api/favorites/getfavorites?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.favorites = data.favorites;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(favorites: Favorite[]): void {
+    for (let item of favorites) {
+      this.favorites?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/favorites/getfavorites?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.favorites);
         } else {
           alert('Fetch error!');
         }

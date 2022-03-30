@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Suggestions
@@ -23,15 +24,29 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
         [Route("gethighlights")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SuggestionHighlight>>> GetHighlights()
+        public async Task<ActionResult<IEnumerable<SuggestionHighlight>>> GetHighlights(int page = -1, int pageSize = -1)
         {
             try
             {
-                var highlights = await _context.SuggestionHighlights
+                List<SuggestionHighlight> highlights = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    highlights = await _context.SuggestionHighlights
                     //.Include(h => h.Suggestion)
                     //.Include(h => h.Room)
                     .Include(h => h.Image)
                     .ToListAsync();
+                }
+                else
+                {
+                    highlights = await _context.SuggestionHighlights
+                    //.Include(h => h.Suggestion)
+                    //.Include(h => h.Room)
+                    .Include(h => h.Image)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                }
 
                 return Json(new { code = 200, highlights });
             }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import Notification from '../../../models/notification.item';
 
@@ -17,7 +18,14 @@ export class NotificationsListComponent implements OnInit {
   searchNotification: string = '';
   checkedNotification: number | null = null;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   search(): void {
     fetch('https://localhost:44381/api/notifications/search?notification=' + this.searchNotification, {
@@ -130,13 +138,38 @@ export class NotificationsListComponent implements OnInit {
   }
 
   getNotifications(): void {
-    fetch('https://localhost:44381/api/notifications/getnotifications', {
+    fetch(`https://localhost:44381/api/notifications/getnotifications?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.notifications = data.notifications;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(notifications: Notification[]): void {
+    for (let item of notifications) {
+      this.notifications?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/notifications/getnotifications?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.notifications);
         } else {
           alert('Fetch error!');
         }

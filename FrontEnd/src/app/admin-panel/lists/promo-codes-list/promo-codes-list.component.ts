@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PromoCode } from 'src/app/models/Payment/promocode.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -16,7 +17,14 @@ export class PromoCodesListComponent implements OnInit {
   searchCode: string = '';
   checkedCode: number | null = null;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 20;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   search(): void {
     fetch('https://localhost:44381/api/promocodes/search?code=' + this.searchCode, {
@@ -129,13 +137,38 @@ export class PromoCodesListComponent implements OnInit {
   }
 
   getCodes(): void {
-    fetch('https://localhost:44381/api/promocodes/getcodes', {
+    fetch(`https://localhost:44381/api/promocodes/getcodes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.codes = data.codes;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(codes: PromoCode[]): void {
+    for (let item of codes) {
+      this.codes?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/promocodes/getcodes?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.codes);
         } else {
           alert('Fetch error!');
         }

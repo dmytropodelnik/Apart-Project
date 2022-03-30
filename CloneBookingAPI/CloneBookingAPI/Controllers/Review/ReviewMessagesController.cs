@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Review
@@ -23,13 +24,25 @@ namespace CloneBookingAPI.Controllers.Review
 
         [Route("getmessages")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ReviewMessage>>> GetMessages()
+        public async Task<ActionResult<IEnumerable<ReviewMessage>>> GetMessages(int page = -1, int pageSize = -1)
         {
             try
             {
-                var messages = await _context.ReviewMessages
+                List<ReviewMessage> messages = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    messages = await _context.ReviewMessages
                     .Include(m => m.Review)
                     .ToListAsync();
+                }
+                else
+                {
+                    messages = await _context.ReviewMessages
+                    .Include(m => m.Review)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                }
 
                 return Json(new { code = 200, messages });
             }

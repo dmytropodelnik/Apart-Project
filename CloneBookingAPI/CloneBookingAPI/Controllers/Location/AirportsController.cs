@@ -27,17 +27,33 @@ namespace CloneBookingAPI.Controllers
 
         [Route("getairports")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Airport>>> GetAirports()
+        public async Task<ActionResult<IEnumerable<Airport>>> GetAirports(int page = -1, int pageSize = -1)
         {
             try
             {
-                var airports = await _context.Airports
+                List<Airport> airports = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    airports = await _context.Airports
                     .Include(a => a.Address)
                     //.Include(a => a.Address.City)
                     //.Include(a => a.Address.District)
                     //.Include(a => a.Address.Region)
                     //.Include(a => a.Image)
                     .ToListAsync();
+                }
+                else
+                {
+                    airports = await _context.Airports
+                    .Include(a => a.Address)
+                    //.Include(a => a.Address.City)
+                    //.Include(a => a.Address.District)
+                    //.Include(a => a.Address.Region)
+                    //.Include(a => a.Image)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                }
 
                 return Json(new { code = 200, airports });
             }
@@ -63,11 +79,11 @@ namespace CloneBookingAPI.Controllers
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Airport>>> Search(string airport)
+        public async Task<ActionResult<IEnumerable<Airport>>> Search(string airport, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(airport))
+                if (string.IsNullOrWhiteSpace(airport) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.Airports.ToListAsync();
 
@@ -88,6 +104,8 @@ namespace CloneBookingAPI.Controllers
                                 a.Address.Region.Title.Contains(airport)    ||
                                 a.Title.Contains(airport)                   ||
                                 a.Abbreviation.Contains(airport))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, airports });

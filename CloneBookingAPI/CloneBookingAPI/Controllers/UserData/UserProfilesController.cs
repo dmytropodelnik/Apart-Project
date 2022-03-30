@@ -28,11 +28,14 @@ namespace CloneBookingAPI.Controllers
         // [Authorize(Roles = "admin")]
         [Route("getprofiles")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserProfile>>> GetUserProfiles()
+        public async Task<ActionResult<IEnumerable<UserProfile>>> GetUserProfiles(int page = -1, int pageSize = -1)
         {
             try
             {
-                var profiles = await _context.UserProfiles
+                List<UserProfile> profiles = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    profiles = await _context.UserProfiles
                     .Include(p => p.User)
                     .Include(p => p.Gender)
                     .Include(p => p.Language)
@@ -40,6 +43,20 @@ namespace CloneBookingAPI.Controllers
                     .Include(p => p.Address)
                     .Include(p => p.Image)
                     .ToListAsync();
+                }
+                else
+                {
+                    profiles = await _context.UserProfiles
+                        .Include(p => p.User)
+                        .Include(p => p.Gender)
+                        .Include(p => p.Language)
+                        .Include(p => p.Currency)
+                        .Include(p => p.Address)
+                        .Include(p => p.Image)
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                }
 
                 return Json(new { code = 200, profiles });
             }
@@ -65,11 +82,11 @@ namespace CloneBookingAPI.Controllers
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserProfile>>> Search(string profile)
+        public async Task<ActionResult<IEnumerable<UserProfile>>> Search(string profile, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(profile))
+                if (string.IsNullOrWhiteSpace(profile) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.UserProfiles.ToListAsync();
 
@@ -89,6 +106,8 @@ namespace CloneBookingAPI.Controllers
                                 p.Language.Title.Contains(profile)            ||
                                 p.User.Email.Contains(profile)                ||
                                 p.User.PhoneNumber.Contains(profile))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, profiles });

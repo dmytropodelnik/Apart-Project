@@ -125,7 +125,7 @@ namespace CloneBookingAPI.Controllers.Search
                     //.Include(s => s.Highlights)
                     //.Include(s => s.RoomTypes)
                     //    .ThenInclude(t => t.Rooms)
-                    //.Include(s => s.SuggestionReviewGrades)
+                    .Include(s => s.SuggestionReviewGrades)
                     //.Include(s => s.BookingCategory)
                     .ToListAsync();
 

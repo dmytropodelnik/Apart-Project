@@ -33,8 +33,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   citySuggestions: any;
   suggestions: any;
   footerCities: string[] = [];
-  placesOfInterestSuggestions: number[] = [];
-  placesOfInterests: string[] = [];
+  countriesSuggestions: number[] = [];
+  countries: string[] = [];
   regionsSuggestions: any;
   regions: any;
 
@@ -172,15 +172,15 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  getInterestPlacesData(): void {
+  getCountriesData(): void {
     fetch('https://localhost:44381/api/stayspage/getinterestplacesdata', {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
-          this.placesOfInterestSuggestions = r.placesOfInterestSuggestions;
-          this.placesOfInterests = r.placesOfInterests;
+          this.countriesSuggestions = r.countriesSuggestions;
+          this.countries = r.countries;
         } else {
           alert('Data fetching error!');
         }
@@ -247,7 +247,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.getCategoriesData();
     this.getRegionsData();
-    this.getInterestPlacesData();
+    this.getCountriesData();
     this.getCitiesData();
     this.getRecommendedDestData();
     this.getGuestsLoveData();

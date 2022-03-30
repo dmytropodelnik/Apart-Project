@@ -89,14 +89,27 @@ namespace CloneBookingAPI.Controllers
         // [Authorize(Roles = "admin")]
         [Route("getusers")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers(int page = -1, int pageSize = -1)
         {
             try
             {
-                var users = await _context.Users
+                List<User> users = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    users = await _context.Users
                     .Include(u => u.Profile)
                     .Include(u => u.Role)
                     .ToListAsync();
+                }
+                else
+                {
+                    users = await _context.Users
+                        .Include(u => u.Profile)
+                        .Include(u => u.Role)
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                }
 
                 return Json(new { code = 200, users });
             }
@@ -122,11 +135,11 @@ namespace CloneBookingAPI.Controllers
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> Search(string user)
+        public async Task<ActionResult<IEnumerable<User>>> Search(string user, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(user))
+                if (string.IsNullOrWhiteSpace(user) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.Users
                         .Include(u => u.Profile)
@@ -145,6 +158,8 @@ namespace CloneBookingAPI.Controllers
                                 u.Email.Contains(user) ||
                                 u.PhoneNumber.Contains(user) ||
                                 u.DisplayName.Contains(user))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, users });

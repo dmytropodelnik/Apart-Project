@@ -4,6 +4,7 @@ import { FileModel } from 'src/app/models/filemodel.item';
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
 import ImageHelper from '../../../utils/imageHelper';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 @Component({
   selector: 'app-file-models-list',
@@ -20,7 +21,14 @@ export class FileModelsListComponent implements OnInit {
   uploadedFile: File | null = null;
   searchFile: string = '';
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 10;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   search(): void {
     fetch('https://localhost:44381/api/files/search?file=' + this.searchFile, {
@@ -107,7 +115,7 @@ export class FileModelsListComponent implements OnInit {
   }
 
   getFiles(): void {
-    fetch('https://localhost:44381/api/files/getimages', {
+    fetch(`https://localhost:44381/api/files/getimages?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -155,6 +163,31 @@ export class FileModelsListComponent implements OnInit {
     if (files !== null) {
       this.uploadedFile = files.item(0);
     }
+  }
+
+  collectElements(files: FileModel[]): void {
+    for (let item of files) {
+      this.files?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/files/getimages?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.files);
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   setFile(id: number | null, name: string, path: string): void {

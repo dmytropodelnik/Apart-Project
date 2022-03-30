@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Suggestions
@@ -28,17 +29,34 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
         [Route("getsuggestions")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Suggestion>>> GetSuggestions()
+        public async Task<ActionResult<IEnumerable<Suggestion>>> GetSuggestions(int page = -1, int pageSize = -1)
         {
             try
             {
-                var suggestions = await _context.Suggestions
-                    .Include(s => s.User)
-                    .Include(s => s.Address)
-                    .Include(s => s.ContactDetails)
-                    .Include(s => s.ServiceCategory)
-                    .Include(s => s.BookingCategory)
-                    .ToListAsync();
+                List<Suggestion> suggestions = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    suggestions = await _context.Suggestions
+                        .Include(s => s.User)
+                        .Include(s => s.Address)
+                        .Include(s => s.ContactDetails)
+                        .Include(s => s.ServiceCategory)
+                        .Include(s => s.BookingCategory)
+                        .ToListAsync();
+                }
+                else
+                {
+                    suggestions = await _context.Suggestions
+                        .Include(s => s.User)
+                        .Include(s => s.Address)
+                        .Include(s => s.ContactDetails)
+                        .Include(s => s.ServiceCategory)
+                        .Include(s => s.BookingCategory)
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                }
+
                 if (suggestions is null)
                 {
                     return Json(new { code = STATUS_400 });
@@ -65,34 +83,6 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 return Json(new { code = 400 });
             }
         }
-
-        //[Route("getsuggestions")]
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Suggestion>>> GetSuggestions()
-        //{
-        //    try
-        //    {
-
-        //    }
-        //    catch (ArgumentNullException ex)
-        //    {
-        //        Debug.WriteLine(ex.Message);
-
-        //        return Json(new { code = STATUS_400 });
-        //    }
-        //    catch (OperationCanceledException ex)
-        //    {
-        //        Debug.WriteLine(ex.Message);
-
-        //        return Json(new { code = STATUS_400 });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine(ex.Message);
-
-        //        return Json(new { code = 400 });
-        //    }
-        //}
 
         [Route("addsuggestion")]
         [HttpPost]

@@ -24,14 +24,27 @@ namespace CloneBookingAPI.Controllers
 
         [Route("getfacilities")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Facility>>> GetFacilities()
+        public async Task<ActionResult<IEnumerable<Facility>>> GetFacilities(int page = -1, int pageSize = -1)
         {
             try
             {
-                var facilities = await _context.Facilities
-                    .Include(f => f.FacilityType)
-                    .Include(f => f.Image)
-                    .ToListAsync();
+                List<Facility> facilities = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    facilities = await _context.Facilities
+                        .Include(f => f.FacilityType)
+                        .Include(f => f.Image)
+                        .ToListAsync();
+                }
+                else
+                {
+                    facilities = await _context.Facilities
+                        .Include(f => f.FacilityType)
+                        .Include(f => f.Image)
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                }
 
                 return Json(new { code = 200, facilities });
             }
@@ -57,11 +70,11 @@ namespace CloneBookingAPI.Controllers
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Facility>>> Search(string facility)
+        public async Task<ActionResult<IEnumerable<Facility>>> Search(string facility, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(facility))
+                if (string.IsNullOrWhiteSpace(facility) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.Facilities.ToListAsync();
 
@@ -73,6 +86,8 @@ namespace CloneBookingAPI.Controllers
                     .Include(f => f.Image)
                     .Where(f => f.Text.Contains(facility)               ||
                                 f.FacilityType.Type.Contains(facility))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, facilities });

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Currency } from 'src/app/models/Payment/currency.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -16,7 +17,12 @@ export class CurrenciesListComponent implements OnInit {
   searchCurrency: string = '';
   checkedCurrency: number | null = null;
 
-  constructor() {
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
     this.currency = new Currency();
   }
 
@@ -145,13 +151,38 @@ export class CurrenciesListComponent implements OnInit {
   }
 
   getCurrencies(): void {
-    fetch('https://localhost:44381/api/currencies/getcurrencies', {
+    fetch(`https://localhost:44381/api/currencies/getcurrencies?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.currencies = data.currencies;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(currencies: Currency[]): void {
+    for (let item of currencies) {
+      this.currencies?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/currencies/getcurrencies?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.currencies);
         } else {
           alert('Fetch error!');
         }

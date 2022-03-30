@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SuggestionReviewGrade } from 'src/app/models/Suggestions/suggestionreviewgrade.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -15,7 +16,14 @@ export class SuggestionReviewGradesListComponent implements OnInit {
   grade: string | null = null;
   checkedGrade: number | null = null;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   addGrade(): void {
     let grade = {
@@ -106,7 +114,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
   }
 
   getGrades(): void {
-    fetch('https://localhost:44381/api/suggestionreviewgrades/getgrades', {
+    fetch(`https://localhost:44381/api/suggestionreviewgrades/getgrades?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -121,6 +129,32 @@ export class SuggestionReviewGradesListComponent implements OnInit {
         alert(ex);
       });
   }
+
+  collectElements(grades: SuggestionReviewGrade[]): void {
+    for (let item of grades) {
+      this.grades?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/suggestionreviewgrades/getgrades?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.grades);
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
 
   setGrade(id: number | null, grade: string): void {
     this.checkedGrade = id;

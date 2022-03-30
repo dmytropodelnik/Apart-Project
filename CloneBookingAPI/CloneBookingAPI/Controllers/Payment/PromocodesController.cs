@@ -34,11 +34,22 @@ namespace CloneBookingAPI.Controllers.Payment
 
         [Route("getcodes")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PromoCode>>> GetPromoCodes()
+        public async Task<ActionResult<IEnumerable<PromoCode>>> GetPromoCodes(int page = -1, int pageSize = -1)
         {
             try
             {
-                var codes = await _context.PromoCodes.ToListAsync();
+                List<PromoCode> codes = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    codes = await _context.PromoCodes.ToListAsync();
+                }
+                else
+                {
+                    codes = await _context.PromoCodes
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                }
 
                 return Json(new { code = 200, codes });
             }

@@ -24,11 +24,22 @@ namespace CloneBookingAPI.Controllers
 
         [Route("getcategories")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ServiceCategory>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<ServiceCategory>>> GetCategories(int page = -1, int pageSize = -1)
         {
             try
             {
-                var categories = await _context.ServiceCategories.ToListAsync();
+                List<ServiceCategory> categories = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    categories = await _context.ServiceCategories.ToListAsync();
+                }
+                else
+                {
+                    categories = await _context.ServiceCategories
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                }
 
                 return Json(new { code = 200, categories });
             }
@@ -54,7 +65,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ServiceCategory>>> Search(string category)
+        public async Task<ActionResult<IEnumerable<ServiceCategory>>> Search(string category, int page = 1, int pageSize = -1)
         {
             try
             {

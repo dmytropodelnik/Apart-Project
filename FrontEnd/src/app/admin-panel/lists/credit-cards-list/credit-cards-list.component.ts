@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CreditCard } from 'src/app/models/Payment/creditcard.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -15,7 +16,12 @@ export class CreditCardsListComponent implements OnInit {
   card: CreditCard;
   checkedCard: number | null = null;
 
-  constructor() {
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
     this.card = new CreditCard();
   }
 
@@ -127,13 +133,38 @@ export class CreditCardsListComponent implements OnInit {
   }
 
   getCards(): void {
-    fetch('https://localhost:44381/api/creditcards/getcreditcards', {
+    fetch(`https://localhost:44381/api/creditcards/getcreditcards?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.creditCards = data.cards;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(creditCards: CreditCard[]): void {
+    for (let item of creditCards) {
+      this.creditCards?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/creditcards/getcreditcards?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.cards);
         } else {
           alert('Fetch error!');
         }

@@ -1,6 +1,8 @@
-﻿using CloneBookingAPI.Services.Database.Models.Suggestions;
+﻿using CloneBookingAPI.Services.Database.Models;
+using CloneBookingAPI.Services.Database.Models.Suggestions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System.Collections.Generic;
 
 namespace CloneBookingAPI.Services.Database.Configurations.Suggestions
 {

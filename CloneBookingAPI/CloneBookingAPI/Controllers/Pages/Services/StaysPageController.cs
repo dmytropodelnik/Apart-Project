@@ -129,34 +129,34 @@ namespace CloneBookingAPI.Controllers.Pages
 
         [Route("getinterestplacesdata")]
         [HttpGet]
-        public async Task<ActionResult> GetInterestPlacesData()
+        public async Task<ActionResult> GetCountriesData()
         {
             try
             {
-                List<int> placesOfInterestSuggestions = new();
+                List<int> countriesSuggestions = new();
 
                 var suggestionsList = await _context.Suggestions
-                    .Include(s => s.InterestPlaces)
+                    .Include(s => s.Address.Country)
                     .ToListAsync();
 
-                var placesOfInterests = await _context.InterestPlaces
-                    .Select(p => p.Place)
+                var countries = await _context.Countries
+                    .Select(c => c.Title)
+                    .Take(50)
                     .ToListAsync();
 
-                for (int i = 1; i <= placesOfInterests.Count; i++)
+                for (int i = 1; i <= countries.Count; i++)
                 {
-                    var resPlacesOfInterestSuggestion = suggestionsList
-                        .Where(s => s.InterestPlaces
-                                        .Any(p => p.Id == i));
+                    var resCountriesSuggestion = suggestionsList
+                        .Where(s => s.Address.Country.Id == i);
 
-                    placesOfInterestSuggestions.Add(resPlacesOfInterestSuggestion.Count());
+                    countriesSuggestions.Add(resCountriesSuggestion.Count());
                 }
 
                 return Json(new
                 {
                     code = 200,
-                    placesOfInterests,
-                    placesOfInterestSuggestions,
+                    countries,
+                    countriesSuggestions,
                 });
             }
             catch (ArgumentNullException ex)

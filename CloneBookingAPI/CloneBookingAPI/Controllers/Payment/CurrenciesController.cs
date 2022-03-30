@@ -24,11 +24,22 @@ namespace CloneBookingAPI.Controllers.Payment
 
         [Route("getcurrencies")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Currency>>> GetCurrencies()
+        public async Task<ActionResult<IEnumerable<Currency>>> GetCurrencies(int page = -1, int pageSize = -1)
         {
             try
             {
-                var currencies = await _context.Currencies.ToListAsync();
+                List<Currency> currencies = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    currencies = await _context.Currencies.ToListAsync();
+                }
+                else
+                {
+                    currencies = await _context.Currencies
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                }
 
                 return Json(new { code = 200, currencies });
             }
@@ -54,11 +65,11 @@ namespace CloneBookingAPI.Controllers.Payment
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Currency>>> Search(string currency)
+        public async Task<ActionResult<IEnumerable<Currency>>> Search(string currency, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(currency))
+                if (string.IsNullOrWhiteSpace(currency) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.Currencies.ToListAsync();
 
@@ -69,6 +80,8 @@ namespace CloneBookingAPI.Controllers.Payment
                     .Where(c => c.Value.Contains(currency)        ||
                                 c.Abbreviation.Contains(currency) ||
                                 c.BankCode.Contains(currency))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, currencies });

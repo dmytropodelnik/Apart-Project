@@ -31,14 +31,27 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("getfavorites")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Favorite>>> GetFavorites()
+        public async Task<ActionResult<IEnumerable<Favorite>>> GetFavorites(int page = -1, int pageSize = -1)
         {
             try
             {
-                var favorites = await _context.Favorites
+                List<Favorite> favorites = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    favorites = await _context.Favorites
                     .Include(f => f.User)
                     .Include(f => f.Suggestions)
                     .ToListAsync();
+                }
+                else
+                {
+                    favorites = await _context.Favorites
+                    .Include(f => f.User)
+                    .Include(f => f.Suggestions)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                }
 
                 return Json(new { code = 200, favorites });
             }

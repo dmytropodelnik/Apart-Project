@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BookingPrice } from 'src/app/models/Payment/bookingprice.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -15,7 +16,14 @@ export class BookingPricesListComponent implements OnInit {
   price: BookingPrice | null = null;
   checkedBooking: number | null = null;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 10;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   addPrice(): void {
     let booking = {
@@ -106,13 +114,38 @@ export class BookingPricesListComponent implements OnInit {
   }
 
   getPrices(): void {
-    fetch('https://localhost:44381/api/bookingprices/getprices', {
+    fetch(`https://localhost:44381/api/bookingprices/getprices?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.prices = data.bookings;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(prices: BookingPrice[]): void {
+    for (let item of prices) {
+      this.prices?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/bookingprices/getprices?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.bookings);
         } else {
           alert('Fetch error!');
         }

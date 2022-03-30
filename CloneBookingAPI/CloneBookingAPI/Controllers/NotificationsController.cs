@@ -24,14 +24,27 @@ namespace CloneBookingAPI.Controllers
 
         [Route("getnotifications")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Notification>>> GetNotifications()
+        public async Task<ActionResult<IEnumerable<Notification>>> GetNotifications(int page = -1, int pageSize = -1)
         {
             try
             {
-                var notifications = await _context.Notifications
+                List<Notification> notifications = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    notifications = await _context.Notifications
                     .Include(n => n.EmitterUser)
                     .Include(n => n.Image)
                     .ToListAsync();
+                }
+                else
+                {
+                    notifications = await _context.Notifications
+                    .Include(n => n.EmitterUser)
+                    .Include(n => n.Image)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                }
 
                 return Json(new { 
                     code = 200,

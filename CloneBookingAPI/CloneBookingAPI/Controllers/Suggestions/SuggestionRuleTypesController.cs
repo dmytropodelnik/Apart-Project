@@ -24,11 +24,22 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
         [Route("gettypes")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SuggestionRuleType>>> GetTypes()
+        public async Task<ActionResult<IEnumerable<SuggestionRuleType>>> GetTypes(int page = -1, int pageSize = -1)
         {
             try
             {
-                var types = await _context.SuggestionRuleTypes.ToListAsync();
+                List<SuggestionRuleType> types = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    types = await _context.SuggestionRuleTypes.ToListAsync();
+                }
+                else
+                {
+                    types = await _context.SuggestionRuleTypes
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                }
 
                 return Json(new { code = 200, types });
             }
@@ -54,11 +65,11 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SuggestionRuleType>>> Search(string type)
+        public async Task<ActionResult<IEnumerable<SuggestionRuleType>>> Search(string type, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(type))
+                if (string.IsNullOrWhiteSpace(type) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.SuggestionRuleTypes.ToListAsync();
 
@@ -67,6 +78,8 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
                 var ruleTypes = await _context.SuggestionRuleTypes
                     .Where(t => t.Type.Contains(type))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, ruleTypes });

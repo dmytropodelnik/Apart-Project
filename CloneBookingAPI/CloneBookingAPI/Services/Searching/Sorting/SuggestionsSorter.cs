@@ -60,14 +60,16 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                     case SortState.BestReviewed:
 
                         suggestions = suggestions
-                            .OrderByDescending(s => s.SuggestionReviewGrades.Average(g => g.Value));
+                            .OrderByDescending(s => s.SuggestionReviewGrades
+                                .Average(g => g.Value));
 
                         break;
 
                     case SortState.WorstReviewed:
 
                         suggestions = suggestions
-                            .OrderBy(s => s.SuggestionReviewGrades.Average(g => g.Value));
+                            .OrderBy(s => s.SuggestionReviewGrades
+                                .Average(g => g.Value));
 
                         break;
 

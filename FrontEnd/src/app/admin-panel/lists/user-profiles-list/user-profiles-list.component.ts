@@ -5,6 +5,7 @@ import { isThisTypeNode } from 'typescript';
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
 import ImageHelper from '../../../utils/imageHelper';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 @Component({
   selector: 'app-user-profiles-list',
@@ -19,7 +20,14 @@ export class UserProfilesListComponent implements OnInit {
   checkedProfile: number | null = null;
   imageHelper: any = ImageHelper;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 10;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   search(): void {
     fetch('https://localhost:44381/api/userprofiles/search?profile=' + this.searchProfile, {
@@ -138,13 +146,38 @@ export class UserProfilesListComponent implements OnInit {
   }
 
   getProfiles(): void {
-    fetch('https://localhost:44381/api/userprofiles/getprofiles', {
+    fetch(`https://localhost:44381/api/userprofiles/getprofiles?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.profiles = data.profiles;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(profiles: UserProfile[]): void {
+    for (let item of profiles) {
+      this.profiles?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/userprofiles/getprofiles?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.profiles);
         } else {
           alert('Fetch error!');
         }

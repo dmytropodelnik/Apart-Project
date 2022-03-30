@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Suggestions
@@ -23,13 +24,25 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
         [Route("getgrades")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<SuggestionReviewGrade>>> GetGrades()
+        public async Task<ActionResult<IEnumerable<SuggestionReviewGrade>>> GetGrades(int page = -1, int pageSize = -1)
         {
             try
             {
-                var grades = await _context.SuggestionReviewGrades
+                List<SuggestionReviewGrade> grades = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    grades = await _context.SuggestionReviewGrades
                     .Include(g => g.ReviewCategory)
                     .ToListAsync();
+                }
+                else
+                {
+                    grades = await _context.SuggestionReviewGrades
+                    .Include(g => g.ReviewCategory)
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                }
 
                 return Json(new { code = 200, grades });
             }

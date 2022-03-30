@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ServiceCategory } from 'src/app/models/servicecategory.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -16,7 +17,12 @@ export class ServiceCategoriesListComponent implements OnInit {
   searchCategory: string = '';
   checkedCategory: number | null = null;
 
-  constructor() {
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
     this.category = new ServiceCategory();
   }
 
@@ -138,6 +144,31 @@ export class ServiceCategoriesListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.categories = data.categories;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(categories: ServiceCategory[]): void {
+    for (let item of categories) {
+      this.categories?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/servicecategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.categories);
         } else {
           alert('Fetch error!');
         }

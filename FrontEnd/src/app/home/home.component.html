@@ -255,7 +255,7 @@
                         category.category
                       }}</span>
                       <span class="bui-title__subtitle"
-                        >{{ suggestions[i]?.length }} properties</span
+                        >{{ suggestions[i] ?? '0' }} properties</span
                       >
                     </div>
                   </div>
@@ -721,16 +721,16 @@
               </ng-template>
             </li>
             <li [ngbNavItem]="3">
-              <a ngbNavLink>Places of interest</a>
+              <a ngbNavLink>Countries</a>
               <ng-template ngbNavContent>
                 <div class="tabs-grid">
                   <div>
                     <ul class="inner-tabs-links">
-                      <div *ngFor="let place of placesOfInterests; let i = index">
+                      <div *ngFor="let country of countries; let i = index">
                         <li>
-                          <a>{{place}}</a>
+                          <a>{{country}}</a>
                           <div class="wcu-seo-regions-poi ia_hotelnum">
-                            {{placesOfInterestSuggestions[i] ?? '0'}} properties
+                            {{countriesSuggestions[i] ?? '0'}} properties
                           </div>
                         </li>
                       </div>

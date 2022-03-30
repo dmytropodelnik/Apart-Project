@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TempUser } from 'src/app/models/UserData/tempuser.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -16,7 +17,12 @@ export class TempUsersListComponent implements OnInit {
   searchUser: string = '';
   checkedUser: number | null = null;
 
-  constructor() {
+  page: number = 1;
+  pageSize: number = 10;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
     this.user = new TempUser();
   }
 
@@ -136,13 +142,38 @@ export class TempUsersListComponent implements OnInit {
   }
 
   getUsers(): void {
-    fetch('https://localhost:44381/api/tempusers/getusers', {
+    fetch(`https://localhost:44381/api/tempusers/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.users = data.users;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(users: TempUser[]): void {
+    for (let item of users) {
+      this.users?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/tempusers/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.users);
         } else {
           alert('Fetch error!');
         }

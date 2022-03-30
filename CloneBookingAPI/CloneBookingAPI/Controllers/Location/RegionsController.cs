@@ -26,15 +26,29 @@ namespace CloneBookingAPI.Controllers
 
         [Route("getregions")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Region>>> GetRegions()
+        public async Task<ActionResult<IEnumerable<Region>>> GetRegions(int page = -1, int pageSize = -1)
         {
             try
             {
-                var regions = await _context.Regions
+                List<Region> regions = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    regions = await _context.Regions
                     .Include(r => r.City)
                     .Include(d => d.City.Country)
                     .Include(d => d.Image)
                     .ToListAsync();
+                }
+                else
+                {
+                    regions = await _context.Regions
+                    .Include(r => r.City)
+                    .Include(d => d.City.Country)
+                    .Include(d => d.Image)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                }
 
                 return Json(new { code = 200, regions });
             }
@@ -60,11 +74,11 @@ namespace CloneBookingAPI.Controllers
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Region>>> Search(string region)
+        public async Task<ActionResult<IEnumerable<Region>>> Search(string region, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(region))
+                if (string.IsNullOrWhiteSpace(region) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.Regions.ToListAsync();
 
@@ -76,6 +90,8 @@ namespace CloneBookingAPI.Controllers
                     .Include(d => d.City.Country)
                     .Include(d => d.Image)
                     .Where(r => r.Title.Contains(region))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, regions });

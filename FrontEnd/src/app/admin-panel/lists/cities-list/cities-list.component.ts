@@ -4,6 +4,7 @@ import { City } from 'src/app/models/Location/city.item';
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
 import ImageHelper from '../../../utils/imageHelper';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 
 @Component({
@@ -19,7 +20,14 @@ export class CitiesListComponent implements OnInit {
   checkedCity: number | null = null;
   imageHelper: any = ImageHelper;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   search(): void {
     fetch('https://localhost:44381/api/cities/search?city=' + this.searchCity, {
@@ -132,13 +140,38 @@ export class CitiesListComponent implements OnInit {
   }
 
   getCities(): void {
-    fetch('https://localhost:44381/api/cities/getcities', {
+    fetch(`https://localhost:44381/api/cities/getcities?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.cities = data.cities;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(cities: City[]): void {
+    for (let item of cities) {
+      this.cities?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/cities/getcities?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.cities);
         } else {
           alert('Fetch error!');
         }

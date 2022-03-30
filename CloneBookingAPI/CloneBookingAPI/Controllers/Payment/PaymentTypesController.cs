@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Payment
@@ -23,11 +24,22 @@ namespace CloneBookingAPI.Controllers.Payment
 
         [Route("getpaymenttypes")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PaymentType>>> GetPaymentTypes()
+        public async Task<ActionResult<IEnumerable<PaymentType>>> GetPaymentTypes(int page = -1, int pageSize = -1)
         {
             try
             {
-                var types = await _context.PaymentTypes.ToListAsync();
+                List<PaymentType> types = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    types = await _context.PaymentTypes.ToListAsync();
+                }
+                else
+                {
+                    types = await _context.PaymentTypes
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                }
 
                 return Json(new { code = 200, types });
             }

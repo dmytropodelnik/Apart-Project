@@ -624,9 +624,12 @@
               ...
             </button>
             <ul class="dropdown-menu dropdown-menu-lg-end">
-              <li><a class="dropdown-item" href="#">Menu item</a></li>
-              <li><a class="dropdown-item" href="#">Menu item</a></li>
-              <li><a class="dropdown-item" href="#">Menu item</a></li>
+              <li><button class="dropdown-item" (click)="sortItems(sortState.PriceAsc)">Price (lowest first)</button></li>
+              <li><button class="dropdown-item" (click)="sortItems(sortState.PriceDesc)">Price (highest first)</button></li>
+              <li><button class="dropdown-item" (click)="sortItems(sortState.BestReviewed)">Best reviewed</button></li>
+              <li><button class="dropdown-item" (click)="sortItems(sortState.WorstReviewed)">Worst reviewed</button></li>
+              <li><button class="dropdown-item" (click)="sortItems(sortState.BestReviewedAndLowerPrice)">Best reviewed (lower price)</button></li>
+              <li><button class="dropdown-item" (click)="sortItems(sortState.StarRatingAndLowerPrice)">Stars highest (lower price first)</button></li>
             </ul>
           </div>
         </div>
