@@ -2,6 +2,10 @@
 export default {
   getImageDirectoryPath(): string {
     return "https://localhost:44381/files/";
+  },
+
+  getRootDirectoryPath(): string {
+    return "https://localhost:44381";
   }
-  
+
 }
