@@ -15,7 +15,7 @@ import { MainDataService } from '../services/main-data.service';
   styleUrls: ['./user-saved.component.css'],
 })
 export class UserSavedComponent implements OnInit {
-  favorites: Favorite | null = null;
+  favorites: Favorite = new Favorite();
 
   imageHelper: any = ImageHelper;
   mathHelper: any = MathHelper;
@@ -40,21 +40,26 @@ export class UserSavedComponent implements OnInit {
       login: AuthHelper.getLogin(),
     };
 
-    fetch(
-      'https://localhost:44381/api/favorites/removesuggestion', {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Accept: 'application/json',
-          Authorization: 'Bearer ' + AuthHelper.getToken(),
-        },
-        body: JSON.stringify(suggestion),
-      }
-    )
+    fetch('https://localhost:44381/api/favorites/removesuggestion', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(suggestion),
+    })
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-
+          this.favorites.suggestions = this.favorites.suggestions.filter((s) => {
+            if (s.id === response.resSuggestion.id ) {
+              return false;
+            } else {
+              return true;
+            }
+          });
+          console.log(response);
         } else {
           alert('User favorites fetching error!');
         }

@@ -186,6 +186,8 @@ namespace CloneBookingAPI.Controllers.UserData
                     //.Include(f => f.User)
                     .Include(f => f.Suggestions)
                         .ThenInclude(s => s.SuggestionReviewGrades)
+                    .Include(f => f.Suggestions)
+                        .ThenInclude(s => s.Images)
                     .FirstOrDefaultAsync(f => f.User.Email.Equals(email));
                 if (favorites is null)
                 {
