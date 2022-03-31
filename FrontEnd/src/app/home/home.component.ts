@@ -45,6 +45,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   resSuggestion: any;
   reviewsCount: any;
   suggestionGrades: any;
+
   slides = [
     { text: 'Educational Consulting', img: 'assets/images/21.png' },
     { text: 'University and Higher Education', img: 'assets/images/21.png' },

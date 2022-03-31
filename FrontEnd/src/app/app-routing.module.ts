@@ -18,6 +18,7 @@ import { LpPropertySetupComponent } from './list-your-property/lp-property-setup
 import { LpReviewAndCompleteComponent } from './list-your-property/lp-review-and-complete/lp-review-and-complete.component';
 import { ManageAccountComponent } from './manage-account/manage-account-body/manage-account.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { UserSavedComponent } from './user-saved/user-saved.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'stays', pathMatch: 'full' },
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'confirmemail', component: VerifyEnterComponent },
   { path: 'flights', component: FlightsComponent },
   { path: 'joinpartner', component: JoinAsPartnerComponent },
+  { path: 'saved', component: UserSavedComponent },
   { path: 'viewproperty', component: ViewPropertyComponent },
   { path: 'lp/addproperty', component: AddPropertyComponent, pathMatch: 'full' },
   { path: 'mysettings', component: ManageAccountComponent },

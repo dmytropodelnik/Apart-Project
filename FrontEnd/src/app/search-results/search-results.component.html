@@ -624,12 +624,17 @@
               ...
             </button>
             <ul class="dropdown-menu dropdown-menu-lg-end">
-              <li><button class="dropdown-item" (click)="sortItems(sortState.PriceAsc)">Price (lowest first)</button></li>
-              <li><button class="dropdown-item" (click)="sortItems(sortState.PriceDesc)">Price (highest first)</button></li>
+              <li><button class="dropdown-item" (click)="sortItems(sortState.PriceAsc)">Price (lowest first)</button>
+              </li>
+              <li><button class="dropdown-item" (click)="sortItems(sortState.PriceDesc)">Price (highest first)</button>
+              </li>
               <li><button class="dropdown-item" (click)="sortItems(sortState.BestReviewed)">Best reviewed</button></li>
-              <li><button class="dropdown-item" (click)="sortItems(sortState.WorstReviewed)">Worst reviewed</button></li>
-              <li><button class="dropdown-item" (click)="sortItems(sortState.BestReviewedAndLowerPrice)">Best reviewed (lower price)</button></li>
-              <li><button class="dropdown-item" (click)="sortItems(sortState.StarRatingAndLowerPrice)">Stars highest (lower price first)</button></li>
+              <li><button class="dropdown-item" (click)="sortItems(sortState.WorstReviewed)">Worst reviewed</button>
+              </li>
+              <li><button class="dropdown-item" (click)="sortItems(sortState.BestReviewedAndLowerPrice)">Best reviewed
+                  (lower price)</button></li>
+              <li><button class="dropdown-item" (click)="sortItems(sortState.StarRatingAndLowerPrice)">Stars highest
+                  (lower price first)</button></li>
             </ul>
           </div>
         </div>
@@ -637,16 +642,36 @@
       <div *ngFor="let item of resSuggestions; let i = index">
         <div class="search_card">
           <div class="image_container">
-            <img
-              src="https://cf.bstatic.com/xdata/images/hotel/square200/202951001.webp?k=aa48b18c4c039f8202c637bef821e9b868ec9faa7afcf0073478dbd2672f81d8&o=&s=1" />
+            <img src="{{imageHelper.getRootDirectoryPath()}}/suggestions/{{item.images[0]}}" />
           </div>
           <div class="information_container">
             <div class="left_information">
               <div>
                 <h3>{{ item?.name }}</h3>
               </div>
+              <div>
+                <div *ngIf="isSaved(item.id) == true">
+                <button class="btn btn-danger" (click)="removeSuggestion(item.id)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
+                    viewBox="0 0 16 16">
+                    <path
+                      d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                  </svg>
+                </button>
+              </div>
+              <div *ngIf="isSaved(item.id) == false">
+                <button class="btn btn-outline-danger" (click)="addSuggestionToSaved(item.id)">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
+                    viewBox="0 0 16 16">
+                    <path
+                      d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                  </svg>
+                </button>
+              </div>
+              </div>
               <div>{{ item?.address?.city?.title }}</div>
               <div>
+
                 Located 1.8 km from Artis Zoo in Amsterdam, 23 SouS provides
                 accommodation with air conditioning and free WiFi.
               </div>

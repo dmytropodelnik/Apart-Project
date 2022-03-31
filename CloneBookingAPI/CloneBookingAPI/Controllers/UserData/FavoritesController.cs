@@ -123,14 +123,14 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
-        [Route("getuserfavorites")]
+        [Route("filter")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Favorite>>> GetUserFavorites(FavoriteSearchPoco items)
+        public async Task<ActionResult<IEnumerable<Favorite>>> Filter(FavoriteSearchPoco items)
         {
             try
             {
                 var suggestions = await _context.Favorites
-                    .Include(f => f.User)
+                    // .Include(f => f.User)
                     .Include(f => f.Suggestions)
                         .ThenInclude(s => s.Images)
                     .Where(f => f.UserId == int.Parse(items.UserId) &&
@@ -173,6 +173,70 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
+        [Route("getuserfavorites")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Favorite>>> GetUserFavorites(string email)
+        {
+            try
+            {
+                List<int> reviewsCount = new();
+                List<double> suggestionGrades = new();
+
+                var favorites = await _context.Favorites
+                    //.Include(f => f.User)
+                    .Include(f => f.Suggestions)
+                        .ThenInclude(s => s.SuggestionReviewGrades)
+                    .FirstOrDefaultAsync(f => f.User.Email.Equals(email));
+                if (favorites is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                for (int i = 0; i < favorites.Suggestions.Count; i++)
+                {
+                    var resReviews = await _context.Reviews
+                        .Where(r => r.SuggestionId == favorites.Suggestions[i].Id)
+                        .ToListAsync();
+
+                    reviewsCount.Add(resReviews.Count);
+                }
+
+                for (int i = 0; i < favorites.Suggestions.Count; i++)
+                {
+                    if (favorites.Suggestions[i].SuggestionReviewGrades.Count != 0)
+                    {
+                        suggestionGrades.Add(favorites.Suggestions[i].SuggestionReviewGrades.Average(g => g.Value));
+                    }
+                }
+
+                return Json(new
+                {
+                    code = 200,
+                    favorites,
+                    suggestionGrades,
+                    reviewsCount,
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
         [Route("addsuggestion")]
         [HttpPost]
         public async Task<IActionResult> AddSuggestion([FromBody] SuggestionPoco suggestion)
@@ -190,7 +254,10 @@ namespace CloneBookingAPI.Controllers.UserData
                     return Json(new { code = 400 });
                 }
 
-                var resFavorite = await _context.Favorites.FirstOrDefaultAsync(f => f.UserId == suggestion.UserId);
+                var resFavorite = await _context.Favorites
+                    .Include(f => f.User)
+                    .Include(f => f.Suggestions)
+                    .FirstOrDefaultAsync(f => f.User.Email.Equals(suggestion.Login));
                 if (resFavorite is null)
                 {
                     return Json(new { code = 400 });
@@ -201,7 +268,7 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.Favorites.Update(resFavorite);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { code = 200, resSuggestion });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -246,7 +313,10 @@ namespace CloneBookingAPI.Controllers.UserData
                     return Json(new { code = 400 });
                 }
 
-                var resFavorite = await _context.Favorites.FirstOrDefaultAsync(f => f.UserId == suggestion.UserId);
+                var resFavorite = await _context.Favorites
+                    .Include(f => f.User)
+                    .Include(f => f.Suggestions)
+                    .FirstOrDefaultAsync(f => f.User.Email.Equals(suggestion.Login));
                 if (resFavorite is null)
                 {
                     return Json(new { code = 400 });
@@ -257,7 +327,7 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.Favorites.Update(resFavorite);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { code = 200, resSuggestion });
             }
             catch (DbUpdateConcurrencyException ex)
             {

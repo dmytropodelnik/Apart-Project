@@ -86,6 +86,7 @@ import { EmailNotificationsListComponent } from './manage-account/manage-account
 import { OtherTravelersListComponent } from './manage-account/manage-account-content-list/other-travelers-list/other-travelers-list.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { AdminContentService } from './services/admin-content.service';
+import { UserSavedComponent } from './user-saved/user-saved.component';
 
 @NgModule({
   declarations: [
@@ -164,6 +165,7 @@ import { AdminContentService } from './services/admin-content.service';
     OtherTravelersListComponent,
     SearchResultsComponent,
     PromocodeGeneratorComponent,
+    UserSavedComponent,
   ],
   imports: [
     BrowserModule,
