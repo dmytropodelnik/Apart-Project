@@ -1,5 +1,6 @@
 ﻿using CloneBookingAPI.Database.Models;
 using CloneBookingAPI.Database.Models.Suggestions;
+using CloneBookingAPI.Database.Models.ViewModels;
 using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Review;
 using CloneBookingAPI.Services.Database.Models.UserProfile;
@@ -79,5 +80,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public List<Language> Languages { get; set; } = new();
         public List<SuggestionRule> SuggestionRules { get; set; } = new();
         public List<SurroundingObject> SurroundingObjects { get; set; } = new();
+
+        public List<SuggestionFileModel> SuggestionsFileModels { get; set; } = new();
     }
 }

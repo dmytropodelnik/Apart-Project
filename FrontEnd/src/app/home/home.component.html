@@ -340,7 +340,7 @@
             </div>
           </div>
         </div>
-        <div class="d-index__section bui-spacer--largest promote_articles js-ds-layout-events-promote_articles"
+        <!-- <div class="d-index__section bui-spacer--largest promote_articles js-ds-layout-events-promote_articles"
           data-et-click=" customGoal:cCHObTRVDEZRdPQBcGCfTKYCcaYO:4  goal:www_inspiration_articles_click  ">
           <h2 class="bui-f-font-display_two bui-spacer--large d-index__header-section">
             Get inspiration for your next trip
@@ -416,7 +416,7 @@
               </a>
             </div>
           </div>
-        </div>
+        </div> -->
         <svg class="bk-icon -iconset-square_rating" height="128" style="display: none" width="128" viewBox="0 0 128 128"
           role="presentation" aria-hidden="true" focusable="false">
           <path
@@ -424,7 +424,8 @@
           </path>
         </svg>
         <div
-          class="d-index__section bui-spacer--largest bh-carousel--new js-ds-layout-events-bh_carousel js-bh-carousel-async-wrapper">
+          class="d-index__section bui-spacer--largest bh-carousel--new js-ds-layout-events-bh_carousel js-bh-carousel-async-wrapper"
+          >
           <h2 class="bui-f-font-display_two bui-spacer--large d-index__header-section">
             Homes guests love
           </h2>
@@ -433,7 +434,7 @@
               <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig1">
                 <div ngxSlickItem *ngFor="let item of homeGuestsSuggestions; let i = index" class="slide slide-h">
                   <div class="slide-img">
-                    <img src="{{imageHelper.getImageDirectoryPath()}}{{item.images[0]}}" class="w-100" alt="" />
+                    <img src="{{imageHelper.getImageDirectoryPath()}}booking-categories/{{item.images[0]?.name}}" class="w-100" alt="" />
                   </div>
                   <div class="bui-card__content bh-carousel--new__content">
                     <h3 class="bui-card__title bh-carousel--new__title">
