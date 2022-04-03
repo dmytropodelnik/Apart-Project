@@ -326,7 +326,10 @@ namespace CloneBookingAPI.Controllers.Pages
                 for (int i = 0; i < resSuggestion.Count; i++)
                 {
                     suggestionGrades.Add(resSuggestion[i].SuggestionReviewGrades.Average(g => g.Value));
-                    suggestionStartsFrom.Add(resSuggestion[i].Apartments.Min(a => a.PriceInUSD));
+                    if (resSuggestion[i].Apartments is not null && resSuggestion[i].Apartments.Count != 0)
+                    {
+                        suggestionStartsFrom.Add(resSuggestion[i].Apartments.Min(a => a.PriceInUSD));
+                    }
                 }
 
                 return Json(new
