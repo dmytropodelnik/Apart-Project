@@ -12,6 +12,9 @@ export class SearchViewModel {
   pageSize: number = 25;
   totalPages: number = 1;
 
+  dateIn: string = '';
+  dateOut: string = '';
+
   searchAdultsAmount: number = 2;
   searchChildrenAmount: number = 0;
   searchRoomsAmount: number = 1;

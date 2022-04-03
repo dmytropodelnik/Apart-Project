@@ -443,12 +443,12 @@
                     <p class="bui-card__subtitle">{{item?.address?.city?.title + ", " + item?.address?.country?.title}}
                     </p>
                     <p class="bh-carousel--new__price bui_color_black">
-                      Starting from USD {{item?.priceInUSD}}
+                      Starting from USD {{suggestionStartsFrom[i] ?? '0'}}
                     </p>
                     <div style="margin-top: 4px">
                       <div class="bui-review-score c-score bui-review-score--inline bui-review-score--small">
                         <div class="bui-review-score__badge" aria-label="Scored 0 ">
-                          {{mathHelper.Round10(suggestionGrades[i])}}
+                          {{mathHelper.Round10(suggestionGrades[i] ?? '')}}
                         </div>
                         <div class="bui-review-score__content">
                           <div *ngIf="mathHelper.Round10(suggestionGrades[i]) >= 9.7; then exceptionalBlock"></div>

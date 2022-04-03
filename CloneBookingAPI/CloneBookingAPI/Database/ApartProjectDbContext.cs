@@ -77,6 +77,9 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<Airport> Airports { get; set; }
         public DbSet<Bed> Beds { get; set; }
         public DbSet<BedType> BedTypes { get; set; }
+        public DbSet<BookedDate> BookedDates { get; set; }
+        public DbSet<Apartment> Apartments { get; set; }
+
         public ApartProjectDbContext(DbContextOptions<ApartProjectDbContext> options) : base(options)
         {
             //// if database already exists then delete it
@@ -170,6 +173,8 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new BedsConfiguration());
             modelBuilder.ApplyConfiguration(new BedTypesConfiguration());
             modelBuilder.ApplyConfiguration(new ContactDetailsConfiguration());
+            modelBuilder.ApplyConfiguration(new BookedDatesConfiguration());
+            modelBuilder.ApplyConfiguration(new ApartmentsConfiguration());
             modelBuilder.ApplyConfiguration(new SuggestionsFileModelsConfiguration());
         }
     }

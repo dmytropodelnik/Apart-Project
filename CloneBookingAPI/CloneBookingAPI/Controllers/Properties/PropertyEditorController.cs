@@ -491,8 +491,8 @@ namespace CloneBookingAPI.Controllers.Properties
                     return Json(new { code = 400 });
                 }
 
-                resSuggestion.PriceInUSD = suggestion.PriceInUSD;
-                resSuggestion.PriceInUserCurrency = suggestion.PriceInUserCurrency;
+                //resSuggestion.PriceInUSD = suggestion.PriceInUSD;
+                //resSuggestion.PriceInUserCurrency = suggestion.PriceInUserCurrency;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();

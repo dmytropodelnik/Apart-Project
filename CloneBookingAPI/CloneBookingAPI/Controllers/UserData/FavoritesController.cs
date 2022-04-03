@@ -135,16 +135,14 @@ namespace CloneBookingAPI.Controllers.UserData
                         .ThenInclude(s => s.Images)
                     .Where(f => f.UserId == int.Parse(items.UserId) &&
                                 f.Suggestions
-                                .All(s => s.RoomsAmount > items.RoomAmount &&
+                                .All(s => s.Apartments
+                                    .All(a => a.RoomsAmount > items.RoomAmount &&
                                           s.StayBookings
                                                 .Any(b => (b.CheckIn  > Convert.ToDateTime(items.CheckIn) &&
                                                            b.CheckIn  > Convert.ToDateTime(items.CheckOut)) ||
                                                           (b.CheckOut < Convert.ToDateTime(items.CheckIn) &&
                                                            b.CheckOut < Convert.ToDateTime(items.CheckOut)
-                                                          )
-                                                    )
-                                     )
-                           )
+                                                          )))))
                     .ToListAsync();
 
                 return Json(new

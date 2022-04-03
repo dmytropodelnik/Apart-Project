@@ -42,18 +42,20 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                     case SortState.PriceAsc:
 
                         suggestions = suggestions
-                            .OrderBy(s => s.RoomTypes
-                                .Select(t => t.Rooms
-                                    .Select(r => r.PriceInUSD)));
+                            .OrderBy(s => s.Apartments
+                                .Select(t => t.RoomTypes
+                                    .Select(t => t.Rooms
+                                        .Select(r => r.PriceInUSD))));
 
                         break;
 
                     case SortState.PriceDesc:
 
                         suggestions = suggestions
-                            .OrderBy(s => s.RoomTypes
-                                .Select(t => t.Rooms
-                                    .Select(r => r.PriceInUSD)));
+                            .OrderBy(s => s.Apartments
+                                .Select(t => t.RoomTypes
+                                    .Select(t => t.Rooms
+                                        .Select(r => r.PriceInUSD))));
 
                         break;
 
@@ -98,9 +100,10 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
 
                         suggestions = suggestions
                             .OrderByDescending(s => s.SuggestionReviewGrades.Average(g => g.Value))
-                            .OrderByDescending(s => s.RoomTypes
+                            .OrderByDescending(s => s.Apartments
+                                .Select(t => t.RoomTypes
                                     .Select(t => t.Rooms
-                                        .Select(r => r.PriceInUSD)));
+                                        .Select(r => r.PriceInUSD))));
 
                         break;
 
@@ -108,9 +111,10 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
 
                         suggestions = suggestions
                             .OrderByDescending(s => s.StarsRating)
-                            .OrderBy(s => s.RoomTypes
-                                .Select(t => t.Rooms
-                                    .Select(r => r.PriceInUSD)));
+                            .OrderBy(s => s.Apartments
+                                .Select(t => t.RoomTypes
+                                    .Select(t => t.Rooms
+                                        .Select(r => r.PriceInUSD))));
 
                         break;
 

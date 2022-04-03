@@ -50,7 +50,8 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                 //                                .All(r => r.PriceInUSD >= decimal.Parse(priceRange[0]) && r.PriceInUSD <= decimal.Parse(priceRange[1]))));
 
                 suggestions = suggestions
-                     .Where(s => s.PriceInUSD >= decimal.Parse(priceRange[0]) && s.PriceInUSD <= decimal.Parse(priceRange[1]));
+                     .Where(s => s.Apartments
+                        .All(a => a.PriceInUSD >= decimal.Parse(priceRange[0]) && a.PriceInUSD <= decimal.Parse(priceRange[1])));
 
                 return suggestions;
             }

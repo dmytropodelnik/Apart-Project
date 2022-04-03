@@ -44,6 +44,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   recommendedCities: any;
 
   homeGuestsSuggestions: any;
+  suggestionStartsFrom: any[] = [];
   resSuggestion: any;
   reviewsCount: any;
   suggestionGrades: any;
@@ -243,8 +244,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       .then((data) => {
         if (data.code === 200) {
           this.homeGuestsSuggestions = data.resSuggestion;
+          this.suggestionStartsFrom = data.suggestionStartsFrom;
           this.reviewsCount = data.reviewsCount;
           this.suggestionGrades = data.suggestionGrades;
+
+          console.log(this.suggestionStartsFrom);
         }
       })
       .catch((ex) => {

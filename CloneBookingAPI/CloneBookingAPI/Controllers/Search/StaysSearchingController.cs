@@ -58,20 +58,22 @@ namespace CloneBookingAPI.Controllers.Search
                 var suggestions = await _context.Suggestions
                         .Include(s => s.Address)
                         .Include(s => s.StayBookings)
-                        .Include(s => s.RoomTypes)
-                        .Where(s => s.Address.Country.Title.Contains(searchCounty) ||
-                                    s.Address.City.Title.Contains(searchCity) ||
+                        .Include(s => s.Apartments)
+                        .Where(s => s.Address.Country.Title.Contains(searchCounty)    ||
+                                    s.Address.City.Title.Contains(searchCity)         ||
                                     s.Address.AddressText.Contains(searchAddressText) ||
                                     searchAddressText.Contains(s.Address.AddressText) ||
-                                    searchCounty.Contains(s.Address.Country.Title) ||
-                                    searchCity.Contains(s.Address.City.Title) ||
-                                    !s.StayBookings
-                                        .All(b => (b.CheckIn > Convert.ToDateTime(searchObj.DateIn) &&
-                                                   b.CheckIn > Convert.ToDateTime(searchObj.DateOut)) ||
-                                                  (b.CheckOut < Convert.ToDateTime(searchObj.DateIn) &&
-                                                   b.CheckOut < Convert.ToDateTime(searchObj.DateOut))) &&
-                                    s.GuestsAmount >= searchObj.GuestsAmount &&
-                                    s.RoomsAmount >= searchObj.RoomsAmount)
+                                    searchCounty.Contains(s.Address.Country.Title)    ||
+                                    searchCity.Contains(s.Address.City.Title)         &&
+                                    !s.BookedDates
+                                        .All(d => (d.DateIn > Convert.ToDateTime(searchObj.DateIn)      &&
+                                                   d.DateIn > Convert.ToDateTime(searchObj.DateOut))    ||
+                                                  (d.DateOut < Convert.ToDateTime(searchObj.DateIn)     &&
+                                                   d.DateOut < Convert.ToDateTime(searchObj.DateOut)))  &&
+                                    s.Apartments
+                                        .All(a => a.RoomsAmount >= searchObj.SearchRoomsAmount &&
+                                                  a.RoomsAmount >= searchObj.SearchRoomsAmount &&
+                                                  a.GuestsLimit >= searchObj.GuestsAmount))
                         .ToListAsync();
                 if (suggestions is null)
                 {

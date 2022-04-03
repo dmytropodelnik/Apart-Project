@@ -302,6 +302,7 @@ namespace CloneBookingAPI.Controllers.Pages
             {
                 List<int> reviewsCount = new();
                 List<double> suggestionGrades = new();
+                List<decimal> suggestionStartsFrom = new();
 
                 var resSuggestion = await _context.Suggestions
                     .Include(s => s.Images)
@@ -324,7 +325,8 @@ namespace CloneBookingAPI.Controllers.Pages
 
                 for (int i = 0; i < resSuggestion.Count; i++)
                 {
-                    suggestionGrades.Add(resSuggestion[i].SuggestionReviewGrades.Average(g => g.Value));                    
+                    suggestionGrades.Add(resSuggestion[i].SuggestionReviewGrades.Average(g => g.Value));
+                    suggestionStartsFrom.Add(resSuggestion[i].Apartments.Min(a => a.PriceInUSD));
                 }
 
                 return Json(new
@@ -333,6 +335,7 @@ namespace CloneBookingAPI.Controllers.Pages
                     resSuggestion,
                     reviewsCount,
                     suggestionGrades,
+                    suggestionStartsFrom,
                 });
             }
             catch (ArgumentNullException ex)

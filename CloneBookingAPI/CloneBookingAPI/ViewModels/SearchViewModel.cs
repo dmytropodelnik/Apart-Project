@@ -21,9 +21,9 @@ namespace CloneBookingAPI.ViewModels
         public string DateIn { get; set; }
         public string DateOut { get; set; }
 
-        public uint AdultsAmount { get; set; }
-        public uint ChildrenAmount { get; set; }
-        public uint RoomsAmount { get; set; }
-        public uint GuestsAmount { get; set; }
+        public int SearchAdultsAmount { get; set; }
+        public int SearchChildrenAmount { get; set; }
+        public int SearchRoomsAmount { get; set; }
+        public int GuestsAmount { get; set; }
     }
 }
