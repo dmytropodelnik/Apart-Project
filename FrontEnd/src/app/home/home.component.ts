@@ -2,8 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BookingCategory } from '../models/bookingcategory.item';
 import { City } from '../models/Location/city.item';
 import { Suggestion } from '../models/Suggestions/suggestion.item';
+import { SearchViewModel } from '../view-models/searchviewmodel.item';
 
 import { Router } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 
 import { MainDataService } from '../services/main-data.service';
 
@@ -45,6 +47,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   resSuggestion: any;
   reviewsCount: any;
   suggestionGrades: any;
+
+  searchViewModel: SearchViewModel = new SearchViewModel();
 
   slides = [
     { text: 'Educational Consulting', img: 'assets/images/21.png' },
@@ -118,6 +122,27 @@ export class HomeComponent implements OnInit, OnDestroy {
     ) {
 
     }
+
+  setChildren(value: number): void {
+    if (this.searchViewModel.searchChildrenAmount + value < 0) {
+      return;
+    }
+    this.searchViewModel.searchChildrenAmount += value;
+  }
+
+  setAdults(value: number): void {
+    if (this.searchViewModel.searchAdultsAmount + value < 0) {
+      return;
+    }
+    this.searchViewModel.searchAdultsAmount += value;
+  }
+
+  setRooms(value: number): void {
+    if (this.searchViewModel.searchRoomsAmount + value < 0) {
+      return;
+    }
+    this.searchViewModel.searchRoomsAmount += value;
+  }
 
   getRecommendedDestData(): void {
     fetch(`https://localhost:44381/api/stayspage/getrecommendeddestdata`, {

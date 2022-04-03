@@ -33,7 +33,7 @@
                     <div class="input-with-icon icon-2" type="button" data-toggle="dropdown">
                       <img src="assets/images/39.svg" alt="" />
                       <button type="text" class="header-input px-40">
-                        2 adults . 0 children . 1 room
+                        {{searchViewModel.searchAdultsAmount}} adults . {{searchViewModel.searchChildrenAmount}} children . {{searchViewModel.searchRoomsAmount}} room
                       </button>
                       <i><img src="assets/images/44.svg" alt="" /></i>
                     </div>
@@ -45,11 +45,11 @@
                               <span class="dropdownSubSectionText">Adults</span>
                             </div>
                             <div class="dropdownSubSectionButtons">
-                              <button class="bui-button bui-button--secondary">
+                              <button class="bui-button bui-button--secondary" (click)="setAdults(-1)">
                                 <span class="bui-button__text">-</span>
                               </button>
-                              <span class="dropdownSubSectionText">1</span>
-                              <button class="bui-button bui-button--secondary">
+                              <span class="dropdownSubSectionText">{{searchViewModel.searchAdultsAmount}}</span>
+                              <button class="bui-button bui-button--secondary" (click)="setAdults(1)">
                                 <span class="bui-button__text">+</span>
                               </button>
                             </div>
@@ -61,11 +61,11 @@
                               <span class="dropdownSubSectionText">Children</span>
                             </div>
                             <div class="dropdownSubSectionButtons">
-                              <button class="bui-button bui-button--secondary">
+                              <button class="bui-button bui-button--secondary" (click)="setChildren(-1)">
                                 <span class="bui-button__text">-</span>
                               </button>
-                              <span class="dropdownSubSectionText">1</span>
-                              <button class="bui-button bui-button--secondary">
+                              <span class="dropdownSubSectionText">{{searchViewModel.searchChildrenAmount}}</span>
+                              <button class="bui-button bui-button--secondary" (click)="setChildren(1)">
                                 <span class="bui-button__text">+</span>
                               </button>
                             </div>
@@ -77,11 +77,11 @@
                               <span class="dropdownSubSectionText">Rooms</span>
                             </div>
                             <div class="dropdownSubSectionButtons">
-                              <button class="bui-button bui-button--secondary">
+                              <button class="bui-button bui-button--secondary" (click)="setRooms(-1)">
                                 <span class="bui-button__text">-</span>
                               </button>
-                              <span class="dropdownSubSectionText">1</span>
-                              <button class="bui-button bui-button--secondary">
+                              <span class="dropdownSubSectionText">{{searchViewModel.searchRoomsAmount}}</span>
+                              <button class="bui-button bui-button--secondary" (click)="setRooms(1)">
                                 <span class="bui-button__text">+</span>
                               </button>
                             </div>
