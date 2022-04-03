@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ActivatedRoute} from '@angular/router';
 
+import { switchMap } from 'rxjs/operators';
+
 import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
 import MathHelper from '../utils/mathHelper';
@@ -18,6 +20,7 @@ import { RoomType } from '../models/Suggestions/roomtype.item';
 import { Language } from '../models/language.item';
 import { BedType } from '../models/Suggestions/bedtype.item';
 import { Favorite } from '../models/UserData/favorite.item';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-search-results',
@@ -54,7 +57,12 @@ export class SearchResultsComponent implements OnInit {
 
   suggestionsAmount: number = 0;
 
-  constructor() {}
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+  ) {
+
+  }
 
   model: any;
   model1: any;
@@ -102,10 +110,37 @@ export class SearchResultsComponent implements OnInit {
           this.resSuggestions = data.suggestions;
           this.totalPages = Math.ceil(data.suggestionsAmount / 25);
           this.suggestionsAmount = data.suggestionsAmount;
-          console.log(this.resSuggestions);
-          console.log(this.totalPages);
         } else {
           alert('Suggestions sort fetching error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  searchItems(value: SortState = this.sortState.TopReviewed): void {
+    this.filters.sortOrder = value;
+    this.filters.pageSize = 25;
+    this.filters.guestsAmount = this.filters.searchAdultsAmount + this.filters.searchChildrenAmount;
+
+    fetch(`https://localhost:44381/api/stayssearching/search`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(this.filters),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.resSuggestions = data.suggestions;
+          this.totalPages = Math.ceil(data.suggestionsAmount / 25);
+          this.suggestionsAmount = data.suggestionsAmount;
+        } else {
+          alert('Suggestions search fetching error!');
         }
       })
       .catch((ex) => {
@@ -234,7 +269,6 @@ export class SearchResultsComponent implements OnInit {
       .then((response) => {
         if (response.code === 200) {
           this.favorites.suggestions.push(response.resSuggestion);
-          console.log(response);
         } else {
           alert('User favorites fetching error!');
         }
@@ -269,7 +303,6 @@ export class SearchResultsComponent implements OnInit {
               return true;
             }
           });
-          console.log(response);
         } else {
           alert('User favorites fetching error!');
         }
@@ -291,7 +324,6 @@ export class SearchResultsComponent implements OnInit {
       .then((response) => {
         if (response.code === 200) {
           this.favorites = response.favorites;
-          console.log(this.favorites?.suggestions);
         } else {
           alert('User favorites fetching error!');
         }
@@ -320,5 +352,20 @@ export class SearchResultsComponent implements OnInit {
     if (AuthHelper.getLogin() != '') {
       this.getUserFavorites();
     }
+
+    // Note: Below 'queryParams' can be replaced with 'params' depending on your requirements
+    this.activatedRoute.queryParams.subscribe((params: any) => {
+      this.filters.place = params['place'];
+      this.filters.dateIn = params['dateIn'];
+      this.filters.dateOut = params['dateOut'];
+      this.filters.searchAdultsAmount = params['adults'];
+      this.filters.searchChildrenAmount = params['children'];
+      this.filters.searchRoomsAmount = params['rooms'];
+    });
+
+    console.log(this.filters.dateIn?.year);
+    console.log(this.filters.dateOut?.month);
+
+    this.searchItems();
   }
 }

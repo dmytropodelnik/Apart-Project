@@ -41,7 +41,7 @@ namespace CloneBookingAPI.Controllers.Search
         }
 
         [Route("search")]
-        [HttpGet]
+        [HttpPost]
         public async Task<ActionResult> Search([FromBody] SearchViewModel searchObj)
         {
             try
@@ -51,20 +51,22 @@ namespace CloneBookingAPI.Controllers.Search
                     return Json(new { code = 400 });
                 }
 
-                string searchCounty = searchObj.Address.Country.Title ?? "";
-                string searchCity = searchObj.Address.City.Title ?? "";
-                string searchAddressText = searchObj.Address.AddressText ?? "";
+                //string searchCounty = searchObj.Address.Country.Title ?? "";
+                //string searchCity = searchObj.Address.City.Title ?? "";
+                //string searchAddressText = searchObj.Address.AddressText ?? "";
+                
+                string place = searchObj.Place ?? "";
 
                 var suggestions = await _context.Suggestions
                         .Include(s => s.Address)
                         .Include(s => s.StayBookings)
                         .Include(s => s.Apartments)
-                        .Where(s => s.Address.Country.Title.Contains(searchCounty)    ||
-                                    s.Address.City.Title.Contains(searchCity)         ||
-                                    s.Address.AddressText.Contains(searchAddressText) ||
-                                    searchAddressText.Contains(s.Address.AddressText) ||
-                                    searchCounty.Contains(s.Address.Country.Title)    ||
-                                    searchCity.Contains(s.Address.City.Title)         &&
+                        .Where(s => place.Contains(s.Address.AddressText)        ||
+                                    place.Contains(s.Address.Country.Title)      ||
+                                    place.Contains(s.Address.City.Title)         ||
+                                    s.Address.Country.Title.Contains(place)      ||
+                                    s.Address.City.Title.Contains(place)         ||
+                                    s.Address.AddressText.Contains(place)        &&
                                     !s.BookedDates
                                         .All(d => (d.DateIn > Convert.ToDateTime(searchObj.DateIn)      &&
                                                    d.DateIn > Convert.ToDateTime(searchObj.DateOut))    ||
@@ -72,9 +74,18 @@ namespace CloneBookingAPI.Controllers.Search
                                                    d.DateOut < Convert.ToDateTime(searchObj.DateOut)))  &&
                                     s.Apartments
                                         .All(a => a.RoomsAmount >= searchObj.SearchRoomsAmount &&
-                                                  a.RoomsAmount >= searchObj.SearchRoomsAmount &&
                                                   a.GuestsLimit >= searchObj.GuestsAmount))
                         .ToListAsync();
+                if (suggestions is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                int suggestionsAmount = suggestions.Count();
+
+                // PAGINATION
+                suggestions = await _suggestionsPaginator.SelectItems(suggestions.AsQueryable(), searchObj.Page, searchObj.PageSize)
+                    .ToListAsync();
                 if (suggestions is null)
                 {
                     return Json(new { code = 400 });
@@ -84,6 +95,7 @@ namespace CloneBookingAPI.Controllers.Search
                 {
                     code = 200,
                     suggestions,
+                    suggestionsAmount,
                 });
             }
             catch (ArgumentNullException ex)

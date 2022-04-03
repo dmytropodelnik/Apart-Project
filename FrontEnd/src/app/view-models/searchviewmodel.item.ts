@@ -1,3 +1,5 @@
+import { NgbDate } from "@ng-bootstrap/ng-bootstrap";
+import { NgbDateStruct } from "@ng-bootstrap/ng-bootstrap/datepicker/ngb-date-struct";
 import { SortState } from "../enums/sortstate.item";
 import { Suggestion } from "../models/Suggestions/suggestion.item";
 import { FilterViewModel } from "./filterviewmodel.item";
@@ -12,12 +14,16 @@ export class SearchViewModel {
   pageSize: number = 25;
   totalPages: number = 1;
 
-  dateIn: string = '';
-  dateOut: string = '';
+  place: string = '';
+
+  dateIn: NgbDate  | null = null;
+  dateOut: NgbDate  | null = null;
 
   searchAdultsAmount: number = 2;
   searchChildrenAmount: number = 0;
   searchRoomsAmount: number = 1;
+
+  guestsAmount: number = 2;
 
   constructor () {
 

@@ -9,6 +9,7 @@ import { ActivatedRoute} from '@angular/router';
 
 import { MainDataService } from '../services/main-data.service';
 
+import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
 import MathHelper from '../utils/mathHelper';
 
@@ -20,7 +21,7 @@ import MathHelper from '../utils/mathHelper';
 export class HomeComponent implements OnInit, OnDestroy {
   card = [{ card: 1 }, { card: 1 }, { card: 1 }, { card: 1 }, { card: 1 }];
 
-  displayMonths = 2;
+  displayMonths = 1;
   navigation = 'arrows';
   showWeekNumbers = false;
   outsideDays = 'hidden';
@@ -258,18 +259,43 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   searchSuggestions(): void {
     fetch(`https://localhost:44381/api/stayspage/search`, {
-      method: 'GET',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(this.searchViewModel),
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          this.homeGuestsSuggestions = data.resSuggestion;
-          this.reviewsCount = data.reviewsCount;
 
-          // this.router.navigate(['']);
+          this.router.navigate(['/searchresults'], {
+            queryParams: {
+              place: this.searchViewModel.place,
+              dateIn: this.searchViewModel.dateIn,
+              dateOut: this.searchViewModel.dateOut,
+              adults: this.searchViewModel.searchAdultsAmount,
+              children: this.searchViewModel.searchChildrenAmount,
+              rooms: this.searchViewModel.searchRoomsAmount,
+            }
+          });
+        } else {
+          alert("Error search results");
         }
       })
       .catch((ex) => {
+        this.router.navigate(['/searchresults'], {
+          queryParams: {
+            place: this.searchViewModel.place,
+            dateIn: this.searchViewModel.dateIn,
+            dateOut: this.searchViewModel.dateOut,
+            adults: this.searchViewModel.searchAdultsAmount,
+            children: this.searchViewModel.searchChildrenAmount,
+            rooms: this.searchViewModel.searchRoomsAmount,
+          }
+        });
         alert(ex);
       });
   }

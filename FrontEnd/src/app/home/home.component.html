@@ -10,7 +10,8 @@
                   <div class="col-md-5 px-6">
                     <div class="input-with-icon">
                       <img src="assets/images/9.svg" alt="" />
-                      <input type="text" class="header-input pl-50" placeholder="Where are you going?" />
+                      <input type="text" class="header-input pl-50" placeholder="Where are you going?"
+                             name="searchViewModel.place" [(ngModel)]="searchViewModel.place" />
                     </div>
                   </div>
                   <div class="col-md-3 my-1 my-md-0 px-6">
@@ -24,9 +25,25 @@
                             fill-rule="evenodd"></path>
                         </svg>
                       </span>
-                      <input (click)="d.toggle()" class="header-input pl-50" placeholder="Check-in - Check-out"
-                        name="dp" [displayMonths]="displayMonths" [navigation]="navigation" [outsideDays]="outsideDays"
+                      <input (click)="d.toggle()" class="header-input pl-50" placeholder="Check-in"
+                        name="searchViewModel.dateIn" [(ngModel)]="searchViewModel.dateIn"
+                        [displayMonths]="displayMonths" [navigation]="navigation" [outsideDays]="outsideDays"
                         [showWeekNumbers]="showWeekNumbers" ngbDatepicker #d="ngbDatepicker" />
+                    </div>
+                    <div class="input-with-icon">
+                      <span class="input-icon">
+                        <svg aria-hidden="true" class="bk-icon -experiments-calendar sb-date-picker_icon-svg"
+                          fill="#BDBDBD" focusable="false" height="20" role="presentation" width="20"
+                          viewBox="0 0 128 128">
+                          <path
+                            d="m112 16h-16v-8h-8v8h-48v-8h-8v8h-16c-4.4 0-8 3.9-8 8.7v86.6c0 4.8 3.6 8.7 8 8.7h96c4.4 0 8-3.9 8-8.7v-86.6c0-4.8-3.6-8.7-8-8.7zm0 95.3a1.1 1.1 0 0 1 -.2.7h-95.6a1.1 1.1 0 0 1 -.2-.7v-71.3h96zm-68-43.3h-12v-12h12zm0 28h-12v-12h12zm26-28h-12v-12h12zm0 28h-12v-12h12zm26 0h-12v-12h12zm0-28h-12v-12h12z"
+                            fill-rule="evenodd"></path>
+                        </svg>
+                      </span>
+                      <input (click)="t.toggle()" class="header-input pl-50" placeholder="Check-out"
+                        name="searchViewModel.dateOut" [(ngModel)]="searchViewModel.dateOut"
+                        [displayMonths]="displayMonths" [navigation]="navigation" [outsideDays]="outsideDays"
+                        [showWeekNumbers]="showWeekNumbers" ngbDatepicker #t="ngbDatepicker" />
                     </div>
                   </div>
                   <div class="col-md-4 px-6">

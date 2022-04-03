@@ -11,6 +11,7 @@ namespace CloneBookingAPI.ViewModels
         public List<FilterViewModel> Filters { get; set; }
 
         public Address Address { get; set; }
+        public string Place { get; set; }
 
         public SortState SortOrder { get; set; }
 
