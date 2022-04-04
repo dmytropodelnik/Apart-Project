@@ -50,10 +50,6 @@ namespace CloneBookingAPI.Controllers.Search
                 {
                     return Json(new { code = 400 });
                 }
-
-                //string searchCounty = searchObj.Address.Country.Title ?? "";
-                //string searchCity = searchObj.Address.City.Title ?? "";
-                //string searchAddressText = searchObj.Address.AddressText ?? "";
                 
                 string place = searchObj.Place ?? "";
 
@@ -67,14 +63,14 @@ namespace CloneBookingAPI.Controllers.Search
                                     s.Address.Country.Title.Contains(place)      ||
                                     s.Address.City.Title.Contains(place)         ||
                                     s.Address.AddressText.Contains(place)        &&
-                                    !s.BookedDates
-                                        .All(d => (d.DateIn > Convert.ToDateTime(searchObj.DateIn)      &&
-                                                   d.DateIn > Convert.ToDateTime(searchObj.DateOut))    ||
-                                                  (d.DateOut < Convert.ToDateTime(searchObj.DateIn)     &&
-                                                   d.DateOut < Convert.ToDateTime(searchObj.DateOut)))  &&
                                     s.Apartments
-                                        .All(a => a.RoomsAmount >= searchObj.SearchRoomsAmount &&
-                                                  a.GuestsLimit >= searchObj.GuestsAmount))
+                                        .Any(a => a.BookedDates
+                                            .Any(d => (d.DateIn > Convert.ToDateTime(searchObj.DateIn)      &&
+                                                       d.DateIn > Convert.ToDateTime(searchObj.DateOut))    ||
+                                                       d.DateOut < Convert.ToDateTime(searchObj.DateIn)     &&
+                                                       d.DateOut < Convert.ToDateTime(searchObj.DateOut)    && 
+                                                       a.RoomsAmount >= searchObj.SearchRoomsAmount         &&
+                                                       a.GuestsLimit >= searchObj.GuestsAmount)))
                         .ToListAsync();
                 if (suggestions is null)
                 {
@@ -84,8 +80,8 @@ namespace CloneBookingAPI.Controllers.Search
                 int suggestionsAmount = suggestions.Count();
 
                 // PAGINATION
-                suggestions = await _suggestionsPaginator.SelectItems(suggestions.AsQueryable(), searchObj.Page, searchObj.PageSize)
-                    .ToListAsync();
+                suggestions = _suggestionsPaginator.SelectItems(suggestions.AsQueryable(), searchObj.Page, searchObj.PageSize)
+                    .ToList();
                 if (suggestions is null)
                 {
                     return Json(new { code = 400 });

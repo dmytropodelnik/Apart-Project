@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CloneBookingAPI.Database.Configurations.Suggestions
 {
-    public class BookedDatesConfiguration : IEntityTypeConfiguration<BookedDate>
+    public class BookedDatesConfiguration : IEntityTypeConfiguration<BookedPeriod>
     {
-        public void Configure(EntityTypeBuilder<BookedDate> builder)
+        public void Configure(EntityTypeBuilder<BookedPeriod> builder)
         {
             builder.HasData(
-              new BookedDate[]
+              new BookedPeriod[]
               {
                     
               });

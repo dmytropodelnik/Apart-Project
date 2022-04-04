@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CloneBookingAPI.Database.Models.Suggestions
 {
     [Table("BookedDates")]
-    public class BookedDate
+    public class BookedPeriod
     {
         [Column("Id")]  // Можно было не указывать потому, что так было бы по умолчанию, благодаря соглашению о наименованиях EF
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,6 +16,6 @@ namespace CloneBookingAPI.Database.Models.Suggestions
         public DateTime DateIn { get; set; } = new();
         public DateTime DateOut { get; set; } = new();
 
-        public List<Suggestion> Suggestions { get; set; } = new();
+        public List<Apartment> Apartments { get; set; } = new();
     }
 }

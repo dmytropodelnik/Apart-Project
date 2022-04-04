@@ -12,6 +12,7 @@ import { MainDataService } from '../services/main-data.service';
 import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
 import MathHelper from '../utils/mathHelper';
+import { SortState } from '../enums/sortstate.item';
 
 @Component({
   selector: 'app-home',
@@ -133,14 +134,14 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   setAdults(value: number): void {
-    if (this.searchViewModel.searchAdultsAmount + value < 0) {
+    if (this.searchViewModel.searchAdultsAmount + value < 1) {
       return;
     }
     this.searchViewModel.searchAdultsAmount += value;
   }
 
   setRooms(value: number): void {
-    if (this.searchViewModel.searchRoomsAmount + value < 0) {
+    if (this.searchViewModel.searchRoomsAmount + value < 1) {
       return;
     }
     this.searchViewModel.searchRoomsAmount += value;
@@ -258,46 +259,56 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   searchSuggestions(): void {
-    fetch(`https://localhost:44381/api/stayspage/search`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(this.searchViewModel),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.code === 200) {
+    this.searchViewModel.sortOrder = SortState.TopReviewed;
+    console.log(this.searchViewModel);
 
-          this.router.navigate(['/searchresults'], {
-            queryParams: {
-              place: this.searchViewModel.place,
-              dateIn: this.searchViewModel.dateIn,
-              dateOut: this.searchViewModel.dateOut,
-              adults: this.searchViewModel.searchAdultsAmount,
-              children: this.searchViewModel.searchChildrenAmount,
-              rooms: this.searchViewModel.searchRoomsAmount,
-            }
-          });
-        } else {
-          alert("Error search results");
-        }
-      })
-      .catch((ex) => {
-        this.router.navigate(['/searchresults'], {
-          queryParams: {
-            place: this.searchViewModel.place,
-            dateIn: this.searchViewModel.dateIn,
-            dateOut: this.searchViewModel.dateOut,
-            adults: this.searchViewModel.searchAdultsAmount,
-            children: this.searchViewModel.searchChildrenAmount,
-            rooms: this.searchViewModel.searchRoomsAmount,
-          }
-        });
-        alert(ex);
-      });
+    let dateIn = this.searchViewModel.pdateIn!.day + '/' + this.searchViewModel.pdateIn!.month + '/' +
+                 this.searchViewModel.pdateIn!.year;
+    let dateOut = this.searchViewModel.pdateOut!.day + '/' + this.searchViewModel.pdateOut!.month + '/' +
+                  this.searchViewModel.pdateOut!.year;
+
+
+    this.router.navigate(['/searchresults'], {
+      queryParams: {
+        place: this.searchViewModel.place,
+        dateIn: dateIn,
+        dateOut: dateOut,
+        adults: this.searchViewModel.searchAdultsAmount,
+        children: this.searchViewModel.searchChildrenAmount,
+        rooms: this.searchViewModel.searchRoomsAmount,
+      }
+    });
+
+    // fetch(`https://localhost:44381/api/stayssearching/search`, {
+    //   method: 'POST',
+    //   headers: {
+    //     'Content-Type': 'application/json; charset=utf-8',
+    //     Accept: 'application/json',
+    //     Authorization: 'Bearer ' + AuthHelper.getToken(),
+    //   },
+    //   body: JSON.stringify(this.searchViewModel),
+    // })
+    //   .then((r) => r.json())
+    //   .then((data) => {
+    //     if (data.code === 200) {
+
+    //       this.router.navigate(['/searchresults'], {
+    //         queryParams: {
+    //           place: this.searchViewModel.place,
+    //           dateIn: this.searchViewModel.dateIn,
+    //           dateOut: this.searchViewModel.dateOut,
+    //           adults: this.searchViewModel.searchAdultsAmount,
+    //           children: this.searchViewModel.searchChildrenAmount,
+    //           rooms: this.searchViewModel.searchRoomsAmount,
+    //         }
+    //       });
+    //     } else {
+    //       alert("Error search results");
+    //     }
+    //   })
+    //   .catch((ex) => {
+    //     alert(ex);
+    //   });
   }
 
   ngOnInit(): void {

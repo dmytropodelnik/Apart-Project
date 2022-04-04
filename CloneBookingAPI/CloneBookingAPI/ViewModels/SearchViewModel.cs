@@ -1,6 +1,7 @@
 ﻿using CloneBookingAPI.Enums;
 using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
+using System;
 using System.Collections.Generic;
 
 namespace CloneBookingAPI.ViewModels

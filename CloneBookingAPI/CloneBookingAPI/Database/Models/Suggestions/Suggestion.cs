@@ -65,7 +65,6 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public List<Language> Languages { get; set; } = new();
         public List<SuggestionRule> SuggestionRules { get; set; } = new();
         public List<SurroundingObject> SurroundingObjects { get; set; } = new();
-        public List<BookedDate> BookedDates { get; set; } = new();
         public List<Apartment> Apartments { get; set; } = new();
 
         public List<SuggestionFileModel> SuggestionsFileModels { get; set; } = new();
