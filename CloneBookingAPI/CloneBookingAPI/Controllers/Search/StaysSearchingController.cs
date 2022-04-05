@@ -55,8 +55,8 @@ namespace CloneBookingAPI.Controllers.Search
 
                 var suggestions = await _context.Suggestions
                         .Include(s => s.Address)
-                        .Include(s => s.StayBookings)
                         .Include(s => s.Apartments)
+                            .ThenInclude(a => a.BookedPeriods)
                         .Where(s => place.Contains(s.Address.AddressText)        ||
                                     place.Contains(s.Address.Country.Title)      ||
                                     place.Contains(s.Address.City.Title)         ||
@@ -64,7 +64,7 @@ namespace CloneBookingAPI.Controllers.Search
                                     s.Address.City.Title.Contains(place)         ||
                                     s.Address.AddressText.Contains(place)        &&
                                     s.Apartments
-                                        .Any(a => a.BookedDates
+                                        .Any(a => a.BookedPeriods
                                             .Any(d => (d.DateIn > Convert.ToDateTime(searchObj.DateIn)      &&
                                                        d.DateIn > Convert.ToDateTime(searchObj.DateOut))    ||
                                                        d.DateOut < Convert.ToDateTime(searchObj.DateIn)     &&

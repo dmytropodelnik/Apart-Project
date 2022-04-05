@@ -173,8 +173,10 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new BedsConfiguration());
             modelBuilder.ApplyConfiguration(new BedTypesConfiguration());
             modelBuilder.ApplyConfiguration(new ContactDetailsConfiguration());
-            modelBuilder.ApplyConfiguration(new BookedDatesConfiguration());
+            modelBuilder.ApplyConfiguration(new BookedPeriodsConfiguration());
             modelBuilder.ApplyConfiguration(new ApartmentsConfiguration());
+            modelBuilder.ApplyConfiguration(new ApartmentRoomTypesConfiguration());
+            modelBuilder.ApplyConfiguration(new ApartmentBookedPeriodConfiguration());
             modelBuilder.ApplyConfiguration(new SuggestionsFileModelsConfiguration());
         }
     }

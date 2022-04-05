@@ -122,7 +122,7 @@ export class SearchResultsComponent implements OnInit {
   searchItems(value: SortState = this.sortState.TopReviewed): void {
     this.filters.sortOrder = value;
     // this.filters.pageSize = 25;
-    this.filters.guestsAmount = this.filters.searchAdultsAmount + this.filters.searchChildrenAmount;
+    this.filters.guestsAmount = Number(this.filters.searchAdultsAmount) + Number(this.filters.searchChildrenAmount);
 
     fetch(`https://localhost:44381/api/stayssearching/search`, {
       method: 'POST',

@@ -32,7 +32,7 @@ namespace CloneBookingAPI.Database.Models.Suggestions
         public int? SuggestionId { get; set; }
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }
-        public List<BookedPeriod> BookedDates { get; set; } = new();
+        public List<BookedPeriod> BookedPeriods { get; set; } = new();
 
         public List<RoomType> RoomTypes { get; set; } = new();
     }
