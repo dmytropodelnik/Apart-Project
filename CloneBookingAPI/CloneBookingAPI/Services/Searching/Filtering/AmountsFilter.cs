@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace CloneBookingAPI.Services.Searching.Filtering
 {
-    public class HighlightsFilter : IFilter
+    public class AmountsFilter : IFilter
     {
         private string _value;
         private string _filter;
@@ -20,7 +20,8 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                 _filter = value;
             }
         }
-        public HighlightsFilter(string value, string filter)
+
+        public AmountsFilter(string value, string filter)
         {
             _value = value;
             _filter = filter;
@@ -35,10 +36,24 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                     return null;
                 }
 
+                string adultsAmount   = _value.Substring(0, _value.IndexOf(";"));
+                string childrenAmount = _value.Substring(_value.IndexOf(";") + 1, _value.LastIndexOf(";"));
+                string roomsAmount    = _value.Substring(_value.LastIndexOf(";") + 1);
+
+                if (string.IsNullOrWhiteSpace(adultsAmount) ||
+                    string.IsNullOrWhiteSpace(childrenAmount) ||
+                    string.IsNullOrWhiteSpace(roomsAmount))
+                {
+                    return suggestions;
+                }
+
                 suggestions = suggestions
-                    .Include(s => s.Highlights)
-                    .Where(s => s.Highlights
-                                    .Any(h => h.Text.Equals(_value)));
+                    .Include(s => s.Apartments)
+                        .ThenInclude(a => a.BookedPeriods)
+                    .Where(s => s.Apartments
+                                    .Any(a => a.BookedPeriods
+                                        .Any(d => a.RoomsAmount >= int.Parse(roomsAmount) &&
+                                                   a.GuestsLimit >= (int.Parse(adultsAmount) + int.Parse(childrenAmount)))));
 
                 return suggestions;
             }

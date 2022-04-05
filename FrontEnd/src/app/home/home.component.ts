@@ -258,7 +258,9 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  searchSuggestions(): void {
+  searchSuggestions($event : any): void {
+    $event.stopPropagation();
+
     this.searchViewModel.sortOrder = SortState.TopReviewed;
     console.log(this.searchViewModel);
 
@@ -266,7 +268,6 @@ export class HomeComponent implements OnInit, OnDestroy {
                  this.searchViewModel.pdateIn!.year;
     let dateOut = this.searchViewModel.pdateOut!.day + '/' + this.searchViewModel.pdateOut!.month + '/' +
                   this.searchViewModel.pdateOut!.year;
-
 
     this.router.navigate(['/searchresults'], {
       queryParams: {

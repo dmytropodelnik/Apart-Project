@@ -1,5 +1,6 @@
 ﻿using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -36,6 +37,7 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                 }
 
                 suggestions = suggestions
+                    .Include(s => s.SuggestionReviewGrades)
                     .Where(s => s.SuggestionReviewGrades
                                     .Average(g => g.Value) >= int.Parse(_value));
 

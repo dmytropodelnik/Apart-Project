@@ -1,5 +1,6 @@
 ﻿using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -37,6 +38,8 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                 }
 
                 suggestions = suggestions
+                    .Include(s => s.Beds)
+                        .ThenInclude(b => b.BedType)
                     .Where(s => s.Beds
                                     .Any(b => b.BedType.Title.Equals(_value)));
 

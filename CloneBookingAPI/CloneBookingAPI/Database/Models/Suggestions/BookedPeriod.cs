@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database.Models.Suggestions;
+﻿using CloneBookingAPI.Database.Models.ViewModels;
+using CloneBookingAPI.Services.Database.Models.Suggestions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -17,5 +18,7 @@ namespace CloneBookingAPI.Database.Models.Suggestions
         public DateTime DateOut { get; set; } = new();
 
         public List<Apartment> Apartments { get; set; } = new();
+
+        public List<ApartmentBookedPeriod> ApartmentsBookedPeriods { get; set; } = new();
     }
 }

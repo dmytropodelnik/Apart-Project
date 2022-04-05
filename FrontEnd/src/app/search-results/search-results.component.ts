@@ -67,8 +67,7 @@ export class SearchResultsComponent implements OnInit {
   model: any;
   model1: any;
 
-  addFilterCheck(filter: string, value: any, index: number): void {
-    console.log(index);
+  addFilterCheck(filter: string, value: any, index: any): void {
     if (this.filterCheckBoxes[index]) {
       this.filterChecks.push(new FilterViewModel(filter, value));
     } else {
@@ -94,6 +93,7 @@ export class SearchResultsComponent implements OnInit {
     // this.filters.suggestions = this.resSuggestions;
     this.filters.pageSize = 25;
     this.filters.filters = this.filterChecks;
+    this.filters.guestsAmount = Number(this.filters.searchAdultsAmount) + Number(this.filters.searchChildrenAmount);
 
     fetch(`https://localhost:44381/api/stayssearching/filtersearch`, {
       method: 'POST',
@@ -108,39 +108,10 @@ export class SearchResultsComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.resSuggestions = data.suggestions;
-          this.totalPages = Math.ceil(data.suggestionsAmount / 25);
+          this.totalPages = Math.ceil(data.suggestionsAmount / 25) == 0 ? 1 : Math.ceil(data.suggestionsAmount / 25);
           this.suggestionsAmount = data.suggestionsAmount;
         } else {
           alert('Suggestions sort fetching error!');
-        }
-      })
-      .catch((ex) => {
-        alert(ex);
-      });
-  }
-
-  searchItems(value: SortState = this.sortState.TopReviewed): void {
-    this.filters.sortOrder = value;
-    // this.filters.pageSize = 25;
-    this.filters.guestsAmount = Number(this.filters.searchAdultsAmount) + Number(this.filters.searchChildrenAmount);
-
-    fetch(`https://localhost:44381/api/stayssearching/search`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(this.filters),
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.code === 200) {
-          this.resSuggestions = data.suggestions;
-          this.totalPages = Math.ceil(data.suggestionsAmount / 25);
-          this.suggestionsAmount = data.suggestionsAmount;
-        } else {
-          alert('Suggestions search fetching error!');
         }
       })
       .catch((ex) => {
@@ -361,11 +332,15 @@ export class SearchResultsComponent implements OnInit {
       this.filters.searchAdultsAmount = params['adults'];
       this.filters.searchChildrenAmount = params['children'];
       this.filters.searchRoomsAmount = params['rooms'];
+
+      this.filterChecks.push(new FilterViewModel('places', this.filters.place));
+      this.filterChecks.push(new FilterViewModel('dates', this.filters.dateIn + ';' + this.filters.dateOut));
+      this.filterChecks.push(new FilterViewModel('amounts', this.filters.searchAdultsAmount + ';' +
+                                                            this.filters.searchChildrenAmount + ';' +
+                                                            this.filters.searchRoomsAmount));
+      console.log(this.filterChecks);
     });
 
-    console.log(this.filters.dateIn);
-    console.log(this.filters.dateOut);
-
-    this.searchItems();
+    this.sortItems();
   }
 }

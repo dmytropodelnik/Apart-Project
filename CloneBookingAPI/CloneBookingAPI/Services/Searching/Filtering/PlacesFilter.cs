@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace CloneBookingAPI.Services.Searching.Filtering
 {
-    public class HighlightsFilter : IFilter
+    public class PlacesFilter : IFilter
     {
         private string _value;
         private string _filter;
@@ -20,7 +20,8 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                 _filter = value;
             }
         }
-        public HighlightsFilter(string value, string filter)
+
+        public PlacesFilter(string value, string filter)
         {
             _value = value;
             _filter = filter;
@@ -36,9 +37,12 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                 }
 
                 suggestions = suggestions
-                    .Include(s => s.Highlights)
-                    .Where(s => s.Highlights
-                                    .Any(h => h.Text.Equals(_value)));
+                        .Where(s => _value.Contains(s.Address.AddressText)   ||
+                                    _value.Contains(s.Address.Country.Title) ||
+                                    _value.Contains(s.Address.City.Title)    ||
+                                    s.Address.Country.Title.Contains(_value) ||
+                                    s.Address.City.Title.Contains(_value)    ||
+                                    s.Address.AddressText.Contains(_value));
 
                 return suggestions;
             }

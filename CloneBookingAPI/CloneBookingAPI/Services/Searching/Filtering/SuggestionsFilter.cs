@@ -73,6 +73,18 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
                     {
                         _appliedFilters.Add(new BedTypesFilter(filter.Value, filter.Filter));
                     }
+                    else if (filter.Filter.Equals("places"))
+                    {
+                        _appliedFilters.Add(new PlacesFilter(filter.Value, filter.Filter));
+                    }
+                    else if (filter.Filter.Equals("dates"))
+                    {
+                        _appliedFilters.Add(new DatesFilter(filter.Value, filter.Filter));
+                    }
+                    else if (filter.Filter.Equals("amounts"))
+                    {
+                        _appliedFilters.Add(new AmountsFilter(filter.Value, filter.Filter));
+                    }
                 }
 
                 List<Suggestion> filtered = new();

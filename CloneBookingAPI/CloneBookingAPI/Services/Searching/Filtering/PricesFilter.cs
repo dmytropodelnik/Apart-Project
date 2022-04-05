@@ -1,5 +1,6 @@
 ﻿using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -50,6 +51,7 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                 //                                .All(r => r.PriceInUSD >= decimal.Parse(priceRange[0]) && r.PriceInUSD <= decimal.Parse(priceRange[1]))));
 
                 suggestions = suggestions
+                    .Include(s => s.Apartments)
                      .Where(s => s.Apartments
                         .All(a => a.PriceInUSD >= decimal.Parse(priceRange[0]) && a.PriceInUSD <= decimal.Parse(priceRange[1])));
 

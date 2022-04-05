@@ -2,6 +2,7 @@
 using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -34,6 +35,7 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                     case SortState.HomeAndApartmentsFirst:
 
                         suggestions = suggestions
+                            .Include(s => s.BookingCategory)
                             .OrderBy(s => s.BookingCategory.Category.Equals("Homes") ||
                                           s.BookingCategory.Category.Equals("Apartments"));
 
@@ -42,6 +44,9 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                     case SortState.PriceAsc:
 
                         suggestions = suggestions
+                            .Include(s => s.Apartments)
+                                .ThenInclude(a => a.RoomTypes)
+                                .ThenInclude(t => t.Rooms)
                             .OrderBy(s => s.Apartments
                                 .Select(t => t.RoomTypes
                                     .Select(t => t.Rooms
@@ -52,6 +57,9 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                     case SortState.PriceDesc:
 
                         suggestions = suggestions
+                            .Include(s => s.Apartments)
+                                .ThenInclude(a => a.RoomTypes)
+                                .ThenInclude(t => t.Rooms)
                             .OrderBy(s => s.Apartments
                                 .Select(t => t.RoomTypes
                                     .Select(t => t.Rooms
@@ -62,6 +70,7 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                     case SortState.BestReviewed:
 
                         suggestions = suggestions
+                            .Include(s => s.SuggestionReviewGrades)
                             .OrderByDescending(s => s.SuggestionReviewGrades
                                 .Average(g => g.Value));
 
@@ -70,6 +79,7 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                     case SortState.WorstReviewed:
 
                         suggestions = suggestions
+                            .Include(s => s.SuggestionReviewGrades)
                             .OrderBy(s => s.SuggestionReviewGrades
                                 .Average(g => g.Value));
 
@@ -92,6 +102,7 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                     case SortState.TopReviewed:
 
                         suggestions = suggestions
+                            .Include(s => s.Reviews)
                             .OrderByDescending(s => s.Reviews.Count);
 
                         break;
@@ -99,6 +110,10 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                     case SortState.BestReviewedAndLowerPrice:
 
                         suggestions = suggestions
+                            .Include(s => s.Apartments)
+                                .ThenInclude(a => a.RoomTypes)
+                                .ThenInclude(t => t.Rooms)
+                            .Include(s => s.SuggestionReviewGrades)
                             .OrderByDescending(s => s.SuggestionReviewGrades.Average(g => g.Value))
                             .OrderByDescending(s => s.Apartments
                                 .Select(t => t.RoomTypes
@@ -110,6 +125,9 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                     case SortState.StarRatingAndLowerPrice:
 
                         suggestions = suggestions
+                            .Include(s => s.Apartments)
+                                .ThenInclude(a => a.RoomTypes)
+                                .ThenInclude(t => t.Rooms)
                             .OrderByDescending(s => s.StarsRating)
                             .OrderBy(s => s.Apartments
                                 .Select(t => t.RoomTypes

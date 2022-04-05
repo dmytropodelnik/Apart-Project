@@ -18,8 +18,8 @@ export class SearchViewModel {
 
   pdateIn: NgbDate | null = null;
   pdateOut: NgbDate  | null = null;
-  dateIn: string = '04/04/2022';
-  dateOut: string = '07/04/2022';
+  dateIn: string = '';
+  dateOut: string = '';
 
   searchAdultsAmount: number = 2;
   searchChildrenAmount: number = 0;

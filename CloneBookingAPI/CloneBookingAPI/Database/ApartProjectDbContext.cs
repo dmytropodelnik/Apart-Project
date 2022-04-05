@@ -121,6 +121,40 @@ namespace CloneBookingAPI.Services.Database
                         j.HasKey(t => new { t.SuggestionId, t.ImageId });
                     });
 
+            modelBuilder.Entity<Apartment>()
+                .HasMany(a => a.RoomTypes)
+                .WithMany(t => t.Apartments)
+                .UsingEntity<ApartmentRoomType>(
+                    j => j
+                        .HasOne(rt => rt.RoomType)
+                        .WithMany(a => a.ApartmentsRoomTypes)
+                        .HasForeignKey(pt => pt.RoomTypeId),
+                    j => j
+                        .HasOne(pt => pt.Apartment)
+                        .WithMany(p => p.ApartmentsRoomTypes)
+                        .HasForeignKey(pt => pt.ApartmentId),
+                    j =>
+                    {
+                        j.HasKey(t => new { t.ApartmentId, t.RoomTypeId });
+                    });
+
+            modelBuilder.Entity<Apartment>()
+                .HasMany(a => a.BookedPeriods)
+                .WithMany(p => p.Apartments)
+                .UsingEntity<ApartmentBookedPeriod>(
+                    j => j
+                        .HasOne(bp => bp.BookedPeriod)
+                        .WithMany(a => a.ApartmentsBookedPeriods)
+                        .HasForeignKey(pt => pt.BookedPeriodId),
+                    j => j
+                        .HasOne(pt => pt.Apartment)
+                        .WithMany(p => p.ApartmentsBookedPeriods)
+                        .HasForeignKey(pt => pt.ApartmentId),
+                    j =>
+                    {
+                        j.HasKey(t => new { t.ApartmentId, t.BookedPeriodId });
+                    });
+
             modelBuilder.ApplyConfiguration(new FlightClassTypesConfiguration());
             modelBuilder.ApplyConfiguration(new AddressesConfiguration());
             modelBuilder.ApplyConfiguration(new AirportsConfiguration());

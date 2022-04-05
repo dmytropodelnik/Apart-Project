@@ -40,79 +40,79 @@ namespace CloneBookingAPI.Controllers.Search
             _suggestionsPaginator = suggestionsPaginator;
         }
 
-        [Route("search")]
-        [HttpPost]
-        public async Task<ActionResult> Search([FromBody] SearchViewModel searchObj)
-        {
-            try
-            {
-                if (searchObj is null)
-                {
-                    return Json(new { code = 400 });
-                }
+        //[Route("search")]
+        //[HttpPost]
+        //public async Task<ActionResult> Search([FromBody] SearchViewModel searchObj)
+        //{
+        //    try
+        //    {
+        //        if (searchObj is null)
+        //        {
+        //            return Json(new { code = 400 });
+        //        }
                 
-                string place = searchObj.Place ?? "";
+        //        string place = searchObj.Place ?? "";
 
-                var suggestions = await _context.Suggestions
-                        .Include(s => s.Address)
-                        .Include(s => s.Apartments)
-                            .ThenInclude(a => a.BookedPeriods)
-                        .Where(s => place.Contains(s.Address.AddressText)        ||
-                                    place.Contains(s.Address.Country.Title)      ||
-                                    place.Contains(s.Address.City.Title)         ||
-                                    s.Address.Country.Title.Contains(place)      ||
-                                    s.Address.City.Title.Contains(place)         ||
-                                    s.Address.AddressText.Contains(place)        &&
-                                    s.Apartments
-                                        .Any(a => a.BookedPeriods
-                                            .Any(d => (d.DateIn > Convert.ToDateTime(searchObj.DateIn)      &&
-                                                       d.DateIn > Convert.ToDateTime(searchObj.DateOut))    ||
-                                                       d.DateOut < Convert.ToDateTime(searchObj.DateIn)     &&
-                                                       d.DateOut < Convert.ToDateTime(searchObj.DateOut)    && 
-                                                       a.RoomsAmount >= searchObj.SearchRoomsAmount         &&
-                                                       a.GuestsLimit >= searchObj.GuestsAmount)))
-                        .ToListAsync();
-                if (suggestions is null)
-                {
-                    return Json(new { code = 400 });
-                }
+        //        var suggestions = await _context.Suggestions
+        //                .Include(s => s.Address)
+        //                .Include(s => s.Apartments)
+        //                    .ThenInclude(a => a.BookedPeriods)
+        //                .Where(s => place.Contains(s.Address.AddressText)        ||
+        //                            place.Contains(s.Address.Country.Title)      ||
+        //                            place.Contains(s.Address.City.Title)         ||
+        //                            s.Address.Country.Title.Contains(place)      ||
+        //                            s.Address.City.Title.Contains(place)         ||
+        //                            s.Address.AddressText.Contains(place)        &&
+        //                            s.Apartments
+        //                                .Any(a => a.BookedPeriods
+        //                                    .Any(d => (d.DateIn > Convert.ToDateTime(searchObj.DateIn)      &&
+        //                                               d.DateIn > Convert.ToDateTime(searchObj.DateOut))    ||
+        //                                               d.DateOut < Convert.ToDateTime(searchObj.DateIn)     &&
+        //                                               d.DateOut < Convert.ToDateTime(searchObj.DateOut)    && 
+        //                                               a.RoomsAmount >= searchObj.SearchRoomsAmount         &&
+        //                                               a.GuestsLimit >= searchObj.GuestsAmount)))
+        //                .ToListAsync();
+        //        if (suggestions is null)
+        //        {
+        //            return Json(new { code = 400 });
+        //        }
 
-                int suggestionsAmount = suggestions.Count();
+        //        int suggestionsAmount = suggestions.Count();
 
-                // PAGINATION
-                suggestions = _suggestionsPaginator.SelectItems(suggestions.AsQueryable(), searchObj.Page, searchObj.PageSize)
-                    .ToList();
-                if (suggestions is null)
-                {
-                    return Json(new { code = 400 });
-                }
+        //        // PAGINATION
+        //        suggestions = _suggestionsPaginator.SelectItems(suggestions.AsQueryable(), searchObj.Page, searchObj.PageSize)
+        //            .ToList();
+        //        if (suggestions is null)
+        //        {
+        //            return Json(new { code = 400 });
+        //        }
 
-                return Json(new
-                {
-                    code = 200,
-                    suggestions,
-                    suggestionsAmount,
-                });
-            }
-            catch (ArgumentNullException ex)
-            {
-                Debug.WriteLine(ex.Message);
+        //        return Json(new
+        //        {
+        //            code = 200,
+        //            suggestions,
+        //            suggestionsAmount,
+        //        });
+        //    }
+        //    catch (ArgumentNullException ex)
+        //    {
+        //        Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 500 });
-            }
-            catch (OperationCanceledException ex)
-            {
-                Debug.WriteLine(ex.Message);
+        //        return Json(new { code = 500 });
+        //    }
+        //    catch (OperationCanceledException ex)
+        //    {
+        //        Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 500 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
+        //        return Json(new { code = 500 });
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Debug.WriteLine(ex.Message);
 
-                return Json(new { code = ex.Message });
-            }
-        }
+        //        return Json(new { code = ex.Message });
+        //    }
+        //}
 
         [Route("filtersearch")]
         [HttpPost]
@@ -125,19 +125,12 @@ namespace CloneBookingAPI.Controllers.Search
                     return Json(new { code = 400 });
                 }
 
+                string place = filters.Place ?? "";
+
                 var suggestions = await _context.Suggestions
-                    //.Include(s => s.Address)
-                    //.Include(s => s.Reviews)
-                    //.Include(s => s.Facilities)
-                    //.Include(s => s.Languages)
-                    //.Include(s => s.Beds)
-                    //    .ThenInclude(b => b.BedType)
-                    //.Include(s => s.Highlights)
-                    //.Include(s => s.RoomTypes)
-                    //    .ThenInclude(t => t.Rooms)
-                    //.Include(s => s.User)
-                    .Include(s => s.SuggestionReviewGrades)
-                    //.Include(s => s.BookingCategory)
+                    .Include(s => s.Address)
+                    .Include(s => s.Address.Country)
+                    .Include(s => s.Address.City)
                     .ToListAsync();
 
                 // FILTERING
