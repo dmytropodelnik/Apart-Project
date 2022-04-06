@@ -62,7 +62,7 @@ namespace CloneBookingAPI
             string connection = Configuration.GetConnectionString("DefaultConnection");
             // добавляем контекст Apart в качестве сервиса в приложение
             services.AddDbContext<ApartProjectDbContext>(options =>
-                options.UseSqlServer(connection));
+                options.UseSqlServer(connection, o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
 
             services.AddControllers()
                 .AddNewtonsoftJson(options =>

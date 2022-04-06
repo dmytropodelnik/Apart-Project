@@ -1,4 +1,5 @@
 ﻿using CloneBookingAPI.Enums;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Interfaces;
 using CloneBookingAPI.ViewModels;
@@ -11,6 +12,8 @@ namespace CloneBookingAPI.Services.Searching.Filtering
 {
     public class StarsFilter : IFilter
     {
+        private readonly ApartProjectDbContext _context;
+
         private int _value;
         private string _filter;
 
@@ -23,22 +26,18 @@ namespace CloneBookingAPI.Services.Searching.Filtering
             }
         }
 
-        public StarsFilter(int value, string filter)
+        public StarsFilter(int value, string filter, ApartProjectDbContext context)
         {
             _value = value;
             _filter = filter;
+            _context = context;
         }
 
-        public IQueryable<Suggestion> FilterItems(IQueryable<Suggestion> suggestions)
+        public IQueryable<Suggestion> FilterItems()
         {
             try
             {
-                if (suggestions is null)
-                {
-                    return null;
-                }
-
-                suggestions = suggestions
+                var suggestions = _context.Suggestions
                     .Where(s => s.StarsRating == _value);
 
                 return suggestions;

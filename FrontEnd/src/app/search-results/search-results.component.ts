@@ -107,7 +107,7 @@ export class SearchResultsComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          this.resSuggestions = data.suggestions;
+          this.resSuggestions = data.resSuggestions;
           this.totalPages = Math.ceil(data.suggestionsAmount / 25) == 0 ? 1 : Math.ceil(data.suggestionsAmount / 25);
           this.suggestionsAmount = data.suggestionsAmount;
         } else {
@@ -334,11 +334,15 @@ export class SearchResultsComponent implements OnInit {
       this.filters.searchRoomsAmount = params['rooms'];
 
       this.filterChecks.push(new FilterViewModel('places', this.filters.place));
-      this.filterChecks.push(new FilterViewModel('dates', this.filters.dateIn + ';' + this.filters.dateOut));
+      if (typeof this.filters.dateIn !== 'undefined' ||
+          typeof this.filters.dateOut !== 'undefined') {
+        this.filterChecks.push(new FilterViewModel('dates', this.filters.dateIn + ';' + this.filters.dateOut));
+      }
       this.filterChecks.push(new FilterViewModel('amounts', this.filters.searchAdultsAmount + ';' +
                                                             this.filters.searchChildrenAmount + ';' +
                                                             this.filters.searchRoomsAmount));
-      console.log(this.filterChecks);
+      console.log(params['dateIn']);
+      console.log(params['dateOut']);
     });
 
     this.sortItems();

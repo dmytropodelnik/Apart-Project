@@ -21,89 +21,84 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
             _context = context;
         }
 
-        public IQueryable<Suggestion> FilterItems(IQueryable<Suggestion> suggestions, IEnumerable<FilterViewModel> filters)
+        public IQueryable<Suggestion> FilterItems(IEnumerable<FilterViewModel> filters)
         {
             try
-            {
-                if (suggestions is null)
-                {
-                    return null;
-                }
-                
+            {            
                 if (filters is null || filters.Count() == 0)
                 {
-                    return suggestions;
+                    return null;
                 }
 
                 foreach (var filter in filters)
                 {
                     if (filter.Filter.Equals("stars"))
                     {
-                        _appliedFilters.Add(new StarsFilter(int.Parse(filter.Value), filter.Filter));
+                        _appliedFilters.Add(new StarsFilter(int.Parse(filter.Value), filter.Filter, _context));
                     }
                     else if (filter.Filter.Equals("bookingCategories"))
                     {
-                        _appliedFilters.Add(new BookingCategoriesFilter(filter.Value, filter.Filter));
+                        _appliedFilters.Add(new BookingCategoriesFilter(filter.Value, filter.Filter, _context));
                     }
                     else if (filter.Filter.Equals("facilities"))
                     {
-                        _appliedFilters.Add(new FacilitiesFilter(filter.Value, filter.Filter));
+                        _appliedFilters.Add(new FacilitiesFilter(filter.Value, filter.Filter, _context));
                     }
                     else if (filter.Filter.Equals("reviewScores"))
                     {
-                        _appliedFilters.Add(new ReviewScoresFilter(filter.Value, filter.Filter));
+                        _appliedFilters.Add(new ReviewScoresFilter(filter.Value, filter.Filter, _context));
                     }
                     else if (filter.Filter.Equals("prices"))
                     {
-                        _appliedFilters.Add(new PricesFilter(filter.Value, filter.Filter));
+                        _appliedFilters.Add(new PricesFilter(filter.Value, filter.Filter, _context));
                     }
                     else if (filter.Filter.Equals("highlights"))
                     {
-                        _appliedFilters.Add(new HighlightsFilter(filter.Value, filter.Filter));
+                        _appliedFilters.Add(new HighlightsFilter(filter.Value, filter.Filter, _context));
                     }
                     else if (filter.Filter.Equals("roomTypes"))
                     {
-                        _appliedFilters.Add(new RoomTypesFilter(filter.Value, filter.Filter));
+                        _appliedFilters.Add(new RoomTypesFilter(filter.Value, filter.Filter, _context));
                     }
                     else if (filter.Filter.Equals("languages"))
                     {
-                        _appliedFilters.Add(new LanguagesFilter(filter.Value, filter.Filter));
+                        _appliedFilters.Add(new LanguagesFilter(filter.Value, filter.Filter, _context));
                     }
                     else if (filter.Filter.Equals("bedTypes"))
                     {
-                        _appliedFilters.Add(new BedTypesFilter(filter.Value, filter.Filter));
+                        _appliedFilters.Add(new BedTypesFilter(filter.Value, filter.Filter, _context));
                     }
                     else if (filter.Filter.Equals("places"))
                     {
-                        _appliedFilters.Add(new PlacesFilter(filter.Value, filter.Filter));
+                        _appliedFilters.Add(new PlacesFilter(filter.Value, filter.Filter, _context));
                     }
-                    else if (filter.Filter.Equals("dates"))
-                    {
-                        _appliedFilters.Add(new DatesFilter(filter.Value, filter.Filter));
-                    }
-                    else if (filter.Filter.Equals("amounts"))
-                    {
-                        _appliedFilters.Add(new AmountsFilter(filter.Value, filter.Filter));
-                    }
+                    //else if (filter.Filter.Equals("dates"))
+                    //{
+                    //    _appliedFilters.Add(new DatesFilter(filter.Value, filter.Filter));
+                    //}
+                    //else if (filter.Filter.Equals("amounts"))
+                    //{
+                    //    _appliedFilters.Add(new AmountsFilter(filter.Value, filter.Filter));
+                    //}
                 }
 
                 List<Suggestion> filtered = new();
                 string previousFilter = filters.FirstOrDefault().Filter;
                 if (previousFilter is null)
                 {
-                    return suggestions;
+                    return null;
                 }
 
                 foreach (var filter in _appliedFilters)
                 {
                     if (previousFilter == filter.Filter)
                     {
-                        filtered.AddRange(filter.FilterItems(suggestions)
+                        filtered.AddRange(filter.FilterItems().ToList()
                                                .Except(filtered));
                     }
                     else
                     {
-                        filtered = filtered.Intersect(filter.FilterItems(suggestions))
+                        filtered = filtered.Intersect(filter.FilterItems())
                                     .ToList(); 
                     }
                     previousFilter = filter.Filter;

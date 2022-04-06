@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database.Models.Suggestions;
+﻿using CloneBookingAPI.Services.Database;
+using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,6 +10,8 @@ namespace CloneBookingAPI.Services.Searching.Filtering
 {
     public class PlacesFilter : IFilter
     {
+        private readonly ApartProjectDbContext _context;
+
         private string _value;
         private string _filter;
 
@@ -21,28 +24,27 @@ namespace CloneBookingAPI.Services.Searching.Filtering
             }
         }
 
-        public PlacesFilter(string value, string filter)
+        public PlacesFilter(string value, string filter, ApartProjectDbContext context)
         {
             _value = value;
             _filter = filter;
+            _context = context;
         }
 
-        public IQueryable<Suggestion> FilterItems(IQueryable<Suggestion> suggestions)
+        public IQueryable<Suggestion> FilterItems()
         {
             try
             {
-                if (suggestions is null)
-                {
-                    return null;
-                }
-
-                suggestions = suggestions
-                        .Where(s => _value.Contains(s.Address.AddressText)   ||
-                                    _value.Contains(s.Address.Country.Title) ||
-                                    _value.Contains(s.Address.City.Title)    ||
-                                    s.Address.Country.Title.Contains(_value) ||
-                                    s.Address.City.Title.Contains(_value)    ||
-                                    s.Address.AddressText.Contains(_value));
+               var suggestions = _context.Suggestions
+                    .Include(s => s.Address)
+                    .Include(s => s.Address.Country)
+                    .Include(s => s.Address.City)
+                    .Where(s => _value.Contains(s.Address.AddressText) ||
+                                _value.Contains(s.Address.Country.Title) ||
+                                _value.Contains(s.Address.City.Title) ||
+                                s.Address.Country.Title.Contains(_value) ||
+                                s.Address.City.Title.Contains(_value) ||
+                                s.Address.AddressText.Contains(_value));
 
                 return suggestions;
             }

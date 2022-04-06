@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database.Models.Suggestions;
+﻿using CloneBookingAPI.Services.Database;
+using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -9,8 +10,9 @@ namespace CloneBookingAPI.Services.Searching.Filtering
 {
     public class RoomTypesFilter : IFilter
     {
-        private string _value;
+        private readonly ApartProjectDbContext _context;
 
+        private string _value;
         private string _filter;
 
         public string Filter
@@ -22,22 +24,18 @@ namespace CloneBookingAPI.Services.Searching.Filtering
             }
         }
 
-        public RoomTypesFilter(string value, string filter)
+        public RoomTypesFilter(string value, string filter, ApartProjectDbContext context)
         {
             _value = value;
             _filter = filter;
+            _context = context;
         }
 
-        public IQueryable<Suggestion> FilterItems(IQueryable<Suggestion> suggestions)
+        public IQueryable<Suggestion> FilterItems()
         {
             try
             {
-                if (suggestions is null)
-                {
-                    return null;
-                }
-
-                suggestions = suggestions
+                var suggestions = _context.Suggestions
                     .Include(s => s.Apartments)
                         .ThenInclude(a => a.RoomTypes)
                     .Where(s => s.Apartments

@@ -127,14 +127,8 @@ namespace CloneBookingAPI.Controllers.Search
 
                 string place = filters.Place ?? "";
 
-                var suggestions = await _context.Suggestions
-                    .Include(s => s.Address)
-                    .Include(s => s.Address.Country)
-                    .Include(s => s.Address.City)
-                    .ToListAsync();
-
                 // FILTERING
-                var resSuggestions = _suggestionsFilter.FilterItems(suggestions.AsQueryable(), filters.Filters);
+                var resSuggestions = _suggestionsFilter.FilterItems(filters.Filters);
                 if (resSuggestions is null)
                 {
                     return Json(new { code = 400 });
@@ -159,7 +153,7 @@ namespace CloneBookingAPI.Controllers.Search
                 return Json(new
                 {
                     code = 200,
-                    suggestions = resSuggestions.ToList(),
+                    resSuggestions,
                     suggestionsAmount,
                 });
             }

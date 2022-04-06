@@ -264,10 +264,14 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.searchViewModel.sortOrder = SortState.TopReviewed;
     console.log(this.searchViewModel);
 
-    let dateIn = this.searchViewModel.pdateIn!.day + '/' + this.searchViewModel.pdateIn!.month + '/' +
-                 this.searchViewModel.pdateIn!.year;
-    let dateOut = this.searchViewModel.pdateOut!.day + '/' + this.searchViewModel.pdateOut!.month + '/' +
-                  this.searchViewModel.pdateOut!.year;
+    let dateIn, dateOut;
+
+    if (this.searchViewModel.pdateIn && this.searchViewModel.pdateOut) {
+      dateIn = this.searchViewModel.pdateIn!.day + '/' + this.searchViewModel.pdateIn!.month + '/' +
+               this.searchViewModel.pdateIn!.year;
+      dateOut = this.searchViewModel.pdateOut!.day + '/' + this.searchViewModel.pdateOut!.month + '/' +
+                this.searchViewModel.pdateOut!.year;
+    }
 
     this.router.navigate(['/searchresults'], {
       queryParams: {
@@ -279,37 +283,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         rooms: this.searchViewModel.searchRoomsAmount,
       }
     });
-
-    // fetch(`https://localhost:44381/api/stayssearching/search`, {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'application/json; charset=utf-8',
-    //     Accept: 'application/json',
-    //     Authorization: 'Bearer ' + AuthHelper.getToken(),
-    //   },
-    //   body: JSON.stringify(this.searchViewModel),
-    // })
-    //   .then((r) => r.json())
-    //   .then((data) => {
-    //     if (data.code === 200) {
-
-    //       this.router.navigate(['/searchresults'], {
-    //         queryParams: {
-    //           place: this.searchViewModel.place,
-    //           dateIn: this.searchViewModel.dateIn,
-    //           dateOut: this.searchViewModel.dateOut,
-    //           adults: this.searchViewModel.searchAdultsAmount,
-    //           children: this.searchViewModel.searchChildrenAmount,
-    //           rooms: this.searchViewModel.searchRoomsAmount,
-    //         }
-    //       });
-    //     } else {
-    //       alert("Error search results");
-    //     }
-    //   })
-    //   .catch((ex) => {
-    //     alert(ex);
-    //   });
   }
 
   ngOnInit(): void {
