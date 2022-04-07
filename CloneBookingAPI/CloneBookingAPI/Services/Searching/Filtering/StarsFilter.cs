@@ -12,8 +12,6 @@ namespace CloneBookingAPI.Services.Searching.Filtering
 {
     public class StarsFilter : IFilter
     {
-        private readonly ApartProjectDbContext _context;
-
         private int _value;
         private string _filter;
 
@@ -26,18 +24,22 @@ namespace CloneBookingAPI.Services.Searching.Filtering
             }
         }
 
-        public StarsFilter(int value, string filter, ApartProjectDbContext context)
+        public StarsFilter(int value, string filter)
         {
             _value = value;
             _filter = filter;
-            _context = context;
         }
 
-        public IQueryable<Suggestion> FilterItems()
+        public IQueryable<Suggestion> FilterItems(IQueryable<Suggestion> suggestions)
         {
             try
             {
-                var suggestions = _context.Suggestions
+                if (suggestions is null)
+                {
+                    return null;
+                }
+
+                suggestions = suggestions
                     .Where(s => s.StarsRating == _value);
 
                 return suggestions;

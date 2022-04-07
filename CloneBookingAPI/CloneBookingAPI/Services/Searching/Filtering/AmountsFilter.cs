@@ -10,8 +10,6 @@ namespace CloneBookingAPI.Services.Searching.Filtering
 {
     public class AmountsFilter : IFilter
     {
-        private readonly ApartProjectDbContext _context;
-
         private string _value;
         private string _filter;
 
@@ -24,17 +22,21 @@ namespace CloneBookingAPI.Services.Searching.Filtering
             }
         }
 
-        public AmountsFilter(string value, string filter, ApartProjectDbContext context)
+        public AmountsFilter(string value, string filter)
         {
             _value = value;
             _filter = filter;
-            _context = context;
         }
 
-        public IQueryable<Suggestion> FilterItems()
+        public IQueryable<Suggestion> FilterItems(IQueryable<Suggestion> suggestions)
         {
             try
             {
+                if (suggestions is null)
+                {
+                    return null;
+                }
+
                 string adultsAmount   = _value.Substring(0, _value.IndexOf(";"));
                 string childrenAmount = _value.Substring(_value.IndexOf(";") + 1, _value.LastIndexOf(";") - 2);
                 string roomsAmount    = _value.Substring(_value.LastIndexOf(";") + 1);
@@ -46,8 +48,7 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                     return null;
                 }
 
-                var suggestions = _context.Suggestions
-                    .Include(s => s.Apartments)
+                suggestions = suggestions
                     .Where(s => s.Apartments
                                     .Any(a => a.RoomsAmount >= int.Parse(roomsAmount) &&
                                                a.GuestsLimit >= (int.Parse(adultsAmount) + int.Parse(childrenAmount))));

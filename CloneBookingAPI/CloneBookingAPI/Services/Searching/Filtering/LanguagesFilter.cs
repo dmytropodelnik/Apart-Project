@@ -10,8 +10,6 @@ namespace CloneBookingAPI.Services.Searching.Filtering
 {
     public class LanguagesFilter : IFilter
     {
-        private readonly ApartProjectDbContext _context;
-
         private string _value;
 
         private string _filter;
@@ -25,19 +23,22 @@ namespace CloneBookingAPI.Services.Searching.Filtering
             }
         }
 
-        public LanguagesFilter(string value, string filter, ApartProjectDbContext context)
+        public LanguagesFilter(string value, string filter)
         {
             _value = value;
             _filter = filter;
-            _context = context;
         }
 
-        public IQueryable<Suggestion> FilterItems()
+        public IQueryable<Suggestion> FilterItems(IQueryable<Suggestion> suggestions)
         {
             try
             {
-                var suggestions = _context.Suggestions
-                    .Include(s => s.Languages)
+                if (suggestions is null)
+                {
+                    return null;
+                }
+
+                suggestions = suggestions
                     .Where(s => s.Languages
                                     .Any(f => f.Title.Equals(_value)));
 

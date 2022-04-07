@@ -43,9 +43,10 @@ namespace CloneBookingAPI.Controllers.Pages
                 for (int i = 1; i <= categories.Count; i++)
                 {
                     var resSuggestions = suggestionsList
-                        .Where(s => s.BookingCategoryId == i);
+                        .Where(s => s.BookingCategoryId == i)
+                        .Count();
 
-                    suggestions.Add(resSuggestions.Count());
+                    suggestions.Add(resSuggestions);
                 }
 
                 return Json(new
@@ -95,9 +96,10 @@ namespace CloneBookingAPI.Controllers.Pages
                 for (int i = 1; i <= regions.Count; i++)
                 {
                     var resRegionSuggestion = suggestionsList
-                        .Where(s => s.Address.Region.Id == regions[i - 1].Id);
+                        .Where(s => s.Address.Region.Id == regions[i - 1].Id)
+                        .Count();
 
-                    regionsSuggestions.Add(resRegionSuggestion.Count());
+                    regionsSuggestions.Add(resRegionSuggestion);
                 }
 
                 return Json(new
@@ -147,9 +149,10 @@ namespace CloneBookingAPI.Controllers.Pages
                 for (int i = 1; i <= countries.Count; i++)
                 {
                     var resCountriesSuggestion = suggestionsList
-                        .Where(s => s.Address.Country.Id == i);
+                        .Where(s => s.Address.Country.Id == i)
+                        .Count();
 
-                    countriesSuggestions.Add(resCountriesSuggestion.Count());
+                    countriesSuggestions.Add(resCountriesSuggestion);
                 }
 
                 return Json(new
@@ -207,9 +210,10 @@ namespace CloneBookingAPI.Controllers.Pages
                 for (int i = 1; i <= cities.Count; i++)
                 {
                     var resCitySuggestion = suggestionsList
-                        .Where(s => s.Address.City.Id == cities[i - 1].Id);
+                        .Where(s => s.Address.City.Id == cities[i - 1].Id)
+                        .Count();
 
-                    citySuggestionsLength.Add(resCitySuggestion.Count());
+                    citySuggestionsLength.Add(resCitySuggestion);
                 }
                 citySuggestionsLength = citySuggestionsLength
                     .OrderByDescending(c => c)
@@ -262,9 +266,9 @@ namespace CloneBookingAPI.Controllers.Pages
                     var resCities = await _context.Suggestions
                         .Include(c => c.Address)
                         .Where(c => c.Address.CityId == citiesList[i].Id)
-                        .ToListAsync();
+                        .CountAsync();
 
-                    suggestionsCount.Add(resCities.Count);
+                    suggestionsCount.Add(resCities);
                 }
 
                 return Json(new
@@ -318,9 +322,9 @@ namespace CloneBookingAPI.Controllers.Pages
                 {
                     var resReviews = await _context.Reviews
                         .Where(r => r.SuggestionId == resSuggestion[i].Id)
-                        .ToListAsync();
+                        .CountAsync();
 
-                    reviewsCount.Add(resReviews.Count);
+                    reviewsCount.Add(resReviews);
                 }
 
                 for (int i = 0; i < resSuggestion.Count; i++)

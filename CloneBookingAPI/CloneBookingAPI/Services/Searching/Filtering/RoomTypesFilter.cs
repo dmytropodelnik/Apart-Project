@@ -10,8 +10,6 @@ namespace CloneBookingAPI.Services.Searching.Filtering
 {
     public class RoomTypesFilter : IFilter
     {
-        private readonly ApartProjectDbContext _context;
-
         private string _value;
         private string _filter;
 
@@ -24,20 +22,22 @@ namespace CloneBookingAPI.Services.Searching.Filtering
             }
         }
 
-        public RoomTypesFilter(string value, string filter, ApartProjectDbContext context)
+        public RoomTypesFilter(string value, string filter)
         {
             _value = value;
             _filter = filter;
-            _context = context;
         }
 
-        public IQueryable<Suggestion> FilterItems()
+        public IQueryable<Suggestion> FilterItems(IQueryable<Suggestion> suggestions)
         {
             try
             {
-                var suggestions = _context.Suggestions
-                    .Include(s => s.Apartments)
-                        .ThenInclude(a => a.RoomTypes)
+                if (suggestions is null)
+                {
+                    return null;
+                }
+
+                suggestions = suggestions
                     .Where(s => s.Apartments
                         .All(a => a.RoomTypes
                                     .Any(f => f.Title.Equals(_value))));

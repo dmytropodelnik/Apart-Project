@@ -40,80 +40,6 @@ namespace CloneBookingAPI.Controllers.Search
             _suggestionsPaginator = suggestionsPaginator;
         }
 
-        //[Route("search")]
-        //[HttpPost]
-        //public async Task<ActionResult> Search([FromBody] SearchViewModel searchObj)
-        //{
-        //    try
-        //    {
-        //        if (searchObj is null)
-        //        {
-        //            return Json(new { code = 400 });
-        //        }
-                
-        //        string place = searchObj.Place ?? "";
-
-        //        var suggestions = await _context.Suggestions
-        //                .Include(s => s.Address)
-        //                .Include(s => s.Apartments)
-        //                    .ThenInclude(a => a.BookedPeriods)
-        //                .Where(s => place.Contains(s.Address.AddressText)        ||
-        //                            place.Contains(s.Address.Country.Title)      ||
-        //                            place.Contains(s.Address.City.Title)         ||
-        //                            s.Address.Country.Title.Contains(place)      ||
-        //                            s.Address.City.Title.Contains(place)         ||
-        //                            s.Address.AddressText.Contains(place)        &&
-        //                            s.Apartments
-        //                                .Any(a => a.BookedPeriods
-        //                                    .Any(d => (d.DateIn > Convert.ToDateTime(searchObj.DateIn)      &&
-        //                                               d.DateIn > Convert.ToDateTime(searchObj.DateOut))    ||
-        //                                               d.DateOut < Convert.ToDateTime(searchObj.DateIn)     &&
-        //                                               d.DateOut < Convert.ToDateTime(searchObj.DateOut)    && 
-        //                                               a.RoomsAmount >= searchObj.SearchRoomsAmount         &&
-        //                                               a.GuestsLimit >= searchObj.GuestsAmount)))
-        //                .ToListAsync();
-        //        if (suggestions is null)
-        //        {
-        //            return Json(new { code = 400 });
-        //        }
-
-        //        int suggestionsAmount = suggestions.Count();
-
-        //        // PAGINATION
-        //        suggestions = _suggestionsPaginator.SelectItems(suggestions.AsQueryable(), searchObj.Page, searchObj.PageSize)
-        //            .ToList();
-        //        if (suggestions is null)
-        //        {
-        //            return Json(new { code = 400 });
-        //        }
-
-        //        return Json(new
-        //        {
-        //            code = 200,
-        //            suggestions,
-        //            suggestionsAmount,
-        //        });
-        //    }
-        //    catch (ArgumentNullException ex)
-        //    {
-        //        Debug.WriteLine(ex.Message);
-
-        //        return Json(new { code = 500 });
-        //    }
-        //    catch (OperationCanceledException ex)
-        //    {
-        //        Debug.WriteLine(ex.Message);
-
-        //        return Json(new { code = 500 });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        Debug.WriteLine(ex.Message);
-
-        //        return Json(new { code = ex.Message });
-        //    }
-        //}
-
         [Route("filtersearch")]
         [HttpPost]
         public async Task<ActionResult> FilterSearch([FromBody] SearchViewModel filters)
@@ -125,10 +51,28 @@ namespace CloneBookingAPI.Controllers.Search
                     return Json(new { code = 400 });
                 }
 
+                var suggestions = await _context.Suggestions
+                    .Include(s => s.Address)
+                    .Include(s => s.Address.Country)
+                    .Include(s => s.Address.City)
+                    .Include(s => s.Apartments)
+                        .ThenInclude(a => a.BookedPeriods)
+                    .Include(s => s.Apartments)
+                        .ThenInclude(a => a.RoomTypes)
+                    .Include(s => s.Beds)
+                    .Include(s => s.BookingCategory)
+                    .Include(s => s.Facilities)
+                    .Include(s => s.Highlights)
+                    .Include(s => s.Languages)
+                    .Include(s => s.Images)
+                    .Include(s => s.Reviews)
+                    .ToListAsync();
+ 
+
                 string place = filters.Place ?? "";
 
                 // FILTERING
-                var resSuggestions = _suggestionsFilter.FilterItems(filters.Filters);
+                var resSuggestions = _suggestionsFilter.FilterItems(suggestions.AsQueryable(), filters.Filters);
                 if (resSuggestions is null)
                 {
                     return Json(new { code = 400 });
@@ -153,7 +97,9 @@ namespace CloneBookingAPI.Controllers.Search
                 return Json(new
                 {
                     code = 200,
-                    resSuggestions,
+                    resSuggestions = resSuggestions
+                        .Select(s => new { s.Id, s.Name, s.Description, country = s.Address.Country.Title, city = s.Address.City.Title,
+                            address = s.Address.AddressText, s.StarsRating, reviews = s.Reviews.Count, }),
                     suggestionsAmount,
                 });
             }

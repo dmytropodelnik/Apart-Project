@@ -39,7 +39,7 @@ export class SearchResultsComponent implements OnInit {
   sortOrder: any = SortState;
 
   // suggestions content
-  resSuggestions: Suggestion[] = [];
+  resSuggestions: any[] = [];
 
   filters: SearchViewModel = new SearchViewModel();
   filterChecks: FilterViewModel[] = [];
@@ -110,6 +110,7 @@ export class SearchResultsComponent implements OnInit {
           this.resSuggestions = data.resSuggestions;
           this.totalPages = Math.ceil(data.suggestionsAmount / 25) == 0 ? 1 : Math.ceil(data.suggestionsAmount / 25);
           this.suggestionsAmount = data.suggestionsAmount;
+          console.log(this.resSuggestions);
         } else {
           alert('Suggestions sort fetching error!');
         }

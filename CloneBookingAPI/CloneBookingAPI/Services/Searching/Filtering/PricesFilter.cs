@@ -10,8 +10,6 @@ namespace CloneBookingAPI.Services.Searching.Filtering
 {
     public class PricesFilter : IFilter
     {
-        private readonly ApartProjectDbContext _context;
-
         private string _value;
         private string _filter;
 
@@ -23,17 +21,21 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                 _filter = value;
             }
         }
-        public PricesFilter(string value, string filter, ApartProjectDbContext context)
+        public PricesFilter(string value, string filter)
         {
             _value = value;
             _filter = filter;
-            _context = context;
         }
 
-        public IQueryable<Suggestion> FilterItems()
+        public IQueryable<Suggestion> FilterItems(IQueryable<Suggestion> suggestions)
         {
             try
             {
+                if (suggestions is null)
+                {
+                    return null;
+                }
+
                 var priceRange = _value.Split("-");
                 if (priceRange is null)
                 {
@@ -44,8 +46,7 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                     priceRange[1] = int.MaxValue.ToString();
                 }
 
-                var suggestions = _context.Suggestions
-                    .Include(s => s.Apartments)
+                suggestions = suggestions
                     .Where(s => s.Apartments
                         .All(a => a.PriceInUSD >= decimal.Parse(priceRange[0]) && a.PriceInUSD <= decimal.Parse(priceRange[1])));
 

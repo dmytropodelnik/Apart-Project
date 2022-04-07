@@ -9,6 +9,6 @@ namespace CloneBookingAPI.Services.Interfaces
     public interface IFilter
     {
         public string Filter { get; set; }
-        IQueryable<Suggestion> FilterItems();
+        IQueryable<Suggestion> FilterItems(IQueryable<Suggestion> suggestions);
     }
 }

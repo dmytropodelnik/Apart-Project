@@ -10,8 +10,6 @@ namespace CloneBookingAPI.Services.Searching.Filtering
 {
     public class ReviewScoresFilter : IFilter
     {
-        private readonly ApartProjectDbContext _context;
-
         private string _value;
         private string _filter;
 
@@ -23,18 +21,22 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                 _filter = value;
             }
         }
-        public ReviewScoresFilter(string value, string filter, ApartProjectDbContext context)
+        public ReviewScoresFilter(string value, string filter)
         {
             _value = value;
             _filter = filter;
-            _context = context;
         }
 
-        public IQueryable<Suggestion> FilterItems()
+        public IQueryable<Suggestion> FilterItems(IQueryable<Suggestion> suggestions)
         {
             try
             {
-                var suggestions = _context.Suggestions
+                if (suggestions is null)
+                {
+                    return null;
+                }
+
+                suggestions = suggestions
                     .Include(s => s.SuggestionReviewGrades)
                     .Where(s => s.SuggestionReviewGrades
                                     .Average(g => g.Value) >= int.Parse(_value));

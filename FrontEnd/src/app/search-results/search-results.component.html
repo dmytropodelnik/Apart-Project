@@ -642,7 +642,7 @@
       <div *ngFor="let item of resSuggestions; let i = index">
         <div class="search_card">
           <div class="image_container">
-            <img src="{{imageHelper.getImageDirectoryPath()}}suggestions/{{item.images[0]?.name}}" />
+           <img src="" /> <!-- {{imageHelper.getImageDirectoryPath()}}suggestions/{{item.images[0]?.name}} -->
           </div>
           <div class="information_container">
             <div class="left_information">
@@ -669,11 +669,9 @@
                 </button>
               </div>
               </div>
-              <div>{{ item?.address?.city?.title }}</div>
+              <div>{{ item.address + ', ' + item.city + ',' + item.country }}</div>
               <div>
-
-                Located 1.8 km from Artis Zoo in Amsterdam, 23 SouS provides
-                accommodation with air conditioning and free WiFi.
+                {{item.description}}
               </div>
             </div>
             <div class="right_information">
@@ -699,7 +697,7 @@
                   <div class="bui-review-score__text">{{reviewsCount[i] ?? '0'}} reviews</div> -->
                   <div class="bui-review-score__title">Wonderful</div>
                   <div class="bui-review-score__text">
-                    {{ item.reviews?.length }} reviews
+                    {{ item.reviews }} reviews
                   </div>
                 </div>
                 <div class="bui-review-score__badge" aria-label="Scored 0 ">
