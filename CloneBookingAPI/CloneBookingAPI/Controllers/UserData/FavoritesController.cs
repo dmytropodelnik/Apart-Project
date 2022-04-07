@@ -181,11 +181,19 @@ namespace CloneBookingAPI.Controllers.UserData
                 List<double> suggestionGrades = new();
 
                 var favorites = await _context.Favorites
-                    //.Include(f => f.User)
+                    .Include(f => f.User)
                     .Include(f => f.Suggestions)
                         .ThenInclude(s => s.SuggestionReviewGrades)
                     .Include(f => f.Suggestions)
                         .ThenInclude(s => s.Images)
+                    .Include(f => f.Suggestions)
+                        .ThenInclude(s => s.Reviews)
+                    .Include(f => f.Suggestions)
+                        .ThenInclude(s => s.Address)
+                     .Include(f => f.Suggestions)
+                        .ThenInclude(s => s.Address.Country)
+                     .Include(f => f.Suggestions)
+                        .ThenInclude(s => s.Address.City)
                     .FirstOrDefaultAsync(f => f.User.Email.Equals(email));
                 if (favorites is null)
                 {
@@ -212,7 +220,17 @@ namespace CloneBookingAPI.Controllers.UserData
                 return Json(new
                 {
                     code = 200,
-                    favorites,
+                    favorites = favorites.Suggestions.Select(s => new
+                    {
+                        s.Id,
+                        s.Name,
+                        s.Description,
+                        country = s.Address.Country.Title,
+                        city = s.Address.City.Title,
+                        address = s.Address.AddressText,
+                        s.StarsRating,
+                        reviews = s.Reviews.Count,
+                    }),
                     suggestionGrades,
                     reviewsCount,
                 });

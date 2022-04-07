@@ -23,6 +23,8 @@ export class UserSavedComponent implements OnInit {
   suggestionGrades: any;
   reviewsCount: any;
 
+  suggestions: any[] = [];
+
   userId: number | null = null;
 
   constructor(
@@ -52,7 +54,7 @@ export class UserSavedComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.favorites.suggestions = this.favorites.suggestions.filter((s) => {
+          this.suggestions = this.suggestions.filter((s) => {
             if (s.id === response.resSuggestion.id ) {
               return false;
             } else {
@@ -80,7 +82,7 @@ export class UserSavedComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.favorites = response.favorites;
+          this.suggestions = response.favorites;
           this.suggestionGrades = response.suggestionGrades;
           this.reviewsCount = response.reviewsCount;
         } else {

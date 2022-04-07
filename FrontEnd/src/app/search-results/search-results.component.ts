@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { switchMap } from 'rxjs/operators';
 
@@ -32,7 +32,8 @@ export class SearchResultsComponent implements OnInit {
   imageHelper: any = ImageHelper;
 
   // saved
-  favorites: Favorite = new Favorite();
+  // favorites: Favorite = new Favorite();
+  savedSuggestions: any[] = [];
 
   // sorting
   sortState: any = SortState;
@@ -57,12 +58,7 @@ export class SearchResultsComponent implements OnInit {
 
   suggestionsAmount: number = 0;
 
-  constructor(
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-  ) {
-
-  }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   model: any;
   model1: any;
@@ -93,7 +89,10 @@ export class SearchResultsComponent implements OnInit {
     // this.filters.suggestions = this.resSuggestions;
     this.filters.pageSize = 25;
     this.filters.filters = this.filterChecks;
-    this.filters.guestsAmount = Number(this.filters.searchAdultsAmount) + Number(this.filters.searchChildrenAmount);
+    this.filters.guestsAmount =
+      Number(this.filters.searchAdultsAmount) +
+      Number(this.filters.searchChildrenAmount);
+    this.addMainSearchFilter();
 
     fetch(`https://localhost:44381/api/stayssearching/filtersearch`, {
       method: 'POST',
@@ -108,7 +107,10 @@ export class SearchResultsComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.resSuggestions = data.resSuggestions;
-          this.totalPages = Math.ceil(data.suggestionsAmount / 25) == 0 ? 1 : Math.ceil(data.suggestionsAmount / 25);
+          this.totalPages =
+            Math.ceil(data.suggestionsAmount / 25) == 0
+              ? 1
+              : Math.ceil(data.suggestionsAmount / 25);
           this.suggestionsAmount = data.suggestionsAmount;
           console.log(this.resSuggestions);
         } else {
@@ -240,7 +242,7 @@ export class SearchResultsComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.favorites.suggestions.push(response.resSuggestion);
+          this.savedSuggestions.push(response.resSuggestion);
         } else {
           alert('User favorites fetching error!');
         }
@@ -268,13 +270,15 @@ export class SearchResultsComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.favorites.suggestions = this.favorites.suggestions.filter((s) => {
-            if (s.id === response.resSuggestion.id ) {
-              return false;
-            } else {
-              return true;
+          this.savedSuggestions = this.savedSuggestions.filter(
+            (s) => {
+              if (s.id === response.resSuggestion.id) {
+                return false;
+              } else {
+                return true;
+              }
             }
-          });
+          );
         } else {
           alert('User favorites fetching error!');
         }
@@ -295,7 +299,7 @@ export class SearchResultsComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.favorites = response.favorites;
+          this.savedSuggestions = response.favorites;
         } else {
           alert('User favorites fetching error!');
         }
@@ -306,12 +310,47 @@ export class SearchResultsComponent implements OnInit {
   }
 
   isSaved(id: number | null): boolean {
-    for (let i = 0; i < this.favorites.suggestions.length; i++) {
-      if (this.favorites.suggestions[i].id == id) {
+    for (let i = 0; i < this.savedSuggestions.length; i++) {
+      if (this.savedSuggestions[i].id == id) {
         return true;
       }
     }
     return false;
+  }
+
+  addMainSearchFilter(): void {
+    // Note: Below 'queryParams' can be replaced with 'params' depending on your requirements
+    this.activatedRoute.queryParams.subscribe((params: any) => {
+      this.filters.place = params['place'];
+      this.filters.dateIn = params['dateIn'];
+      this.filters.dateOut = params['dateOut'];
+      this.filters.searchAdultsAmount = params['adults'];
+      this.filters.searchChildrenAmount = params['children'];
+      this.filters.searchRoomsAmount = params['rooms'];
+
+      this.filterChecks.push(new FilterViewModel('places', this.filters.place));
+      if (
+        typeof this.filters.dateIn !== 'undefined' ||
+        typeof this.filters.dateOut !== 'undefined'
+      ) {
+        this.filterChecks.push(
+          new FilterViewModel(
+            'dates',
+            this.filters.dateIn + ';' + this.filters.dateOut
+          )
+        );
+      }
+      this.filterChecks.push(
+        new FilterViewModel(
+          'amounts',
+          this.filters.searchAdultsAmount +
+            ';' +
+            this.filters.searchChildrenAmount +
+            ';' +
+            this.filters.searchRoomsAmount
+        )
+      );
+    });
   }
 
   ngOnInit(): void {
@@ -325,27 +364,7 @@ export class SearchResultsComponent implements OnInit {
       this.getUserFavorites();
     }
 
-    // Note: Below 'queryParams' can be replaced with 'params' depending on your requirements
-    this.activatedRoute.queryParams.subscribe((params: any) => {
-      this.filters.place = params['place'];
-      this.filters.dateIn = params['dateIn'];
-      this.filters.dateOut = params['dateOut'];
-      this.filters.searchAdultsAmount = params['adults'];
-      this.filters.searchChildrenAmount = params['children'];
-      this.filters.searchRoomsAmount = params['rooms'];
-
-      this.filterChecks.push(new FilterViewModel('places', this.filters.place));
-      if (typeof this.filters.dateIn !== 'undefined' ||
-          typeof this.filters.dateOut !== 'undefined') {
-        this.filterChecks.push(new FilterViewModel('dates', this.filters.dateIn + ';' + this.filters.dateOut));
-      }
-      this.filterChecks.push(new FilterViewModel('amounts', this.filters.searchAdultsAmount + ';' +
-                                                            this.filters.searchChildrenAmount + ';' +
-                                                            this.filters.searchRoomsAmount));
-      console.log(params['dateIn']);
-      console.log(params['dateOut']);
-    });
-
+    this.addMainSearchFilter();
     this.sortItems();
   }
 }
