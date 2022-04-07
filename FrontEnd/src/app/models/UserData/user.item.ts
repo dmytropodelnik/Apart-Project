@@ -19,7 +19,7 @@ export class User {
   passwordHash: string | null = null;
   phoneNumber: string | null = null;
   role: Role = new Role();
-  profile: UserProfile | null = null;
+  profile: UserProfile = new UserProfile();
   reviews: Review[] | null = null;
   notifications: Notification[] | null = null;
   suggestions: Suggestion[] | null = null;

@@ -1,10 +1,36 @@
-<div class="preferences_container">
-  <div class="preferences_item">
-    <span class="preferences_text">Currency</span>
-    <input type="text" />
+<div>
+  <div class="personal_details_container">
+    <h1>Preferences</h1>
+    <p>Change your language, currency, and accessibility requirements.</p>
   </div>
-  <div class="preferences_item">
-    <span class="preferences_text">Language</span>
-    <input type="text" />
-  </div>
+</div>
+<div class="container container-fluid">
+  <ul class="list-group list-group-flush container-fluid">
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col">
+          Currency
+        </div>
+        <div class="col-6">
+          US$ U.S. Dollar
+        </div>
+        <div class="col">
+         <button class="btn btn-outline-primary" (click)="setCondition(1)">Edit</button>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col">
+          Language
+        </div>
+        <div class="col-6">
+          American English
+        </div>
+        <div class="col">
+          <button class="btn btn-outline-primary" (click)="setCondition(2)">Edit</button>
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>

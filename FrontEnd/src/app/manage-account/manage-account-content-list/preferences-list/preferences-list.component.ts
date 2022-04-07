@@ -6,8 +6,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./preferences-list.component.css']
 })
 export class PreferencesListComponent implements OnInit {
+  isEditing: boolean[] = [];
 
   constructor() { }
+
+  setCondition(id: number): void {
+    this.isEditing[id] = !this.isEditing[id];
+  }
 
   ngOnInit(): void {
   }

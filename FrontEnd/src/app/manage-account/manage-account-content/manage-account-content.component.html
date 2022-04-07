@@ -1,29 +1,22 @@
-<div class="">
-  <div class="">
-    <div class="">
-      <div class="">
-        <div [ngSwitch]="content">
-          <ng-template ngSwitchCase="personal-details">
-            <app-personal-details-list></app-personal-details-list>
-          </ng-template>
-          <ng-template ngSwitchCase="preferences">
-            <app-preferences-list></app-preferences-list>
-          </ng-template>
-          <ng-template ngSwitchCase="security">
-            <app-security-list></app-security-list>
-          </ng-template>
-          <ng-template ngSwitchCase="payment-details">
-            <app-payment-details-list></app-payment-details-list>
-          </ng-template>
-          <ng-template ngSwitchCase="email-notifications">
-            <app-email-notifications-list></app-email-notifications-list>
-          </ng-template>
-          <ng-template ngSwitchCase="other-travelers">
-            <app-other-travelers-list></app-other-travelers-list>
-          </ng-template>
-        </div>
-      </div>
-    </div>
-  </div> <!-- container-fluid -->
+<div class="container-fluid">
+  <div [ngSwitch]="content">
+    <ng-template ngSwitchCase="personal-details">
+      <app-personal-details-list></app-personal-details-list>
+    </ng-template>
+    <ng-template ngSwitchCase="preferences">
+      <app-preferences-list></app-preferences-list>
+    </ng-template>
+    <ng-template ngSwitchCase="security">
+      <app-security-list></app-security-list>
+    </ng-template>
+    <ng-template ngSwitchCase="payment-details">
+      <app-payment-details-list></app-payment-details-list>
+    </ng-template>
+    <ng-template ngSwitchCase="email-notifications">
+      <app-email-notifications-list></app-email-notifications-list>
+    </ng-template>
+    <ng-template ngSwitchCase="other-travelers">
+      <app-other-travelers-list></app-other-travelers-list>
+    </ng-template>
+  </div>
 </div>
-<!-- End Page-content -->

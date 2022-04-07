@@ -1,56 +1,315 @@
-<div class="personal_details_container">
-  <h1>Personal details</h1>
-  <p>Update your info and find out how it's used.</p>
+<div class="container container-fluid">
+  <ul class="list-group list-group-flush container-fluid">
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col-5">
+          <h1>Personal details</h1>
+          <p>Update your info and find out how it's used.</p>
+        </div>
+        <div class="col">
+          Image
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col">
+          Title
+        </div>
+        <div class="col-6">
+          <div *ngIf="!isEditing[0]">
+            Add a title
+          </div>
+          <div *ngIf="isEditing[0]">
+            <form>
+              <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" name="user.title" [(ngModel)]="user.title">
+              </div>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="!isEditing[0]" class="col">
+          <button class="btn btn-outline-primary" (click)="setCondition(0)">Edit</button>
+        </div>
+        <div *ngIf="isEditing[0]" class="col">
+          <div>
+            <button class="btn btn-outline-primary" (click)="setCondition(0)">Cancel</button>
+            <button class="btn btn-outline-primary" (click)="setCondition(0)">Save</button>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col">
+          Name
+        </div>
+        <div class="col-6">
+          <div *ngIf="!isEditing[1]">
+            Add a name
+          </div>
+          <div *ngIf="isEditing[1]">
+            <form>
+              <div class="mb-3">
+                <label for="firstName" class="form-label">First name</label>
+                <input type="text" class="form-control" id="firstName" name="user.firstName"
+                  [(ngModel)]="user.firstName">
 
-  <div class="personal-details_item">
-    <div class="">
-      <span class="personal-details_text">Title</span>
-    </div>
-    <div class="">
-      <input type="text" />
-    </div>
-    <div class="">
-      <button>Edit</button>
-    </div>
-  </div>
-  <div class="personal-details_item">
-    <span class="personal-details_text">Name</span>
-    <input type="text" />
-    <button>Edit</button>
-  </div>
-  <div class="personal-details_item">
-    <span class="personal-details_text">Display Name</span>
-    <input type="text" />
-    <button>Edit</button>
-  </div>
-  <div class="personal-details_item">
-    <span class="personal-details_text">Email address</span>
-    <input type="text" />
-    <button>Edit</button>
-  </div>
-  <div class="personal-details_item">
-    <span class="personal-details_text">Phone number</span>
-    <input type="text" />
-    <button>Edit</button>
-  </div>
-  <div class="personal-details_item">
-    <span class="personal-details_text">Date of brith</span>
-    <input type="text" />
-    <button>Edit</button>
-  </div>
-  <div class="personal-details_item">
-    <span class="personal-details_text">Nationality</span>
-    <input type="text" />
-    <button>Edit</button>
-  </div>
-  <div class="personal-details_item">
-    <span class="personal-details_text">Gender</span>
-    <input type="text" />
-    <button>Edit</button>
-  </div>
-  <div class="personal-details_item">
-    <span class="personal-details_text">Address</span>
-    <input type="text" />
-    <button>Edit</button>
-  </div>
+                <label for="lastName" class="form-label">Last name</label>
+                <input type="text" class="form-control" id="lastName" name="user.lastName" [(ngModel)]="user.lastName">
+              </div>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="!isEditing[1]" class="col">
+          <button class="btn btn-outline-primary" (click)="setCondition(1)">Edit</button>
+        </div>
+        <div *ngIf="isEditing[1]" class="col">
+          <div>
+            <button class="btn btn-outline-primary" (click)="setCondition(1)">Cancel</button>
+            <button class="btn btn-outline-primary" (click)="setCondition(1)">Save</button>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col">
+          Display name
+        </div>
+        <div class="col-6">
+          <div *ngIf="!isEditing[2]">
+            Choose a display name
+          </div>
+          <div *ngIf="isEditing[2]">
+            <form>
+              <div class="mb-3">
+                <label for="displayName" class="form-label">Display name</label>
+                <input type="text" class="form-control" id="displayName" name="user.displayName"
+                  [(ngModel)]="user.displayName">
+              </div>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="!isEditing[2]" class="col">
+          <button class="btn btn-outline-primary" (click)="setCondition(2)">Edit</button>
+        </div>
+        <div *ngIf="isEditing[2]" class="col">
+          <div>
+            <button class="btn btn-outline-primary" (click)="setCondition(2)">Cancel</button>
+            <button class="btn btn-outline-primary" (click)="setCondition(2)">Save</button>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col">
+          Email address
+        </div>
+        <div class="col-6">
+          <div *ngIf="!isEditing[3]">
+            <p>Choose an email</p>
+            <span>This is the email address you use to sign in. It’s also where we send your booking confirmations.</span>
+          </div>
+          <div *ngIf="isEditing[3]">
+            <form>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="user.email" [(ngModel)]="user.email">
+              </div>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="!isEditing[3]" class="col">
+          <button class="btn btn-outline-primary" (click)="setCondition(3)">Edit</button>
+        </div>
+        <div *ngIf="isEditing[3]" class="col">
+          <div>
+            <div>
+              <button class="btn btn-outline-primary" (click)="setCondition(3)">Cancel</button>
+              <button class="btn btn-outline-primary" (click)="setCondition(3)">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col">
+          Phone number
+        </div>
+        <div class="col-6">
+          <div *ngIf="!isEditing[4]">
+            Add a phone number
+          </div>
+          <div *ngIf="isEditing[4]">
+            <form>
+              <div class="mb-3">
+                <label for="phone-number" class="form-label">Phone number</label>
+                <input type="number" class="form-control" id="phone-number" name="user.phoneNumber"
+                  [(ngModel)]="user.phoneNumber">
+              </div>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="!isEditing[4]" class="col">
+          <button class="btn btn-outline-primary" (click)="setCondition(4)">Edit</button>
+        </div>
+        <div *ngIf="isEditing[4]" class="col">
+          <div>
+            <button class="btn btn-outline-primary" (click)="setCondition(4)">Cancel</button>
+            <button class="btn btn-outline-primary" (click)="setCondition(4)">Save</button>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col">
+          Date of birth
+        </div>
+        <div class="col-6">
+          <div *ngIf="!isEditing[5]">
+            Choose a date of birth
+          </div>
+          <div *ngIf="isEditing[5]">
+            <form>
+              <div class="input-with-icon">
+                <span class="input-icon">
+                  <svg aria-hidden="true" class="bk-icon -experiments-calendar sb-date-picker_icon-svg" fill="#BDBDBD"
+                    focusable="false" height="20" role="presentation" width="20" viewBox="0 0 128 128">
+                    <path
+                      d="m112 16h-16v-8h-8v8h-48v-8h-8v8h-16c-4.4 0-8 3.9-8 8.7v86.6c0 4.8 3.6 8.7 8 8.7h96c4.4 0 8-3.9 8-8.7v-86.6c0-4.8-3.6-8.7-8-8.7zm0 95.3a1.1 1.1 0 0 1 -.2.7h-95.6a1.1 1.1 0 0 1 -.2-.7v-71.3h96zm-68-43.3h-12v-12h12zm0 28h-12v-12h12zm26-28h-12v-12h12zm0 28h-12v-12h12zm26 0h-12v-12h12zm0-28h-12v-12h12z"
+                      fill-rule="evenodd"></path>
+                  </svg>
+                </span>
+                <input (click)="t.toggle()" class="header-input pl-50" placeholder="Check-out"
+                  name="user.profile.birthDate" [(ngModel)]="user.profile.birthDate" ngbDatepicker #t="ngbDatepicker" />
+              </div>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="!isEditing[5]" class="col">
+          <button class="btn btn-outline-primary" (click)="setCondition(5)">Edit</button>
+        </div>
+        <div *ngIf="isEditing[5]" class="col">
+          <div>
+            <button class="btn btn-outline-primary" (click)="setCondition(5)">Cancel</button>
+            <button class="btn btn-outline-primary" (click)="setCondition(5)">Save</button>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col">
+          Nationality
+        </div>
+        <div class="col-6">
+          <div *ngIf="!isEditing[6]">
+            Add a nationality
+          </div>
+          <div *ngIf="isEditing[6]">
+            <form>
+              <label for="nationalitySelect" class="form-label">Nationality</label>
+              <select class="form-select" aria-label="Default select example" id="nationalitySelect"
+                name="user.profile.nationality" [(ngModel)]="user.profile.nationality">
+                <option selected>Select the country you're from</option>
+              </select>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="!isEditing[6]" class="col">
+          <button class="btn btn-outline-primary" (click)="setCondition(6)">Edit</button>
+        </div>
+        <div *ngIf="isEditing[6]" class="col">
+          <div>
+            <button class="btn btn-outline-primary" (click)="setCondition(6)">Cancel</button>
+            <button class="btn btn-outline-primary" (click)="setCondition(6)">Save</button>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col">
+          Gender
+        </div>
+        <div class="col-6">
+          <div *ngIf="!isEditing[7]">
+            Choose a gender
+          </div>
+          <div *ngIf="isEditing[7]">
+            <form>
+              <label for="gender" class="form-label">Gender</label>
+              <select class="form-select" aria-label="Default select example" id="gender"
+                name="user.profile.gender.title" [(ngModel)]="user.profile.gender.title">
+                <option selected>Select your gender</option>
+                <option value="Male">I'm a man</option>
+                <option value="Female">I'm a woman</option>
+              </select>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="!isEditing[7]" class="col">
+          <button class="btn btn-outline-primary" (click)="setCondition(7)">Edit</button>
+        </div>
+        <div *ngIf="isEditing[7]" class="col">
+          <div>
+            <button class="btn btn-outline-primary" (click)="setCondition(7)">Cancel</button>
+            <button class="btn btn-outline-primary" (click)="setCondition(7)">Save</button>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col">
+          Address
+        </div>
+        <div class="col-6">
+          <div *ngIf="!isEditing[8]">
+            Choose an address
+          </div>
+          <div *ngIf="isEditing[8]">
+            <form>
+              <label for="countrySelect" class="form-label">Country/Region</label>
+              <select class="form-select" aria-label="Default select example" id="countrySelect"
+                name="user.profile.address.addressText" [(ngModel)]="user.profile.address.country.title">
+                <option selected>Select the country you live in</option>
+              </select>
+
+              <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" class="form-control" id="address" name="user.profile.address.addressText"
+                  [(ngModel)]="user.profile.address.addressText"
+                  placeholder="Your street name and house/apartment number">
+              </div>
+
+              <div class="mb-3">
+                <label for="city" class="form-label">Town/City</label>
+                <input type="text" class="form-control" id="city" name="user.profile.address.addressText"
+                  [(ngModel)]="user.profile.address.city.title">
+
+                <label for="zip-code" class="form-label">Zip code</label>
+                <input type="text" class="form-control" id="zip-code" name="user.profile.address.zipCode"
+                  [(ngModel)]="user.profile.address.zipCode">
+              </div>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="!isEditing[8]" class="col">
+          <button class="btn btn-outline-primary" (click)="setCondition(8)">Edit</button>
+        </div>
+        <div *ngIf="isEditing[8]" class="col">
+          <div>
+            <button class="btn btn-outline-primary" (click)="setCondition(8)">Cancel</button>
+            <button class="btn btn-outline-primary" (click)="setCondition(8)">Save</button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>

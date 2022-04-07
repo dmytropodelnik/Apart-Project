@@ -1,10 +1,36 @@
-<div class="security_container">
-  <div class="security_item">
-    <span class="security_text">Password</span>
-    <input type="text" />
+<div>
+  <div class="personal_details_container">
+    <h1>Security</h1>
+    <p>Adjust your security settings and set up two-factor authentication.</p>
   </div>
-  <div class="security_item">
-    <span class="security_text">Delete Account</span>
-    <input type="text" />
-  </div>
+</div>
+<div class="container container-fluid">
+  <ul class="list-group list-group-flush container-fluid">
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col">
+          Password
+        </div>
+        <div class="col-6">
+          Reset your password regularly to keep your account secure
+        </div>
+        <div class="col">
+         <button class="btn btn-outline-primary" (click)="setCondition(1)">Reset</button>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col">
+          Delete account
+        </div>
+        <div class="col-6">
+          Permanently delete your Apart.com account
+        </div>
+        <div class="col">
+          <button class="btn btn-outline-primary" (click)="setCondition(2)">Delete account</button>
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>

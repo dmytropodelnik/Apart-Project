@@ -12,7 +12,7 @@ import AuthHelper from '../../utils/authHelper';
 })
 export class ManageAccountComponent implements OnInit {
   currentYear: number = new Date().getFullYear();
-  content: string | undefined;
+  content: string = 'personal-details';
 
   constructor(
     private router: Router,

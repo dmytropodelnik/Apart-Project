@@ -8,8 +8,8 @@ export class Address {
   zipCode: string | null = null;
   phoneNumber: string | null = null;
   addressText: string = '';
-  country: Country | null = null;
-  city: City | null = null;
+  country: Country = new Country();
+  city: City = new City();
   district: District | null = null;
   region: Region | null = null;
 
