@@ -51,7 +51,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resUser,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -105,7 +108,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resUser,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -157,7 +163,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resUser,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -216,7 +225,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resUser,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -272,7 +284,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resUser,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -331,7 +346,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resUser,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -386,7 +404,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.UserProfiles.Update(resProfile);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resProfile,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -440,7 +461,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.UserProfiles.Update(resProfile);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resProfile,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -483,6 +507,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
                 var resProfile = await _context.UserProfiles
                                     .Include(p => p.User)
+                                    //.Include(p => p.Gender)
                                     .FirstOrDefaultAsync(p => p.User.Email.Equals(user.Email));
                 if (resProfile is null)
                 {
@@ -494,7 +519,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.UserProfiles.Update(resProfile);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resProfile,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -550,9 +578,11 @@ namespace CloneBookingAPI.Controllers.UserData
                     .FirstOrDefaultAsync(a => a.UserProfile.Id == resProfile.Id);
                 if (resAddress is null)
                 {
-                    resAddress.UserProfile = resProfile;
+                    Address address = new();
+                    address = user.Address;
+                    address.UserProfile = resProfile;
 
-                    _context.Addresses.Add(resAddress);
+                    _context.Addresses.Add(address);
                 }
                 else
                 {
@@ -562,7 +592,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 }
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resAddress,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -622,7 +655,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.UserProfiles.Update(resProfile);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resProfile,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -681,7 +717,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.UserProfiles.Update(resProfile);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resProfile,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {

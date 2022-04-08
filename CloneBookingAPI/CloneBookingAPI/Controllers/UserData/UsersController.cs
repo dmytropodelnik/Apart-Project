@@ -197,13 +197,20 @@ namespace CloneBookingAPI.Controllers
                 }
 
                 var user = await _context.Users
+                    .Include(u => u.Profile)
+                        .ThenInclude(u => u.Address)
+                    .Include(u => u.Profile.Address.Country)
+                    .Include(u => u.Profile.Address.City)
                     .FirstOrDefaultAsync(m => m.Email == email);
                 if (user is null)
                 {
                     return NotFound();
                 }
 
-                return user;
+                return Json(new { 
+                    code = 200,
+                    user,
+                });
             }
             catch (ArgumentNullException ex)
             {

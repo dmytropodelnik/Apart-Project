@@ -18,7 +18,8 @@
         </div>
         <div class="col-6">
           <div *ngIf="!isEditing[0]">
-            Add a title
+            <p *ngIf="!user.title">Add a title</p>
+            <p *ngIf="user.title">{{user.title}}</p>
           </div>
           <div *ngIf="isEditing[0]">
             <form>
@@ -35,7 +36,7 @@
         <div *ngIf="isEditing[0]" class="col">
           <div>
             <button class="btn btn-outline-primary" (click)="cancelButtonClick(0)">Cancel</button>
-            <button class="btn btn-outline-primary" (click)="setCondition(0)">Save</button>
+            <button class="btn btn-outline-primary" (click)="saveTitle(0)">Save</button>
           </div>
         </div>
       </div>

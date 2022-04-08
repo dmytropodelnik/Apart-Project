@@ -17,11 +17,9 @@ export class UserData {
    verificationCode: string = '';
    pBirthDate: NgbDate  | null = null;
    birthDate: string = '';
-   roleId: number | null = null;
-   genderId: number | null = null;
+   genderId: number = -1;
 
    address: Address = new Address();
-   currency: Currency = new Currency();
 
   constructor () {
 
