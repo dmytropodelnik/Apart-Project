@@ -30,11 +30,11 @@
           </div>
         </div>
         <div *ngIf="!isEditing[0]" class="col">
-          <button class="btn btn-outline-primary" (click)="setCondition(0)">Edit</button>
+          <button class="btn btn-outline-primary" (click)="editButtonClick(0)" [disabled]="isDisabled[0]">Edit</button>
         </div>
         <div *ngIf="isEditing[0]" class="col">
           <div>
-            <button class="btn btn-outline-primary" (click)="setCondition(0)">Cancel</button>
+            <button class="btn btn-outline-primary" (click)="cancelButtonClick(0)">Cancel</button>
             <button class="btn btn-outline-primary" (click)="setCondition(0)">Save</button>
           </div>
         </div>
@@ -63,11 +63,11 @@
           </div>
         </div>
         <div *ngIf="!isEditing[1]" class="col">
-          <button class="btn btn-outline-primary" (click)="setCondition(1)">Edit</button>
+          <button class="btn btn-outline-primary" (click)="editButtonClick(1)" [disabled]="isDisabled[1]">Edit</button>
         </div>
         <div *ngIf="isEditing[1]" class="col">
           <div>
-            <button class="btn btn-outline-primary" (click)="setCondition(1)">Cancel</button>
+            <button class="btn btn-outline-primary" (click)="cancelButtonClick(1)">Cancel</button>
             <button class="btn btn-outline-primary" (click)="setCondition(1)">Save</button>
           </div>
         </div>
@@ -93,11 +93,11 @@
           </div>
         </div>
         <div *ngIf="!isEditing[2]" class="col">
-          <button class="btn btn-outline-primary" (click)="setCondition(2)">Edit</button>
+          <button class="btn btn-outline-primary" (click)="editButtonClick(2)" [disabled]="isDisabled[2]">Edit</button>
         </div>
         <div *ngIf="isEditing[2]" class="col">
           <div>
-            <button class="btn btn-outline-primary" (click)="setCondition(2)">Cancel</button>
+            <button class="btn btn-outline-primary" (click)="cancelButtonClick(2)">Cancel</button>
             <button class="btn btn-outline-primary" (click)="setCondition(2)">Save</button>
           </div>
         </div>
@@ -118,17 +118,18 @@
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" name="user.email" [(ngModel)]="user.email">
+                <span>This is the email address you use to sign in. It’s also where we send your booking confirmations.</span>
               </div>
             </form>
           </div>
         </div>
         <div *ngIf="!isEditing[3]" class="col">
-          <button class="btn btn-outline-primary" (click)="setCondition(3)">Edit</button>
+          <button class="btn btn-outline-primary" (click)="editButtonClick(3)" [disabled]="isDisabled[3]">Edit</button>
         </div>
         <div *ngIf="isEditing[3]" class="col">
           <div>
             <div>
-              <button class="btn btn-outline-primary" (click)="setCondition(3)">Cancel</button>
+              <button class="btn btn-outline-primary" (click)="cancelButtonClick(3)">Cancel</button>
               <button class="btn btn-outline-primary" (click)="setCondition(3)">Save</button>
             </div>
           </div>
@@ -155,11 +156,11 @@
           </div>
         </div>
         <div *ngIf="!isEditing[4]" class="col">
-          <button class="btn btn-outline-primary" (click)="setCondition(4)">Edit</button>
+          <button class="btn btn-outline-primary" (click)="editButtonClick(4)" [disabled]="isDisabled[4]">Edit</button>
         </div>
         <div *ngIf="isEditing[4]" class="col">
           <div>
-            <button class="btn btn-outline-primary" (click)="setCondition(4)">Cancel</button>
+            <button class="btn btn-outline-primary" (click)="cancelButtonClick(4)">Cancel</button>
             <button class="btn btn-outline-primary" (click)="setCondition(4)">Save</button>
           </div>
         </div>
@@ -186,17 +187,17 @@
                   </svg>
                 </span>
                 <input (click)="t.toggle()" class="header-input pl-50" placeholder="Check-out"
-                  name="user.profile.birthDate" [(ngModel)]="user.profile.birthDate" ngbDatepicker #t="ngbDatepicker" />
+                  name="user.profile.birthDate" [(ngModel)]="user.birthDate" ngbDatepicker #t="ngbDatepicker" />
               </div>
             </form>
           </div>
         </div>
         <div *ngIf="!isEditing[5]" class="col">
-          <button class="btn btn-outline-primary" (click)="setCondition(5)">Edit</button>
+          <button class="btn btn-outline-primary" (click)="editButtonClick(5)" [disabled]="isDisabled[5]">Edit</button>
         </div>
         <div *ngIf="isEditing[5]" class="col">
           <div>
-            <button class="btn btn-outline-primary" (click)="setCondition(5)">Cancel</button>
+            <button class="btn btn-outline-primary" (click)="cancelButtonClick(5)">Cancel</button>
             <button class="btn btn-outline-primary" (click)="setCondition(5)">Save</button>
           </div>
         </div>
@@ -215,18 +216,18 @@
             <form>
               <label for="nationalitySelect" class="form-label">Nationality</label>
               <select class="form-select" aria-label="Default select example" id="nationalitySelect"
-                name="user.profile.nationality" [(ngModel)]="user.profile.nationality">
+                name="user.profile.nationality" [(ngModel)]="user.nationality">
                 <option selected>Select the country you're from</option>
               </select>
             </form>
           </div>
         </div>
         <div *ngIf="!isEditing[6]" class="col">
-          <button class="btn btn-outline-primary" (click)="setCondition(6)">Edit</button>
+          <button class="btn btn-outline-primary" (click)="editButtonClick(6)" [disabled]="isDisabled[6]">Edit</button>
         </div>
         <div *ngIf="isEditing[6]" class="col">
           <div>
-            <button class="btn btn-outline-primary" (click)="setCondition(6)">Cancel</button>
+            <button class="btn btn-outline-primary" (click)="cancelButtonClick(6)">Cancel</button>
             <button class="btn btn-outline-primary" (click)="setCondition(6)">Save</button>
           </div>
         </div>
@@ -245,20 +246,20 @@
             <form>
               <label for="gender" class="form-label">Gender</label>
               <select class="form-select" aria-label="Default select example" id="gender"
-                name="user.profile.gender.title" [(ngModel)]="user.profile.gender.title">
+                name="user.profile.gender.title" [(ngModel)]="user.genderId">
                 <option selected>Select your gender</option>
-                <option value="Male">I'm a man</option>
-                <option value="Female">I'm a woman</option>
+                <option value="1">I'm a man</option>
+                <option value="1">I'm a woman</option>
               </select>
             </form>
           </div>
         </div>
         <div *ngIf="!isEditing[7]" class="col">
-          <button class="btn btn-outline-primary" (click)="setCondition(7)">Edit</button>
+          <button class="btn btn-outline-primary" (click)="editButtonClick(7)" [disabled]="isDisabled[7]">Edit</button>
         </div>
         <div *ngIf="isEditing[7]" class="col">
           <div>
-            <button class="btn btn-outline-primary" (click)="setCondition(7)">Cancel</button>
+            <button class="btn btn-outline-primary" (click)="cancelButtonClick(7)">Cancel</button>
             <button class="btn btn-outline-primary" (click)="setCondition(7)">Save</button>
           </div>
         </div>
@@ -277,36 +278,36 @@
             <form>
               <label for="countrySelect" class="form-label">Country/Region</label>
               <select class="form-select" aria-label="Default select example" id="countrySelect"
-                name="user.profile.address.addressText" [(ngModel)]="user.profile.address.country.title">
+                name="user.profile.address.addressText" [(ngModel)]="user.address.country.title">
                 <option selected>Select the country you live in</option>
               </select>
 
               <div class="mb-3">
                 <label for="address" class="form-label">Address</label>
                 <input type="text" class="form-control" id="address" name="user.profile.address.addressText"
-                  [(ngModel)]="user.profile.address.addressText"
+                  [(ngModel)]="user.address.addressText"
                   placeholder="Your street name and house/apartment number">
               </div>
 
               <div class="mb-3">
                 <label for="city" class="form-label">Town/City</label>
                 <input type="text" class="form-control" id="city" name="user.profile.address.addressText"
-                  [(ngModel)]="user.profile.address.city.title">
+                  [(ngModel)]="user.address.city.title">
 
                 <label for="zip-code" class="form-label">Zip code</label>
                 <input type="text" class="form-control" id="zip-code" name="user.profile.address.zipCode"
-                  [(ngModel)]="user.profile.address.zipCode">
+                  [(ngModel)]="user.address.zipCode">
               </div>
             </form>
           </div>
         </div>
         <div *ngIf="!isEditing[8]" class="col">
-          <button class="btn btn-outline-primary" (click)="setCondition(8)">Edit</button>
+          <button class="btn btn-outline-primary" (click)="editButtonClick(8)" [disabled]="isDisabled[8]">Edit</button>
         </div>
         <div *ngIf="isEditing[8]" class="col">
           <div>
-            <button class="btn btn-outline-primary" (click)="setCondition(8)">Cancel</button>
-            <button class="btn btn-outline-primary" (click)="setCondition(8)">Save</button>
+            <button class="btn btn-outline-primary" (click)="cancelButtonClick(8)">Cancel</button>
+            <button class="btn btn-outline-primary" (click)="saveButtonClick(8)">Save</button>
           </div>
         </div>
       </div>

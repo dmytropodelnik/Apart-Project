@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/UserData/user.item';
+import { UserData } from 'src/app/view-models/userdata.item';
 
 @Component({
   selector: 'app-personal-details-list',
@@ -8,17 +9,85 @@ import { User } from 'src/app/models/UserData/user.item';
 })
 export class PersonalDetailsListComponent implements OnInit {
   isEditing: boolean[] = [];
+  isDisabled: boolean[] = [];
 
-  user: User = new User();
+  user: UserData = new UserData();
 
-  constructor() { }
+  constructor() {
+
+  }
 
   setCondition(id: number): void {
     this.isEditing[id] = !this.isEditing[id];
   }
 
-  ngOnInit(): void {
+  editButtonClick(id: number): void {
+    this.setCondition(id);
+    this.setConditionEditButtons(id, true);
+  }
 
+  saveButtonClick(id: number): void {
+    this.setCondition(id);
+    this.setConditionEditButtons(id, false);
+  }
+
+  cancelButtonClick(id: number): void {
+    this.setCondition(id);
+    this.setConditionEditButtons(id, false);
+  }
+
+  setConditionEditButtons(id: number, value: boolean): void {
+    for (let i = 0; i < this.isDisabled.length; i++) {
+      if (i !== id) {
+        this.isDisabled[i] = value;
+      }
+    }
+  }
+
+  saveTitle(): void {
+
+  }
+
+  saveName(): void {
+
+  }
+
+  saveDisplayName(): void {
+
+  }
+
+  saveEmail(): void {
+
+  }
+
+  savePhoneNumber(): void {
+
+  }
+
+  saveBirthDate(): void {
+
+  }
+
+  saveNationality(): void {
+
+  }
+
+  saveGender(): void {
+
+  }
+
+  saveAddress(): void {
+
+  }
+
+  initializeBoolArray(): void {
+    for (let i = 0; i < 9; i++) {
+      this.isDisabled[i] = false;
+    }
+  }
+
+  ngOnInit(): void {
+    this.initializeBoolArray();
   }
 
 }
