@@ -336,7 +336,7 @@ namespace CloneBookingAPI.Controllers.UserData
                 }
 
                 var isPhoneExists = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == user.PhoneNumber);
-                if (resUser is not null)
+                if (isPhoneExists is not null)
                 {
                     return Json(new { code = 400 });
                 }
@@ -399,7 +399,7 @@ namespace CloneBookingAPI.Controllers.UserData
                     return Json(new { code = 400 });
                 }
 
-                resProfile.BirthDate = Convert.ToDateTime(user.BirthDate).ToUniversalTime();
+                resProfile.BirthDate = Convert.ToDateTime(user.BirthDate);
 
                 _context.UserProfiles.Update(resProfile);
                 await _context.SaveChangesAsync();
@@ -557,10 +557,9 @@ namespace CloneBookingAPI.Controllers.UserData
             try
             {
                 if (user is null ||
-                    string.IsNullOrWhiteSpace(user.Address.AddressText) &&
-                    string.IsNullOrWhiteSpace(user.Address.Country.Title) &&
-                    string.IsNullOrWhiteSpace(user.Address.City.Title) &&
-                    string.IsNullOrWhiteSpace(user.Address.ZipCode))
+                    user.AddressText is null &&
+                    user.Country is null &&
+                    user.City is null)
                 {
                     return Json(new { code = 400 });
                 }
@@ -573,20 +572,58 @@ namespace CloneBookingAPI.Controllers.UserData
                     return Json(new { code = 400 });
                 }
 
+                Address address = new();
+                City newCity = new();
+
+                var country = await _context.Countries.FirstOrDefaultAsync(c => c.Title.Equals(user.Country));
+                if (country is not null)
+                {
+                    address.CountryId = country.Id;
+                }
+                var city = await _context.Cities.FirstOrDefaultAsync(c => c.Title.Equals(user.City));
+                if (city is not null)
+                {
+                    address.CityId = city.Id;
+                }
+                else
+                {
+                    newCity.Title = user.City;
+                    newCity.CountryId = country.Id;
+
+                    address.City = newCity;
+
+                    _context.Cities.Add(newCity);
+                }
+
                 var resAddress = await _context.Addresses
                     .Include(a => a.UserProfile)
+                    .Include(a => a.Country)
+                    .Include(a => a.City)
                     .FirstOrDefaultAsync(a => a.UserProfile.Id == resProfile.Id);
                 if (resAddress is null)
                 {
-                    Address address = new();
-                    address = user.Address;
+                    address.AddressText = user.AddressText;
+                    address.ZipCode = user.ZipCode;
                     address.UserProfile = resProfile;
 
                     _context.Addresses.Add(address);
                 }
                 else
                 {
-                    resAddress = user.Address;
+                    resAddress.AddressText = user.AddressText;
+                    resAddress.ZipCode = user.ZipCode;
+                    if (country is not null)
+                    {
+                        resAddress.CountryId = country.Id;
+                    }
+                    if (city is not null)
+                    {
+                        resAddress.CityId = city.Id;
+                    }
+                    else
+                    {
+                        resAddress.City = newCity;
+                    }
 
                     _context.Addresses.Update(resAddress);
                 }

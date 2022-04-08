@@ -4,7 +4,7 @@ import { District } from "./district.item";
 import { Region } from "./region.item";
 
 export class Address {
-  id: number | null = null;
+  id: number = -1;
   zipCode: string | null = null;
   phoneNumber: string | null = null;
   addressText: string = '';

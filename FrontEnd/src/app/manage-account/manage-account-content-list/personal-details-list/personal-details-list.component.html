@@ -48,7 +48,8 @@
         </div>
         <div class="col-6">
           <div *ngIf="!isEditing[1]">
-            Add a name
+            <p *ngIf="!user.firstName && !user.lastName">Add a name</p>
+            <p *ngIf="user.firstName && user.lastName">{{user.firstName + " " + user.lastName}}</p>
           </div>
           <div *ngIf="isEditing[1]">
             <form>
@@ -69,7 +70,7 @@
         <div *ngIf="isEditing[1]" class="col">
           <div>
             <button class="btn btn-outline-primary" (click)="cancelButtonClick(1)">Cancel</button>
-            <button class="btn btn-outline-primary" (click)="setCondition(1)">Save</button>
+            <button class="btn btn-outline-primary" (click)="saveName(1)">Save</button>
           </div>
         </div>
       </div>
@@ -81,7 +82,8 @@
         </div>
         <div class="col-6">
           <div *ngIf="!isEditing[2]">
-            Choose a display name
+            <p *ngIf="!user.displayName">Choose a display name</p>
+            <p *ngIf="user.displayName">{{user.displayName}}</p>
           </div>
           <div *ngIf="isEditing[2]">
             <form>
@@ -99,7 +101,7 @@
         <div *ngIf="isEditing[2]" class="col">
           <div>
             <button class="btn btn-outline-primary" (click)="cancelButtonClick(2)">Cancel</button>
-            <button class="btn btn-outline-primary" (click)="setCondition(2)">Save</button>
+            <button class="btn btn-outline-primary" (click)="saveDisplayName(2)">Save</button>
           </div>
         </div>
       </div>
@@ -111,7 +113,8 @@
         </div>
         <div class="col-6">
           <div *ngIf="!isEditing[3]">
-            <p>Choose an email</p>
+            <p *ngIf="!user.email">Add an email</p>
+            <p *ngIf="user.email">{{user.email}}</p>
             <span>This is the email address you use to sign in. It’s also where we send your booking confirmations.</span>
           </div>
           <div *ngIf="isEditing[3]">
@@ -131,7 +134,7 @@
           <div>
             <div>
               <button class="btn btn-outline-primary" (click)="cancelButtonClick(3)">Cancel</button>
-              <button class="btn btn-outline-primary" (click)="setCondition(3)">Save</button>
+              <button class="btn btn-outline-primary" (click)="saveEmail(3)">Save</button>
             </div>
           </div>
         </div>
@@ -144,13 +147,14 @@
         </div>
         <div class="col-6">
           <div *ngIf="!isEditing[4]">
-            Add a phone number
+            <p *ngIf="!user.phoneNumber">Add a phone number</p>
+            <p *ngIf="user.phoneNumber">{{user.phoneNumber}}</p>
           </div>
           <div *ngIf="isEditing[4]">
             <form>
               <div class="mb-3">
                 <label for="phone-number" class="form-label">Phone number</label>
-                <input type="number" class="form-control" id="phone-number" name="user.phoneNumber"
+                <input type="text" class="form-control" id="phone-number" name="user.phoneNumber"
                   [(ngModel)]="user.phoneNumber">
               </div>
             </form>
@@ -162,7 +166,7 @@
         <div *ngIf="isEditing[4]" class="col">
           <div>
             <button class="btn btn-outline-primary" (click)="cancelButtonClick(4)">Cancel</button>
-            <button class="btn btn-outline-primary" (click)="setCondition(4)">Save</button>
+            <button class="btn btn-outline-primary" (click)="savePhoneNumber(4)">Save</button>
           </div>
         </div>
       </div>
@@ -174,7 +178,8 @@
         </div>
         <div class="col-6">
           <div *ngIf="!isEditing[5]">
-            Choose a date of birth
+            <p *ngIf="!user.pBirthDate">Choose a date of birth</p>
+            <p *ngIf="user.pBirthDate">{{user.pBirthDate}}</p>
           </div>
           <div *ngIf="isEditing[5]">
             <form>
@@ -199,7 +204,7 @@
         <div *ngIf="isEditing[5]" class="col">
           <div>
             <button class="btn btn-outline-primary" (click)="cancelButtonClick(5)">Cancel</button>
-            <button class="btn btn-outline-primary" (click)="setCondition(5)">Save</button>
+            <button class="btn btn-outline-primary" (click)="saveBirthDate(5)">Save</button>
           </div>
         </div>
       </div>
@@ -211,7 +216,8 @@
         </div>
         <div class="col-6">
           <div *ngIf="!isEditing[6]">
-            Add a nationality
+            <p *ngIf="!user.nationality">Choose a nationality</p>
+            <p *ngIf="user.nationality">{{user.nationality}}</p>
           </div>
           <div *ngIf="isEditing[6]">
             <form>
@@ -229,7 +235,7 @@
         <div *ngIf="isEditing[6]" class="col">
           <div>
             <button class="btn btn-outline-primary" (click)="cancelButtonClick(6)">Cancel</button>
-            <button class="btn btn-outline-primary" (click)="setCondition(6)">Save</button>
+            <button class="btn btn-outline-primary" (click)="saveNationality(6)">Save</button>
           </div>
         </div>
       </div>
@@ -241,7 +247,8 @@
         </div>
         <div class="col-6">
           <div *ngIf="!isEditing[7]">
-            Choose a gender
+            <p *ngIf="!user.genderId">Choose a gender</p>
+            <p *ngIf="user.genderId">{{user.genderId == 1 ? "Man" : "Female"}}</p>
           </div>
           <div *ngIf="isEditing[7]">
             <form>
@@ -250,7 +257,7 @@
                 name="user.profile.gender.title" [(ngModel)]="user.genderId">
                 <option selected>Select your gender</option>
                 <option value="1">I'm a man</option>
-                <option value="1">I'm a woman</option>
+                <option value="2">I'm a woman</option>
               </select>
             </form>
           </div>
@@ -261,7 +268,7 @@
         <div *ngIf="isEditing[7]" class="col">
           <div>
             <button class="btn btn-outline-primary" (click)="cancelButtonClick(7)">Cancel</button>
-            <button class="btn btn-outline-primary" (click)="setCondition(7)">Save</button>
+            <button class="btn btn-outline-primary" (click)="saveGender(7)">Save</button>
           </div>
         </div>
       </div>
@@ -273,31 +280,33 @@
         </div>
         <div class="col-6">
           <div *ngIf="!isEditing[8]">
-            Choose an address
+            <p *ngIf="!user.addressText && !user.country.title">Choose an address</p>
+            <p *ngIf="user.addressText && user.country.title">{{user.zipCode ? user.zipCode + ", " : ""}}{{user.addressText + ', ' +
+                      user.city.title + ', ' + user.country.title}}</p>
           </div>
           <div *ngIf="isEditing[8]">
             <form>
               <label for="countrySelect" class="form-label">Country/Region</label>
               <select class="form-select" aria-label="Default select example" id="countrySelect"
-                name="user.profile.address.addressText" [(ngModel)]="user.address.country.title">
+                name="user.country.title" [(ngModel)]="user.country.title">
                 <option selected>Select the country you live in</option>
               </select>
 
               <div class="mb-3">
                 <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" name="user.profile.address.addressText"
-                  [(ngModel)]="user.address.addressText"
+                <input type="text" class="form-control" id="address" name="user.addressText"
+                  [(ngModel)]="user.addressText"
                   placeholder="Your street name and house/apartment number">
               </div>
 
               <div class="mb-3">
                 <label for="city" class="form-label">Town/City</label>
-                <input type="text" class="form-control" id="city" name="user.profile.address.addressText"
-                  [(ngModel)]="user.address.city.title">
+                <input type="text" class="form-control" id="city" name="user.city.title"
+                  [(ngModel)]="user.city.title">
 
                 <label for="zip-code" class="form-label">Zip code</label>
-                <input type="text" class="form-control" id="zip-code" name="user.profile.address.zipCode"
-                  [(ngModel)]="user.address.zipCode">
+                <input type="text" class="form-control" id="zip-code" name="user.zipCode"
+                  [(ngModel)]="user.zipCode">
               </div>
             </form>
           </div>
@@ -308,7 +317,7 @@
         <div *ngIf="isEditing[8]" class="col">
           <div>
             <button class="btn btn-outline-primary" (click)="cancelButtonClick(8)">Cancel</button>
-            <button class="btn btn-outline-primary" (click)="saveButtonClick(8)">Save</button>
+            <button class="btn btn-outline-primary" (click)="saveAddress(8)">Save</button>
           </div>
         </div>
       </div>

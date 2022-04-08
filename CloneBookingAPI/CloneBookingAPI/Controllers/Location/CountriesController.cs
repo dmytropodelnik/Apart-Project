@@ -36,6 +36,7 @@ namespace CloneBookingAPI.Controllers
                 {
                     countries = await _context.Countries
                     .Include(c => c.Image)
+                    .OrderBy(c => c.Title)
                     .ToListAsync();
                 }
                 else
@@ -44,6 +45,7 @@ namespace CloneBookingAPI.Controllers
                     .Include(c => c.Image)
                     .Skip((page - 1) * pageSize)
                     .Take(pageSize)
+                    .OrderBy(c => c.Title)
                     .ToListAsync();
                 }
 
