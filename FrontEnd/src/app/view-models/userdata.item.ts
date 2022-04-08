@@ -1,3 +1,4 @@
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { Address } from '../models/Location/address.item';
 import { Currency } from '../models/Payment/currency.item';
 
@@ -14,6 +15,7 @@ export class UserData {
    nationality: string = '';
    language: string = '';
    verificationCode: string = '';
+   pBirthDate: NgbDate  | null = null;
    birthDate: string = '';
    roleId: number | null = null;
    genderId: number | null = null;

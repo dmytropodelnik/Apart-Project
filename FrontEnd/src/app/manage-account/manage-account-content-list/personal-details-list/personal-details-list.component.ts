@@ -65,6 +65,12 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveBirthDate(): void {
+    if (this.user.pBirthDate) {
+      this.user.birthDate = this.user.pBirthDate!.day + '/' + this.user.pBirthDate!.month + '/' +
+                            this.user.pBirthDate!.year;
+    } else {
+      alert("Choose a date");
+    }
 
   }
 
