@@ -370,10 +370,12 @@ export class PersonalDetailsListComponent implements OnInit {
           this.user.email = response.user.email;
           this.user.displayName = response.user.displayName;
           this.user.phoneNumber = response.user.phoneNumber;
-          this.user.pBirthDate = response.user.profile.birthDate.substring(
-            0,
-            response.user.profile.birthDate.indexOf('T')
-          );
+          if (response.user.profile.birthDate) {
+            this.user.pBirthDate = response.user.profile.birthDate.substring(
+              0,
+              response.user.profile.birthDate.indexOf('T')
+            );
+          }
           this.user.nationality = response.user.profile.nationality;
           this.user.genderId = response.user.profile.genderId;
         } else {
