@@ -18,7 +18,11 @@ export class PersonalDetailsListComponent implements OnInit {
 
   user: UserData = new UserData();
 
-  constructor(private authService: AuthorizationService) {}
+  constructor(
+    private authService: AuthorizationService
+    ) {
+
+    }
 
   setCondition(id: number): void {
     this.isEditing[id] = !this.isEditing[id];

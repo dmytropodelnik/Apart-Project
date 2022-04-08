@@ -201,6 +201,8 @@ namespace CloneBookingAPI.Controllers
                         .ThenInclude(u => u.Address)
                     .Include(u => u.Profile.Address.Country)
                     .Include(u => u.Profile.Address.City)
+                    .Include(u => u.Profile.Currency)
+                    .Include(u => u.Profile.Language)
                     .FirstOrDefaultAsync(m => m.Email == email);
                 if (user is null)
                 {

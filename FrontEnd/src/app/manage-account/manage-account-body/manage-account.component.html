@@ -1,6 +1,4 @@
-<header
-  class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs"
->
+<header class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs">
   <nav class="bui-header__bar">
     <div class="bui-header__main">
       <div class="bui-header__logo">
@@ -14,11 +12,7 @@
       <div class="bui-group__item">
         <span class="bui-button__text">
           <div class="bui-avatar bui-avatar--small" aria-hidden="true">
-            <img
-              class="bui-avatar__image"
-              src="assets/images/us-flag.png"
-              alt=""
-            />
+            <img class="bui-avatar__image" src="assets/images/us-flag.png" alt="" />
           </div>
         </span>
       </div>
@@ -28,6 +22,49 @@
 
 <body>
   <div class="manageaccount">
+    <!-- ========== Left Sidebar Start ========== -->
+    <div class="accordion" id="accordionExample">
+      <!--- Sidemenu -->
+      <div id="sidebar-menu">
+        <!-- Left Menu Start -->
+        <ul class="metismenu list-unstyled" id="side-menu">
+          <div class="accordion-item">
+            <div id="collapseOneUserData" class="accordion-collapse collapse show" aria-labelledby="headingOne"
+              data-bs-parent="#accordionUserData">
+              <li>
+                <a class="btn waves-effect" (click)="setContent('personal-details')">
+                  <i class="mdi mdi-account-circle"></i>
+                  <span>Personal details</span>
+                </a>
+              </li>
+
+              <li>
+                <a class="btn waves-effect" (click)="setContent('preferences')">
+                  <i class="mdi mdi-account-box"></i>
+                  <span>Preferences</span>
+                </a>
+              </li>
+
+              <li>
+                <a class="btn waves-effect" (click)="setContent('security')">
+                  <i class="mdi mdi-account-box-outline"></i>
+                  <span>Security</span>
+                </a>
+              </li>
+            </div>
+          </div>
+        </ul>
+      </div>
+      <!-- Sidebar -->
+    </div>
+    <!-- Left Sidebar End -->
+
+    <div class="">
+      <app-manage-account-content [content]="content"></app-manage-account-content>
+    </div>
+  </div>
+
+  <!-- <div class="manageaccount">
     <div class="">
       <div class="accordion-collapse collapse show">
         <li>
@@ -48,7 +85,7 @@
             <span>Security</span>
           </a>
         </li>
-        <!-- <li>
+        <li>
         <a class="btn waves-effect" (click)="setContent('payment-details')">
           <i class="mdi mdi-account-group"></i>
           <span>Payment details</span>
@@ -67,7 +104,7 @@
           <i class="mdi mdi-emoticon-tongue"></i>
           <span>Other travelers</span>
         </a>
-      </li> -->
+      </li>
       </div>
     </div>
     <div class="">
@@ -75,5 +112,5 @@
         [content]="content"
       ></app-manage-account-content>
     </div>
-  </div>
+  </div> -->
 </body>

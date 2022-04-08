@@ -666,8 +666,8 @@ namespace CloneBookingAPI.Controllers.UserData
         {
             try
             {
-                if (user is null                             ||
-                    string.IsNullOrWhiteSpace(user.Language) ||
+                if (user is null        ||
+                    user.LanguageId < 1 ||
                     string.IsNullOrWhiteSpace(user.Email))
                 {
                     return Json(new { code = 400 });
@@ -681,7 +681,7 @@ namespace CloneBookingAPI.Controllers.UserData
                     return Json(new { code = 400 });
                 }
 
-                var resLanguage = await _context.Languages.FirstOrDefaultAsync(l => l.Title.Equals(user.Language));
+                var resLanguage = await _context.Languages.FirstOrDefaultAsync(l => l.Id == user.LanguageId);
                 if (resLanguage is null)
                 {
                     return Json(new { code = 400 });
@@ -729,7 +729,9 @@ namespace CloneBookingAPI.Controllers.UserData
         {
             try
             {
-                if (user is null || user.Currency is null)
+                if (user is null || 
+                    user.Currency is null ||
+                    string.IsNullOrWhiteSpace(user.Email))
                 {
                     return Json(new { code = 400 });
                 }
@@ -742,8 +744,7 @@ namespace CloneBookingAPI.Controllers.UserData
                     return Json(new { code = 400 });
                 }
 
-                var resCurrency = await _context.Currencies.FirstOrDefaultAsync(c => c.Abbreviation.Equals(user.Currency.Abbreviation) &&
-                                                                                     c.Value.Equals(user.Currency.Value));
+                var resCurrency = await _context.Currencies.FirstOrDefaultAsync(c => c.Abbreviation.Equals(user.Currency));
                 if (resCurrency is null)
                 {
                     return Json(new { code = 400 });

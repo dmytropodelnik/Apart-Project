@@ -16,7 +16,7 @@ namespace CloneBookingAPI.Services.POCOs
         public string NewPassword { get; set; }
         public string PhoneNumber { get; set; }
         public string Nationality { get; set; }
-        public string Language { get; set; }
+        public int LanguageId { get; set; }
         public string VerificationCode { get; set; }
         public int RoleId { get; set; }
         public int GenderId { get; set; }
@@ -27,8 +27,8 @@ namespace CloneBookingAPI.Services.POCOs
         public string Country { get; set; }
         public string City { get; set; }
         public string ZipCode { get; set; }
+        public string Currency { get; set; }
 
         public Address Address { get; set; }
-        public Currency Currency { get; set; }
     }
 }

@@ -12,10 +12,28 @@
           Currency
         </div>
         <div class="col-6">
-          US$ U.S. Dollar
+          <div *ngIf="!isEditing[0]">
+            <p *ngIf="!user.currency.abbreviation">Choose a currency</p>
+            <p *ngIf="user.currency.abbreviation">{{user.currency.abbreviation}}</p>
+          </div>
+          <div *ngIf="isEditing[0]">
+            <form>
+              <label for="currenciesSelect" class="form-label">Currency</label>
+              <select class="form-select" aria-label="Default select example" id="currenciesSelect"
+                name="user.currency.abbreviation" [(ngModel)]="user.currency.abbreviation">
+                <option selected>Select the currency</option>
+              </select>
+            </form>
+          </div>
         </div>
-        <div class="col">
-         <button class="btn btn-outline-primary" (click)="setCondition(1)">Edit</button>
+        <div *ngIf="!isEditing[0]" class="col">
+          <button class="btn btn-outline-primary" (click)="editButtonClick(0)" [disabled]="isDisabled[0]">Edit</button>
+        </div>
+        <div *ngIf="isEditing[0]" class="col">
+          <div>
+            <button class="btn btn-outline-primary" (click)="cancelButtonClick(0)">Cancel</button>
+            <button class="btn btn-outline-primary" (click)="saveCurrency(0)">Save</button>
+          </div>
         </div>
       </div>
     </li>
@@ -25,10 +43,28 @@
           Language
         </div>
         <div class="col-6">
-          American English
+          <div *ngIf="!isEditing[1]">
+            <p *ngIf="!user.language">Choose a language</p>
+            <p *ngIf="user.language">{{user.language}}</p>
+          </div>
+          <div *ngIf="isEditing[1]">
+            <form>
+              <label for="languagesSelect" class="form-label">Language</label>
+              <select class="form-select" aria-label="Default select example" id="languagesSelect"
+                name="user.language" [(ngModel)]="user.language">
+                <option selected>Select the language</option>
+              </select>
+            </form>
+          </div>
         </div>
-        <div class="col">
-          <button class="btn btn-outline-primary" (click)="setCondition(2)">Edit</button>
+        <div *ngIf="!isEditing[1]" class="col">
+          <button class="btn btn-outline-primary" (click)="editButtonClick(1)" [disabled]="isDisabled[1]">Edit</button>
+        </div>
+        <div *ngIf="isEditing[1]" class="col">
+          <div>
+            <button class="btn btn-outline-primary" (click)="cancelButtonClick(1)">Cancel</button>
+            <button class="btn btn-outline-primary" (click)="saveLanguage(1)">Save</button>
+          </div>
         </div>
       </div>
     </li>

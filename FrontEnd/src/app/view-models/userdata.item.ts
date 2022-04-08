@@ -24,6 +24,7 @@ export class UserData {
    addressText: string = '';
    country: Country = new Country();
    city: City = new City();
+   currency: Currency = new Currency();
 
    address: Address | null = null;
 
