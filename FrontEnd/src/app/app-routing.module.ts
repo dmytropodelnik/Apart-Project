@@ -19,6 +19,7 @@ import { LpReviewAndCompleteComponent } from './list-your-property/lp-review-and
 import { ManageAccountComponent } from './manage-account/manage-account-body/manage-account.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { UserSavedComponent } from './user-saved/user-saved.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'stays', pathMatch: 'full' },
@@ -39,6 +40,7 @@ const routes: Routes = [
   { path: 'lp/addproperty', component: AddPropertyComponent, pathMatch: 'full' },
   { path: 'mysettings', component: ManageAccountComponent },
   { path: 'searchresults', component: SearchResultsComponent },
+  { path: 'resetpassword', component: ResetPasswordComponent },
   {
     path: 'lp/nameandlocation',
     component: LpNameAndLocationComponent,

@@ -12,6 +12,7 @@ import AuthHelper from '../utils/authHelper';
 export class VerifyEnterComponent implements OnInit {
   email: string = '';
   code: string = '';
+  isToResetPassword: boolean = false;
 
   constructor(
     private router: Router,
@@ -19,17 +20,9 @@ export class VerifyEnterComponent implements OnInit {
     private authService: AuthorizationService
   ) {}
 
-  ngOnInit(): void {
-    // Note: Below 'queryParams' can be replaced with 'params' depending on your requirements
-    this.activatedRoute.queryParams.subscribe((params: any) => {
-      this.email = params['email'];
-      this.code = params['code'];
-    });
-    console.log(this.email);
-    console.log(this.code);
-
+  verifyEnterUser(): void {
     fetch(
-      `https://localhost:44381/api/codes/verifyenteruser?email=${this.email}&code=${this.code}`,
+      `https://localhost:44381/api/codes/verifyenteruser?email=${this.email}&code=${this.code}&confidant=true`,
       {
         method: 'GET',
       }
@@ -39,7 +32,7 @@ export class VerifyEnterComponent implements OnInit {
         if (data.code === 200) {
           let user = {
             email: this.email,
-            password: '12341234qwe',
+            code: this.code,
           };
 
           fetch('https://localhost:44381/token', {
@@ -63,7 +56,6 @@ export class VerifyEnterComponent implements OnInit {
               } else {
                 alert("Token fetching error!");
               }
-              console.log(response);
             })
             .catch((ex) => {
               alert(ex);
@@ -75,5 +67,46 @@ export class VerifyEnterComponent implements OnInit {
       .catch((ex) => {
         alert(ex);
       });
+  }
+
+  resetPassword(): void {
+    fetch(
+      `https://localhost:44381/api/codes/verifyenteruser?email=${this.email}&code=${this.code}&confidant=true`,
+      {
+        method: 'GET',
+      }
+    )
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          alert('Redirecting to reseting page!');
+          this.router.navigate(['/resetpassword',], {
+            queryParams: {
+              code: this.code,
+              email: this.email,
+            }
+          });
+        } else {
+          alert('Enter error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  ngOnInit(): void {
+    // Note: Below 'queryParams' can be replaced with 'params' depending on your requirements
+    this.activatedRoute.queryParams.subscribe((params: any) => {
+      this.email = params['email'];
+      this.code = params['code'];
+      this.isToResetPassword = params['resetPassword'];
+    });
+
+    if (this.isToResetPassword) {
+      this.resetPassword();
+    } else {
+      this.verifyEnterUser();
+    }
   }
 }

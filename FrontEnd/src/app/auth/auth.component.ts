@@ -57,12 +57,15 @@ export class AuthComponent implements OnInit {
       ],
     });
   }
+
   get f() {
     return this.emailForm.controls;
   }
+
   get f1() {
     return this.passwordForm.controls;
   }
+
   get f2() {
     return this.codeForm.controls;
   }
@@ -130,10 +133,6 @@ export class AuthComponent implements OnInit {
       this.isPasswordEqual = true;
     }
 
-    let user = {
-      email: this.email,
-    };
-
     fetch('https://localhost:44381/api/codes/generateregistercode', {
       method: 'POST',
       headers: {
@@ -152,6 +151,7 @@ export class AuthComponent implements OnInit {
         alert(ex);
       });
   }
+
   MustMatch(controlName: string, matchingControlName: string) {
     return (formGroup: FormGroup) => {
       const control = formGroup.controls[controlName];
@@ -170,6 +170,7 @@ export class AuthComponent implements OnInit {
       }
     };
   }
+
   confirmEmail() {
     let user = {
       email: this.email,

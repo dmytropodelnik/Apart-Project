@@ -68,6 +68,41 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [Route("generateresetcode")]
+        [HttpGet]
+        public IActionResult GenerateResetCode(string email)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return Json(new { code = 410 });
+                }
+
+                string emailTrim = email.Trim();
+
+                var code = _codeGenerator.GenerateKeyCode(emailTrim);
+                if (code is null)
+                {
+                    return Json(new { code = 411 });
+                }
+
+                return RedirectToAction("SendResetPasswordLetter", "Auth", new { emailTrim, code });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
         [Route("generateentercode")]
         [HttpGet]
         public IActionResult GenerateEnterCode(string email)
@@ -105,7 +140,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("verifyenteruser")]
         [HttpGet]
-        public IActionResult VerifyEnterUser(string email, string code)
+        public IActionResult VerifyEnterUser(string email, string code, bool confidant = false)
         {
             try
             {
@@ -120,13 +155,17 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                if (_codesRepository.Repository.ContainsKey(email))
-                {
-                    _codesRepository.Repository[email].Remove(code);
 
-                    if (_codesRepository.Repository[email].Count == 0)
+                if (!confidant)
+                {
+                    if (_codesRepository.Repository.ContainsKey(email))
                     {
-                        _codesRepository.Repository.Remove(email);
+                        _codesRepository.Repository[email].Remove(code);
+
+                        if (_codesRepository.Repository[email].Count == 0)
+                        {
+                            _codesRepository.Repository.Remove(email);
+                        }
                     }
                 }
 

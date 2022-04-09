@@ -24,8 +24,10 @@ namespace CloneBookingAPI.Controllers
         private readonly AuthEmailSender _emailSender;
         private string _letterTemplate = "<p>HELLO TEST</p>";
         private string _subjectLetterTemplate = "Confirmation code for registration!";
-        private string _subjectVerifyLetterTemplate = "Verify email for enter!";
+        private string _subjectVerifyLetterTemplate = "Verify email to enter!";
+        private string _subjectResetPasswordLetterTemplate = "Verify email to reset password!";
         private string _verificationLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate\">Verify enter</a>";
+        private string _resetPasswordLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&resetPassword=1\">Reset password</a>";
 
         public AuthController(ApartProjectDbContext context, IConfiguration configuration)
         {
@@ -81,6 +83,53 @@ namespace CloneBookingAPI.Controllers
                 bool res = await _emailSender.SendEmailAsync(
                     correctEmail,
                     _subjectVerifyLetterTemplate,
+                    linkTemplate);
+                if (res is false)
+                {
+                    return Json(new { code = 416 });
+                }
+
+                return Json(new { code = 200 });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (ArgumentException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = ex.Message });
+            }
+        }
+
+        [Route("sendresetpasswordletter")]
+        [HttpGet]
+        public async Task<IActionResult> SendResetPasswordLetter(string emailTrim, string code)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(emailTrim) || string.IsNullOrWhiteSpace(code))
+                {
+                    return Json(new { code = 415 });
+                }
+
+                string correctEmail = emailTrim.Trim();
+                string linkTemplate = _resetPasswordLinkTemplate
+                        .Replace("codeTemplate", code);
+                linkTemplate = linkTemplate.Replace("emailTemplate", correctEmail);
+
+                bool res = await _emailSender.SendEmailAsync(
+                    correctEmail,
+                    _subjectResetPasswordLetterTemplate,
                     linkTemplate);
                 if (res is false)
                 {

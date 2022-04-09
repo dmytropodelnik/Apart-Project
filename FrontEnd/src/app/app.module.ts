@@ -87,6 +87,7 @@ import { OtherTravelersListComponent } from './manage-account/manage-account-con
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { AdminContentService } from './services/admin-content.service';
 import { UserSavedComponent } from './user-saved/user-saved.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -166,6 +167,7 @@ import { UserSavedComponent } from './user-saved/user-saved.component';
     SearchResultsComponent,
     PromocodeGeneratorComponent,
     UserSavedComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,

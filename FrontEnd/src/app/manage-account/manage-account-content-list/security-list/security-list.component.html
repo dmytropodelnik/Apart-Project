@@ -12,10 +12,25 @@
           Password
         </div>
         <div class="col-6">
-          Reset your password regularly to keep your account secure
+          <div>
+            <p *ngIf="!isEditing[0]">Reset your password regularly to keep your account secure</p>
+            <p *ngIf="isEditing[0] && !isEmailSent">To change your password, we need to send a reset link to your email address</p>
+            <p *ngIf="isEmailSent">We sent a password reset email to {{authHelper.getLogin()}}.</p>
+          </div>
+          <div *ngIf="isEditing[0]">
+            <form>
+
+            </form>
+          </div>
         </div>
-        <div class="col">
-         <button class="btn btn-outline-primary" (click)="setCondition(1)">Reset</button>
+        <div *ngIf="!isEditing[0]" class="col">
+          <button class="btn btn-outline-primary" (click)="editButtonClick(0)" [disabled]="isDisabled[0]">Reset</button>
+        </div>
+        <div *ngIf="isEditing[0]" class="col">
+          <div *ngIf="!isEmailSent">
+            <button class="btn btn-outline-primary" (click)="cancelButtonClick(0)">Cancel</button>
+            <button class="btn btn-primary" (click)="sendResetPasswordEmail(0)">Send email</button>
+          </div>
         </div>
       </div>
     </li>
@@ -25,10 +40,39 @@
           Delete account
         </div>
         <div class="col-6">
-          Permanently delete your Apart.com account
+          <div>
+            <p *ngIf="!user.currency.abbreviation">Permanently delete your Booking.com account</p>
+            <p *ngIf="user.currency.abbreviation">Why do you want to delete your account?</p>
+            <form *ngIf="isEditing[1]">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="tooManyEmails" id="tooManyEmails" checked [disabled]="isDisabled[1]">
+                <label class="form-check-label" for="tooManyEmails">
+                  I get too many emails from Booking.com
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="differentEmails" id="differentEmails" >
+                <label class="form-check-label" for="differentEmails">
+                  I want to use a different email address for my account
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="other" id="other" >
+                <label class="form-check-label" for="other">
+                  Other
+                </label>
+              </div>
+            </form>
+          </div>
         </div>
-        <div class="col">
-          <button class="btn btn-outline-primary" (click)="setCondition(2)">Delete account</button>
+        <div *ngIf="!isEditing[1]" class="col">
+          <button class="btn btn-outline-primary" (click)="editButtonClick(1)" [disabled]="isDisabled[1]">Delete account</button>
+        </div>
+        <div *ngIf="isEditing[1]" class="col">
+          <div>
+            <button class="btn btn-outline-primary" (click)="cancelButtonClick(1)">Cancel</button>
+            <button class="btn btn-primary" (click)="deleteAccount(1)">Delete account</button>
+          </div>
         </div>
       </div>
     </li>

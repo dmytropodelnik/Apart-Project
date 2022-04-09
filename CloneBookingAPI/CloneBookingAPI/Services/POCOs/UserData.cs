@@ -29,6 +29,8 @@ namespace CloneBookingAPI.Services.POCOs
         public string ZipCode { get; set; }
         public string Currency { get; set; }
 
+        public string Code { get; set; }
+
         public Address Address { get; set; }
     }
 }

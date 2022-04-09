@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -25,20 +26,23 @@ namespace CloneBookingAPI.Controllers
         private readonly ApartProjectDbContext _context;
         private readonly SaltGenerator _saltGenerator;
         private readonly JwtRepository _repository;
+        private readonly CodesRepository _codesRepository;
 
         public IdentityController(
             ApartProjectDbContext context,
             SaltGenerator saltGenerator,
-            JwtRepository repository)
+            JwtRepository repository,
+            CodesRepository codesRepository)
         {
             _context = context;
             _saltGenerator = saltGenerator;
             _repository = repository;
+            _codesRepository = codesRepository;
         }
 
         [Route("token")]
         [HttpPost]
-        public async Task<IActionResult> Token([FromBody] User user)
+        public async Task<IActionResult> Token([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
         {
             try
             {
@@ -47,7 +51,24 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                var claims = await GetIdentity(user.Email, user.PasswordHash);
+                if (!string.IsNullOrWhiteSpace(user.Code) &&
+                    string.IsNullOrWhiteSpace(user.Password))
+                {
+                    var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(user.Email));
+                    if (resUser is null)
+                    {
+                        return Json(new { code = 400 });
+                    }
+                    user.Password = resUser.PasswordHash;
+
+                    bool res = VerifyEnterUser(user.Email, user.Code);
+                    if (!res)
+                    {
+                        return Json(new { code = 400 });
+                    }
+                }
+
+                var claims = await GetIdentity(user.Email, user.Password);
                 if (claims is null)
                 {
                     return Unauthorized();
@@ -157,6 +178,47 @@ namespace CloneBookingAPI.Controllers
                 Debug.WriteLine(ex.Message);
 
                 return null;
+            }
+        }
+
+        private bool VerifyEnterUser(string email, string code)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(code) || string.IsNullOrWhiteSpace(email))
+                {
+                    return false;
+                }
+
+                bool res = _codesRepository.IsValueCorrect(email, code);
+                if (res is false)
+                {
+                    return false;
+                }
+
+                if (_codesRepository.Repository.ContainsKey(email))
+                {
+                    _codesRepository.Repository[email].Remove(code);
+
+                    if (_codesRepository.Repository[email].Count == 0)
+                    {
+                        _codesRepository.Repository.Remove(email);
+                    }
+                }
+
+                return true;
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return false;
             }
         }
     }
