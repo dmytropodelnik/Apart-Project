@@ -31,6 +31,8 @@ namespace CloneBookingAPI.Services.POCOs
 
         public string Code { get; set; }
 
+        public bool IsToDeleteCode { get; set; }
+
         public Address Address { get; set; }
     }
 }

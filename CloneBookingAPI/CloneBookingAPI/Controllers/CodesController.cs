@@ -70,7 +70,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("generatechangingemailcode")]
         [HttpGet]
-        public IActionResult GenerateChangingEmailCode(string email)
+        public IActionResult GenerateChangingEmailCode(string email, string oldEmail)
         {
             try
             {
@@ -80,6 +80,7 @@ namespace CloneBookingAPI.Controllers
                 }
 
                 string emailTrim = email.Trim();
+                string oldEmailTrim = oldEmail.Trim();
 
                 var code = _codeGenerator.GenerateKeyCode(emailTrim);
                 if (code is null)
@@ -87,7 +88,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 411 });
                 }
 
-                return RedirectToAction("SendChangingEmailLetter", "Auth", new { emailTrim, code });
+                return RedirectToAction("SendChangingEmailLetter", "Auth", new { emailTrim, oldEmailTrim, code });
             }
             catch (OperationCanceledException ex)
             {

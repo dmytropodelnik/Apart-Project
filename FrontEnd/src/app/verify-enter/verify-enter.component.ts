@@ -11,9 +11,11 @@ import AuthHelper from '../utils/authHelper';
 })
 export class VerifyEnterComponent implements OnInit {
   email: string = '';
+  oldEmail: string = '';
   code: string = '';
   isToResetPassword: boolean = false;
   isToChangeEmail: boolean = false;
+  isToDeleteCode: boolean = false;
 
   constructor(
     private router: Router,
@@ -29,11 +31,16 @@ export class VerifyEnterComponent implements OnInit {
       }
     )
       .then((r) => r.json())
-      .then((data) => {
+      .then(async (data) => {
         if (data.code === 200) {
+          if (this.isToChangeEmail) {
+            await this.saveEmail();
+          }
+
           let user = {
             email: this.email,
             code: this.code,
+            isToDeleteCode: this.isToDeleteCode,
           };
 
           fetch('https://localhost:44381/token', {
@@ -47,17 +54,20 @@ export class VerifyEnterComponent implements OnInit {
           })
             .then((response) => response.json())
             .then((response) => {
-              if (response.code !== 400) {
-                this.authService.setTokenKey(response);
-                AuthHelper.saveAuth(user.email, response);
+              if (response.code === 200) {
+                this.authService.setTokenKey(response.encodedJwt);
+                AuthHelper.saveAuth(response.email, response.encodedJwt);
                 this.authService.toggleLogCondition();
 
                 alert('You have successfully authenticated!');
-                if (!this.isToResetPassword) {
+
+                if (this.isToChangeEmail) {
+                  this.router.navigate(['/mysettings']);
+                } else if (!this.isToResetPassword) {
                   this.router.navigate(['']);
                 }
               } else {
-                alert("Token fetching error!");
+                alert('Token fetching error!');
               }
             })
             .catch((ex) => {
@@ -93,33 +103,13 @@ export class VerifyEnterComponent implements OnInit {
       });
   }
 
-  changeEmail(): void {
-    fetch(
-      `https://localhost:44381/api/codes/verifyenteruser?email=${this.email}&code=${this.code}&confidant=true`,
-      {
-        method: 'GET',
-      }
-    )
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.code === 200) {
-          this.saveEmail();
-        } else {
-          alert('Enter error!');
-        }
-      })
-      .catch((ex) => {
-        alert(ex);
-      });
-  }
-
-  saveEmail(): void {
+  async saveEmail(): Promise<void> {
     let user = {
-      email: AuthHelper.getLogin(),
+      email: this.oldEmail,
       newEmail: this.email,
     };
 
-    fetch('https://localhost:44381/api/userdataeditor/editemail', {
+    await fetch('https://localhost:44381/api/userdataeditor/editemail', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -131,8 +121,8 @@ export class VerifyEnterComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
+          this.email = response.resUser.email;
           alert('You have successfully changed your email!');
-          this.router.navigate(['/mysettings']);
         } else {
           alert('Save email error!');
         }
@@ -144,22 +134,19 @@ export class VerifyEnterComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     // Note: Below 'queryParams' can be replaced with 'params' depending on your requirements
-    this.activatedRoute.queryParams.subscribe((params: any) => {
+    this.activatedRoute.queryParams.subscribe(async (params: any) => {
       this.email = params['email'];
+      this.oldEmail = params['oldEmail'];
       this.code = params['code'];
       this.isToResetPassword = params['resetPassword'];
       this.isToChangeEmail = params['changeEmail'];
+      this.isToDeleteCode = params['isToDeleteCode'];
+
+      await this.verifyEnterUser();
+
+      if (this.isToResetPassword) {
+        this.resetPassword();
+      }
     });
-
-    await this.verifyEnterUser();
-
-    if (this.isToResetPassword) {
-      this.resetPassword();
-    } else if (this.isToChangeEmail) {
-      this.changeEmail();
-    } else {
-      //this.verifyEnterUser();
-    }
-    // this.verifyEnterUser();
   }
 }

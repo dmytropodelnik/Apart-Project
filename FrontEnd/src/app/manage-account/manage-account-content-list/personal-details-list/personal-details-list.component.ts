@@ -16,6 +16,10 @@ export class PersonalDetailsListComponent implements OnInit {
   isEditing: boolean[] = [];
   isDisabled: boolean[] = [];
 
+  isEmailSent: boolean = false;
+
+  errorMessage: string = '';
+
   user: UserData = new UserData();
 
   constructor(
@@ -148,7 +152,7 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   sendChangingEmailLetter(id: number): void {
-    fetch(`https://localhost:44381/api/codes/generatechangingemailcode?email=` + AuthHelper.getLogin(), {
+    fetch(`https://localhost:44381/api/auth/isemailregistered?email=${this.user.newEmail}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -157,10 +161,28 @@ export class PersonalDetailsListComponent implements OnInit {
     })
       .then((r) => r.json())
       .then((data) => {
-        if (data.code === 200) {
-          this.saveButtonClick(id);
+        if (data.code === 200 && data.isExisted == false) {
+          fetch(`https://localhost:44381/api/codes/generatechangingemailcode?email=${this.user.newEmail}&oldEmail=${AuthHelper.getLogin()}`, {
+            method: 'GET',
+            headers: {
+              Accept: 'application/json',
+              Authorization: 'Bearer ' + AuthHelper.getToken(),
+            },
+          })
+            .then((r) => r.json())
+            .then((data) => {
+              if (data.code === 200) {
+                this.saveButtonClick(id);
+                this.isEmailSent = true;
+              } else {
+                alert("Error generating reset link");
+              }
+            })
+            .catch((ex) => {
+              alert(ex);
+            });
         } else {
-          alert("Error generating reset link");
+          alert(data.message);
         }
       })
       .catch((ex) => {

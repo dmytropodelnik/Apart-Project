@@ -27,14 +27,47 @@ namespace CloneBookingAPI.Controllers
         private string _subjectVerifyLetterTemplate = "Verify email to enter!";
         private string _subjectResetPasswordLetterTemplate = "Verify email to reset the password!";
         private string _subjectChangeEmailLetterTemplate = "Verify email to change the email!";
-        private string _verificationLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate\">Verify enter</a>";
-        private string _resetPasswordLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&resetPassword=1\">Reset password</a>";
-        private string _changeEmailLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&changeEmail=1\">Change email</a>";
+        private string _verificationLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&isToDeleteCode=true\">Verify enter</a>";
+        private string _resetPasswordLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&resetPassword=true&isToDeleteCode=true\">Reset password</a>";
+        private string _changeEmailLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&oldEmail=oldEmailTemplate&code=codeTemplate&changeEmail=true&isToDeleteCode=true\">Change email</a>";
 
         public AuthController(ApartProjectDbContext context, IConfiguration configuration)
         {
             _context = context;
             _emailSender = new AuthEmailSender(configuration);
+        }
+
+
+        [Route("isemailregistered")]
+        [HttpGet]
+        public async Task<IActionResult> IsEmailRegistered(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return Json(new
+                {
+                    code = 400,
+                    message = "Email parameter is null or whitespace",
+                });
+            }
+
+            var isEmailExists = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (isEmailExists is not null)
+            {
+                return Json(new
+                {
+                    code = 200,
+                    isExisted = true,
+                    message = "This email is already registered!",
+                });
+            }
+
+            return Json(new
+            {
+                code = 200,
+                isExisted = false,
+                message = "",
+            });
         }
 
         [Route("sendcodeletter")]
@@ -162,7 +195,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("sendchangingemailletter")]
         [HttpGet]
-        public async Task<IActionResult> SendChangingEmailLetter(string emailTrim, string code)
+        public async Task<IActionResult> SendChangingEmailLetter(string emailTrim, string oldEmailTrim, string code)
         {
             try
             {
@@ -172,9 +205,12 @@ namespace CloneBookingAPI.Controllers
                 }
 
                 string correctEmail = emailTrim.Trim();
+                string correctOldEmail = oldEmailTrim.Trim();
+
                 string linkTemplate = _changeEmailLinkTemplate
                         .Replace("codeTemplate", code);
                 linkTemplate = linkTemplate.Replace("emailTemplate", correctEmail);
+                linkTemplate = linkTemplate.Replace("oldEmailTemplate", correctOldEmail);
 
                 bool res = await _emailSender.SendEmailAsync(
                     correctEmail,

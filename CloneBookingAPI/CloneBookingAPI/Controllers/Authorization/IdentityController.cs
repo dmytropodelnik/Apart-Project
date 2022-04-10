@@ -54,14 +54,16 @@ namespace CloneBookingAPI.Controllers
                 if (!string.IsNullOrWhiteSpace(user.Code) &&
                     string.IsNullOrWhiteSpace(user.Password))
                 {
+                   
                     var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(user.Email));
                     if (resUser is null)
                     {
                         return Json(new { code = 400 });
                     }
+
                     user.Password = resUser.PasswordHash;
 
-                    bool res = VerifyEnterUser(user.Email, user.Code);
+                    bool res = VerifyEnterUser(user);
                     if (!res)
                     {
                         return Json(new { code = 400 });
@@ -98,7 +100,11 @@ namespace CloneBookingAPI.Controllers
                     _repository.Repository.Add(user.Email, new List<string> { encodedJwt });
                 }
 
-                return Json(encodedJwt);
+                return Json(new { 
+                    code = 200,
+                    encodedJwt,
+                    user.Email,
+                });
             }
             catch (ArgumentNullException ex)
             {
@@ -181,28 +187,32 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        private bool VerifyEnterUser(string email, string code)
+        private bool VerifyEnterUser([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(code) || string.IsNullOrWhiteSpace(email))
+                if (string.IsNullOrWhiteSpace(user.Code) || string.IsNullOrWhiteSpace(user.Email))
                 {
                     return false;
                 }
 
-                bool res = _codesRepository.IsValueCorrect(email, code);
+
+                bool res = _codesRepository.IsValueCorrect(user.Email, user.Code);
                 if (res is false)
                 {
                     return false;
                 }
 
-                if (_codesRepository.Repository.ContainsKey(email))
+                if (user.IsToDeleteCode)
                 {
-                    _codesRepository.Repository[email].Remove(code);
-
-                    if (_codesRepository.Repository[email].Count == 0)
+                    if (_codesRepository.Repository.ContainsKey(user.Email))
                     {
-                        _codesRepository.Repository.Remove(email);
+                        _codesRepository.Repository[user.Email].Remove(user.Code);
+
+                        if (_codesRepository.Repository[user.Email].Count == 0)
+                        {
+                            _codesRepository.Repository.Remove(user.Email);
+                        }
                     }
                 }
 

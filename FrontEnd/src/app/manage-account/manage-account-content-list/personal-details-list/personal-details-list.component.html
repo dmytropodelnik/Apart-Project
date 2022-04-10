@@ -112,14 +112,18 @@
           Email address
         </div>
         <div class="col-6">
-          <div *ngIf="!isEditing[3]">
+          <div *ngIf="!isEditing[3] && !isEmailSent">
             <p *ngIf="!user.email">Add an email</p>
             <p *ngIf="user.email">{{user.email}}</p>
             <span>This is the email address you use to sign in. It’s also where we send your booking confirmations.</span>
           </div>
+          <div *ngIf="isEmailSent">
+            <span>We've just emailed a verification link to {{user.newEmail}}. Once it arrives, it will be valid for 10 minutes.</span>
+          </div>
           <div *ngIf="isEditing[3]">
             <form>
               <div class="mb-3">
+                <!-- <span>{{errorMessage}}</span> -->
                 <label for="email" class="form-label">Email address *</label>
                 <input type="email" class="form-control" id="email" name="user.newEmail" [(ngModel)]="user.newEmail">
                 <span>We'll send a verification link to your new email address – check your inbox.</span>
@@ -128,7 +132,7 @@
           </div>
         </div>
         <div *ngIf="!isEditing[3]" class="col">
-          <button class="btn btn-outline-primary" (click)="editButtonClick(3)" [disabled]="isDisabled[3]">Edit</button>
+          <button *ngIf="!isEmailSent" class="btn btn-outline-primary" (click)="editButtonClick(3)" [disabled]="isDisabled[3]">Edit</button>
         </div>
         <div *ngIf="isEditing[3]" class="col">
           <div>

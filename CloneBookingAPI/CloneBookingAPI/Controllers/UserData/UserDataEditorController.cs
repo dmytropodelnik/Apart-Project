@@ -208,12 +208,6 @@ namespace CloneBookingAPI.Controllers.UserData
                     return Json(new { code = 400 });
                 }
 
-                var isEmailExists = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.NewEmail);
-                if (isEmailExists is not null)
-                {
-                    return Json(new { code = 400 });
-                }
-
                 var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
                 if (resUser is null)
                 {
