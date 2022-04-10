@@ -147,29 +147,20 @@ export class PersonalDetailsListComponent implements OnInit {
       });
   }
 
-  saveEmail(id: number): void {
-    let user = {
-      newEmail: this.user.newEmail,
-      email: AuthHelper.getLogin(),
-    };
-
-    fetch('https://localhost:44381/api/userdataeditor/editemail', {
-      method: 'PUT',
+  sendChangingEmailLetter(id: number): void {
+    fetch(`https://localhost:44381/api/codes/generatechangingemailcode?email=` + AuthHelper.getLogin(), {
+      method: 'GET',
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
         Authorization: 'Bearer ' + AuthHelper.getToken(),
       },
-      body: JSON.stringify(user),
     })
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.code === 200) {
-          this.user.email = response.resUser.email;
-          this.setCondition(id);
-          this.setConditionEditButtons(id, false);
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.saveButtonClick(id);
         } else {
-          alert('Save email error!');
+          alert("Error generating reset link");
         }
       })
       .catch((ex) => {

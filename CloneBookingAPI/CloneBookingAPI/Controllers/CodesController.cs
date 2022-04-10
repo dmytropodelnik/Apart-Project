@@ -68,6 +68,41 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [Route("generatechangingemailcode")]
+        [HttpGet]
+        public IActionResult GenerateChangingEmailCode(string email)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return Json(new { code = 410 });
+                }
+
+                string emailTrim = email.Trim();
+
+                var code = _codeGenerator.GenerateKeyCode(emailTrim);
+                if (code is null)
+                {
+                    return Json(new { code = 411 });
+                }
+
+                return RedirectToAction("SendChangingEmailLetter", "Auth", new { emailTrim, code });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
         [Route("generateresetcode")]
         [HttpGet]
         public IActionResult GenerateResetCode(string email)
@@ -154,7 +189,6 @@ namespace CloneBookingAPI.Controllers
                 {
                     return Json(new { code = 400 });
                 }
-
 
                 if (!confidant)
                 {

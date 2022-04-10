@@ -46,54 +46,6 @@ export class ResetPasswordComponent implements OnInit {
     return this.passwordForm.controls;
   }
 
-  verifyEnterUser(): void {
-    fetch(
-      `https://localhost:44381/api/codes/verifyenteruser?email=${this.email}&code=${this.code}&confidant=true`,
-      {
-        method: 'GET',
-      }
-    )
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.code === 200) {
-          let user = {
-            email: this.email,
-            code: this.code,
-          };
-
-          fetch('https://localhost:44381/token', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json; charset=utf-8',
-              Accept: 'application/json',
-              Authorization: 'Bearer ' + AuthHelper.getToken(),
-            },
-            body: JSON.stringify(user),
-          })
-            .then((response) => response.json())
-            .then((response) => {
-              if (response.code !== 400) {
-                this.authService.setTokenKey(response);
-                AuthHelper.saveAuth(user.email, response);
-                this.authService.toggleLogCondition();
-
-                alert('You have successfully authenticated!');
-              } else {
-                alert('Token fetching error!');
-              }
-            })
-            .catch((ex) => {
-              alert(ex);
-            });
-        } else {
-          alert('Verify user error!');
-        }
-      })
-      .catch((ex) => {
-        alert(ex);
-      });
-  }
-
   resetPassword(): void {
     let user = {
       email: AuthHelper.getLogin(),
@@ -143,12 +95,5 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Note: Below 'queryParams' can be replaced with 'params' depending on your requirements
-    this.activatedRoute.queryParams.subscribe((params: any) => {
-      this.code = params['code'];
-      this.email = params['email'];
-
-      this.verifyEnterUser();
-    });
   }
 }

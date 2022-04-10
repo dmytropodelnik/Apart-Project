@@ -17,11 +17,6 @@
             <p *ngIf="isEditing[0] && !isEmailSent">To change your password, we need to send a reset link to your email address</p>
             <p *ngIf="isEmailSent">We sent a password reset email to {{authHelper.getLogin()}}.</p>
           </div>
-          <div *ngIf="isEditing[0]">
-            <form>
-
-            </form>
-          </div>
         </div>
         <div *ngIf="!isEditing[0]" class="col">
           <button class="btn btn-outline-primary" (click)="editButtonClick(0)" [disabled]="isDisabled[0]">Reset</button>
