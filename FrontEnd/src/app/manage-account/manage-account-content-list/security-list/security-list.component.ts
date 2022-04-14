@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 import AuthHelper from '../../../utils/authHelper';
 import ImageHelper from '../../../utils/imageHelper';
+
 
 import { AuthorizationService } from '../../../services/authorization.service';
 import { UserData } from 'src/app/view-models/userdata.item';
@@ -12,17 +14,31 @@ import { UserData } from 'src/app/view-models/userdata.item';
   styleUrls: ['./security-list.component.css']
 })
 export class SecurityListComponent implements OnInit {
+  @Output() onChanged = new EventEmitter<string>();
+  changeEmail(setting: string) {
+      this.onChanged.emit(setting);
+  }
+
   isEditing: boolean[] = [];
   isDisabled: boolean[] = [];
 
   authHelper: any = AuthHelper;
 
+  isDeleteRequested: boolean = false;
   isEmailSent: boolean = false;
+
+  deleteReason: number = 0;
 
   user: UserData = new UserData();
 
-  constructor(public authService: AuthorizationService) {
+  constructor(
+    public authService: AuthorizationService,
+    private router: Router) {
 
+  }
+
+  setDeleteReason(value: number) {
+    this.deleteReason = value;
   }
 
   setCondition(id: number): void {
@@ -42,6 +58,7 @@ export class SecurityListComponent implements OnInit {
   cancelButtonClick(id: number): void {
     this.setCondition(id);
     this.setConditionEditButtons(id, false);
+    this.deleteReason = 0;
   }
 
   setConditionEditButtons(id: number, value: boolean): void {
@@ -73,34 +90,42 @@ export class SecurityListComponent implements OnInit {
       });
   }
 
+  unsubscribeMails(id: number): void {
+
+    this.cancelButtonClick(id);
+  }
+
   deleteAccount(id: number): void {
     let user = {
       currency: this.user.currency.abbreviation,
       email: AuthHelper.getLogin(),
     };
 
-    fetch('https://localhost:44381/api/userdataeditor/editcurrency', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(user),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.code === 200) {
-          this.user.currency = response.resProfile.currency;
-          this.setCondition(id);
-          this.setConditionEditButtons(id, false);
-        } else {
-          alert('Save currency error!');
-        }
-      })
-      .catch((ex) => {
-        alert(ex);
-      });
+    // fetch('https://localhost:44381/api/userdataeditor/editcurrency', {
+    //   method: 'PUT',
+    //   headers: {
+    //     'Content-Type': 'application/json; charset=utf-8',
+    //     Accept: 'application/json',
+    //     Authorization: 'Bearer ' + AuthHelper.getToken(),
+    //   },
+    //   body: JSON.stringify(user),
+    // })
+    //   .then((response) => response.json())
+    //   .then((response) => {
+    //     if (response.code === 200) {
+
+    //       this.setCondition(id);
+    //       this.setConditionEditButtons(id, false);
+    //       this.isDeleteRequested = true;
+    //     } else {
+    //       alert('Save currency error!');
+    //     }
+    //   })
+    //   .catch((ex) => {
+    //     alert(ex);
+    //   });
+      this.isDeleteRequested = true;
+      this.cancelButtonClick(id);
   }
 
   initializeBoolArray(): void {

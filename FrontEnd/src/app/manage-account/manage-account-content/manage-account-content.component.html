@@ -7,7 +7,7 @@
       <app-preferences-list></app-preferences-list>
     </ng-template>
     <ng-template ngSwitchCase="security">
-      <app-security-list></app-security-list>
+      <app-security-list (onChanged)="onChangedEmail($event)"></app-security-list>
     </ng-template>
     <ng-template ngSwitchCase="payment-details">
       <app-payment-details-list></app-payment-details-list>

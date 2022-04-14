@@ -118,7 +118,7 @@
             <span>This is the email address you use to sign in. It’s also where we send your booking confirmations.</span>
           </div>
           <div *ngIf="isEmailSent">
-            <span>We've just emailed a verification link to {{user.newEmail}}. Once it arrives, it will be valid for 10 minutes.</span>
+            <span>We've just emailed a verification link to <span class="fw-bold">{{user.newEmail}}</span>. Once it arrives, it will be valid for 10 minutes.</span>
           </div>
           <div *ngIf="isEditing[3]">
             <form>

@@ -16,5 +16,9 @@ export class ManageAccountContentComponent implements OnInit {
     this.content = newContent;
   }
 
+  onChangedEmail(setting: string){
+    this.content = setting;
+}
+
   ngOnInit(): void {}
 }
