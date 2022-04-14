@@ -1,3 +1,7 @@
 {
-  "appService.deploySubpath": "dist\\booking"
+  "appService.deploySubpath": "dist\\booking",
+  "appService.zipIgnorePattern": [
+    "node_modules{,/**}",
+    ".vscode{,/**}"
+  ]
 }
