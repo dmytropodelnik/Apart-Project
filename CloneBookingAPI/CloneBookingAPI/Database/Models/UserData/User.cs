@@ -58,8 +58,6 @@ namespace CloneBookingAPI.Services.Database.Models
         public string SaltHash { get; set; }
 
         // !!!!! CASCADE 
-        // public int? FavoriteId { get; set; }
-        // [ForeignKey("FavoriteId")]
         public Favorite Favorite { get; set; }
 
         public int RoleId { get; set; }

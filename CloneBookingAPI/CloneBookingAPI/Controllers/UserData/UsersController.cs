@@ -491,23 +491,30 @@ namespace CloneBookingAPI.Controllers
         // [Authorize]
         [Route("deleteuser")]
         [HttpDelete]
-        public async Task<IActionResult> DeleteUser([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
+        public async Task<IActionResult> DeleteUser(string email)
         {
             try
             {
-                if (user is null  ||
-                    string.IsNullOrWhiteSpace(user.Email))
+                if (string.IsNullOrWhiteSpace(email))
                 {
                     return Json(new { code = 400 });
                 }
 
-                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
+                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
                 if (resUser is null)
                 {
                     return Json(new { code = 400 });
                 }
 
+                var resFavorite = await _context.Favorites.FirstOrDefaultAsync(u => u.UserId == resUser.Id);
+                if (resFavorite is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                _context.Favorites.Remove(resFavorite);
                 _context.Users.Remove(resUser);
+
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });

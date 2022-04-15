@@ -28,6 +28,7 @@ namespace CloneBookingAPI.Controllers
         private string _subjectResetPasswordLetterTemplate = "Verify email to reset the password!";
         private string _subjectChangeEmailLetterTemplate = "Verify email to change the email!";
         private string _subjectDeleteUserLetterTemplate = "Verify letter to delete your account!";
+
         private string _verificationLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&isToDeleteCode=true\">Verify enter</a>";
         private string _resetPasswordLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&resetPassword=true&isToDeleteCode=true\">Reset password</a>";
         private string _changeEmailLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&oldEmail=oldEmailTemplate&code=codeTemplate&changeEmail=true&isToDeleteCode=true\">Change email</a>";

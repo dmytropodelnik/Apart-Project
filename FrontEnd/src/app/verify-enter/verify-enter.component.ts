@@ -140,23 +140,18 @@ export class VerifyEnterComponent implements OnInit {
   }
 
   deleteUserEventually(): void {
-    let user = {
-      email: this.email,
-    };
-
     fetch(`https://localhost:44381/api/users/deleteuser?email=${this.email}`, {
         method: 'DELETE',
         headers: {
-          'Content-Type': 'application/json; charset=utf-8',
           Accept: 'application/json',
           Authorization: 'Bearer ' + AuthHelper.getToken(),
         },
-        body: JSON.stringify(user),
       }
     )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
+          alert("Your account has been successfully deleted!");
           this.router.navigate(['']);
         } else {
           alert('Delete user error!');
