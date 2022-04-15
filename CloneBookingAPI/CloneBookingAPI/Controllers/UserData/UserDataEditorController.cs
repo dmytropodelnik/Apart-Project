@@ -29,7 +29,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("edittitle")]
         [HttpPut]
-        public async Task<IActionResult> EditTitle([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditTitle([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("editname")]
         [HttpPut]
-        public async Task<IActionResult> EditName([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditName([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -141,7 +141,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("editdisplayname")]
         [HttpPut]
-        public async Task<IActionResult> EditDisplayName([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditDisplayName([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -197,7 +197,7 @@ namespace CloneBookingAPI.Controllers.UserData
         // [Authorize]
         [Route("editemail")]
         [HttpPut]
-        public async Task<IActionResult> EditEmail([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditEmail([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -253,7 +253,7 @@ namespace CloneBookingAPI.Controllers.UserData
         // [Authorize]
         [Route("editpassword")]
         [HttpPut]
-        public async Task<IActionResult> EditPassword([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditPassword([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -312,7 +312,7 @@ namespace CloneBookingAPI.Controllers.UserData
         // [Authorize]
         [Route("editphonenumber")]
         [HttpPut]
-        public async Task<IActionResult> EditPhoneNumber([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditPhoneNumber([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -374,7 +374,7 @@ namespace CloneBookingAPI.Controllers.UserData
         // [Authorize]
         [Route("editbirthdate")]
         [HttpPut]
-        public async Task<IActionResult> EditBirthDate([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditBirthDate([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -431,7 +431,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("editnationality")]
         [HttpPut]
-        public async Task<IActionResult> EditNationality([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditNationality([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -488,7 +488,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("editgender")]
         [HttpPut]
-        public async Task<IActionResult> EditGender([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditGender([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -546,7 +546,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("editaddress")]
         [HttpPut]
-        public async Task<IActionResult> EditAddress([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditAddress([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -656,7 +656,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("editlanguage")]
         [HttpPut]
-        public async Task<IActionResult> EditLanguage([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditLanguage([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -719,7 +719,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("editcurrency")]
         [HttpPut]
-        public async Task<IActionResult> EditCurrency([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditCurrency([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {

@@ -24,18 +24,18 @@ namespace CloneBookingAPI.Controllers
     public class UsersController : Controller
     {
         private readonly ApartProjectDbContext _context;
-        private readonly CodesRepository _codesRepository;
+        private readonly RegistrationCodesRepository _registrationRepository;
         private readonly JwtRepository _jwtRepository;
         private readonly SaltGenerator _saltGenerator;
 
         public UsersController(
             ApartProjectDbContext context,
-            CodesRepository codesRepository,
+            RegistrationCodesRepository registrationRepository,
             SaltGenerator saltGenerator,
             JwtRepository jwtRepository)
         {
             _context = context;
-            _codesRepository = codesRepository;
+            _registrationRepository = registrationRepository;
             _jwtRepository = jwtRepository;
             _saltGenerator = saltGenerator;
         }
@@ -348,7 +348,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("register")]
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody] CloneBookingAPI.Services.POCOs.UserData person)
+        public async Task<IActionResult> Register([FromBody] CloneBookingAPI.Services.POCOs.PocoData person)
         {
             try
             {
@@ -360,19 +360,19 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                bool res = _codesRepository.IsValueCorrect(person.Email.Trim(), person.VerificationCode.Trim());
+                bool res = _registrationRepository.IsValueCorrect(person.Email.Trim(), person.VerificationCode.Trim());
                 if (res is false)
                 {
                     return Json(new { code = 400 });
                 }
 
-                if (_codesRepository.Repository.ContainsKey(person.Email.Trim()))
+                if (_registrationRepository.Repository.ContainsKey(person.Email.Trim()))
                 {
-                    _codesRepository.Repository[person.Email.Trim()].Remove(person.Password.Trim());
+                    _registrationRepository.Repository[person.Email.Trim()].Remove(person.Password.Trim());
 
-                    if (_codesRepository.Repository[person.Email.Trim()].Count == 0)
+                    if (_registrationRepository.Repository[person.Email.Trim()].Count == 0)
                     {
-                        _codesRepository.Repository.Remove(person.Email.Trim());
+                        _registrationRepository.Repository.Remove(person.Email.Trim());
                     }
                 }
 
@@ -450,13 +450,13 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                if (_codesRepository.Repository.ContainsKey(model.Username))
+                if (_registrationRepository.Repository.ContainsKey(model.Username))
                 {
-                    _codesRepository.Repository[model.Username].Remove(model.AccessToken);
+                    _registrationRepository.Repository[model.Username].Remove(model.AccessToken);
 
-                    if (_codesRepository.Repository[model.Username].Count == 0)
+                    if (_registrationRepository.Repository[model.Username].Count == 0)
                     {
-                        _codesRepository.Repository.Remove(model.Username);
+                        _registrationRepository.Repository.Remove(model.Username);
                     }
                 }
 
@@ -491,11 +491,12 @@ namespace CloneBookingAPI.Controllers
         // [Authorize]
         [Route("deleteuser")]
         [HttpDelete]
-        public async Task<IActionResult> DeleteUser([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> DeleteUser([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
-                if (user is null)
+                if (user is null  ||
+                    string.IsNullOrWhiteSpace(user.Email))
                 {
                     return Json(new { code = 400 });
                 }

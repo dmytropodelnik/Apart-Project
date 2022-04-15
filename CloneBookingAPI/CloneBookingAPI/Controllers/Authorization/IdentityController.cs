@@ -25,24 +25,38 @@ namespace CloneBookingAPI.Controllers
     {
         private readonly ApartProjectDbContext _context;
         private readonly SaltGenerator _saltGenerator;
-        private readonly JwtRepository _repository;
-        private readonly CodesRepository _codesRepository;
+        private readonly JwtRepository _jwtRepository;
+        private readonly RegistrationCodesRepository _registrationRepository;
+        private readonly EnterCodesRepository _enterRepository;
+        private readonly ResetPasswordCodesRepository _resetPasswordRepository;
+        private readonly ChangingEmailCodesRepository _changingEmailRepository;
+        private readonly DeleteUserCodesRepository _deleteUserRepository;
+
+        private BaseRepository _repository = null;
 
         public IdentityController(
             ApartProjectDbContext context,
             SaltGenerator saltGenerator,
-            JwtRepository repository,
-            CodesRepository codesRepository)
+            JwtRepository jwtRepository,
+            RegistrationCodesRepository registrationRepository,
+            EnterCodesRepository enterRepository,
+            ResetPasswordCodesRepository resetPasswordRepository,
+            ChangingEmailCodesRepository changingEmailRepository,
+            DeleteUserCodesRepository deleteUserRepository)
         {
             _context = context;
             _saltGenerator = saltGenerator;
-            _repository = repository;
-            _codesRepository = codesRepository;
+            _jwtRepository = jwtRepository;
+            _registrationRepository = registrationRepository;
+            _enterRepository = enterRepository;
+            _resetPasswordRepository = resetPasswordRepository;
+            _changingEmailRepository = changingEmailRepository;
+            _deleteUserRepository = deleteUserRepository;
         }
 
         [Route("token")]
         [HttpPost]
-        public async Task<IActionResult> Token([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> Token([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -63,7 +77,7 @@ namespace CloneBookingAPI.Controllers
 
                     user.Password = resUser.PasswordHash;
 
-                    bool res = VerifyEnterUser(user);
+                    bool res = VerifyUser(user);
                     if (!res)
                     {
                         return Json(new { code = 400 });
@@ -91,13 +105,13 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                if (_repository.Repository.ContainsKey(user.Email))
+                if (_jwtRepository.Repository.ContainsKey(user.Email))
                 {
-                    _repository.Repository[user.Email].Add(encodedJwt);
+                    _jwtRepository.Repository[user.Email].Add(encodedJwt);
                 }
                 else
                 {
-                    _repository.Repository.Add(user.Email, new List<string> { encodedJwt });
+                    _jwtRepository.Repository.Add(user.Email, new List<string> { encodedJwt });
                 }
 
                 return Json(new { 
@@ -187,7 +201,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        private bool VerifyEnterUser([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        private bool VerifyUser(CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -196,8 +210,14 @@ namespace CloneBookingAPI.Controllers
                     return false;
                 }
 
+                SetRepository(user);
 
-                bool res = _codesRepository.IsValueCorrect(user.Email, user.Code);
+                if (_repository is null)
+                {
+                    return false;
+                }
+
+                bool res = _repository.IsValueCorrect(user.Email, user.Code);
                 if (res is false)
                 {
                     return false;
@@ -205,13 +225,13 @@ namespace CloneBookingAPI.Controllers
 
                 if (user.IsToDeleteCode)
                 {
-                    if (_codesRepository.Repository.ContainsKey(user.Email))
+                    if (_repository.Repository.ContainsKey(user.Email))
                     {
-                        _codesRepository.Repository[user.Email].Remove(user.Code);
+                        _repository.Repository[user.Email].Remove(user.Code);
 
-                        if (_codesRepository.Repository[user.Email].Count == 0)
+                        if (_repository.Repository[user.Email].Count == 0)
                         {
-                            _codesRepository.Repository.Remove(user.Email);
+                            _repository.Repository.Remove(user.Email);
                         }
                     }
                 }
@@ -229,6 +249,37 @@ namespace CloneBookingAPI.Controllers
                 Debug.WriteLine(ex.Message);
 
                 return false;
+            }
+        }
+        void SetRepository(CloneBookingAPI.Services.POCOs.PocoData user)
+        {
+            switch (user.Repository)
+            {
+                case Enums.RepositoryEnum.Registration:
+
+                    _repository = _registrationRepository;
+
+                    break;
+                case Enums.RepositoryEnum.Enter:
+
+                    _repository = _enterRepository;
+
+                    break;
+                case Enums.RepositoryEnum.ResetPassword:
+
+                    _repository = _resetPasswordRepository;
+
+                    break;
+                case Enums.RepositoryEnum.ChangingEmail:
+
+                    _repository = _changingEmailRepository;
+
+                    break;
+                case Enums.RepositoryEnum.UserDeletion:
+
+                    _repository = _deleteUserRepository;
+
+                    break;
             }
         }
     }
