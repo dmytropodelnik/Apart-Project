@@ -66,11 +66,11 @@ export class AdminAuthComponent implements OnInit {
             .then((response) => response.json())
             .then((response) => {
               if (response.code !== 400) {
-                this.authService.setTokenKey(response);
+                this.authService.setTokenKey(response.encodedJwt);
                 this.authService.toggleLogCondition();
                 this.authService.setIsAdmin(true);
 
-                AuthHelper.saveAuth(user.email, response);
+                AuthHelper.saveAuth(user.email, response.encodedJwt);
 
                 alert('You have successfully authenticated as an admin!');
 
