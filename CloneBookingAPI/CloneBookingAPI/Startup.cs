@@ -88,6 +88,12 @@ namespace CloneBookingAPI
             services.AddRegistrationCodesRepositoryService();
             services.AddDeleteUserCodesRepositoryService();
             services.AddEnterCodesRepositoryService();
+            services.AddChangingEmailCodeCleanerService();
+            services.AddDeleteUserCodeCleanerService();
+            services.AddEnterCodeCleanerService();
+            services.AddJwtCodeCleanerService();
+            services.AddRegistrationCodeCleanerService();
+            services.AddResetPasswordCodeCleanerService();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

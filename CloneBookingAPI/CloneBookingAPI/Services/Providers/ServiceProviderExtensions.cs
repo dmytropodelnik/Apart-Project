@@ -6,6 +6,7 @@ using CloneBookingAPI.Services.Files;
 using CloneBookingAPI.Services.Generators;
 using CloneBookingAPI.Services.Interfaces;
 using CloneBookingAPI.Services.Repositories;
+using CloneBookingAPI.Services.Timers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CloneBookingAPI.Services.Providers
@@ -67,6 +68,30 @@ namespace CloneBookingAPI.Services.Providers
         public static void AddDeleteUserCodesRepositoryService(this IServiceCollection services)
         {
             services.AddSingleton<DeleteUserCodesRepository>();
+        }
+        public static void AddChangingEmailCodeCleanerService(this IServiceCollection services)
+        {
+            services.AddTransient<ChangingEmailCodeCleaner>();
+        }
+        public static void AddDeleteUserCodeCleanerService(this IServiceCollection services)
+        {
+            services.AddTransient<DeleteUserCodeCleaner>();
+        }
+        public static void AddEnterCodeCleanerService(this IServiceCollection services)
+        {
+            services.AddTransient<EnterCodeCleaner>();
+        }
+        public static void AddJwtCodeCleanerService(this IServiceCollection services)
+        {
+            services.AddSingleton<JwtCodeCleaner>();
+        }
+        public static void AddRegistrationCodeCleanerService(this IServiceCollection services)
+        {
+            services.AddTransient<RegistrationCodeCleaner>();
+        }
+        public static void AddResetPasswordCodeCleanerService(this IServiceCollection services)
+        {
+            services.AddTransient<ResetPasswordCodeCleanTimer>();
         }
     }
 }
