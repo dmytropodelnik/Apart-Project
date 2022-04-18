@@ -11,7 +11,7 @@ namespace CloneBookingAPI.Services.Timers
         private readonly DeleteUserCodesRepository _deleteRepository;
         private DeleteUserCodeCleaner _deleteUserCleaner;
 
-        private const int _CODE_ALIVE_TIME = 100000;
+        private const int _CODE_ALIVE_TIME = 600000;
 
         public DeleteUserCleanTimer(DeleteUserCodesRepository deleteRepository)
         {

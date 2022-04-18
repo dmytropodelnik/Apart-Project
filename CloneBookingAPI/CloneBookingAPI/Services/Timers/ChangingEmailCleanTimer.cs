@@ -11,7 +11,7 @@ namespace CloneBookingAPI.Services.Timers
         private readonly ChangingEmailCodesRepository _changingEmailRepository;
         private ChangingEmailCodeCleaner _changingEmailCleaner;
 
-        private const int _CODE_ALIVE_TIME = 100000;
+        private const int _CODE_ALIVE_TIME = 600000;
 
         public ChangingEmailCleanTimer(ChangingEmailCodesRepository changingEmailRepository)
         {

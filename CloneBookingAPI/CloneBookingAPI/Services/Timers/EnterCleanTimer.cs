@@ -11,7 +11,7 @@ namespace CloneBookingAPI.Services.Timers
         private readonly EnterCodesRepository _enterRepository;
         private EnterCodeCleaner _enterCleaner;
 
-        private const int _CODE_ALIVE_TIME = 30000;
+        private const int _CODE_ALIVE_TIME = 600000;
 
         public EnterCleanTimer(EnterCodesRepository enterRepository)
         {

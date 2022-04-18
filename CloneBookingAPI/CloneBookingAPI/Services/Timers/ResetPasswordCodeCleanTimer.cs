@@ -11,7 +11,7 @@ namespace CloneBookingAPI.Services.Timers
         private readonly ResetPasswordCodesRepository _resetPasswordRepository;
         private ResetPasswordCodeCleaner _resetPasswordCleaner;
 
-        private const int _CODE_ALIVE_TIME = 30000;
+        private const int _CODE_ALIVE_TIME = 600000;
 
         public ResetPasswordCodeCleanTimer(ResetPasswordCodesRepository resetPasswordRepository)
         {
