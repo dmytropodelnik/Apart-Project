@@ -27,7 +27,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
   async userSignOut(): Promise<void> {
     let model = {
-      username: AuthHelper.getLogin(),
+      userName: AuthHelper.getLogin(),
       accessToken: AuthHelper.getToken(),
     };
 
@@ -48,6 +48,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
           AuthHelper.clearAuth();
 
           alert("Success logout!");
+          this.router.navigate(['']);
         } else {
           alert("Logout error!");
         }
@@ -66,7 +67,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
 
   @HostListener('window:beforeunload')
   async ngOnDestroy() {
-    await this.userSignOut();
+    this.userSignOut();
   }
 
 }

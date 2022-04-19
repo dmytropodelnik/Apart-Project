@@ -30,7 +30,7 @@ namespace CloneBookingAPI.Database.Models.Suggestions
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        public int? SuggestionId { get; set; }
+        public int SuggestionId { get; set; }
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }
         public List<BookedPeriod> BookedPeriods { get; set; } = new();

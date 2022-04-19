@@ -91,7 +91,6 @@ namespace CloneBookingAPI.Services.Database
             //// create database
             //Database.EnsureCreated();
         }
-
         /// <summary>s
         ///     Output in debug queries which are sent by EF in Output window (Menu Visual Studio: View -> Output).
         /// </summary>

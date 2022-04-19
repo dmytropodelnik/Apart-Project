@@ -9,6 +9,7 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
+import { RepositoryEnum } from '../enums/repositoryenum.item';
 
 @Component({
   selector: 'app-auth',
@@ -100,6 +101,7 @@ export class AuthComponent implements OnInit {
     let user = {
       email: this.email,
       password: this.password,
+      repository: RepositoryEnum.Enter,
     };
 
     fetch('https://localhost:44381/token', {
@@ -114,8 +116,8 @@ export class AuthComponent implements OnInit {
       .then(response => response.json())
       .then(response => {
         if (response.code !== 400) {
-          this.authService.setTokenKey(response);
-          AuthHelper.saveAuth(user.email, response);
+          this.authService.setTokenKey(response.encodedJwt);
+          AuthHelper.saveAuth(user.email, response.encodedJwt);
           this.authService.toggleLogCondition();
           alert('You have successfully authenticated!');
           this.router.navigate(['']);
@@ -133,14 +135,8 @@ export class AuthComponent implements OnInit {
       this.isPasswordEqual = true;
     }
 
-    fetch('https://localhost:44381/api/codes/generateregistercode', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(this.email),
+    fetch('https://localhost:44381/api/codes/generateregistercode?email=' + this.email, {
+      method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
