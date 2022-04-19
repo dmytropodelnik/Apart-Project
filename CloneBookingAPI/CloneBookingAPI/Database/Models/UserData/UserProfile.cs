@@ -43,7 +43,7 @@ namespace CloneBookingAPI.Services.Database.Models.UserProfile
         [ForeignKey("LanguageId")]
         public Language Language { get; set; }
 
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
 

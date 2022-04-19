@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Services.Generators
 {
-    public class CodesRepository : BaseRepository, IRepository
+    public class RegistrationCodesRepository : BaseRepository, IRepository
     {
 
     }

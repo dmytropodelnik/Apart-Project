@@ -36,15 +36,15 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
 
         public ContactDetails ContactDetails { get; set; }
 
-        public int? AddressId { get; set; }
+        public int AddressId { get; set; }
         [ForeignKey("AddressId")]
         public Address Address { get; set; }
 
-        public int? UserId { get; set; }
+        public int UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
 
-        public int? ServiceCategoryId { get; set; }
+        public int ServiceCategoryId { get; set; }
         [ForeignKey("ServiceCategoryId")]
         public ServiceCategory ServiceCategory { get; set; }
 

@@ -93,6 +93,8 @@ export class SecurityListComponent implements OnInit {
   unsubscribeMails(id: number): void {
 
     this.cancelButtonClick(id);
+
+    alert("You have successfully unsubscribed from mail letters!");
   }
 
   deleteAccount(id: number): void {
@@ -101,31 +103,25 @@ export class SecurityListComponent implements OnInit {
       email: AuthHelper.getLogin(),
     };
 
-    // fetch('https://localhost:44381/api/userdataeditor/editcurrency', {
-    //   method: 'PUT',
-    //   headers: {
-    //     'Content-Type': 'application/json; charset=utf-8',
-    //     Accept: 'application/json',
-    //     Authorization: 'Bearer ' + AuthHelper.getToken(),
-    //   },
-    //   body: JSON.stringify(user),
-    // })
-    //   .then((response) => response.json())
-    //   .then((response) => {
-    //     if (response.code === 200) {
-
-    //       this.setCondition(id);
-    //       this.setConditionEditButtons(id, false);
-    //       this.isDeleteRequested = true;
-    //     } else {
-    //       alert('Save currency error!');
-    //     }
-    //   })
-    //   .catch((ex) => {
-    //     alert(ex);
-    //   });
-      this.isDeleteRequested = true;
-      this.cancelButtonClick(id);
+    fetch(`https://localhost:44381/api/codes/generatedeleteusercode?email=` + AuthHelper.getLogin(), {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.isDeleteRequested = true;
+          this.cancelButtonClick(id);
+        } else {
+          alert("Error generating delete user code");
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   initializeBoolArray(): void {

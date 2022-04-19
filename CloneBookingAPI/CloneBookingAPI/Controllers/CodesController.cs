@@ -20,22 +20,34 @@ namespace CloneBookingAPI.Controllers
     public class CodesController : Controller
     {
         private readonly IGenerator _codeGenerator;
-        private readonly CodesRepository _codesRepository;
+        private readonly RegistrationCodesRepository _registrationRepository;
         private readonly JwtRepository _jwtRepository;
+        private readonly DeleteUserCodesRepository _deleteUserRepository;
+        private readonly ResetPasswordCodesRepository _resetPasswordRepository;
+        private readonly ChangingEmailCodesRepository _changingEmailRepository;
+        private readonly EnterCodesRepository _enterRepository;
 
         public CodesController(
             IGenerator codeGenerator, 
-            CodesRepository codesRepository,
-            JwtRepository jwtRepository)
+            RegistrationCodesRepository registrationRepository,
+            JwtRepository jwtRepository,
+            DeleteUserCodesRepository deleteUserRepository,
+            ResetPasswordCodesRepository resetPasswordRepository,
+            ChangingEmailCodesRepository changingEmailRepository,
+            EnterCodesRepository enterRepository)
         {
             _codeGenerator = codeGenerator;
-            _codesRepository = codesRepository;
+            _registrationRepository = registrationRepository;
             _jwtRepository = jwtRepository;
+            _deleteUserRepository = deleteUserRepository;
+            _resetPasswordRepository = resetPasswordRepository;
+            _changingEmailRepository = changingEmailRepository;
+            _enterRepository = enterRepository;
         }
 
         [Route("generateregistercode")]
-        [HttpPost]
-        public IActionResult GenerateRegisterCode([FromBody] string email)
+        [HttpGet]
+        public IActionResult GenerateRegisterCode(string email)
         {
             try
             {
@@ -46,7 +58,7 @@ namespace CloneBookingAPI.Controllers
 
                 string emailTrim = email.Trim();
 
-                var code = _codeGenerator.GenerateKeyCode(emailTrim);
+                var code = _codeGenerator.GenerateKeyCode(emailTrim, _registrationRepository);
                 if (code is null)
                 {
                     return Json(new { code = 400 });
@@ -82,13 +94,48 @@ namespace CloneBookingAPI.Controllers
                 string emailTrim = email.Trim();
                 string oldEmailTrim = oldEmail.Trim();
 
-                var code = _codeGenerator.GenerateKeyCode(emailTrim);
+                var code = _codeGenerator.GenerateKeyCode(emailTrim, _changingEmailRepository);
                 if (code is null)
                 {
                     return Json(new { code = 411 });
                 }
 
                 return RedirectToAction("SendChangingEmailLetter", "Auth", new { emailTrim, oldEmailTrim, code });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("generatedeleteusercode")]
+        [HttpGet]
+        public IActionResult GenerateDeleteUserCode(string email)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return Json(new { code = 410 });
+                }
+
+                string emailTrim = email.Trim();
+
+                var code = _codeGenerator.GenerateKeyCode(emailTrim, _deleteUserRepository);
+                if (code is null)
+                {
+                    return Json(new { code = 411 });
+                }
+
+                return RedirectToAction("SendDeleteUserLetter", "Auth", new { emailTrim, code });
             }
             catch (OperationCanceledException ex)
             {
@@ -117,7 +164,7 @@ namespace CloneBookingAPI.Controllers
 
                 string emailTrim = email.Trim();
 
-                var code = _codeGenerator.GenerateKeyCode(emailTrim);
+                var code = _codeGenerator.GenerateKeyCode(emailTrim, _resetPasswordRepository);
                 if (code is null)
                 {
                     return Json(new { code = 411 });
@@ -152,13 +199,59 @@ namespace CloneBookingAPI.Controllers
 
                 string emailTrim = email.Trim();
 
-                var code = _codeGenerator.GenerateKeyCode(emailTrim);
+                var code = _codeGenerator.GenerateKeyCode(emailTrim, _enterRepository);
                 if (code is null)
                 {
                     return Json(new { code = 411 });
                 }
 
-                return RedirectToAction("SendVerifyLetter", "Auth", new { emailTrim, code });
+                return RedirectToAction("SendVerifyEnterLetter", "Auth", new { emailTrim, code });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("verifyuserregistration")]
+        [HttpGet]
+        public IActionResult VerifyUserRegistration(string email, string code, bool confidant = false)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(code) || string.IsNullOrWhiteSpace(email))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                bool res = _registrationRepository.IsValueCorrect(email, code);
+                if (res is false)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                if (!confidant)
+                {
+                    if (_registrationRepository.Repository.ContainsKey(email))
+                    {
+                        _registrationRepository.Repository[email].Remove(code);
+
+                        if (_registrationRepository.Repository[email].Count == 0)
+                        {
+                            _registrationRepository.Repository.Remove(email);
+                        }
+                    }
+                }
+
+                return Json(new { code = 200 });
             }
             catch (OperationCanceledException ex)
             {
@@ -185,7 +278,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                bool res = _codesRepository.IsValueCorrect(email, code);
+                bool res = _enterRepository.IsValueCorrect(email, code);
                 if (res is false)
                 {
                     return Json(new { code = 400 });
@@ -193,13 +286,151 @@ namespace CloneBookingAPI.Controllers
 
                 if (!confidant)
                 {
-                    if (_codesRepository.Repository.ContainsKey(email))
+                    if (_enterRepository.Repository.ContainsKey(email))
                     {
-                        _codesRepository.Repository[email].Remove(code);
+                        _enterRepository.Repository[email].Remove(code);
 
-                        if (_codesRepository.Repository[email].Count == 0)
+                        if (_enterRepository.Repository[email].Count == 0)
                         {
-                            _codesRepository.Repository.Remove(email);
+                            _enterRepository.Repository.Remove(email);
+                        }
+                    }
+                }
+
+                return Json(new { code = 200 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("verifyuserdeletion")]
+        [HttpGet]
+        public IActionResult VerifyUserDeletion(string email, string code, bool confidant = false)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(code) || string.IsNullOrWhiteSpace(email))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                bool res = _deleteUserRepository.IsValueCorrect(email, code);
+                if (res is false)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                if (!confidant)
+                {
+                    if (_deleteUserRepository.Repository.ContainsKey(email))
+                    {
+                        _deleteUserRepository.Repository[email].Remove(code);
+
+                        if (_deleteUserRepository.Repository[email].Count == 0)
+                        {
+                            _deleteUserRepository.Repository.Remove(email);
+                        }
+                    }
+                }
+
+                return Json(new { code = 200 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("verifyemailchanging")]
+        [HttpGet]
+        public IActionResult VerifyEmailChanging(string email, string code, bool confidant = false)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(code) || string.IsNullOrWhiteSpace(email))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                bool res = _changingEmailRepository.IsValueCorrect(email, code);
+                if (res is false)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                if (!confidant)
+                {
+                    if (_changingEmailRepository.Repository.ContainsKey(email))
+                    {
+                        _changingEmailRepository.Repository[email].Remove(code);
+
+                        if (_changingEmailRepository.Repository[email].Count == 0)
+                        {
+                            _changingEmailRepository.Repository.Remove(email);
+                        }
+                    }
+                }
+
+                return Json(new { code = 200 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("verifypasswordreset")]
+        [HttpGet]
+        public IActionResult VerifyPasswordReset(string email, string code, bool confidant = false)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(code) || string.IsNullOrWhiteSpace(email))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                bool res = _resetPasswordRepository.IsValueCorrect(email, code);
+                if (res is false)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                if (!confidant)
+                {
+                    if (_resetPasswordRepository.Repository.ContainsKey(email))
+                    {
+                        _resetPasswordRepository.Repository[email].Remove(code);
+
+                        if (_resetPasswordRepository.Repository[email].Count == 0)
+                        {
+                            _resetPasswordRepository.Repository.Remove(email);
                         }
                     }
                 }

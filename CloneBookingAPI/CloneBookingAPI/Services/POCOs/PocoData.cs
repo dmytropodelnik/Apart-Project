@@ -1,10 +1,11 @@
-﻿using CloneBookingAPI.Services.Database.Models;
+﻿using CloneBookingAPI.Enums;
+using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Database.Models.Location;
 using System;
 
 namespace CloneBookingAPI.Services.POCOs
 {
-    public class UserData
+    public class PocoData
     {
         public string Title { get; set; }
         public string FirstName { get; set; }
@@ -34,5 +35,7 @@ namespace CloneBookingAPI.Services.POCOs
         public bool IsToDeleteCode { get; set; }
 
         public Address Address { get; set; }
+
+        public RepositoryEnum Repository { get; set; }
     }
 }
