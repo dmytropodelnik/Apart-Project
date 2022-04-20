@@ -430,10 +430,10 @@ export class PersonalDetailsListComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.user.addressText = response.user.profile.address.addressText;
-          this.user.zipCode = response.user.profile.address.zipCode;
-          this.user.country.title = response.user.profile.address.country.title;
-          this.user.city.title = response.user.profile.address.city.title;
+          this.user.addressText = response.user.profile?.address?.addressText;
+          this.user.zipCode = response.user.profile?.address?.zipCode;
+          this.user.country.title = response.user.profile?.address?.country?.title;
+          this.user.city.title = response.user.profile?.address?.city?.title;
           this.user.title = response.user.title;
           this.user.firstName = response.user.firstName;
           this.user.lastName = response.user.lastName;
