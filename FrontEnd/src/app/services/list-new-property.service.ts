@@ -7,7 +7,7 @@ export class ListNewPropertyService {
 
   constructor() {
     // if (AuthHelper.getToken()) {
-    //   fetch('https://localhost:44381/api/users/userexists?email=' + AuthHelper.getLogin(), {
+    //   fetch('http://apartmain.azurewebsites.net/api/users/userexists?email=' + AuthHelper.getLogin(), {
     //     method: 'GET',
     //   })
     //     .then((response) => response.json())

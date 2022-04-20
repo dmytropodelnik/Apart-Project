@@ -30,7 +30,7 @@ export class CitiesListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://localhost:44381/api/cities/search?city=' + this.searchCity, {
+    fetch('http://apartmain.azurewebsites.net/api/cities/search?city=' + this.searchCity, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -56,7 +56,7 @@ export class CitiesListComponent implements OnInit {
       name: this.city,
     };
 
-    fetch('https://localhost:44381/api/cities/addcity', {
+    fetch('http://apartmain.azurewebsites.net/api/cities/addcity', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -85,7 +85,7 @@ export class CitiesListComponent implements OnInit {
       name: this.city,
     };
 
-    fetch('https://localhost:44381/api/cities/editcity', {
+    fetch('http://apartmain.azurewebsites.net/api/cities/editcity', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -115,7 +115,7 @@ export class CitiesListComponent implements OnInit {
       name: this.city,
     };
 
-    fetch('https://localhost:44381/api/cities/deletecity', {
+    fetch('http://apartmain.azurewebsites.net/api/cities/deletecity', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -140,7 +140,7 @@ export class CitiesListComponent implements OnInit {
   }
 
   getCities(): void {
-    fetch(`https://localhost:44381/api/cities/getcities?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/cities/getcities?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -165,7 +165,7 @@ export class CitiesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/cities/getcities?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/cities/getcities?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

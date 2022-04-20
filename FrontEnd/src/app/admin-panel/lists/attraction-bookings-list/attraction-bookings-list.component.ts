@@ -22,7 +22,7 @@ export class AttractionBookingsListComponent implements OnInit {
       name: this.booking,
     };
 
-    fetch('https://localhost:44381/api/attractions/addbooking', {
+    fetch('http://apartmain.azurewebsites.net/api/attractions/addbooking', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -51,7 +51,7 @@ export class AttractionBookingsListComponent implements OnInit {
       name: this.booking,
     };
 
-    fetch('https://localhost:44381/api/attractions/editbooking', {
+    fetch('http://apartmain.azurewebsites.net/api/attractions/editbooking', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -81,7 +81,7 @@ export class AttractionBookingsListComponent implements OnInit {
       name: this.booking,
     };
 
-    fetch('https://localhost:44381/api/attractions/deletebooking', {
+    fetch('http://apartmain.azurewebsites.net/api/attractions/deletebooking', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -106,7 +106,7 @@ export class AttractionBookingsListComponent implements OnInit {
   }
 
   getBookings(): void {
-    fetch('https://localhost:44381/api/attractions/getbookings', {
+    fetch('http://apartmain.azurewebsites.net/api/attractions/getbookings', {
       method: 'GET',
     })
       .then((r) => r.json())

@@ -56,7 +56,7 @@ export class PreferencesListComponent implements OnInit {
       email: AuthHelper.getLogin(),
     };
 
-    fetch('https://localhost:44381/api/userdataeditor/editcurrency', {
+    fetch('http://apartmain.azurewebsites.net/api/userdataeditor/editcurrency', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -86,7 +86,7 @@ export class PreferencesListComponent implements OnInit {
       email: AuthHelper.getLogin(),
     };
 
-    fetch('https://localhost:44381/api/userdataeditor/editlanguage', {
+    fetch('http://apartmain.azurewebsites.net/api/userdataeditor/editlanguage', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -112,7 +112,7 @@ export class PreferencesListComponent implements OnInit {
 
   getCurrentUser(): void {
     fetch(
-      'https://localhost:44381/api/users/getuser?email=' +
+      'http://apartmain.azurewebsites.net/api/users/getuser?email=' +
         AuthHelper.getLogin(),
       {
         method: 'GET',
@@ -139,7 +139,7 @@ export class PreferencesListComponent implements OnInit {
   }
 
   getCurrencies(): void {
-    fetch(`https://localhost:44381/api/currencies/getcurrencies`, {
+    fetch(`http://apartmain.azurewebsites.net/api/currencies/getcurrencies`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -164,7 +164,7 @@ export class PreferencesListComponent implements OnInit {
   }
 
   getLanguages(): void {
-    fetch(`https://localhost:44381/api/languages/getlanguages`, {
+    fetch(`http://apartmain.azurewebsites.net/api/languages/getlanguages`, {
       method: 'GET',
     })
       .then((r) => r.json())

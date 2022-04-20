@@ -59,7 +59,7 @@ export class LpPhotosComponent implements OnInit {
         let fData = new FormData();
         fData.append('uploadedFile', this.uploadedFiles[i]);
 
-        fetch('https://localhost:44381/api/listnewproperty/addphotos?suggestionId=' + this.listNewPropertyService.getSavedPropertyId(), {
+        fetch('http://apartmain.azurewebsites.net/api/listnewproperty/addphotos?suggestionId=' + this.listNewPropertyService.getSavedPropertyId(), {
           method: 'POST',
           headers: {
             "Accept": "application/json",

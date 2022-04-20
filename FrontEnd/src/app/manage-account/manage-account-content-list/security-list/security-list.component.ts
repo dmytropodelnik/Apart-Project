@@ -70,7 +70,7 @@ export class SecurityListComponent implements OnInit {
   }
 
   sendResetPasswordEmail(id: number): void {
-    fetch(`https://localhost:44381/api/codes/generateresetcode?email=` + AuthHelper.getLogin(), {
+    fetch(`http://apartmain.azurewebsites.net/api/codes/generateresetcode?email=` + AuthHelper.getLogin(), {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -103,7 +103,7 @@ export class SecurityListComponent implements OnInit {
       email: AuthHelper.getLogin(),
     };
 
-    fetch(`https://localhost:44381/api/codes/generatedeleteusercode?email=` + AuthHelper.getLogin(), {
+    fetch(`http://apartmain.azurewebsites.net/api/codes/generatedeleteusercode?email=` + AuthHelper.getLogin(), {
       method: 'GET',
       headers: {
         Accept: 'application/json',

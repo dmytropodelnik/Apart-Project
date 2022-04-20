@@ -42,7 +42,7 @@ export class UserSavedComponent implements OnInit {
       login: AuthHelper.getLogin(),
     };
 
-    fetch('https://localhost:44381/api/favorites/removesuggestion', {
+    fetch('http://apartmain.azurewebsites.net/api/favorites/removesuggestion', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -73,7 +73,7 @@ export class UserSavedComponent implements OnInit {
 
   getUserFavorites(): void {
     fetch(
-      'https://localhost:44381/api/favorites/getuserfavorites?email=' +
+      'http://apartmain.azurewebsites.net/api/favorites/getuserfavorites?email=' +
         AuthHelper.getLogin(),
       {
         method: 'GET',

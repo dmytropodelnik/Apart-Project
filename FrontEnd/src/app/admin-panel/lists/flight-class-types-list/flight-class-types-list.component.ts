@@ -27,7 +27,7 @@ export class FlightClassTypesListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://localhost:44381/api/flightclasstypes/search?type=' + this.searchType, {
+    fetch('http://apartmain.azurewebsites.net/api/flightclasstypes/search?type=' + this.searchType, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -53,7 +53,7 @@ export class FlightClassTypesListComponent implements OnInit {
       name: this.type,
     };
 
-    fetch('https://localhost:44381/api/flightclasstypes/addtype', {
+    fetch('http://apartmain.azurewebsites.net/api/flightclasstypes/addtype', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -82,7 +82,7 @@ export class FlightClassTypesListComponent implements OnInit {
       name: this.type,
     };
 
-    fetch('https://localhost:44381/api/flightclasstypes/edittype', {
+    fetch('http://apartmain.azurewebsites.net/api/flightclasstypes/edittype', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -112,7 +112,7 @@ export class FlightClassTypesListComponent implements OnInit {
       name: this.type,
     };
 
-    fetch('https://localhost:44381/api/flightclasstypes/deletetype', {
+    fetch('http://apartmain.azurewebsites.net/api/flightclasstypes/deletetype', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -137,7 +137,7 @@ export class FlightClassTypesListComponent implements OnInit {
   }
 
   getTypes(): void {
-    fetch(`https://localhost:44381/api/flightclasstypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/flightclasstypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -162,7 +162,7 @@ export class FlightClassTypesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/flightclasstypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/flightclasstypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

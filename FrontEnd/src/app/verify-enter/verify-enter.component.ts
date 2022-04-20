@@ -29,7 +29,7 @@ export class VerifyEnterComponent implements OnInit {
 
   async verifyEnterUser(): Promise<void> {
     fetch(
-      `https://localhost:44381/api/codes/verifyenteruser?email=${this.email}&code=${this.code}&confidant=true`,
+      `http://apartmain.azurewebsites.net/api/codes/verifyenteruser?email=${this.email}&code=${this.code}&confidant=true`,
       {
         method: 'GET',
       }
@@ -56,7 +56,7 @@ export class VerifyEnterComponent implements OnInit {
       repository: this.repositoryEnum,
     };
 
-    fetch('https://localhost:44381/token', {
+    fetch('http://apartmain.azurewebsites.net/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -92,7 +92,7 @@ export class VerifyEnterComponent implements OnInit {
   }
 
   resetPassword(): void {
-    fetch(`https://localhost:44381/api/codes/verifypasswordreset?email=${this.email}&code=${this.code}&confidant=true`, {
+    fetch(`http://apartmain.azurewebsites.net/api/codes/verifypasswordreset?email=${this.email}&code=${this.code}&confidant=true`, {
         method: 'GET',
       }
     )
@@ -116,7 +116,7 @@ export class VerifyEnterComponent implements OnInit {
       newEmail: this.email,
     };
 
-    await fetch('https://localhost:44381/api/userdataeditor/editemail', {
+    await fetch('http://apartmain.azurewebsites.net/api/userdataeditor/editemail', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -140,7 +140,7 @@ export class VerifyEnterComponent implements OnInit {
   }
 
   deleteUserEventually(): void {
-    fetch(`https://localhost:44381/api/users/deleteuser?email=${this.email}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/users/deleteuser?email=${this.email}`, {
         method: 'DELETE',
         headers: {
           Accept: 'application/json',
@@ -163,7 +163,7 @@ export class VerifyEnterComponent implements OnInit {
   }
 
   deleteUser(): void {
-    fetch(`https://localhost:44381/api/codes/verifyuserdeletion?email=${this.email}&code=${this.code}&confidant=true`, {
+    fetch(`http://apartmain.azurewebsites.net/api/codes/verifyuserdeletion?email=${this.email}&code=${this.code}&confidant=true`, {
         method: 'GET',
       }
     )
@@ -182,7 +182,7 @@ export class VerifyEnterComponent implements OnInit {
 
   changeEmail(): void {
     fetch(
-      `https://localhost:44381/api/codes/verifyemailchanging?email=${this.email}&code=${this.code}&confidant=true`, {
+      `http://apartmain.azurewebsites.net/api/codes/verifyemailchanging?email=${this.email}&code=${this.code}&confidant=true`, {
         method: 'GET',
       }
     )

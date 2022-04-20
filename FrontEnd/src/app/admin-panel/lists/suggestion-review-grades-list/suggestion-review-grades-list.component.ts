@@ -30,7 +30,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
       name: this.grade,
     };
 
-    fetch('https://localhost:44381/api/suggestionreviewgrades/addgrade', {
+    fetch('http://apartmain.azurewebsites.net/api/suggestionreviewgrades/addgrade', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -59,7 +59,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
       name: this.grade,
     };
 
-    fetch('https://localhost:44381/api/suggestionreviewgrades/editgrade', {
+    fetch('http://apartmain.azurewebsites.net/api/suggestionreviewgrades/editgrade', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -89,7 +89,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
       name: this.grade,
     };
 
-    fetch('https://localhost:44381/api/suggestionreviewgrades/deletegrade', {
+    fetch('http://apartmain.azurewebsites.net/api/suggestionreviewgrades/deletegrade', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -114,7 +114,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
   }
 
   getGrades(): void {
-    fetch(`https://localhost:44381/api/suggestionreviewgrades/getgrades?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/suggestionreviewgrades/getgrades?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -139,7 +139,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/suggestionreviewgrades/getgrades?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/suggestionreviewgrades/getgrades?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

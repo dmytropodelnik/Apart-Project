@@ -31,7 +31,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
       name: this.highlight,
     };
 
-    fetch('https://localhost:44381/api/suggestionhighlights/addhighlight', {
+    fetch('http://apartmain.azurewebsites.net/api/suggestionhighlights/addhighlight', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -60,7 +60,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
       name: this.highlight,
     };
 
-    fetch('https://localhost:44381/api/suggestionhighlights/edithighlight', {
+    fetch('http://apartmain.azurewebsites.net/api/suggestionhighlights/edithighlight', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -90,7 +90,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
       name: this.highlight,
     };
 
-    fetch('https://localhost:44381/api/suggestionhighlights/deletehighlight', {
+    fetch('http://apartmain.azurewebsites.net/api/suggestionhighlights/deletehighlight', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -115,7 +115,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
   }
 
   getHighlights(): void {
-    fetch(`https://localhost:44381/api/suggestionhighlights/gethighlights?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/suggestionhighlights/gethighlights?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -140,7 +140,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/suggestionhighlights/gethighlights?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/suggestionhighlights/gethighlights?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

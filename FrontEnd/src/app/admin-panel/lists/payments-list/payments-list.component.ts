@@ -31,7 +31,7 @@ export class PaymentsListComponent implements OnInit {
       name: this.payment,
     };
 
-    fetch('https://localhost:44381/api/payments/addpayment', {
+    fetch('http://apartmain.azurewebsites.net/api/payments/addpayment', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -60,7 +60,7 @@ export class PaymentsListComponent implements OnInit {
       name: this.payment,
     };
 
-    fetch('https://localhost:44381/api/payments/editpayment', {
+    fetch('http://apartmain.azurewebsites.net/api/payments/editpayment', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -90,7 +90,7 @@ export class PaymentsListComponent implements OnInit {
       name: this.payment,
     };
 
-    fetch('https://localhost:44381/api/payments/deletepayment', {
+    fetch('http://apartmain.azurewebsites.net/api/payments/deletepayment', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -115,7 +115,7 @@ export class PaymentsListComponent implements OnInit {
   }
 
   getPayments(): void {
-    fetch(`https://localhost:44381/api/payments/getpayments?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/payments/getpayments?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -140,7 +140,7 @@ export class PaymentsListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/payments/getpayments?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/payments/getpayments?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

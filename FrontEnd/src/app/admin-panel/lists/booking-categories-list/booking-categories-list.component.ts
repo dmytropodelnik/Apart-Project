@@ -26,7 +26,7 @@ export class BookingCategoriesListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://localhost:44381/api/bookingcategories/search?category=' + this.searchCategory, {
+    fetch('http://apartmain.azurewebsites.net/api/bookingcategories/search?category=' + this.searchCategory, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -52,7 +52,7 @@ export class BookingCategoriesListComponent implements OnInit {
       category: this.category.category,
     };
 
-    fetch('https://localhost:44381/api/bookingcategories/addcategory', {
+    fetch('http://apartmain.azurewebsites.net/api/bookingcategories/addcategory', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -81,7 +81,7 @@ export class BookingCategoriesListComponent implements OnInit {
       category: this.category.category,
     };
 
-    fetch('https://localhost:44381/api/bookingcategories/editcategory', {
+    fetch('http://apartmain.azurewebsites.net/api/bookingcategories/editcategory', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -111,7 +111,7 @@ export class BookingCategoriesListComponent implements OnInit {
       category: this.category.category,
     };
 
-    fetch('https://localhost:44381/api/bookingcategories/deletecategory', {
+    fetch('http://apartmain.azurewebsites.net/api/bookingcategories/deletecategory', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -136,7 +136,7 @@ export class BookingCategoriesListComponent implements OnInit {
   }
 
   getCategories(): void {
-    fetch(`https://localhost:44381/api/bookingcategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/bookingcategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -161,7 +161,7 @@ export class BookingCategoriesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/bookingcategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/bookingcategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
