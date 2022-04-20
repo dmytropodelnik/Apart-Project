@@ -69,6 +69,7 @@
 <table class="table table-dark table-bordered border-white">
   <thead>
     <tr>
+      <th scope="col"></th>
       <th scope="col">#</th>
       <th scope="col">Title</th>
       <th scope="col">Image</th>
@@ -82,7 +83,7 @@
           (click)="setPrice(price)" >
         </div>
       </th>
-      <td></td>
+      <td>{{price.id}}</td>
       <td></td>
       <td></td>
       <td></td>
@@ -100,3 +101,4 @@
     </tr>
   </tbody>
 </table>
+<button class="btn btn-dark" (click)="loadMore()">Load more</button>

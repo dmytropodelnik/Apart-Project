@@ -26,16 +26,31 @@ namespace CloneBookingAPI.Controllers
 
         [Route("getdistricts")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<District>>> GetDistricts()
+        public async Task<ActionResult<IEnumerable<District>>> GetDistricts(int page = -1, int pageSize = -1)
         {
             try
             {
-                var districts = await _context.Districts
+                List<District> districts = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    districts = await _context.Districts
                     .Include(d => d.Address)
-                    // .Include(d => d.Address.City)
-                    // .Include(d => d.Address.Region)
-                    .Include(d => d.Image)
+                    //.Include(d => d.Address.City)
+                    //.Include(d => d.Address.Region)
+                    //.Include(d => d.Image)
                     .ToListAsync();
+                }
+                else
+                {
+                    districts = await _context.Districts
+                    .Include(d => d.Address)
+                    //.Include(d => d.Address.City)
+                    //.Include(d => d.Address.Region)
+                    //.Include(d => d.Image)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                }
 
                 return Json(new { code = 200, districts });
             }
@@ -61,11 +76,11 @@ namespace CloneBookingAPI.Controllers
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<District>>> Search(string district)
+        public async Task<ActionResult<IEnumerable<District>>> Search(string district, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(district))
+                if (string.IsNullOrWhiteSpace(district) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.Districts.ToListAsync();
 
@@ -74,7 +89,7 @@ namespace CloneBookingAPI.Controllers
 
                 var districts = await _context.Districts
                     .Include(a => a.Address)
-                        .ThenInclude(addr => addr.Country)
+                        //.ThenInclude(addr => addr.Country)
                     // .Include(a => a.Address.City)
                     // .Include(a => a.Address.District)
                     // .Include(a => a.Address.Region)
@@ -84,6 +99,8 @@ namespace CloneBookingAPI.Controllers
                                 a.Address.District.Title.Contains(district) ||
                                 a.Address.Region.Title.Contains(district) ||
                                 a.Title.Contains(district))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, districts });

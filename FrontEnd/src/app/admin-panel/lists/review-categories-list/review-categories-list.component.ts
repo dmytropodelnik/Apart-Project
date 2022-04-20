@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReviewCategory } from 'src/app/models/Review/reviewcategory.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -16,7 +17,14 @@ export class ReviewCategoriesListComponent implements OnInit {
   searchCategory: string = '';
   checkedCategory: number | null = null;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   search(): void {
     fetch('https://localhost:44381/api/reviewcategories/search?category=' + this.searchCategory, {
@@ -129,13 +137,38 @@ export class ReviewCategoriesListComponent implements OnInit {
   }
 
   getCategories(): void {
-    fetch('https://localhost:44381/api/reviewcategories/getcategories', {
+    fetch(`https://localhost:44381/api/reviewcategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.categories = data.categories;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(categories: ReviewCategory[]): void {
+    for (let item of categories) {
+      this.categories?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/reviewcategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.categories);
         } else {
           alert('Fetch error!');
         }

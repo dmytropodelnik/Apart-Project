@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Suggestion } from 'src/app/models/Suggestions/suggestion.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -15,7 +16,14 @@ export class SuggestionsListComponent implements OnInit {
   suggestion: Suggestion | null = null;
   checkedSuggestion: number | null = null;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 5;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   addSuggestion(): void {
     let suggestion = {
@@ -106,13 +114,39 @@ export class SuggestionsListComponent implements OnInit {
   }
 
   getSuggestions(): void {
-    fetch('https://localhost:44381/api/suggestions/getsuggestions', {
+    fetch(`https://localhost:44381/api/suggestions/getsuggestions?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.suggestions = data.suggestions;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(suggestions: Suggestion[]): void {
+    for (let item of suggestions) {
+      this.suggestions?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/suggestions/getsuggestions?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.suggestions);
+          //this.suggestions = data.suggestions;
         } else {
           alert('Fetch error!');
         }

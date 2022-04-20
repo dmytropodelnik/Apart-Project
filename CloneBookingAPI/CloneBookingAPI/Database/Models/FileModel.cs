@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database.Models.Location;
+﻿using CloneBookingAPI.Database.Models.ViewModels;
+using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -29,5 +30,7 @@ namespace CloneBookingAPI.Services.Database.Models
         public List<Region> Regions { get; set; } = new();
         public List<District> Districts { get; set; } = new();
         public List<Notification> Notifications { get; set; } = new();
+
+        public List<SuggestionFileModel> SuggestionsFileModels { get; set; } = new();
     }
 }

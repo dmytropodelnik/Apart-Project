@@ -5,6 +5,7 @@ import { FacilityType } from 'src/app/models/facilitytype.item';
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
 import ImageHelper from '../../../utils/imageHelper';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 
 @Component({
@@ -19,7 +20,12 @@ export class FacilitiesListComponent implements OnInit {
   checkedFacility: number | null = null;
   imageHelper: any = ImageHelper;
 
-  constructor() {
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
     this.facility = new Facility();
   }
 
@@ -147,13 +153,38 @@ export class FacilitiesListComponent implements OnInit {
   }
 
   getFacilities(): void {
-    fetch('https://localhost:44381/api/facilities/getfacilities', {
+    fetch(`https://localhost:44381/api/facilities/getfacilities?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.facilities = data.facilities;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(facilities: Facility[]): void {
+    for (let item of facilities) {
+      this.facilities?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/facilities/getfacilities?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.facilities);
         } else {
           alert('Fetch error!');
         }

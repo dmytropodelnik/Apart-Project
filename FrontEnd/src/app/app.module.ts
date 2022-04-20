@@ -85,6 +85,9 @@ import { PaymentDetailsListComponent } from './manage-account/manage-account-con
 import { EmailNotificationsListComponent } from './manage-account/manage-account-content-list/email-notifications-list/email-notifications-list.component';
 import { OtherTravelersListComponent } from './manage-account/manage-account-content-list/other-travelers-list/other-travelers-list.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { AdminContentService } from './services/admin-content.service';
+import { UserSavedComponent } from './user-saved/user-saved.component';
+import { ResetPasswordComponent } from './reset-password/reset-password.component';
 
 @NgModule({
   declarations: [
@@ -163,6 +166,8 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     OtherTravelersListComponent,
     SearchResultsComponent,
     PromocodeGeneratorComponent,
+    UserSavedComponent,
+    ResetPasswordComponent,
   ],
   imports: [
     BrowserModule,
@@ -172,7 +177,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthorizationService, MainDataService, ListNewPropertyService],
+  providers: [AuthorizationService, MainDataService, ListNewPropertyService, AdminContentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

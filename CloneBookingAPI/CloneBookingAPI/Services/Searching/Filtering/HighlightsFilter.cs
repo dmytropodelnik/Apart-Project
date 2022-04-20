@@ -1,5 +1,7 @@
-﻿using CloneBookingAPI.Services.Database.Models.Suggestions;
+﻿using CloneBookingAPI.Services.Database;
+using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -29,11 +31,6 @@ namespace CloneBookingAPI.Services.Searching.Filtering
         {
             try
             {
-                if (suggestions is null)
-                {
-                    return null;
-                }
-
                 suggestions = suggestions
                     .Where(s => s.Highlights
                                     .Any(h => h.Text.Equals(_value)));

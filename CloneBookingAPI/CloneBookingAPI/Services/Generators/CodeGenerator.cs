@@ -1,4 +1,5 @@
 ﻿using CloneBookingAPI.Interfaces;
+using CloneBookingAPI.Services.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,13 +10,24 @@ namespace CloneBookingAPI.Services.Generators
 {
     public class CodeGenerator : BaseGenerator, IGenerator
     {
-        private CodesRepository _repository;
+        private RegistrationCodesRepository _registrationRepository;
+        private ChangingEmailCodesRepository _changingEmailRepository;
+        private DeleteUserCodesRepository _deleteUserRepository;
+        private ResetPasswordCodesRepository _resetPasswordCodesRepository;
 
-        public CodeGenerator(CodesRepository repository)
+        public CodeGenerator(
+            RegistrationCodesRepository registrationRepository,
+            ChangingEmailCodesRepository changingEmailRepository,
+            DeleteUserCodesRepository deleteUserRepository,
+            ResetPasswordCodesRepository resetPasswordCodesRepository
+            )
         {
-            _repository = repository;
+            _registrationRepository = registrationRepository;
+            _changingEmailRepository = changingEmailRepository;
+            _deleteUserRepository = deleteUserRepository;
+            _resetPasswordCodesRepository = resetPasswordCodesRepository;
         }
-        public string GenerateKeyCode(string key)
+        public string GenerateKeyCode(string key, BaseRepository repository)
         {
             try
             {
@@ -28,13 +40,13 @@ namespace CloneBookingAPI.Services.Generators
 
                 _code = generator.Next(100000, 999999).ToString();
 
-                if (_repository.Repository.ContainsKey(key))
+                if (repository.Repository.ContainsKey(key))
                 {
-                    _repository.Repository[key].Add(_code);
+                    repository.Repository[key].Add(_code);
                 }
                 else
                 {
-                    _repository.Repository.Add(key, new List<string> { _code });
+                    repository.Repository.Add(key, new List<string> { _code });
                 }
 
                 return _code;

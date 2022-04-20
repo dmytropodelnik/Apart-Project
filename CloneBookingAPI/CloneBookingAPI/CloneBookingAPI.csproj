@@ -27,6 +27,8 @@
     <Folder Include="wwwroot\files\images\" />
     <Folder Include="wwwroot\files\flags\" />
     <Folder Include="wwwroot\files\cities\" />
+    <Folder Include="wwwroot\files\booking-categories\" />
+    <Folder Include="wwwroot\files\suggestions\" />
   </ItemGroup>
 
 </Project>

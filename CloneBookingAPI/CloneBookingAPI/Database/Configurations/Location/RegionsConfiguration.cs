@@ -11,20 +11,20 @@ namespace CloneBookingAPI.Services.Database.Configurations.Location
             builder.HasData(
               new Region[]
               {
-                  new Region { Id = 1, Title = "Test1", ImageId = 2, },
-                  new Region { Id = 2, Title = "Test2", ImageId = 2, },
-                  new Region { Id = 3, Title = "Test3", ImageId = 2, },
-                  new Region { Id = 4, Title = "Test4", ImageId = 2, },
-                  new Region { Id = 5, Title = "Test5", ImageId = 2, },
-                  new Region { Id = 6, Title = "Test6", ImageId = 2, },
-                  new Region { Id = 7, Title = "Test7", ImageId = 2, },
-                  new Region { Id = 8, Title = "Test8", ImageId = 2, },
-                  new Region { Id = 9, Title = "Test9", ImageId = 2, },
-                  new Region { Id = 10, Title = "Test10", ImageId = 2, },
-                  new Region { Id = 11, Title = "Test11", ImageId = 2, },
-                  new Region { Id = 12, Title = "Test12", ImageId = 2, },
-                  new Region { Id = 13, Title = "Test13", ImageId = 1, },
-                  new Region { Id = 14, Title = "Test14", ImageId = 1, },
+                  new Region { Id = 1, Title = "Zanzibar", ImageId = 2, CityId = 1, },
+                  new Region { Id = 2, Title = "Ibiza", ImageId = 2, CityId = 2, },
+                  new Region { Id = 3, Title = "Bihar", ImageId = 2, CityId = 3,},
+                  new Region { Id = 4, Title = "Bali", ImageId = 2, CityId = 4,},
+                  new Region { Id = 5, Title = "Ras Al Khaimah", ImageId = 2, CityId = 1,},
+                  new Region { Id = 6, Title = "Uttar Pradesh", ImageId = 2, CityId = 2,},
+                  new Region { Id = 7, Title = "Texel", ImageId = 2, CityId = 3,},
+                  new Region { Id = 8, Title = "Isle of Wight", ImageId = 2, CityId = 4,},
+                  new Region { Id = 9, Title = "Jersey", ImageId = 2, CityId = 1,},
+                  new Region { Id = 10, Title = "Mykonos", ImageId = 2, CityId = 2,},
+                  new Region { Id = 11, Title = "Santorini", ImageId = 2, CityId = 3,},
+                  new Region { Id = 12, Title = "Cornwall", ImageId = 2, CityId = 4,},
+                  new Region { Id = 13, Title = "England", ImageId = 2, CityId = 1,},
+                  new Region { Id = 14, Title = "Tenerife", ImageId = 2, CityId = 2,},
               });
         }
     }

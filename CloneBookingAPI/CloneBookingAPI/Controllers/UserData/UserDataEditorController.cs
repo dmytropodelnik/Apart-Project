@@ -29,7 +29,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("edittitle")]
         [HttpPut]
-        public async Task<IActionResult> EditTitle([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditTitle([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -51,7 +51,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resUser,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -81,7 +84,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("editname")]
         [HttpPut]
-        public async Task<IActionResult> EditName([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditName([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -105,7 +108,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resUser,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -135,7 +141,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("editdisplayname")]
         [HttpPut]
-        public async Task<IActionResult> EditDisplayName([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditDisplayName([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -157,7 +163,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resUser,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -188,19 +197,13 @@ namespace CloneBookingAPI.Controllers.UserData
         // [Authorize]
         [Route("editemail")]
         [HttpPut]
-        public async Task<IActionResult> EditEmail([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditEmail([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
                 if (user is null                          ||
                     string.IsNullOrWhiteSpace(user.Email) ||
                     string.IsNullOrWhiteSpace(user.NewEmail))
-                {
-                    return Json(new { code = 400 });
-                }
-
-                var isEmailExists = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.NewEmail);
-                if (isEmailExists is not null)
                 {
                     return Json(new { code = 400 });
                 }
@@ -216,7 +219,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resUser,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -247,7 +253,7 @@ namespace CloneBookingAPI.Controllers.UserData
         // [Authorize]
         [Route("editpassword")]
         [HttpPut]
-        public async Task<IActionResult> EditPassword([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditPassword([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -264,7 +270,7 @@ namespace CloneBookingAPI.Controllers.UserData
                     return Json(new { code = 400 });
                 }
 
-                string hashedPassword = _saltGenerator.GenerateKeyCode(user.Password.Trim());
+                string hashedPassword = _saltGenerator.GenerateKeyCode(user.NewPassword.Trim());
 
                 resUser.PasswordHash = hashedPassword;
                 resUser.SaltHash = _saltGenerator.Salt;
@@ -272,7 +278,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resUser,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -303,7 +312,7 @@ namespace CloneBookingAPI.Controllers.UserData
         // [Authorize]
         [Route("editphonenumber")]
         [HttpPut]
-        public async Task<IActionResult> EditPhoneNumber([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditPhoneNumber([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -321,7 +330,7 @@ namespace CloneBookingAPI.Controllers.UserData
                 }
 
                 var isPhoneExists = await _context.Users.FirstOrDefaultAsync(u => u.PhoneNumber == user.PhoneNumber);
-                if (resUser is not null)
+                if (isPhoneExists is not null)
                 {
                     return Json(new { code = 400 });
                 }
@@ -331,7 +340,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resUser,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -362,7 +374,7 @@ namespace CloneBookingAPI.Controllers.UserData
         // [Authorize]
         [Route("editbirthdate")]
         [HttpPut]
-        public async Task<IActionResult> EditBirthDate([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditBirthDate([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -381,12 +393,15 @@ namespace CloneBookingAPI.Controllers.UserData
                     return Json(new { code = 400 });
                 }
 
-                resProfile.BirthDate = Convert.ToDateTime(user.BirthDate).ToUniversalTime();
+                resProfile.BirthDate = Convert.ToDateTime(user.BirthDate);
 
                 _context.UserProfiles.Update(resProfile);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resProfile,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -416,7 +431,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("editnationality")]
         [HttpPut]
-        public async Task<IActionResult> EditNationality([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditNationality([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -440,7 +455,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.UserProfiles.Update(resProfile);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resProfile,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -470,7 +488,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("editgender")]
         [HttpPut]
-        public async Task<IActionResult> EditGender([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditGender([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -483,6 +501,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
                 var resProfile = await _context.UserProfiles
                                     .Include(p => p.User)
+                                    //.Include(p => p.Gender)
                                     .FirstOrDefaultAsync(p => p.User.Email.Equals(user.Email));
                 if (resProfile is null)
                 {
@@ -494,7 +513,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.UserProfiles.Update(resProfile);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resProfile,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -524,15 +546,14 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("editaddress")]
         [HttpPut]
-        public async Task<IActionResult> EditAddress([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditAddress([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
                 if (user is null ||
-                    string.IsNullOrWhiteSpace(user.Address.AddressText) &&
-                    string.IsNullOrWhiteSpace(user.Address.Country.Title) &&
-                    string.IsNullOrWhiteSpace(user.Address.City.Title) &&
-                    string.IsNullOrWhiteSpace(user.Address.ZipCode))
+                    user.AddressText is null &&
+                    user.Country is null &&
+                    user.City is null)
                 {
                     return Json(new { code = 400 });
                 }
@@ -545,24 +566,67 @@ namespace CloneBookingAPI.Controllers.UserData
                     return Json(new { code = 400 });
                 }
 
-                var resAddress = await _context.Addresses
-                    .Include(a => a.UserProfile)
-                    .FirstOrDefaultAsync(a => a.UserProfile.Id == resProfile.Id);
-                if (resAddress is null)
-                {
-                    resAddress.UserProfile = resProfile;
+                Address address = new();
+                City newCity = new();
 
-                    _context.Addresses.Add(resAddress);
+                var country = await _context.Countries.FirstOrDefaultAsync(c => c.Title.Equals(user.Country));
+                if (country is not null)
+                {
+                    address.CountryId = country.Id;
+                }
+                var city = await _context.Cities.FirstOrDefaultAsync(c => c.Title.Equals(user.City));
+                if (city is not null)
+                {
+                    address.CityId = city.Id;
                 }
                 else
                 {
-                    resAddress = user.Address;
+                    newCity.Title = user.City;
+                    newCity.CountryId = country.Id;
+
+                    address.City = newCity;
+
+                    _context.Cities.Add(newCity);
+                }
+
+                var resAddress = await _context.Addresses
+                    .Include(a => a.UserProfile)
+                    .Include(a => a.Country)
+                    .Include(a => a.City)
+                    .FirstOrDefaultAsync(a => a.UserProfile.Id == resProfile.Id);
+                if (resAddress is null)
+                {
+                    address.AddressText = user.AddressText;
+                    address.ZipCode = user.ZipCode;
+                    address.UserProfile = resProfile;
+
+                    _context.Addresses.Add(address);
+                }
+                else
+                {
+                    resAddress.AddressText = user.AddressText;
+                    resAddress.ZipCode = user.ZipCode;
+                    if (country is not null)
+                    {
+                        resAddress.CountryId = country.Id;
+                    }
+                    if (city is not null)
+                    {
+                        resAddress.CityId = city.Id;
+                    }
+                    else
+                    {
+                        resAddress.City = newCity;
+                    }
 
                     _context.Addresses.Update(resAddress);
                 }
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resAddress,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -592,12 +656,12 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("editlanguage")]
         [HttpPut]
-        public async Task<IActionResult> EditLanguage([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditLanguage([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
-                if (user is null                             ||
-                    string.IsNullOrWhiteSpace(user.Language) ||
+                if (user is null        ||
+                    user.LanguageId < 1 ||
                     string.IsNullOrWhiteSpace(user.Email))
                 {
                     return Json(new { code = 400 });
@@ -605,14 +669,13 @@ namespace CloneBookingAPI.Controllers.UserData
 
                 var resProfile = await _context.UserProfiles
                     .Include(p => p.User)
-                    .Include(p => p.Language)
                     .FirstOrDefaultAsync(p => p.User.Email.Equals(user.Email));
                 if (resProfile is null)
                 {
                     return Json(new { code = 400 });
                 }
 
-                var resLanguage = await _context.Languages.FirstOrDefaultAsync(l => l.Title.Equals(user.Language));
+                var resLanguage = await _context.Languages.FirstOrDefaultAsync(l => l.Id == user.LanguageId);
                 if (resLanguage is null)
                 {
                     return Json(new { code = 400 });
@@ -623,7 +686,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.UserProfiles.Update(resProfile);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resProfile,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -653,26 +719,26 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("editcurrency")]
         [HttpPut]
-        public async Task<IActionResult> EditCurrency([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> EditCurrency([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
-                if (user is null || user.Currency is null)
+                if (user is null || 
+                    user.Currency is null ||
+                    string.IsNullOrWhiteSpace(user.Email))
                 {
                     return Json(new { code = 400 });
                 }
 
                 var resProfile = await _context.UserProfiles
                     .Include(p => p.User)
-                    .Include(p => p.Currency)
                     .FirstOrDefaultAsync(p => p.User.Email.Equals(user.Email));
                 if (resProfile is null)
                 {
                     return Json(new { code = 400 });
                 }
 
-                var resCurrency = await _context.Currencies.FirstOrDefaultAsync(c => c.Abbreviation.Equals(user.Currency.Abbreviation) &&
-                                                                                     c.Value.Equals(user.Currency.Value));
+                var resCurrency = await _context.Currencies.FirstOrDefaultAsync(c => c.Abbreviation.Equals(user.Currency));
                 if (resCurrency is null)
                 {
                     return Json(new { code = 400 });
@@ -683,7 +749,10 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.UserProfiles.Update(resProfile);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    resProfile,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {

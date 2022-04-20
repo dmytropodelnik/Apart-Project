@@ -1,4 +1,5 @@
 ﻿using CloneBookingAPI.Enums;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Interfaces;
 using CloneBookingAPI.ViewModels;

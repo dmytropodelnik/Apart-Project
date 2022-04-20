@@ -5,6 +5,7 @@ using CloneBookingAPI.Services.Generators;
 using CloneBookingAPI.Services.Helpers;
 using CloneBookingAPI.Services.POCOs;
 using CloneBookingAPI.Services.Repositories;
+using CloneBookingAPI.Services.Timers;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
@@ -24,21 +26,41 @@ namespace CloneBookingAPI.Controllers
     {
         private readonly ApartProjectDbContext _context;
         private readonly SaltGenerator _saltGenerator;
-        private readonly JwtRepository _repository;
+        private readonly JwtRepository _jwtRepository;
+        private readonly RegistrationCodesRepository _registrationRepository;
+        private readonly EnterCodesRepository _enterRepository;
+        private readonly ResetPasswordCodesRepository _resetPasswordRepository;
+        private readonly ChangingEmailCodesRepository _changingEmailRepository;
+        private readonly DeleteUserCodesRepository _deleteUserRepository;
+        private readonly JwtCodeCleaner _jwtCodeCleaner;
+
+        private BaseRepository _repository = null;
 
         public IdentityController(
             ApartProjectDbContext context,
             SaltGenerator saltGenerator,
-            JwtRepository repository)
+            JwtRepository jwtRepository,
+            RegistrationCodesRepository registrationRepository,
+            EnterCodesRepository enterRepository,
+            ResetPasswordCodesRepository resetPasswordRepository,
+            ChangingEmailCodesRepository changingEmailRepository,
+            DeleteUserCodesRepository deleteUserRepository,
+            JwtCodeCleaner jwtCodeCleaner)
         {
             _context = context;
             _saltGenerator = saltGenerator;
-            _repository = repository;
+            _jwtRepository = jwtRepository;
+            _registrationRepository = registrationRepository;
+            _enterRepository = enterRepository;
+            _resetPasswordRepository = resetPasswordRepository;
+            _changingEmailRepository = changingEmailRepository;
+            _deleteUserRepository = deleteUserRepository;
+            _jwtCodeCleaner = jwtCodeCleaner;
         }
 
         [Route("token")]
         [HttpPost]
-        public async Task<IActionResult> Token([FromBody] User user)
+        public async Task<IActionResult> Token([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -47,7 +69,26 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                var claims = await GetIdentity(user.Email, user.PasswordHash);
+                if (!string.IsNullOrWhiteSpace(user.Code) &&
+                    string.IsNullOrWhiteSpace(user.Password))
+                {
+                   
+                    var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(user.Email));
+                    if (resUser is null)
+                    {
+                        return Json(new { code = 400 });
+                    }
+
+                    user.Password = resUser.PasswordHash;
+
+                    bool res = VerifyUser(user);
+                    if (!res)
+                    {
+                        return Json(new { code = 400 });
+                    }
+                }
+
+                var claims = await GetIdentity(user.Email, user.Password);
                 if (claims is null)
                 {
                     return Unauthorized();
@@ -68,17 +109,22 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                // _repository.Repository.Add(KeyValuePair.Create(user.Email, encodedJwt));
-                if (_repository.Repository.ContainsKey(user.Email))
+                if (_jwtRepository.Repository.ContainsKey(user.Email))
                 {
-                    _repository.Repository[user.Email].Add(encodedJwt);
+                    _jwtRepository.Repository[user.Email].Add(encodedJwt);
                 }
                 else
                 {
-                    _repository.Repository.Add(user.Email, new List<string> { encodedJwt });
+                    _jwtRepository.Repository.Add(user.Email, new List<string> { encodedJwt });
                 }
 
-                return Json(encodedJwt);
+                new JwtCodeCleanTimer(_jwtRepository).SetTimer((key: user.Email, code: encodedJwt));
+
+                return Json(new { 
+                    code = 200,
+                    encodedJwt,
+                    user.Email,
+                });
             }
             catch (ArgumentNullException ex)
             {
@@ -158,6 +204,88 @@ namespace CloneBookingAPI.Controllers
                 Debug.WriteLine(ex.Message);
 
                 return null;
+            }
+        }
+
+        private bool VerifyUser(CloneBookingAPI.Services.POCOs.PocoData user)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(user.Code) || string.IsNullOrWhiteSpace(user.Email))
+                {
+                    return false;
+                }
+
+                SetRepository(user);
+
+                if (_repository is null)
+                {
+                    return false;
+                }
+
+                bool res = _repository.IsValueCorrect(user.Email, user.Code);
+                if (res is false)
+                {
+                    return false;
+                }
+
+                if (user.IsToDeleteCode)
+                {
+                    if (_repository.Repository.ContainsKey(user.Email))
+                    {
+                        _repository.Repository[user.Email].Remove(user.Code);
+
+                        if (_repository.Repository[user.Email].Count == 0)
+                        {
+                            _repository.Repository.Remove(user.Email);
+                        }
+                    }
+                }
+
+                return true;
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return false;
+            }
+        }
+        void SetRepository(CloneBookingAPI.Services.POCOs.PocoData user)
+        {
+            switch (user.Repository)
+            {
+                case Enums.RepositoryEnum.Registration:
+
+                    _repository = _registrationRepository;
+
+                    break;
+                case Enums.RepositoryEnum.Enter:
+
+                    _repository = _enterRepository;
+
+                    break;
+                case Enums.RepositoryEnum.ResetPassword:
+
+                    _repository = _resetPasswordRepository;
+
+                    break;
+                case Enums.RepositoryEnum.ChangingEmail:
+
+                    _repository = _changingEmailRepository;
+
+                    break;
+                case Enums.RepositoryEnum.UserDeletion:
+
+                    _repository = _deleteUserRepository;
+
+                    break;
             }
         }
     }

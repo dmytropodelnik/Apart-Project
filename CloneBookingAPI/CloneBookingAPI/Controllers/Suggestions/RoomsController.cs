@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Suggestions
@@ -23,14 +24,27 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
         [Route("getrooms")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Room>>> GetRooms()
+        public async Task<ActionResult<IEnumerable<Room>>> GetRooms(int page = -1, int pageSize = -1)
         {
             try
             {
-                var rooms = await _context.Rooms
+                List<Room> rooms = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    rooms = await _context.Rooms
                     .Include(r => r.RoomType)
                     .Include(r => r.Facilities)
                     .ToListAsync();
+                }
+                else
+                {
+                    await _context.Rooms
+                    .Include(r => r.RoomType)
+                    .Include(r => r.Facilities)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                }
 
                 return Json(new { code = 200, rooms });
             }

@@ -1,6 +1,7 @@
 ﻿using CloneBookingAPI.Enums;
 using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
+using System;
 using System.Collections.Generic;
 
 namespace CloneBookingAPI.ViewModels
@@ -11,6 +12,7 @@ namespace CloneBookingAPI.ViewModels
         public List<FilterViewModel> Filters { get; set; }
 
         public Address Address { get; set; }
+        public string Place { get; set; }
 
         public SortState SortOrder { get; set; }
 
@@ -21,9 +23,9 @@ namespace CloneBookingAPI.ViewModels
         public string DateIn { get; set; }
         public string DateOut { get; set; }
 
-        public uint AdultsAmount { get; set; }
-        public uint ChildrenAmount { get; set; }
-        public uint RoomsAmount { get; set; }
-        public uint GuestsAmount { get; set; }
+        public int SearchAdultsAmount { get; set; }
+        public int SearchChildrenAmount { get; set; }
+        public int SearchRoomsAmount { get; set; }
+        public int GuestsAmount { get; set; }
     }
 }

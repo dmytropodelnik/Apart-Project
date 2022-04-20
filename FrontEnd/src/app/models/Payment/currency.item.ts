@@ -1,5 +1,5 @@
 export class Currency {
-  id: number | null = null;
+  id: number = -1;
   value: string = '';
   abbreviation: string = '';
   bankCode: string = '';

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SuggestionRule } from 'src/app/models/Suggestions/suggestionrule.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -16,7 +17,14 @@ export class SuggestionRulesListComponent implements OnInit {
   searchRule: string = '';
   checkedRule: number | null = null;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   search(): void {
     fetch('https://localhost:44381/api/suggestionrules/search?rule=' + this.searchRule, {
@@ -129,13 +137,39 @@ export class SuggestionRulesListComponent implements OnInit {
   }
 
   getRules(): void {
-    fetch('https://localhost:44381/api/suggestionrules/getrules', {
+    fetch(`https://localhost:44381/api/suggestionrules/getrules?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.rules = data.rules;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+
+  collectElements(rules: SuggestionRule[]): void {
+    for (let item of rules) {
+      this.rules?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/suggestionrules/getrules?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.rules);
         } else {
           alert('Fetch error!');
         }

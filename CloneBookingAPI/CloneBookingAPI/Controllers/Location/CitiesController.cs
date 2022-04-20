@@ -27,14 +27,27 @@ namespace CloneBookingAPI.Controllers
 
         [Route("getcities")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<City>>> GetCities()
+        public async Task<ActionResult<IEnumerable<City>>> GetCities(int page = -1, int pageSize = -1)
         {
             try
             {
-                var cities = await _context.Cities
+                List<City> cities = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    cities = await _context.Cities
                     .Include(c => c.Country)
                     .Include(c => c.Image)
                     .ToListAsync();
+                }
+                else
+                {
+                    cities = await _context.Cities
+                    .Include(c => c.Country)
+                    .Include(c => c.Image)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                }
 
                 return Json(new { code = 200, cities });
             }
@@ -60,11 +73,11 @@ namespace CloneBookingAPI.Controllers
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<City>>> Search(string city)
+        public async Task<ActionResult<IEnumerable<City>>> Search(string city, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(city))
+                if (string.IsNullOrWhiteSpace(city) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.Cities
                         .Include(c => c.Country)
@@ -75,10 +88,10 @@ namespace CloneBookingAPI.Controllers
                 }
 
                 var cities = await _context.Cities
-                    .Include(c => c.Country)
-                    .Include(c => c.Image)
                     .Where(c => c.Country.Title.Contains(city) ||
                                 c.Title.Contains(city))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, cities });

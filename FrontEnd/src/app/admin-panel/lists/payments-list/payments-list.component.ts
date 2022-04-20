@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Payment } from 'src/app/models/Payment/payment.item';
 import { PaymentType } from 'src/app/models/Payment/paymenttype.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -16,7 +17,14 @@ export class PaymentsListComponent implements OnInit {
   payment: PaymentType | null = null;
   checkedPayment: number | null = null;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   addPayment(): void {
     let payment = {
@@ -107,13 +115,38 @@ export class PaymentsListComponent implements OnInit {
   }
 
   getPayments(): void {
-    fetch('https://localhost:44381/api/payments/getpayments', {
+    fetch(`https://localhost:44381/api/payments/getpayments?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.payments = data.payments;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(payments: Payment[]): void {
+    for (let item of payments) {
+      this.payments?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/payments/getpayments?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.payments);
         } else {
           alert('Fetch error!');
         }

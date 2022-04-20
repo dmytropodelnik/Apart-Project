@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Address } from 'src/app/models/Location/address.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -16,7 +17,14 @@ export class AddressesListComponent implements OnInit {
   searchAddress: string = '';
   checkedAddress: number | null = null;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 10;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   search(): void {
     fetch('https://localhost:44381/api/addresses/search?address=' + this.searchAddress, {
@@ -129,13 +137,38 @@ export class AddressesListComponent implements OnInit {
   }
 
   getAddresses(): void {
-    fetch('https://localhost:44381/api/addresses/getaddresses', {
+    fetch(`https://localhost:44381/api/addresses/getaddresses?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.addresses = data.addresses;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(addresses: Address[]): void {
+    for (let item of addresses) {
+      this.addresses?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/addresses/getaddresses?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.addresses);
         } else {
           alert('Fetch error!');
         }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Language } from 'src/app/models/language.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -15,7 +16,14 @@ export class LanguagesListComponent implements OnInit {
   searchLang: string = '';
   checkedLang: number | null = null;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   search(): void {
     fetch('https://localhost:44381/api/languages/search?lang=' + this.searchLang, {
@@ -128,6 +136,31 @@ export class LanguagesListComponent implements OnInit {
       });
   }
 
+  collectElements(languages: Language[]): void {
+    for (let item of languages) {
+      this.languages?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/languages/getlanguages?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.languages);
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
   setLang(id: number | null, lang: string): void {
     this.checkedLang = id;
     this.lang = lang;
@@ -137,7 +170,7 @@ export class LanguagesListComponent implements OnInit {
   }
 
   getLangs(): void {
-    fetch('https://localhost:44381/api/languages/getlanguages', {
+    fetch(`https://localhost:44381/api/languages/getlanguages?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

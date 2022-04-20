@@ -1,5 +1,5 @@
 export class Country {
-  id: number | null = null;
+  id: number = -1;
   title: string = '';
   image: File | null = null;
 

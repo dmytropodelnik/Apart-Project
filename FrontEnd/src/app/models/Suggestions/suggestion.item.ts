@@ -50,7 +50,7 @@ export class Suggestion {
   suggestionRules: SuggestionRule[] | null = null;
   surroundingObjects: SurroundingObject[] | null = null;
 
-  images: FileModel[] | null = null;
+  images: FileModel[] = [];
 
   constructor () {
 

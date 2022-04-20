@@ -24,11 +24,22 @@ namespace CloneBookingAPI.Controllers
 
         [Route("getlanguages")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Language>>> GetLanguages()
+        public async Task<ActionResult<IEnumerable<Language>>> GetLanguages(int page = -1, int pageSize = -1)
         {
             try
             {
-                var languages = await _context.Languages.ToListAsync();
+                List<Language> languages = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    languages = await _context.Languages.ToListAsync();
+                }
+                else
+                {
+                    languages = await _context.Languages
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                }
 
                 return Json(new { code = 200, languages });
             }
@@ -54,11 +65,11 @@ namespace CloneBookingAPI.Controllers
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Language>>> Search(string lang)
+        public async Task<ActionResult<IEnumerable<Language>>> Search(string lang, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(lang))
+                if (string.IsNullOrWhiteSpace(lang) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.Languages.ToListAsync();
 
@@ -67,6 +78,8 @@ namespace CloneBookingAPI.Controllers
 
                 var languages = await _context.Languages
                     .Where(l => l.Title.Contains(lang))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, languages });

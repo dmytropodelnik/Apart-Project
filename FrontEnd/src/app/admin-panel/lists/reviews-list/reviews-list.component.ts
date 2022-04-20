@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Review } from 'src/app/models/Review/review.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 
 import AuthHelper from '../../../utils/authHelper';
@@ -19,7 +20,14 @@ export class ReviewsListComponent implements OnInit {
   isEditEnabled: boolean = true;
   isDeleteEnabled: boolean = true;
 
-  constructor() { }
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   addReview(): void {
     let review = {
@@ -110,13 +118,38 @@ export class ReviewsListComponent implements OnInit {
   }
 
   getReviews(): void {
-    fetch('https://localhost:44381/api/reviews/getreviews', {
+    fetch(`https://localhost:44381/api/reviews/getreviews?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.reviews = data.reviews;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(reviews: Review[]): void {
+    for (let item of reviews) {
+      this.reviews?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/reviews/getreviews?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.reviews);
         } else {
           alert('Fetch error!');
         }

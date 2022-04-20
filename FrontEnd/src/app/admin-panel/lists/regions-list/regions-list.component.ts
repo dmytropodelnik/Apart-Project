@@ -4,6 +4,7 @@ import { Region } from 'src/app/models/Location/region.item';
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
 import ImageHelper from '../../../utils/imageHelper';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 @Component({
   selector: 'app-regions-list',
@@ -18,7 +19,14 @@ export class RegionsListComponent implements OnInit {
   checkedRegion: number | null = null;
   imageHelper: any = ImageHelper;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   search(): void {
     fetch('https://localhost:44381/api/regions/search?region=' + this.searchRegion, {
@@ -47,7 +55,7 @@ export class RegionsListComponent implements OnInit {
       name: this.region,
     };
 
-    fetch('https://localhost:44381/api/roles/addrole', {
+    fetch('https://localhost:44381/api/regions/addregion', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -106,7 +114,7 @@ export class RegionsListComponent implements OnInit {
       name: this.region,
     };
 
-    fetch('https://localhost:44381/api/roles/deleterole', {
+    fetch('https://localhost:44381/api/regions/deleteregion', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -131,13 +139,38 @@ export class RegionsListComponent implements OnInit {
   }
 
   getRegions(): void {
-    fetch('https://localhost:44381/api/regions/getregions', {
+    fetch(`https://localhost:44381/api/regions/getregions?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.regions = data.regions;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(regions: Region[]): void {
+    for (let item of regions) {
+      this.regions?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/regions/getregions?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.regions);
         } else {
           alert('Fetch error!');
         }

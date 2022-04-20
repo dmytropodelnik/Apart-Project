@@ -1,5 +1,7 @@
-﻿using CloneBookingAPI.Services.Database.Models.Suggestions;
+﻿using CloneBookingAPI.Services.Database;
+using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -9,7 +11,6 @@ namespace CloneBookingAPI.Services.Searching.Filtering
     public class RoomTypesFilter : IFilter
     {
         private string _value;
-
         private string _filter;
 
         public string Filter
@@ -37,8 +38,9 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                 }
 
                 suggestions = suggestions
-                    .Where(s => s.RoomTypes
-                                    .Any(f => f.Title.Equals(_value)));
+                    .Where(s => s.Apartments
+                        .All(a => a.RoomTypes
+                                    .Any(f => f.Title.Equals(_value))));
 
                 return suggestions;
             }

@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -24,11 +25,22 @@ namespace CloneBookingAPI.Controllers.Payment
 
         [Route("getprices")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<BookingPrice>>> GetPrices()
+        public async Task<ActionResult<IEnumerable<BookingPrice>>> GetPrices(int page = -1, int pageSize = -1)
         {
             try
             {
-                var prices = await _context.BookingPrices.ToListAsync();
+                List<BookingPrice> prices = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    prices = await _context.BookingPrices.ToListAsync();
+                }
+                else
+                {
+                    prices = await _context.BookingPrices
+                       .Skip((page - 1) * pageSize)
+                       .Take(pageSize)
+                       .ToListAsync();
+                }
 
                 return Json(new { code = 200, prices });
             }

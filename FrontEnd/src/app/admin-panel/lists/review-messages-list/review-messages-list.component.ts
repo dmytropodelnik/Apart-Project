@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReviewMessage } from 'src/app/models/Review/reviewmessage.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -15,7 +16,14 @@ export class ReviewMessagesListComponent implements OnInit {
   message: ReviewMessage | null = null;
   checkedMessage: number | null = null;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   addMessage(): void {
     let message = {
@@ -106,13 +114,38 @@ export class ReviewMessagesListComponent implements OnInit {
   }
 
   getMessages(): void {
-    fetch('https://localhost:44381/api/reviewmessages/getmessages', {
+    fetch(`https://localhost:44381/api/reviewmessages/getmessages?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.reviewMessages = data.messages;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(messages: ReviewMessage[]): void {
+    for (let item of messages) {
+      this.reviewMessages?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/reviewmessages/getmessages?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.messages);
         } else {
           alert('Fetch error!');
         }

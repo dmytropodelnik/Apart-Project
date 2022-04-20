@@ -9,12 +9,16 @@ export class ManageAccountContentComponent implements OnInit {
   @Input() content: string | undefined;
 
   constructor() {
-    this.content = 'users';
+    this.content = 'personal-details';
   }
 
   setContent(newContent: string) {
     this.content = newContent;
   }
+
+  onChangedEmail(setting: string){
+    this.content = setting;
+}
 
   ngOnInit(): void {}
 }

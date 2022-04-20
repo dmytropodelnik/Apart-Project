@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SurroundingObjectType } from 'src/app/models/Suggestions/surroundingobjecttype.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -16,7 +17,14 @@ export class SurroundingObjectTypesListComponent implements OnInit {
   searchType: string = '';
   checkedType: number | null = null;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   search(): void {
     fetch('https://localhost:44381/api/surroundingobjecttypes/search?type=' + this.searchType, {
@@ -129,13 +137,38 @@ export class SurroundingObjectTypesListComponent implements OnInit {
   }
 
   getTypes(): void {
-    fetch('https://localhost:44381/api/surroundingobjecttypes/gettypes', {
+    fetch(`https://localhost:44381/api/surroundingobjecttypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.types = data.types;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(types: SurroundingObjectType[]): void {
+    for (let item of types) {
+      this.types?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/surroundingobjecttypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.types);
         } else {
           alert('Fetch error!');
         }

@@ -1,5 +1,7 @@
-﻿using CloneBookingAPI.Services.Database.Models.Suggestions;
+﻿using CloneBookingAPI.Services.Database;
+using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
 using System.Linq;

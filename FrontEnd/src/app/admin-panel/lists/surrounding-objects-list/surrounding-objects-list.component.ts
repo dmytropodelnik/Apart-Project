@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SurroundingObject } from 'src/app/models/Suggestions/surroundingobject.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -15,7 +16,14 @@ export class SurroundingObjectsListComponent implements OnInit {
   object: string | null = null;
   checkedObject: number | null = null;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   addObject(): void {
     let object = {
@@ -106,13 +114,38 @@ export class SurroundingObjectsListComponent implements OnInit {
   }
 
   getObjects(): void {
-    fetch('https://localhost:44381/api/surroundingobjects/getobjects', {
+    fetch(`https://localhost:44381/api/surroundingobjects/getobjects?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.objects = data.objects;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(objects: SurroundingObject[]): void {
+    for (let item of objects) {
+      this.objects?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/surroundingobjects/getobjects?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.objects);
         } else {
           alert('Fetch error!');
         }

@@ -31,11 +31,22 @@ namespace CloneBookingAPI.Controllers
 
         [Route("getimages")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FileModel>>> GetFiles()
+        public async Task<ActionResult<IEnumerable<FileModel>>> GetFiles(int page = -1, int pageSize = -1)
         {
             try
             {
-                var files = await _context.Files.ToListAsync();
+                List<FileModel> files = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    files = await _context.Files.ToListAsync();
+                }
+                else
+                {
+                    files = await _context.Files
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                }
 
                 return Json(new { code = 200, files });
             }
@@ -61,11 +72,11 @@ namespace CloneBookingAPI.Controllers
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FileModel>>> Search(string file)
+        public async Task<ActionResult<IEnumerable<FileModel>>> Search(string file, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(file))
+                if (string.IsNullOrWhiteSpace(file) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.Files.ToListAsync();
 
@@ -74,6 +85,8 @@ namespace CloneBookingAPI.Controllers
 
                 var files = await _context.Files
                     .Where(f => f.Name.Contains(file))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, files });

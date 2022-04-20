@@ -2,13 +2,17 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BookingCategory } from '../models/bookingcategory.item';
 import { City } from '../models/Location/city.item';
 import { Suggestion } from '../models/Suggestions/suggestion.item';
+import { SearchViewModel } from '../view-models/searchviewmodel.item';
 
 import { Router } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 
 import { MainDataService } from '../services/main-data.service';
 
+import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
 import MathHelper from '../utils/mathHelper';
+import { SortState } from '../enums/sortstate.item';
 
 @Component({
   selector: 'app-home',
@@ -18,21 +22,23 @@ import MathHelper from '../utils/mathHelper';
 export class HomeComponent implements OnInit, OnDestroy {
   card = [{ card: 1 }, { card: 1 }, { card: 1 }, { card: 1 }, { card: 1 }];
 
-  displayMonths = 2;
+  displayMonths = 1;
   navigation = 'arrows';
   showWeekNumbers = false;
   outsideDays = 'hidden';
   imageHelper: any = ImageHelper;
   mathHelper: any = MathHelper;
 
+  citySuggestionsLength: number[] = [];
+
   bookingCategories: BookingCategory[] | undefined;
   imagePath: string = '123';
   cities: City[] | undefined;
   citySuggestions: any;
   suggestions: any;
-  footerCities: any;
-  placesOfInterestSuggestions: any;
-  placesOfInterests: any;
+  footerCities: string[] = [];
+  countriesSuggestions: number[] = [];
+  countries: string[] = [];
   regionsSuggestions: any;
   regions: any;
 
@@ -40,9 +46,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   recommendedCities: any;
 
   homeGuestsSuggestions: any;
+  suggestionStartsFrom: any[] = [];
   resSuggestion: any;
   reviewsCount: any;
   suggestionGrades: any;
+
+  searchViewModel: SearchViewModel = new SearchViewModel();
+
   slides = [
     { text: 'Educational Consulting', img: 'assets/images/21.png' },
     { text: 'University and Higher Education', img: 'assets/images/21.png' },
@@ -116,6 +126,27 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     }
 
+  setChildren(value: number): void {
+    if (this.searchViewModel.searchChildrenAmount + value < 0) {
+      return;
+    }
+    this.searchViewModel.searchChildrenAmount += value;
+  }
+
+  setAdults(value: number): void {
+    if (this.searchViewModel.searchAdultsAmount + value < 1) {
+      return;
+    }
+    this.searchViewModel.searchAdultsAmount += value;
+  }
+
+  setRooms(value: number): void {
+    if (this.searchViewModel.searchRoomsAmount + value < 1) {
+      return;
+    }
+    this.searchViewModel.searchRoomsAmount += value;
+  }
+
   getRecommendedDestData(): void {
     fetch(`https://localhost:44381/api/stayspage/getrecommendeddestdata`, {
       method: 'GET',
@@ -170,15 +201,15 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  getInterestPlacesData(): void {
+  getCountriesData(): void {
     fetch('https://localhost:44381/api/stayspage/getinterestplacesdata', {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
-          this.placesOfInterestSuggestions = r.placesOfInterestSuggestions;
-          this.placesOfInterests = r.placesOfInterests;
+          this.countriesSuggestions = r.countriesSuggestions;
+          this.countries = r.countries;
         } else {
           alert('Data fetching error!');
         }
@@ -196,7 +227,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .then((r) => {
         if (r.code === 200) {
           this.cities = r.cities;
-          this.citySuggestions = r.citySuggestions;
+          this.citySuggestionsLength = r.citySuggestionsLength;
           this.footerCities = r.footerCities;
         } else {
           alert('Data fetching error!');
@@ -215,8 +246,11 @@ export class HomeComponent implements OnInit, OnDestroy {
       .then((data) => {
         if (data.code === 200) {
           this.homeGuestsSuggestions = data.resSuggestion;
+          this.suggestionStartsFrom = data.suggestionStartsFrom;
           this.reviewsCount = data.reviewsCount;
           this.suggestionGrades = data.suggestionGrades;
+
+          console.log(this.suggestionStartsFrom);
         }
       })
       .catch((ex) => {
@@ -224,28 +258,37 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  searchSuggestions(): void {
-    fetch(`https://localhost:44381/api/stayspage/search`, {
-      method: 'GET',
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.code === 200) {
-          this.homeGuestsSuggestions = data.resSuggestion;
-          this.reviewsCount = data.reviewsCount;
+  searchSuggestions($event : any): void {
+    $event.stopPropagation();
 
-          // this.router.navigate(['']);
-        }
-      })
-      .catch((ex) => {
-        alert(ex);
-      });
+    this.searchViewModel.sortOrder = SortState.TopReviewed;
+    console.log(this.searchViewModel);
+
+    let dateIn, dateOut;
+
+    if (this.searchViewModel.pdateIn && this.searchViewModel.pdateOut) {
+      dateIn = this.searchViewModel.pdateIn!.day + '/' + this.searchViewModel.pdateIn!.month + '/' +
+               this.searchViewModel.pdateIn!.year;
+      dateOut = this.searchViewModel.pdateOut!.day + '/' + this.searchViewModel.pdateOut!.month + '/' +
+                this.searchViewModel.pdateOut!.year;
+    }
+
+    this.router.navigate(['/searchresults'], {
+      queryParams: {
+        place: this.searchViewModel.place,
+        dateIn: dateIn,
+        dateOut: dateOut,
+        adults: this.searchViewModel.searchAdultsAmount,
+        children: this.searchViewModel.searchChildrenAmount,
+        rooms: this.searchViewModel.searchRoomsAmount,
+      }
+    });
   }
 
   ngOnInit(): void {
     this.getCategoriesData();
     this.getRegionsData();
-    this.getInterestPlacesData();
+    this.getCountriesData();
     this.getCitiesData();
     this.getRecommendedDestData();
     this.getGuestsLoveData();

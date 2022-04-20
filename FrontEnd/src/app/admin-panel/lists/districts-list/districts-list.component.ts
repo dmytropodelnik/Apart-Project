@@ -4,6 +4,7 @@ import { District } from 'src/app/models/Location/district.item';
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
 import ImageHelper from '../../../utils/imageHelper';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 @Component({
   selector: 'app-districts-list',
@@ -18,7 +19,14 @@ export class DistrictsListComponent implements OnInit {
   checkedDistrict: number | null = null;
   imageHelper: any = ImageHelper;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   search(): void {
     fetch('https://localhost:44381/api/districts/search?district=' + this.searchDistrict, {
@@ -131,13 +139,38 @@ export class DistrictsListComponent implements OnInit {
   }
 
   getDistricts(): void {
-    fetch('https://localhost:44381/api/districts/getdistricts', {
+    fetch(`https://localhost:44381/api/districts/getdistricts?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.districts = data.districts;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(districts: District[]): void {
+    for (let item of districts) {
+      this.districts?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/districts/getdistricts?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.districts);
         } else {
           alert('Fetch error!');
         }

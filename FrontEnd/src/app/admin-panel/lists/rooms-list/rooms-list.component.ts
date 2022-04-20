@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Room } from 'src/app/models/Suggestions/room.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -19,7 +20,14 @@ export class RoomsListComponent implements OnInit {
   isEditEnabled: boolean = true;
   isDeleteEnabled: boolean = true;
 
-  constructor() { }
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   search(): void {
     fetch('https://localhost:44381/api/rooms/search?room=' + this.searchRoom, {
@@ -132,13 +140,38 @@ export class RoomsListComponent implements OnInit {
   }
 
   getRooms(): void {
-    fetch('https://localhost:44381/api/rooms/getrooms', {
+    fetch(`https://localhost:44381/api/rooms/getrooms?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.rooms = data.rooms;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(rooms: Room[]): void {
+    for (let item of rooms) {
+      this.rooms?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/rooms/getrooms?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.rooms);
         } else {
           alert('Fetch error!');
         }

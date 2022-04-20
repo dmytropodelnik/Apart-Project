@@ -7,10 +7,11 @@ import { User } from "./user.item";
 
 export class UserProfile {
   id: number | null = null;
+  nationality: string = '';
   birthDate: string | null = null;
   registerDate: string | null = null;;
-  gender: Gender | null = null;
-  address: Address | null = null;
+  gender: Gender = new Gender();
+  address: Address = new Address();
   currency: Currency | null = null;
   language: Language | null = null;
   user: User | null = null;

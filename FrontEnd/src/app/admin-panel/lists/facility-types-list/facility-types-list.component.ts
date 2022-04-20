@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FacilityType } from 'src/app/models/facilitytype.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -16,7 +17,12 @@ export class FacilityTypesListComponent implements OnInit {
   searchType: string = '';
   checkedType: number | null = null;
 
-  constructor() {
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
     this.type = new FacilityType();
   }
 
@@ -131,13 +137,38 @@ export class FacilityTypesListComponent implements OnInit {
   }
 
   getTypes(): void {
-    fetch('https://localhost:44381/api/facilitytypes/gettypes', {
+    fetch(`https://localhost:44381/api/facilitytypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.types = data.types;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(types: FacilityType[]): void {
+    for (let item of types) {
+      this.types?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/facilitytypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.types);
         } else {
           alert('Fetch error!');
         }

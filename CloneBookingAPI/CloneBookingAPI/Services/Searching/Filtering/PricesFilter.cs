@@ -1,5 +1,7 @@
-﻿using CloneBookingAPI.Services.Database.Models.Suggestions;
+﻿using CloneBookingAPI.Services.Database;
+using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
 using System.Linq;
@@ -37,20 +39,16 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                 var priceRange = _value.Split("-");
                 if (priceRange is null)
                 {
-                    return suggestions;
+                    return null;
                 }
                 if (string.IsNullOrWhiteSpace(priceRange[1]))
                 {
                     priceRange[1] = int.MaxValue.ToString();
                 }
 
-                //suggestions = suggestions
-                //    .Where(s => s.RoomTypes
-                //                    .All(t => t.Rooms
-                //                                .All(r => r.PriceInUSD >= decimal.Parse(priceRange[0]) && r.PriceInUSD <= decimal.Parse(priceRange[1]))));
-
                 suggestions = suggestions
-                     .Where(s => s.PriceInUSD >= decimal.Parse(priceRange[0]) && s.PriceInUSD <= decimal.Parse(priceRange[1]));
+                    .Where(s => s.Apartments
+                        .All(a => a.PriceInUSD >= decimal.Parse(priceRange[0]) && a.PriceInUSD <= decimal.Parse(priceRange[1])));
 
                 return suggestions;
             }

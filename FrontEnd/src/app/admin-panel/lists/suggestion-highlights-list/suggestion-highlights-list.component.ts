@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SuggestionHighlight } from 'src/app/models/Suggestions/suggestionhighlight.item';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -16,7 +17,14 @@ export class SuggestionHighlightsListComponent implements OnInit {
   searchHighlight: string = '';
   checkedHighlight: number | null = null;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   addHighlight(): void {
     let highlight = {
@@ -107,13 +115,38 @@ export class SuggestionHighlightsListComponent implements OnInit {
   }
 
   getHighlights(): void {
-    fetch('https://localhost:44381/api/suggestionhighlights/gethighlights', {
+    fetch(`https://localhost:44381/api/suggestionhighlights/gethighlights?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.highlights = data.highlights;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(highlights: SuggestionHighlight[]): void {
+    for (let item of highlights) {
+      this.highlights?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/suggestionhighlights/gethighlights?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.highlights);
         } else {
           alert('Fetch error!');
         }

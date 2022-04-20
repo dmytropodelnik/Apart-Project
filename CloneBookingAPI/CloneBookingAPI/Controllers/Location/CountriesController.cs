@@ -27,13 +27,27 @@ namespace CloneBookingAPI.Controllers
 
         [Route("getcountries")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Country>>> GetCountries()
+        public async Task<ActionResult<IEnumerable<Country>>> GetCountries(int page = -1, int pageSize = -1)
         {
             try
             {
-                var countries = await _context.Countries
+                List<Country> countries = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    countries = await _context.Countries
                     .Include(c => c.Image)
+                    .OrderBy(c => c.Title)
                     .ToListAsync();
+                }
+                else
+                {
+                    countries = await _context.Countries
+                    .Include(c => c.Image)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .OrderBy(c => c.Title)
+                    .ToListAsync();
+                }
 
                 return Json(new { code = 200, countries });
             }
@@ -59,11 +73,11 @@ namespace CloneBookingAPI.Controllers
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Country>>> Search(string country)
+        public async Task<ActionResult<IEnumerable<Country>>> Search(string country, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(country))
+                if (string.IsNullOrWhiteSpace(country) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.Countries.ToListAsync();
 
@@ -72,6 +86,8 @@ namespace CloneBookingAPI.Controllers
 
                 var countries = await _context.Countries
                     .Where(c => c.Title.Contains(country))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, countries });

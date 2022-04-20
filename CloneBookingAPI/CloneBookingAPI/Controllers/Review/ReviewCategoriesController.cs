@@ -23,13 +23,25 @@ namespace CloneBookingAPI.Controllers.Review
 
         [Route("getcategories")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ReviewCategory>>> GetCategories()
+        public async Task<ActionResult<IEnumerable<ReviewCategory>>> GetCategories(int page = -1, int pageSize = -1)
         {
             try
             {
-                var categories = await _context.ReviewCategories
-                    .Include(c => c.Suggestion)
+                List<ReviewCategory> categories = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    categories = await _context.ReviewCategories
+                    //.Include(c => c.Suggestion)
                     .ToListAsync();
+                }
+                else
+                {
+                    categories = await _context.ReviewCategories
+                    //.Include(c => c.Suggestion)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                }
 
                 return Json(new { code = 200, categories });
             }
@@ -55,11 +67,11 @@ namespace CloneBookingAPI.Controllers.Review
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ReviewCategory>>> Search(string category)
+        public async Task<ActionResult<IEnumerable<ReviewCategory>>> Search(string category, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(category))
+                if (string.IsNullOrWhiteSpace(category) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.ReviewCategories.ToListAsync();
 
@@ -67,8 +79,10 @@ namespace CloneBookingAPI.Controllers.Review
                 }
 
                 var categories = await _context.ReviewCategories
-                    .Include(c => c.Suggestion)
+                    //.Include(c => c.Suggestion)
                     .Where(c => c.Category.Contains(category))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, categories });

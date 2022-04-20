@@ -24,11 +24,22 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("getusers")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TempUser>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<TempUser>>> GetUsers(int page = -1, int pageSize = -1)
         {
             try
             {
-                var users = await _context.TempUsers.ToListAsync();
+                List<TempUser> users = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    users = await _context.TempUsers.ToListAsync();
+                }
+                else
+                {
+                    users = await _context.TempUsers
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                }
 
                 return Json(new { code = 200, users });
             }
@@ -54,11 +65,11 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TempUser>>> Search(string user)
+        public async Task<ActionResult<IEnumerable<TempUser>>> Search(string user, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(user))
+                if (string.IsNullOrWhiteSpace(user) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.TempUsers.ToListAsync();
 
@@ -70,6 +81,8 @@ namespace CloneBookingAPI.Controllers.UserData
                                 u.LastName.Contains(user) ||
                                 u.Email.Contains(user) ||
                                 u.PhoneNumber.Contains(user))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, users });

@@ -167,7 +167,7 @@ namespace CloneBookingAPI.Controllers.Properties
 
                 var resSuggestion = await _context.Suggestions
                     .Include(s => s.User)
-                    .Include(s => s.Languages)
+                    //.Include(s => s.Languages)
                     .FirstOrDefaultAsync(s => s.User.Email.Equals(suggestion.Login) && s.Id == suggestion.Id);
                 if (resSuggestion is null)
                 {
@@ -491,8 +491,8 @@ namespace CloneBookingAPI.Controllers.Properties
                     return Json(new { code = 400 });
                 }
 
-                resSuggestion.PriceInUSD = suggestion.PriceInUSD;
-                resSuggestion.PriceInUserCurrency = suggestion.PriceInUserCurrency;
+                //resSuggestion.PriceInUSD = suggestion.PriceInUSD;
+                //resSuggestion.PriceInUserCurrency = suggestion.PriceInUserCurrency;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();

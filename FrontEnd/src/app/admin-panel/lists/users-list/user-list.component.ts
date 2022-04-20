@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 import { User } from '../../../models/UserData/user.item';
 
 import AuthHelper from '../../../utils/authHelper';
@@ -17,7 +18,12 @@ export class UserListComponent implements OnInit {
   checkedUser: number | null = null;
   confirmPass: string = '';
 
-  constructor() {
+  page: number = 1;
+  pageSize: number = 10;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
     this.user = new User();
   }
 
@@ -134,7 +140,7 @@ export class UserListComponent implements OnInit {
   }
 
   getUsers(): void {
-    fetch('https://localhost:44381/api/users/getusers', {
+    fetch(`https://localhost:44381/api/users/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -175,6 +181,31 @@ export class UserListComponent implements OnInit {
           }
 
           this.user.role.id = 1;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(users: User[]): void {
+    for (let item of users) {
+      this.users?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/users/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.users);
         } else {
           alert('Fetch error!');
         }

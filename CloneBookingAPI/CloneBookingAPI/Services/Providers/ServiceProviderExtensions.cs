@@ -6,6 +6,7 @@ using CloneBookingAPI.Services.Files;
 using CloneBookingAPI.Services.Generators;
 using CloneBookingAPI.Services.Interfaces;
 using CloneBookingAPI.Services.Repositories;
+using CloneBookingAPI.Services.Timers;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CloneBookingAPI.Services.Providers
@@ -16,9 +17,9 @@ namespace CloneBookingAPI.Services.Providers
         {
             services.AddSingleton<IGenerator, CodeGenerator>();
         }
-        public static void AddCodesRepositoryService(this IServiceCollection services)
+        public static void AddRegistrationCodesRepositoryService(this IServiceCollection services)
         {
-            services.AddSingleton<CodesRepository>();
+            services.AddSingleton<RegistrationCodesRepository>();
         }
         public static void AddJwtRepositoryService(this IServiceCollection services)
         {
@@ -51,6 +52,46 @@ namespace CloneBookingAPI.Services.Providers
         public static void AddPaginatorService(this IServiceCollection services)
         {
             services.AddTransient<SuggestionsPaginator>();
+        }
+        public static void AddResetPasswordCodesRepositoryService(this IServiceCollection services)
+        {
+            services.AddSingleton<ResetPasswordCodesRepository>();
+        }
+        public static void AddChangingEmailCodesRepositoryService(this IServiceCollection services)
+        {
+            services.AddSingleton<ChangingEmailCodesRepository>();
+        }
+        public static void AddEnterCodesRepositoryService(this IServiceCollection services)
+        {
+            services.AddSingleton<EnterCodesRepository>();
+        }
+        public static void AddDeleteUserCodesRepositoryService(this IServiceCollection services)
+        {
+            services.AddSingleton<DeleteUserCodesRepository>();
+        }
+        public static void AddChangingEmailCodeCleanerService(this IServiceCollection services)
+        {
+            services.AddTransient<ChangingEmailCodeCleaner>();
+        }
+        public static void AddDeleteUserCodeCleanerService(this IServiceCollection services)
+        {
+            services.AddTransient<DeleteUserCodeCleaner>();
+        }
+        public static void AddEnterCodeCleanerService(this IServiceCollection services)
+        {
+            services.AddTransient<EnterCodeCleaner>();
+        }
+        public static void AddJwtCodeCleanerService(this IServiceCollection services)
+        {
+            services.AddSingleton<JwtCodeCleaner>();
+        }
+        public static void AddRegistrationCodeCleanerService(this IServiceCollection services)
+        {
+            services.AddTransient<RegistrationCodeCleaner>();
+        }
+        public static void AddResetPasswordCodeCleanerService(this IServiceCollection services)
+        {
+            services.AddTransient<ResetPasswordCodeCleanTimer>();
         }
     }
 }

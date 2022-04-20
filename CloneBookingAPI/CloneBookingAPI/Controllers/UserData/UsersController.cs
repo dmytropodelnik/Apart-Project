@@ -24,18 +24,18 @@ namespace CloneBookingAPI.Controllers
     public class UsersController : Controller
     {
         private readonly ApartProjectDbContext _context;
-        private readonly CodesRepository _codesRepository;
+        private readonly RegistrationCodesRepository _registrationRepository;
         private readonly JwtRepository _jwtRepository;
         private readonly SaltGenerator _saltGenerator;
 
         public UsersController(
             ApartProjectDbContext context,
-            CodesRepository codesRepository,
+            RegistrationCodesRepository registrationRepository,
             SaltGenerator saltGenerator,
             JwtRepository jwtRepository)
         {
             _context = context;
-            _codesRepository = codesRepository;
+            _registrationRepository = registrationRepository;
             _jwtRepository = jwtRepository;
             _saltGenerator = saltGenerator;
         }
@@ -89,14 +89,27 @@ namespace CloneBookingAPI.Controllers
         // [Authorize(Roles = "admin")]
         [Route("getusers")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<User>>> GetUsers(int page = -1, int pageSize = -1)
         {
             try
             {
-                var users = await _context.Users
+                List<User> users = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    users = await _context.Users
                     .Include(u => u.Profile)
                     .Include(u => u.Role)
                     .ToListAsync();
+                }
+                else
+                {
+                    users = await _context.Users
+                        .Include(u => u.Profile)
+                        .Include(u => u.Role)
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                }
 
                 return Json(new { code = 200, users });
             }
@@ -122,11 +135,11 @@ namespace CloneBookingAPI.Controllers
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<User>>> Search(string user)
+        public async Task<ActionResult<IEnumerable<User>>> Search(string user, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(user))
+                if (string.IsNullOrWhiteSpace(user) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.Users
                         .Include(u => u.Profile)
@@ -145,6 +158,8 @@ namespace CloneBookingAPI.Controllers
                                 u.Email.Contains(user) ||
                                 u.PhoneNumber.Contains(user) ||
                                 u.DisplayName.Contains(user))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, users });
@@ -182,13 +197,22 @@ namespace CloneBookingAPI.Controllers
                 }
 
                 var user = await _context.Users
+                    .Include(u => u.Profile)
+                        .ThenInclude(u => u.Address)
+                    .Include(u => u.Profile.Address.Country)
+                    .Include(u => u.Profile.Address.City)
+                    .Include(u => u.Profile.Currency)
+                    .Include(u => u.Profile.Language)
                     .FirstOrDefaultAsync(m => m.Email == email);
                 if (user is null)
                 {
                     return NotFound();
                 }
 
-                return user;
+                return Json(new { 
+                    code = 200,
+                    user,
+                });
             }
             catch (ArgumentNullException ex)
             {
@@ -324,7 +348,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("register")]
         [HttpPost]
-        public async Task<IActionResult> Register([FromBody] CloneBookingAPI.Services.POCOs.UserData person)
+        public async Task<IActionResult> Register([FromBody] CloneBookingAPI.Services.POCOs.PocoData person)
         {
             try
             {
@@ -336,20 +360,19 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                bool res = _codesRepository.IsValueCorrect(person.Email.Trim(), person.VerificationCode.Trim());
+                bool res = _registrationRepository.IsValueCorrect(person.Email.Trim(), person.VerificationCode.Trim());
                 if (res is false)
                 {
                     return Json(new { code = 400 });
                 }
 
-                // _codesRepository.Repository.Remove(KeyValuePair.Create(person.Email.Trim(), person.Password.Trim()));
-                if (_codesRepository.Repository.ContainsKey(person.Email.Trim()))
+                if (_registrationRepository.Repository.ContainsKey(person.Email.Trim()))
                 {
-                    _codesRepository.Repository[person.Email.Trim()].Remove(person.Password.Trim());
+                    _registrationRepository.Repository[person.Email.Trim()].Remove(person.Password.Trim());
 
-                    if (_codesRepository.Repository[person.Email.Trim()].Count == 0)
+                    if (_registrationRepository.Repository[person.Email.Trim()].Count == 0)
                     {
-                        _codesRepository.Repository.Remove(person.Email.Trim());
+                        _registrationRepository.Repository.Remove(person.Email.Trim());
                     }
                 }
 
@@ -427,15 +450,13 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                // _jwtRepository.Repository.Remove(KeyValuePair.Create(model.Username, model.AccessToken));
-
-                if (_codesRepository.Repository.ContainsKey(model.Username))
+                if (_registrationRepository.Repository.ContainsKey(model.Username))
                 {
-                    _codesRepository.Repository[model.Username].Remove(model.AccessToken);
+                    _registrationRepository.Repository[model.Username].Remove(model.AccessToken);
 
-                    if (_codesRepository.Repository[model.Username].Count == 0)
+                    if (_registrationRepository.Repository[model.Username].Count == 0)
                     {
-                        _codesRepository.Repository.Remove(model.Username);
+                        _registrationRepository.Repository.Remove(model.Username);
                     }
                 }
 
@@ -470,22 +491,30 @@ namespace CloneBookingAPI.Controllers
         // [Authorize]
         [Route("deleteuser")]
         [HttpDelete]
-        public async Task<IActionResult> DeleteUser([FromBody] CloneBookingAPI.Services.POCOs.UserData user)
+        public async Task<IActionResult> DeleteUser(string email)
         {
             try
             {
-                if (user is null)
+                if (string.IsNullOrWhiteSpace(email))
                 {
                     return Json(new { code = 400 });
                 }
 
-                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
+                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
                 if (resUser is null)
                 {
                     return Json(new { code = 400 });
                 }
 
+                var resFavorite = await _context.Favorites.FirstOrDefaultAsync(u => u.UserId == resUser.Id);
+                if (resFavorite is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                _context.Favorites.Remove(resFavorite);
                 _context.Users.Remove(resUser);
+
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });

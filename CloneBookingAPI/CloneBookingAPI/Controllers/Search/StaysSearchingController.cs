@@ -40,70 +40,6 @@ namespace CloneBookingAPI.Controllers.Search
             _suggestionsPaginator = suggestionsPaginator;
         }
 
-        [Route("search")]
-        [HttpGet]
-        public async Task<ActionResult> Search([FromBody] SearchViewModel searchObj)
-        {
-            try
-            {
-                if (searchObj is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                string searchCounty = searchObj.Address.Country.Title ?? "";
-                string searchCity = searchObj.Address.City.Title ?? "";
-                string searchAddressText = searchObj.Address.AddressText ?? "";
-
-                var suggestions = await _context.Suggestions
-                        .Include(s => s.Address)
-                        .Include(s => s.StayBookings)
-                        .Include(s => s.RoomTypes)
-                        .Where(s => s.Address.Country.Title.Contains(searchCounty) ||
-                                    s.Address.City.Title.Contains(searchCity) ||
-                                    s.Address.AddressText.Contains(searchAddressText) ||
-                                    searchAddressText.Contains(s.Address.AddressText) ||
-                                    searchCounty.Contains(s.Address.Country.Title) ||
-                                    searchCity.Contains(s.Address.City.Title) ||
-                                    !s.StayBookings
-                                        .All(b => (b.CheckIn > Convert.ToDateTime(searchObj.DateIn) &&
-                                                   b.CheckIn > Convert.ToDateTime(searchObj.DateOut)) ||
-                                                  (b.CheckOut < Convert.ToDateTime(searchObj.DateIn) &&
-                                                   b.CheckOut < Convert.ToDateTime(searchObj.DateOut))) &&
-                                    s.GuestsAmount >= searchObj.GuestsAmount &&
-                                    s.RoomsAmount >= searchObj.RoomsAmount)
-                        .ToListAsync();
-                if (suggestions is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                return Json(new
-                {
-                    code = 200,
-                    suggestions,
-                });
-            }
-            catch (ArgumentNullException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 500 });
-            }
-            catch (OperationCanceledException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 500 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = ex.Message });
-            }
-        }
-
         [Route("filtersearch")]
         [HttpPost]
         public async Task<ActionResult> FilterSearch([FromBody] SearchViewModel filters)
@@ -117,17 +53,23 @@ namespace CloneBookingAPI.Controllers.Search
 
                 var suggestions = await _context.Suggestions
                     .Include(s => s.Address)
-                    .Include(s => s.Reviews)
-                    .Include(s => s.Facilities)
-                    .Include(s => s.Languages)
+                    .Include(s => s.Address.Country)
+                    .Include(s => s.Address.City)
+                    .Include(s => s.Apartments)
+                        .ThenInclude(a => a.BookedPeriods)
+                    .Include(s => s.Apartments)
+                        .ThenInclude(a => a.RoomTypes)
                     .Include(s => s.Beds)
-                        .ThenInclude(b => b.BedType)
-                    .Include(s => s.Highlights)
-                    .Include(s => s.RoomTypes)
-                        .ThenInclude(t => t.Rooms)
-                    .Include(s => s.SuggestionReviewGrades)
                     .Include(s => s.BookingCategory)
+                    .Include(s => s.Facilities)
+                    .Include(s => s.Highlights)
+                    .Include(s => s.Languages)
+                    .Include(s => s.Images)
+                    .Include(s => s.Reviews)
                     .ToListAsync();
+ 
+
+                string place = filters.Place ?? "";
 
                 // FILTERING
                 var resSuggestions = _suggestionsFilter.FilterItems(suggestions.AsQueryable(), filters.Filters);
@@ -143,6 +85,8 @@ namespace CloneBookingAPI.Controllers.Search
                     return Json(new { code = 400 });
                 }
 
+                int suggestionsAmount = resSuggestions.Count();
+
                 // PAGINATION
                 resSuggestions = _suggestionsPaginator.SelectItems(resSuggestions, filters.Page, filters.PageSize);
                 if (resSuggestions is null)
@@ -153,7 +97,10 @@ namespace CloneBookingAPI.Controllers.Search
                 return Json(new
                 {
                     code = 200,
-                    suggestions = resSuggestions.ToList(),
+                    resSuggestions = resSuggestions
+                        .Select(s => new { s.Id, s.Name, s.Description, country = s.Address.Country.Title, city = s.Address.City.Title,
+                            address = s.Address.AddressText, s.StarsRating, reviews = s.Reviews.Count, }),
+                    suggestionsAmount,
                 });
             }
             catch (ArgumentNullException ex)

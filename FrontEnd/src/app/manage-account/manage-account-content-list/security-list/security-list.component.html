@@ -1,10 +1,79 @@
-<div class="security_container">
-  <div class="security_item">
-    <span class="security_text">Password</span>
-    <input type="text" />
+<div>
+  <div class="personal_details_container">
+    <h1>Security</h1>
+    <p>Adjust your security settings and set up two-factor authentication.</p>
   </div>
-  <div class="security_item">
-    <span class="security_text">Delete Account</span>
-    <input type="text" />
-  </div>
+</div>
+<div class="container container-fluid">
+  <ul class="list-group list-group-flush container-fluid">
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col">
+          Password
+        </div>
+        <div class="col-6">
+          <div>
+            <p *ngIf="!isEditing[0]">Reset your password regularly to keep your account secure</p>
+            <p *ngIf="isEditing[0] && !isEmailSent">To change your password, we need to send a reset link to your email address</p>
+            <p *ngIf="isEmailSent">We sent a password reset email to <span class="fw-bold">{{authHelper.getLogin()}}</span>.</p>
+          </div>
+        </div>
+        <div *ngIf="!isEditing[0]" class="col">
+          <button class="btn btn-outline-primary" (click)="editButtonClick(0)" [disabled]="isDisabled[0]">Reset</button>
+        </div>
+        <div *ngIf="isEditing[0]" class="col">
+          <div *ngIf="!isEmailSent">
+            <button class="btn btn-outline-primary" (click)="cancelButtonClick(0)">Cancel</button>
+            <button class="btn btn-primary" (click)="sendResetPasswordEmail(0)">Send email</button>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col">
+          Delete account
+        </div>
+        <div class="col-6">
+          <div>
+            <p *ngIf="!isEditing[1] && !isDeleteRequested">Permanently delete your Booking.com account</p>
+            <p *ngIf="isEditing[1] && !isDeleteRequested">Why do you want to delete your account?</p>
+            <p *ngIf="isDeleteRequested">We received your request. Check your inbox for <span class="fw-bold">{{authHelper.getLogin()}}</span> to finish deleting your account.</p>
+            <form *ngIf="isEditing[1] && !isDeleteRequested">
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="deleteReason" id="tooManyEmails" (click)="setDeleteReason(1)"
+                       [disabled]="isDisabled[1]">
+                <label class="form-check-label" for="tooManyEmails">
+                  I get too many emails from Booking.com
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="deleteReason" id="differentEmails" (click)="setDeleteReason(2)">
+                <label class="form-check-label" for="differentEmails">
+                  I want to use a different email address for my account
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="deleteReason" id="other" (click)="setDeleteReason(3)">
+                <label class="form-check-label" for="other">
+                  Other
+                </label>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div *ngIf="!isEditing[1]" class="col">
+          <button *ngIf="!isDeleteRequested" class="btn btn-outline-primary" (click)="editButtonClick(1)" [disabled]="isDisabled[1]">Delete account</button>
+        </div>
+        <div *ngIf="isEditing[1]" class="col">
+          <div>
+            <button class="btn btn-outline-primary" (click)="cancelButtonClick(1)">Cancel</button>
+            <button *ngIf="deleteReason == 1" class="btn btn-primary" (click)="unsubscribeMails(1)">Unsubscribe</button>
+            <button *ngIf="deleteReason == 2" class="btn btn-primary" (click)="changeEmail('personal-details')">Edit email address</button>
+            <button *ngIf="(deleteReason == 0 || deleteReason == 3) && !isDeleteRequested" class="btn btn-primary" (click)="deleteAccount(1)" [disabled]="deleteReason == 0">Delete account</button>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>

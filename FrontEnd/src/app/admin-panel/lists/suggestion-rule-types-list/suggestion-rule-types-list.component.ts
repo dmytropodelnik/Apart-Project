@@ -4,6 +4,7 @@ import { SuggestionRuleType } from 'src/app/models/Suggestions/suggestionruletyp
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
 import ImageHelper from '../../../utils/imageHelper';
+import { AdminContentService } from 'src/app/services/admin-content.service';
 
 @Component({
   selector: 'app-suggestion-rule-types-list',
@@ -18,7 +19,14 @@ export class SuggestionRuleTypesListComponent implements OnInit {
   checkedType: number | null = null;
   imageHelper: any = ImageHelper;
 
-  constructor() {}
+  page: number = 1;
+  pageSize: number = 15;
+
+  constructor(
+    private adminContentService: AdminContentService
+  ) {
+
+  }
 
   search(): void {
     fetch('https://localhost:44381/api/suggestionruletypes/search?type=' + this.searchType, {
@@ -131,13 +139,38 @@ export class SuggestionRuleTypesListComponent implements OnInit {
   }
 
   getTypes(): void {
-    fetch('https://localhost:44381/api/suggestionruletypes/gettypes', {
+    fetch(`https://localhost:44381/api/suggestionruletypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.ruleTypes = data.types;
+        } else {
+          alert('Fetch error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  collectElements(types: SuggestionRuleType[]): void {
+    for (let item of types) {
+      this.ruleTypes?.push(item);
+    }
+  }
+
+  loadMore(): void {
+    this.page++;
+
+    fetch(`https://localhost:44381/api/suggestionruletypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
+      method: 'GET',
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.collectElements(data.types);
         } else {
           alert('Fetch error!');
         }

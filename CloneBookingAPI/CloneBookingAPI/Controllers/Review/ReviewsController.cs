@@ -23,16 +23,31 @@ namespace CloneBookingAPI.Controllers.Review
 
         [Route("getreviews")]
         [HttpGet]
-        public async Task<IActionResult> GetReviews()
+        public async Task<IActionResult> GetReviews(int page = -1, int pageSize = -1)
         {
             try
             {
-                var reviews = await _context.Reviews
+                List<CloneBookingAPI.Services.Database.Models.Review.Review> reviews = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    reviews = await _context.Reviews
                     .Include(r => r.User)
-                    .Include(r => r.Suggestion)
-                        .ThenInclude(s => s.StayBookings)
+                    //.Include(r => r.Suggestion)
+                    //.ThenInclude(s => s.StayBookings)
                     .Include(r => r.ReviewMessage)
                     .ToListAsync();
+                }
+                else
+                {
+                    reviews = await _context.Reviews
+                    .Include(r => r.User)
+                    //.Include(r => r.Suggestion)
+                    //.ThenInclude(s => s.StayBookings)
+                    .Include(r => r.ReviewMessage)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToListAsync();
+                }
 
                 return Json(new { code = 200, reviews });
             }
@@ -123,7 +138,6 @@ namespace CloneBookingAPI.Controllers.Review
 
                 var reviews = await _context.Reviews
                     .Include(r => r.User)
-                    .Include(r => r.Suggestion)
                     .Where(r => r.User.Email.Equals(email))
                     .ToListAsync();
 
@@ -183,7 +197,7 @@ namespace CloneBookingAPI.Controllers.Review
 
                 var reviews = await _context.Reviews
                     .Include(r => r.ReviewMessage)
-                    .Include(r => r.Suggestion)
+                    //.Include(r => r.Suggestion)
                     .Include(r => r.User)
                     .Where(r => r.SuggestionId == suggestion.Id)
                     .ToListAsync();

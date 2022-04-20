@@ -3,7 +3,7 @@ import { User } from "./user.item";
 
 export class Favorite {
   id: number | null = null;
-  suggestions: Suggestion[] | null = null;
+  suggestions: Suggestion[] = [];
   user: User | null = null;
 
   constructor () {

@@ -73,10 +73,8 @@
       <th scope="col text-center align-self-center"></th>
       <th scope="col text-center align-self-center">#</th>
       <th scope="col">Title</th>
-      <th scope="col">Address</th>
       <th scope="col">Country</th>
       <th scope="col">City</th>
-      <th scope="col">District</th>
       <th scope="col">Image</th>
     </tr>
   </thead>
@@ -89,11 +87,11 @@
         </div>
       </th>
       <td>{{region.id}}</td>
-      <td>{{region.address?.addressText}}</td>
-      <td>{{region.address?.country?.title ?? 'null'}}</td>
-      <td>{{region.address?.city?.title ?? 'null'}}</td>
-      <td>{{region.address?.district?.title ?? 'null'}}</td>
+      <td>{{region.title}}</td>
+      <td>{{region.city?.country?.title ?? 'null'}}</td>
+      <td>{{region.city?.title ?? 'null'}}</td>
       <td class="text-center"><img width="70px" height="70px" src="{{imageHelper.getImageDirectoryPath()}}{{region.image?.name}}" /></td>
     </tr>
   </tbody>
 </table>
+<button class="btn btn-dark" (click)="loadMore()">Load more</button>

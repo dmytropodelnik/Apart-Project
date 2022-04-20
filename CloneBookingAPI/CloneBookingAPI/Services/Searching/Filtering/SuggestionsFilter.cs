@@ -24,15 +24,10 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
         public IQueryable<Suggestion> FilterItems(IQueryable<Suggestion> suggestions, IEnumerable<FilterViewModel> filters)
         {
             try
-            {
-                if (suggestions is null)
-                {
-                    return null;
-                }
-                
+            {            
                 if (filters is null || filters.Count() == 0)
                 {
-                    return suggestions;
+                    return null;
                 }
 
                 foreach (var filter in filters)
@@ -73,20 +68,32 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
                     {
                         _appliedFilters.Add(new BedTypesFilter(filter.Value, filter.Filter));
                     }
+                    else if (filter.Filter.Equals("places"))
+                    {
+                        _appliedFilters.Add(new PlacesFilter(filter.Value, filter.Filter));
+                    }
+                    else if (filter.Filter.Equals("dates"))
+                    {
+                        _appliedFilters.Add(new DatesFilter(filter.Value, filter.Filter));
+                    }
+                    else if (filter.Filter.Equals("amounts"))
+                    {
+                        _appliedFilters.Add(new AmountsFilter(filter.Value, filter.Filter));
+                    }
                 }
 
                 List<Suggestion> filtered = new();
                 string previousFilter = filters.FirstOrDefault().Filter;
                 if (previousFilter is null)
                 {
-                    return suggestions;
+                    return null;
                 }
 
                 foreach (var filter in _appliedFilters)
                 {
                     if (previousFilter == filter.Filter)
                     {
-                        filtered.AddRange(filter.FilterItems(suggestions)
+                        filtered.AddRange(filter.FilterItems(suggestions).ToList()
                                                .Except(filtered));
                     }
                     else

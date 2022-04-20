@@ -1,7 +1,9 @@
 ﻿using CloneBookingAPI.Database.Configurations;
 using CloneBookingAPI.Database.Configurations.Suggestions;
+using CloneBookingAPI.Database.Configurations.ViewModels;
 using CloneBookingAPI.Database.Models;
 using CloneBookingAPI.Database.Models.Suggestions;
+using CloneBookingAPI.Database.Models.ViewModels;
 using CloneBookingAPI.Services.Database.Configurations;
 using CloneBookingAPI.Services.Database.Configurations.Flights;
 using CloneBookingAPI.Services.Database.Configurations.Location;
@@ -75,6 +77,9 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<Airport> Airports { get; set; }
         public DbSet<Bed> Beds { get; set; }
         public DbSet<BedType> BedTypes { get; set; }
+        public DbSet<BookedPeriod> BookedDates { get; set; }
+        public DbSet<Apartment> Apartments { get; set; }
+
         public ApartProjectDbContext(DbContextOptions<ApartProjectDbContext> options) : base(options)
         {
             //// if database already exists then delete it
@@ -86,8 +91,7 @@ namespace CloneBookingAPI.Services.Database
             //// create database
             //Database.EnsureCreated();
         }
-
-        /// <summary>
+        /// <summary>s
         ///     Output in debug queries which are sent by EF in Output window (Menu Visual Studio: View -> Output).
         /// </summary>
         /// <param name="optionsBuilder">Builder options.</param>
@@ -99,6 +103,57 @@ namespace CloneBookingAPI.Services.Database
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Suggestion>()
+                .HasMany(s => s.Images)
+                .WithMany(i => i.Suggestions)
+                .UsingEntity<SuggestionFileModel>(
+                    j => j
+                        .HasOne(pt => pt.Image)
+                        .WithMany(t => t.SuggestionsFileModels)
+                        .HasForeignKey(pt => pt.ImageId),
+                    j => j
+                        .HasOne(pt => pt.Suggestion)
+                        .WithMany(p => p.SuggestionsFileModels)
+                        .HasForeignKey(pt => pt.SuggestionId),
+                    j =>
+                    {
+                        j.HasKey(t => new { t.SuggestionId, t.ImageId });
+                    });
+
+            modelBuilder.Entity<Apartment>()
+                .HasMany(a => a.RoomTypes)
+                .WithMany(t => t.Apartments)
+                .UsingEntity<ApartmentRoomType>(
+                    j => j
+                        .HasOne(rt => rt.RoomType)
+                        .WithMany(a => a.ApartmentsRoomTypes)
+                        .HasForeignKey(pt => pt.RoomTypeId),
+                    j => j
+                        .HasOne(pt => pt.Apartment)
+                        .WithMany(p => p.ApartmentsRoomTypes)
+                        .HasForeignKey(pt => pt.ApartmentId),
+                    j =>
+                    {
+                        j.HasKey(t => new { t.ApartmentId, t.RoomTypeId });
+                    });
+
+            modelBuilder.Entity<Apartment>()
+                .HasMany(a => a.BookedPeriods)
+                .WithMany(p => p.Apartments)
+                .UsingEntity<ApartmentBookedPeriod>(
+                    j => j
+                        .HasOne(bp => bp.BookedPeriod)
+                        .WithMany(a => a.ApartmentsBookedPeriods)
+                        .HasForeignKey(pt => pt.BookedPeriodId),
+                    j => j
+                        .HasOne(pt => pt.Apartment)
+                        .WithMany(p => p.ApartmentsBookedPeriods)
+                        .HasForeignKey(pt => pt.ApartmentId),
+                    j =>
+                    {
+                        j.HasKey(t => new { t.ApartmentId, t.BookedPeriodId });
+                    });
+
             modelBuilder.ApplyConfiguration(new FlightClassTypesConfiguration());
             modelBuilder.ApplyConfiguration(new AddressesConfiguration());
             modelBuilder.ApplyConfiguration(new AirportsConfiguration());
@@ -151,6 +206,11 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new BedsConfiguration());
             modelBuilder.ApplyConfiguration(new BedTypesConfiguration());
             modelBuilder.ApplyConfiguration(new ContactDetailsConfiguration());
+            modelBuilder.ApplyConfiguration(new BookedPeriodsConfiguration());
+            modelBuilder.ApplyConfiguration(new ApartmentsConfiguration());
+            modelBuilder.ApplyConfiguration(new ApartmentRoomTypesConfiguration());
+            modelBuilder.ApplyConfiguration(new ApartmentBookedPeriodConfiguration());
+            modelBuilder.ApplyConfiguration(new SuggestionsFileModelsConfiguration());
         }
     }
 }

@@ -30,7 +30,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         private readonly ApartProjectDbContext _context;
         private readonly IWebHostEnvironment _appEnvironment;
-        private readonly string _storagePath = "/files/";
+        private readonly string _storagePath = "/files/cities/";
         private readonly SHA256 sha256 = SHA256.Create();
 
         public FileUploaderController(ApartProjectDbContext context, IWebHostEnvironment appEnvironment)

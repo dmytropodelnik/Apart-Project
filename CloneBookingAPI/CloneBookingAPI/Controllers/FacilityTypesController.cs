@@ -24,11 +24,22 @@ namespace CloneBookingAPI.Controllers
 
         [Route("gettypes")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FacilityType>>> GetTypes()
+        public async Task<ActionResult<IEnumerable<FacilityType>>> GetTypes(int page = -1, int pageSize = -1)
         {
             try
             {
-                var types = await _context.FacilityTypes.ToListAsync();
+                List<FacilityType> types = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    types = await _context.FacilityTypes.ToListAsync();
+                }
+                else
+                {
+                    types = await _context.FacilityTypes
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                }
 
                 return Json(new { code = 200, types });
             }
@@ -54,11 +65,11 @@ namespace CloneBookingAPI.Controllers
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<FacilityType>>> Search(string type)
+        public async Task<ActionResult<IEnumerable<FacilityType>>> Search(string type, int page = -1, int pageSize = -1)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(type))
+                if (string.IsNullOrWhiteSpace(type) || page == -1 || pageSize == -1)
                 {
                     var res = await _context.FacilityTypes.ToListAsync();
 
@@ -67,6 +78,8 @@ namespace CloneBookingAPI.Controllers
 
                 var types = await _context.FacilityTypes
                     .Where(t => t.Type.Contains(type))
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
                     .ToListAsync();
 
                 return Json(new { code = 200, types });

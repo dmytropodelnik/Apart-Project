@@ -607,8 +607,8 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     return Json(new { code = 400 });
                 }
 
-                resSuggestion.PriceInUSD = suggestion.PriceInUSD;
-                resSuggestion.PriceInUserCurrency = suggestion.PriceInUserCurrency;
+                //resSuggestion.PriceInUSD = suggestion.PriceInUSD;
+                //resSuggestion.PriceInUserCurrency = suggestion.PriceInUserCurrency;
                 resSuggestion.Progress = 65;
 
                 _context.Suggestions.Update(resSuggestion);

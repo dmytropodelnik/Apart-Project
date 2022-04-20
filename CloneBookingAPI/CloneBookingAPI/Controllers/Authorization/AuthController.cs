@@ -24,13 +24,53 @@ namespace CloneBookingAPI.Controllers
         private readonly AuthEmailSender _emailSender;
         private string _letterTemplate = "<p>HELLO TEST</p>";
         private string _subjectLetterTemplate = "Confirmation code for registration!";
-        private string _subjectVerifyLetterTemplate = "Verify email for enter!";
-        private string _verificationLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate\">Verify enter</a>";
+        private string _subjectVerifyLetterTemplate = "Verify email to enter!";
+        private string _subjectResetPasswordLetterTemplate = "Verify email to reset the password!";
+        private string _subjectChangeEmailLetterTemplate = "Verify email to change the email!";
+        private string _subjectDeleteUserLetterTemplate = "Verify letter to delete your account!";
+
+        private string _verificationLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&isToDeleteCode=true\">Verify enter</a>";
+        private string _resetPasswordLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&resetPassword=true&isToDeleteCode=true\">Reset password</a>";
+        private string _changeEmailLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&oldEmail=oldEmailTemplate&code=codeTemplate&changeEmail=true&isToDeleteCode=true\">Change email</a>";
+        private string _deleteUserLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&isToDeleteCode=true&isToDeleteUser=true\">Delete account</a>";
 
         public AuthController(ApartProjectDbContext context, IConfiguration configuration)
         {
             _context = context;
             _emailSender = new AuthEmailSender(configuration);
+        }
+
+
+        [Route("isemailregistered")]
+        [HttpGet]
+        public async Task<IActionResult> IsEmailRegistered(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                return Json(new
+                {
+                    code = 400,
+                    message = "Email parameter is null or whitespace",
+                });
+            }
+
+            var isEmailExists = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (isEmailExists is not null)
+            {
+                return Json(new
+                {
+                    code = 200,
+                    isExisted = true,
+                    message = "This email is already registered!",
+                });
+            }
+
+            return Json(new
+            {
+                code = 200,
+                isExisted = false,
+                message = "",
+            });
         }
 
         [Route("sendcodeletter")]
@@ -64,7 +104,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("sendverifyletter")]
         [HttpGet]
-        public async Task<IActionResult> SendVerifyLetter(string emailTrim, string code)
+        public async Task<IActionResult> SendVerifyEnterLetter(string emailTrim, string code)
         {
             try
             {
@@ -81,6 +121,151 @@ namespace CloneBookingAPI.Controllers
                 bool res = await _emailSender.SendEmailAsync(
                     correctEmail,
                     _subjectVerifyLetterTemplate,
+                    linkTemplate);
+                if (res is false)
+                {
+                    return Json(new { code = 416 });
+                }
+
+                return Json(new { code = 200 });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (ArgumentException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = ex.Message });
+            }
+        }
+
+        [Route("sendresetpasswordletter")]
+        [HttpGet]
+        public async Task<IActionResult> SendResetPasswordLetter(string emailTrim, string code)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(emailTrim) || string.IsNullOrWhiteSpace(code))
+                {
+                    return Json(new { code = 415 });
+                }
+
+                string correctEmail = emailTrim.Trim();
+                string linkTemplate = _resetPasswordLinkTemplate
+                        .Replace("codeTemplate", code);
+                linkTemplate = linkTemplate.Replace("emailTemplate", correctEmail);
+
+                bool res = await _emailSender.SendEmailAsync(
+                    correctEmail,
+                    _subjectResetPasswordLetterTemplate,
+                    linkTemplate);
+                if (res is false)
+                {
+                    return Json(new { code = 416 });
+                }
+
+                return Json(new { code = 200 });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (ArgumentException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = ex.Message });
+            }
+        }
+
+        [Route("sendchangingemailletter")]
+        [HttpGet]
+        public async Task<IActionResult> SendChangingEmailLetter(string emailTrim, string oldEmailTrim, string code)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(emailTrim) || string.IsNullOrWhiteSpace(code))
+                {
+                    return Json(new { code = 415 });
+                }
+
+                string correctEmail = emailTrim.Trim();
+                string correctOldEmail = oldEmailTrim.Trim();
+
+                string linkTemplate = _changeEmailLinkTemplate
+                        .Replace("codeTemplate", code);
+                linkTemplate = linkTemplate.Replace("emailTemplate", correctEmail);
+                linkTemplate = linkTemplate.Replace("oldEmailTemplate", correctOldEmail);
+
+                bool res = await _emailSender.SendEmailAsync(
+                    correctEmail,
+                    _subjectChangeEmailLetterTemplate,
+                    linkTemplate);
+                if (res is false)
+                {
+                    return Json(new { code = 416 });
+                }
+
+                return Json(new { code = 200 });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (ArgumentException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = ex.Message });
+            }
+        }
+
+        [Route("senddeleteuserletter")]
+        [HttpGet]
+        public async Task<IActionResult> SendDeleteUserLetter(string emailTrim, string code)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(emailTrim) || string.IsNullOrWhiteSpace(code))
+                {
+                    return Json(new { code = 415 });
+                }
+
+                string correctEmail = emailTrim.Trim();
+
+                string linkTemplate = _deleteUserLinkTemplate
+                        .Replace("codeTemplate", code);
+                linkTemplate = linkTemplate.Replace("emailTemplate", correctEmail);
+
+                bool res = await _emailSender.SendEmailAsync(
+                    correctEmail,
+                    _subjectDeleteUserLetterTemplate,
                     linkTemplate);
                 if (res is false)
                 {

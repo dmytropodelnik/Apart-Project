@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Payment
@@ -23,11 +24,22 @@ namespace CloneBookingAPI.Controllers.Payment
 
         [Route("getcreditcards")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CreditCard>>> GetCreditCards()
+        public async Task<ActionResult<IEnumerable<CreditCard>>> GetCreditCards(int page = -1, int pageSize = -1)
         {
             try
             {
-                var cards = await _context.CreditCards.ToListAsync();
+                List<CreditCard> cards = new();
+                if (page == -1 || pageSize == -1)
+                {
+                    cards = await _context.CreditCards.ToListAsync();
+                }
+                else
+                {
+                    cards = await _context.CreditCards
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                }
 
                 return Json(new { code = 200, cards });
             }
