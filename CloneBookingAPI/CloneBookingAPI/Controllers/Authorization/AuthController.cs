@@ -29,10 +29,10 @@ namespace CloneBookingAPI.Controllers
         private string _subjectChangeEmailLetterTemplate = "Verify email to change the email!";
         private string _subjectDeleteUserLetterTemplate = "Verify letter to delete your account!";
 
-        private string _verificationLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&isToDeleteCode=true\">Verify enter</a>";
-        private string _resetPasswordLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&resetPassword=true&isToDeleteCode=true\">Reset password</a>";
-        private string _changeEmailLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&oldEmail=oldEmailTemplate&code=codeTemplate&changeEmail=true&isToDeleteCode=true\">Change email</a>";
-        private string _deleteUserLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&isToDeleteCode=true&isToDeleteUser=true\">Delete account</a>";
+        private string _verificationLinkTemplate = "<a href=\"https://ashy-coast-0a0e7f703.1.azurestaticapps.net/confirmemail?email=emailTemplate&code=codeTemplate&isToDeleteCode=true\">Verify enter</a>";
+        private string _resetPasswordLinkTemplate = "<a href=\"https://ashy-coast-0a0e7f703.1.azurestaticapps.net/confirmemail?email=emailTemplate&code=codeTemplate&resetPassword=true&isToDeleteCode=true\">Reset password</a>";
+        private string _changeEmailLinkTemplate = "<a href=\"https://ashy-coast-0a0e7f703.1.azurestaticapps.net/confirmemail?email=emailTemplate&oldEmail=oldEmailTemplate&code=codeTemplate&changeEmail=true&isToDeleteCode=true\">Change email</a>";
+        private string _deleteUserLinkTemplate = "<a href=\"https://ashy-coast-0a0e7f703.1.azurestaticapps.net/confirmemail?email=emailTemplate&code=codeTemplate&isToDeleteCode=true&isToDeleteUser=true\">Delete account</a>";
 
         public AuthController(ApartProjectDbContext context, IConfiguration configuration)
         {
