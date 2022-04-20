@@ -21,7 +21,7 @@ export class FooterComponent implements OnInit {
     }
 
     fetch(
-      'http://apartmain.azurewebsites.net/api/deals/sendbestdealsletter?email=' +
+      'https://apartmain.azurewebsites.net/api/deals/sendbestdealsletter?email=' +
         this.email,
       {
         method: 'GET',
