@@ -27,7 +27,7 @@ export class FavoritesListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://localhost:44381/api/favorites/search?favorite=' + this.searchFavorite, {
+    fetch('http://apartmain.azurewebsites.net/api/favorites/search?favorite=' + this.searchFavorite, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -53,7 +53,7 @@ export class FavoritesListComponent implements OnInit {
       name: this.favorite,
     };
 
-    fetch('https://localhost:44381/api/favorites/addfavorite', {
+    fetch('http://apartmain.azurewebsites.net/api/favorites/addfavorite', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -81,7 +81,7 @@ export class FavoritesListComponent implements OnInit {
       id: this.checkedFavorite,
     };
 
-    fetch('https://localhost:44381/api/favorites/editfavorite', {
+    fetch('http://apartmain.azurewebsites.net/api/favorites/editfavorite', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -111,7 +111,7 @@ export class FavoritesListComponent implements OnInit {
       name: this.favorite,
     };
 
-    fetch('https://localhost:44381/api/favorites/deletefavorite', {
+    fetch('http://apartmain.azurewebsites.net/api/favorites/deletefavorite', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -136,7 +136,7 @@ export class FavoritesListComponent implements OnInit {
   }
 
   getFavorites(): void {
-    fetch(`https://localhost:44381/api/favorites/getfavorites?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/favorites/getfavorites?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -161,7 +161,7 @@ export class FavoritesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/favorites/getfavorites?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/favorites/getfavorites?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

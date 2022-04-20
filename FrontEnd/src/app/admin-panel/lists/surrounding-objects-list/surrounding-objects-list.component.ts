@@ -30,7 +30,7 @@ export class SurroundingObjectsListComponent implements OnInit {
       name: this.object,
     };
 
-    fetch('https://localhost:44381/api/surroundingobjects/addobject', {
+    fetch('http://apartmain.azurewebsites.net/api/surroundingobjects/addobject', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -59,7 +59,7 @@ export class SurroundingObjectsListComponent implements OnInit {
       name: this.object,
     };
 
-    fetch('https://localhost:44381/api/surroundingobjects/editobject', {
+    fetch('http://apartmain.azurewebsites.net/api/surroundingobjects/editobject', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -89,7 +89,7 @@ export class SurroundingObjectsListComponent implements OnInit {
       name: this.object,
     };
 
-    fetch('https://localhost:44381/api/surroundingobjects/deleteobject', {
+    fetch('http://apartmain.azurewebsites.net/api/surroundingobjects/deleteobject', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -114,7 +114,7 @@ export class SurroundingObjectsListComponent implements OnInit {
   }
 
   getObjects(): void {
-    fetch(`https://localhost:44381/api/surroundingobjects/getobjects?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/surroundingobjects/getobjects?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -139,7 +139,7 @@ export class SurroundingObjectsListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/surroundingobjects/getobjects?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/surroundingobjects/getobjects?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

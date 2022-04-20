@@ -11,7 +11,7 @@ namespace CloneBookingAPI.Services.Timers
         private readonly JwtRepository _jwtRepository;
         private JwtCodeCleaner _jwtCleaner;
 
-        private const int _CODE_ALIVE_TIME = 30000;
+        private const int _CODE_ALIVE_TIME = 6000000;
 
         public JwtCodeCleanTimer(JwtRepository jwtRepository)
         {

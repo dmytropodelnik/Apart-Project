@@ -27,7 +27,7 @@ export class PromoCodesListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://localhost:44381/api/promocodes/search?code=' + this.searchCode, {
+    fetch('http://apartmain.azurewebsites.net/api/promocodes/search?code=' + this.searchCode, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -53,7 +53,7 @@ export class PromoCodesListComponent implements OnInit {
       name: this.code,
     };
 
-    fetch('https://localhost:44381/api/promocodes/addcode', {
+    fetch('http://apartmain.azurewebsites.net/api/promocodes/addcode', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -82,7 +82,7 @@ export class PromoCodesListComponent implements OnInit {
       name: this.code,
     };
 
-    fetch('https://localhost:44381/api/promocodes/editcode', {
+    fetch('http://apartmain.azurewebsites.net/api/promocodes/editcode', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -112,7 +112,7 @@ export class PromoCodesListComponent implements OnInit {
       name: this.code,
     };
 
-    fetch('https://localhost:44381/api/promocodes/deletecode', {
+    fetch('http://apartmain.azurewebsites.net/api/promocodes/deletecode', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -137,7 +137,7 @@ export class PromoCodesListComponent implements OnInit {
   }
 
   getCodes(): void {
-    fetch(`https://localhost:44381/api/promocodes/getcodes?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/promocodes/getcodes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -162,7 +162,7 @@ export class PromoCodesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/promocodes/getcodes?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/promocodes/getcodes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

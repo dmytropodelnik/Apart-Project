@@ -34,7 +34,7 @@ export class CreditCardsListComponent implements OnInit {
       cardTypeId: this.card?.cardType?.id,
     };
 
-    fetch('https://localhost:44381/api/creditcards/addcreditcard', {
+    fetch('http://apartmain.azurewebsites.net/api/creditcards/addcreditcard', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -66,7 +66,7 @@ export class CreditCardsListComponent implements OnInit {
       cardTypeId: this.card?.cardType?.id,
     };
 
-    fetch('https://localhost:44381/api/creditcards/editcard', {
+    fetch('http://apartmain.azurewebsites.net/api/creditcards/editcard', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -100,7 +100,7 @@ export class CreditCardsListComponent implements OnInit {
       cardType: null,
     };
 
-    fetch('https://localhost:44381/api/creditcards/deletecard', {
+    fetch('http://apartmain.azurewebsites.net/api/creditcards/deletecard', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -133,7 +133,7 @@ export class CreditCardsListComponent implements OnInit {
   }
 
   getCards(): void {
-    fetch(`https://localhost:44381/api/creditcards/getcreditcards?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/creditcards/getcreditcards?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -158,7 +158,7 @@ export class CreditCardsListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/creditcards/getcreditcards?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/creditcards/getcreditcards?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

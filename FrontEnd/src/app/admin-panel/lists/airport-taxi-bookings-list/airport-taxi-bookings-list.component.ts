@@ -22,7 +22,7 @@ export class AirportTaxiBookingsListComponent implements OnInit {
       name: this.booking,
     };
 
-    fetch('https://localhost:44381/api/airporttaxis/addbooking', {
+    fetch('http://apartmain.azurewebsites.net/api/airporttaxis/addbooking', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -51,7 +51,7 @@ export class AirportTaxiBookingsListComponent implements OnInit {
       name: this.booking,
     };
 
-    fetch('https://localhost:44381/api/airporttaxis/editbooking', {
+    fetch('http://apartmain.azurewebsites.net/api/airporttaxis/editbooking', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -81,7 +81,7 @@ export class AirportTaxiBookingsListComponent implements OnInit {
       name: this.booking,
     };
 
-    fetch('https://localhost:44381/api/airporttaxis/deletebooking', {
+    fetch('http://apartmain.azurewebsites.net/api/airporttaxis/deletebooking', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -106,7 +106,7 @@ export class AirportTaxiBookingsListComponent implements OnInit {
   }
 
   getBookings(): void {
-    fetch('https://localhost:44381/api/airporttaxis/getbookings', {
+    fetch('http://apartmain.azurewebsites.net/api/airporttaxis/getbookings', {
       method: 'GET',
     })
       .then((r) => r.json())

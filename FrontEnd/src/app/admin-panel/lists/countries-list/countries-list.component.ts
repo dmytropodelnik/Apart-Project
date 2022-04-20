@@ -29,7 +29,7 @@ export class CountriesListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://localhost:44381/api/countries/search?country=' + this.searchCountry, {
+    fetch('http://apartmain.azurewebsites.net/api/countries/search?country=' + this.searchCountry, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -55,7 +55,7 @@ export class CountriesListComponent implements OnInit {
       name: this.country,
     };
 
-    fetch('https://localhost:44381/api/countries/addcountry', {
+    fetch('http://apartmain.azurewebsites.net/api/countries/addcountry', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -84,7 +84,7 @@ export class CountriesListComponent implements OnInit {
       name: this.country,
     };
 
-    fetch('https://localhost:44381/api/countries/editcountry', {
+    fetch('http://apartmain.azurewebsites.net/api/countries/editcountry', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -114,7 +114,7 @@ export class CountriesListComponent implements OnInit {
       name: this.country,
     };
 
-    fetch('https://localhost:44381/api/countries/deletecountry', {
+    fetch('http://apartmain.azurewebsites.net/api/countries/deletecountry', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -139,7 +139,7 @@ export class CountriesListComponent implements OnInit {
   }
 
   getCountries(): void {
-    fetch(`https://localhost:44381/api/countries/getcountries?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/countries/getcountries?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -164,7 +164,7 @@ export class CountriesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/countries/getcountries?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`http://apartmain.azurewebsites.net/api/countries/getcountries?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
