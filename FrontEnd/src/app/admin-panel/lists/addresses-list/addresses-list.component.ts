@@ -27,7 +27,7 @@ export class AddressesListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('http://apartmain.azurewebsites.net/api/addresses/search?address=' + this.searchAddress, {
+    fetch('https://apartmain.azurewebsites.net/api/addresses/search?address=' + this.searchAddress, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -53,7 +53,7 @@ export class AddressesListComponent implements OnInit {
       name: this.address,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/addresses/addaddress', {
+    fetch('https://apartmain.azurewebsites.net/api/addresses/addaddress', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -82,7 +82,7 @@ export class AddressesListComponent implements OnInit {
       name: this.address,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/addresses/editaddress', {
+    fetch('https://apartmain.azurewebsites.net/api/addresses/editaddress', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -112,7 +112,7 @@ export class AddressesListComponent implements OnInit {
       name: this.address,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/addresses/deleteaddress', {
+    fetch('https://apartmain.azurewebsites.net/api/addresses/deleteaddress', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -137,7 +137,7 @@ export class AddressesListComponent implements OnInit {
   }
 
   getAddresses(): void {
-    fetch(`http://apartmain.azurewebsites.net/api/addresses/getaddresses?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/addresses/getaddresses?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -162,7 +162,7 @@ export class AddressesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`http://apartmain.azurewebsites.net/api/addresses/getaddresses?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/addresses/getaddresses?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

@@ -31,7 +31,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
       accessToken: AuthHelper.getToken(),
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/users/signoutuser', {
+    fetch('https://apartmain.azurewebsites.net/api/users/signoutuser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',

@@ -22,7 +22,7 @@ export class CarRentalBookingsListComponent implements OnInit {
       name: this.booking,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/carrentals/addbooking', {
+    fetch('https://apartmain.azurewebsites.net/api/carrentals/addbooking', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -51,7 +51,7 @@ export class CarRentalBookingsListComponent implements OnInit {
       name: this.booking,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/carrentals/editbooking', {
+    fetch('https://apartmain.azurewebsites.net/api/carrentals/editbooking', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -81,7 +81,7 @@ export class CarRentalBookingsListComponent implements OnInit {
       name: this.booking,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/carrentals/deletebooking', {
+    fetch('https://apartmain.azurewebsites.net/api/carrentals/deletebooking', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -106,7 +106,7 @@ export class CarRentalBookingsListComponent implements OnInit {
   }
 
   getBookings(): void {
-    fetch('http://apartmain.azurewebsites.net/api/carrentals/getbookings', {
+    fetch('https://apartmain.azurewebsites.net/api/carrentals/getbookings', {
       method: 'GET',
     })
       .then((r) => r.json())

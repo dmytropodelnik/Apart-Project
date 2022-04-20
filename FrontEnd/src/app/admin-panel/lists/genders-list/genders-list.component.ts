@@ -23,7 +23,7 @@ export class GendersListComponent implements OnInit {
   constructor() {}
 
   search(): void {
-    fetch('http://apartmain.azurewebsites.net/api/genders/search?gender=' + this.searchGender, {
+    fetch('https://apartmain.azurewebsites.net/api/genders/search?gender=' + this.searchGender, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -49,7 +49,7 @@ export class GendersListComponent implements OnInit {
       title: this.gender,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/genders/addgender', {
+    fetch('https://apartmain.azurewebsites.net/api/genders/addgender', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -78,7 +78,7 @@ export class GendersListComponent implements OnInit {
       title: this.gender,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/genders/editgender', {
+    fetch('https://apartmain.azurewebsites.net/api/genders/editgender', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -108,7 +108,7 @@ export class GendersListComponent implements OnInit {
       title: this.gender,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/genders/deletegender', {
+    fetch('https://apartmain.azurewebsites.net/api/genders/deletegender', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -133,7 +133,7 @@ export class GendersListComponent implements OnInit {
   }
 
   getGenders(): void {
-    fetch('http://apartmain.azurewebsites.net/api/genders/getgenders', {
+    fetch('https://apartmain.azurewebsites.net/api/genders/getgenders', {
       method: 'GET',
     })
       .then((r) => r.json())

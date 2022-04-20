@@ -27,7 +27,7 @@ export class SuggestionRulesListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('http://apartmain.azurewebsites.net/api/suggestionrules/search?rule=' + this.searchRule, {
+    fetch('https://apartmain.azurewebsites.net/api/suggestionrules/search?rule=' + this.searchRule, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -53,7 +53,7 @@ export class SuggestionRulesListComponent implements OnInit {
       name: this.rule,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/suggestionrules/addrule', {
+    fetch('https://apartmain.azurewebsites.net/api/suggestionrules/addrule', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -82,7 +82,7 @@ export class SuggestionRulesListComponent implements OnInit {
       name: this.rule,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/suggestionrules/editrule', {
+    fetch('https://apartmain.azurewebsites.net/api/suggestionrules/editrule', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -112,7 +112,7 @@ export class SuggestionRulesListComponent implements OnInit {
       name: this.rule,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/suggestionrules/deleterule', {
+    fetch('https://apartmain.azurewebsites.net/api/suggestionrules/deleterule', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -137,7 +137,7 @@ export class SuggestionRulesListComponent implements OnInit {
   }
 
   getRules(): void {
-    fetch(`http://apartmain.azurewebsites.net/api/suggestionrules/getrules?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/suggestionrules/getrules?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -163,7 +163,7 @@ export class SuggestionRulesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`http://apartmain.azurewebsites.net/api/suggestionrules/getrules?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/suggestionrules/getrules?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

@@ -22,7 +22,7 @@ export class CardTypesListComponent implements OnInit {
       name: this.type,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/cardtypes/addtype', {
+    fetch('https://apartmain.azurewebsites.net/api/cardtypes/addtype', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -51,7 +51,7 @@ export class CardTypesListComponent implements OnInit {
       name: this.type,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/cardtypes/edittype', {
+    fetch('https://apartmain.azurewebsites.net/api/cardtypes/edittype', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -81,7 +81,7 @@ export class CardTypesListComponent implements OnInit {
       name: this.type,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/cardtypes/deletetype', {
+    fetch('https://apartmain.azurewebsites.net/api/cardtypes/deletetype', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -106,7 +106,7 @@ export class CardTypesListComponent implements OnInit {
   }
 
   getTypes(): void {
-    fetch('http://apartmain.azurewebsites.net/api/cardtypes/gettypes', {
+    fetch('https://apartmain.azurewebsites.net/api/cardtypes/gettypes', {
       method: 'GET',
     })
       .then((r) => r.json())

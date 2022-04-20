@@ -31,7 +31,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
       name: this.highlight,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/suggestionhighlights/addhighlight', {
+    fetch('https://apartmain.azurewebsites.net/api/suggestionhighlights/addhighlight', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -60,7 +60,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
       name: this.highlight,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/suggestionhighlights/edithighlight', {
+    fetch('https://apartmain.azurewebsites.net/api/suggestionhighlights/edithighlight', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -90,7 +90,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
       name: this.highlight,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/suggestionhighlights/deletehighlight', {
+    fetch('https://apartmain.azurewebsites.net/api/suggestionhighlights/deletehighlight', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -115,7 +115,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
   }
 
   getHighlights(): void {
-    fetch(`http://apartmain.azurewebsites.net/api/suggestionhighlights/gethighlights?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/suggestionhighlights/gethighlights?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -140,7 +140,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`http://apartmain.azurewebsites.net/api/suggestionhighlights/gethighlights?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/suggestionhighlights/gethighlights?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

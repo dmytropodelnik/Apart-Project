@@ -28,7 +28,7 @@ export class NotificationsListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('http://apartmain.azurewebsites.net/api/notifications/search?notification=' + this.searchNotification, {
+    fetch('https://apartmain.azurewebsites.net/api/notifications/search?notification=' + this.searchNotification, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -54,7 +54,7 @@ export class NotificationsListComponent implements OnInit {
       name: this.notification,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/notifications/addnotification', {
+    fetch('https://apartmain.azurewebsites.net/api/notifications/addnotification', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -83,7 +83,7 @@ export class NotificationsListComponent implements OnInit {
       name: this.notification,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/notifications/editnotification', {
+    fetch('https://apartmain.azurewebsites.net/api/notifications/editnotification', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -113,7 +113,7 @@ export class NotificationsListComponent implements OnInit {
       name: this.notification,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/notifications/deletenotification', {
+    fetch('https://apartmain.azurewebsites.net/api/notifications/deletenotification', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -138,7 +138,7 @@ export class NotificationsListComponent implements OnInit {
   }
 
   getNotifications(): void {
-    fetch(`http://apartmain.azurewebsites.net/api/notifications/getnotifications?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/notifications/getnotifications?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -163,7 +163,7 @@ export class NotificationsListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`http://apartmain.azurewebsites.net/api/notifications/getnotifications?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/notifications/getnotifications?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

@@ -26,7 +26,7 @@ export class LanguagesListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('http://apartmain.azurewebsites.net/api/languages/search?lang=' + this.searchLang, {
+    fetch('https://apartmain.azurewebsites.net/api/languages/search?lang=' + this.searchLang, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -52,7 +52,7 @@ export class LanguagesListComponent implements OnInit {
       title: this.lang,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/languages/addlanguage', {
+    fetch('https://apartmain.azurewebsites.net/api/languages/addlanguage', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -81,7 +81,7 @@ export class LanguagesListComponent implements OnInit {
       title: this.lang,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/languages/editlanguage', {
+    fetch('https://apartmain.azurewebsites.net/api/languages/editlanguage', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -112,7 +112,7 @@ export class LanguagesListComponent implements OnInit {
       title: this.lang,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/languages/deletelang', {
+    fetch('https://apartmain.azurewebsites.net/api/languages/deletelang', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -145,7 +145,7 @@ export class LanguagesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`http://apartmain.azurewebsites.net/api/languages/getlanguages?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/languages/getlanguages?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -170,7 +170,7 @@ export class LanguagesListComponent implements OnInit {
   }
 
   getLangs(): void {
-    fetch(`http://apartmain.azurewebsites.net/api/languages/getlanguages?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/languages/getlanguages?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

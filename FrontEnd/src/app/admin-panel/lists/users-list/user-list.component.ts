@@ -28,7 +28,7 @@ export class UserListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('http://apartmain.azurewebsites.net/api/users/search?user=' + this.searchUser, {
+    fetch('https://apartmain.azurewebsites.net/api/users/search?user=' + this.searchUser, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -56,7 +56,7 @@ export class UserListComponent implements OnInit {
       roleId: this.user.role.id,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/users/adduser', {
+    fetch('https://apartmain.azurewebsites.net/api/users/adduser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -85,7 +85,7 @@ export class UserListComponent implements OnInit {
       name: this.user,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/users/edituser', {
+    fetch('https://apartmain.azurewebsites.net/api/users/edituser', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -115,7 +115,7 @@ export class UserListComponent implements OnInit {
       name: this.user,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/users/deleteuser', {
+    fetch('https://apartmain.azurewebsites.net/api/users/deleteuser', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -140,7 +140,7 @@ export class UserListComponent implements OnInit {
   }
 
   getUsers(): void {
-    fetch(`http://apartmain.azurewebsites.net/api/users/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/users/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -157,7 +157,7 @@ export class UserListComponent implements OnInit {
   }
 
   getUserRoles(): void {
-    fetch('http://apartmain.azurewebsites.net/api/roles/getroles', {
+    fetch('https://apartmain.azurewebsites.net/api/roles/getroles', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -199,7 +199,7 @@ export class UserListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`http://apartmain.azurewebsites.net/api/users/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/users/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

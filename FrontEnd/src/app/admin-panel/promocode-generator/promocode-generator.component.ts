@@ -26,7 +26,7 @@ export class PromocodeGeneratorComponent implements OnInit {
     let expirationDate = this.dp.year + '-' + this.dp.month + '-' + this.dp.day;
 
     fetch(
-      `http://apartmain.azurewebsites.net/api/promocodes/generatecode?discount=${this.discount}&count=${this.count}&expirationDate=${expirationDate}`,
+      `https://apartmain.azurewebsites.net/api/promocodes/generatecode?discount=${this.discount}&count=${this.count}&expirationDate=${expirationDate}`,
       {
         method: 'POST',
         headers: {
@@ -38,7 +38,7 @@ export class PromocodeGeneratorComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          fetch(`http://apartmain.azurewebsites.net/api/promocodes/getlastcodes`, {
+          fetch(`https://apartmain.azurewebsites.net/api/promocodes/getlastcodes`, {
             method: 'GET',
             headers: {
               Accept: 'application/json',
@@ -66,7 +66,7 @@ export class PromocodeGeneratorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    fetch(`http://apartmain.azurewebsites.net/api/promocodes/getlastcodes`, {
+    fetch(`https://apartmain.azurewebsites.net/api/promocodes/getlastcodes`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',

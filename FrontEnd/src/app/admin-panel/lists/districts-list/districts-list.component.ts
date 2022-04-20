@@ -29,7 +29,7 @@ export class DistrictsListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('http://apartmain.azurewebsites.net/api/districts/search?district=' + this.searchDistrict, {
+    fetch('https://apartmain.azurewebsites.net/api/districts/search?district=' + this.searchDistrict, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -55,7 +55,7 @@ export class DistrictsListComponent implements OnInit {
       name: this.district,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/districts/adddistrict', {
+    fetch('https://apartmain.azurewebsites.net/api/districts/adddistrict', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -84,7 +84,7 @@ export class DistrictsListComponent implements OnInit {
       name: this.district,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/districts/editdistrict', {
+    fetch('https://apartmain.azurewebsites.net/api/districts/editdistrict', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -114,7 +114,7 @@ export class DistrictsListComponent implements OnInit {
       name: this.district,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/districts/deletedistrict', {
+    fetch('https://apartmain.azurewebsites.net/api/districts/deletedistrict', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -139,7 +139,7 @@ export class DistrictsListComponent implements OnInit {
   }
 
   getDistricts(): void {
-    fetch(`http://apartmain.azurewebsites.net/api/districts/getdistricts?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/districts/getdistricts?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -164,7 +164,7 @@ export class DistrictsListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`http://apartmain.azurewebsites.net/api/districts/getdistricts?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/districts/getdistricts?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

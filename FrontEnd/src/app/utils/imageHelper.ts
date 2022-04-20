@@ -1,11 +1,11 @@
 //eslint-disable-next-line import/no-anonymous-default-export
 export default {
   getImageDirectoryPath(): string {
-    return "https://localhost:44381/files/";
+    return "https://apartmain.azurewebsites.net/files/";
   },
 
   getRootDirectoryPath(): string {
-    return "https://localhost:44381";
+    return "https://apartmain.azurewebsites.net";
   }
 
 }

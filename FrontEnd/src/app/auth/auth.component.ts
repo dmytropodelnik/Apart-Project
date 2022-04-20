@@ -77,7 +77,7 @@ export class AuthComponent implements OnInit {
       password: this.password,
     };
     console.log(user);
-    fetch(`http://apartmain.azurewebsites.net/api/users/userexists?email=${user.email}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/users/userexists?email=${user.email}`, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -104,7 +104,7 @@ export class AuthComponent implements OnInit {
       repository: RepositoryEnum.Enter,
     };
 
-    fetch('http://apartmain.azurewebsites.net/token', {
+    fetch('https://apartmain.azurewebsites.net/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -135,7 +135,7 @@ export class AuthComponent implements OnInit {
       this.isPasswordEqual = true;
     }
 
-    fetch('http://apartmain.azurewebsites.net/api/codes/generateregistercode?email=' + this.email, {
+    fetch('https://apartmain.azurewebsites.net/api/codes/generateregistercode?email=' + this.email, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -174,7 +174,7 @@ export class AuthComponent implements OnInit {
       verificationCode: this.verificationCode,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/users/register', {
+    fetch('https://apartmain.azurewebsites.net/api/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

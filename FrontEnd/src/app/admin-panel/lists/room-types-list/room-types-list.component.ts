@@ -30,7 +30,7 @@ export class RoomTypesListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('http://apartmain.azurewebsites.net/api/roomtypes/search?type=' + this.searchType, {
+    fetch('https://apartmain.azurewebsites.net/api/roomtypes/search?type=' + this.searchType, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -56,7 +56,7 @@ export class RoomTypesListComponent implements OnInit {
       title: this.type,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/roomtypes/addtype', {
+    fetch('https://apartmain.azurewebsites.net/api/roomtypes/addtype', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -85,7 +85,7 @@ export class RoomTypesListComponent implements OnInit {
       title: this.type,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/roomtypes/edittype', {
+    fetch('https://apartmain.azurewebsites.net/api/roomtypes/edittype', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -115,7 +115,7 @@ export class RoomTypesListComponent implements OnInit {
       title: this.type,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/roomtypes/deletetype', {
+    fetch('https://apartmain.azurewebsites.net/api/roomtypes/deletetype', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -140,7 +140,7 @@ export class RoomTypesListComponent implements OnInit {
   }
 
   getTypes(): void {
-    fetch(`http://apartmain.azurewebsites.net/api/roomtypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/roomtypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -165,7 +165,7 @@ export class RoomTypesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`http://apartmain.azurewebsites.net/api/roomtypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/roomtypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

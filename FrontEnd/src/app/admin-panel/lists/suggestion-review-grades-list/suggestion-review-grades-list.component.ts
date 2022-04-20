@@ -30,7 +30,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
       name: this.grade,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/suggestionreviewgrades/addgrade', {
+    fetch('https://apartmain.azurewebsites.net/api/suggestionreviewgrades/addgrade', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -59,7 +59,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
       name: this.grade,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/suggestionreviewgrades/editgrade', {
+    fetch('https://apartmain.azurewebsites.net/api/suggestionreviewgrades/editgrade', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -89,7 +89,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
       name: this.grade,
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/suggestionreviewgrades/deletegrade', {
+    fetch('https://apartmain.azurewebsites.net/api/suggestionreviewgrades/deletegrade', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -114,7 +114,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
   }
 
   getGrades(): void {
-    fetch(`http://apartmain.azurewebsites.net/api/suggestionreviewgrades/getgrades?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/suggestionreviewgrades/getgrades?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -139,7 +139,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`http://apartmain.azurewebsites.net/api/suggestionreviewgrades/getgrades?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/suggestionreviewgrades/getgrades?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

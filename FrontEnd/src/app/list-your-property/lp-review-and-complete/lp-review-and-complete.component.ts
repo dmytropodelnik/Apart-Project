@@ -29,7 +29,7 @@ export class LpReviewAndCompleteComponent implements OnInit {
     };
     console.log(suggestion);
 
-    fetch(`http://apartmain.azurewebsites.net/api/listnewproperty/addcontactdetails`, {
+    fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addcontactdetails`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',

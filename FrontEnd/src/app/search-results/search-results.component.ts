@@ -94,7 +94,7 @@ export class SearchResultsComponent implements OnInit {
       Number(this.filters.searchChildrenAmount);
     this.addMainSearchFilter();
 
-    fetch(`http://apartmain.azurewebsites.net/api/stayssearching/filtersearch`, {
+    fetch(`https://apartmain.azurewebsites.net/api/stayssearching/filtersearch`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -123,7 +123,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   getBookingCategories(): void {
-    fetch('http://apartmain.azurewebsites.net/api/bookingcategories/getcategories', {
+    fetch('https://apartmain.azurewebsites.net/api/bookingcategories/getcategories', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -140,7 +140,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   getFacilities(): void {
-    fetch('http://apartmain.azurewebsites.net/api/facilities/getfacilities', {
+    fetch('https://apartmain.azurewebsites.net/api/facilities/getfacilities', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -157,7 +157,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   getHighlights(): void {
-    fetch('http://apartmain.azurewebsites.net/api/suggestionhighlights/gethighlights', {
+    fetch('https://apartmain.azurewebsites.net/api/suggestionhighlights/gethighlights', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -174,7 +174,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   getTypes(): void {
-    fetch('http://apartmain.azurewebsites.net/api/roomtypes/gettypes', {
+    fetch('https://apartmain.azurewebsites.net/api/roomtypes/gettypes', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -191,7 +191,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   getLangs(): void {
-    fetch('http://apartmain.azurewebsites.net/api/languages/getlanguages', {
+    fetch('https://apartmain.azurewebsites.net/api/languages/getlanguages', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -208,7 +208,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   getBedTypes(): void {
-    fetch('http://apartmain.azurewebsites.net/api/bedtypes/getbedtypes', {
+    fetch('https://apartmain.azurewebsites.net/api/bedtypes/getbedtypes', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -230,7 +230,7 @@ export class SearchResultsComponent implements OnInit {
       login: AuthHelper.getLogin(),
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/favorites/addsuggestion', {
+    fetch('https://apartmain.azurewebsites.net/api/favorites/addsuggestion', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -258,7 +258,7 @@ export class SearchResultsComponent implements OnInit {
       login: AuthHelper.getLogin(),
     };
 
-    fetch('http://apartmain.azurewebsites.net/api/favorites/removesuggestion', {
+    fetch('https://apartmain.azurewebsites.net/api/favorites/removesuggestion', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -290,7 +290,7 @@ export class SearchResultsComponent implements OnInit {
 
   getUserFavorites(): void {
     fetch(
-      'http://apartmain.azurewebsites.net/api/favorites/getuserfavorites?email=' +
+      'https://apartmain.azurewebsites.net/api/favorites/getuserfavorites?email=' +
         AuthHelper.getLogin(),
       {
         method: 'GET',
