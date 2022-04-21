@@ -98,7 +98,7 @@ export class SecurityListComponent implements OnInit {
   }
 
   deleteAccount(id: number): void {
-    fetch(`https://localhost:44381/api/codes/generatedeleteusercode?email=` + AuthHelper.getLogin(), {
+    fetch(`https://apartmain.azurewebsites.net/api/codes/generatedeleteusercode?email=` + AuthHelper.getLogin(), {
       method: 'GET',
       headers: {
         Accept: 'application/json',

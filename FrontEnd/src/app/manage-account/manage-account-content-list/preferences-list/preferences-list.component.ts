@@ -128,7 +128,7 @@ export class PreferencesListComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.user.currency = response.user?.profile?.currency.abbreviation;
+          this.user.currency = response.user?.profile?.currency?.abbreviation;
           this.user.language = response.user?.profile?.language?.title;
         } else {
           alert('Get current user error!');
