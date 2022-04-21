@@ -31,7 +31,7 @@
           </div>
         </div>
         <div *ngIf="!isEditing[0]" class="col">
-          <button class="btn btn-outline-primary" (click)="editButtonClick(0)" [disabled]="isDisabled[0]">Edit</button>
+          <button class="btn btn-outline-primary" (click)="editButtonClick(0, user.title)" [disabled]="isDisabled[0]">Edit</button>
         </div>
         <div *ngIf="isEditing[0]" class="col">
           <div>
@@ -65,7 +65,7 @@
           </div>
         </div>
         <div *ngIf="!isEditing[1]" class="col">
-          <button class="btn btn-outline-primary" (click)="editButtonClick(1)" [disabled]="isDisabled[1]">Edit</button>
+          <button class="btn btn-outline-primary" (click)="editButtonClick(1, user.firstName)" [disabled]="isDisabled[1]">Edit</button>
         </div>
         <div *ngIf="isEditing[1]" class="col">
           <div>
@@ -96,7 +96,7 @@
           </div>
         </div>
         <div *ngIf="!isEditing[2]" class="col">
-          <button class="btn btn-outline-primary" (click)="editButtonClick(2)" [disabled]="isDisabled[2]">Edit</button>
+          <button class="btn btn-outline-primary" (click)="editButtonClick(2, user.displayName)" [disabled]="isDisabled[2]">Edit</button>
         </div>
         <div *ngIf="isEditing[2]" class="col">
           <div>
@@ -132,7 +132,7 @@
           </div>
         </div>
         <div *ngIf="!isEditing[3]" class="col">
-          <button *ngIf="!isEmailSent" class="btn btn-outline-primary" (click)="editButtonClick(3)" [disabled]="isDisabled[3]">Edit</button>
+          <button *ngIf="!isEmailSent" class="btn btn-outline-primary" (click)="editButtonClick(3, user.email)" [disabled]="isDisabled[3]">Edit</button>
         </div>
         <div *ngIf="isEditing[3]" class="col">
           <div>
@@ -165,7 +165,7 @@
           </div>
         </div>
         <div *ngIf="!isEditing[4]" class="col">
-          <button class="btn btn-outline-primary" (click)="editButtonClick(4)" [disabled]="isDisabled[4]">Edit</button>
+          <button class="btn btn-outline-primary" (click)="editButtonClick(4, user.phoneNumber)" [disabled]="isDisabled[4]">Edit</button>
         </div>
         <div *ngIf="isEditing[4]" class="col">
           <div>
@@ -203,7 +203,7 @@
           </div>
         </div>
         <div *ngIf="!isEditing[5]" class="col">
-          <button class="btn btn-outline-primary" (click)="editButtonClick(5)" [disabled]="isDisabled[5]">Edit</button>
+          <button class="btn btn-outline-primary" (click)="editButtonClick(5, user.pBirthDate)" [disabled]="isDisabled[5]">Edit</button>
         </div>
         <div *ngIf="isEditing[5]" class="col">
           <div>
@@ -234,7 +234,7 @@
           </div>
         </div>
         <div *ngIf="!isEditing[6]" class="col">
-          <button class="btn btn-outline-primary" (click)="editButtonClick(6)" [disabled]="isDisabled[6]">Edit</button>
+          <button class="btn btn-outline-primary" (click)="editButtonClick(6, user.nationality)" [disabled]="isDisabled[6]">Edit</button>
         </div>
         <div *ngIf="isEditing[6]" class="col">
           <div>
@@ -267,7 +267,7 @@
           </div>
         </div>
         <div *ngIf="!isEditing[7]" class="col">
-          <button class="btn btn-outline-primary" (click)="editButtonClick(7)" [disabled]="isDisabled[7]">Edit</button>
+          <button class="btn btn-outline-primary" (click)="editButtonClick(7, user.genderId)" [disabled]="isDisabled[7]">Edit</button>
         </div>
         <div *ngIf="isEditing[7]" class="col">
           <div>
@@ -316,7 +316,7 @@
           </div>
         </div>
         <div *ngIf="!isEditing[8]" class="col">
-          <button class="btn btn-outline-primary" (click)="editButtonClick(8)" [disabled]="isDisabled[8]">Edit</button>
+          <button class="btn btn-outline-primary" (click)="editButtonClick(8, user.addressText)" [disabled]="isDisabled[8]">Edit</button>
         </div>
         <div *ngIf="isEditing[8]" class="col">
           <div>
