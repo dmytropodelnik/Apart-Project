@@ -98,11 +98,6 @@ export class SecurityListComponent implements OnInit {
   }
 
   deleteAccount(id: number): void {
-    let user = {
-      currency: this.user.currency.abbreviation,
-      email: AuthHelper.getLogin(),
-    };
-
     fetch(`https://localhost:44381/api/codes/generatedeleteusercode?email=` + AuthHelper.getLogin(), {
       method: 'GET',
       headers: {
