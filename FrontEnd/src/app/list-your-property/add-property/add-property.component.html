@@ -1,28 +1,12 @@
-<header class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs">
+<header
+  class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs"
+>
   <nav class="bui-header__bar">
     <div class="bui-header__main">
       <div class="bui-header__logo">
         <span>
-          <label class="robotoregular" routerLink="">Apart.com</label>
+          <label class="robotoregular" routerLink="">Apart</label>
         </span>
-      </div>
-    </div>
-
-    <div>
-      <a class="d-block d-md-none text-white"></a>
-      <div class="bui-group bui-button-group bui-group--inline bui-group--align-end bui-group--vertical-align-middle">
-        <div class="bui-group__item">
-          <button class="bui-button bui-button--light bui-button--large">
-            <span class="bui-button__text">
-              <div class="bui-avatar bui-avatar--small" aria-hidden="true">
-                <img class="bui-avatar__image" src="assets/images/us-flag.png" alt="" />
-              </div>
-              <span class="bui-u-sr-only">
-                Choose your language. Your current language is English (US)
-              </span>
-            </span>
-          </button>
-        </div>
       </div>
     </div>
   </nav>
@@ -32,45 +16,44 @@
   <ul [ngSwitch]="choice">
     <li *ngSwitchDefault>
       <div class="add-propties-main">
-        <div>
+        <div class="add-propties-header">
           <div class="main-header">
-            List your property on Booking.com and start welcoming guests in no
+            List your property on Apart.com and start welcoming guests in no
             time!
           </div>
-          <div class="main-header-subheader">
-            To get started, choose the type of property you want to list on
-            Booking.com
-          </div>
         </div>
-        <div class="add-propties-grid">
+        <div class="add-propties-grid" (click)="addApartment()">
           <div class="add-propties-item">
-            <img src="https://q.bstatic.com/static/img/join/segmentation/accomm_one_apt_main@2x.png" />
+            <img src="../../../assets/images/house 1.png" />
             <span class="add-propties-item-title">Apartment</span>
-            <span class="add-propties-item-subtitle">Furnished accommodation, where guests rent the entire place</span>
-            <button class="add-propties-item-button" (click)="addApartment()">
-              List your property
-            </button>
+            <span class="add-propties-item-subtitle"
+              >Furnished and self-catering accommodations where guests rent the
+              entire place</span
+            >
           </div>
-          <div class="add-propties-item">
-            <img src="https://q.bstatic.com/static/img/join/segmentation/accomm_home_main@2x.png" />
+          <div class="add-propties-item" (click)="addHome()">
+            <img src="../../../assets/images/house (1) 1.png" />
             <span class="add-propties-item-title">Homes</span>
-            <span class="add-propties-item-subtitle">Properties like apartments, holiday homes, villas, etc.</span>
-            <button class="add-propties-item-button" (click)="addHome()">
-              List your property
-            </button>
+            <span class="add-propties-item-subtitle"
+              >Furnished and self-catering accommodations where guests rent the
+              entire place</span
+            >
           </div>
           <div class="add-propties-item">
-            <img src="https://q.bstatic.com/static/img/join/segmentation/accomm_hotels_main_v2@2x.png" />
+            <img src="../../../assets/images/hotel 1.png" />
             <span class="add-propties-item-title">Hotel, B&Bs, and more</span>
-            <span class="add-propties-item-subtitle">Properties like hotels, B&Bs, quest houses, hostels, aparthotels,
-              etc.</span>
-            <button class="add-propties-item-button">List your property</button>
+            <span class="add-propties-item-subtitle"
+              >Furnished and self-catering accommodations where guests rent the
+              entire place</span
+            >
           </div>
           <div class="add-propties-item">
-            <img src="https://q.bstatic.com/static/img/join/segmentation/tent-big@2x.png" />
+            <img src="../../../assets/images/teepee 1.png" />
             <span class="add-propties-item-title">Alternative places</span>
-            <span class="add-propties-item-subtitle">Propeties like boats, campsites, luxury tents, etc.</span>
-            <button class="add-propties-item-button">List your property</button>
+            <span class="add-propties-item-subtitle"
+              >Furnished and self-catering accommodations where guests rent the
+              entire place</span
+            >
           </div>
         </div>
       </div>
@@ -82,23 +65,37 @@
         </div>
         <div class="add-apartments-item-container">
           <div class="add-apartments-item">
-            <img src="https://q.bstatic.com/static/img/join/segmentation/tent-big@2x.png" />
+            <img
+              src="https://q.bstatic.com/static/img/join/segmentation/tent-big@2x.png"
+            />
             <span class="add-propties-item-title">One Apartment</span>
           </div>
           <div class="add-apartments-item">
-            <img src="https://q.bstatic.com/static/img/join/segmentation/tent-big@2x.png" />
+            <img
+              src="https://q.bstatic.com/static/img/join/segmentation/tent-big@2x.png"
+            />
             <span class="add-propties-item-title">Multiple Apartments</span>
           </div>
         </div>
         <div class="add-apartments-button">
           <span class="back-arrow">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-              class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-caret-left-fill"
+              viewBox="0 0 16 16"
+            >
               <path
-                d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
+                d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"
+              />
             </svg>
           </span>
-          <button class="add-apartments-item-button" routerLink="/lp/nameandlocation">
+          <button
+            class="add-apartments-item-button"
+            routerLink="/lp/nameandlocation"
+          >
             List your property
           </button>
         </div>
@@ -115,9 +112,13 @@
         </div>
         <div class="add-propties-grid">
           <div class="add-propties-item">
-            <img src="https://q.bstatic.com/static/img/join/segmentation/tent-big@2x.png" />
+            <img
+              src="https://q.bstatic.com/static/img/join/segmentation/tent-big@2x.png"
+            />
             <span class="add-propties-item-title">Alternative places</span>
-            <span class="add-propties-item-subtitle">Propeties like boats, campsites, luxury tents, etc.</span>
+            <span class="add-propties-item-subtitle"
+              >Propeties like boats, campsites, luxury tents, etc.</span
+            >
             <button class="add-propties-item-button">List your property</button>
           </div>
         </div>
