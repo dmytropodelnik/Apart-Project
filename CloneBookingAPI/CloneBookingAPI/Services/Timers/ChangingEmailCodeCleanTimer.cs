@@ -1,31 +1,31 @@
-﻿using CloneBookingAPI.Services.Generators;
-using CloneBookingAPI.Services.Interfaces;
+﻿using CloneBookingAPI.Services.Interfaces;
+using CloneBookingAPI.Services.Repositories;
 using System;
 using System.Diagnostics;
 using System.Threading;
 
 namespace CloneBookingAPI.Services.Timers
 {
-    public class RegistrationCleanTimer : ITimer
+    public class ChangingEmailCodeCleanTimer : ITimer
     {
-        private readonly RegistrationCodesRepository _registrationRepository;
-        private RegistrationCodeCleaner _registrationCleaner;
+        private readonly ChangingEmailCodesRepository _changingEmailRepository;
+        private ChangingEmailCodeCleaner _changingEmailCleaner;
 
         private const int _CODE_ALIVE_TIME = 600000;
 
-        public RegistrationCleanTimer(RegistrationCodesRepository jwtRepository)
+        public ChangingEmailCodeCleanTimer(ChangingEmailCodesRepository changingEmailRepository)
         {
-            _registrationRepository = jwtRepository;
-            _registrationCleaner = new RegistrationCodeCleaner(_registrationRepository);
+            _changingEmailRepository = changingEmailRepository;
+            _changingEmailCleaner = new ChangingEmailCodeCleaner(_changingEmailRepository);
         }
 
         public bool SetTimer((string key, string code) codeTuple)
         {
             try
             {
-                // устанавливаем метод обратного вызова
-                TimerCallback tm = new TimerCallback(_registrationCleaner.ClearCode);
-                // создаем таймер
+                // set a callback
+                TimerCallback tm = new TimerCallback(_changingEmailCleaner.ClearCode);
+                // create a timer
                 Timer timer = new Timer(tm, codeTuple, _CODE_ALIVE_TIME, -1);
 
                 return true;

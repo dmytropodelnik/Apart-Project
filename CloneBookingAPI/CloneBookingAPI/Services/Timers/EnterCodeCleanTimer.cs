@@ -6,14 +6,14 @@ using System.Threading;
 
 namespace CloneBookingAPI.Services.Timers
 {
-    public class EnterCleanTimer : ITimer
+    public class EnterCodeCleanTimer : ITimer
     {
         private readonly EnterCodesRepository _enterRepository;
         private EnterCodeCleaner _enterCleaner;
 
         private const int _CODE_ALIVE_TIME = 600000;
 
-        public EnterCleanTimer(EnterCodesRepository enterRepository)
+        public EnterCodeCleanTimer(EnterCodesRepository enterRepository)
         {
             _enterRepository = enterRepository;
             _enterCleaner = new EnterCodeCleaner(_enterRepository);
