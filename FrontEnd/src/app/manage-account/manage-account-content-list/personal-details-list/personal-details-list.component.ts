@@ -6,6 +6,10 @@ import AuthHelper from '../../../utils/authHelper';
 import ImageHelper from '../../../utils/imageHelper';
 
 import { AuthorizationService } from '../../../services/authorization.service';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { Country } from 'src/app/models/Location/country.item';
+import { City } from 'src/app/models/Location/city.item';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-personal-details-list',
@@ -20,6 +24,15 @@ export class PersonalDetailsListComponent implements OnInit {
 
   errorMessage: string = '';
 
+  tempValue: string = '';
+  tempLastName: string = '';
+  tempBirthDate: NgbDate | null = null;
+
+  zipCode: string | null = null;
+  addressText: string = '';
+  country: string = '';
+  city: string = '';
+
   user: UserData = new UserData();
 
   constructor(
@@ -32,9 +45,24 @@ export class PersonalDetailsListComponent implements OnInit {
     this.isEditing[id] = !this.isEditing[id];
   }
 
-  editButtonClick(id: number): void {
+  editButtonClick(id: number, value: any): void {
     if (id == 6 || id == 8) {
       this.getCountries(id);
+    }
+
+    if (id == 1) {
+      this.tempValue = this.user.firstName;
+      this.tempLastName = this.user.lastName;
+    }
+    else if (id == 5) {
+      this.tempBirthDate = value;
+    } else if (id == 8) {
+      this.zipCode = this.user.zipCode;
+      this.addressText = this.user.addressText;
+      this.country = this.user.country.title;
+      this.city = this.user.city.title;
+    } else {
+      this.tempValue = value;
     }
 
     this.setCondition(id);
@@ -47,6 +75,31 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   cancelButtonClick(id: number): void {
+
+    if (id == 0) {
+      this.user.title = this.tempValue;
+    } else if (id == 1) {
+      this.user.firstName = this.tempValue;
+      this.user.lastName = this.tempLastName;
+    } else if (id == 2) {
+      this.user.displayName = this.tempValue;
+    } else if (id == 3) {
+      this.user.newEmail = this.tempValue;
+    } else if (id == 4) {
+      this.user.phoneNumber = this.tempValue;
+    } else if (id == 5) {
+      this.user.pBirthDate = this.tempBirthDate;
+    } else if (id == 6) {
+      this.user.nationality = this.tempValue;
+    } else if (id == 7) {
+      this.user.genderId = +this.tempValue;
+    } else if (id == 8) {
+      this.user.zipCode = this.zipCode;
+      this.user.addressText = this.addressText;
+      this.user.country.title = this.country;
+      this.user.city.title = this.city;
+    }
+
     this.setCondition(id);
     this.setConditionEditButtons(id, false);
   }
@@ -377,10 +430,10 @@ export class PersonalDetailsListComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.user.addressText = response.user.profile.address.addressText;
-          this.user.zipCode = response.user.profile.address.zipCode;
-          this.user.country.title = response.user.profile.address.country.title;
-          this.user.city.title = response.user.profile.address.city.title;
+          this.user.addressText = response.user.profile?.address?.addressText;
+          this.user.zipCode = response.user.profile?.address?.zipCode;
+          this.user.country.title = response.user.profile?.address?.country?.title;
+          this.user.city.title = response.user.profile?.address?.city?.title;
           this.user.title = response.user.title;
           this.user.firstName = response.user.firstName;
           this.user.lastName = response.user.lastName;

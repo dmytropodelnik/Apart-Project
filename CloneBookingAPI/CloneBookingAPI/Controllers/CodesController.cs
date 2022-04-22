@@ -3,6 +3,7 @@ using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Generators;
 using CloneBookingAPI.Services.POCOs;
 using CloneBookingAPI.Services.Repositories;
+using CloneBookingAPI.Services.Timers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -64,6 +65,8 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
+                new RegistrationCodeCleanTimer(_registrationRepository).SetTimer((key: emailTrim, code: code));
+
                 return RedirectToAction("SendCodeLetter", "Auth", new { emailTrim, code });
             }
             catch (OperationCanceledException ex)
@@ -100,6 +103,8 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 411 });
                 }
 
+                new ChangingEmailCodeCleanTimer(_changingEmailRepository).SetTimer((key: emailTrim, code: code));
+
                 return RedirectToAction("SendChangingEmailLetter", "Auth", new { emailTrim, oldEmailTrim, code });
             }
             catch (OperationCanceledException ex)
@@ -134,6 +139,8 @@ namespace CloneBookingAPI.Controllers
                 {
                     return Json(new { code = 411 });
                 }
+
+                new DeleteUserCodeCleanTimer(_deleteUserRepository).SetTimer((key: emailTrim, code: code));
 
                 return RedirectToAction("SendDeleteUserLetter", "Auth", new { emailTrim, code });
             }
@@ -170,6 +177,8 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 411 });
                 }
 
+                new ResetPasswordCodeCleanTimer(_resetPasswordRepository).SetTimer((key: emailTrim, code: code));
+
                 return RedirectToAction("SendResetPasswordLetter", "Auth", new { emailTrim, code });
             }
             catch (OperationCanceledException ex)
@@ -204,6 +213,8 @@ namespace CloneBookingAPI.Controllers
                 {
                     return Json(new { code = 411 });
                 }
+
+                new EnterCodeCleanTimer(_enterRepository).SetTimer((key: emailTrim, code: code));
 
                 return RedirectToAction("SendVerifyEnterLetter", "Auth", new { emailTrim, code });
             }

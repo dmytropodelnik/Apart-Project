@@ -15,17 +15,18 @@ export class PreferencesListComponent implements OnInit {
   isEditing: boolean[] = [];
   isDisabled: boolean[] = [];
 
+  tempValue: string = '';
+
   user: UserData = new UserData();
 
-  constructor(private authService: AuthorizationService) {
-
-  }
+  constructor(private authService: AuthorizationService) {}
 
   setCondition(id: number): void {
     this.isEditing[id] = !this.isEditing[id];
   }
 
-  editButtonClick(id: number): void {
+  editButtonClick(id: number, value: any): void {
+    this.tempValue = value;
     this.getCurrencies();
     this.getLanguages();
     this.setCondition(id);
@@ -38,6 +39,12 @@ export class PreferencesListComponent implements OnInit {
   }
 
   cancelButtonClick(id: number): void {
+    if (id == 0) {
+      this.user.currency = this.tempValue;
+    } else if (id == 1) {
+      this.user.language = this.tempValue;
+    }
+
     this.setCondition(id);
     this.setConditionEditButtons(id, false);
   }
@@ -52,7 +59,7 @@ export class PreferencesListComponent implements OnInit {
 
   saveCurrency(id: number): void {
     let user = {
-      currency: this.user.currency.abbreviation,
+      currency: this.user.currency,
       email: AuthHelper.getLogin(),
     };
 
@@ -68,7 +75,7 @@ export class PreferencesListComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.user.currency = response.resProfile.currency;
+          this.user.currency = response.resProfile.currency.abbreviation;
           this.setCondition(id);
           this.setConditionEditButtons(id, false);
         } else {
@@ -121,8 +128,8 @@ export class PreferencesListComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.user.currency = response.user.profile.currency;
-          this.user.language = response.user.profile.language.title;
+          this.user.currency = response.user?.profile?.currency.abbreviation;
+          this.user.language = response.user?.profile?.language?.title;
         } else {
           alert('Get current user error!');
         }
@@ -145,15 +152,12 @@ export class PreferencesListComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-            let currenciesSelect = document.getElementById('currenciesSelect');
-            let newOption;
-            for (let item of data.currencies) {
-              newOption = new Option(
-                item.abbreviation,
-                item.abbreviation
-              );
-              currenciesSelect?.append(newOption);
-            }
+          let currenciesSelect = document.getElementById('currenciesSelect');
+          let newOption;
+          for (let item of data.currencies) {
+            newOption = new Option(item.abbreviation, item.abbreviation);
+            currenciesSelect?.append(newOption);
+          }
         } else {
           alert('Get currencies error!');
         }
