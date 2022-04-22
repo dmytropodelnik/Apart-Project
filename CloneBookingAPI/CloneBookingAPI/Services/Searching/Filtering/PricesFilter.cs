@@ -47,7 +47,7 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                 }
 
                 suggestions = suggestions
-                    .Where(s => s.Apartments
+                    .Where(s => s.Apartments.Count > 0 && s.Apartments
                         .All(a => a.PriceInUSD >= decimal.Parse(priceRange[0]) && a.PriceInUSD <= decimal.Parse(priceRange[1])));
 
                 return suggestions;

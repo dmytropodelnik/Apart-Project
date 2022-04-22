@@ -30,6 +30,8 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
                     return null;
                 }
 
+                filters = filters.Reverse();
+
                 foreach (var filter in filters)
                 {
                     if (filter.Filter.Equals("stars"))
@@ -83,7 +85,8 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
                 }
 
                 List<Suggestion> filtered = new();
-                string previousFilter = filters.FirstOrDefault().Filter;
+
+                string previousFilter = _appliedFilters.FirstOrDefault().Filter;
                 if (previousFilter is null)
                 {
                     return null;
