@@ -13,7 +13,7 @@ import ListHelper from '../../../utils/listHelper';
 export class SuggestionReviewGradesListComponent implements OnInit {
 
   grades: SuggestionReviewGrade[] | null = null;
-  grade: string | null = null;
+  grade: number | null = null;
   checkedGrade: number | null = null;
 
   page: number = 1;
@@ -46,7 +46,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.grade = '';
+        this.grade = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -76,7 +76,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.grade = '';
+        this.grade = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -106,7 +106,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.grade = '';
+        this.grade = null;
       })
       .catch((ex) => {
         alert(ex);
@@ -156,7 +156,7 @@ export class SuggestionReviewGradesListComponent implements OnInit {
   }
 
 
-  setGrade(id: number | null, grade: string): void {
+  setGrade(id: number | null, grade: number | null): void {
     this.checkedGrade = id;
     this.grade = grade;
 

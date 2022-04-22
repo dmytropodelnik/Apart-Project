@@ -25,6 +25,8 @@ namespace CloneBookingAPI.Services.Database.Configurations.Location
                   new Region { Id = 12, Title = "Cornwall", ImageId = 2, CityId = 4,},
                   new Region { Id = 13, Title = "England", ImageId = 2, CityId = 1,},
                   new Region { Id = 14, Title = "Tenerife", ImageId = 2, CityId = 2,},
+                  new Region { Id = 15, Title = "Crimea", ImageId = 2, CityId = 3,},
+                  new Region { Id = 16, Title = "Carpathians", ImageId = 2, CityId = 4,},
               });
         }
     }
