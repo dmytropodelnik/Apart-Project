@@ -794,6 +794,10 @@ a:link {
   border-radius: 10px;
 }
 
+.add-propties-item:hover{
+  border: 1px solid #c24b30;
+}
+
 .add-propties-item > img {
   width: 192px;
   height: 192px;
@@ -849,6 +853,7 @@ li::marker {
 }
 .add-apartments-main {
 }
+
 .add-apartments-button {
   display: flex;
   gap: 1rem;
