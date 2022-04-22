@@ -30,7 +30,7 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
                     return null;
                 }
 
-                filters = filters.Reverse();
+                // filters = filters.Reverse();
 
                 foreach (var filter in filters)
                 {
@@ -70,7 +70,11 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
                     {
                         _appliedFilters.Add(new BedTypesFilter(filter.Value, filter.Filter));
                     }
-                    else if (filter.Filter.Equals("places"))
+                }
+
+                foreach (var filter in filters)
+                {
+                    if (filter.Filter.Equals("places"))
                     {
                         _appliedFilters.Add(new PlacesFilter(filter.Value, filter.Filter));
                     }

@@ -90,7 +90,7 @@ namespace CloneBookingAPI.Controllers.Pages
 
                 var regions = await _context.Regions
                     .Select(r => new { r.Id, r.Title })
-                    .Take(20)
+                    .Take(22)
                     .ToListAsync();
 
                 for (int i = 1; i <= regions.Count; i++)
@@ -143,7 +143,7 @@ namespace CloneBookingAPI.Controllers.Pages
 
                 var countries = await _context.Countries
                     .Select(c => c.Title)
-                    .Take(50)
+                    .Take(48)
                     .ToListAsync();
 
                 for (int i = 1; i <= countries.Count; i++)
@@ -196,7 +196,7 @@ namespace CloneBookingAPI.Controllers.Pages
 
                 var footerCities = await _context.Cities
                     .Select(c => c.Title)
-                    .Take(50)
+                    .Take(48)
                     .ToListAsync();
 
                 var cities = await _context.Cities

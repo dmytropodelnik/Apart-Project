@@ -99,7 +99,7 @@ namespace CloneBookingAPI.Controllers.Search
                     code = 200,
                     resSuggestions = resSuggestions
                         .Select(s => new { s.Id, s.Name, s.Description, country = s.Address.Country.Title, city = s.Address.City.Title,
-                            address = s.Address.AddressText, s.StarsRating, reviews = s.Reviews.Count, }),
+                            address = s.Address.AddressText, s.StarsRating, reviews = s.Reviews.Count, images = s.Images.Select(i => new { i.Path, i.Name }) }),
                     suggestionsAmount,
                 });
             }

@@ -71,7 +71,9 @@
     <tr>
       <th scope="col text-center align-self-center"></th>
       <th scope="col text-center align-self-center">#</th>
-      <th scope="col">Role</th>
+      <th scope="col">Grade</th>
+      <th scope="col">Review category</th>
+      <th scope="col">Suggestion Code</th>
     </tr>
   </thead>
   <tbody>
@@ -79,11 +81,13 @@
       <th scope="row">
         <div class="form-check">
           <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{grade.id}}
-          (click)="setGrade(grade.id, grade.title)" >
+          (click)="setGrade(grade.id, grade.value)" >
         </div>
       </th>
       <td>{{grade.id}}</td>
-      <td></td>
+      <td>{{grade.value}}</td>
+      <td>{{grade.reviewCategory?.category}}</td>
+      <td>{{grade.suggestion?.uniqueCode}}</td>
     </tr>
   </tbody>
 </table>
