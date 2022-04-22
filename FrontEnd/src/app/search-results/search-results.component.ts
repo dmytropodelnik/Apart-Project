@@ -92,7 +92,8 @@ export class SearchResultsComponent implements OnInit {
     this.filters.guestsAmount =
       Number(this.filters.searchAdultsAmount) +
       Number(this.filters.searchChildrenAmount);
-    this.addMainSearchFilter();
+
+    console.log(this.filters.filters);
 
     fetch(`https://apartmain.azurewebsites.net/api/stayssearching/filtersearch`, {
       method: 'POST',

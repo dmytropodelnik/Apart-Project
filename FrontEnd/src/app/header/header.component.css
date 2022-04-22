@@ -480,7 +480,6 @@ a.a11y-skip-to-content {
 }
 
 .bui-tab--rounded .bui-tab__link {
-  border-radius: 999px;
   padding: 11px 15px;
   border: 1px solid transparent;
 }

@@ -59,7 +59,7 @@ namespace CloneBookingAPI
                                 });
 
             // получаем строку подключения из файла конфигурации
-            string connection = Configuration.GetConnectionString("AzureConnection");
+            string connection = Configuration.GetConnectionString("DefaultConnection");
             // добавляем контекст Apart в качестве сервиса в приложение
             services.AddDbContext<ApartProjectDbContext>(options =>
                 options.UseSqlServer(connection, o => o.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery)));
