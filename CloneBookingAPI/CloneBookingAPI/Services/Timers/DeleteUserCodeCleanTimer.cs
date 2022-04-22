@@ -6,17 +6,17 @@ using System.Threading;
 
 namespace CloneBookingAPI.Services.Timers
 {
-    public class ChangingEmailCleanTimer : ITimer
+    public class DeleteUserCodeCleanTimer : ITimer
     {
-        private readonly ChangingEmailCodesRepository _changingEmailRepository;
-        private ChangingEmailCodeCleaner _changingEmailCleaner;
+        private readonly DeleteUserCodesRepository _deleteRepository;
+        private DeleteUserCodeCleaner _deleteUserCleaner;
 
         private const int _CODE_ALIVE_TIME = 600000;
 
-        public ChangingEmailCleanTimer(ChangingEmailCodesRepository changingEmailRepository)
+        public DeleteUserCodeCleanTimer(DeleteUserCodesRepository deleteRepository)
         {
-            _changingEmailRepository = changingEmailRepository;
-            _changingEmailCleaner = new ChangingEmailCodeCleaner(_changingEmailRepository);
+            _deleteRepository = deleteRepository;
+            _deleteUserCleaner = new DeleteUserCodeCleaner(_deleteRepository);
         }
 
         public bool SetTimer((string key, string code) codeTuple)
@@ -24,7 +24,7 @@ namespace CloneBookingAPI.Services.Timers
             try
             {
                 // set a callback
-                TimerCallback tm = new TimerCallback(_changingEmailCleaner.ClearCode);
+                TimerCallback tm = new TimerCallback(_deleteUserCleaner.ClearCode);
                 // create a timer
                 Timer timer = new Timer(tm, codeTuple, _CODE_ALIVE_TIME, -1);
 
