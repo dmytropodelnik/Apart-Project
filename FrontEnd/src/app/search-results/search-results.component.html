@@ -6,37 +6,34 @@
         <form class="searchbox_form">
           <span class="searchbox_check_label">Search</span>
           <div class="searchbox_country">
-            <span class="" id="basic-addon1">Destination/property name:</span>
-            <input type="text" class="" placeholder="City/Country" aria-label="Username"
+            <span class="textdecoration" id="basic-addon1">Destination/property name:</span>
+            <input type="text" class="inputfield" placeholder="City/Country" aria-label="Username"
               aria-describedby="basic-addon1" />
           </div>
           <div class="searchbox_date">
-            <span>Check-in Date</span>
-            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker
+            <span class="textdecoration">Check-in Date</span>
+            <input class="inputfield" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker
               #d="ngbDatepicker" (click)="d.toggle()" readonly />
           </div>
           <div class="searchbox_date">
-            <span>Check-out Date</span>
-            <input class="form-control" placeholder="yyyy-mm-dd" name="dp1" [(ngModel)]="model1" ngbDatepicker
+            <span class="textdecoration">Check-out Date</span>
+            <input class="inputfield" placeholder="yyyy-mm-dd" name="dp1" [(ngModel)]="model1" ngbDatepicker
               #d1="ngbDatepicker" (click)="d1.toggle()" readonly />
           </div>
-          <div class="searchbox_check">
-            <input class="" type="checkbox" value="" id="Entire homes & apartments" />
-            <label class="searchbox_check_label" for="Entire homes & apartments">
-              Entire homes & apartments
-            </label>
+          <div class="searchbox_country">
+            <span class="textdecoration" id="basic-addon1">How many people?</span>
+            <input type="text" class="inputfield" placeholder="2 adult 0 children 1 room" aria-label="Username"
+              aria-describedby="basic-addon1" />
           </div>
-          <div class="searchbox_check">
-            <input class="" type="checkbox" value="" id="I'm travelling for work" />
-            <label class="searchbox_check_label" for="I'm travelling for work">
-              I'm travelling for work
-            </label>
+          <div class="searchbox_search">
+            <button class="searchbox_button">Search</button>
           </div>
         </form>
       </div>
       <div class="filters">
+        <span class="filters_title">Filter by:</span>
         <div class="filters_box">
-          <h5>Health & safety</h5>
+          <span class="filter_box_title">Health & safety</span>
           <div>
             <input class="" type="checkbox" value="" id="Properties that take health & safety measures" />
             <label class="filters_check_label" for="Properties that take health & safety measures">
@@ -46,7 +43,7 @@
           </div>
         </div>
         <div class="filters_box">
-          <h5>Your Budget (per night)</h5>
+          <span class="filters_box_title">Your Budget (per night)</span>
           <div>
             <input class="" type="checkbox" value="" id="price1" (change)="
                 addFilterCheck(
@@ -132,7 +129,7 @@
           </div>
         </div>
         <div class="filters_box">
-          <h5>Stars and other ratings</h5>
+          <span class="filters_box_title">Stars and other ratings</span>
           <div>
             <input class="" type="checkbox" value="" id="1 star/other ratings" (change)="addFilterCheck('stars', 1, 1)"
               [(ngModel)]="filterCheckBoxes[1]" />
@@ -181,7 +178,7 @@
           </div>
         </div>
         <div class="filters_box" *ngIf="highlights.length != 0">
-          <h5>Highlights</h5>
+          <span class="filters_box_title">Highlights</span>
           <div *ngFor="let item of highlights; let i = index">
             <div>
               <input class="" type="checkbox" value="" id="{{ item.title }}" (change)="
@@ -203,7 +200,7 @@
           </div>
         </div>
         <div class="filters_box" *ngIf="roomTypes.length != 0">
-          <h5>Room types</h5>
+          <span class="filters_box_title">Room types</span>
           <div *ngFor="let item of roomTypes; let i = index">
             <div>
               <input class="" type="checkbox" value="" id="{{ item.title }}" (change)="
@@ -233,7 +230,7 @@
           </div>
         </div>
         <div class="filters_box" *ngIf="bedTypes.length != 0">
-          <h5>Bed types</h5>
+          <span class="filters_box_title">Bed types</span>
           <div *ngFor="let item of bedTypes; let i = index">
             <div>
               <input class="" type="checkbox" value="" id="{{ item.title }}" (change)="
@@ -267,7 +264,7 @@
           </div>
         </div>
         <div class="filters_box" *ngIf="staffLanguages.length != 0">
-          <h5>Staff speaking</h5>
+          <span class="filters_box_title">Staff speaking</span>
           <div *ngFor="let item of staffLanguages; let i = index">
             <div>
               <input class="" type="checkbox" value="" id="{{ item.title }}" (change)="
@@ -299,7 +296,7 @@
           </div>
         </div>
         <div class="filters_box" *ngIf="bookingCategories.length != 0">
-          <h5>Property type</h5>
+          <span class="filters_box_title">Property type</span>
           <div *ngFor="let item of bookingCategories; let i = index">
             <div>
               <input class="" type="checkbox" value="" id="{{ item.category }}" (change)="
@@ -313,7 +310,7 @@
           </div>
         </div>
         <div class="filters_box">
-          <h5>Review score</h5>
+          <span class="filters_box_title">Review score</span>
           <div>
             <input class="" type="checkbox" value="" id="Superb: 9+" (change)="
                 addFilterCheck('reviewScores', 9, 11 + bookingCategories.length)
@@ -350,7 +347,7 @@
           </div>
         </div>
         <div class="filters_box" *ngIf="facilities.length != 0">
-          <h5>Facilities</h5>
+          <span class="filters_box_title">Facilities</span>
           <div *ngFor="let item of facilities; let i = index">
             <div>
               <input class="" type="checkbox" value="" id="{{ item.text }}" (change)="
@@ -370,7 +367,7 @@
           </div>
         </div>
         <div class="filters_box">
-          <h5>Room facilities</h5>
+          <span class="filters_box_title">Room facilities</span>
           <div>
             <input class="" type="checkbox" value="" id="Kitchen/kitchenette" />
             <label class="filters_check_label" for="Kitchen/kitchenette">
@@ -461,7 +458,7 @@
           </div>
         </div>
         <div class="filters_box">
-          <h5>Property accessibility</h5>
+          <span class="filters_box_title">Property accessibility</span>
           <div>
             <input class="" type="checkbox" value="" id="Wheelchair accessible" />
             <label class="filters_check_label" for="Wheelchair accessible">
@@ -520,7 +517,7 @@
           </div>
         </div>
         <div class="filters_box">
-          <h5>Room accessibility</h5>
+          <span class="filters_box_title">Room accessibility</span>
           <div>
             <input class="" type="checkbox" value="" id="Entire unit located on ground floor" />
             <label class="filters_check_label" for="Entire unit located on ground floor">

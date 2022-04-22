@@ -92,7 +92,6 @@ export class SearchResultsComponent implements OnInit {
     this.filters.guestsAmount =
       Number(this.filters.searchAdultsAmount) +
       Number(this.filters.searchChildrenAmount);
-    this.addMainSearchFilter();
 
     fetch(`https://localhost:44381/api/stayssearching/filtersearch`, {
       method: 'POST',
