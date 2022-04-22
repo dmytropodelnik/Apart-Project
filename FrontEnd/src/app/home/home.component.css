@@ -7,6 +7,18 @@
   background: #ffffff;
 }
 
+.searchbox {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  gap: 5px;
+}
+
+.searchbox_item {
+  display: flex;
+  flex: 1;
+}
+
 .xpi__searchbox {
   padding: 44px 5px;
   position: relative;
@@ -1723,21 +1735,26 @@ a.bui-card:link {
   line-height: 16px;
 }
 
-.tabs-grid {
-  --auto-grid-min-size: 200px;
-  display: grid;
-  grid-template-columns: repeat(
-    auto-fill,
-    minmax(var(--auto-grid-min-size), 1fr)
-  );
-  grid-gap: 5px;
+.tabs-flex {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
 }
 
 .inner-tabs-links {
+  display: flex;
+  flex-wrap: wrap;
+  flex-grow: 25%;
   list-style: none;
   margin: 0;
   padding: 0;
 }
+.inner-tabs-links > * {
+  flex: 1;
+  flex-basis: 20%;
+  margin: 0px 10px;
+}
+
 .inner-tabs-links a:hover {
   color: #ed6648;
 }
