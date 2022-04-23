@@ -2,10 +2,39 @@
   display: flex;
   justify-content: center;
 }
+
 .search_results_top_buttons {
   display: flex;
   min-width: 728px;
+  border-radius: 0.5px;
 }
+
+.search_results_top_buttons > button {
+  height: 30px;
+  color: #ffffff;
+  background: #ed6648;
+  border: 1px solid transparent;
+}
+
+.search_results_top_buttons > button:hover {
+  color: #ed6648;
+  background: #ffffff;
+  border: 1px solid #ed6648;
+}
+
+.dropdown_button {
+  color: #ffffff;
+  background: #ed6648;
+  border: 1px solid transparent;
+  text-align: center;
+}
+
+.dropdown_button:hover {
+  color: #ed6648;
+  background: #ffffff;
+  border: 1px solid #ed6648;
+}
+
 .search_results_top_buttons > * {
   flex: 1;
   flex-wrap: nowrap;
@@ -21,15 +50,41 @@
   margin: 20px 0px;
 }
 
+.search_results_title {
+  text-align: center;
+  font-family: "Calibri";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 37px;
+  /* identical to box height */
+
+  letter-spacing: 0.02em;
+
+  /* Font color */
+
+  color: #000000;
+}
+
 .search_card {
   display: flex;
-  border: 1px solid black;
-  padding: 16px;
+  padding: 25px;
   gap: 1rem;
   margin: 16px 0;
-  max-width: 814px;
-  min-width: 717px;
+  width: 1065px;
+  height: 277px;
+  min-width: 728px;
+  background: #f9f9f9;
+  border: 0.5px solid rgba(0, 0, 0, 0.3);
+  box-sizing: border-box;
+  border-radius: 10px;
 }
+
+.search_card > div:last-child {
+  flex: 1;
+  justify-content: flex-end;
+}
+
 .search_card_score {
   display: flex;
   gap: 1rem;
@@ -59,15 +114,109 @@
   flex-direction: column;
   flex-wrap: wrap;
 }
+
+.left_information_name {
+  display: flex;
+  align-items: center;
+}
+
+.left_information_title {
+  font-family: "Calibri";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  color: #000000;
+  margin-right: 5px;
+}
+
+.left_information_location {
+  margin-top: 2px;
+  font-family: "Calibri";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  /* Font color */
+
+  color: #000000;
+}
+.left_information_description {
+  margin-top: 15px;
+  font-family: "Calibri";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+
+  color: #000000;
+}
+
 .right_information {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  width: calc(100%-216px);
+  align-items: center;
 }
+
+.right_information_title {
+  font-family: "Calibri";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: #000000;
+}
+
+.right_information_text {
+  font-family: "Calibri";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  /* identical to box height */
+
+  text-align: right;
+
+  color: rgba(0, 0, 0, 0.8);
+}
+
 .image_container {
   display: block;
+  width: 227px;
+  height: 227px;
+  border-radius: 5px;
 }
+
+.save_image_position {
+  position: relative;
+  bottom: 227px;
+  right: -187px;
+}
+
+.save_image {
+  border-radius: 0px 5px;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: rgb(10, 2, 56);
+}
+
+.save_image > svg {
+  width: 20px;
+  height: 20px;
+  color: #ffffff;
+}
+
+.image_container > img {
+  width: 227px;
+  height: 227px;
+  border-radius: 5px;
+}
+
 .image_container > div > svg {
   width: 32px;
   height: 32px;
@@ -75,8 +224,15 @@
 
 .search_card_show_prices {
   display: flex;
-  background-color: aqua;
+  background: #ed6648;
+  color: #ffffff;
+  width: 159px;
+  height: 37px;
+  border-radius: 10px;
+  border: 1px solid #ed6648;
   justify-content: center;
+  align-items: center;
+  margin-top: auto;
 }
 
 .searchbox {
@@ -230,7 +386,6 @@
 }
 
 .filters_box_title {
-
   font-family: "Calibri";
   font-style: normal;
   font-weight: 400;
@@ -251,7 +406,7 @@ body {
   min-height: 100%;
 }
 
-@media screen and (max-width: 1038px) {
+@media screen and (max-width: 1439px) {
   .basiclayout {
     justify-content: flex-start;
   }
