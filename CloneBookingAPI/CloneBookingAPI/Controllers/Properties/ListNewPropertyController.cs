@@ -528,14 +528,14 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
         [Route("addphotos")]
         [HttpPost]
-        public async Task<IActionResult> AddPhotos(IFormFile uploadedFile)
+        public async Task<IActionResult> AddPhotos(IFormFile[] uploadedFiles)
         {
             try
             {
                 string suggestionId = Request.QueryString.Value;
                 suggestionId = suggestionId.Substring(suggestionId.IndexOf("=") + 1);
 
-                if (uploadedFile is null ||
+                if (uploadedFiles is null ||
                     suggestionId is null
                     )
                 {
@@ -549,7 +549,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     return Json(new { code = 400 });
                 }
 
-                bool res = await _fileUploader.UploadSuggestionPhotoAsync(uploadedFile, resSuggestion);
+                bool res = await _fileUploader.UploadSuggestionPhotoAsync(uploadedFiles, resSuggestion);
                 if (!res)
                 {
                     return Json(new { code = 400 });
@@ -652,7 +652,8 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                if (suggestion is null)
+                if (suggestion is null ||
+                    string.IsNullOrWhiteSpace(suggestion.Description))
                 {
                     return Json(new { code = 400 });
                 }

@@ -55,11 +55,13 @@ export class LpPhotosComponent implements OnInit {
 
   addPropertyPhotos(): void {
     if (this.uploadedFiles != null) {
-      for (let i = 0; i < this.uploadedFiles.length; i++) {
-        let fData = new FormData();
-        fData.append('uploadedFile', this.uploadedFiles[i]);
+      let fData = new FormData();
 
-        fetch('https://localhost:44381/api/listnewproperty/addphotos?suggestionId=' + this.listNewPropertyService.getSavedPropertyId(), {
+      for (let i = 0; i < this.uploadedFiles.length; i++) {
+        fData.append('uploadedFiles', this.uploadedFiles[i]);
+      }
+
+      fetch('https://localhost:44381/api/listnewproperty/addphotos?suggestionId=' + this.listNewPropertyService.getSavedPropertyId(), {
           method: 'POST',
           headers: {
             "Accept": "application/json",
@@ -70,10 +72,8 @@ export class LpPhotosComponent implements OnInit {
           .then((r) => r.json())
           .then((r) => {
             if (r.code === 200) {
-              console.log('Files have been successfully uploaded!' + ' ' + i);
-              if (i == this.uploadedFiles.length - 1) {
-                this.router.navigate(['/lp/pricingandcalender']);
-              }
+              console.log('Files have been successfully uploaded!');
+              this.router.navigate(['/lp/pricingandcalender']);
             } else {
               alert('Uploading error!');
             }
@@ -81,7 +81,6 @@ export class LpPhotosComponent implements OnInit {
           .catch((err) => {
             alert(err);
           });
-      }
     }
   }
 

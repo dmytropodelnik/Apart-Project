@@ -297,6 +297,8 @@ export class LpPropertySetupComponent implements OnInit {
       description: this.description,
     };
 
+    console.log(this.description);
+
     fetch(`https://localhost:44381/api/listnewproperty/adddescription`, {
       method: 'POST',
       headers: {
