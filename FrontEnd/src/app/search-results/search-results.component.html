@@ -639,7 +639,11 @@
       <div *ngFor="let item of resSuggestions; let i = index">
         <div class="search_card">
           <div class="image_container">
-           <img src="" /> <!-- {{imageHelper.getImageDirectoryPath()}}suggestions/{{item.images[0]?.name}} -->
+           <img
+            src="{{imageHelper.getImageDirectoryPath()}}suggestions/{{item.images[0]?.name}}"
+            width="200px"
+            height="200px"
+           />
           </div>
           <div class="information_container">
             <div class="left_information">

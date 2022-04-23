@@ -33,18 +33,20 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 {
                     grades = await _context.SuggestionReviewGrades
                     .Include(g => g.ReviewCategory)
+                    .Include(g => g.Suggestion)
                     .ToListAsync();
                 }
                 else
                 {
                     grades = await _context.SuggestionReviewGrades
                     .Include(g => g.ReviewCategory)
+                    .Include(g => g.Suggestion)
                         .Skip((page - 1) * pageSize)
                         .Take(pageSize)
                         .ToListAsync();
                 }
 
-                return Json(new { code = 200, grades });
+                return Json(new { code = 200, grades = grades.Select(g => new { g.Id, g.Value, g.ReviewCategory, g.Suggestion }) });
             }
             catch (ArgumentNullException ex)
             {

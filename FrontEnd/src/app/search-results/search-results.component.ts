@@ -93,6 +93,8 @@ export class SearchResultsComponent implements OnInit {
       Number(this.filters.searchAdultsAmount) +
       Number(this.filters.searchChildrenAmount);
 
+    console.log(this.filters.filters);
+
     fetch(`https://localhost:44381/api/stayssearching/filtersearch`, {
       method: 'POST',
       headers: {
