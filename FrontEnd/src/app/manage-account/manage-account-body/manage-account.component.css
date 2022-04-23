@@ -243,7 +243,7 @@ li::marker {
 
 .manageaccount{
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   width: fit-content;
 }
 
