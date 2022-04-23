@@ -1,7 +1,7 @@
 <div class="container container-fluid">
   <ul class="list-group list-group-flush container-fluid">
     <li class="list-group-item">
-      <div class="row">
+      <div class="list-group-item_content">
         <div class="col-5">
           <h1>Personal details</h1>
           <p>Update your info and find out how it's used.</p>
@@ -10,12 +10,12 @@
       </div>
     </li>
     <li class="list-group-item">
-      <div class="row">
+      <div class="list-group-item_content">
         <div class="col">Title</div>
         <div class="col-6">
           <div *ngIf="!isEditing[0]">
-            <p *ngIf="!user.title">Add a title</p>
-            <p *ngIf="user.title">{{ user.title }}</p>
+            <span *ngIf="!user.title">Add a title</span>
+            <span *ngIf="user.title">{{ user.title }}</span>
           </div>
           <div *ngIf="isEditing[0]">
             <form>
@@ -41,23 +41,20 @@
             Edit
           </button>
         </div>
-        <div *ngIf="isEditing[0]" class="col">
+        <div *ngIf="isEditing[0]" class="colTest">
           <div>
-            <button
-              class="buttonTest"
-              (click)="cancelButtonClick(0)"
-            >
+            <button class="buttonTest1" (click)="cancelButtonClick(0)">
               Cancel
             </button>
-            <button class="buttonTest" (click)="saveTitle(0)">
-              Save
-            </button>
+          </div>
+          <div>
+            <button class="buttonTest" (click)="saveTitle(0)">Save</button>
           </div>
         </div>
       </div>
     </li>
     <li class="list-group-item">
-      <div class="row">
+      <div class="list-group-item_content">
         <div class="col">Name</div>
         <div class="col-6">
           <div *ngIf="!isEditing[1]">
@@ -99,23 +96,20 @@
             Edit
           </button>
         </div>
-        <div *ngIf="isEditing[1]" class="col">
+        <div *ngIf="isEditing[1]" class="colTest">
           <div>
-            <button
-              class="buttonTest"
-              (click)="cancelButtonClick(1)"
-            >
+            <button class="buttonTest1" (click)="cancelButtonClick(1)">
               Cancel
             </button>
-            <button class="buttonTest" (click)="saveName(1)">
-              Save
-            </button>
+          </div>
+          <div>
+            <button class="buttonTest" (click)="saveTitle(1)">Save</button>
           </div>
         </div>
       </div>
     </li>
     <li class="list-group-item">
-      <div class="row">
+      <div class="list-group-item_content">
         <div class="col">Display name</div>
         <div class="col-6">
           <div *ngIf="!isEditing[2]">
@@ -146,26 +140,20 @@
             Edit
           </button>
         </div>
-        <div *ngIf="isEditing[2]" class="col">
+        <div *ngIf="isEditing[2]" class="colTest">
           <div>
-            <button
-              class="buttonTest"
-              (click)="cancelButtonClick(2)"
-            >
+            <button class="buttonTest1" (click)="cancelButtonClick(2)">
               Cancel
             </button>
-            <button
-              class="buttonTest"
-              (click)="saveDisplayName(2)"
-            >
-              Save
-            </button>
+          </div>
+          <div>
+            <button class="buttonTest" (click)="saveTitle(2)">Save</button>
           </div>
         </div>
       </div>
     </li>
     <li class="list-group-item">
-      <div class="row">
+      <div class="list-group-item_content">
         <div class="col">Email address</div>
         <div class="col-6">
           <div *ngIf="!isEditing[3] && !isEmailSent">
@@ -213,28 +201,20 @@
             Edit
           </button>
         </div>
-        <div *ngIf="isEditing[3]" class="col">
+        <div *ngIf="isEditing[3]" class="colTest">
           <div>
-            <div>
-              <button
-                class="buttonTest"
-                (click)="cancelButtonClick(3)"
-              >
-                Cancel
-              </button>
-              <button
-                class="buttonTest"
-                (click)="sendChangingEmailLetter(3)"
-              >
-                Save
-              </button>
-            </div>
+            <button class="buttonTest1" (click)="cancelButtonClick(3)">
+              Cancel
+            </button>
+          </div>
+          <div>
+            <button class="buttonTest" (click)="saveTitle(3)">Save</button>
           </div>
         </div>
       </div>
     </li>
     <li class="list-group-item">
-      <div class="row">
+      <div class="list-group-item_content">
         <div class="col">Phone number</div>
         <div class="col-6">
           <div *ngIf="!isEditing[4]">
@@ -267,26 +247,20 @@
             Edit
           </button>
         </div>
-        <div *ngIf="isEditing[4]" class="col">
+        <div *ngIf="isEditing[4]" class="colTest">
           <div>
-            <button
-              class="buttonTest"
-              (click)="cancelButtonClick(4)"
-            >
+            <button class="buttonTest1" (click)="cancelButtonClick(4)">
               Cancel
             </button>
-            <button
-              class="buttonTest"
-              (click)="savePhoneNumber(4)"
-            >
-              Save
-            </button>
+          </div>
+          <div>
+            <button class="buttonTest" (click)="saveTitle(4)">Save</button>
           </div>
         </div>
       </div>
     </li>
     <li class="list-group-item">
-      <div class="row">
+      <div class="list-group-item_content">
         <div class="col">Date of birth</div>
         <div class="col-6">
           <div *ngIf="!isEditing[5]">
@@ -335,23 +309,20 @@
             Edit
           </button>
         </div>
-        <div *ngIf="isEditing[5]" class="col">
+        <div *ngIf="isEditing[5]" class="colTest">
           <div>
-            <button
-              class="buttonTest"
-              (click)="cancelButtonClick(5)"
-            >
+            <button class="buttonTest1" (click)="cancelButtonClick(5)">
               Cancel
             </button>
-            <button class="buttonTest" (click)="saveBirthDate(5)">
-              Save
-            </button>
+          </div>
+          <div>
+            <button class="buttonTest" (click)="saveTitle(5)">Save</button>
           </div>
         </div>
       </div>
     </li>
     <li class="list-group-item">
-      <div class="row">
+      <div class="list-group-item_content">
         <div class="col">Nationality</div>
         <div class="col-6">
           <div *ngIf="!isEditing[6]">
@@ -384,26 +355,20 @@
             Edit
           </button>
         </div>
-        <div *ngIf="isEditing[6]" class="col">
+        <div *ngIf="isEditing[6]" class="colTest">
           <div>
-            <button
-              class="buttonTest"
-              (click)="cancelButtonClick(6)"
-            >
+            <button class="buttonTest1" (click)="cancelButtonClick(6)">
               Cancel
             </button>
-            <button
-              class="buttonTest"
-              (click)="saveNationality(6)"
-            >
-              Save
-            </button>
+          </div>
+          <div>
+            <button class="buttonTest" (click)="saveTitle(6)">Save</button>
           </div>
         </div>
       </div>
     </li>
     <li class="list-group-item">
-      <div class="row">
+      <div class="list-group-item_content">
         <div class="col">Gender</div>
         <div class="col-6">
           <div *ngIf="!isEditing[7]">
@@ -438,23 +403,20 @@
             Edit
           </button>
         </div>
-        <div *ngIf="isEditing[7]" class="col">
+        <div *ngIf="isEditing[7]" class="colTest">
           <div>
-            <button
-              class="buttonTest"
-              (click)="cancelButtonClick(7)"
-            >
+            <button class="buttonTest1" (click)="cancelButtonClick(7)">
               Cancel
             </button>
-            <button class="buttonTest" (click)="saveGender(7)">
-              Save
-            </button>
+          </div>
+          <div>
+            <button class="buttonTest" (click)="saveTitle(7)">Save</button>
           </div>
         </div>
       </div>
     </li>
     <li class="list-group-item">
-      <div class="row">
+      <div class="list-group-item_content">
         <div class="col">Address</div>
         <div class="col-6">
           <div *ngIf="!isEditing[8]">
@@ -530,17 +492,14 @@
             Edit
           </button>
         </div>
-        <div *ngIf="isEditing[8]" class="col">
+        <div *ngIf="isEditing[8]" class="colTest">
           <div>
-            <button
-              class="buttonTest"
-              (click)="cancelButtonClick(8)"
-            >
+            <button class="buttonTest1" (click)="cancelButtonClick(8)">
               Cancel
             </button>
-            <button class="buttonTest" (click)="saveAddress(8)">
-              Save
-            </button>
+          </div>
+          <div>
+            <button class="buttonTest" (click)="saveTitle(8)">Save</button>
           </div>
         </div>
       </div>
