@@ -6,6 +6,7 @@ using CloneBookingAPI.Services.Repositories;
 using CloneBookingAPI.Services.Timers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -21,6 +22,7 @@ namespace CloneBookingAPI.Controllers
     public class CodesController : Controller
     {
         private readonly IGenerator _codeGenerator;
+        private readonly IConfiguration _configuration;
         private readonly RegistrationCodesRepository _registrationRepository;
         private readonly JwtRepository _jwtRepository;
         private readonly DeleteUserCodesRepository _deleteUserRepository;
@@ -35,7 +37,8 @@ namespace CloneBookingAPI.Controllers
             DeleteUserCodesRepository deleteUserRepository,
             ResetPasswordCodesRepository resetPasswordRepository,
             ChangingEmailCodesRepository changingEmailRepository,
-            EnterCodesRepository enterRepository)
+            EnterCodesRepository enterRepository,
+            IConfiguration configuration)
         {
             _codeGenerator = codeGenerator;
             _registrationRepository = registrationRepository;
@@ -44,6 +47,7 @@ namespace CloneBookingAPI.Controllers
             _resetPasswordRepository = resetPasswordRepository;
             _changingEmailRepository = changingEmailRepository;
             _enterRepository = enterRepository;
+            _configuration = configuration;
         }
 
         [Route("generateregistercode")]
@@ -65,7 +69,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                new RegistrationCodeCleanTimer(_registrationRepository).SetTimer((key: emailTrim, code: code));
+                new RegistrationCodeCleanTimer(_registrationRepository, _configuration).SetTimer((key: emailTrim, code: code));
 
                 return RedirectToAction("SendCodeLetter", "Auth", new { emailTrim, code });
             }
@@ -103,7 +107,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 411 });
                 }
 
-                new ChangingEmailCodeCleanTimer(_changingEmailRepository).SetTimer((key: emailTrim, code: code));
+                new ChangingEmailCodeCleanTimer(_changingEmailRepository, _configuration).SetTimer((key: emailTrim, code: code));
 
                 return RedirectToAction("SendChangingEmailLetter", "Auth", new { emailTrim, oldEmailTrim, code });
             }
@@ -140,7 +144,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 411 });
                 }
 
-                new DeleteUserCodeCleanTimer(_deleteUserRepository).SetTimer((key: emailTrim, code: code));
+                new DeleteUserCodeCleanTimer(_deleteUserRepository, _configuration).SetTimer((key: emailTrim, code: code));
 
                 return RedirectToAction("SendDeleteUserLetter", "Auth", new { emailTrim, code });
             }
@@ -177,7 +181,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 411 });
                 }
 
-                new ResetPasswordCodeCleanTimer(_resetPasswordRepository).SetTimer((key: emailTrim, code: code));
+                new ResetPasswordCodeCleanTimer(_resetPasswordRepository, _configuration).SetTimer((key: emailTrim, code: code));
 
                 return RedirectToAction("SendResetPasswordLetter", "Auth", new { emailTrim, code });
             }
@@ -214,7 +218,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 411 });
                 }
 
-                new EnterCodeCleanTimer(_enterRepository).SetTimer((key: emailTrim, code: code));
+                new EnterCodeCleanTimer(_enterRepository, _configuration).SetTimer((key: emailTrim, code: code));
 
                 return RedirectToAction("SendVerifyEnterLetter", "Auth", new { emailTrim, code });
             }

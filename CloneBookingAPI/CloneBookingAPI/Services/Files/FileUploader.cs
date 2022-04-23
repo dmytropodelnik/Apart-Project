@@ -3,6 +3,7 @@ using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -16,13 +17,19 @@ namespace CloneBookingAPI.Services.Files
     {
         private readonly ApartProjectDbContext _context;
         private readonly IWebHostEnvironment _appEnvironment;
-        private readonly string _storagePath = "/files/";
         private readonly SHA256 sha256 = SHA256.Create();
 
-        public FileUploader(ApartProjectDbContext context, IWebHostEnvironment appEnvironment)
+        private readonly string _storagePath = default;
+
+        public FileUploader(
+            ApartProjectDbContext context, 
+            IWebHostEnvironment appEnvironment,
+            IConfiguration configuration)
         {
             _context = context;
             _appEnvironment = appEnvironment;
+
+            _storagePath = configuration["StoragePaths:RootFiles"];
         }
 
         public async Task<bool> UploadSuggestionPhotoAsync(IFormFile[] uploadedFiles, Suggestion suggestion)

@@ -22,22 +22,33 @@ namespace CloneBookingAPI.Controllers
     {
         private readonly ApartProjectDbContext _context;
         private readonly AuthEmailSender _emailSender;
-        private string _letterTemplate = "<p>HELLO TEST</p>";
-        private string _subjectLetterTemplate = "Confirmation code for registration!";
-        private string _subjectVerifyLetterTemplate = "Verify email to enter!";
-        private string _subjectResetPasswordLetterTemplate = "Verify email to reset the password!";
-        private string _subjectChangeEmailLetterTemplate = "Verify email to change the email!";
-        private string _subjectDeleteUserLetterTemplate = "Verify letter to delete your account!";
 
-        private string _verificationLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&isToDeleteCode=true\">Verify enter</a>";
-        private string _resetPasswordLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&resetPassword=true&isToDeleteCode=true\">Reset password</a>";
-        private string _changeEmailLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&oldEmail=oldEmailTemplate&code=codeTemplate&changeEmail=true&isToDeleteCode=true\">Change email</a>";
-        private string _deleteUserLinkTemplate = "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&isToDeleteCode=true&isToDeleteUser=true\">Delete account</a>";
+        private readonly string _subjectRegistrationLetterTemplate  = default;
+        private readonly string _subjectVerifyEnterLetterTemplate   = default;
+        private readonly string _subjectResetPasswordLetterTemplate = default;
+        private readonly string _subjectChangeEmailLetterTemplate   = default;
+        private readonly string _subjectDeleteUserLetterTemplate    = default;
+
+        private readonly string _enterLinkTemplate          = default;
+        private readonly string _resetPasswordLinkTemplate  = default;
+        private readonly string _changeEmailLinkTemplate    = default;
+        private readonly string _deleteUserLinkTemplate     = default;
 
         public AuthController(ApartProjectDbContext context, IConfiguration configuration)
         {
             _context = context;
             _emailSender = new AuthEmailSender(configuration);
+
+            _enterLinkTemplate         = configuration["EmailLinksTemplates:EnterLetter:Template"];
+            _resetPasswordLinkTemplate = configuration["EmailLinksTemplates:ResetPasswordLetter:Template"];
+            _changeEmailLinkTemplate   = configuration["EmailLinksTemplates:ChangingEmailLetter:Template"];
+            _deleteUserLinkTemplate    = configuration["EmailLinksTemplates:DeleteUserLetter:Template"];
+
+            _subjectRegistrationLetterTemplate  = configuration["EmailLetterSubjectTemplates:RegistrationLetterSubject:Template"];
+            _subjectVerifyEnterLetterTemplate   = configuration["EmailLetterSubjectTemplates:EnterLetterSubject:Template"];
+            _subjectResetPasswordLetterTemplate = configuration["EmailLetterSubjectTemplates:ResetPasswordLetterSubject:Template"];
+            _subjectChangeEmailLetterTemplate   = configuration["EmailLetterSubjectTemplates:ChangingEmailLetterSubject:Template"];
+            _subjectDeleteUserLetterTemplate    = configuration["EmailLetterSubjectTemplates:DeleteUserLetterSubject:Template"];
         }
 
 
@@ -86,7 +97,7 @@ namespace CloneBookingAPI.Controllers
 
                 string correctEmail = emailTrim.Trim();
 
-                bool res = await _emailSender.SendEmailAsync(correctEmail, _subjectLetterTemplate, code);
+                bool res = await _emailSender.SendEmailAsync(correctEmail, _subjectRegistrationLetterTemplate, code);
                 if (res is false)
                 {
                     return Json(new { code = 400 });
@@ -114,13 +125,13 @@ namespace CloneBookingAPI.Controllers
                 }
 
                 string correctEmail = emailTrim.Trim();
-                string linkTemplate = _verificationLinkTemplate
+                string linkTemplate = _enterLinkTemplate
                         .Replace("codeTemplate", code);
                 linkTemplate = linkTemplate.Replace("emailTemplate", correctEmail);
 
                 bool res = await _emailSender.SendEmailAsync(
                     correctEmail,
-                    _subjectVerifyLetterTemplate,
+                    _subjectVerifyEnterLetterTemplate,
                     linkTemplate);
                 if (res is false)
                 {

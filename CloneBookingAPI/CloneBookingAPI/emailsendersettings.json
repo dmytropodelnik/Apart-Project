@@ -13,16 +13,5 @@
     "EmmiterEmail": "clonebooking.itstep@gmail.com",
     "EmmiterPass": "clonebooking_2022!",
     "SenderName": "Apart.com"
-  },
-  "SendTemplates": {
-    "DealsLetter": {
-      "Template": ""
-    },
-    "AuthLetter": {
-      "Template": ""
-    },
-    "VerifyEnterLetter": {
-      "Template": ""
-    }
   }
 }
