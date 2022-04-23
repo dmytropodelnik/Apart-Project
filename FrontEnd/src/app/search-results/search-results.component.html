@@ -600,8 +600,8 @@
     </div>
     <div class="right">
       <div class="search_results_header">
-        <div>
-          <h3>Amsterdam: {{ suggestionsAmount }} properties found</h3>
+        <div class="search_results_title">
+          Amsterdam: {{ suggestionsAmount }} properties found
         </div>
         <div class="search_results_top_buttons">
           <button (click)="sortItems(sortState.TopReviewed)">
@@ -617,7 +617,7 @@
             Stars (lowest first)
           </button>
           <div class="btn-group">
-            <button type="button" class="" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+            <button type="button" class="dropdown_button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
               ...
             </button>
             <ul class="dropdown-menu dropdown-menu-lg-end">
@@ -644,15 +644,9 @@
             width="200px"
             height="200px"
            />
-          </div>
-          <div class="information_container">
-            <div class="left_information">
-              <div>
-                <h3>{{ item?.name }}</h3>
-              </div>
-              <div>
+           <div class="save_image_position">
                 <div *ngIf="isSaved(item.id) == true">
-                <button class="btn btn-danger" (click)="removeSuggestion(item.id)">
+                <button class="save_image" (click)="removeSuggestion(item.id)">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
                     viewBox="0 0 16 16">
                     <path
@@ -661,7 +655,7 @@
                 </button>
               </div>
               <div *ngIf="isSaved(item.id) == false">
-                <button class="btn btn-outline-danger" (click)="addSuggestionToSaved(item.id)">
+                <button class="save_image" (click)="addSuggestionToSaved(item.id)">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
                     viewBox="0 0 16 16">
                     <path
@@ -670,11 +664,20 @@
                 </button>
               </div>
               </div>
-              <div>{{ item.address + ', ' + item.city + ',' + item.country }}</div>
-              <div>
+          </div>
+          <div>
+            <div class="left_information">
+              <div class="left_information_name">
+                <span class="left_information_title">{{ item?.name }}</span>
+                <img src="../../assets/images/Star 1.png"/>
+              </div>
+              <div class="left_information_location">{{ item.address + ', ' + item.city + ',' + item.country }}</div>
+              <div class="left_information_description">
                 {{item.description}}
               </div>
             </div>
+          </div>
+          <div class="information_container">
             <div class="right_information">
               <div class="search_card_score">
                 <div class="bui-review-score__content">
@@ -696,17 +699,19 @@
                               mathHelper.Round10(suggestionGrades[i]) < 7.7; then pleasantBlock"></div>
                   <ng-template #pleasantBlock>Normal</ng-template>
                   <div class="bui-review-score__text">{{reviewsCount[i] ?? '0'}} reviews</div> -->
-                  <div class="bui-review-score__title">Wonderful</div>
-                  <div class="bui-review-score__text">
+                  <div class="right_information_title">Wonderful</div>
+                  <div class="right_information_text">
                     {{ item.reviews }} reviews
                   </div>
                 </div>
                 <div class="bui-review-score__badge" aria-label="Scored 0 ">
                   9.2
                 </div>
-                <p class="bh-carousel--new__price bui_color_black">
-                  Starting from USD {{ item?.priceInUSD }}
-                </p>
+              </div>
+              <div>
+                <span class="right_information_text">
+                  Starting from USD <span class="fw-bold">{{ item?.priceInUSD }}</span>
+                </span>
               </div>
               <button class="search_card_show_prices">Show Prices</button>
             </div>
