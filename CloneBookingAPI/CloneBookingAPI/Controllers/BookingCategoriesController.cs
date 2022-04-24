@@ -48,6 +48,47 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("getcategoriesforlist")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<BookingCategory>>> GetCategoriesForList(int categoryTypeId)
+        {
+            try
+            {
+                if (categoryTypeId < 1)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var categories = await _context.BookingCategories
+                    .Where(c => c.BookingCategoryTypeId == categoryTypeId)
+                    .ToListAsync();
+                if (categories is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                return Json(new { code = 200, categories });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
                 return Json(new { code = 400 });
             }
             catch (OperationCanceledException ex)

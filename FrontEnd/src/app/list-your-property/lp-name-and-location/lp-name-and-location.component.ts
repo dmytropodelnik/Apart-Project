@@ -61,6 +61,7 @@ export class LpNameAndLocationComponent implements OnInit {
 
   addPropertyName(): void {
     let suggestion = {
+      id: this.listNewPropertyService.getSavedPropertyId(),
       name: this.propertyName,
       login: AuthHelper.getLogin(),
     };
@@ -77,10 +78,6 @@ export class LpNameAndLocationComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200 && data.savedSuggestionId !== null) {
-          this.listNewPropertyService.setSavedPropertyId(
-            data.savedSuggestionId
-          );
-
           this.incrementChoice();
           this.getCountries();
         }

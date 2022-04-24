@@ -39,7 +39,7 @@
               entire place</span
             >
           </div>
-          <div class="add-propties-item">
+          <div class="add-propties-item" (click)="addHotel()">
             <img src="../../../assets/images/hotel 1.png" />
             <span class="add-propties-item-title">Hotel, B&Bs, and more</span>
             <span class="add-propties-item-subtitle"
@@ -47,7 +47,7 @@
               entire place</span
             >
           </div>
-          <div class="add-propties-item">
+          <div class="add-propties-item" (click)="addAlternativePlace()">
             <img src="../../../assets/images/teepee 1.png" />
             <span class="add-propties-item-title">Alternative places</span>
             <span class="add-propties-item-subtitle"
@@ -59,69 +59,25 @@
       </div>
     </li>
     <li *ngSwitchCase="1">
-      <div class="add-apartments-main">
-        <div>
-          <div class="main-header">How many apartments are you listing?</div>
+      <div class="name-and-location-container">
+        <div class="header-name-and-location">
+          Where is the property you're listing?
         </div>
-        <div class="add-apartments-item-container">
-          <div class="add-apartments-item">
-            <img
-              src="https://q.bstatic.com/static/img/join/segmentation/tent-big@2x.png"
-            />
-            <span class="add-propties-item-title">One Apartment</span>
-          </div>
-          <div class="add-apartments-item">
-            <img
-              src="https://q.bstatic.com/static/img/join/segmentation/tent-big@2x.png"
-            />
-            <span class="add-propties-item-title">Multiple Apartments</span>
-          </div>
+
+        <div class="header-name-and-location">
+          We may send a letter to confirm the location of your property, so make
+          sure that the address is correct – it’s difficult to make changes to
+          it later.
         </div>
-        <div class="add-apartments-button">
-          <span class="back-arrow">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-caret-left-fill"
-              viewBox="0 0 16 16"
-            >
-              <path
-                d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"
-              />
-            </svg>
-          </span>
-          <button
-            class="add-apartments-item-button"
-            routerLink="/lp/nameandlocation"
-          >
-            List your property
-          </button>
+        <div class="Input-name-and-location">
+          <select class="form-select" aria-label="Default select example" id="categoriesSelect"
+                  name="bookingCategoryId" [(ngModel)]="bookingCategoryId">
+            <option selected>Select suggestion category</option>
+          </select>
         </div>
-      </div>
-    </li>
-    <li *ngSwitchCase="2">
-      <div class="add-propties-main">
-        <div>
-          <div class="main-header">Add Home</div>
-          <div class="main-header-subheader">
-            To get started, choose the type of property you want to list on
-            Booking.com
-          </div>
-        </div>
-        <div class="add-propties-grid">
-          <div class="add-propties-item">
-            <img
-              src="https://q.bstatic.com/static/img/join/segmentation/tent-big@2x.png"
-            />
-            <span class="add-propties-item-title">Alternative places</span>
-            <span class="add-propties-item-subtitle"
-              >Propeties like boats, campsites, luxury tents, etc.</span
-            >
-            <button class="add-propties-item-button">List your property</button>
-          </div>
-        </div>
+        <button class="name-and-location-button" (click)="addBookingCategory()">
+          Continue
+        </button>
       </div>
     </li>
   </ul>

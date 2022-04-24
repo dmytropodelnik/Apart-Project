@@ -19,7 +19,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public int Id { get; set; }
         public string UniqueCode { get; set; }
 
-        [Required]
+        // [Required]
         public string Name { get; set; }
 
         // [Required]
