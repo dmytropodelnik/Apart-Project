@@ -8,25 +8,101 @@
           <div class="searchbox_country">
             <span class="textdecoration" id="basic-addon1">Destination/property name:</span>
             <input type="text" class="inputfield" placeholder="City/Country" aria-label="Username"
-              aria-describedby="basic-addon1" />
+              aria-describedby="basic-addon1" name="filters.place" [(ngModel)]="filters.place" />
           </div>
           <div class="searchbox_date">
             <span class="textdecoration">Check-in Date</span>
-            <input class="inputfield" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker
+            <input class="inputfield" placeholder="yyyy-mm-dd" name="filters.pdateIn" [(ngModel)]="filters.pdateIn" ngbDatepicker
               #d="ngbDatepicker" (click)="d.toggle()" readonly />
           </div>
           <div class="searchbox_date">
             <span class="textdecoration">Check-out Date</span>
-            <input class="inputfield" placeholder="yyyy-mm-dd" name="dp1" [(ngModel)]="model1" ngbDatepicker
+            <input class="inputfield" placeholder="yyyy-mm-dd" name="filters.pdateOut" [(ngModel)]="filters.pdateOut" ngbDatepicker
               #d1="ngbDatepicker" (click)="d1.toggle()" readonly />
           </div>
-          <div class="searchbox_country">
+          <div class="searchbox_country" data-toggle="dropdown">
             <span class="textdecoration" id="basic-addon1">How many people?</span>
-            <input type="text" class="inputfield" placeholder="2 adult 0 children 1 room" aria-label="Username"
+            <input type="text" class="inputfield" placeholder="{{filters.searchAdultsAmount}} adult {{filters.searchChildrenAmount}} children {{filters.searchRoomsAmount}} room" aria-label="Username"
               aria-describedby="basic-addon1" />
           </div>
+          <div class="dropdown-menu">
+            <form class="dropdownFormReservation">
+              <div class="form-group">
+                <div class="dropdownSubSection">
+                  <div>
+                    <span class="dropdownSubSectionText">Adults</span>
+                  </div>
+                  <div class="dropdownSubSectionButtons">
+                    <button
+                      class="bui-button bui-button--secondary"
+                      (click)="setAdults(-1)"
+                    >
+                      <span class="bui-button__text">-</span>
+                    </button>
+                    <span class="dropdownSubSectionText">{{
+                      filters.searchAdultsAmount
+                    }}</span>
+                    <button
+                      class="bui-button bui-button--secondary"
+                      (click)="setAdults(1)"
+                    >
+                      <span class="bui-button__text">+</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="dropdownSubSection">
+                  <div>
+                    <span class="dropdownSubSectionText">Children</span>
+                  </div>
+                  <div class="dropdownSubSectionButtons">
+                    <button
+                      class="bui-button bui-button--secondary"
+                      (click)="setChildren(-1)"
+                    >
+                      <span class="bui-button__text">-</span>
+                    </button>
+                    <span class="dropdownSubSectionText">{{
+                      filters.searchChildrenAmount
+                    }}</span>
+                    <button
+                      class="bui-button bui-button--secondary"
+                      (click)="setChildren(1)"
+                    >
+                      <span class="bui-button__text">+</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="dropdownSubSection">
+                  <div>
+                    <span class="dropdownSubSectionText">Rooms</span>
+                  </div>
+                  <div class="dropdownSubSectionButtons">
+                    <button
+                      class="bui-button bui-button--secondary"
+                      (click)="setRooms(-1)"
+                    >
+                      <span class="bui-button__text">-</span>
+                    </button>
+                    <span class="dropdownSubSectionText">{{
+                      filters.searchRoomsAmount
+                    }}</span>
+                    <button
+                      class="bui-button bui-button--secondary"
+                      (click)="setRooms(1)"
+                    >
+                      <span class="bui-button__text">+</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
           <div class="searchbox_search">
-            <button class="searchbox_button">Search</button>
+            <button class="searchbox_button" (click)="searchSuggestions($event)">Search</button>
           </div>
         </form>
       </div>
