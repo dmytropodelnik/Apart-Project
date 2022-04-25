@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database.Models.Suggestions;
+﻿using CloneBookingAPI.Database.Models;
+using CloneBookingAPI.Services.Database.Models.Suggestions;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -17,6 +18,10 @@ namespace CloneBookingAPI.Services.Database.Models
         [DataType(DataType.Text)]
         [StringLength(60, MinimumLength = 2, ErrorMessage = "Incorrect length")]
         public string Category { get; set; }
+
+        public int BookingCategoryTypeId { get; set; }
+        [ForeignKey("BookingCategoryTypeId")]
+        public BookingCategoryType BookingCategoryType { get; set; }
 
         public int ImageId { get; set; }
         [ForeignKey("ImageId")]

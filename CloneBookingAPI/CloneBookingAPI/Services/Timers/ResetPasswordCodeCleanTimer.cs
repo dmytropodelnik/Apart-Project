@@ -1,5 +1,6 @@
 ﻿using CloneBookingAPI.Services.Interfaces;
 using CloneBookingAPI.Services.Repositories;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -11,12 +12,16 @@ namespace CloneBookingAPI.Services.Timers
         private readonly ResetPasswordCodesRepository _resetPasswordRepository;
         private ResetPasswordCodeCleaner _resetPasswordCleaner;
 
-        private const int _CODE_ALIVE_TIME = 600000;
+        private readonly int _CODE_ALIVE_TIME;
 
-        public ResetPasswordCodeCleanTimer(ResetPasswordCodesRepository resetPasswordRepository)
+        public ResetPasswordCodeCleanTimer(
+            ResetPasswordCodesRepository resetPasswordRepository,
+            IConfiguration configuration)
         {
             _resetPasswordRepository = resetPasswordRepository;
             _resetPasswordCleaner = new ResetPasswordCodeCleaner(_resetPasswordRepository);
+
+            _CODE_ALIVE_TIME = int.Parse(configuration["CodeAliveTimes:ResetPasswordCodeAliveTime"]);
         }
 
         public bool SetTimer((string key, string code) codeTuple)

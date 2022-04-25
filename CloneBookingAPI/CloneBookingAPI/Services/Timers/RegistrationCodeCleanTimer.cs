@@ -1,5 +1,6 @@
 ﻿using CloneBookingAPI.Services.Generators;
 using CloneBookingAPI.Services.Interfaces;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -11,12 +12,16 @@ namespace CloneBookingAPI.Services.Timers
         private readonly RegistrationCodesRepository _registrationRepository;
         private RegistrationCodeCleaner _registrationCleaner;
 
-        private const int _CODE_ALIVE_TIME = 600000;
+        private readonly int _CODE_ALIVE_TIME;
 
-        public RegistrationCodeCleanTimer(RegistrationCodesRepository jwtRepository)
+        public RegistrationCodeCleanTimer(
+            RegistrationCodesRepository jwtRepository,
+            IConfiguration configuration)
         {
             _registrationRepository = jwtRepository;
             _registrationCleaner = new RegistrationCodeCleaner(_registrationRepository);
+
+            _CODE_ALIVE_TIME = int.Parse(configuration["CodeAliveTimes:RegistrationCodeAliveTime"]);
         }
 
         public bool SetTimer((string key, string code) codeTuple)

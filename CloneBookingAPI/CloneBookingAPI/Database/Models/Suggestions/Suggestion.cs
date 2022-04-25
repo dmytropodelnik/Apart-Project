@@ -19,7 +19,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public int Id { get; set; }
         public string UniqueCode { get; set; }
 
-        [Required]
+        // [Required]
         public string Name { get; set; }
 
         // [Required]
@@ -36,7 +36,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
 
         public ContactDetails ContactDetails { get; set; }
 
-        public int AddressId { get; set; }
+        public int? AddressId { get; set; }
         [ForeignKey("AddressId")]
         public Address Address { get; set; }
 

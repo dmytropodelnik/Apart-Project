@@ -1,264 +1,392 @@
 <div class="container container-fluid">
   <ul class="list-group list-group-flush container-fluid">
     <li class="list-group-item">
-      <div class="row">
+      <div class="list-group-item_content">
         <div class="col-5">
           <h1>Personal details</h1>
           <p>Update your info and find out how it's used.</p>
         </div>
-        <div class="col">
-          Image
-        </div>
+        <div class="col">Image</div>
       </div>
     </li>
     <li class="list-group-item">
-      <div class="row">
-        <div class="col">
-          Title
-        </div>
+      <div class="list-group-item_content">
+        <div class="col">Title</div>
         <div class="col-6">
           <div *ngIf="!isEditing[0]">
-            <p *ngIf="!user.title">Add a title</p>
-            <p *ngIf="user.title">{{user.title}}</p>
+            <span *ngIf="!user.title">Add a title</span>
+            <span *ngIf="user.title">{{ user.title }}</span>
           </div>
           <div *ngIf="isEditing[0]">
             <form>
               <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" class="form-control" id="title" name="user.title" [(ngModel)]="user.title">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="title"
+                  name="user.title"
+                  [(ngModel)]="user.title"
+                />
               </div>
             </form>
           </div>
         </div>
-        <div *ngIf="!isEditing[0]" class="col">
-          <button class="btn btn-outline-primary" (click)="editButtonClick(0, user.title)" [disabled]="isDisabled[0]">Edit</button>
+        <div *ngIf="!isEditing[0]" class="colTest">
+          <button
+            class="buttonTest"
+            (click)="editButtonClick(0, user.title)"
+            [disabled]="isDisabled[0]"
+          >
+            Edit
+          </button>
         </div>
-        <div *ngIf="isEditing[0]" class="col">
+        <div *ngIf="isEditing[0]" class="colTest">
           <div>
-            <button class="btn btn-outline-primary" (click)="cancelButtonClick(0)">Cancel</button>
-            <button class="btn btn-outline-primary" (click)="saveTitle(0)">Save</button>
+            <button class="buttonTest1" (click)="cancelButtonClick(0)">
+              Cancel
+            </button>
+          </div>
+          <div>
+            <button class="buttonTest" (click)="saveTitle(0)">Save</button>
           </div>
         </div>
       </div>
     </li>
     <li class="list-group-item">
-      <div class="row">
-        <div class="col">
-          Name
-        </div>
+      <div class="list-group-item_content">
+        <div class="col">Name</div>
         <div class="col-6">
           <div *ngIf="!isEditing[1]">
             <p *ngIf="!user.firstName && !user.lastName">Add a name</p>
-            <p *ngIf="user.firstName && user.lastName">{{user.firstName + " " + user.lastName}}</p>
+            <p *ngIf="user.firstName && user.lastName">
+              {{ user.firstName + " " + user.lastName }}
+            </p>
           </div>
           <div *ngIf="isEditing[1]">
             <form>
               <div class="mb-3">
                 <label for="firstName" class="form-label">First name</label>
-                <input type="text" class="form-control" id="firstName" name="user.firstName"
-                  [(ngModel)]="user.firstName">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstName"
+                  name="user.firstName"
+                  [(ngModel)]="user.firstName"
+                />
 
                 <label for="lastName" class="form-label">Last name</label>
-                <input type="text" class="form-control" id="lastName" name="user.lastName" [(ngModel)]="user.lastName">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="lastName"
+                  name="user.lastName"
+                  [(ngModel)]="user.lastName"
+                />
               </div>
             </form>
           </div>
         </div>
-        <div *ngIf="!isEditing[1]" class="col">
-          <button class="btn btn-outline-primary" (click)="editButtonClick(1, user.firstName)" [disabled]="isDisabled[1]">Edit</button>
+        <div *ngIf="!isEditing[1]" class="colTest">
+          <button
+            class="buttonTest"
+            (click)="editButtonClick(1, user.firstName)"
+            [disabled]="isDisabled[1]"
+          >
+            Edit
+          </button>
         </div>
-        <div *ngIf="isEditing[1]" class="col">
+        <div *ngIf="isEditing[1]" class="colTest">
           <div>
-            <button class="btn btn-outline-primary" (click)="cancelButtonClick(1)">Cancel</button>
-            <button class="btn btn-outline-primary" (click)="saveName(1)">Save</button>
+            <button class="buttonTest1" (click)="cancelButtonClick(1)">
+              Cancel
+            </button>
+          </div>
+          <div>
+            <button class="buttonTest" (click)="saveTitle(1)">Save</button>
           </div>
         </div>
       </div>
     </li>
     <li class="list-group-item">
-      <div class="row">
-        <div class="col">
-          Display name
-        </div>
+      <div class="list-group-item_content">
+        <div class="col">Display name</div>
         <div class="col-6">
           <div *ngIf="!isEditing[2]">
             <p *ngIf="!user.displayName">Choose a display name</p>
-            <p *ngIf="user.displayName">{{user.displayName}}</p>
+            <p *ngIf="user.displayName">{{ user.displayName }}</p>
           </div>
           <div *ngIf="isEditing[2]">
             <form>
               <div class="mb-3">
                 <label for="displayName" class="form-label">Display name</label>
-                <input type="text" class="form-control" id="displayName" name="user.displayName"
-                  [(ngModel)]="user.displayName">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="displayName"
+                  name="user.displayName"
+                  [(ngModel)]="user.displayName"
+                />
               </div>
             </form>
           </div>
         </div>
-        <div *ngIf="!isEditing[2]" class="col">
-          <button class="btn btn-outline-primary" (click)="editButtonClick(2, user.displayName)" [disabled]="isDisabled[2]">Edit</button>
+        <div *ngIf="!isEditing[2]" class="colTest">
+          <button
+            class="buttonTest"
+            (click)="editButtonClick(2, user.displayName)"
+            [disabled]="isDisabled[2]"
+          >
+            Edit
+          </button>
         </div>
-        <div *ngIf="isEditing[2]" class="col">
+        <div *ngIf="isEditing[2]" class="colTest">
           <div>
-            <button class="btn btn-outline-primary" (click)="cancelButtonClick(2)">Cancel</button>
-            <button class="btn btn-outline-primary" (click)="saveDisplayName(2)">Save</button>
+            <button class="buttonTest1" (click)="cancelButtonClick(2)">
+              Cancel
+            </button>
+          </div>
+          <div>
+            <button class="buttonTest" (click)="saveTitle(2)">Save</button>
           </div>
         </div>
       </div>
     </li>
     <li class="list-group-item">
-      <div class="row">
-        <div class="col">
-          Email address
-        </div>
+      <div class="list-group-item_content">
+        <div class="col">Email address</div>
         <div class="col-6">
           <div *ngIf="!isEditing[3] && !isEmailSent">
             <p *ngIf="!user.email">Add an email</p>
-            <p *ngIf="user.email">{{user.email}}</p>
-            <span>This is the email address you use to sign in. It’s also where we send your booking confirmations.</span>
+            <p *ngIf="user.email">{{ user.email }}</p>
+            <span
+              >This is the email address you use to sign in. It’s also where we
+              send your booking confirmations.</span
+            >
           </div>
           <div *ngIf="isEmailSent">
-            <span>We've just emailed a verification link to <span class="fw-bold">{{user.newEmail}}</span>. Once it arrives, it will be valid for 10 minutes.</span>
+            <span
+              >We've just emailed a verification link to
+              <span class="fw-bold">{{ user.newEmail }}</span
+              >. Once it arrives, it will be valid for 10 minutes.</span
+            >
           </div>
           <div *ngIf="isEditing[3]">
             <form>
               <div class="mb-3">
                 <!-- <span>{{errorMessage}}</span> -->
                 <label for="email" class="form-label">Email address *</label>
-                <input type="email" class="form-control" id="email" name="user.newEmail" [(ngModel)]="user.newEmail">
-                <span>We'll send a verification link to your new email address – check your inbox.</span>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="user.newEmail"
+                  [(ngModel)]="user.newEmail"
+                />
+                <span
+                  >We'll send a verification link to your new email address –
+                  check your inbox.</span
+                >
               </div>
             </form>
           </div>
         </div>
-        <div *ngIf="!isEditing[3]" class="col">
-          <button *ngIf="!isEmailSent" class="btn btn-outline-primary" (click)="editButtonClick(3, user.email)" [disabled]="isDisabled[3]">Edit</button>
+        <div *ngIf="!isEditing[3]" class="colTest">
+          <button
+            *ngIf="!isEmailSent"
+            class="buttonTest"
+            (click)="editButtonClick(3, user.email)"
+            [disabled]="isDisabled[3]"
+          >
+            Edit
+          </button>
         </div>
-        <div *ngIf="isEditing[3]" class="col">
+        <div *ngIf="isEditing[3]" class="colTest">
           <div>
-            <div>
-              <button class="btn btn-outline-primary" (click)="cancelButtonClick(3)">Cancel</button>
-              <button class="btn btn-outline-primary" (click)="sendChangingEmailLetter(3)">Save</button>
-            </div>
+            <button class="buttonTest1" (click)="cancelButtonClick(3)">
+              Cancel
+            </button>
+          </div>
+          <div>
+            <button class="buttonTest" (click)="saveTitle(3)">Save</button>
           </div>
         </div>
       </div>
     </li>
     <li class="list-group-item">
-      <div class="row">
-        <div class="col">
-          Phone number
-        </div>
+      <div class="list-group-item_content">
+        <div class="col">Phone number</div>
         <div class="col-6">
           <div *ngIf="!isEditing[4]">
             <p *ngIf="!user.phoneNumber">Add a phone number</p>
-            <p *ngIf="user.phoneNumber">{{user.phoneNumber}}</p>
+            <p *ngIf="user.phoneNumber">{{ user.phoneNumber }}</p>
           </div>
           <div *ngIf="isEditing[4]">
             <form>
               <div class="mb-3">
-                <label for="phone-number" class="form-label">Phone number</label>
-                <input type="text" class="form-control" id="phone-number" name="user.phoneNumber"
-                  [(ngModel)]="user.phoneNumber">
+                <label for="phone-number" class="form-label"
+                  >Phone number</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="phone-number"
+                  name="user.phoneNumber"
+                  [(ngModel)]="user.phoneNumber"
+                />
               </div>
             </form>
           </div>
         </div>
-        <div *ngIf="!isEditing[4]" class="col">
-          <button class="btn btn-outline-primary" (click)="editButtonClick(4, user.phoneNumber)" [disabled]="isDisabled[4]">Edit</button>
+        <div *ngIf="!isEditing[4]" class="colTest">
+          <button
+            class="buttonTest"
+            (click)="editButtonClick(4, user.phoneNumber)"
+            [disabled]="isDisabled[4]"
+          >
+            Edit
+          </button>
         </div>
-        <div *ngIf="isEditing[4]" class="col">
+        <div *ngIf="isEditing[4]" class="colTest">
           <div>
-            <button class="btn btn-outline-primary" (click)="cancelButtonClick(4)">Cancel</button>
-            <button class="btn btn-outline-primary" (click)="savePhoneNumber(4)">Save</button>
+            <button class="buttonTest1" (click)="cancelButtonClick(4)">
+              Cancel
+            </button>
+          </div>
+          <div>
+            <button class="buttonTest" (click)="saveTitle(4)">Save</button>
           </div>
         </div>
       </div>
     </li>
     <li class="list-group-item">
-      <div class="row">
-        <div class="col">
-          Date of birth
-        </div>
+      <div class="list-group-item_content">
+        <div class="col">Date of birth</div>
         <div class="col-6">
           <div *ngIf="!isEditing[5]">
             <p *ngIf="!user.pBirthDate">Choose a date of birth</p>
-            <p *ngIf="user.pBirthDate">{{user.pBirthDate}}</p>
+            <p *ngIf="user.pBirthDate">{{ user.pBirthDate }}</p>
           </div>
           <div *ngIf="isEditing[5]">
             <form>
               <div class="input-with-icon">
                 <span class="input-icon">
-                  <svg aria-hidden="true" class="bk-icon -experiments-calendar sb-date-picker_icon-svg" fill="#BDBDBD"
-                    focusable="false" height="20" role="presentation" width="20" viewBox="0 0 128 128">
+                  <svg
+                    aria-hidden="true"
+                    class="bk-icon -experiments-calendar sb-date-picker_icon-svg"
+                    fill="#BDBDBD"
+                    focusable="false"
+                    height="20"
+                    role="presentation"
+                    width="20"
+                    viewBox="0 0 128 128"
+                  >
                     <path
                       d="m112 16h-16v-8h-8v8h-48v-8h-8v8h-16c-4.4 0-8 3.9-8 8.7v86.6c0 4.8 3.6 8.7 8 8.7h96c4.4 0 8-3.9 8-8.7v-86.6c0-4.8-3.6-8.7-8-8.7zm0 95.3a1.1 1.1 0 0 1 -.2.7h-95.6a1.1 1.1 0 0 1 -.2-.7v-71.3h96zm-68-43.3h-12v-12h12zm0 28h-12v-12h12zm26-28h-12v-12h12zm0 28h-12v-12h12zm26 0h-12v-12h12zm0-28h-12v-12h12z"
-                      fill-rule="evenodd"></path>
+                      fill-rule="evenodd"
+                    ></path>
                   </svg>
                 </span>
-                <input (click)="t.toggle()" class="header-input pl-50" placeholder="Check-out"
-                  name="user.profile.birthDate" [(ngModel)]="user.pBirthDate" ngbDatepicker #t="ngbDatepicker" />
+                <input
+                  (click)="t.toggle()"
+                  class="header-input pl-50"
+                  placeholder="Check-out"
+                  name="user.profile.birthDate"
+                  [(ngModel)]="user.pBirthDate"
+                  ngbDatepicker
+                  #t="ngbDatepicker"
+                />
               </div>
             </form>
           </div>
         </div>
-        <div *ngIf="!isEditing[5]" class="col">
-          <button class="btn btn-outline-primary" (click)="editButtonClick(5, user.pBirthDate)" [disabled]="isDisabled[5]">Edit</button>
+        <div *ngIf="!isEditing[5]" class="colTest">
+          <button
+            class="buttonTest"
+            (click)="editButtonClick(5, user.pBirthDate)"
+            [disabled]="isDisabled[5]"
+          >
+            Edit
+          </button>
         </div>
-        <div *ngIf="isEditing[5]" class="col">
+        <div *ngIf="isEditing[5]" class="colTest">
           <div>
-            <button class="btn btn-outline-primary" (click)="cancelButtonClick(5)">Cancel</button>
-            <button class="btn btn-outline-primary" (click)="saveBirthDate(5)">Save</button>
+            <button class="buttonTest1" (click)="cancelButtonClick(5)">
+              Cancel
+            </button>
+          </div>
+          <div>
+            <button class="buttonTest" (click)="saveTitle(5)">Save</button>
           </div>
         </div>
       </div>
     </li>
     <li class="list-group-item">
-      <div class="row">
-        <div class="col">
-          Nationality
-        </div>
+      <div class="list-group-item_content">
+        <div class="col">Nationality</div>
         <div class="col-6">
           <div *ngIf="!isEditing[6]">
             <p *ngIf="!user.nationality">Choose a nationality</p>
-            <p *ngIf="user.nationality">{{user.nationality}}</p>
+            <p *ngIf="user.nationality">{{ user.nationality }}</p>
           </div>
           <div *ngIf="isEditing[6]">
             <form>
-              <label for="nationalitySelect" class="form-label">Nationality</label>
-              <select class="form-select" aria-label="Default select example" id="nationalitySelect"
-                name="user.profile.nationality" [(ngModel)]="user.nationality">
+              <label for="nationalitySelect" class="form-label"
+                >Nationality</label
+              >
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="nationalitySelect"
+                name="user.profile.nationality"
+                [(ngModel)]="user.nationality"
+              >
                 <option selected>Select the country you're from</option>
               </select>
             </form>
           </div>
         </div>
-        <div *ngIf="!isEditing[6]" class="col">
-          <button class="btn btn-outline-primary" (click)="editButtonClick(6, user.nationality)" [disabled]="isDisabled[6]">Edit</button>
+        <div *ngIf="!isEditing[6]" class="colTest">
+          <button
+            class="buttonTest"
+            (click)="editButtonClick(6, user.nationality)"
+            [disabled]="isDisabled[6]"
+          >
+            Edit
+          </button>
         </div>
-        <div *ngIf="isEditing[6]" class="col">
+        <div *ngIf="isEditing[6]" class="colTest">
           <div>
-            <button class="btn btn-outline-primary" (click)="cancelButtonClick(6)">Cancel</button>
-            <button class="btn btn-outline-primary" (click)="saveNationality(6)">Save</button>
+            <button class="buttonTest1" (click)="cancelButtonClick(6)">
+              Cancel
+            </button>
+          </div>
+          <div>
+            <button class="buttonTest" (click)="saveTitle(6)">Save</button>
           </div>
         </div>
       </div>
     </li>
     <li class="list-group-item">
-      <div class="row">
-        <div class="col">
-          Gender
-        </div>
+      <div class="list-group-item_content">
+        <div class="col">Gender</div>
         <div class="col-6">
           <div *ngIf="!isEditing[7]">
             <p *ngIf="!user.genderId">Choose a gender</p>
-            <p *ngIf="user.genderId">{{user.genderId == 1 ? "Man" : "Female"}}</p>
+            <p *ngIf="user.genderId">
+              {{ user.genderId == 1 ? "Man" : "Female" }}
+            </p>
           </div>
           <div *ngIf="isEditing[7]">
             <form>
               <label for="gender" class="form-label">Gender</label>
-              <select class="form-select" aria-label="Default select example" id="gender"
-                name="user.profile.gender.title" [(ngModel)]="user.genderId">
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="gender"
+                name="user.profile.gender.title"
+                [(ngModel)]="user.genderId"
+              >
                 <option selected>Select your gender</option>
                 <option value="1">I'm a man</option>
                 <option value="2">I'm a woman</option>
@@ -266,62 +394,112 @@
             </form>
           </div>
         </div>
-        <div *ngIf="!isEditing[7]" class="col">
-          <button class="btn btn-outline-primary" (click)="editButtonClick(7, user.genderId)" [disabled]="isDisabled[7]">Edit</button>
+        <div *ngIf="!isEditing[7]" class="colTest">
+          <button
+            class="buttonTest"
+            (click)="editButtonClick(7, user.genderId)"
+            [disabled]="isDisabled[7]"
+          >
+            Edit
+          </button>
         </div>
-        <div *ngIf="isEditing[7]" class="col">
+        <div *ngIf="isEditing[7]" class="colTest">
           <div>
-            <button class="btn btn-outline-primary" (click)="cancelButtonClick(7)">Cancel</button>
-            <button class="btn btn-outline-primary" (click)="saveGender(7)">Save</button>
+            <button class="buttonTest1" (click)="cancelButtonClick(7)">
+              Cancel
+            </button>
+          </div>
+          <div>
+            <button class="buttonTest" (click)="saveTitle(7)">Save</button>
           </div>
         </div>
       </div>
     </li>
     <li class="list-group-item">
-      <div class="row">
-        <div class="col">
-          Address
-        </div>
+      <div class="list-group-item_content">
+        <div class="col">Address</div>
         <div class="col-6">
           <div *ngIf="!isEditing[8]">
-            <p *ngIf="!user.addressText && !user.country.title">Choose an address</p>
-            <p *ngIf="user.addressText && user.country.title">{{user.zipCode ? user.zipCode + ", " : ""}}{{user.addressText + ', ' +
-                      user.city.title + ', ' + user.country.title}}</p>
+            <p *ngIf="!user.addressText && !user.country.title">
+              Choose an address
+            </p>
+            <p *ngIf="user.addressText && user.country.title">
+              {{ user.zipCode ? user.zipCode + ", " : ""
+              }}{{
+                user.addressText +
+                  ", " +
+                  user.city.title +
+                  ", " +
+                  user.country.title
+              }}
+            </p>
           </div>
           <div *ngIf="isEditing[8]">
             <form>
-              <label for="countrySelect" class="form-label">Country/Region</label>
-              <select class="form-select" aria-label="Default select example" id="countrySelect"
-                name="user.country.title" [(ngModel)]="user.country.title">
+              <label for="countrySelect" class="form-label"
+                >Country/Region</label
+              >
+              <select
+                class="form-select"
+                aria-label="Default select example"
+                id="countrySelect"
+                name="user.country.title"
+                [(ngModel)]="user.country.title"
+              >
                 <option selected>Select the country you live in</option>
               </select>
 
               <div class="mb-3">
                 <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" name="user.addressText"
+                <input
+                  type="text"
+                  class="form-control"
+                  id="address"
+                  name="user.addressText"
                   [(ngModel)]="user.addressText"
-                  placeholder="Your street name and house/apartment number">
+                  placeholder="Your street name and house/apartment number"
+                />
               </div>
 
               <div class="mb-3">
                 <label for="city" class="form-label">Town/City</label>
-                <input type="text" class="form-control" id="city" name="user.city.title"
-                  [(ngModel)]="user.city.title">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="city"
+                  name="user.city.title"
+                  [(ngModel)]="user.city.title"
+                />
 
                 <label for="zip-code" class="form-label">Zip code</label>
-                <input type="text" class="form-control" id="zip-code" name="user.zipCode"
-                  [(ngModel)]="user.zipCode">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="zip-code"
+                  name="user.zipCode"
+                  [(ngModel)]="user.zipCode"
+                />
               </div>
             </form>
           </div>
         </div>
-        <div *ngIf="!isEditing[8]" class="col">
-          <button class="btn btn-outline-primary" (click)="editButtonClick(8, user.addressText)" [disabled]="isDisabled[8]">Edit</button>
+        <div *ngIf="!isEditing[8]" class="colTest">
+          <button
+            class="buttonTest"
+            (click)="editButtonClick(8, user.addressText)"
+            [disabled]="isDisabled[8]"
+          >
+            Edit
+          </button>
         </div>
-        <div *ngIf="isEditing[8]" class="col">
+        <div *ngIf="isEditing[8]" class="colTest">
           <div>
-            <button class="btn btn-outline-primary" (click)="cancelButtonClick(8)">Cancel</button>
-            <button class="btn btn-outline-primary" (click)="saveAddress(8)">Save</button>
+            <button class="buttonTest1" (click)="cancelButtonClick(8)">
+              Cancel
+            </button>
+          </div>
+          <div>
+            <button class="buttonTest" (click)="saveTitle(8)">Save</button>
           </div>
         </div>
       </div>

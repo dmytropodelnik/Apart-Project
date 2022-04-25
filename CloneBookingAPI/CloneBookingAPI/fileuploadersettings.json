@@ -1,0 +1,21 @@
+{
+  "StoragePaths": {
+    "RootFiles": "/files/",
+    "WwwRoot": "/",
+    "Location": {
+      "Cities": "/files/location/cities/",
+      "Countries": "/files/location/countries/",
+      "Regions": "/files/location/regions/"
+    },
+    "Categories": {
+      "BookingCategories": "/files/categories/booking-categories/"
+    },
+    "Suggestions": {
+      "StaySuggestions": "/files/suggestions/stays/",
+      "FlightSuggestions": "/files/suggestions/flights/",
+      "CarRentalSuggestions": "/files/suggestions/car-rentals/",
+      "AttractionSuggestions": "/files/suggestions/attractions/",
+      "AirportTaxiSuggestions": "/files/suggestions/airport-taxis/"
+    }
+  }
+}

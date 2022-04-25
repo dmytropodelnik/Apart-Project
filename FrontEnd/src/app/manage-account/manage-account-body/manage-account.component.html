@@ -23,38 +23,31 @@
 <body>
   <div class="manageaccount">
     <!-- ========== Left Sidebar Start ========== -->
-    <div class="accordion" id="accordionExample">
+    <div class="">
       <!--- Sidemenu -->
-      <div id="sidebar-menu">
         <!-- Left Menu Start -->
-        <ul class="metismenu list-unstyled" id="side-menu">
-          <div class="accordion-item">
-            <div id="collapseOneUserData" class="accordion-collapse collapse show" aria-labelledby="headingOne"
-              data-bs-parent="#accordionUserData">
-              <li>
-                <a class="btn waves-effect" (click)="setContent('personal-details')">
+        <ul class="side_menu">
+              <li class="side_menu_content">
+                <a  (click)="setContent('personal-details')">
                   <i class="mdi mdi-account-circle"></i>
                   <span>Personal details</span>
                 </a>
               </li>
 
-              <li>
-                <a class="btn waves-effect" (click)="setContent('preferences')">
+              <li class="side_menu_content">
+                <a (click)="setContent('preferences')">
                   <i class="mdi mdi-account-box"></i>
                   <span>Preferences</span>
                 </a>
               </li>
 
-              <li>
-                <a class="btn waves-effect" (click)="setContent('security')">
+              <li class="side_menu_content">
+                <a (click)="setContent('security')">
                   <i class="mdi mdi-account-box-outline"></i>
-                  <span>Security</span>
+                  <span class="side_menu_content_text">Security</span>
                 </a>
               </li>
-            </div>
-          </div>
         </ul>
-      </div>
       <!-- Sidebar -->
     </div>
     <!-- Left Sidebar End -->

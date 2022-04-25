@@ -27,7 +27,8 @@ namespace CloneBookingAPI.Controllers.Properties
         {
             try
             {
-                if (suggestion is null || suggestion.BookingCategory is null)
+                if (suggestion is null || 
+                    string.IsNullOrWhiteSpace(suggestion.BookingCategory))
                 {
                     return Json(new { code = 400 });
                 }

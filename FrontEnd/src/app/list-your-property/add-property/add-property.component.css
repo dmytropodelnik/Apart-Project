@@ -846,7 +846,6 @@ li::marker {
 .add-propties-main {
   padding-bottom: 60px;
   min-height: calc(100vh - 95px);
-  margin: 30px 10vw;
   position: relative;
   display: flex;
   flex-direction: column;

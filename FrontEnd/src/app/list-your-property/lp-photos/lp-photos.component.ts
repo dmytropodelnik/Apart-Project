@@ -55,9 +55,11 @@ export class LpPhotosComponent implements OnInit {
 
   addPropertyPhotos(): void {
     if (this.uploadedFiles != null) {
+      let fData = new FormData();
+
       for (let i = 0; i < this.uploadedFiles.length; i++) {
-        let fData = new FormData();
-        fData.append('uploadedFile', this.uploadedFiles[i]);
+        fData.append('uploadedFiles', this.uploadedFiles[i]);
+      }
 
         fetch('https://apartmain.azurewebsites.net/api/listnewproperty/addphotos?suggestionId=' + this.listNewPropertyService.getSavedPropertyId(), {
           method: 'POST',
@@ -70,10 +72,8 @@ export class LpPhotosComponent implements OnInit {
           .then((r) => r.json())
           .then((r) => {
             if (r.code === 200) {
-              console.log('Files have been successfully uploaded!' + ' ' + i);
-              if (i == this.uploadedFiles.length - 1) {
-                this.router.navigate(['/lp/pricingandcalender']);
-              }
+              console.log('Files have been successfully uploaded!');
+              this.router.navigate(['/lp/pricingandcalender']);
             } else {
               alert('Uploading error!');
             }
@@ -81,7 +81,6 @@ export class LpPhotosComponent implements OnInit {
           .catch((err) => {
             alert(err);
           });
-      }
     }
   }
 

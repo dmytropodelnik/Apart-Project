@@ -44,15 +44,14 @@ namespace CloneBookingAPI.Controllers.Suggestions
             _fileUploader = fileUploader;
         }
 
-        [Route("addname")]
+        [Route("addbookingcategory")]
         [HttpPost]
-        public async Task<IActionResult> AddName([FromBody] SuggestionPoco suggestion)
+        public async Task<IActionResult> AddBookingCategory([FromBody] SuggestionPoco suggestion)
         {
             try
             {
                 if (suggestion is null ||
-                    string.IsNullOrWhiteSpace(suggestion.Name) ||
-                    string.IsNullOrWhiteSpace(suggestion.Login))
+                    suggestion.BookingCategoryId < 1)
                 {
                     return Json(new { code = 400 });
                 }
@@ -64,11 +63,11 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 }
 
                 Suggestion newSuggestion = new();
-                newSuggestion.Name = suggestion.Name;
                 newSuggestion.UserId = owner.Id;
-                newSuggestion.UniqueCode = await _suggestionIdGenerator.GenerateCode();
-                newSuggestion.Progress = 10;
+                newSuggestion.BookingCategoryId = suggestion.BookingCategoryId;
+                newSuggestion.UniqueCode = await _suggestionIdGenerator.GenerateCodeAsync();
                 newSuggestion.ServiceCategoryId = 1;
+                newSuggestion.Progress = 10;
 
                 var resSuggestion = _context.Suggestions.Add(newSuggestion);
                 await _context.SaveChangesAsync();
@@ -77,6 +76,63 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 {
                     code = 200,
                     savedSuggestionId = resSuggestion.Entity.Id,
+                });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("addname")]
+        [HttpPost]
+        public async Task<IActionResult> AddName([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null ||
+                    suggestion.Id < 1  ||
+                    string.IsNullOrWhiteSpace(suggestion.Name))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                resSuggestion.Name = suggestion.Name;
+                resSuggestion.Progress = 12;
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                    savedSuggestionId = resSuggestion.Id,
                 });
             }
             catch (DbUpdateConcurrencyException ex)
@@ -528,14 +584,14 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
         [Route("addphotos")]
         [HttpPost]
-        public async Task<IActionResult> AddPhotos(IFormFile uploadedFile)
+        public async Task<IActionResult> AddPhotos(IFormFile[] uploadedFiles)
         {
             try
             {
                 string suggestionId = Request.QueryString.Value;
                 suggestionId = suggestionId.Substring(suggestionId.IndexOf("=") + 1);
 
-                if (uploadedFile is null ||
+                if (uploadedFiles is null ||
                     suggestionId is null
                     )
                 {
@@ -549,7 +605,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     return Json(new { code = 400 });
                 }
 
-                bool res = await _fileUploader.UploadSuggestionPhotoAsync(uploadedFile, resSuggestion);
+                bool res = await _fileUploader.UploadSuggestionPhotoAsync(uploadedFiles, resSuggestion);
                 if (!res)
                 {
                     return Json(new { code = 400 });
@@ -652,7 +708,8 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                if (suggestion is null)
+                if (suggestion is null ||
+                    suggestion.Description.Length < 50)
                 {
                     return Json(new { code = 400 });
                 }
@@ -719,6 +776,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 {
                     return Json(new { code = 400 });
                 }
+
                 ContactDetails contactDetails = new();
                 contactDetails.ContactName = suggestion.ContactName;
                 contactDetails.PhoneNumber = suggestion.ContactPhone;
