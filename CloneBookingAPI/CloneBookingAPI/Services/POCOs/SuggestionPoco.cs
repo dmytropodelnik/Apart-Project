@@ -13,16 +13,16 @@ namespace CloneBookingAPI.Services.POCOs
         public int Id { get; set; }
         public int Page { get; set; }
         public int UserId { get; set; }
+        public int BookingCategoryId { get; set; }
         public string Name { get; set; }
-        public string BookingCategory { get; set; }
         public string Login { get; set; }
         public string Description { get; set; }
         public string ContactName { get; set; }
         public string ContactPhone { get; set; }
+        public string BookingCategory { get; set; }
         public bool IsParkingAvailable { get; set; }
 
         public decimal PriceInUserCurrency { get; set; }
-
         public decimal PriceInUSD { get; set; }
 
         public Address Address { get; set; }

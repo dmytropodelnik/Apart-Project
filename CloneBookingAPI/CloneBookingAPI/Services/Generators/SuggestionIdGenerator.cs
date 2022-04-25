@@ -18,7 +18,7 @@ namespace CloneBookingAPI.Services.Generators
             _context = context;
         }
 
-        public async Task<string> GenerateCode()
+        public async Task<string> GenerateCodeAsync()
         {
             try
             {

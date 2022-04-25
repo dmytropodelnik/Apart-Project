@@ -22,6 +22,10 @@ namespace CloneBookingAPI
         {
             var builder = new ConfigurationBuilder()
                     .AddJsonFile("emailsendersettings.json")
+                    .AddJsonFile("emaillinkssettings.json")
+                    .AddJsonFile("emaillettersettings.json")
+                    .AddJsonFile("fileuploadersettings.json")
+                    .AddJsonFile("timerssettings.json")
                     .AddConfiguration(configuration);
 
             Configuration = builder.Build();

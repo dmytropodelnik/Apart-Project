@@ -12,7 +12,7 @@
     },
     "mssql1": {
       "secretStore": "AzureAppSettings",
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/apartdevmain/databases/ApartProject2",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/apartdevmain/databases/ApartProject",
       "type": "mssql.azure",
       "connectionId": "ConnectionStrings:AzureConnection"
     }

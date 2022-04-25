@@ -6,37 +6,110 @@
         <form class="searchbox_form">
           <span class="searchbox_check_label">Search</span>
           <div class="searchbox_country">
-            <span class="" id="basic-addon1">Destination/property name:</span>
-            <input type="text" class="" placeholder="City/Country" aria-label="Username"
-              aria-describedby="basic-addon1" />
+            <span class="textdecoration" id="basic-addon1">Destination/property name:</span>
+            <input type="text" class="inputfield" placeholder="City/Country" aria-label="Username"
+              aria-describedby="basic-addon1" name="filters.place" [(ngModel)]="filters.place" />
           </div>
           <div class="searchbox_date">
-            <span>Check-in Date</span>
-            <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker
+            <span class="textdecoration">Check-in Date</span>
+            <input class="inputfield" placeholder="yyyy-mm-dd" name="filters.pdateIn" [(ngModel)]="filters.pdateIn" ngbDatepicker
               #d="ngbDatepicker" (click)="d.toggle()" readonly />
           </div>
           <div class="searchbox_date">
-            <span>Check-out Date</span>
-            <input class="form-control" placeholder="yyyy-mm-dd" name="dp1" [(ngModel)]="model1" ngbDatepicker
+            <span class="textdecoration">Check-out Date</span>
+            <input class="inputfield" placeholder="yyyy-mm-dd" name="filters.pdateOut" [(ngModel)]="filters.pdateOut" ngbDatepicker
               #d1="ngbDatepicker" (click)="d1.toggle()" readonly />
           </div>
-          <div class="searchbox_check">
-            <input class="" type="checkbox" value="" id="Entire homes & apartments" />
-            <label class="searchbox_check_label" for="Entire homes & apartments">
-              Entire homes & apartments
-            </label>
+          <div class="searchbox_country" data-toggle="dropdown">
+            <span class="textdecoration" id="basic-addon1">How many people?</span>
+            <input type="text" class="inputfield" placeholder="{{filters.searchAdultsAmount}} adult {{filters.searchChildrenAmount}} children {{filters.searchRoomsAmount}} room" aria-label="Username"
+              aria-describedby="basic-addon1" />
           </div>
-          <div class="searchbox_check">
-            <input class="" type="checkbox" value="" id="I'm travelling for work" />
-            <label class="searchbox_check_label" for="I'm travelling for work">
-              I'm travelling for work
-            </label>
+          <div class="dropdown-menu">
+            <form class="dropdownFormReservation">
+              <div class="form-group">
+                <div class="dropdownSubSection">
+                  <div>
+                    <span class="dropdownSubSectionText">Adults</span>
+                  </div>
+                  <div class="dropdownSubSectionButtons">
+                    <button
+                      class="bui-button bui-button--secondary"
+                      (click)="setAdults(-1)"
+                    >
+                      <span class="bui-button__text">-</span>
+                    </button>
+                    <span class="dropdownSubSectionText">{{
+                      filters.searchAdultsAmount
+                    }}</span>
+                    <button
+                      class="bui-button bui-button--secondary"
+                      (click)="setAdults(1)"
+                    >
+                      <span class="bui-button__text">+</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="dropdownSubSection">
+                  <div>
+                    <span class="dropdownSubSectionText">Children</span>
+                  </div>
+                  <div class="dropdownSubSectionButtons">
+                    <button
+                      class="bui-button bui-button--secondary"
+                      (click)="setChildren(-1)"
+                    >
+                      <span class="bui-button__text">-</span>
+                    </button>
+                    <span class="dropdownSubSectionText">{{
+                      filters.searchChildrenAmount
+                    }}</span>
+                    <button
+                      class="bui-button bui-button--secondary"
+                      (click)="setChildren(1)"
+                    >
+                      <span class="bui-button__text">+</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="dropdownSubSection">
+                  <div>
+                    <span class="dropdownSubSectionText">Rooms</span>
+                  </div>
+                  <div class="dropdownSubSectionButtons">
+                    <button
+                      class="bui-button bui-button--secondary"
+                      (click)="setRooms(-1)"
+                    >
+                      <span class="bui-button__text">-</span>
+                    </button>
+                    <span class="dropdownSubSectionText">{{
+                      filters.searchRoomsAmount
+                    }}</span>
+                    <button
+                      class="bui-button bui-button--secondary"
+                      (click)="setRooms(1)"
+                    >
+                      <span class="bui-button__text">+</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="searchbox_search">
+            <button class="searchbox_button" (click)="searchSuggestions($event)">Search</button>
           </div>
         </form>
       </div>
       <div class="filters">
+        <span class="filters_title">Filter by:</span>
         <div class="filters_box">
-          <h5>Health & safety</h5>
+          <span class="filters_box_title">Health & safety</span>
           <div>
             <input class="" type="checkbox" value="" id="Properties that take health & safety measures" />
             <label class="filters_check_label" for="Properties that take health & safety measures">
@@ -46,7 +119,7 @@
           </div>
         </div>
         <div class="filters_box">
-          <h5>Your Budget (per night)</h5>
+          <span class="filters_box_title">Your Budget (per night)</span>
           <div>
             <input class="" type="checkbox" value="" id="price1" (change)="
                 addFilterCheck(
@@ -132,7 +205,7 @@
           </div>
         </div>
         <div class="filters_box">
-          <h5>Stars and other ratings</h5>
+          <span class="filters_box_title">Stars and other ratings</span>
           <div>
             <input class="" type="checkbox" value="" id="1 star/other ratings" (change)="addFilterCheck('stars', 1, 1)"
               [(ngModel)]="filterCheckBoxes[1]" />
@@ -181,7 +254,7 @@
           </div>
         </div>
         <div class="filters_box" *ngIf="highlights.length != 0">
-          <h5>Highlights</h5>
+          <span class="filters_box_title">Highlights</span>
           <div *ngFor="let item of highlights; let i = index">
             <div>
               <input class="" type="checkbox" value="" id="{{ item.title }}" (change)="
@@ -203,7 +276,7 @@
           </div>
         </div>
         <div class="filters_box" *ngIf="roomTypes.length != 0">
-          <h5>Room types</h5>
+          <span class="filters_box_title">Room types</span>
           <div *ngFor="let item of roomTypes; let i = index">
             <div>
               <input class="" type="checkbox" value="" id="{{ item.title }}" (change)="
@@ -233,7 +306,7 @@
           </div>
         </div>
         <div class="filters_box" *ngIf="bedTypes.length != 0">
-          <h5>Bed types</h5>
+          <span class="filters_box_title">Bed types</span>
           <div *ngFor="let item of bedTypes; let i = index">
             <div>
               <input class="" type="checkbox" value="" id="{{ item.title }}" (change)="
@@ -267,7 +340,7 @@
           </div>
         </div>
         <div class="filters_box" *ngIf="staffLanguages.length != 0">
-          <h5>Staff speaking</h5>
+          <span class="filters_box_title">Staff speaking</span>
           <div *ngFor="let item of staffLanguages; let i = index">
             <div>
               <input class="" type="checkbox" value="" id="{{ item.title }}" (change)="
@@ -299,7 +372,7 @@
           </div>
         </div>
         <div class="filters_box" *ngIf="bookingCategories.length != 0">
-          <h5>Property type</h5>
+          <span class="filters_box_title">Property type</span>
           <div *ngFor="let item of bookingCategories; let i = index">
             <div>
               <input class="" type="checkbox" value="" id="{{ item.category }}" (change)="
@@ -313,7 +386,7 @@
           </div>
         </div>
         <div class="filters_box">
-          <h5>Review score</h5>
+          <span class="filters_box_title">Review score</span>
           <div>
             <input class="" type="checkbox" value="" id="Superb: 9+" (change)="
                 addFilterCheck('reviewScores', 9, 11 + bookingCategories.length)
@@ -350,7 +423,7 @@
           </div>
         </div>
         <div class="filters_box" *ngIf="facilities.length != 0">
-          <h5>Facilities</h5>
+          <span class="filters_box_title">Facilities</span>
           <div *ngFor="let item of facilities; let i = index">
             <div>
               <input class="" type="checkbox" value="" id="{{ item.text }}" (change)="
@@ -370,7 +443,7 @@
           </div>
         </div>
         <div class="filters_box">
-          <h5>Room facilities</h5>
+          <span class="filters_box_title">Room facilities</span>
           <div>
             <input class="" type="checkbox" value="" id="Kitchen/kitchenette" />
             <label class="filters_check_label" for="Kitchen/kitchenette">
@@ -461,7 +534,7 @@
           </div>
         </div>
         <div class="filters_box">
-          <h5>Property accessibility</h5>
+          <span class="filters_box_title">Property accessibility</span>
           <div>
             <input class="" type="checkbox" value="" id="Wheelchair accessible" />
             <label class="filters_check_label" for="Wheelchair accessible">
@@ -520,7 +593,7 @@
           </div>
         </div>
         <div class="filters_box">
-          <h5>Room accessibility</h5>
+          <span class="filters_box_title">Room accessibility</span>
           <div>
             <input class="" type="checkbox" value="" id="Entire unit located on ground floor" />
             <label class="filters_check_label" for="Entire unit located on ground floor">
@@ -603,8 +676,8 @@
     </div>
     <div class="right">
       <div class="search_results_header">
-        <div>
-          <h3>Amsterdam: {{ suggestionsAmount }} properties found</h3>
+        <div class="search_results_title">
+          {{ filters.place }}: {{ suggestionsAmount }} properties found
         </div>
         <div class="search_results_top_buttons">
           <button (click)="sortItems(sortState.TopReviewed)">
@@ -620,7 +693,7 @@
             Stars (lowest first)
           </button>
           <div class="btn-group">
-            <button type="button" class="" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+            <button type="button" class="dropdown_button" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
               ...
             </button>
             <ul class="dropdown-menu dropdown-menu-lg-end">
@@ -643,19 +716,13 @@
         <div class="search_card">
           <div class="image_container">
            <img
-            src="{{imageHelper.getImageDirectoryPath()}}suggestions/{{item.images[0]?.name}}"
+            src="{{imageHelper.getImageDirectoryPath()}}suggestions/stays/{{item.images[0]?.name}}"
             width="200px"
             height="200px"
            />
-          </div>
-          <div class="information_container">
-            <div class="left_information">
-              <div>
-                <h3>{{ item?.name }}</h3>
-              </div>
-              <div>
+           <div class="save_image_position">
                 <div *ngIf="isSaved(item.id) == true">
-                <button class="btn btn-danger" (click)="removeSuggestion(item.id)">
+                <button class="save_image" (click)="removeSuggestion(item.id)">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
                     viewBox="0 0 16 16">
                     <path
@@ -664,7 +731,7 @@
                 </button>
               </div>
               <div *ngIf="isSaved(item.id) == false">
-                <button class="btn btn-outline-danger" (click)="addSuggestionToSaved(item.id)">
+                <button class="save_image" (click)="addSuggestionToSaved(item.id)">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
                     viewBox="0 0 16 16">
                     <path
@@ -673,11 +740,22 @@
                 </button>
               </div>
               </div>
-              <div>{{ item.address + ', ' + item.city + ',' + item.country }}</div>
-              <div>
+          </div>
+          <div>
+            <div class="left_information">
+              <div class="left_information_name">
+                <span class="left_information_title">{{ item?.name }}</span>
+                <div *ngFor="let item of item.starsRating; let i = index">
+                  <img src="../../assets/images/Star 1.png"/>
+                </div>
+              </div>
+              <div class="left_information_location">{{ item.address + ', ' + item.city + ',' + item.country }}</div>
+              <div class="left_information_description">
                 {{item.description}}
               </div>
             </div>
+          </div>
+          <div class="information_container">
             <div class="right_information">
               <div class="search_card_score">
                 <div class="bui-review-score__content">
@@ -699,17 +777,19 @@
                               mathHelper.Round10(suggestionGrades[i]) < 7.7; then pleasantBlock"></div>
                   <ng-template #pleasantBlock>Normal</ng-template>
                   <div class="bui-review-score__text">{{reviewsCount[i] ?? '0'}} reviews</div> -->
-                  <div class="bui-review-score__title">Wonderful</div>
-                  <div class="bui-review-score__text">
+                  <div class="right_information_title">Wonderful</div>
+                  <div class="right_information_text">
                     {{ item.reviews }} reviews
                   </div>
                 </div>
                 <div class="bui-review-score__badge" aria-label="Scored 0 ">
                   9.2
                 </div>
-                <p class="bh-carousel--new__price bui_color_black">
-                  Starting from USD {{ item?.priceInUSD }}
-                </p>
+              </div>
+              <div>
+                <span class="right_information_text">
+                  Starting from USD <span class="fw-bold">{{ item?.priceInUSD }}</span>
+                </span>
               </div>
               <button class="search_card_show_prices">Show Prices</button>
             </div>

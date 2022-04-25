@@ -1,5 +1,6 @@
 ﻿using CloneBookingAPI.Services.Interfaces;
 using CloneBookingAPI.Services.Repositories;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Diagnostics;
 using System.Threading;
@@ -11,12 +12,16 @@ namespace CloneBookingAPI.Services.Timers
         private readonly DeleteUserCodesRepository _deleteRepository;
         private DeleteUserCodeCleaner _deleteUserCleaner;
 
-        private const int _CODE_ALIVE_TIME = 600000;
+        private readonly int _CODE_ALIVE_TIME;
 
-        public DeleteUserCodeCleanTimer(DeleteUserCodesRepository deleteRepository)
+        public DeleteUserCodeCleanTimer(
+            DeleteUserCodesRepository deleteRepository,
+            IConfiguration configuration)
         {
             _deleteRepository = deleteRepository;
             _deleteUserCleaner = new DeleteUserCodeCleaner(_deleteRepository);
+
+            _CODE_ALIVE_TIME = int.Parse(configuration["CodeAliveTimes:DeleteUserCodeAliveTime"]);
         }
 
         public bool SetTimer((string key, string code) codeTuple)

@@ -21,6 +21,7 @@ import { Language } from '../models/language.item';
 import { BedType } from '../models/Suggestions/bedtype.item';
 import { Favorite } from '../models/UserData/favorite.item';
 import { Subscription } from 'rxjs';
+import { NgbDate } from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-search-results',
@@ -62,6 +63,72 @@ export class SearchResultsComponent implements OnInit {
 
   model: any;
   model1: any;
+
+  setChildren(value: number): void {
+    if (this.filters.searchChildrenAmount + value < 0) {
+      return;
+    }
+    this.filters.searchChildrenAmount = +this.filters.searchChildrenAmount + +value;
+  }
+
+  setAdults(value: number): void {
+    if (this.filters.searchAdultsAmount + value < 1) {
+      return;
+    }
+    this.filters.searchAdultsAmount = +this.filters.searchAdultsAmount + +value;
+  }
+
+  setRooms(value: number): void {
+    if (this.filters.searchRoomsAmount + value < 1) {
+      return;
+    }
+    this.filters.searchRoomsAmount = +this.filters.searchRoomsAmount + +value;
+  }
+
+  searchSuggestions($event : any): void {
+    $event.stopPropagation();
+
+    this.filters.sortOrder = SortState.TopReviewed;
+    console.log(this.filters);
+
+    let dateIn, dateOut;
+
+    if (this.filters.pdateIn && this.filters.pdateOut) {
+      dateIn = this.filters.pdateIn!.year + '-' + this.filters.pdateIn!.month + '-' +
+               this.filters.pdateIn!.day;
+      dateOut = this.filters.pdateOut!.year + '-' + this.filters.pdateOut!.month + '-' +
+                this.filters.pdateOut!.day;
+    }
+
+    this.filterChecks.shift();
+    this.filterChecks.shift();
+    this.filterChecks.shift();
+
+    this.filterChecks.push(new FilterViewModel('places', this.filters.place));
+    if (
+      typeof this.filters.dateIn !== 'undefined' ||
+      typeof this.filters.dateOut !== 'undefined'
+    ) {
+      this.filterChecks.push(
+        new FilterViewModel(
+          'dates',
+          this.filters.dateIn + ';' + this.filters.dateOut
+        )
+      );
+    }
+    this.filterChecks.push(
+      new FilterViewModel(
+        'amounts',
+        this.filters.searchAdultsAmount +
+          ';' +
+          this.filters.searchChildrenAmount +
+          ';' +
+          this.filters.searchRoomsAmount
+      )
+    );
+
+    this.sortItems();
+  }
 
   addFilterCheck(filter: string, value: any, index: any): void {
     if (this.filterCheckBoxes[index]) {
@@ -325,6 +392,8 @@ export class SearchResultsComponent implements OnInit {
       this.filters.place = params['place'];
       this.filters.dateIn = params['dateIn'];
       this.filters.dateOut = params['dateOut'];
+      this.filters.pdateIn = new NgbDate(+params['yearIn'], +params['monthIn'], +params['dayIn']);
+      this.filters.pdateOut = new NgbDate(+params['yearOut'], +params['monthOut'], +params['dayOut']);
       this.filters.searchAdultsAmount = params['adults'];
       this.filters.searchChildrenAmount = params['children'];
       this.filters.searchRoomsAmount = params['rooms'];

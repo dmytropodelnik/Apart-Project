@@ -286,8 +286,8 @@
         <div class="header-name-and-location">What's your contact information?</div>
 
         <div class="Input-name-and-location">
-          <span class="name-and-location-text" name="description" [(ngModel)]="description">Description</span>
-          <input type="textarea" />
+          <span class="name-and-location-text">Description</span>
+          <input type="textarea" name="description" [(ngModel)]="description" />
         </div>
         <button class="name-and-location-button" (click)="addDescription()">Continue</button>
       </div>

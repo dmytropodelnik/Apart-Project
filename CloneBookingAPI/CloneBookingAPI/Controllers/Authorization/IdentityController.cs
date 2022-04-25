@@ -9,6 +9,7 @@ using CloneBookingAPI.Services.Timers;
 using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,7 @@ namespace CloneBookingAPI.Controllers
         private readonly ChangingEmailCodesRepository _changingEmailRepository;
         private readonly DeleteUserCodesRepository _deleteUserRepository;
         private readonly JwtCodeCleaner _jwtCodeCleaner;
+        private readonly IConfiguration _configuration;
 
         private BaseRepository _repository = null;
 
@@ -45,7 +47,8 @@ namespace CloneBookingAPI.Controllers
             ResetPasswordCodesRepository resetPasswordRepository,
             ChangingEmailCodesRepository changingEmailRepository,
             DeleteUserCodesRepository deleteUserRepository,
-            JwtCodeCleaner jwtCodeCleaner)
+            JwtCodeCleaner jwtCodeCleaner,
+            IConfiguration configuration)
         {
             _context = context;
             _saltGenerator = saltGenerator;
@@ -56,6 +59,7 @@ namespace CloneBookingAPI.Controllers
             _changingEmailRepository = changingEmailRepository;
             _deleteUserRepository = deleteUserRepository;
             _jwtCodeCleaner = jwtCodeCleaner;
+            _configuration = configuration;
         }
 
         [Route("token")]
@@ -118,7 +122,7 @@ namespace CloneBookingAPI.Controllers
                     _jwtRepository.Repository.Add(user.Email, new List<string> { encodedJwt });
                 }
 
-                new JwtCodeCleanTimer(_jwtRepository).SetTimer((key: user.Email, code: encodedJwt));
+                new JwtCodeCleanTimer(_jwtRepository, _configuration).SetTimer((key: user.Email, code: encodedJwt));
 
                 return Json(new { 
                     code = 200,

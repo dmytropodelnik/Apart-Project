@@ -1,3 +1,42 @@
 {
-
+  "EmailLetterTemplates": {
+    "RegistrationLetterTemplate": {
+      "Template": ""
+    },
+    "EnterLetterTemplate": {
+      "Template": ""
+    },
+    "ResetPasswordLetterTemplate": {
+      "Template": ""
+    },
+    "ChangingEmailLetterTemplate": {
+      "Template": ""
+    },
+    "DeleteUserLetterTemplate": {
+      "Template": ""
+    },
+    "DealsLetterTemplate": {
+      "Template": ""
+    }
+  },
+  "EmailLetterSubjectTemplates": {
+    "RegistrationLetterSubject": {
+      "Template": "Confirmation code for registration!"
+    },
+    "EnterLetterSubject": {
+      "Template": "Verify email to enter!"
+    },
+    "ResetPasswordLetterSubject": {
+      "Template": "Verify email to reset the password!"
+    },
+    "ChangingEmailLetterSubject": {
+      "Template": "Verify email to change the email!"
+    },
+    "DeleteUserLetterSubject": {
+      "Template": "Verify letter to delete your account!"
+    },
+    "DealsLetterSubject": {
+      "Template": "<p>HELLO TEST</p>"
+    }
+  }
 }
