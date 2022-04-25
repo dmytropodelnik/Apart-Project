@@ -14,7 +14,10 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
     public class SuggestionsFilter
     {
         private readonly ApartProjectDbContext _context;
+        private List<IFilter> _applyFilters = new();
         private List<IFilter> _appliedFilters = new();
+        private List<string> _appliedNameFilters = new();
+        private List<string> _appliedNameCheckFilters = new();
 
         public SuggestionsFilter(ApartProjectDbContext context)
         {
@@ -30,85 +33,114 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
                     return null;
                 }
 
-                // filters = filters.Reverse();
-
                 foreach (var filter in filters)
                 {
                     if (filter.Filter.Equals("stars"))
                     {
-                        _appliedFilters.Add(new StarsFilter(int.Parse(filter.Value), filter.Filter));
+                        _applyFilters.Add(new StarsFilter(int.Parse(filter.Value), filter.Filter));
                     }
                     else if (filter.Filter.Equals("bookingCategories"))
                     {
-                        _appliedFilters.Add(new BookingCategoriesFilter(filter.Value, filter.Filter));
+                        _applyFilters.Add(new BookingCategoriesFilter(filter.Value, filter.Filter));
                     }
                     else if (filter.Filter.Equals("facilities"))
                     {
-                        _appliedFilters.Add(new FacilitiesFilter(filter.Value, filter.Filter));
+                        _applyFilters.Add(new FacilitiesFilter(filter.Value, filter.Filter));
                     }
                     else if (filter.Filter.Equals("reviewScores"))
                     {
-                        _appliedFilters.Add(new ReviewScoresFilter(filter.Value, filter.Filter));
+                        _applyFilters.Add(new ReviewScoresFilter(filter.Value, filter.Filter));
                     }
                     else if (filter.Filter.Equals("prices"))
                     {
-                        _appliedFilters.Add(new PricesFilter(filter.Value, filter.Filter));
+                        _applyFilters.Add(new PricesFilter(filter.Value, filter.Filter));
                     }
                     else if (filter.Filter.Equals("highlights"))
                     {
-                        _appliedFilters.Add(new HighlightsFilter(filter.Value, filter.Filter));
+                        _applyFilters.Add(new HighlightsFilter(filter.Value, filter.Filter));
                     }
                     else if (filter.Filter.Equals("roomTypes"))
                     {
-                        _appliedFilters.Add(new RoomTypesFilter(filter.Value, filter.Filter));
+                        _applyFilters.Add(new RoomTypesFilter(filter.Value, filter.Filter));
                     }
                     else if (filter.Filter.Equals("languages"))
                     {
-                        _appliedFilters.Add(new LanguagesFilter(filter.Value, filter.Filter));
+                        _applyFilters.Add(new LanguagesFilter(filter.Value, filter.Filter));
                     }
                     else if (filter.Filter.Equals("bedTypes"))
                     {
-                        _appliedFilters.Add(new BedTypesFilter(filter.Value, filter.Filter));
+                        _applyFilters.Add(new BedTypesFilter(filter.Value, filter.Filter));
                     }
-                }
-
-                foreach (var filter in filters)
-                {
-                    if (filter.Filter.Equals("places"))
+                    else if (filter.Filter.Equals("places"))
                     {
-                        _appliedFilters.Add(new PlacesFilter(filter.Value, filter.Filter));
+                        _applyFilters.Add(new PlacesFilter(filter.Value, filter.Filter));
                     }
                     else if (filter.Filter.Equals("dates"))
                     {
-                        _appliedFilters.Add(new DatesFilter(filter.Value, filter.Filter));
+                        _applyFilters.Add(new DatesFilter(filter.Value, filter.Filter));
                     }
                     else if (filter.Filter.Equals("amounts"))
                     {
-                        _appliedFilters.Add(new AmountsFilter(filter.Value, filter.Filter));
+                        _applyFilters.Add(new AmountsFilter(filter.Value, filter.Filter));
                     }
                 }
 
                 List<Suggestion> filtered = new();
 
-                string previousFilter = _appliedFilters.FirstOrDefault().Filter;
-                if (previousFilter is null)
-                {
-                    return null;
-                }
+                _appliedNameFilters.Add(_applyFilters.FirstOrDefault().Filter);
 
-                foreach (var filter in _appliedFilters)
+                foreach (var filter in _applyFilters)
                 {
-                    if (previousFilter == filter.Filter)
+                    if (_appliedNameFilters.Contains(filter.Filter))
                     {
-                        filtered.AddRange(filter.FilterItems(suggestions).ToList()
-                                               .Except(filtered));
+                        var tempList = filter.FilterItems(suggestions).Except(filtered);
+
+                        if (_appliedFilters.Count > 0)
+                        {
+                            //Suggestion[] tempFilterList = new Suggestion[tempList.Count()];
+
+                            int counter = 1;
+                            foreach (var item in _applyFilters)
+                            {
+                                if (item.Filter != filter.Filter)
+                                {
+                                    if (_appliedNameCheckFilters.Contains(item.Filter))
+                                    {
+                                        tempList.ToList().AddRange(item.FilterItems(tempList));
+                                    }
+                                    else
+                                    {
+                                        if (_applyFilters.Skip(counter).Count(f => f.Filter == item.Filter) > 0)
+                                        {
+                                            // tempList.ToList().CopyTo(tempFilterList);
+                                            tempList.ToList().AddRange(item.FilterItems(tempList));
+                                        }
+                                        else
+                                        {
+                                            tempList = item.FilterItems(tempList);
+                                        }
+                                    }
+                                    _appliedNameCheckFilters.Add(item.Filter);
+                                }
+                                if (tempList.Count() == 0)
+                                {
+                                    break;
+                                }
+                                counter++;
+                            }
+                        }
+                        filtered.AddRange(tempList);
                     }
                     else
                     {
                         filtered = filtered.Intersect(filter.FilterItems(suggestions))
-                                    .ToList(); 
+                                    .ToList();
                     }
-                    previousFilter = filter.Filter;
+                    if (_appliedFilters.Count > 0)
+                    {
+                        _appliedNameFilters.Add(filter.Filter);
+                    }
+                    _appliedFilters.Add(filter);
                 }
 
                 return filtered

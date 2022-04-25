@@ -677,7 +677,7 @@
     <div class="right">
       <div class="search_results_header">
         <div class="search_results_title">
-          Amsterdam: {{ suggestionsAmount }} properties found
+          {{ filters.place }}: {{ suggestionsAmount }} properties found
         </div>
         <div class="search_results_top_buttons">
           <button (click)="sortItems(sortState.TopReviewed)">
@@ -745,7 +745,9 @@
             <div class="left_information">
               <div class="left_information_name">
                 <span class="left_information_title">{{ item?.name }}</span>
-                <img src="../../assets/images/Star 1.png"/>
+                <div *ngFor="let item of item.starsRating; let i = index">
+                  <img src="../../assets/images/Star 1.png"/>
+                </div>
               </div>
               <div class="left_information_location">{{ item.address + ', ' + item.city + ',' + item.country }}</div>
               <div class="left_information_description">
