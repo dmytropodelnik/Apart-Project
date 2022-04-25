@@ -94,11 +94,10 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
                     if (_appliedNameFilters.Contains(filter.Filter))
                     {
                         var tempList = filter.FilterItems(suggestions).Except(filtered);
+                        List<Suggestion> newList = new();
 
                         if (_appliedFilters.Count > 0)
                         {
-                            //Suggestion[] tempFilterList = new Suggestion[tempList.Count()];
-
                             int counter = 1;
                             foreach (var item in _applyFilters)
                             {
@@ -106,14 +105,15 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
                                 {
                                     if (_appliedNameCheckFilters.Contains(item.Filter))
                                     {
-                                        tempList.ToList().AddRange(item.FilterItems(tempList));
+                                        newList.AddRange(item.FilterItems(tempList));
+                                        tempList = tempList.Except(newList);
                                     }
                                     else
                                     {
                                         if (_applyFilters.Skip(counter).Count(f => f.Filter == item.Filter) > 0)
                                         {
-                                            // tempList.ToList().CopyTo(tempFilterList);
-                                            tempList.ToList().AddRange(item.FilterItems(tempList));
+                                            newList.AddRange(item.FilterItems(tempList));
+                                            tempList = tempList.Except(newList);
                                         }
                                         else
                                         {
@@ -122,14 +122,16 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
                                     }
                                     _appliedNameCheckFilters.Add(item.Filter);
                                 }
-                                if (tempList.Count() == 0)
-                                {
-                                    break;
-                                }
                                 counter++;
                             }
+                            newList.AddRange(tempList);
+                            filtered.AddRange(newList);
+                            _appliedNameCheckFilters.Clear();
                         }
-                        filtered.AddRange(tempList);
+                        else
+                        {
+                            filtered.AddRange(tempList);
+                        }
                     }
                     else
                     {
