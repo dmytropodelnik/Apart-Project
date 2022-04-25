@@ -94,10 +94,10 @@ export class SearchResultsComponent implements OnInit {
     let dateIn, dateOut;
 
     if (this.filters.pdateIn && this.filters.pdateOut) {
-      dateIn = this.filters.pdateIn!.day + '/' + this.filters.pdateIn!.month + '/' +
-               this.filters.pdateIn!.year;
-      dateOut = this.filters.pdateOut!.day + '/' + this.filters.pdateOut!.month + '/' +
-                this.filters.pdateOut!.year;
+      dateIn = this.filters.pdateIn!.year + '-' + this.filters.pdateIn!.month + '-' +
+               this.filters.pdateIn!.day;
+      dateOut = this.filters.pdateOut!.year + '-' + this.filters.pdateOut!.month + '-' +
+                this.filters.pdateOut!.day;
     }
 
     this.filterChecks.shift();

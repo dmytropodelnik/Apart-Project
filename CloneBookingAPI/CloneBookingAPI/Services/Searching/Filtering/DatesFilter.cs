@@ -61,6 +61,12 @@ namespace CloneBookingAPI.Services.Searching.Filtering
 
                 return null;
             }
+            catch (FormatException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return null;
+            }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);

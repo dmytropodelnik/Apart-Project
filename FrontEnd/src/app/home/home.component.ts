@@ -267,10 +267,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     let dateIn, dateOut;
 
     if (this.searchViewModel.pdateIn && this.searchViewModel.pdateOut) {
-      dateIn = this.searchViewModel.pdateIn!.day + '/' + this.searchViewModel.pdateIn!.month + '/' +
-               this.searchViewModel.pdateIn!.year;
-      dateOut = this.searchViewModel.pdateOut!.day + '/' + this.searchViewModel.pdateOut!.month + '/' +
-                this.searchViewModel.pdateOut!.year;
+      dateIn = this.searchViewModel.pdateIn!.year + '-' + this.searchViewModel.pdateIn!.month + '-' +
+               this.searchViewModel.pdateIn!.day;
+      dateOut = this.searchViewModel.pdateOut!.year + '-' + this.searchViewModel.pdateOut!.month + '-' +
+                this.searchViewModel.pdateOut!.day;
     }
 
     this.router.navigate(['/searchresults'], {
