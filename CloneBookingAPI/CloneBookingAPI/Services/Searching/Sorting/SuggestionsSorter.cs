@@ -43,14 +43,14 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
 
                     case SortState.PriceAsc:
 
-                        suggestions = suggestions
-                            .Include(s => s.Apartments)
-                                .ThenInclude(a => a.RoomTypes)
-                                .ThenInclude(t => t.Rooms)
-                            .OrderBy(s => s.Apartments
-                                .Select(t => t.RoomTypes
-                                    .Select(t => t.Rooms
-                                        .Select(r => r.PriceInUSD))));
+                        //suggestions = suggestions
+                        //    .Include(s => s.Apartments)
+                        //        .ThenInclude(a => a.RoomTypes)
+                        //        .ThenInclude(t => t.Rooms)
+                        //    .Select(s => s.Apartments
+                        //        .Select(a => a.RoomTypes
+                        //            .Select(t => t.Rooms
+                        //                .OrderBy(r => r.PriceInUSD))));
 
                         break;
 
@@ -68,23 +68,35 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                         break;
 
                     case SortState.BestReviewed:
+                        {
+                            var tempSuggestions = suggestions
+                                .Include(s => s.SuggestionReviewGrades)
+                                .Where(s => s.SuggestionReviewGrades.Count > 0)
+                                .OrderByDescending(s => s.SuggestionReviewGrades
+                                    .Average(g => g.Value))
+                                .ToList();
 
-                        suggestions = suggestions
-                            .Include(s => s.SuggestionReviewGrades)
-                            .OrderByDescending(s => s.SuggestionReviewGrades
-                                .Average(g => g.Value));
+                            tempSuggestions.AddRange(suggestions.Except(tempSuggestions));
 
-                        break;
+                            suggestions = tempSuggestions.AsQueryable();
 
+                            break;
+                        }
                     case SortState.WorstReviewed:
+                        {
+                            var tempSuggestions = suggestions
+                                .Include(s => s.SuggestionReviewGrades)
+                                .Where(s => s.SuggestionReviewGrades.Count > 0)
+                                .OrderBy(s => s.SuggestionReviewGrades
+                                    .Average(g => g.Value))
+                                .ToList();
 
-                        suggestions = suggestions
-                            .Include(s => s.SuggestionReviewGrades)
-                            .OrderBy(s => s.SuggestionReviewGrades
-                                .Average(g => g.Value));
+                            tempSuggestions.AddRange(suggestions.Except(tempSuggestions));
 
-                        break;
+                            suggestions = tempSuggestions.AsQueryable();
 
+                            break;
+                        }
                     case SortState.StarsAsc:
 
                         suggestions = suggestions
@@ -108,20 +120,26 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                         break;
 
                     case SortState.BestReviewedAndLowerPrice:
+                        {
+                            var tempSuggestions = suggestions
+                                .Include(s => s.Apartments)
+                                    .ThenInclude(a => a.RoomTypes)
+                                    .ThenInclude(t => t.Rooms)
+                                .Include(s => s.SuggestionReviewGrades)
+                                .Where(s => s.SuggestionReviewGrades.Count > 0)
+                                .OrderByDescending(s => s.SuggestionReviewGrades.Average(g => g.Value))
+                                .OrderByDescending(s => s.Apartments
+                                    .Select(t => t.RoomTypes
+                                        .Select(t => t.Rooms
+                                            .Select(r => r.PriceInUSD))))
+                                .ToList();
 
-                        suggestions = suggestions
-                            .Include(s => s.Apartments)
-                                .ThenInclude(a => a.RoomTypes)
-                                .ThenInclude(t => t.Rooms)
-                            .Include(s => s.SuggestionReviewGrades)
-                            .OrderByDescending(s => s.SuggestionReviewGrades.Average(g => g.Value))
-                            .OrderByDescending(s => s.Apartments
-                                .Select(t => t.RoomTypes
-                                    .Select(t => t.Rooms
-                                        .Select(r => r.PriceInUSD))));
+                            tempSuggestions.AddRange(suggestions.Except(tempSuggestions));
 
-                        break;
+                            suggestions = tempSuggestions.AsQueryable();
 
+                            break;
+                        }
                     case SortState.StarRatingAndLowerPrice:
 
                         suggestions = suggestions

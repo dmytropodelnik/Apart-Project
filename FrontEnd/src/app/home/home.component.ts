@@ -14,6 +14,7 @@ import ImageHelper from '../utils/imageHelper';
 import MathHelper from '../utils/mathHelper';
 import { SortState } from '../enums/sortstate.item';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -292,6 +293,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     let dateIn, dateOut;
 
+    if (!this.searchViewModel.place) {
+      //alert("Enter a place!");
+      return;
+    }
+
     if (this.searchViewModel.pdateIn && this.searchViewModel.pdateOut) {
       dateIn =
         this.searchViewModel.pdateIn!.year +
@@ -305,6 +311,9 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.searchViewModel.pdateOut!.month +
         '-' +
         this.searchViewModel.pdateOut!.day;
+    } else {
+      //alert("Pick a check-in and check-out date");
+      return;
     }
 
     this.router.navigate(['/searchresults'], {

@@ -155,6 +155,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   sortItems(value: SortState = this.sortState.TopReviewed): void {
+    
     this.filters.sortOrder = value;
     // this.filters.suggestions = this.resSuggestions;
     this.filters.pageSize = 25;
