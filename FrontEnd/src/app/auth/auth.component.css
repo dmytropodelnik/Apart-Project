@@ -21,10 +21,10 @@
 }
 
 .signin {
-  background: url(C:\Users\Heider\Desktop\Booking\Apart\Apart-Project\FrontEnd\src\assets\images\3.jpg);
+  background: url("../../assets//images/3.jpg");
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1000px) {
   .wrapper {
     display: flex;
   }

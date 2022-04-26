@@ -65,7 +65,7 @@ a.a11y-skip-to-content {
 .bui-header {
   background-size: cover;
   background-position: center;
-  background-image: url("C:\Users\Heider\Desktop\Booking\Apart\Apart-Project\FrontEnd\src\assets\images\HeaderImage.png");
+  background-image: url("../../assets/images/HeaderImage.png");
 }
 
 .bui-header--rounded-tabs .bui-header__bar {
@@ -800,7 +800,7 @@ a.a11y-skip-to-content {
     height: 100vh;
     z-index: 1;
   }
-  
+
 
   .fa-times {
     position: absolute;
