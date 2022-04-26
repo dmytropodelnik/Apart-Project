@@ -188,7 +188,6 @@
               <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
                 <div ngxSlickItem *ngFor="let city of cities; let i = index" class="slide">
                   <div>
-<<<<<<< HEAD
                     <img
                       src="{{
                         imageHelper.getImageDirectoryPath()
@@ -198,11 +197,6 @@
                       width="162px"
                       height="162px"
                     />
-=======
-                    <img src="{{ imageHelper.getImageDirectoryPath() }}/location/cities/{{
-                        city.image?.name
-                      }}" class="w-100" alt="city" width="162px" height="162px" />
->>>>>>> backend
                     <div class="bui-card__content">
                       <div class="bui-card__title">{{ city.title }}</div>
                       <div class="bui-title__subtitle">
@@ -227,7 +221,6 @@
                   <div>
                     <img src="{{
                         imageHelper.getImageDirectoryPath()
-<<<<<<< HEAD
                       }}/categories/booking-categories/{{
                         category.image?.name
                       }}"
@@ -236,10 +229,6 @@
                       width="162px"
                       height="162px"
                     />
-=======
-                      }}/categories/booking-categories/{{ category.image?.name }}" class="w-100" alt="category"
-                      width="162px" height="162px" />
->>>>>>> backend
                   </div>
                   <div class="bui-card__content">
                     <div class="bui-title bui-title--strong_1 bui-card__title">
@@ -520,16 +509,12 @@
                   <div class="slide-img">
                     <img src="{{
                         imageHelper.getImageDirectoryPath()
-<<<<<<< HEAD
                       }}/categories/booking-categories/{{
                         item.images[0]?.name
                       }}"
                       class="w-100"
                       alt=""
                     />
-=======
-                      }}/categories/booking-categories/{{ item.images[0]?.name }}" class="w-100" alt="" />
->>>>>>> backend
                   </div>
                   <div class="bui-card__content bh-carousel--new__content">
                     <h3 class="bui-card__title bh-carousel--new__title">
@@ -586,7 +571,6 @@
                               then pleasantBlock
                             "></div>
                           <ng-template #pleasantBlock>Normal</ng-template>
-<<<<<<< HEAD
                           <div
                             class="bui-review-score__badge_unrated"
                             aria-label="Scored 0"
@@ -594,10 +578,6 @@
                           >
                             Unrated
                           </div>
-=======
-                          <div class="bui-review-score__badge_unrated" aria-label="Scored 0"
-                            *ngIf="suggestionGrades[i] == 0">Unrated</div>
->>>>>>> backend
                           <div class="bui-review-score__text">
                             {{ reviewsCount[i] ?? "0" }} reviews
                           </div>
