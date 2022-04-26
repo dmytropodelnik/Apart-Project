@@ -63,7 +63,9 @@ a.a11y-skip-to-content {
   color: #000000;
 }
 .bui-header {
-  background: white;
+  background-size: cover;
+  background-position: center;
+  background-image: url("../../assets/images/HeaderImage.png");
 }
 
 .bui-header--rounded-tabs .bui-header__bar {
@@ -798,6 +800,7 @@ a.a11y-skip-to-content {
     height: 100vh;
     z-index: 1;
   }
+
 
   .fa-times {
     position: absolute;

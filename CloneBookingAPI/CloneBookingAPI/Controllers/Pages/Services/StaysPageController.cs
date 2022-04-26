@@ -43,6 +43,7 @@ namespace CloneBookingAPI.Controllers.Pages
                 for (int i = 1; i <= categories.Count; i++)
                 {
                     var resSuggestions = suggestionsList
+                        .Where(s => s.Progress == 100)
                         .Where(s => s.BookingCategoryId == i)
                         .Count();
 
@@ -90,12 +91,13 @@ namespace CloneBookingAPI.Controllers.Pages
 
                 var regions = await _context.Regions
                     .Select(r => new { r.Id, r.Title })
-                    .Take(22)
+                    .Take(20)
                     .ToListAsync();
 
                 for (int i = 1; i <= regions.Count; i++)
                 {
                     var resRegionSuggestion = suggestionsList
+                        .Where(s => s.Progress == 100)
                         .Where(s => s.Address.Region.Id == regions[i - 1].Id)
                         .Count();
 
@@ -138,18 +140,20 @@ namespace CloneBookingAPI.Controllers.Pages
                 List<int> countriesSuggestions = new();
 
                 var suggestionsList = await _context.Suggestions
+                    .Include(s => s.Address)
                     .Include(s => s.Address.Country)
                     .ToListAsync();
 
                 var countries = await _context.Countries
                     .Select(c => c.Title)
-                    .Take(48)
+                    .Take(20)
                     .ToListAsync();
 
                 for (int i = 1; i <= countries.Count; i++)
                 {
                     var resCountriesSuggestion = suggestionsList
-                        .Where(s => s.Address.Country.Id == i)
+                        .Where(s => s.Progress == 100)
+                        .Where(s => s.Address.Country.Id == i)  /// 
                         .Count();
 
                     countriesSuggestions.Add(resCountriesSuggestion);
@@ -196,7 +200,7 @@ namespace CloneBookingAPI.Controllers.Pages
 
                 var footerCities = await _context.Cities
                     .Select(c => c.Title)
-                    .Take(48)
+                    .Take(20)
                     .ToListAsync();
 
                 var cities = await _context.Cities
@@ -210,7 +214,8 @@ namespace CloneBookingAPI.Controllers.Pages
                 for (int i = 1; i <= cities.Count; i++)
                 {
                     var resCitySuggestion = suggestionsList
-                        .Where(s => s.Address.City.Id == cities[i - 1].Id)
+                        .Where(s => s.Progress == 100)
+                        .Where(s => s.Address.City.Id == cities[i - 1].Id) ////
                         .Count();
 
                     citySuggestionsLength.Add(resCitySuggestion);
@@ -265,6 +270,7 @@ namespace CloneBookingAPI.Controllers.Pages
                 {
                     var resCities = await _context.Suggestions
                         .Include(c => c.Address)
+                        .Where(s => s.Progress == 100)
                         .Where(c => c.Address.CityId == citiesList[i].Id)
                         .CountAsync();
 
@@ -314,6 +320,7 @@ namespace CloneBookingAPI.Controllers.Pages
                     .Include(s => s.Address.City)
                     .Include(s => s.SuggestionReviewGrades)
                     .Include(s => s.Apartments)
+                    .Where(s => s.Progress == 100)
                     .Where(s => s.SuggestionReviewGrades
                                     .Average(g => g.Value) > 9.0) //  && s.Apartments.Count > 0
                     .Take(5)

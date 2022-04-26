@@ -82,7 +82,7 @@
           id="automation_id_section_property_av"
           type="button"
           disabled=""
-          class=" section_button"
+          class="section_button"
         >
           <span class="">Pricing and calendar</span>
         </button>
@@ -100,7 +100,7 @@
           id="automation_id_section_property_legal"
           type="button"
           disabled=""
-          class=" section_button"
+          class="section_button"
         >
           <span class="">Legal information</span>
         </button>
@@ -115,7 +115,7 @@
           id="automation_id_section_property_complete"
           type="button"
           disabled=""
-          class=" section_button"
+          class="section_button"
         >
           <span class="">Review and complete</span>
         </button>
@@ -132,14 +132,56 @@
         <div class="header-name-and-location">
           What's the name of your place?
         </div>
-
         <div class="Input-name-and-location">
           <span class="name-and-location-text">Property name</span>
-          <input type="text" name="propertyName" [(ngModel)]="propertyName" />
+          <input
+            required
+            class="inputfield"
+            type="text"
+            name="propertyName"
+            [(ngModel)]="propertyName"
+          />
+          <div
+            class="invalid_feedback"
+            *ngIf="propertyName.match(reg) || propertyName.length < 3"
+          >
+            Please enter correct name
+          </div>
+          <div class="info_text">
+            <div class="info_text_item">
+              <span class="info_text_header"
+                >What should I consider when choosing a name?
+              </span>
+              <span class="info_text_subtext"> Keep it short and catchy </span>
+              <span class="info_text_subtext"> Avoid abbreviations </span>
+              <span class="info_text_subtext">Stick to the facts</span>
+            </div>
+
+            <div class="info_text_item">
+              <span class="info_text_header"
+                >Why do I need to name my property?
+              </span>
+              <span class="info_text_subtext1"
+                >This is the name that will appear as the title of your listing
+                on our site. It should tell guests something specific about your
+                place, where it is or what you offer.This will be visible to
+                anyone visiting our site, so don't include your address in the
+                name.
+              </span>
+            </div>
+          </div>
         </div>
-        <button class="name-and-location-button" (click)="addPropertyName()">
-          Continue
-        </button>
+        <div style="display: flex">
+          <button
+            class="name-and-location-button-back"
+            routerLink="/lp/addproperty"
+          >
+            Go back
+          </button>
+          <button class="name-and-location-button" (click)="addPropertyName()">
+            Continue
+          </button>
+        </div>
       </div>
     </li>
     <li *ngSwitchCase="1">
@@ -147,33 +189,107 @@
         <div class="header-name-and-location">
           Where is the property you're listing?
         </div>
-
-        <div class="header-name-and-location">
-          We may send a letter to confirm the location of your property, so make
-          sure that the address is correct – it’s difficult to make changes to
-          it later.
-        </div>
         <div class="Input-name-and-location">
-          <select class="form-select" aria-label="Default select example" id="countriesSelect"
-                  name="sCountry" [(ngModel)]="sCountry">
-            <option selected>Select country/region</option>
-          </select>
+          <div class="header-name-and-location1">
+            We may send a letter to confirm the location of your property, so
+            make sure that the address is correct – it’s difficult to make
+            changes to it later.
+          </div>
+          <div>
+            <span class="name-and-location-text">Country</span>
+            <select
+              class="inputfield"
+              aria-label="Default select example"
+              id="countriesSelect"
+              name="sCountry"
+              [(ngModel)]="sCountry"
+            >
+              <option selected>Select country/region</option>
+            </select>
+          </div>
+          <div>
+            <span class="name-and-location-text">Address</span>
+            <input
+              type="text"
+              class="inputfield"
+              name="sAddress"
+              [(ngModel)]="sAddress"
+            />
+          </div>
+          <div>
+            <span class="name-and-location-text">Postal Code</span>
+            <input
+              type="text"
+              class="inputfield"
+              name="sZipCode"
+              [(ngModel)]="sZipCode"
+            />
+          </div>
+          <div>
+            <span class="name-and-location-text">City</span>
+            <input
+              type="text"
+              class="inputfield"
+              name="sCity"
+              [(ngModel)]="sCity"
+            />
+          </div>
+          <div>
+            <span class="name-and-location-text">Region</span>
+            <input
+              type="text"
+              class="inputfield"
+              name="sRegion"
+              [(ngModel)]="sRegion"
+            />
+          </div>
+          <div class="info_text">
+            <div class="info_text_item">
+              <span class="info_text_header"
+                >What needs to be included in my address?
+              </span>
+              <span class="info_text_subtext">
+                Include both your street name and house number
+              </span>
+              <span class="info_text_subtext">
+                Provide an apartment or floor number if you have one
+              </span>
+              <span class="info_text_subtext"> Provide the post/zip code </span>
+              <span class="info_text_subtext">
+                Correctly spell the street name
+              </span>
+              <span class="info_text_subtext">
+                Use the physical adress of the property, not your office or home
+                adress
+              </span>
+            </div>
 
-          <span class="name-and-location-text">Address</span>
-          <input type="text" name="sAddress" [(ngModel)]="sAddress" />
-
-          <span class="name-and-location-text">Postal Code</span>
-          <input type="text" name="sZipCode" [(ngModel)]="sZipCode" />
-
-          <span class="name-and-location-text">City</span>
-          <input type="text" name="sCity" [(ngModel)]="sCity" />
-
-          <span class="name-and-location-text">Region</span>
-          <input type="text" name="sRegion" [(ngModel)]="sRegion" />
+            <div class="info_text_item">
+              <span class="info_text_header"
+                >Why do I need to add my address?
+              </span>
+              <span class="info_text_subtext1"
+                >Once a guest books your property, this is the address that will
+                be shared with them. It's important that it is correct so that
+                guests can easily find your property.
+              </span>
+            </div>
+          </div>
         </div>
-        <button class="name-and-location-button" (click)="addPropertyAddress()">
-          Continue
-        </button>
+        <div style="display: flex">
+          <button
+            class="name-and-location-button-back"
+            routerLink="/lp/addproperty"
+          >
+            Go back
+          </button>
+          <button
+            class="name-and-location-button"
+            (click)="addPropertyAddress()"
+          >
+            Continue
+          </button>
+        </div>
       </div>
     </li>
   </ul>

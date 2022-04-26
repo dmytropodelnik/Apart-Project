@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -21,7 +21,7 @@ import { Language } from '../models/language.item';
 import { BedType } from '../models/Suggestions/bedtype.item';
 import { Favorite } from '../models/UserData/favorite.item';
 import { Subscription } from 'rxjs';
-import { NgbDate } from "@ng-bootstrap/ng-bootstrap";
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-search-results',
@@ -71,7 +71,8 @@ export class SearchResultsComponent implements OnInit {
     if (this.filters.searchChildrenAmount + value < 0) {
       return;
     }
-    this.filters.searchChildrenAmount = +this.filters.searchChildrenAmount + +value;
+    this.filters.searchChildrenAmount =
+      +this.filters.searchChildrenAmount + +value;
   }
 
   setAdults(value: number): void {
@@ -88,7 +89,7 @@ export class SearchResultsComponent implements OnInit {
     this.filters.searchRoomsAmount = +this.filters.searchRoomsAmount + +value;
   }
 
-  searchSuggestions($event : any): void {
+  searchSuggestions($event: any): void {
     $event.stopPropagation();
 
     this.filters.sortOrder = SortState.TopReviewed;
@@ -97,10 +98,18 @@ export class SearchResultsComponent implements OnInit {
     let dateIn, dateOut;
 
     if (this.filters.pdateIn && this.filters.pdateOut) {
-      dateIn = this.filters.pdateIn!.year + '-' + this.filters.pdateIn!.month + '-' +
-               this.filters.pdateIn!.day;
-      dateOut = this.filters.pdateOut!.year + '-' + this.filters.pdateOut!.month + '-' +
-                this.filters.pdateOut!.day;
+      dateIn =
+        this.filters.pdateIn!.year +
+        '-' +
+        this.filters.pdateIn!.month +
+        '-' +
+        this.filters.pdateIn!.day;
+      dateOut =
+        this.filters.pdateOut!.year +
+        '-' +
+        this.filters.pdateOut!.month +
+        '-' +
+        this.filters.pdateOut!.day;
     }
 
     this.filterChecks.shift();
@@ -155,6 +164,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   sortItems(value: SortState = this.sortState.TopReviewed): void {
+    
     this.filters.sortOrder = value;
     // this.filters.suggestions = this.resSuggestions;
     this.filters.pageSize = 25;
@@ -344,15 +354,13 @@ export class SearchResultsComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.savedSuggestions = this.savedSuggestions.filter(
-            (s) => {
-              if (s.id === response.resSuggestion.id) {
-                return false;
-              } else {
-                return true;
-              }
+          this.savedSuggestions = this.savedSuggestions.filter((s) => {
+            if (s.id === response.resSuggestion.id) {
+              return false;
+            } else {
+              return true;
             }
-          );
+          });
         } else {
           alert('User favorites fetching error!');
         }
@@ -398,8 +406,16 @@ export class SearchResultsComponent implements OnInit {
       this.filters.place = params['place'];
       this.filters.dateIn = params['dateIn'];
       this.filters.dateOut = params['dateOut'];
-      this.filters.pdateIn = new NgbDate(+params['yearIn'], +params['monthIn'], +params['dayIn']);
-      this.filters.pdateOut = new NgbDate(+params['yearOut'], +params['monthOut'], +params['dayOut']);
+      this.filters.pdateIn = new NgbDate(
+        +params['yearIn'],
+        +params['monthIn'],
+        +params['dayIn']
+      );
+      this.filters.pdateOut = new NgbDate(
+        +params['yearOut'],
+        +params['monthOut'],
+        +params['dayOut']
+      );
       this.filters.searchAdultsAmount = params['adults'];
       this.filters.searchChildrenAmount = params['children'];
       this.filters.searchRoomsAmount = params['rooms'];

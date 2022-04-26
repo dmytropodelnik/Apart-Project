@@ -19,6 +19,11 @@
   flex: 1;
 }
 
+.ngbDatepicker .ngb-dp-today {
+  color: #ffffff !important;
+  background-color: #ed6648 !important;
+}
+
 .xpi__searchbox {
   padding: 44px 5px;
   position: relative;
@@ -303,6 +308,15 @@ form {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   -webkit-appearance: none;
+}
+
+.invalid_feedback {
+  background-color: red;
+  padding: 2px;
+  position: absolute;
+  top: -20px;
+  left: 2px;
+  color: #ffffff;
 }
 
 .sb-destination__input {
@@ -1744,14 +1758,12 @@ a.bui-card:link {
 .inner-tabs-links {
   display: flex;
   flex-wrap: wrap;
-  flex-grow: 25%;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 .inner-tabs-links > * {
-  flex: 1;
-  flex-basis: 20%;
+  flex-basis: 170px;
   margin: 0px 10px;
 }
 
@@ -2014,8 +2026,14 @@ a.bui-card:link {
   .ssubscriptionValidator {
     margin-right: auto;
   }
+
+  .promotion-postcard__large {
+    padding-left: 0px;
+  }
+
   .promotion-postcard__small {
     width: 50%;
+    padding-left: 0px;
   }
 
   a.promote_article {

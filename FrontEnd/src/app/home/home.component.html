@@ -7,18 +7,28 @@
           role="search"
           class="sb-searchbox sb-searchbox--painted sb-searchbox--xp js--sb-searchbox"
         >
-          <div class="xp__fieldset">
+          <div class="xp__fieldset js--sb-fieldset accommodation">
             <div class="searchbox">
               <div class="searchbox_item">
-                <div class="input-with-icon">
-                  <img src="assets/images/9.svg" alt="" />
-                  <input
-                    type="text"
-                    class="header-input pl-50"
-                    placeholder="Where are you going?"
-                    name="searchViewModel.place"
-                    [(ngModel)]="searchViewModel.place"
-                  />
+                <div class="">
+                  <div class="input-with-icon">
+                    <img src="assets/images/9.svg" alt="" />
+                    <input
+                      type="text"
+                      class="header-input pl-50"
+                      placeholder="Where are you going?"
+                      name="searchViewModel.place"
+                      [(ngModel)]="searchViewModel.place"
+                    />
+                    <div
+                      class="invalid_feedback"
+                      *ngIf="
+                        searchViewModel.place.replaceAll(reg, '').length == 0
+                      "
+                    >
+                      Enter destination to search
+                    </div>
+                  </div>
                 </div>
               </div>
               <div class="searchbox_item">
@@ -50,6 +60,7 @@
                     [navigation]="navigation"
                     [outsideDays]="outsideDays"
                     [showWeekNumbers]="showWeekNumbers"
+                    [minDate]="minDate"
                     ngbDatepicker
                     #d="ngbDatepicker"
                   />
@@ -84,6 +95,7 @@
                     [navigation]="navigation"
                     [outsideDays]="outsideDays"
                     [showWeekNumbers]="showWeekNumbers"
+                    [minDate]="minDate"
                     ngbDatepicker
                     #t="ngbDatepicker"
                   />
@@ -190,11 +202,6 @@
               </div>
             </div>
           </div>
-          <label class="custom-checkbox">
-            <span class="fs-14 fw-400 lh-20">I'm traveling for work</span>
-            <input type="checkbox" checked="checked" />
-            <span class="checkmark"></span>
-          </label>
         </form>
       </div>
     </div>
@@ -263,9 +270,9 @@
                 >
                   <div>
                     <img
-                      src="{{ imageHelper.getImageDirectoryPath() }}/location/cities/{{
-                        city.image?.name
-                      }}"
+                      src="{{
+                        imageHelper.getImageDirectoryPath()
+                      }}/location/cities/{{ city.image?.name }}"
                       class="w-100"
                       alt="city"
                       width="162px"
@@ -308,7 +315,9 @@
                     <img
                       src="{{
                         imageHelper.getImageDirectoryPath()
-                      }}/categories/booking-categories/{{ category.image?.name }}"
+                      }}/categories/booking-categories/{{
+                        category.image?.name
+                      }}"
                       class="w-100"
                       alt="category"
                       width="162px"
@@ -678,7 +687,9 @@
                     <img
                       src="{{
                         imageHelper.getImageDirectoryPath()
-                      }}/categories/booking-categories/{{ item.images[0]?.name }}"
+                      }}/categories/booking-categories/{{
+                        item.images[0]?.name
+                      }}"
                       class="w-100"
                       alt=""
                     />
@@ -758,8 +769,13 @@
                             "
                           ></div>
                           <ng-template #pleasantBlock>Normal</ng-template>
-                          <div class="bui-review-score__badge_unrated"
-                          aria-label="Scored 0" *ngIf="suggestionGrades[i] == 0">Unrated</div>
+                          <div
+                            class="bui-review-score__badge_unrated"
+                            aria-label="Scored 0"
+                            *ngIf="suggestionGrades[i] == 0"
+                          >
+                            Unrated
+                          </div>
                           <div class="bui-review-score__text">
                             {{ reviewsCount[i] ?? "0" }} reviews
                           </div>
