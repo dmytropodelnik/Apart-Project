@@ -94,6 +94,17 @@ namespace CloneBookingAPI.Controllers.Search
                     return Json(new { code = 400 });
                 }
 
+                var finalSuggestions = resSuggestions.ToList();
+
+                List<decimal> suggestionStartsFrom = new();
+                for (int i = 0; i < finalSuggestions.Count; i++)
+                {
+                    if (finalSuggestions[i].Apartments.Count != 0) // finalSuggestions[i].Apartments is not null && 
+                    {
+                        suggestionStartsFrom.Add(finalSuggestions[i].Apartments.Min(a => a.PriceInUSD));
+                    }
+                }
+
                 return Json(new
                 {
                     code = 200,
@@ -101,6 +112,7 @@ namespace CloneBookingAPI.Controllers.Search
                         .Select(s => new { s.Id, s.Name, s.Description, country = s.Address.Country.Title, city = s.Address.City.Title,
                             address = s.Address.AddressText, starsRating = new short[s.StarsRating], reviews = s.Reviews.Count, images = s.Images.Select(i => new { i.Path, i.Name }) }),
                     suggestionsAmount,
+                    suggestionStartsFrom,
                 });
             }
             catch (ArgumentNullException ex)
