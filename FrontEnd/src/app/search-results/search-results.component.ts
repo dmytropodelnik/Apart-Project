@@ -55,6 +55,7 @@ export class SearchResultsComponent implements OnInit {
   bedTypes: BedType[] = [];
 
   suggestionStartsFrom: any[] = [];
+  suggestionGrades: any;
 
   currentPage: number = 1;
   totalPages: number = 1;
@@ -183,6 +184,8 @@ export class SearchResultsComponent implements OnInit {
               : Math.ceil(data.suggestionsAmount / 25);
           this.suggestionsAmount = data.suggestionsAmount;
           this.suggestionStartsFrom = data.suggestionStartsFrom;
+          this.suggestionGrades = data.suggestionGrades;
+
           console.log(this.resSuggestions);
         } else {
           alert('Suggestions sort fetching error!');
