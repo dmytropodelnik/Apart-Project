@@ -218,6 +218,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
                     Address newAddress = new();
                     newAddress.City = newCity;
+                    newAddress.CountryId = suggestion.Address.CountryId;
                     newAddress.AddressText = suggestion.Address.AddressText;
 
                     if (region is null)

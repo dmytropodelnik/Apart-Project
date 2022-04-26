@@ -138,6 +138,7 @@ namespace CloneBookingAPI.Controllers.Pages
                 List<int> countriesSuggestions = new();
 
                 var suggestionsList = await _context.Suggestions
+                    .Include(s => s.Address)
                     .Include(s => s.Address.Country)
                     .ToListAsync();
 
@@ -149,7 +150,8 @@ namespace CloneBookingAPI.Controllers.Pages
                 for (int i = 1; i <= countries.Count; i++)
                 {
                     var resCountriesSuggestion = suggestionsList
-                        .Where(s => s.Address.Country.Id == i)
+                        .Where(s => s.Progress == 100)
+                        .Where(s => s.Address.Country.Id == i)  /// 
                         .Count();
 
                     countriesSuggestions.Add(resCountriesSuggestion);
@@ -210,7 +212,7 @@ namespace CloneBookingAPI.Controllers.Pages
                 for (int i = 1; i <= cities.Count; i++)
                 {
                     var resCitySuggestion = suggestionsList
-                        .Where(s => s.Address.City.Id == cities[i - 1].Id)
+                        .Where(s => s.Address.City.Id == cities[i - 1].Id) ////
                         .Count();
 
                     citySuggestionsLength.Add(resCitySuggestion);
