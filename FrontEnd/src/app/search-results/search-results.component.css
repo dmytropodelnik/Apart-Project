@@ -105,6 +105,21 @@
   min-width: 32px;
   align-items: center;
 }
+
+.bui-review-score__badge_unrated {
+  background: #ed6648;
+  color: #fff;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  vertical-align: baseline;
+  border-radius: 5.81818px 5.81818px 5.81818px 0;
+  height: 32px;
+  min-width: 64px;
+  align-items: center;
+}
 .information_container {
   display: flex;
   gap: 1rem;

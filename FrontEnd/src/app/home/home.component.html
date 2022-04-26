@@ -704,6 +704,7 @@
                         <div
                           class="bui-review-score__badge"
                           aria-label="Scored 0 "
+                          *ngIf="suggestionGrades[i] != 0"
                         >
                           {{ mathHelper.Round10(suggestionGrades[i] ?? "") }}
                         </div>
@@ -757,6 +758,8 @@
                             "
                           ></div>
                           <ng-template #pleasantBlock>Normal</ng-template>
+                          <div class="bui-review-score__badge_unrated"
+                          aria-label="Scored 0" *ngIf="suggestionGrades[i] == 0">Unrated</div>
                           <div class="bui-review-score__text">
                             {{ reviewsCount[i] ?? "0" }} reviews
                           </div>

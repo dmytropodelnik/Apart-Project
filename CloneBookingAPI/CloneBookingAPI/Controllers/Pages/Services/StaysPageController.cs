@@ -313,8 +313,9 @@ namespace CloneBookingAPI.Controllers.Pages
                     .Include(s => s.Address.Country)
                     .Include(s => s.Address.City)
                     .Include(s => s.SuggestionReviewGrades)
+                    .Include(s => s.Apartments)
                     .Where(s => s.SuggestionReviewGrades
-                                    .Average(g => g.Value) > 9.0)
+                                    .Average(g => g.Value) > 9.0) //  && s.Apartments.Count > 0
                     .Take(5)
                     .ToListAsync();
 
@@ -329,8 +330,15 @@ namespace CloneBookingAPI.Controllers.Pages
 
                 for (int i = 0; i < resSuggestion.Count; i++)
                 {
-                    suggestionGrades.Add(resSuggestion[i].SuggestionReviewGrades.Average(g => g.Value));
-                    if (resSuggestion[i].Apartments is not null && resSuggestion[i].Apartments.Count != 0)
+                    if (resSuggestion[i].SuggestionReviewGrades.Count == 0)
+                    {
+                        suggestionGrades.Add(0);
+                    }
+                    else
+                    {
+                        suggestionGrades.Add(resSuggestion[i].SuggestionReviewGrades.Average(g => g.Value));
+                    }
+                    if (resSuggestion[i].Apartments.Count != 0) // resSuggestion[i].Apartments is not null && 
                     {
                         suggestionStartsFrom.Add(resSuggestion[i].Apartments.Min(a => a.PriceInUSD));
                     }

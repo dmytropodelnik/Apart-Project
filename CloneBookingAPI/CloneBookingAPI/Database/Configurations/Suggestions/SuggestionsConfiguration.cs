@@ -85,7 +85,7 @@ namespace CloneBookingAPI.Services.Database.Configurations.Suggestions
                     IsParkingAvailable = true, UserId = 1, ServiceCategoryId = 1,
                     BookingCategoryId = 4, AddressId = 4, UniqueCode = "101014",
                   },
-                  new Suggestion { Id = 15, Name = "Elegia ArCadia Apartments", 
+                  new Suggestion { Id = 15, Name = "Elegia Arcadia Apartments", 
                     StarsRating = 5, Progress = 100, Description = "Test description of test suggestion 15",
                     IsParkingAvailable = false, UserId = 1, ServiceCategoryId = 1,
                     BookingCategoryId = 5, AddressId = 1, UniqueCode = "101015",
