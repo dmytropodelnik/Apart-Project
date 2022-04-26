@@ -5,7 +5,7 @@ import { Suggestion } from '../models/Suggestions/suggestion.item';
 import { SearchViewModel } from '../view-models/searchviewmodel.item';
 
 import { Router } from '@angular/router';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { MainDataService } from '../services/main-data.service';
 
@@ -13,6 +13,8 @@ import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
 import MathHelper from '../utils/mathHelper';
 import { SortState } from '../enums/sortstate.item';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -25,7 +27,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   displayMonths = 1;
   navigation = 'arrows';
   showWeekNumbers = false;
-  outsideDays = 'hidden';
+  outsideDays = 'collapsed';
+  current = new Date();
+  minDate = {
+    year: this.current.getFullYear(),
+    month: this.current.getMonth() + 1,
+    day: this.current.getDate(),
+  };
   imageHelper: any = ImageHelper;
   mathHelper: any = MathHelper;
 
@@ -41,7 +49,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   countries: string[] = [];
   regionsSuggestions: any;
   regions: any;
-
+  reg = /[1-9\s\/\\!"#$%&'()*+,-.:;<=>?@[\]^_`{|}~]/g;
+  reg1 = /[\/\\!"#$%&'()*+,-.:;<=>?@[\]^_`{|}~]/g;
   recommendedSuggestionsCount: any;
   recommendedCities: any;
 
@@ -121,10 +130,8 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(
     public mainDataService: MainDataService,
-    private router: Router,
-    ) {
-
-    }
+    private router: Router
+  ) {}
 
   setChildren(value: number): void {
     if (this.searchViewModel.searchChildrenAmount + value < 0) {
@@ -157,7 +164,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.recommendedSuggestionsCount = data.suggestionsCount;
           this.recommendedCities = data.citiesList;
         } else {
-          alert("Recommended dest data fetching error!");
+          alert('Recommended dest data fetching error!');
         }
       })
       .catch((ex) => {
@@ -258,19 +265,37 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  searchSuggestions($event : any): void {
+  searchSuggestions($event: any): void {
     $event.stopPropagation();
 
     this.searchViewModel.sortOrder = SortState.TopReviewed;
     console.log(this.searchViewModel);
 
+    this.searchViewModel.place = this.searchViewModel.place
+      .replaceAll(this.reg1, '')
+      .trim();
+
     let dateIn, dateOut;
 
+    if (!this.searchViewModel.place) {
+      return;
+    }
+
     if (this.searchViewModel.pdateIn && this.searchViewModel.pdateOut) {
-      dateIn = this.searchViewModel.pdateIn!.year + '-' + this.searchViewModel.pdateIn!.month + '-' +
-               this.searchViewModel.pdateIn!.day;
-      dateOut = this.searchViewModel.pdateOut!.year + '-' + this.searchViewModel.pdateOut!.month + '-' +
-                this.searchViewModel.pdateOut!.day;
+      dateIn =
+        this.searchViewModel.pdateIn!.year +
+        '-' +
+        this.searchViewModel.pdateIn!.month +
+        '-' +
+        this.searchViewModel.pdateIn!.day;
+      dateOut =
+        this.searchViewModel.pdateOut!.year +
+        '-' +
+        this.searchViewModel.pdateOut!.month +
+        '-' +
+        this.searchViewModel.pdateOut!.day;
+    } else {
+      return;
     }
 
     this.router.navigate(['/searchresults'], {
@@ -287,7 +312,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         adults: this.searchViewModel.searchAdultsAmount,
         children: this.searchViewModel.searchChildrenAmount,
         rooms: this.searchViewModel.searchRoomsAmount,
-      }
+      },
     });
   }
 
