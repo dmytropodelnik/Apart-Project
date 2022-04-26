@@ -10,7 +10,7 @@
 }
 
 .wrapper .left:hover .image1 {
-  transform: scale(1.2);
+  
 }
 
 .wrapper .image1 {
@@ -21,10 +21,10 @@
 }
 
 .signin {
-  background: url(C:\Users\Heider\Desktop\Booking\Apart\Apart-Project\FrontEnd\src\assets\images\3.jpg);
+  background: url(../../assets/images/3.jpg);
 }
 
-@media screen and (min-width: 1200px) {
+@media screen and (min-width: 1000px) {
   .wrapper {
     display: flex;
   }
@@ -156,7 +156,7 @@
 }
 
 .alteritive_signin {
-  width: 160px;
+  width: fit-content;
   height: 30px;
   background: #ffffff;
   box-shadow: 3px 6px 7px rgba(0, 0, 0, 0.02);
