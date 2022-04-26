@@ -5,7 +5,7 @@ import { Suggestion } from '../models/Suggestions/suggestion.item';
 import { SearchViewModel } from '../view-models/searchviewmodel.item';
 
 import { Router } from '@angular/router';
-import { ActivatedRoute} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { MainDataService } from '../services/main-data.service';
 
@@ -13,7 +13,13 @@ import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
 import MathHelper from '../utils/mathHelper';
 import { SortState } from '../enums/sortstate.item';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +32,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   displayMonths = 1;
   navigation = 'arrows';
   showWeekNumbers = false;
-  outsideDays = 'hidden';
+  outsideDays = 'collapsed';
+  current = new Date();
+  minDate = {
+    year: this.current.getFullYear(),
+    month: this.current.getMonth() + 1,
+    day: this.current.getDate(),
+  };
   imageHelper: any = ImageHelper;
   mathHelper: any = MathHelper;
 
@@ -42,7 +54,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   countries: string[] = [];
   regionsSuggestions: any;
   regions: any;
-
+  reg = /[1-9\s\/\\!"#$%&'()*+,-.:;<=>?@[\]^_`{|}~]/g;
+  reg1 = /[\/\\!"#$%&'()*+,-.:;<=>?@[\]^_`{|}~]/g;
   recommendedSuggestionsCount: any;
   recommendedCities: any;
 
@@ -53,8 +66,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   suggestionGrades: any;
 
   searchViewModel: SearchViewModel = new SearchViewModel();
-
-  form: FormGroup;
 
   slides = [
     { text: 'Educational Consulting', img: 'assets/images/21.png' },
@@ -122,27 +133,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     ],
   };
 
-  submitted = false;
-
   constructor(
     public mainDataService: MainDataService,
-    private router: Router,
-    private formBuilder: FormBuilder
-  ) {
-    this.form = this.formBuilder.group({
-      searchPlace: ['', Validators.required],
-    });
-  }
-
-  onSubmit(): void {
-    this.submitted = true;
-
-    if (this.form.invalid) {
-      return;
-    }
-
-    console.log(JSON.stringify(this.form.value, null, 2));
-  }
+    private router: Router
+  ) {}
 
   setChildren(value: number): void {
     if (this.searchViewModel.searchChildrenAmount + value < 0) {
@@ -290,6 +284,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.searchViewModel.sortOrder = SortState.TopReviewed;
     console.log(this.searchViewModel);
 
+    this.searchViewModel.place = this.searchViewModel.place
+      .replaceAll(this.reg1, '')
+      .trim();
+
     let dateIn, dateOut;
 
     if (this.searchViewModel.pdateIn && this.searchViewModel.pdateOut) {
@@ -332,10 +330,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getCitiesData();
     this.getRecommendedDestData();
     this.getGuestsLoveData();
-  }
-
-  get f(): { [key: string]: AbstractControl } {
-    return this.form.controls;
   }
 
   ngOnDestroy() {}

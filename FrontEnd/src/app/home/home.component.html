@@ -6,9 +6,8 @@
           id="frm"
           role="search"
           class="sb-searchbox sb-searchbox--painted sb-searchbox--xp js--sb-searchbox"
-          [formGroup]="form"
         >
-          <div class="xp__fieldset">
+          <div class="xp__fieldset js--sb-fieldset accommodation">
             <div class="searchbox">
               <div class="searchbox_item">
                 <div class="">
@@ -16,19 +15,18 @@
                     <img src="assets/images/9.svg" alt="" />
                     <input
                       type="text"
-                      class="header-input pl-50 form-control"
+                      class="header-input pl-50"
                       placeholder="Where are you going?"
                       name="searchViewModel.place"
-                      formControlName="searchPlace"
                       [(ngModel)]="searchViewModel.place"
-                      [ngClass]="{
-                        'is-invalid': f.searchPlace.errors
-                      }"
                     />
-                    <div *ngIf="f.searchPlace.errors" class="invalid_feedback">
-                      <div *ngIf="f.searchPlace.errors.required">
-                        Enter destinations to start searching
-                      </div>
+                    <div
+                      class="invalid_feedback"
+                      *ngIf="
+                        searchViewModel.place.replaceAll(reg, '').length == 0
+                      "
+                    >
+                      Enter destination to search
                     </div>
                   </div>
                 </div>
@@ -62,6 +60,7 @@
                     [navigation]="navigation"
                     [outsideDays]="outsideDays"
                     [showWeekNumbers]="showWeekNumbers"
+                    [minDate]="minDate"
                     ngbDatepicker
                     #d="ngbDatepicker"
                   />
@@ -96,6 +95,7 @@
                     [navigation]="navigation"
                     [outsideDays]="outsideDays"
                     [showWeekNumbers]="showWeekNumbers"
+                    [minDate]="minDate"
                     ngbDatepicker
                     #t="ngbDatepicker"
                   />
@@ -202,11 +202,6 @@
               </div>
             </div>
           </div>
-          <label class="custom-checkbox">
-            <span class="fs-14 fw-400 lh-20">I'm traveling for work</span>
-            <input type="checkbox" checked="checked" />
-            <span class="checkmark"></span>
-          </label>
         </form>
       </div>
     </div>

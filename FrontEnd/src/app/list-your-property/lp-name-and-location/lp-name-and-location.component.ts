@@ -23,12 +23,12 @@ export class LpNameAndLocationComponent implements OnInit {
   sAddress: string = '';
   sRegion: string = '';
 
+  reg = /[!"#$%&'()*+,-.\/:;<=>?@[\]^_`{|}~]/gi;
+
   constructor(
     private listNewPropertyService: ListNewPropertyService,
-    private router: Router,
-    ) {
-
-    }
+    private router: Router
+  ) {}
   choice: number = 0;
 
   incrementChoice() {
@@ -60,6 +60,10 @@ export class LpNameAndLocationComponent implements OnInit {
   }
 
   addPropertyName(): void {
+    if (this.propertyName.match(this.reg) || this.propertyName.length < 3) {
+      return;
+    }
+
     let suggestion = {
       id: this.listNewPropertyService.getSavedPropertyId(),
       name: this.propertyName,
@@ -119,7 +123,7 @@ export class LpNameAndLocationComponent implements OnInit {
         city: {
           title: this.sCity,
         },
-        region : {
+        region: {
           title: this.sRegion,
         },
         zipCode: this.sZipCode,
@@ -140,7 +144,7 @@ export class LpNameAndLocationComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          alert("ok");
+          alert('ok');
           this.router.navigate(['/lp/propertysetup']);
         }
       })
@@ -183,7 +187,5 @@ export class LpNameAndLocationComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 }
