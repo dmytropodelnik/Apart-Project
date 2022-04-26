@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { AuthorizationService } from '../../services/authorization.service';
+import { AuthorizationService } from '.././services/authorization.service';
 
-import AuthHelper from '../../utils/authHelper';
+import AuthHelper from '.././utils/authHelper';
 
 @Injectable()
 export class SearchResultsGuard
