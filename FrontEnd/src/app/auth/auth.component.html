@@ -1,159 +1,192 @@
-<div class="access-container">
-  <div class="d-flex flex-column align-items-center">
-    <div class="access-panel-container">
-      <div *ngIf="isExistUser === false; then thenBlock; else elseBlock"></div>
-      <ng-template #thenBlock>
-        <form [formGroup]="emailForm">
-          <div class="form-group" class="mt-4 mb-3">
-            <h1 class="bui_font_display_two">Sign in or create an account</h1>
-            <label>Email</label>
-            <input
-              type="text"
-              formControlName="email"
-              class="form-control"
-              [ngClass]="{ 'is-invalid': f.email.errors }"
-              [(ngModel)]="email"
-            />
-            <div *ngIf="f.email.errors" class="invalid-feedback">
-              <div *ngIf="f.email.errors.required">Email is required</div>
-              <div *ngIf="f.email.errors.email">
-                Email must be a valid email address
-              </div>
-            </div>
-            <div class="signinbutton">
-              <button
-                [disabled]="emailForm.invalid"
-                class="auth-btn"
-                (click)="userCheck()"
-              >
-                Continue with email
-              </button>
-            </div>
-          </div>
-        </form>
-      </ng-template>
-      <ng-template #elseBlock>
-        <div *ngIf="isAccountExists === true; then SignIn; else SignUp"></div>
-        <ng-template #SignIn>
-          <div>
-            <div class="page-header">
-              <h1
-                class="bui_font_display_two bui_font_heading--bold bui-spacer--medium nw-step-header"
-              >
-                Check your inbox
-              </h1>
-              <div class="bui-spacer--largest">
-                <div>
-                  <p class="nw-step-description">
-                    We've just emailed a verification link to
-                    <strong class="recovery-login-name"> {{ email }}</strong
-                    >. Once it arrives, it will be valid for 10 minutes.
-                  </p>
+<div class="wrapper">
+  <div class="left">
+    <div class="image1 signin"></div>
+  </div>
+  <div class="right">
+    <div class="access-container">
+      <div class="d-flex flex-column align-items-center">
+        <div class="access-panel-container">
+          <div
+            *ngIf="isExistUser === false; then thenBlock; else elseBlock"
+          ></div>
+          <ng-template #thenBlock>
+            <form [formGroup]="emailForm">
+              <div class="form-group align_formGroup">
+                <h1 class="bui_font_display_two">
+                  Sign in or create an account
+                </h1>
+                <div class="alteritive_wrapper">
+                  <button class="alteritive_signin">Sign in with Google</button>
+                  <button class="alteritive_signin">
+                    Sign in with Facebook
+                  </button>
                 </div>
-              </div>
-            </div>
-          </div>
-          <!-- <div class="mt-4 mb-3">
-                <label for="email">Password</label>
-                <input type="password" class="auth-input" name="password" [(ngModel)]="password" />
-              </div> -->
-          <div>
-            <button class="button-outline-Auth" routerLink="">
-              Back to sign-in
-            </button>
-          </div>
-        </ng-template>
-        <ng-template #SignUp>
-          <ng-container
-            *ngIf="isPasswordEqual === false; then ConfirmPass; else verifyCode"
-          ></ng-container>
-          <ng-template #ConfirmPass>
-            <form [formGroup]="passwordForm">
-              <div class="form-group" class="mt-4 mb-3">
-                <label for="password">Password</label>
-                <input
-                  type="password"
-                  formControlName="password"
-                  class="form-control"
-                  [ngClass]="{ 'is-invalid': f1.password.errors }"
-                  name="password"
-                  [(ngModel)]="password"
-                />
-                <div *ngIf="f1.password.errors" class="invalid-feedback">
-                  <div *ngIf="f1.password.errors.required">
-                    Password is required
-                  </div>
-                  <div *ngIf="f1.password.errors.minlength">
-                    Password must be at least 8 characters
-                  </div>
-                  <!-- <div *ngIf="f.password.errors.pattern && !f.password.errors.minlength">Password not strong enough</div> -->
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="confirmPassword">Confirm Password</label>
-                <input
-                  type="password"
-                  formControlName="confirmPassword"
-                  class="form-control"
-                  [ngClass]="{ 'is-invalid': f1.confirmPassword.errors }"
-                  [(ngModel)]="confirmPassword"
-                />
-                <div *ngIf="f1.confirmPassword.errors" class="invalid-feedback">
-                  <div *ngIf="f1.confirmPassword.errors.required">
-                    Confirm Password is required
-                  </div>
-                  <div *ngIf="f1.confirmPassword.errors.mustMatch">
-                    Passwords must match
-                  </div>
-                </div>
-              </div>
-              <div>
-                <button
-                  [disabled]="passwordForm.invalid"
-                  class="auth-btn"
-                  (click)="userSignUp()"
-                >
-                  Sign up
-                </button>
-              </div>
-            </form>
-          </ng-template>
-          <ng-template #verifyCode>
-            <form [formGroup]="codeForm">
-              <div class="form-group mt-4 mb-3">
-                <label for="verificationCode">Verification code</label>
                 <input
                   type="text"
-                  formControlName="verificationCode"
-                  class="form-control"
-                  [ngClass]="{ 'is-invalid': f2.verificationCode.errors }"
-                  [(ngModel)]="verificationCode"
+                  formControlName="email"
+                  class="auth-input"
+                  [ngClass]="{ 'is-invalid': f.email.errors }"
+                  [(ngModel)]="email"
+                  placeholder="Enter email"
                 />
-                <div
-                  *ngIf="f2.verificationCode.errors"
-                  class="invalid-feedback"
-                >
-                  <div *ngIf="f2.verificationCode.errors.required">
-                    Verification code is required
-                  </div>
-                  <div *ngIf="f2.verificationCode.errors.minlength">
-                    Verification code must be 6 characters
+                <div *ngIf="f.email.errors" class="invalid_feedback">
+                  <div *ngIf="f.email.errors.required">Email is required</div>
+                  <div *ngIf="f.email.errors.email">
+                    Email must be a valid email address
                   </div>
                 </div>
-                <div>
+                <div class="signinbutton">
                   <button
-                    [disabled]="codeForm.invalid"
+                    [disabled]="emailForm.invalid"
                     class="auth-btn"
-                    (click)="confirmEmail()"
+                    (click)="userCheck()"
                   >
-                    Confirm email
+                    Continue with email
                   </button>
                 </div>
               </div>
             </form>
           </ng-template>
-        </ng-template>
-      </ng-template>
+          <ng-template #elseBlock>
+            <div
+              *ngIf="isAccountExists === true; then SignIn; else SignUp"
+            ></div>
+            <ng-template #SignIn>
+              <div class="page-header align_formGroup">
+                <h1>Check your inbox</h1>
+                <div class="">
+                  <span class="verificationCode_text">
+                    We've just emailed a verification link to
+                    <strong class="recovery-login-name"> {{ email }}</strong
+                    >Once it arrives, it will be valid for 10 minutes.
+                  </span>
+                </div>
+              </div>
+              <!-- <div class="mt-4 mb-3">
+                <label for="email">Password</label>
+                <input type="password" class="auth-input" name="password" [(ngModel)]="password" />
+              </div> -->
+              <div class="signinbutton">
+                <button class="auth-btn" routerLink="">Back to sign-in</button>
+              </div>
+            </ng-template>
+            <ng-template #SignUp>
+              <ng-container
+                *ngIf="
+                  isPasswordEqual === false;
+                  then ConfirmPass;
+                  else verifyCode
+                "
+              ></ng-container>
+              <ng-template #ConfirmPass>
+                <form [formGroup]="passwordForm">
+                  <div class="form-group align_formGroup">
+                    <h1 class="bui_font_display_two">
+                      Sign in or create an account
+                    </h1>
+                    <div class="alteritive_wrapper">
+                      <button class="alteritive_signin">
+                        Sign in with Google
+                      </button>
+                      <button class="alteritive_signin">
+                        Sign in with Facebook
+                      </button>
+                    </div>
+                    <input
+                      type="password"
+                      formControlName="password"
+                      class="auth-input"
+                      [ngClass]="{ 'is-invalid': f1.password.errors }"
+                      name="password"
+                      [(ngModel)]="password"
+                      placeholder="Password"
+                    />
+                    <div *ngIf="f1.password.errors" class="invalid_feedback">
+                      <div *ngIf="f1.password.errors.required">
+                        Password is required
+                      </div>
+                      <div *ngIf="f1.password.errors.minlength">
+                        Password must be at least 8 characters
+                      </div>
+                      <!-- <div *ngIf="f.password.errors.pattern && !f.password.errors.minlength">Password not strong enough</div> -->
+                    </div>
+                  </div>
+                  <div class="form-group align_formGroup">
+                    <input
+                      type="password"
+                      formControlName="confirmPassword"
+                      class="auth-input"
+                      [ngClass]="{ 'is-invalid': f1.confirmPassword.errors }"
+                      [(ngModel)]="confirmPassword"
+                      placeholder="Confirm Password"
+                    />
+                    <div
+                      *ngIf="f1.confirmPassword.errors"
+                      class="invalid_feedback"
+                    >
+                      <div *ngIf="f1.confirmPassword.errors.required">
+                        Confirm Password is required
+                      </div>
+                      <div *ngIf="f1.confirmPassword.errors.mustMatch">
+                        Passwords must match
+                      </div>
+                    </div>
+                  </div>
+                  <div class="signinbutton">
+                    <button
+                      [disabled]="passwordForm.invalid"
+                      class="auth-btn"
+                      (click)="userSignUp()"
+                    >
+                      Sign up
+                    </button>
+                  </div>
+                </form>
+              </ng-template>
+              <ng-template #verifyCode>
+                <form [formGroup]="codeForm">
+                  <div class="form-group align_formGroup">
+                    <h1 class="bui_font_display_two">Verification Code</h1>
+                    <span class="verificationCode_text"
+                      >We sent a verification code to
+                      <strong class="recovery-login-name"> {{ email }}</strong>
+                      It will be valid within 10 minutes after receipt.</span
+                    >
+                    <input
+                      type="text"
+                      formControlName="verificationCode"
+                      class="auth-input"
+                      [ngClass]="{ 'is-invalid': f2.verificationCode.errors }"
+                      [(ngModel)]="verificationCode"
+                      placeholder="Enter verification code"
+                    />
+                    <div
+                      *ngIf="f2.verificationCode.errors"
+                      class="invalid_feedback"
+                    >
+                      <div *ngIf="f2.verificationCode.errors.required">
+                        Verification code is required
+                      </div>
+                      <div *ngIf="f2.verificationCode.errors.minlength">
+                        Verification code must be 6 characters
+                      </div>
+                    </div>
+                    <div class="signinbutton">
+                      <button
+                        [disabled]="codeForm.invalid"
+                        class="auth-btn"
+                        (click)="confirmEmail()"
+                      >
+                        Confirm email
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </ng-template>
+            </ng-template>
+          </ng-template>
+        </div>
+      </div>
     </div>
   </div>
 </div>

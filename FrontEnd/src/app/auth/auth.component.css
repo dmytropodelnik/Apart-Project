@@ -1,3 +1,48 @@
+.wrapper .right {
+  background: #f5f4f4;
+}
+
+.wrapper .left,
+.wrapper .right {
+  width: 100%;
+  height: 50vh;
+  overflow: hidden;
+}
+
+.wrapper .left:hover .image1 {
+  transform: scale(1.2);
+}
+
+.wrapper .image1 {
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+}
+
+.signin {
+  background: url(C:\Users\Heider\Desktop\Booking\Apart\Apart-Project\FrontEnd\src\assets\images\3.jpg);
+}
+
+@media screen and (min-width: 1200px) {
+  .wrapper {
+    display: flex;
+  }
+
+  .wrapper .left,
+  .wrapper .right {
+    width: 50%;
+    height: 100vh;
+  }
+  .access-container {
+    margin-top: 184px;
+  }
+}
+
+.wrapper .right {
+  background: #f5f4f4;
+}
+
 .navbar-bg {
   color: #fff;
   padding: 8px 16px;
@@ -39,17 +84,30 @@
 }
 
 .access-panel-container {
-  width: 360px;
+  width: 388px;
   max-width: 100%;
   margin-left: auto;
   margin-right: auto;
 }
 
+.align_formGroup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+}
+
 .access-panel-container h1 {
-  font-size: 24px;
-  font-weight: 700;
-  line-height: 32px;
-  color: #262626;
+  height: 35px;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 35px;
+  letter-spacing: 0.02em;
+  margin-bottom: 49px;
+  color: #000000;
 }
 
 .access-panel-container label {
@@ -65,28 +123,45 @@
   margin: 0 -4px;
 }
 
-input[type="text"] {
-  font-size: 24px;
-}
-
-.auth-input {
-  width: 100%;
-  appearance: none;
-  padding: 4px 8px;
-  height: 36px;
-  background: none;
-  display: block;
-  outline: none;
-  border: 1px solid #949494;
+.invalid_feedback {
+  color: #d81212;
 }
 
 .auth-input:focus {
-  border: 2px solid #0071c2;
+  outline: none;
+  border: 1px solid #ed6648;
+}
+
+.auth-input {
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.2);
+  background: none;
+  width: 379px;
+  height: 21px;
+  padding: 20px;
 }
 
 .signinbutton {
   display: flex;
   justify-content: center;
+  margin-top: 40px;
+}
+
+.alteritive_wrapper {
+  display: flex;
+  margin-bottom: 60px;
+  gap: 40px;
+}
+
+.alteritive_signin {
+  width: 160px;
+  height: 30px;
+  background: #ffffff;
+  box-shadow: 3px 6px 7px rgba(0, 0, 0, 0.02);
+  border-radius: 10px;
+  border: none;
 }
 
 .auth-btn {
@@ -127,8 +202,23 @@ input[type="text"] {
   background-color: #a6d2f13b;
 }
 .auth-btn:hover {
-  background-color: #00487a;
-  border-color: #00487a;
+  background-color: #ffffff;
+  border-color: #ed6648;
+  color: #ed6648;
+}
+
+.verificationCode_text {
+  display: flex;
+  text-align: center;
+  font-family: "Calibri";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 20px;
+  margin-bottom: 30px;
+  color: #000000;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .line {

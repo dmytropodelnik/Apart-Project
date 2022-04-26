@@ -13,6 +13,7 @@ import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
 import MathHelper from '../utils/mathHelper';
 import { SortState } from '../enums/sortstate.item';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -52,6 +53,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   suggestionGrades: any;
 
   searchViewModel: SearchViewModel = new SearchViewModel();
+
+  form: FormGroup;
 
   slides = [
     { text: 'Educational Consulting', img: 'assets/images/21.png' },
@@ -119,12 +122,27 @@ export class HomeComponent implements OnInit, OnDestroy {
     ],
   };
 
+  submitted = false;
+
   constructor(
     public mainDataService: MainDataService,
     private router: Router,
-    ) {
+    private formBuilder: FormBuilder
+  ) {
+    this.form = this.formBuilder.group({
+      searchPlace: ['', Validators.required],
+    });
+  }
 
+  onSubmit(): void {
+    this.submitted = true;
+
+    if (this.form.invalid) {
+      return;
     }
+
+    console.log(JSON.stringify(this.form.value, null, 2));
+  }
 
   setChildren(value: number): void {
     if (this.searchViewModel.searchChildrenAmount + value < 0) {
@@ -157,7 +175,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.recommendedSuggestionsCount = data.suggestionsCount;
           this.recommendedCities = data.citiesList;
         } else {
-          alert("Recommended dest data fetching error!");
+          alert('Recommended dest data fetching error!');
         }
       })
       .catch((ex) => {
@@ -166,9 +184,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getCategoriesData(): void {
-    fetch('https://localhost:44381/api/stayspage/getcategoriesdata?country=' + this.mainDataService.getCurrentCountry(), {
-      method: 'GET',
-    })
+    fetch(
+      'https://localhost:44381/api/stayspage/getcategoriesdata?country=' +
+        this.mainDataService.getCurrentCountry(),
+      {
+        method: 'GET',
+      }
+    )
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
@@ -220,9 +242,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getCitiesData(): void {
-    fetch('https://localhost:44381/api/stayspage/getcitiesdata?country=' + this.mainDataService.getCurrentCountry(), {
-      method: 'GET',
-    })
+    fetch(
+      'https://localhost:44381/api/stayspage/getcitiesdata?country=' +
+        this.mainDataService.getCurrentCountry(),
+      {
+        method: 'GET',
+      }
+    )
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
@@ -258,7 +284,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  searchSuggestions($event : any): void {
+  searchSuggestions($event: any): void {
     $event.stopPropagation();
 
     this.searchViewModel.sortOrder = SortState.TopReviewed;
@@ -267,10 +293,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     let dateIn, dateOut;
 
     if (this.searchViewModel.pdateIn && this.searchViewModel.pdateOut) {
-      dateIn = this.searchViewModel.pdateIn!.year + '-' + this.searchViewModel.pdateIn!.month + '-' +
-               this.searchViewModel.pdateIn!.day;
-      dateOut = this.searchViewModel.pdateOut!.year + '-' + this.searchViewModel.pdateOut!.month + '-' +
-                this.searchViewModel.pdateOut!.day;
+      dateIn =
+        this.searchViewModel.pdateIn!.year +
+        '-' +
+        this.searchViewModel.pdateIn!.month +
+        '-' +
+        this.searchViewModel.pdateIn!.day;
+      dateOut =
+        this.searchViewModel.pdateOut!.year +
+        '-' +
+        this.searchViewModel.pdateOut!.month +
+        '-' +
+        this.searchViewModel.pdateOut!.day;
     }
 
     this.router.navigate(['/searchresults'], {
@@ -287,7 +321,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         adults: this.searchViewModel.searchAdultsAmount,
         children: this.searchViewModel.searchChildrenAmount,
         rooms: this.searchViewModel.searchRoomsAmount,
-      }
+      },
     });
   }
 
@@ -298,6 +332,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getCitiesData();
     this.getRecommendedDestData();
     this.getGuestsLoveData();
+  }
+
+  get f(): { [key: string]: AbstractControl } {
+    return this.form.controls;
   }
 
   ngOnDestroy() {}
