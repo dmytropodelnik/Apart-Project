@@ -399,6 +399,63 @@ namespace CloneBookingAPI.Controllers.Suggestions
             }
         }
 
+        [Route("addstarsrating")]
+        [HttpPost]
+        public async Task<IActionResult> AddStarsRating([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null         ||
+                    suggestion.StarsRating < 0 ||
+                    suggestion.StarsRating > 5)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                resSuggestion.StarsRating = suggestion.StarsRating;
+                // resSuggestion.Progress = 40;
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                    savedSuggestionId = resSuggestion.Id,
+                });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
         [Route("addparking")]
         [HttpPost]
         public async Task<IActionResult> AddParking([FromBody] SuggestionPoco suggestion)

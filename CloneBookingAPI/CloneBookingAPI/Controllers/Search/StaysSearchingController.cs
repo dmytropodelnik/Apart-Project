@@ -69,6 +69,7 @@ namespace CloneBookingAPI.Controllers.Search
                     .Include(s => s.Images)
                     .Include(s => s.Reviews)
                     .Include(s => s.SuggestionReviewGrades)
+                    .Where(s => s.Progress == 100)
                     .ToListAsync();
  
 

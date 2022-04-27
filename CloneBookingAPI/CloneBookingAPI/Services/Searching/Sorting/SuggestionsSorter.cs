@@ -77,7 +77,7 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                                     .Average(g => g.Value))
                                 .ToList();
 
-                            tempSuggestions.AddRange(suggestions.Except(tempSuggestions));
+                            tempSuggestions.InsertRange(0, suggestions.Except(tempSuggestions));
 
                             suggestions = tempSuggestions.AsQueryable();
 
