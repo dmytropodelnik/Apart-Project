@@ -55,6 +55,7 @@ namespace CloneBookingAPI.Controllers.Search
                     .Include(s => s.Address)
                     .Include(s => s.Address.Country)
                     .Include(s => s.Address.City)
+                    .Include(s => s.Address.Region)
                     .Include(s => s.Apartments)
                         .ThenInclude(a => a.BookedPeriods)
                     .Include(s => s.Apartments)

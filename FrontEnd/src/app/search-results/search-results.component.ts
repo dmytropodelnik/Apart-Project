@@ -60,6 +60,9 @@ export class SearchResultsComponent implements OnInit {
   currentPage: number = 1;
   totalPages: number = 1;
 
+  searchBookingCategory: string = '';
+  searchPlace: string = '';
+
   suggestionsAmount: number = 0;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
@@ -419,16 +422,13 @@ export class SearchResultsComponent implements OnInit {
       this.filters.searchChildrenAmount = params['children'];
       this.filters.searchRoomsAmount = params['rooms'];
 
-      if (params['bookingCategory']) {
-        this.filterChecks.push(
-          new FilterViewModel('bookingCategories', params['bookingCategory'])
-        );
-      }
+      this.searchBookingCategory = params['bookingCategory'];
 
       if (this.filters.place) {
         this.filterChecks.push(
           new FilterViewModel('places', this.filters.place)
         );
+        this.searchPlace = this.filters.place;
       }
       if (
         typeof this.filters.dateIn !== 'undefined' ||
@@ -451,6 +451,12 @@ export class SearchResultsComponent implements OnInit {
             this.filters.searchRoomsAmount
         )
       );
+      if (this.searchBookingCategory) {
+        this.filterChecks.push(
+          new FilterViewModel('bookingCategories', this.searchBookingCategory)
+        );
+        this.searchPlace = this.searchBookingCategory;
+      }
     });
   }
 

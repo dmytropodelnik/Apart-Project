@@ -268,7 +268,7 @@
                   *ngFor="let city of cities; let i = index"
                   class="slide button-class"
                 >
-                  <div (click)="searchSuggestions($event, city.title)">
+                  <div (click)="searchSuggestionsByPlace($event, city.title)">
                     <img
                       src="{{
                         imageHelper.getImageDirectoryPath()
@@ -369,10 +369,9 @@
                       background-position: center center;
                       background-repeat: no-repeat;
                       background-size: cover;
-                      background-image: url('{{
-                      imageHelper.getImageDirectoryPath()
-                    }}/location/cities/{{ recommendedCities[0]?.image.name }}');
+                      background-image: url('{{imageHelper.getImageDirectoryPath()}}/location/cities/{{ recommendedCities[0]?.image.name }}');
                     "
+                    (click)="searchSuggestionsByPlace($event, recommendedCities[0]?.title)"
                   >
                     <div class="unified-postcard__overlay">
                       <div class="unified-postcard__header">
@@ -410,10 +409,9 @@
                       background-position: center center;
                       background-repeat: no-repeat;
                       background-size: cover;
-                      background-image: url('{{
-                      imageHelper.getImageDirectoryPath()
-                    }}/location/cities/{{ recommendedCities[1]?.image.name }}');
+                      background-image: url('{{imageHelper.getImageDirectoryPath()}}/location/cities/{{ recommendedCities[1]?.image.name }}');
                     "
+                    (click)="searchSuggestionsByPlace($event, recommendedCities[1]?.title)"
                   >
                     <div class="unified-postcard__overlay">
                       <div class="unified-postcard__header">
@@ -456,10 +454,9 @@
                       background-position: center center;
                       background-repeat: no-repeat;
                       background-size: cover;
-                      background-image: url('{{
-                      imageHelper.getImageDirectoryPath()
-                    }}/location/cities/{{ recommendedCities[2]?.image.name }}');
+                      background-image: url('{{imageHelper.getImageDirectoryPath()}}/location/cities/{{ recommendedCities[2]?.image.name }}');
                     "
+                    (click)="searchSuggestionsByPlace($event, recommendedCities[2]?.title)"
                   >
                     <div class="unified-postcard__overlay">
                       <div class="unified-postcard__header">
@@ -498,10 +495,9 @@
                       background-position: center center;
                       background-repeat: no-repeat;
                       background-size: cover;
-                      background-image: url('{{
-                      imageHelper.getImageDirectoryPath()
-                    }}/location/cities/{{ recommendedCities[3]?.image.name }}');
+                      background-image: url('{{imageHelper.getImageDirectoryPath()}}/location/cities/{{ recommendedCities[3]?.image.name }}');
                     "
+                    (click)="searchSuggestionsByPlace($event, recommendedCities[3]?.title)"
                   >
                     <div class="unified-postcard__overlay">
                       <div class="unified-postcard__header">
@@ -540,10 +536,9 @@
                       background-position: center center;
                       background-repeat: no-repeat;
                       background-size: cover;
-                      background-image: url('{{
-                      imageHelper.getImageDirectoryPath()
-                    }}/location/cities/{{ recommendedCities[4]?.image.name }}');
+                      background-image: url('{{imageHelper.getImageDirectoryPath()}}/location/cities/{{ recommendedCities[4]?.image.name }}');
                     "
+                    (click)="searchSuggestionsByPlace($event, recommendedCities[4]?.title)"
                   >
                     <div class="unified-postcard__overlay">
                       <div class="unified-postcard__header">
@@ -804,7 +799,7 @@
                 <div class="tabs-flex">
                   <ul class="inner-tabs-links">
                     <div *ngFor="let region of regions; let i = index">
-                      <li>
+                      <li (click)="searchSuggestionsByPlace($event, region?.title)">
                         <a class="button-class">{{ region?.title }}</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           {{ regionsSuggestions[i] ?? "0" }} properties
@@ -822,7 +817,7 @@
                   <div>
                     <ul class="inner-tabs-links">
                       <div *ngFor="let city of footerCities; let i = index">
-                        <li>
+                        <li (click)="searchSuggestionsByPlace($event, city)">
                           <a class="button-class">{{ city }}</a>
                           <div class="wcu-seo-regions-poi ia_hotelnum">
                             {{ citySuggestionsLength[i] ?? "0" }} properties
@@ -841,7 +836,7 @@
                   <div>
                     <ul class="inner-tabs-links">
                       <div *ngFor="let country of countries; let i = index">
-                        <li>
+                        <li (click)="searchSuggestionsByPlace($event, country)">
                           <a class="button-class">{{ country }}</a>
                           <div class="wcu-seo-regions-poi ia_hotelnum">
                             {{ countriesSuggestions[i] ?? "0" }} properties

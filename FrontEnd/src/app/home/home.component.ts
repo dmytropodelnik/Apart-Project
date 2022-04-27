@@ -276,8 +276,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   searchSuggestionsByCategory($event: any, category: string): void {
     $event.stopPropagation();
 
-    this.searchViewModel.sortOrder = SortState.TopReviewed;
-
     this.router.navigate(['/searchresults'], {
       queryParams: {
         adults: this.searchViewModel.searchAdultsAmount,
@@ -288,7 +286,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  searchSuggestions($event: any, place: string | null = null): void {
+  searchSuggestionsByPlace($event: any, place: string): void {
+    $event.stopPropagation();
+
+    this.router.navigate(['/searchresults'], {
+      queryParams: {
+        adults: this.searchViewModel.searchAdultsAmount,
+        children: this.searchViewModel.searchChildrenAmount,
+        rooms: this.searchViewModel.searchRoomsAmount,
+        place: place,
+      },
+    });
+  }
+
+  searchSuggestions($event: any): void {
     $event.stopPropagation();
 
     this.searchViewModel.place = this.searchViewModel.place
@@ -298,11 +309,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     let dateIn, dateOut;
 
     if (!this.searchViewModel.place) {
-      if (!place) {
         return;
-      } else {
-        this.searchViewModel.place = place;
-      }
     }
 
     if (this.searchViewModel.pdateIn && this.searchViewModel.pdateOut) {
