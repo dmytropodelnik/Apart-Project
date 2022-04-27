@@ -822,9 +822,11 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                if (suggestion is null              ||
-                    suggestion.ContactName is null  ||
-                    suggestion.ContactPhone is null)
+                if (suggestion is null                                     ||
+                   string.IsNullOrWhiteSpace(suggestion.ContactFirstName)  ||
+                   string.IsNullOrWhiteSpace(suggestion.ContactLastName)   ||
+                   string.IsNullOrWhiteSpace(suggestion.ContactPhone)      ||
+                   string.IsNullOrWhiteSpace(suggestion.ContactEmail))
                 {
                     return Json(new { code = 400 });
                 }
@@ -836,8 +838,10 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 }
 
                 ContactDetails contactDetails = new();
-                contactDetails.ContactName = suggestion.ContactName;
+                contactDetails.FirstName = suggestion.ContactFirstName;
+                contactDetails.LastName = suggestion.ContactLastName;
                 contactDetails.PhoneNumber = suggestion.ContactPhone;
+                contactDetails.Email = suggestion.ContactEmail;
                 _context.ContactDetails.Add(contactDetails);
 
                 resSuggestion.ContactDetails = contactDetails;

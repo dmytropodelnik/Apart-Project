@@ -18,8 +18,10 @@ namespace CloneBookingAPI.Services.POCOs
         public string Name { get; set; }
         public string Login { get; set; }
         public string Description { get; set; }
-        public string ContactName { get; set; }
+        public string ContactFirstName { get; set; }
+        public string ContactLastName { get; set; }
         public string ContactPhone { get; set; }
+        public string ContactEmail { get; set; }
         public string BookingCategory { get; set; }
         public bool IsParkingAvailable { get; set; }
 
