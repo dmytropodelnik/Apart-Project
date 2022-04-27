@@ -1,4 +1,4 @@
-import { Component, OnInit, } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -164,7 +164,6 @@ export class SearchResultsComponent implements OnInit {
   }
 
   sortItems(value: SortState = this.sortState.TopReviewed): void {
-    
     this.filters.sortOrder = value;
     // this.filters.suggestions = this.resSuggestions;
     this.filters.pageSize = 25;
@@ -420,7 +419,17 @@ export class SearchResultsComponent implements OnInit {
       this.filters.searchChildrenAmount = params['children'];
       this.filters.searchRoomsAmount = params['rooms'];
 
-      this.filterChecks.push(new FilterViewModel('places', this.filters.place));
+      if (params['bookingCategory']) {
+        this.filterChecks.push(
+          new FilterViewModel('bookingCategories', params['bookingCategory'])
+        );
+      }
+
+      if (this.filters.place) {
+        this.filterChecks.push(
+          new FilterViewModel('places', this.filters.place)
+        );
+      }
       if (
         typeof this.filters.dateIn !== 'undefined' ||
         typeof this.filters.dateOut !== 'undefined'

@@ -266,9 +266,9 @@
                 <div
                   ngxSlickItem
                   *ngFor="let city of cities; let i = index"
-                  class="slide"
+                  class="slide button-class"
                 >
-                  <div>
+                  <div (click)="searchSuggestions($event, city.title)">
                     <img
                       src="{{
                         imageHelper.getImageDirectoryPath()
@@ -309,9 +309,9 @@
                 <div
                   ngxSlickItem
                   *ngFor="let category of bookingCategories; let i = index"
-                  class="slide"
+                  class="slide button-class"
                 >
-                  <div>
+                  <div (click)="searchSuggestionsByCategory($event, category.category)">
                     <img
                       src="{{
                         imageHelper.getImageDirectoryPath()
@@ -681,7 +681,7 @@
                 <div
                   ngxSlickItem
                   *ngFor="let item of homeGuestsSuggestions; let i = index"
-                  class="slide slide-h"
+                  class="slide slide-h button-class"
                 >
                   <div class="slide-img">
                     <img
@@ -805,7 +805,7 @@
                   <ul class="inner-tabs-links">
                     <div *ngFor="let region of regions; let i = index">
                       <li>
-                        <a>{{ region?.title }}</a>
+                        <a class="button-class">{{ region?.title }}</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           {{ regionsSuggestions[i] ?? "0" }} properties
                         </div>
@@ -823,7 +823,7 @@
                     <ul class="inner-tabs-links">
                       <div *ngFor="let city of footerCities; let i = index">
                         <li>
-                          <a>{{ city }}</a>
+                          <a class="button-class">{{ city }}</a>
                           <div class="wcu-seo-regions-poi ia_hotelnum">
                             {{ citySuggestionsLength[i] ?? "0" }} properties
                           </div>
@@ -842,7 +842,7 @@
                     <ul class="inner-tabs-links">
                       <div *ngFor="let country of countries; let i = index">
                         <li>
-                          <a>{{ country }}</a>
+                          <a class="button-class">{{ country }}</a>
                           <div class="wcu-seo-regions-poi ia_hotelnum">
                             {{ countriesSuggestions[i] ?? "0" }} properties
                           </div>

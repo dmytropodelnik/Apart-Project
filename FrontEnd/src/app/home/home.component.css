@@ -1908,6 +1908,10 @@ a.bui-card:link {
   line-height: 20px;
 }
 
+.button-class {
+  cursor: pointer;
+}
+
 .btn-blue {
   font-size: 20px;
   line-height: 28px;
