@@ -22,7 +22,7 @@
 
 <body>
   <main class="name-and-location-container">
-    <div>
+    <div *ngFor="let apartment of apartmentsAmount; let i = index">
       <div class="header-name-and-location">
         What's the name of your place?
       </div>
@@ -59,7 +59,7 @@
         <button class="name-and-location-button" (click)="addApartmentSetting()">
           Add apartment
         </button>
-        <button class="name-and-location-button" (click)="removeApartmentSetting()">
+        <button *ngIf="this.apartmentsAmount.length > 1" class="name-and-location-button" (click)="removeApartmentSetting()">
           Remove apartment
         </button>
       </div>

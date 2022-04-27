@@ -29,7 +29,9 @@ export class LpApartmentsComponent implements OnInit {
   }
 
   removeApartmentSetting(): void {
-    this.apartmentsAmount.pop();
+    if (this.apartmentsAmount.length > 1) {
+      this.apartmentsAmount.pop();
+    }
   }
 
   addApartments(): void {
