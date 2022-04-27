@@ -9,6 +9,7 @@ export class Apartment {
   roomsAmount: number | null = null;
   guestsLimit: number | null = null;
   bathroomsAmount: number | null = null;
+  name: string = '';
   description: string = '';
   suggestion: Suggestion | null = null;
   bookedPeriods: BookedPeriod[] = [];

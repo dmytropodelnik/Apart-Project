@@ -27,30 +27,40 @@
         What's the name of your place?
       </div>
       <div class="Input-name-and-location">
-        <span class="name-and-location-text">Property name</span>
-        <input required class="inputfield" type="text" name="propertyName" />
+        <span class="name-and-location-text">Apartment name</span>
+        <input required class="inputfield" type="text" name="{{apartments[i].name}}" [(ngModel)]="apartments[i].name" />
         <div class="invalid_feedback">
-          Please enter correct name
+          Please enter apartment name
         </div>
-        <div class="info_text">
-          <div class="info_text_item">
-            <span class="info_text_header">What should I consider when choosing a name?
-            </span>
-            <span class="info_text_subtext"> Keep it short and catchy </span>
-            <span class="info_text_subtext"> Avoid abbreviations </span>
-            <span class="info_text_subtext">Stick to the facts</span>
-          </div>
 
-          <div class="info_text_item">
-            <span class="info_text_header">Why do I need to name my property?
-            </span>
-            <span class="info_text_subtext1">This is the name that will appear as the title of your listing
-              on our site. It should tell guests something specific about your
-              place, where it is or what you offer.This will be visible to
-              anyone visiting our site, so don't include your address in the
-              name.
-            </span>
-          </div>
+        <span class="name-and-location-text">Apartment description</span>
+        <input required class="inputfield" type="text" name="{{apartments[i].description}}" [(ngModel)]="apartments[i].description" />
+        <div class="invalid_feedback">
+          Please enter apartment description
+        </div>
+
+        <span class="name-and-location-text">Price in USD</span>
+        <input required class="inputfield" type="text" name="{{apartments[i].priceInUSD}}" [(ngModel)]="apartments[i].priceInUSD" />
+        <div class="invalid_feedback">
+          Please enter correct value
+        </div>
+
+        <span class="name-and-location-text">Rooms amount</span>
+        <input required class="inputfield" type="text" name="{{apartments[i].roomsAmount}}" [(ngModel)]="apartments[i].roomsAmount" />
+        <div class="invalid_feedback">
+          Please enter correct value
+        </div>
+
+        <span class="name-and-location-text">Guests limit</span>
+        <input required class="inputfield" type="text" name="{{apartments[i].guestsLimit}}" [(ngModel)]="apartments[i].guestsLimit" />
+        <div class="invalid_feedback">
+          Please enter correct value
+        </div>
+
+        <span class="name-and-location-text">Bathrooms amount</span>
+        <input required class="inputfield" type="text" name="{{apartments[i].bathroomsAmount}}" [(ngModel)]="apartments[i].bathroomsAmount" />
+        <div class="invalid_feedback">
+          Please enter correct value
         </div>
       </div>
     </div>

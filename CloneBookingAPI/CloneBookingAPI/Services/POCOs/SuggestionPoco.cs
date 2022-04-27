@@ -25,9 +25,6 @@ namespace CloneBookingAPI.Services.POCOs
         public string BookingCategory { get; set; }
         public bool IsParkingAvailable { get; set; }
 
-        public decimal PriceInUserCurrency { get; set; }
-        public decimal PriceInUSD { get; set; }
-
         public Address Address { get; set; }
 
         public List<bool> Facilities { get; set; } = new();
@@ -35,6 +32,6 @@ namespace CloneBookingAPI.Services.POCOs
         public List<Bed> Beds { get; set; } = new();
         public List<bool> SuggestionRules { get; set; } = new();
         public List<FileModel> Images { get; set; } = new();
-        public List<Apartment> Apartments { get; set; } = new();
+        public List<ApartmentPoco> Apartments { get; set; } = new();
     }
 }

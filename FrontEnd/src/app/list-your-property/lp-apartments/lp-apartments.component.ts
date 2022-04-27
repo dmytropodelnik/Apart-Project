@@ -14,8 +14,10 @@ import AuthHelper from '../../utils/authHelper';
 })
 export class LpApartmentsComponent implements OnInit {
 
-  apartments: Apartment[] = [];
+  apartments: Apartment[] = [new Apartment()];
   apartmentsAmount: boolean[] = [true];
+
+  validationErrors: boolean[] = [];
 
   constructor(
     private listNewPropertyService: ListNewPropertyService,
@@ -26,6 +28,7 @@ export class LpApartmentsComponent implements OnInit {
 
   addApartmentSetting(): void {
     this.apartmentsAmount.push(true);
+    this.apartments.push(new Apartment());
   }
 
   removeApartmentSetting(): void {
@@ -35,6 +38,10 @@ export class LpApartmentsComponent implements OnInit {
   }
 
   addApartments(): void {
+    if (this.validationErrors.length > 0) {
+      return;
+    }
+
     let suggestion = {
       id: this.listNewPropertyService.getSavedPropertyId(),
       login: AuthHelper.getLogin(),

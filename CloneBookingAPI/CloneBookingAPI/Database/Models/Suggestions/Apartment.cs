@@ -15,7 +15,7 @@ namespace CloneBookingAPI.Database.Models.Suggestions
 
         // [Required]
         [DataType(DataType.Currency)]
-        public decimal PriceInUserCurrency { get; set; }
+        public decimal? PriceInUserCurrency { get; set; }
         // [Required]
         [DataType(DataType.Currency)]
         public decimal PriceInUSD { get; set; }
@@ -25,6 +25,10 @@ namespace CloneBookingAPI.Database.Models.Suggestions
         public int GuestsLimit { get; set; }
         // [Required]
         public int BathroomsAmount { get; set; }
+
+        // [Required]
+        [DataType(DataType.Text)]
+        public string Name { get; set; }
 
         // [Required]
         [DataType(DataType.MultilineText)]
