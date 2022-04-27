@@ -98,7 +98,7 @@ namespace CloneBookingAPI.Controllers.Pages
                 {
                     var resRegionSuggestion = suggestionsList
                         .Where(s => s.Progress == 100)
-                        .Where(s => s.Address.Region.Id == regions[i - 1].Id)
+                        .Where(s => s.Address.Region.Id == regions[i - 1].Id)  ///
                         .Count();
 
                     regionsSuggestions.Add(resRegionSuggestion);

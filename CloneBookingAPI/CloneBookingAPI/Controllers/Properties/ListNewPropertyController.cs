@@ -204,7 +204,6 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     newRegion.Title = suggestion.Address.Region.Title;
                     newRegion.City = newCity;
                     newRegion.ImageId = resCountry.ImageId;
-                    _context.Regions.Add(newRegion);
                 }
 
                 var city = await _context.Cities.FirstOrDefaultAsync(c => c.Title.Equals(suggestion.Address.City.Title) &&
