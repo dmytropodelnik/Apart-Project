@@ -145,7 +145,7 @@ export class LpNameAndLocationComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           alert('ok');
-          this.router.navigate(['/lp/propertysetup']);
+          this.router.navigate(['/lp/apartments']);
         }
       })
       .catch((ex) => {

@@ -1,0 +1,79 @@
+<header class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs">
+  <nav class="bui-header__bar">
+    <div class="bui-header__main">
+      <div class="bui-header__logo">
+        <span>
+          <label class="robotoregular" routerLink="">Apart.com</label>
+        </span>
+      </div>
+    </div>
+
+    <div>
+      <div class="bui-group__item">
+        <span class="bui-button__text">
+          <div class="bui-avatar bui-avatar--small" aria-hidden="true">
+            <img class="bui-avatar__image" src="assets/images/us-flag.png" alt="" />
+          </div>
+        </span>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<body>
+  <main class="name-and-location-container">
+    <div>
+      <div class="header-name-and-location">
+        What's the name of your place?
+      </div>
+      <div class="Input-name-and-location">
+        <span class="name-and-location-text">Property name</span>
+        <input required class="inputfield" type="text" name="propertyName" />
+        <div class="invalid_feedback">
+          Please enter correct name
+        </div>
+        <div class="info_text">
+          <div class="info_text_item">
+            <span class="info_text_header">What should I consider when choosing a name?
+            </span>
+            <span class="info_text_subtext"> Keep it short and catchy </span>
+            <span class="info_text_subtext"> Avoid abbreviations </span>
+            <span class="info_text_subtext">Stick to the facts</span>
+          </div>
+
+          <div class="info_text_item">
+            <span class="info_text_header">Why do I need to name my property?
+            </span>
+            <span class="info_text_subtext1">This is the name that will appear as the title of your listing
+              on our site. It should tell guests something specific about your
+              place, where it is or what you offer.This will be visible to
+              anyone visiting our site, so don't include your address in the
+              name.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div style="display: flex">
+        <button class="name-and-location-button" (click)="addApartmentSetting()">
+          Add apartment
+        </button>
+        <button class="name-and-location-button" (click)="removeApartmentSetting()">
+          Remove apartment
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <footer class="name-and-location-container">
+    <div style="display: flex">
+      <button class="name-and-location-button-back" routerLink="/lp/nameandlocation">
+        Go back
+      </button>
+      <button class="name-and-location-button" (click)="addApartments()">
+        Continue
+      </button>
+    </div>
+  </footer>
+</body>

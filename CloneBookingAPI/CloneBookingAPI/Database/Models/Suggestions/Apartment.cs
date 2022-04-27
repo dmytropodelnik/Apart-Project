@@ -35,7 +35,6 @@ namespace CloneBookingAPI.Database.Models.Suggestions
         public Suggestion Suggestion { get; set; }
         public List<BookedPeriod> BookedPeriods { get; set; } = new();
         public List<RoomType> RoomTypes { get; set; } = new();
-
         public List<ApartmentRoomType> ApartmentsRoomTypes { get; set; } = new();
         public List<ApartmentBookedPeriod> ApartmentsBookedPeriods { get; set; } = new();
     }

@@ -274,14 +274,14 @@ namespace CloneBookingAPI.Controllers.Suggestions
             }
         }
 
-        [Route("addbeds")]
+        [Route("addapartments")]
         [HttpPost]
-        public async Task<IActionResult> AddBeds([FromBody] SuggestionPoco suggestion)
+        public async Task<IActionResult> AddApartments([FromBody] SuggestionPoco suggestion)
         {
             try
             {
                 if (suggestion is null ||
-                    suggestion.Beds is null)
+                    suggestion.Apartments is null)
                 {
                     return Json(new { code = 400 });
                 }

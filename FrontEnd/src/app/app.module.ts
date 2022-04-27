@@ -88,6 +88,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { AdminContentService } from './services/admin-content.service';
 import { UserSavedComponent } from './user-saved/user-saved.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { LpApartmentsComponent } from './list-your-property/lp-apartments/lp-apartments.component';
 
 @NgModule({
   declarations: [
@@ -168,6 +169,7 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
     PromocodeGeneratorComponent,
     UserSavedComponent,
     ResetPasswordComponent,
+    LpApartmentsComponent,
   ],
   imports: [
     BrowserModule,
