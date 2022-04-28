@@ -73,7 +73,7 @@ export class LpPhotosComponent implements OnInit {
           .then((r) => {
             if (r.code === 200) {
               console.log('Files have been successfully uploaded!');
-              this.router.navigate(['/lp/pricingandcalender']);
+              this.router.navigate(['/lp/reviewandcomplete']);
             } else {
               alert('Uploading error!');
             }

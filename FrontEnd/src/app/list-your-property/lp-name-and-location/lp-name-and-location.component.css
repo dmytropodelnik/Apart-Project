@@ -326,6 +326,10 @@ li::marker {
   color: #fff;
 }
 
+.name-and-location-button:disabled{
+  background: #ccaca6;
+}
+
 @media (min-width: 992px) {
   .bui-header__bar:not(:last-child) {
     padding-bottom: 8px;

@@ -204,7 +204,7 @@
               name="sCountry"
               [(ngModel)]="sCountry"
             >
-              <option selected>Select country/region</option>
+              <option value="0" selected>Select country/region</option>
             </select>
           </div>
           <div>
@@ -286,6 +286,7 @@
           <button
             class="name-and-location-button"
             (click)="addPropertyAddress()"
+            [disabled]="sAddress.length < 2 || sZipCode.length < 2 || sCity.length < 2 || sRegion.length < 2"
           >
             Continue
           </button>

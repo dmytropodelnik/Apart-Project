@@ -14,16 +14,16 @@ namespace CloneBookingAPI.Services.POCOs
         public int Page { get; set; }
         public int UserId { get; set; }
         public int BookingCategoryId { get; set; }
+        public int StarsRating { get; set; }
         public string Name { get; set; }
         public string Login { get; set; }
         public string Description { get; set; }
-        public string ContactName { get; set; }
+        public string ContactFirstName { get; set; }
+        public string ContactLastName { get; set; }
         public string ContactPhone { get; set; }
+        public string ContactEmail { get; set; }
         public string BookingCategory { get; set; }
         public bool IsParkingAvailable { get; set; }
-
-        public decimal PriceInUserCurrency { get; set; }
-        public decimal PriceInUSD { get; set; }
 
         public Address Address { get; set; }
 
@@ -32,5 +32,6 @@ namespace CloneBookingAPI.Services.POCOs
         public List<Bed> Beds { get; set; } = new();
         public List<bool> SuggestionRules { get; set; } = new();
         public List<FileModel> Images { get; set; } = new();
+        public List<ApartmentPoco> Apartments { get; set; } = new();
     }
 }

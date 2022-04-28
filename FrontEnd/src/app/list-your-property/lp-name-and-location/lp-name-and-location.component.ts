@@ -144,46 +144,11 @@ export class LpNameAndLocationComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          alert('ok');
-          this.router.navigate(['/lp/propertysetup']);
+          this.router.navigate(['/lp/apartments']);
         }
       })
       .catch((ex) => {
         alert(ex);
-      });
-  }
-
-  addPropertyPhotos(): void {
-    let counter = 1;
-    let fData = new FormData();
-    if (this.uploadedFiles != null) {
-      for (let file of this.uploadedFiles) {
-        fData.append('uploadedFile' + counter, file);
-        counter++;
-      }
-    }
-
-    fetch(
-      'https://apartmain.azurewebsites.net/api/listnewproperty/addphotos?suggestionId=' + 1,
-      {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          Authorization: 'Bearer ' + AuthHelper.getToken(),
-        },
-        body: fData,
-      }
-    )
-      .then((r) => r.json())
-      .then((r) => {
-        if (r.code === 200) {
-          alert('Files have been successfully uploaded!');
-        } else {
-          alert('Uploading error!');
-        }
-      })
-      .catch((err) => {
-        alert(err);
       });
   }
 
