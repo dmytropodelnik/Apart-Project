@@ -1,0 +1,350 @@
+.bui-header {
+  background: #ed6648;
+}
+
+.bui-header__bar:not(:last-child) {
+  padding-bottom: 0;
+}
+
+.bui-header__bar {
+  padding: 8px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  max-width: 1100px;
+  margin-left: 10vw;
+  margin-bottom: 50px;
+}
+
+.bui-header__main {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
+  -webkit-flex-grow: 1;
+  flex-grow: 1;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  -webkit-align-items: flex-start;
+  align-items: flex-start;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  padding: 8px 16px 8px 0;
+}
+
+.bui-header--rounded-tabs .bui-header__logo svg {
+  width: auto;
+}
+
+.bui-header--logo-large .bui-header__logo img,
+.bui-header--logo-large .bui-header__logo svg {
+  height: 20px;
+  display: block;
+}
+
+.bui-header .bui-group--vertical-align-middle > *,
+.bui-header .bui-group--vertical-align-middle > *:first-child {
+  vertical-align: middle !important;
+}
+
+.bui-header .bui-button {
+  font-weight: 500 !important;
+}
+
+.bui-header__tab {
+  max-width: 1140px;
+  margin: 0 auto;
+}
+
+.bui-header--rounded-tabs .bui-tab--rounded .bui-tab__nav {
+  padding: 8px 16px 12px;
+}
+
+.bui-header .bui-button {
+  font-weight: 500 !important;
+}
+
+.bui-button__text {
+  position: relative;
+  color: #ed6648;
+}
+
+.bui-avatar--button-auth {
+  position: relative;
+  left: 5px;
+  font-size: 15px;
+  color: black;
+}
+
+.bui-avatar--small {
+  height: 24px;
+  width: 24px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+.bui-avatar {
+  position: relative;
+  height: 32px;
+  width: 32px;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  background-color: #494949;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 20px;
+  font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+.bui-avatar__image {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  background-size: cover;
+  background-position: 50%;
+  background-repeat: no-repeat;
+  background-color: #f2f2f2;
+}
+
+.bui-avatar--small {
+  height: 24px;
+  width: 24px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, sans-serif;
+}
+
+.navigation__container {
+  margin: 0 2px;
+  padding-bottom: 24px;
+}
+
+.sections__container {
+  display: flex;
+  padding: 0 24px;
+}
+
+.section__container {
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin: 1px 2px 0;
+  min-height: 60px;
+  width: 100%;
+}
+.section__container--active {
+}
+.steps__container {
+  display: flex;
+  justify-content: space-between;
+}
+.navstep__container {
+  background-color: #949494;
+  height: 4px;
+  margin: 0 1px;
+  width: 100%;
+}
+
+.navstep__container--active {
+  background-color: #4400ff;
+}
+.navstep__container--after {
+  background-color: #15ff00;
+}
+.section_button {
+  background-color: transparent;
+  border: 0;
+  color: #262626;
+  flex-grow: 1;
+  font-weight: 300;
+}
+.section__container--disabled {
+  visibility: hidden;
+  cursor: not-allowed;
+}
+.header-name-and-location {
+  display: flex;
+  font-weight: bold;
+  justify-content: center;
+}
+
+.header-name-and-location1 {
+  margin-bottom: 10px;
+  font-family: "Calibri";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+
+  color: #000000;
+}
+
+.Input-name-and-location {
+  display: flex;
+  flex-direction: column;
+  width: 360px;
+  gap: 15px;
+  height: fit-content;
+  padding: 25px;
+  background: #e5e5e5;
+  border-radius: 10px;
+}
+.name-and-location-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 30px;
+  width: fit-content;
+  height: fit-content;
+  align-content: center;
+  justify-content: center;
+}
+
+.name-and-location-text {
+  font-family: "Calibri";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height */
+  color: #000000;
+}
+
+.inputfield {
+  width: 310px;
+  height: 30px;
+  background: #ffffff;
+  border: 0.2px solid rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  border-radius: 5px;
+}
+
+.name-and-location-button {
+  display: block;
+  width: 160px;
+  height: 37px;
+  color: #ffffff;
+  background: #ed6648;
+  border: 0;
+  border-radius: 7px;
+}
+
+.name-and-location-button-back {
+  display: block;
+  width: 65px;
+  height: 37px;
+  color: #ed6648;
+  background: #ffffff;
+  border: 0.5px solid #ed6648;
+  border-radius: 7px;
+  margin-right: 10px;
+}
+
+.info_text {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.info_text_item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info_text_header {
+  font-family: "Calibri";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 20px;
+  /* identical to box height */
+
+  color: #000000;
+}
+
+.info_text_subtext {
+  display: list-item; /* This has to be "list-item"                                               */
+  list-style-type: disc; /* See https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type     */
+  list-style-position: inside;
+  font-family: "Calibri";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+
+.info_text_subtext1 {
+  font-family: "Calibri";
+  font-style: normal;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 17px;
+  color: #000000;
+}
+
+li::marker {
+  color: #fff;
+}
+
+@media (min-width: 992px) {
+  .bui-header__bar:not(:last-child) {
+    padding-bottom: 8px;
+  }
+
+  .bui-header__main {
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+  }
+
+  .bui-header--logo-large .bui-header__logo img,
+  .bui-header--logo-large .bui-header__logo svg {
+    height: 24px;
+  }
+}

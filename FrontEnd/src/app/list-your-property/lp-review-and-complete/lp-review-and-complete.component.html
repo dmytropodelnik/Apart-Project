@@ -47,11 +47,33 @@
     <div class="header-name-and-location">What's your contact information?</div>
 
     <div class="Input-name-and-location">
-      <span class="name-and-location-text">Name</span>
-      <input type="text" name="contactDetails.contactName" [(ngModel)]="contactDetails.contactName" />
-      <span class="name-and-location-text">Phone number</span>
-      <input type="text" name="contactDetails.phoneNumber" [(ngModel)]="contactDetails.phoneNumber" />
+      <div>
+        <span class="name-and-location-text">First Name</span>
+        <input class="inputfield" type="text" name="contactDetails.firstName" [(ngModel)]="contactDetails.firstName" />
+      </div>
+      <div>
+        <span class="name-and-location-text">Last Name</span>
+        <input class="inputfield" type="text" name="contactDetails.lastName" [(ngModel)]="contactDetails.lastName" />
+      </div>
+      <div>
+        <span class="name-and-location-text">Phone number</span>
+        <input class="inputfield" type="text" name="contactDetails.phoneNumber" [(ngModel)]="contactDetails.phoneNumber" />
+      </div>
+      <div>
+        <span class="name-and-location-text">Email</span>
+        <input class="inputfield" type="email" name="contactDetails.phoneNumber" [(ngModel)]="contactDetails.email" />
+      </div>
     </div>
-    <button class="name-and-location-button" (click)="addContactDetails()">Continue</button>
+    <div style="display: flex">
+      <button
+        class="name-and-location-button-back"
+        routerLink="/lp/addproperty"
+      >
+        Go back
+      </button>
+      <button class="name-and-location-button" (click)="addContactDetails()">
+        Continue
+      </button>
+    </div>
   </div>
 </body>

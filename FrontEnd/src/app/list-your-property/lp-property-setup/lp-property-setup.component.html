@@ -184,15 +184,23 @@
             </div>
           </div>
         </div>
+        <div style="display: flex">
+          <button
+            class="name-and-location-button-back"
+            routerLink="/lp/addproperty"
+          >
+            Go back
+          </button>
+          <button class="name-and-location-button" (click)="addPropertyFacilities()">
+            Continue
+          </button>
+        </div>
       </div>
-      <button class="name-and-location-button" (click)="addPropertyFacilities()">
-        Continue
-      </button>
     </li>
     <li *ngSwitchCase="2">
       <div class="name-and-location-container">
         <div class="header-name-and-location">
-          What's the name of your place?
+          Is parking available?
         </div>
 
         <div class="Input-name-and-location">
@@ -213,7 +221,7 @@
     <li *ngSwitchCase="3">
       <div class="name-and-location-container">
         <div class="header-name-and-location">
-          What's the name of your place?
+          Select languages for staff
         </div>
 
         <div class="Input-name-and-location">
@@ -283,13 +291,33 @@
     </li>
     <li *ngSwitchCase="5">
       <div class="name-and-location-container">
-        <div class="header-name-and-location">What's your contact information?</div>
+        <div class="header-name-and-location">Please describe your object.</div>
 
         <div class="Input-name-and-location">
-          <span class="name-and-location-text">Description</span>
-          <input type="textarea" name="description" [(ngModel)]="description" />
+          <textarea name="description" [(ngModel)]="description" rows="5" cols="33"></textarea>
         </div>
         <button class="name-and-location-button" (click)="addDescription()">Continue</button>
+      </div>
+    </li>
+    <li *ngSwitchCase="6">
+      <div class="name-and-location-container">
+        <div class="header-name-and-location">
+          Please select star rating for your object.
+        </div>
+        <div class="Input-name-and-location">
+          <select class="form-select" aria-label="Default select example" id="starsRatingSelect"
+                  name="starsRating" [(ngModel)]="starsRating">
+            <option value="0" selected>Unrated</option>
+            <option value="1">1 star</option>
+            <option value="2">2 stars</option>
+            <option value="3">3 stars</option>
+            <option value="4">4 stars</option>
+            <option value="5">5 stars</option>
+          </select>
+        </div>
+        <button class="name-and-location-button" (click)="addStarsRating()">
+          Continue
+        </button>
       </div>
     </li>
   </ul>

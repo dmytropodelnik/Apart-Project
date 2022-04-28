@@ -38,11 +38,13 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                 }
 
                 suggestions = suggestions
-                     .Where(s => _value.Contains(s.Address.AddressText) ||
+                     .Where(s => _value.Contains(s.Address.AddressText)   ||
                                  _value.Contains(s.Address.Country.Title) ||
-                                 _value.Contains(s.Address.City.Title) ||
+                                 _value.Contains(s.Address.City.Title)    ||
+                                 _value.Contains(s.Address.Region.Title)  ||
                                  s.Address.Country.Title.Contains(_value) ||
-                                 s.Address.City.Title.Contains(_value) ||
+                                 s.Address.City.Title.Contains(_value)    ||
+                                 s.Address.Region.Title.Contains(_value)  ||
                                  s.Address.AddressText.Contains(_value));
 
                 return suggestions;

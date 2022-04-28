@@ -60,22 +60,13 @@
     </li>
     <li *ngSwitchCase="1">
       <div class="name-and-location-container">
-        <div class="header-name-and-location">
-          Where is the property you're listing?
-        </div>
-
-        <div class="header-name-and-location">
-          We may send a letter to confirm the location of your property, so make
-          sure that the address is correct – it’s difficult to make changes to
-          it later.
-        </div>
         <div class="Input-name-and-location">
           <select class="form-select" aria-label="Default select example" id="categoriesSelect"
                   name="bookingCategoryId" [(ngModel)]="bookingCategoryId">
-            <option selected>Select suggestion category</option>
+            <option value="-1" selected>Select suggestion category</option>
           </select>
         </div>
-        <button class="name-and-location-button" (click)="addBookingCategory()">
+        <button class="name-and-location-button" [disabled]="bookingCategoryId == -1" (click)="addBookingCategory()">
           Continue
         </button>
       </div>

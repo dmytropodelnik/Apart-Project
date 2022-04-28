@@ -10,18 +10,16 @@
 }
 
 .wrapper .left:hover .image1 {
-
 }
 
+.signin {
+  background: url(../../assets/images/login.jpg); 
+}
 .wrapper .image1 {
   width: 100%;
   height: 100%;
   background-size: cover;
   background-position: center;
-}
-
-.signin {
-  background: url(../../assets/images/3.jpg);
 }
 
 @media screen and (min-width: 1000px) {
