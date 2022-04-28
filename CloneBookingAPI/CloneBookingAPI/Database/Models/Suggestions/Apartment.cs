@@ -15,7 +15,7 @@ namespace CloneBookingAPI.Database.Models.Suggestions
 
         // [Required]
         [DataType(DataType.Currency)]
-        public decimal PriceInUserCurrency { get; set; }
+        public decimal? PriceInUserCurrency { get; set; }
         // [Required]
         [DataType(DataType.Currency)]
         public decimal PriceInUSD { get; set; }
@@ -27,6 +27,10 @@ namespace CloneBookingAPI.Database.Models.Suggestions
         public int BathroomsAmount { get; set; }
 
         // [Required]
+        [DataType(DataType.Text)]
+        public string Name { get; set; }
+
+        // [Required]
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
@@ -35,7 +39,6 @@ namespace CloneBookingAPI.Database.Models.Suggestions
         public Suggestion Suggestion { get; set; }
         public List<BookedPeriod> BookedPeriods { get; set; } = new();
         public List<RoomType> RoomTypes { get; set; } = new();
-
         public List<ApartmentRoomType> ApartmentsRoomTypes { get; set; } = new();
         public List<ApartmentBookedPeriod> ApartmentsBookedPeriods { get; set; } = new();
     }

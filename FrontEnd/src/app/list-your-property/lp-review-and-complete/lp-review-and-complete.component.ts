@@ -24,10 +24,11 @@ export class LpReviewAndCompleteComponent implements OnInit {
   addContactDetails(): void {
     let suggestion = {
       id: this.listNewPropertyService.getSavedPropertyId(),
-      contactName: this.contactDetails?.contactName,
+      contactFirstName: this.contactDetails?.firstName,
+      contactLastName: this.contactDetails?.lastName,
       contactPhone: this.contactDetails?.phoneNumber,
+      contactEmail: this.contactDetails?.email,
     };
-    console.log(suggestion);
 
     fetch(`https://localhost:44381/api/listnewproperty/addcontactdetails`, {
       method: 'POST',

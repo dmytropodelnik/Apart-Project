@@ -18,6 +18,7 @@ export class LpPropertySetupComponent implements OnInit {
   includedFacilities: boolean[] = [];
 
   parking: boolean = false;
+  starsRating: number = 0;
 
   languages = [false, false, false, false, false, false, false, false];
   correctLanguages = [
@@ -300,6 +301,32 @@ export class LpPropertySetupComponent implements OnInit {
     console.log(this.description);
 
     fetch(`https://localhost:44381/api/listnewproperty/adddescription`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(suggestion),
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.incrementChoice1();
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  addStarsRating(): void {
+    let suggestion = {
+      id: this.listNewPropertyService.getSavedPropertyId(),
+      starsRating: this.starsRating,
+    };
+
+    fetch(`https://localhost:44381/api/listnewproperty/addstarsrating`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',

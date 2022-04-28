@@ -106,7 +106,7 @@
       <td>{{suggestion.priceInUserCurrency}}</td>
       <td>{{suggestion.priceInUSD}}</td>
       <td>{{suggestion.isParkingAvailable}}</td>
-      <td>{{suggestion.contactDetails?.contactName + ", " + suggestion.contactDetails?.phoneNumber}}</td>
+      <td>{{suggestion.contactDetails?.firstName + ' '+ suggestion.contactDetails?.lastName + ', ' + suggestion.contactDetails?.phoneNumber + ', ' + suggestion.contactDetails?.email}}</td>
       <td>{{suggestion.address?.city?.title + ", " + suggestion.address?.country?.title}}</td>
       <td>{{suggestion.user?.email}}</td>
       <td>{{suggestion.serviceCategory?.category}}</td>

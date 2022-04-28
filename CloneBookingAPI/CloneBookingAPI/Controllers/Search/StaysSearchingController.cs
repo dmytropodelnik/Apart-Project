@@ -55,18 +55,22 @@ namespace CloneBookingAPI.Controllers.Search
                     .Include(s => s.Address)
                     .Include(s => s.Address.Country)
                     .Include(s => s.Address.City)
+                    .Include(s => s.Address.Region)
                     .Include(s => s.Apartments)
                         .ThenInclude(a => a.BookedPeriods)
                     .Include(s => s.Apartments)
                         .ThenInclude(a => a.RoomTypes)
+                        .ThenInclude(a => a.Rooms)
                     .Include(s => s.Beds)
                     .Include(s => s.BookingCategory)
+                        .ThenInclude(c => c.BookingCategoryType)
                     .Include(s => s.Facilities)
                     .Include(s => s.Highlights)
                     .Include(s => s.Languages)
                     .Include(s => s.Images)
                     .Include(s => s.Reviews)
                     .Include(s => s.SuggestionReviewGrades)
+                    .Where(s => s.Progress == 100)
                     .ToListAsync();
  
 

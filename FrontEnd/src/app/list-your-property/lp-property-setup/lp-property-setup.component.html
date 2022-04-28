@@ -292,5 +292,32 @@
         <button class="name-and-location-button" (click)="addDescription()">Continue</button>
       </div>
     </li>
+    <li *ngSwitchCase="6">
+      <div class="name-and-location-container">
+        <div class="header-name-and-location">
+          Where is the property you're listing?
+        </div>
+
+        <div class="header-name-and-location">
+          We may send a letter to confirm the location of your property, so make
+          sure that the address is correct – it’s difficult to make changes to
+          it later.
+        </div>
+        <div class="Input-name-and-location">
+          <select class="form-select" aria-label="Default select example" id="starsRatingSelect"
+                  name="starsRating" [(ngModel)]="starsRating">
+            <option value="0" selected>Unrated</option>
+            <option value="1">1 star</option>
+            <option value="2">2 stars</option>
+            <option value="3">3 stars</option>
+            <option value="4">4 stars</option>
+            <option value="5">5 stars</option>
+          </select>
+        </div>
+        <button class="name-and-location-button" (click)="addStarsRating()">
+          Continue
+        </button>
+      </div>
+    </li>
   </ul>
 </body>

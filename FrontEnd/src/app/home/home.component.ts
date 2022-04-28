@@ -273,11 +273,34 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  searchSuggestions($event: any): void {
+  searchSuggestionsByCategory($event: any, category: string): void {
     $event.stopPropagation();
 
-    this.searchViewModel.sortOrder = SortState.TopReviewed;
-    console.log(this.searchViewModel);
+    this.router.navigate(['/searchresults'], {
+      queryParams: {
+        adults: this.searchViewModel.searchAdultsAmount,
+        children: this.searchViewModel.searchChildrenAmount,
+        rooms: this.searchViewModel.searchRoomsAmount,
+        bookingCategory: category,
+      },
+    });
+  }
+
+  searchSuggestionsByPlace($event: any, place: string): void {
+    $event.stopPropagation();
+
+    this.router.navigate(['/searchresults'], {
+      queryParams: {
+        adults: this.searchViewModel.searchAdultsAmount,
+        children: this.searchViewModel.searchChildrenAmount,
+        rooms: this.searchViewModel.searchRoomsAmount,
+        place: place,
+      },
+    });
+  }
+
+  searchSuggestions($event: any): void {
+    $event.stopPropagation();
 
     this.searchViewModel.place = this.searchViewModel.place
       .replaceAll(this.reg1, '')
@@ -286,8 +309,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     let dateIn, dateOut;
 
     if (!this.searchViewModel.place) {
-      //alert("Enter a place!");
-      return;
+        return;
     }
 
     if (this.searchViewModel.pdateIn && this.searchViewModel.pdateOut) {
@@ -304,7 +326,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         '-' +
         this.searchViewModel.pdateOut!.day;
     } else {
-      //alert("Pick a check-in and check-out date");
       return;
     }
 

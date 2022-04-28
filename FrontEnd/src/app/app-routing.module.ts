@@ -20,6 +20,7 @@ import { ManageAccountComponent } from './manage-account/manage-account-body/man
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { UserSavedComponent } from './user-saved/user-saved.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
+import { LpApartmentsComponent } from './list-your-property/lp-apartments/lp-apartments.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'stays', pathMatch: 'full' },
@@ -64,6 +65,11 @@ const routes: Routes = [
   {
     path: 'lp/reviewandcomplete',
     component: LpReviewAndCompleteComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'lp/apartments',
+    component: LpApartmentsComponent,
     pathMatch: 'full',
   },
   { path: '**', redirectTo: 'stays', pathMatch: 'full' },
