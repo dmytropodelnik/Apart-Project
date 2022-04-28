@@ -213,7 +213,6 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     newCity.Title = suggestion.Address.City.Title;
                     newCity.CountryId = suggestion.Address.CountryId;
                     newCity.ImageId = resCountry.ImageId;  // ???
-                    _context.Cities.Add(newCity);
 
                     Address newAddress = new();
                     newAddress.City = newCity;
@@ -231,7 +230,9 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 {
                     if (region is null)
                     {
-                        suggestion.Address.Region = newRegion;
+                        suggestion.Address.Region.Title = suggestion.Address.Region.Title;
+                        suggestion.Address.Region.City = newCity;
+                        suggestion.Address.Region.ImageId = resCountry.ImageId;
                     }
                     resSuggestion.Address = suggestion.Address;
                     resSuggestion.Address.CityId = city.Id;
