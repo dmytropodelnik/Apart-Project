@@ -34,6 +34,7 @@ namespace CloneBookingAPI.Controllers.Pages
                 List<int> suggestions = new();
 
                 var suggestionsList = await _context.Suggestions
+                    .Include(s => s.Apartments)
                     .ToListAsync();
 
                 var categories = await _context.BookingCategories
@@ -43,7 +44,7 @@ namespace CloneBookingAPI.Controllers.Pages
                 for (int i = 1; i <= categories.Count; i++)
                 {
                     var resSuggestions = suggestionsList
-                        .Where(s => s.Progress == 100)
+                        .Where(s => s.Progress == 100 && s.Apartments.Count > 0)
                         .Where(s => s.BookingCategoryId == i)
                         .Count();
 
@@ -87,6 +88,7 @@ namespace CloneBookingAPI.Controllers.Pages
 
                 var suggestionsList = await _context.Suggestions
                     .Include(s => s.Address.Region)
+                    .Include(s => s.Apartments)
                     .ToListAsync();
 
                 var regions = await _context.Regions
@@ -97,7 +99,7 @@ namespace CloneBookingAPI.Controllers.Pages
                 for (int i = 1; i <= regions.Count; i++)
                 {
                     var resRegionSuggestion = suggestionsList
-                        .Where(s => s.Progress == 100)
+                        .Where(s => s.Progress == 100 && s.Apartments.Count > 0)
                         .Where(s => s.Address.Region.Id == regions[i - 1].Id)  ///
                         .Count();
 
@@ -142,6 +144,7 @@ namespace CloneBookingAPI.Controllers.Pages
                 var suggestionsList = await _context.Suggestions
                     .Include(s => s.Address)
                     .Include(s => s.Address.Country)
+                    .Include(s => s.Apartments)
                     .ToListAsync();
 
                 var countries = await _context.Countries
@@ -152,7 +155,7 @@ namespace CloneBookingAPI.Controllers.Pages
                 for (int i = 1; i <= countries.Count; i++)
                 {
                     var resCountriesSuggestion = suggestionsList
-                        .Where(s => s.Progress == 100)
+                        .Where(s => s.Progress == 100 && s.Apartments.Count > 0)
                         .Where(s => s.Address.Country.Id == i)  /// 
                         .Count();
 
@@ -196,6 +199,7 @@ namespace CloneBookingAPI.Controllers.Pages
 
                 var suggestionsList = await _context.Suggestions
                     .Include(s => s.Address.City)
+                    .Include(s => s.Apartments)
                     .ToListAsync();
 
                 var footerCities = await _context.Cities
@@ -214,7 +218,7 @@ namespace CloneBookingAPI.Controllers.Pages
                 for (int i = 1; i <= cities.Count; i++)
                 {
                     var resCitySuggestion = suggestionsList
-                        .Where(s => s.Progress == 100)
+                        .Where(s => s.Progress == 100 && s.Apartments.Count > 0)
                         .Where(s => s.Address.City.Id == cities[i - 1].Id) ////
                         .Count();
 
@@ -269,9 +273,10 @@ namespace CloneBookingAPI.Controllers.Pages
                 for (int i = 0; i < citiesList.Count; i++)
                 {
                     var resCities = await _context.Suggestions
-                        .Include(c => c.Address)
-                        .Where(s => s.Progress == 100)
-                        .Where(c => c.Address.CityId == citiesList[i].Id)
+                        .Include(s => s.Address)
+                        .Include(s => s.Apartments)
+                        .Where(s => s.Progress == 100 && s.Apartments.Count > 0)
+                        .Where(s => s.Address.CityId == citiesList[i].Id)
                         .CountAsync();
 
                     suggestionsCount.Add(resCities);
@@ -320,7 +325,7 @@ namespace CloneBookingAPI.Controllers.Pages
                     .Include(s => s.Address.City)
                     .Include(s => s.SuggestionReviewGrades)
                     .Include(s => s.Apartments)
-                    .Where(s => s.Progress == 100)
+                    .Where(s => s.Progress == 100 && s.Apartments.Count > 0)
                     .Where(s => s.SuggestionReviewGrades
                                     .Average(g => g.Value) > 9.0) //  && s.Apartments.Count > 0
                     .Take(5)
