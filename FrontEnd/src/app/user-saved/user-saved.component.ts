@@ -88,6 +88,7 @@ export class UserSavedComponent implements OnInit {
           this.suggestionGrades = response.suggestionGrades;
           this.reviewsCount = response.reviewsCount;
           this.suggestionStartsFrom = response.suggestionStartsFrom;
+          console.log(this.suggestions);
         } else {
           alert('User favorites fetching error!');
         }
