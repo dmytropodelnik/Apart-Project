@@ -18,9 +18,11 @@
     <ul class="carousel_table">
       <div *ngFor="let item of suggestions; let i = index">
         <li class="carousel_item">
-          <div class="carousel_item_img">
+          <!-- <div class="carousel_item_img">
             <img
-              src="" /> <!--{{imageHelper.getRootDirectoryPath()}}/suggestions/{{item.images[0]?.name}} -->
+              src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
+                item.images[0]?.name
+              }}" />
           </div>
           <div class="carousel_item_content">
             <header class="item_header">
@@ -72,6 +74,106 @@
                 </path>
               </svg>
             </a>
+          </div> -->
+          <div class="slide-img">
+            <img
+              src="{{
+                imageHelper.getImageDirectoryPath()
+              }}/categories/booking-categories/{{
+                item.images[0]?.name
+              }}"
+              class="w-100"
+              alt=""
+            />
+          </div>
+          <div class="bui-card__content bh-carousel--new__content">
+            <h3 class="bui-card__title bh-carousel--new__title">
+              <span>{{ item?.name }}</span>
+            </h3>
+            <p class="bui-card__subtitle">
+              {{
+                item?.address?.city?.title +
+                  ", " +
+                  item?.address?.country?.title
+              }}
+            </p>
+            <p class="bh-carousel--new__price bui_color_black">
+              Starting from USD {{ suggestionStartsFrom[i] ?? "0" }}
+            </p>
+            <div style="margin-top: 4px">
+              <div
+                class="bui-review-score c-score bui-review-score--inline bui-review-score--small"
+              >
+                <div
+                  class="bui-review-score__badge"
+                  aria-label="Scored 0 "
+                  *ngIf="suggestionGrades[i] != 0"
+                >
+                  {{ mathHelper.Round10(suggestionGrades[i] ?? "") }}
+                </div>
+                <div class="bui-review-score__content">
+                  <div
+                    *ngIf="
+                      mathHelper.Round10(suggestionGrades[i]) >= 9.7;
+                      then exceptionalBlock
+                    "
+                  ></div>
+                  <ng-template #exceptionalBlock
+                    >Exceptional</ng-template
+                  >
+                  <div
+                    *ngIf="
+                      mathHelper.Round10(suggestionGrades[i]) >= 9.0 &&
+                        mathHelper.Round10(suggestionGrades[i]) < 9.7;
+                      then wonderfulBlock
+                    "
+                  ></div>
+                  <ng-template #wonderfulBlock>Wonderful</ng-template>
+                  <div
+                    *ngIf="
+                      mathHelper.Round10(suggestionGrades[i]) >= 8.7 &&
+                        mathHelper.Round10(suggestionGrades[i]) < 9.0;
+                      then excellentBlock
+                    "
+                  ></div>
+                  <ng-template #excellentBlock>Excellent</ng-template>
+                  <div
+                    *ngIf="
+                      mathHelper.Round10(suggestionGrades[i]) >= 8.2 &&
+                        mathHelper.Round10(suggestionGrades[i]) < 8.7;
+                      then veryGoodBlock
+                    "
+                  ></div>
+                  <ng-template #veryGoodBlock>Very Good</ng-template>
+                  <div
+                    *ngIf="
+                      mathHelper.Round10(suggestionGrades[i]) > 7.6 &&
+                        mathHelper.Round10(suggestionGrades[i]) < 8.2;
+                      then goodBlock
+                    "
+                  ></div>
+                  <ng-template #goodBlock>Good</ng-template>
+                  <div
+                    *ngIf="
+                      mathHelper.Round10(suggestionGrades[i]) >= 7.0 &&
+                        mathHelper.Round10(suggestionGrades[i]) < 7.7;
+                      then pleasantBlock
+                    "
+                  ></div>
+                  <ng-template #pleasantBlock>Normal</ng-template>
+                  <div
+                    class="bui-review-score__badge_unrated"
+                    aria-label="Scored 0"
+                    *ngIf="suggestionGrades[i] == 0"
+                  >
+                    Unrated
+                  </div>
+                  <div class="bui-review-score__text">
+                    {{ reviewsCount[i] ?? "0" }} reviews
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </li>
       </div>
