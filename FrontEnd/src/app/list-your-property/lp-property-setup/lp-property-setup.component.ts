@@ -324,7 +324,7 @@ export class LpPropertySetupComponent implements OnInit {
       starsRating: this.starsRating,
     };
 
-    fetch(`https://localhost:44381/api/listnewproperty/addstarsrating`, {
+    fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addstarsrating`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
