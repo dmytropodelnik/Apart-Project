@@ -179,6 +179,7 @@ namespace CloneBookingAPI.Controllers.UserData
             {
                 List<int> reviewsCount = new();
                 List<double> suggestionGrades = new();
+                List<decimal> suggestionStartsFrom = new();
 
                 var favorites = await _context.Favorites
                     .Include(f => f.User)
@@ -211,9 +212,17 @@ namespace CloneBookingAPI.Controllers.UserData
 
                 for (int i = 0; i < favorites.Suggestions.Count; i++)
                 {
-                    if (favorites.Suggestions[i].SuggestionReviewGrades.Count != 0)
+                    if (favorites.Suggestions[i].SuggestionReviewGrades.Count == 0)
+                    {
+                        suggestionGrades.Add(0);
+                    }
+                    else
                     {
                         suggestionGrades.Add(favorites.Suggestions[i].SuggestionReviewGrades.Average(g => g.Value));
+                    }
+                    if (favorites.Suggestions[i].Apartments.Count != 0) // favorites.Suggestions[i].Apartments is not null && 
+                    {
+                        suggestionStartsFrom.Add(favorites.Suggestions[i].Apartments.Min(a => a.PriceInUSD));
                     }
                 }
 
@@ -233,6 +242,7 @@ namespace CloneBookingAPI.Controllers.UserData
                     }),
                     suggestionGrades,
                     reviewsCount,
+                    suggestionStartsFrom,
                 });
             }
             catch (ArgumentNullException ex)
