@@ -273,10 +273,10 @@ namespace CloneBookingAPI.Controllers.Pages
                 for (int i = 0; i < citiesList.Count; i++)
                 {
                     var resCities = await _context.Suggestions
-                        .Include(c => c.Address)
+                        .Include(s => s.Address)
                         .Include(s => s.Apartments)
                         .Where(s => s.Progress == 100 && s.Apartments.Count > 0)
-                        .Where(c => c.Address.CityId == citiesList[i].Id)
+                        .Where(s => s.Address.CityId == citiesList[i].Id)
                         .CountAsync();
 
                     suggestionsCount.Add(resCities);

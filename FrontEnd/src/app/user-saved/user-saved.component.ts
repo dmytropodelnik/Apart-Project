@@ -25,6 +25,8 @@ export class UserSavedComponent implements OnInit {
 
   suggestions: any[] = [];
 
+  suggestionStartsFrom: any[] = [];
+
   userId: number | null = null;
 
   constructor(
@@ -85,6 +87,8 @@ export class UserSavedComponent implements OnInit {
           this.suggestions = response.favorites;
           this.suggestionGrades = response.suggestionGrades;
           this.reviewsCount = response.reviewsCount;
+          this.suggestionStartsFrom = response.suggestionStartsFrom;
+          console.log(this.suggestions);
         } else {
           alert('User favorites fetching error!');
         }

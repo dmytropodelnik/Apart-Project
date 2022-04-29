@@ -6,12 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Services\Logging\**" />
     <Compile Remove="wwwroot\files\flags\**" />
     <Compile Remove="wwwroot\files\images\**" />
+    <Content Remove="Services\Logging\**" />
     <Content Remove="wwwroot\files\flags\**" />
     <Content Remove="wwwroot\files\images\**" />
+    <EmbeddedResource Remove="Services\Logging\**" />
     <EmbeddedResource Remove="wwwroot\files\flags\**" />
     <EmbeddedResource Remove="wwwroot\files\images\**" />
+    <None Remove="Services\Logging\**" />
     <None Remove="wwwroot\files\flags\**" />
     <None Remove="wwwroot\files\images\**" />
   </ItemGroup>
@@ -34,7 +38,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\Logging\" />
     <Folder Include="wwwroot\files\location\cities\" />
     <Folder Include="wwwroot\files\categories\booking-categories\" />
     <Folder Include="wwwroot\files\location\countries\" />
