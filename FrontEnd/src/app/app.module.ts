@@ -89,6 +89,7 @@ import { AdminContentService } from './services/admin-content.service';
 import { UserSavedComponent } from './user-saved/user-saved.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { LpApartmentsComponent } from './list-your-property/lp-apartments/lp-apartments.component';
+import { StaySuggestionPageComponent } from './stay-suggestion-page/stay-suggestion-page.component';
 
 @NgModule({
   declarations: [
@@ -170,6 +171,7 @@ import { LpApartmentsComponent } from './list-your-property/lp-apartments/lp-apa
     UserSavedComponent,
     ResetPasswordComponent,
     LpApartmentsComponent,
+    StaySuggestionPageComponent,
   ],
   imports: [
     BrowserModule,

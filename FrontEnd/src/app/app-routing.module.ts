@@ -21,6 +21,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { UserSavedComponent } from './user-saved/user-saved.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { LpApartmentsComponent } from './list-your-property/lp-apartments/lp-apartments.component';
+import { StaySuggestionPageComponent } from './stay-suggestion-page/stay-suggestion-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'stays', pathMatch: 'full' },
@@ -41,6 +42,7 @@ const routes: Routes = [
   { path: 'lp/addproperty', component: AddPropertyComponent, pathMatch: 'full' },
   { path: 'mysettings', component: ManageAccountComponent },
   { path: 'searchresults', component: SearchResultsComponent },
+  { path: 'suggestion/:id', component: StaySuggestionPageComponent },
   { path: 'resetpassword', component: ResetPasswordComponent },
   {
     path: 'lp/nameandlocation',

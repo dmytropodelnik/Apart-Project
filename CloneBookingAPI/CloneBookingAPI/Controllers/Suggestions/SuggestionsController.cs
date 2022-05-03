@@ -84,9 +84,71 @@ namespace CloneBookingAPI.Controllers.Suggestions
             }
         }
 
+        [Route("getsuggestion")]
+        [HttpGet]
+        public async Task<ActionResult<Suggestion>> GetSuggestion(int id)
+        {
+            try
+            {
+                if (id < 1)
+                {
+                    return Json(new { code = STATUS_400 });
+                }
+
+                var suggestion = await _context.Suggestions
+                    .Include(s => s.Address)
+                    .Include(s => s.Address.Country)
+                    .Include(s => s.Address.City)
+                    .Include(s => s.Address.Region)
+                    .Include(s => s.Apartments)
+                        .ThenInclude(a => a.BookedPeriods)
+                    .Include(s => s.Apartments)
+                        .ThenInclude(a => a.RoomTypes)
+                        .ThenInclude(a => a.Rooms)
+                    .Include(s => s.Beds)
+                    .Include(s => s.BookingCategory)
+                        .ThenInclude(c => c.BookingCategoryType)
+                    .Include(s => s.Facilities)
+                    .Include(s => s.Highlights)
+                    .Include(s => s.Languages)
+                    .Include(s => s.Images)
+                    .Include(s => s.Reviews)
+                        .ThenInclude(r => r.ReviewMessage)
+                    .Include(s => s.SuggestionReviewGrades)
+                    .FirstOrDefaultAsync(s => s.Id == id);
+                if (suggestion is null)
+                {
+                    return Json(new { code = STATUS_400 });
+                }
+
+                return Json(new { 
+                    code = STATUS_200, 
+                    suggestion,
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = STATUS_400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = STATUS_400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
         [Route("addsuggestion")]
         [HttpPost]
-        public async Task<IActionResult> AddCategory([FromBody] Suggestion suggestion, IFormFileCollection uploads)
+        public async Task<IActionResult> AddSuggestion([FromBody] Suggestion suggestion, IFormFileCollection uploads)
         {
             try
             {
