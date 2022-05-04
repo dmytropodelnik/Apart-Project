@@ -52,6 +52,11 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [ForeignKey("BookingCategoryId")]
         public BookingCategory BookingCategory { get; set; }
 
+        /// ? !!!!
+        public int? SuggestionStatusId { get; set; }
+        [ForeignKey("SuggestionStatusId")]
+        public SuggestionStatus SuggestionStatus { get; set; }
+
         public List<InterestPlace> InterestPlaces { get; set; } = new();
         public List<Review.Review> Reviews { get; set; } = new();
         public List<StayBooking> StayBookings { get; set; } = new();

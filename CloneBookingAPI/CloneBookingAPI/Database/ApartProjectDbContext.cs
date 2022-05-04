@@ -79,6 +79,7 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<BedType> BedTypes { get; set; }
         public DbSet<BookedPeriod> BookedDates { get; set; }
         public DbSet<Apartment> Apartments { get; set; }
+        public DbSet<SuggestionStatus> SuggestionStatuses { get; set; }
         public DbSet<BookingCategoryType> BookingCategoryTypes { get; set; }
 
         public ApartProjectDbContext(DbContextOptions<ApartProjectDbContext> options) : base(options)
@@ -214,6 +215,7 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new ApartmentBookedPeriodConfiguration());
             modelBuilder.ApplyConfiguration(new SuggestionsFileModelsConfiguration());
             modelBuilder.ApplyConfiguration(new BookingCategoryTypesConfiguration());
+            modelBuilder.ApplyConfiguration(new SuggestionStatusesConfiguration());
         }
     }
 }

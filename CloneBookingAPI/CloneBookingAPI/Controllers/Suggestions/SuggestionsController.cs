@@ -68,29 +68,29 @@ namespace CloneBookingAPI.Controllers.Suggestions
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = STATUS_400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = STATUS_400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
         [Route("getsuggestion")]
         [HttpGet]
-        public async Task<ActionResult<Suggestion>> GetSuggestion(int id)
+        public async Task<ActionResult<Suggestion>> GetSuggestion(string code)
         {
             try
             {
-                if (id < 1)
+                if (string.IsNullOrWhiteSpace(code))
                 {
                     return Json(new { code = STATUS_400 });
                 }
@@ -115,7 +115,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     .Include(s => s.Reviews)
                         .ThenInclude(r => r.ReviewMessage)
                     .Include(s => s.SuggestionReviewGrades)
-                    .FirstOrDefaultAsync(s => s.Id == id);
+                    .FirstOrDefaultAsync(s => s.UniqueCode.Equals(code));
                 if (suggestion is null)
                 {
                     return Json(new { code = STATUS_400 });
@@ -130,34 +130,101 @@ namespace CloneBookingAPI.Controllers.Suggestions
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = STATUS_400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = STATUS_400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
-        [Route("addsuggestion")]
-        [HttpPost]
-        public async Task<IActionResult> AddSuggestion([FromBody] Suggestion suggestion, IFormFileCollection uploads)
+        [Route("getusersuggestions")]
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<Suggestion>>> GetUserSuggestions(string email)
         {
             try
             {
+                var suggestions = await _context.Suggestions
+                    .Include(s => s.User)
+                    .Include(s => s.Address)
+                    .Include(s => s.Address.Country)
+                        .ThenInclude(c => c.Image)
+                    .Include(s => s.Address.City)
+                    .Include(s => s.Address.Region)
+                    .Include(s => s.SuggestionStatus)
+                    .Include(s => s.Images)
+                    .Where(s => s.User.Email.Equals(email))
+                    .ToListAsync();
+
+                if (suggestions is null)
+                {
+                    return Json(new { code = STATUS_400 });
+                }
+
+                return Json(new { 
+                    code = STATUS_200,
+                    suggestions = suggestions
+                        .Select(s => new {
+                            s.Id,
+                            s.UniqueCode,
+                            s.Name,
+                            s.Progress,
+                            suggestionStatus = s.SuggestionStatus.Status,
+                            country = s.Address.Country.Title,
+                            city = s.Address.City.Title,
+                            region = s.Address.Region.Title,
+                            address = s.Address.AddressText,
+                            images = s.Images.Select(i => new { i.Path, i.Name }),
+                            countryImage = s.Address.Country.Image,
+                        }),
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("deletesuggestion")]
+        [HttpDelete]
+        public async Task<IActionResult> DeleteSuggestion(int id)
+        {
+            try
+            {
+                if (id < 1)
+                {
+                    return Json(new { code = STATUS_400 });
+                }
+
+                var suggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == id);
                 if (suggestion is null)
                 {
                     return Json(new { code = STATUS_400 });
                 }
 
-                _context.Suggestions.Add(suggestion);
+                _context.Suggestions.Remove(suggestion);
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = STATUS_200 });
@@ -166,25 +233,25 @@ namespace CloneBookingAPI.Controllers.Suggestions
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
     }

@@ -9,7 +9,7 @@ import { VerifyEnterComponent } from './verify-enter/verify-enter.component';
 import { FlightsComponent } from './flights/flights.component';
 import { AdminPanelGuard } from './admin-panel/admin-main-body/admin-panel.guard';
 import { JoinAsPartnerComponent } from './join-as-partner/join-as-partner.component';
-import { ViewPropertyComponent } from './list-your-property/view-property/view-property.component';
+import { ViewPropertyComponent } from './view-property/view-property.component';
 import { AddPropertyComponent } from './list-your-property/add-property/add-property.component';
 import { LpNameAndLocationComponent } from './list-your-property/lp-name-and-location/lp-name-and-location.component';
 import { LpPhotosComponent } from './list-your-property/lp-photos/lp-photos.component';

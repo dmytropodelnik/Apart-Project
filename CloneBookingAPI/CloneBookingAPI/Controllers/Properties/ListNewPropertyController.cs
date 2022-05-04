@@ -68,6 +68,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 newSuggestion.UniqueCode = await _suggestionIdGenerator.GenerateCodeAsync();
                 newSuggestion.ServiceCategoryId = 1;
                 newSuggestion.Progress = 5;
+                newSuggestion.SuggestionStatusId = 3;
 
                 var resSuggestion = _context.Suggestions.Add(newSuggestion);
                 await _context.SaveChangesAsync();
@@ -800,6 +801,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
                 resSuggestion.ContactDetails = contactDetails;
                 resSuggestion.Progress = 100;
+                resSuggestion.SuggestionStatusId = 2;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();

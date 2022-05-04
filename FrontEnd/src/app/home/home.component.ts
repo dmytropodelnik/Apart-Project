@@ -237,6 +237,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       {
         method: 'GET',
       }
+
     )
       .then((r) => r.json())
       .then((r) => {

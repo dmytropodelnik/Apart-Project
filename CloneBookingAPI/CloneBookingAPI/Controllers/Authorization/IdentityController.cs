@@ -122,7 +122,7 @@ namespace CloneBookingAPI.Controllers
                     _jwtRepository.Repository.Add(user.Email, new List<string> { encodedJwt });
                 }
 
-                new JwtCodeCleanTimer(_jwtRepository, _configuration).SetTimer((key: user.Email, code: encodedJwt));
+                // new JwtCodeCleanTimer(_jwtRepository, _configuration).SetTimer((key: user.Email, code: encodedJwt));
 
                 return Json(new { 
                     code = 200,

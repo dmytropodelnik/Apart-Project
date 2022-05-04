@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 
+import AuthHelper from '../utils/authHelper';
+import ImageHelper from '../utils/imageHelper';
+import MathHelper from '../utils/mathHelper';
+
 import { ActivatedRoute } from '@angular/router';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { switchMap } from 'rxjs/operators';
 import { FilterViewModel } from '../view-models/filterviewmodel.item';
 import { SearchViewModel } from '../view-models/searchviewmodel.item';
+import { Suggestion } from '../models/Suggestions/suggestion.item';
 
 @Component({
   selector: 'app-stay-suggestion-page',
@@ -16,6 +21,8 @@ export class StaySuggestionPageComponent implements OnInit {
 
   filters: SearchViewModel = new SearchViewModel();
   filterChecks: FilterViewModel[] = [];
+
+  suggestion: Suggestion = new Suggestion();
 
   searchBookingCategory: string = '';
   searchPlace: string = '';
@@ -29,6 +36,26 @@ export class StaySuggestionPageComponent implements OnInit {
   dayOut: number | null = null;
 
   constructor(private activatedRouter: ActivatedRoute) {}
+
+  getSuggestion(): void {
+    fetch(
+      'https://localhost:44381/api/suggestions/getsuggestion?code=' + this.uniqueCode,
+      {
+        method: 'GET',
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.suggestion = response.suggestion;
+        } else {
+          alert('Suggestion fetching error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   addMainSearchFilter(): void {
     this.activatedRouter.queryParams.subscribe((params: any) => {
@@ -102,5 +129,6 @@ export class StaySuggestionPageComponent implements OnInit {
       .subscribe((data) => (this.uniqueCode = +data));
 
     this.addMainSearchFilter();
+    this.getSuggestion();
   }
 }

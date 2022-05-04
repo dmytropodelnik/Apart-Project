@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers
 {
-    [TypeFilter(typeof(AuthFilter))]
+    [TypeFilter(typeof(AuthorizationFilter))]
     [Route("api/[controller]")]
     // [ApiController]
     public class DealsController : Controller

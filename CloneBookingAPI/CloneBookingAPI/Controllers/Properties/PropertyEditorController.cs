@@ -90,6 +90,65 @@ namespace CloneBookingAPI.Controllers.Properties
         }
 
         // [Authorize]
+        [Route("editstatus")]
+        [HttpPut]
+        public async Task<IActionResult> EditStatus([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null      ||
+                    suggestion.Id < 1       ||
+                    suggestion.StatusId < 1 ||
+                    string.IsNullOrWhiteSpace(suggestion.Login))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions
+                    .Include(s => s.User)
+                    .FirstOrDefaultAsync(s => s.User.Email.Equals(suggestion.Login) && s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                resSuggestion.SuggestionStatusId = suggestion.StatusId;
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        // [Authorize]
         [Route("editlanguages")]
         [HttpPut]
         public async Task<IActionResult> EditLanguages([FromBody] SuggestionPoco suggestion)
@@ -112,7 +171,7 @@ namespace CloneBookingAPI.Controllers.Properties
                 }
 
                 var resLanguages = await _context.Languages
-                    .Where(f => suggestion.Languages.Contains(f.Title))
+                    .Where(l => suggestion.Languages.Contains(l.Title))
     .               ToListAsync();
 
                 resSuggestion.Languages = resLanguages;
@@ -192,25 +251,25 @@ namespace CloneBookingAPI.Controllers.Properties
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -250,25 +309,25 @@ namespace CloneBookingAPI.Controllers.Properties
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
