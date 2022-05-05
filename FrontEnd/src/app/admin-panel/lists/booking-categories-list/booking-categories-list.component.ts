@@ -29,8 +29,9 @@ export class BookingCategoriesListComponent implements OnInit {
     fetch('https://localhost:44381/api/bookingcategories/search?category=' + this.searchCategory, {
       method: 'GET',
       headers: {
+        'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
       .then((r) => r.json())
@@ -57,7 +58,7 @@ export class BookingCategoriesListComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(category),
     })
@@ -86,7 +87,7 @@ export class BookingCategoriesListComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(category),
     })
@@ -116,7 +117,7 @@ export class BookingCategoriesListComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(category),
     })

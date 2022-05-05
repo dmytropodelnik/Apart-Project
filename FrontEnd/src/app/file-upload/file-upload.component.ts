@@ -20,9 +20,10 @@ export class FileUploadComponent implements OnInit {
       fetch('https://localhost:44381/api/fileuploader/uploadfile', {
         method: 'POST',
         headers: {
-          "Accept": "application/json",
-          "Authorization": "Bearer " + AuthHelper.getToken(),
-         },
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
         body: fData,
       })
       .then(r => r.json())

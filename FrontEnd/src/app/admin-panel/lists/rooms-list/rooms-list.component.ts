@@ -34,7 +34,7 @@ export class RoomsListComponent implements OnInit {
       method: 'GET',
       headers: {
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
       .then((r) => r.json())
@@ -61,7 +61,7 @@ export class RoomsListComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(room),
     })
@@ -90,7 +90,7 @@ export class RoomsListComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(room),
     })
@@ -120,7 +120,7 @@ export class RoomsListComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(room),
     })

@@ -33,8 +33,9 @@ export class CitiesListComponent implements OnInit {
     fetch('https://localhost:44381/api/cities/search?city=' + this.searchCity, {
       method: 'GET',
       headers: {
+        'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
       .then((r) => r.json())
@@ -61,7 +62,7 @@ export class CitiesListComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(city),
     })
@@ -90,7 +91,7 @@ export class CitiesListComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(city),
     })
@@ -120,7 +121,7 @@ export class CitiesListComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(city),
     })
