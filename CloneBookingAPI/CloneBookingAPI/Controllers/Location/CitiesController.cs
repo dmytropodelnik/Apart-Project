@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Location;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -71,6 +72,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("search")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<City>>> Search(string city, int page = -1, int pageSize = -1)
@@ -152,6 +154,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("addcity")]
         [HttpPost]
         public async Task<IActionResult> AddCity([FromBody] City city, IFormFile uploadedFile)
@@ -206,6 +209,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("changecitybynameandcountry")]
         [HttpPut]
         public async Task<IActionResult> ChangeCityByNameAndCountry(string country, string city, string newName)
@@ -258,6 +262,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("changecity")]
         [HttpPut("{id}")]
         public async Task<IActionResult> ChangeCity(int id, string newName)
@@ -308,6 +313,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deletecitybyname")]
         [HttpDelete]
         public async Task<IActionResult> DeleteCityByName(string city)
@@ -356,6 +363,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deletecity")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCity(int id)

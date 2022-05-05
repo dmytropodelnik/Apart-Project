@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Pages
 {
-    //[TypeFilter(typeof(AuthorizationFilter))]
     [Route("api/[controller]")]
     [ApiController]
     public class StaysPageController : Controller

@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Location;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -74,6 +75,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("search")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<District>>> Search(string district, int page = -1, int pageSize = -1)
@@ -125,6 +127,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("adddistrict")]
         [HttpPost]
         public async Task<IActionResult> AddDistrict([FromBody] District district, IFormFile uploadedFile)
@@ -172,6 +175,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("changedistrictbyname")]
         [HttpPut]
         public async Task<IActionResult> ChangeDistrictByName(string district, string newName)
@@ -221,6 +225,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("changedistrict")]
         [HttpPut("{id}")]
         public async Task<IActionResult> ChangeDistrict(int id, string newName)
@@ -270,6 +275,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deletedistrictbyname")]
         [HttpDelete]
         public async Task<IActionResult> DeleteDistrictByName(string district)
@@ -318,6 +325,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deletedistrict")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteDistrict(int id)

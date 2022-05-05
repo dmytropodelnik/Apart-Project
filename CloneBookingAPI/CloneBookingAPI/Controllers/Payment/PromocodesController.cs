@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Interfaces;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Interfaces;
 using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Generators;
@@ -14,6 +15,8 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Payment
 {
+    [TypeFilter(typeof(AuthorizationFilter))]
+    [TypeFilter(typeof(OnlyAdminFilter))]
     [Route("api/[controller]")]
     [ApiController]
     public class PromoCodesController : Controller

@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Review;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -106,6 +107,9 @@ namespace CloneBookingAPI.Controllers.Review
                 return Json(new { code = 400 });
             }
         }
+
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("addcategory")]
         [HttpPost]
         public async Task<IActionResult> AddCategory([FromBody] ReviewCategory category)
@@ -153,6 +157,8 @@ namespace CloneBookingAPI.Controllers.Review
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deletecategory")]
         [HttpDelete]
         public async Task<IActionResult> DeleteCategory([FromBody] ReviewCategory category)
@@ -201,8 +207,10 @@ namespace CloneBookingAPI.Controllers.Review
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deletecategory")]
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteCategory(int id)
         {
             try

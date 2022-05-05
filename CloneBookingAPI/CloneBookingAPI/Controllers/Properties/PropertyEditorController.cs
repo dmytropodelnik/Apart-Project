@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.POCOs;
@@ -15,6 +16,7 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Properties
 {
+    [TypeFilter(typeof(AuthorizationFilter))]
     [Route("api/[controller]")]
     [ApiController]
     public class PropertyEditorController : Controller
@@ -31,7 +33,6 @@ namespace CloneBookingAPI.Controllers.Properties
             _appEnvironment = appEnvironment;
         }
 
-        // [Authorize]
         [Route("editname")]
         [HttpPut]
         public async Task<IActionResult> EditName([FromBody] SuggestionPoco suggestion)
@@ -89,7 +90,6 @@ namespace CloneBookingAPI.Controllers.Properties
             }
         }
 
-        // [Authorize]
         [Route("editstatus")]
         [HttpPut]
         public async Task<IActionResult> EditStatus([FromBody] SuggestionPoco suggestion)
@@ -148,7 +148,6 @@ namespace CloneBookingAPI.Controllers.Properties
             }
         }
 
-        // [Authorize]
         [Route("editlanguages")]
         [HttpPut]
         public async Task<IActionResult> EditLanguages([FromBody] SuggestionPoco suggestion)
@@ -210,7 +209,6 @@ namespace CloneBookingAPI.Controllers.Properties
             }
         }
 
-        // [Authorize]
         [Route("addlanguages")]
         [HttpPost]
         public async Task<IActionResult> AddLanguages([FromBody] SuggestionPoco suggestion)
@@ -273,7 +271,6 @@ namespace CloneBookingAPI.Controllers.Properties
             }
         }
 
-        // [Authorize]
         [Route("editaddress")]
         [HttpPut]
         public async Task<IActionResult> EditAddress([FromBody] SuggestionPoco suggestion)
@@ -331,7 +328,6 @@ namespace CloneBookingAPI.Controllers.Properties
             }
         }
 
-        // [Authorize]
         [Route("editfacilities")]
         [HttpPut]
         public async Task<IActionResult> EditFacilities([FromBody] SuggestionPoco suggestion)
@@ -402,7 +398,6 @@ namespace CloneBookingAPI.Controllers.Properties
             }
         }
 
-        // [Authorize]
         [Route("editparking")]
         [HttpPut]
         public async Task<IActionResult> EditParking([FromBody] SuggestionPoco suggestion)
@@ -459,7 +454,6 @@ namespace CloneBookingAPI.Controllers.Properties
             }
         }
 
-        // [Authorize]
         [Route("editrules")]
         [HttpPut]
         public async Task<IActionResult> EditRules([FromBody] SuggestionPoco suggestion)
@@ -530,7 +524,6 @@ namespace CloneBookingAPI.Controllers.Properties
             }
         }
 
-        // [Authorize]
         [Route("editprice")]
         [HttpPut]
         public async Task<IActionResult> EditPrice([FromBody] SuggestionPoco suggestion)
@@ -588,7 +581,6 @@ namespace CloneBookingAPI.Controllers.Properties
             }
         }
 
-        // [Authorize]
         [Route("editdescription")]
         [HttpPut]
         public async Task<IActionResult> EditDescription([FromBody] SuggestionPoco suggestion)
@@ -645,7 +637,6 @@ namespace CloneBookingAPI.Controllers.Properties
             }
         }
 
-        // [Authorize]
         [Route("addphotos")]
         [HttpPost]
         public async Task<IActionResult> AddPhotos(IFormFileCollection uploads)

@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Database.Models.UserProfile;
@@ -86,7 +87,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        // [Authorize(Roles = "admin")]
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("getusers")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers(int page = -1, int pageSize = -1)
@@ -133,6 +135,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("search")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<User>>> Search(string user, int page = -1, int pageSize = -1)
@@ -184,7 +187,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        // [Authorize(Roles = "admin")]
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("getuser")]
         [HttpGet]
         public async Task<ActionResult<User>> GetUser(string email)
@@ -234,7 +237,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        // [Authorize]
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("getuserproperties")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Suggestion>>> GetUserProperties(string email)
@@ -277,6 +280,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("adduser")]
         [HttpPost]
         public async Task<IActionResult> AddUser([FromBody] User user)
@@ -431,6 +436,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("signoutuser")]
         [HttpPost]
         public IActionResult SignOutUser([FromBody] TokenModel model)
@@ -488,7 +494,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        // [Authorize]
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("deleteuser")]
         [HttpDelete]
         public async Task<IActionResult> DeleteUser(string email)

@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using Microsoft.AspNetCore.Http;
@@ -146,6 +147,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("getusersuggestions")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Suggestion>>> GetUserSuggestions(string email)
@@ -207,6 +209,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("deletesuggestion")]
         [HttpDelete]
         public async Task<IActionResult> DeleteSuggestion(int id)

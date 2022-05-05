@@ -1,4 +1,5 @@
 ﻿using CloneBookingAPI.Database.Models.Suggestions;
+using CloneBookingAPI.Filters;
 using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Database.Models.Location;
@@ -21,6 +22,7 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Suggestions
 {
+    [TypeFilter(typeof(AuthorizationFilter))]
     [Route("api/[controller]")]
     [ApiController]
     public class ListNewPropertyController : Controller

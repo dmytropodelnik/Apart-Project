@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Interfaces;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Interfaces;
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Generators;
 using CloneBookingAPI.Services.POCOs;
@@ -87,6 +88,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("generatechangingemailcode")]
         [HttpGet]
         public IActionResult GenerateChangingEmailCode(string email, string oldEmail)
@@ -125,6 +127,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("generatedeleteusercode")]
         [HttpGet]
         public IActionResult GenerateDeleteUserCode(string email)
@@ -162,6 +165,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        // [TypeFilter(typeof(AuthorizationFilter))]
         [Route("generateresetcode")]
         [HttpGet]
         public IActionResult GenerateResetCode(string email)

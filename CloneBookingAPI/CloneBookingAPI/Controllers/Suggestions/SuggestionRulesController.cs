@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -66,6 +67,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("search")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SuggestionRule>>> Search(string rule, int page = -1, int pageSize = -1)
@@ -110,6 +112,8 @@ namespace CloneBookingAPI.Controllers.Suggestions
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("addrule")]
         [HttpPost]
         public async Task<IActionResult> AddRule([FromBody] SuggestionRule rule)
@@ -152,6 +156,8 @@ namespace CloneBookingAPI.Controllers.Suggestions
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deleterule")]
         [HttpDelete]
         public async Task<IActionResult> DeleteRule([FromBody] SuggestionRule rule)
@@ -200,8 +206,10 @@ namespace CloneBookingAPI.Controllers.Suggestions
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deletetype")]
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteType(int id)
         {
             try

@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Services
 {
+    [TypeFilter(typeof(AuthorizationFilter))]
     [Route("api/[controller]")]
     [ApiController]
     public class StayBookingsController : Controller
@@ -22,6 +24,7 @@ namespace CloneBookingAPI.Controllers.Services
             _context = context;
         }
 
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("getbookings")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StayBooking>>> GetBookings()
@@ -98,6 +101,7 @@ namespace CloneBookingAPI.Controllers.Services
             }
         }
 
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("search")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StayBooking>>> Search(string booking)

@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers
 {
+    [TypeFilter(typeof(AuthorizationFilter))]
     [Route("api/[controller]")]
     [ApiController]
     public class NotificationsController : Controller
@@ -22,6 +24,7 @@ namespace CloneBookingAPI.Controllers
             _context = context;
         }
 
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("getnotifications")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Notification>>> GetNotifications(int page = -1, int pageSize = -1)
@@ -111,6 +114,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("editnotification")]
         [HttpPut]
         public async Task<IActionResult> EditNotification([FromBody] Notification notification)

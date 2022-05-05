@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -105,6 +106,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("search")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ServiceCategory>>> Search(string category, int page = -1, int pageSize = -1)
@@ -146,6 +148,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("addcategory")]
         [HttpPost]
         public async Task<IActionResult> AddCategory([FromBody] BookingCategory category)
@@ -193,6 +197,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("editcategory")]
         [HttpPut]
         public async Task<IActionResult> EditCategory([FromBody] BookingCategory category)
@@ -242,6 +248,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deletecategorybyname")]
         [HttpDelete]
         public async Task<IActionResult> DeleteCategoryByName([FromBody] BookingCategory category)
@@ -290,6 +298,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deletecategory")]
         [HttpDelete]
         public async Task<IActionResult> DeleteCategory([FromBody] BookingCategory category)

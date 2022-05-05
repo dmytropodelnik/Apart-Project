@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Payment;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,8 @@ namespace CloneBookingAPI.Controllers.Payment
             _context = context;
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("getcreditcards")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CreditCard>>> GetCreditCards(int page = -1, int pageSize = -1)
@@ -63,6 +66,7 @@ namespace CloneBookingAPI.Controllers.Payment
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("addcreditcard")]
         [HttpPost]
         public async Task<IActionResult> AddCreditCard([FromBody] CreditCard card)
@@ -110,6 +114,7 @@ namespace CloneBookingAPI.Controllers.Payment
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("deletecardbynumber")]
         [HttpDelete]
         public async Task<IActionResult> DeleteCardByName(string cardNumber)
@@ -158,6 +163,7 @@ namespace CloneBookingAPI.Controllers.Payment
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("deletecard")]
         [HttpDelete]
         public async Task<IActionResult> DeleteCard(int id)

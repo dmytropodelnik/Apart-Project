@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Configurations.Review;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -66,6 +67,7 @@ namespace CloneBookingAPI.Controllers.Review
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("addmessage")]
         [HttpPost]
         public async Task<IActionResult> AddReview([FromBody] ReviewMessage message)
@@ -111,9 +113,10 @@ namespace CloneBookingAPI.Controllers.Review
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("changereviewbyname")]
         [HttpPut]
-        public async Task<IActionResult> ChangeReview([FromBody] ReviewMessage message)
+        public async Task<IActionResult> ChangeReviewByName([FromBody] ReviewMessage message)
         {
             try
             {
@@ -160,9 +163,10 @@ namespace CloneBookingAPI.Controllers.Review
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("changereview")]
-        [HttpPut("{id}")]
-        public async Task<IActionResult> ChangeCountry([FromBody] ReviewMessage message)
+        [HttpPut]
+        public async Task<IActionResult> ChangeReview([FromBody] ReviewMessage message)
         {
             try
             {
@@ -209,6 +213,7 @@ namespace CloneBookingAPI.Controllers.Review
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("deletereview")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteReview([FromBody] ReviewMessage message)
