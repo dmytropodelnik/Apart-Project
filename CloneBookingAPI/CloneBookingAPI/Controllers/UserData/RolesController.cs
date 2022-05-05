@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +54,7 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("search")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Role>>> Search(string role)
@@ -92,6 +94,8 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("addrole")]
         [HttpPost]
         public async Task<IActionResult> AddRole([FromBody] Role role)
@@ -135,6 +139,8 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("editrole")]
         [HttpPut]
         public async Task<IActionResult> EditRole([FromBody] Role role)
@@ -184,6 +190,8 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deleterole")]
         [HttpDelete]
         public async Task<IActionResult> DeleteRole([FromBody] Role role)

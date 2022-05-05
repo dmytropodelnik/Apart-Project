@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -66,6 +67,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("search")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<RoomType>>> Search(string type, int page = -1, int pageSize = -1)
@@ -108,6 +110,8 @@ namespace CloneBookingAPI.Controllers.Suggestions
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("addtype")]
         [HttpPost]
         public async Task<IActionResult> AddType([FromBody] RoomType type)
@@ -155,6 +159,8 @@ namespace CloneBookingAPI.Controllers.Suggestions
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("edittype")]
         [HttpPut]
         public async Task<IActionResult> EditType([FromBody] RoomType type)

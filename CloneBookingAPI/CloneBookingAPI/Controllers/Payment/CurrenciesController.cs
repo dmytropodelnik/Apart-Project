@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -63,6 +64,7 @@ namespace CloneBookingAPI.Controllers.Payment
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("search")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Currency>>> Search(string currency, int page = -1, int pageSize = -1)
@@ -106,6 +108,8 @@ namespace CloneBookingAPI.Controllers.Payment
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("addcurrency")]
         [HttpPost]
         public async Task<IActionResult> AddCurrency([FromBody] Currency currency)
@@ -153,6 +157,8 @@ namespace CloneBookingAPI.Controllers.Payment
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("editcurrency")]
         [HttpPut]
         public async Task<IActionResult> EditCurrency([FromBody] Currency currency)
@@ -205,6 +211,8 @@ namespace CloneBookingAPI.Controllers.Payment
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deletecurrency")]
         [HttpDelete]
         public async Task<IActionResult> DeleteCurrency([FromBody] Currency currency)

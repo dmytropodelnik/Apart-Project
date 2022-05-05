@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -21,6 +22,8 @@ namespace CloneBookingAPI.Controllers
             _context = context;
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("getcarts")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Cart>>> GetCarts()

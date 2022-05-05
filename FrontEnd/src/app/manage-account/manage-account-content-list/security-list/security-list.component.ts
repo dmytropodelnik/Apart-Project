@@ -73,8 +73,9 @@ export class SecurityListComponent implements OnInit {
     fetch(`https://apartmain.azurewebsites.net/api/codes/generateresetcode?email=` + AuthHelper.getLogin(), {
       method: 'GET',
       headers: {
+        'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
       .then((r) => r.json())
@@ -101,8 +102,9 @@ export class SecurityListComponent implements OnInit {
     fetch(`https://apartmain.azurewebsites.net/api/codes/generatedeleteusercode?email=` + AuthHelper.getLogin(), {
       method: 'GET',
       headers: {
+        'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
       .then((r) => r.json())

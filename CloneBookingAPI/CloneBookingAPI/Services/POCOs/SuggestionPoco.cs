@@ -14,6 +14,7 @@ namespace CloneBookingAPI.Services.POCOs
         public int Page { get; set; }
         public int UserId { get; set; }
         public int BookingCategoryId { get; set; }
+        public int StatusId { get; set; }
         public int StarsRating { get; set; }
         public string Name { get; set; }
         public string Login { get; set; }

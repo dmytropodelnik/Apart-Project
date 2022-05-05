@@ -9,7 +9,7 @@ import { VerifyEnterComponent } from './verify-enter/verify-enter.component';
 import { FlightsComponent } from './flights/flights.component';
 import { AdminPanelGuard } from './admin-panel/admin-main-body/admin-panel.guard';
 import { JoinAsPartnerComponent } from './join-as-partner/join-as-partner.component';
-import { ViewPropertyComponent } from './list-your-property/view-property/view-property.component';
+import { ViewPropertyComponent } from './view-property/view-property.component';
 import { AddPropertyComponent } from './list-your-property/add-property/add-property.component';
 import { LpNameAndLocationComponent } from './list-your-property/lp-name-and-location/lp-name-and-location.component';
 import { LpPhotosComponent } from './list-your-property/lp-photos/lp-photos.component';
@@ -21,6 +21,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { UserSavedComponent } from './user-saved/user-saved.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { LpApartmentsComponent } from './list-your-property/lp-apartments/lp-apartments.component';
+import { StaySuggestionPageComponent } from './stay-suggestion-page/stay-suggestion-page.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'stays', pathMatch: 'full' },
@@ -41,6 +42,7 @@ const routes: Routes = [
   { path: 'lp/addproperty', component: AddPropertyComponent, pathMatch: 'full' },
   { path: 'mysettings', component: ManageAccountComponent },
   { path: 'searchresults', component: SearchResultsComponent },
+  { path: 'suggestion/:id', component: StaySuggestionPageComponent },
   { path: 'resetpassword', component: ResetPasswordComponent },
   {
     path: 'lp/nameandlocation',

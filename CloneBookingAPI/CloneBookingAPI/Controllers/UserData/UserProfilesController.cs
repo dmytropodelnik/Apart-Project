@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.UserProfile;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers
 {
-    // [Authorize]
+    [TypeFilter(typeof(AuthorizationFilter))]
     [Route("api/[controller]")]
     [ApiController]
     public class UserProfilesController : Controller
@@ -25,7 +26,7 @@ namespace CloneBookingAPI.Controllers
             _context = context;
         }
 
-        // [Authorize(Roles = "admin")]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("getprofiles")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<UserProfile>>> GetUserProfiles(int page = -1, int pageSize = -1)
@@ -132,10 +133,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-
-        // [Authorize(Roles = "admin")]
         [Route("getuserprofile")]
-        [HttpGet("{id}")]
+        [HttpGet]
         public async Task<ActionResult<UserProfile>> GetUserProfile(int id)
         {
             try
@@ -180,7 +179,6 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        // [Authorize]
         [Route("changeusersinfo")]
         [HttpPut]
         public async Task<IActionResult> ChangeUsersInfo([FromBody] UserProfile profile)

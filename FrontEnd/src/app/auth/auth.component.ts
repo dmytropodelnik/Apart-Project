@@ -80,8 +80,7 @@ export class AuthComponent implements OnInit {
     fetch(`https://apartmain.azurewebsites.net/api/users/userexists?email=${user.email}`, {
       method: 'GET',
       headers: {
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        'Content-Type': 'application/json; charset=utf-8',
       },
     })
       .then((r) => r.json())
@@ -108,8 +107,6 @@ export class AuthComponent implements OnInit {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
       },
       body: JSON.stringify(user),
     })
@@ -177,9 +174,7 @@ export class AuthComponent implements OnInit {
     fetch('https://apartmain.azurewebsites.net/api/users/register', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        'Content-Type': 'application/json; charset=utf-8',
       },
       body: JSON.stringify(user),
     })

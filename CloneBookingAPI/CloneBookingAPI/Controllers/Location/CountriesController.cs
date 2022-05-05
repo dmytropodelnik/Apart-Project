@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Location;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -71,6 +72,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("search")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Country>>> Search(string country, int page = -1, int pageSize = -1)
@@ -112,6 +114,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("addcountry")]
         [HttpPost]
         public async Task<IActionResult> AddCountry([FromBody] Country country, IFormFile uploadedFile)
@@ -159,6 +162,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("changecountrybyname")]
         [HttpPut]
         public async Task<IActionResult> ChangeCountryByName(string country, string newName)
@@ -208,6 +212,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("changecountry")]
         [HttpPut("{id}")]
         public async Task<IActionResult> ChangeCountry(int id, string newName)
@@ -257,6 +262,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deletecountrybyname")]
         [HttpDelete]
         public async Task<IActionResult> DeleteCountryByName(string country)
@@ -305,8 +312,10 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deletecountry")]
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteCountry(int id)
         {
             try

@@ -123,7 +123,7 @@ export class PersonalDetailsListComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(user),
     })
@@ -154,7 +154,7 @@ export class PersonalDetailsListComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(user),
     })
@@ -185,7 +185,7 @@ export class PersonalDetailsListComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(user),
     })
@@ -208,8 +208,9 @@ export class PersonalDetailsListComponent implements OnInit {
     fetch(`https://apartmain.azurewebsites.net/api/auth/isemailregistered?email=${this.user.newEmail}`, {
       method: 'GET',
       headers: {
+        'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
       .then((r) => r.json())
@@ -218,8 +219,9 @@ export class PersonalDetailsListComponent implements OnInit {
           fetch(`https://apartmain.azurewebsites.net/api/codes/generatechangingemailcode?email=${this.user.newEmail}&oldEmail=${AuthHelper.getLogin()}`, {
             method: 'GET',
             headers: {
+              'Content-Type': 'application/json; charset=utf-8',
               Accept: 'application/json',
-              Authorization: 'Bearer ' + AuthHelper.getToken(),
+              Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
             },
           })
             .then((r) => r.json())
@@ -254,7 +256,7 @@ export class PersonalDetailsListComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(user),
     })
@@ -292,7 +294,7 @@ export class PersonalDetailsListComponent implements OnInit {
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           Accept: 'application/json',
-          Authorization: 'Bearer ' + AuthHelper.getToken(),
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
         },
         body: JSON.stringify(user),
       })
@@ -328,7 +330,7 @@ export class PersonalDetailsListComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(user),
     })
@@ -358,7 +360,7 @@ export class PersonalDetailsListComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(user),
     })
@@ -391,7 +393,7 @@ export class PersonalDetailsListComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(user),
     })
@@ -425,6 +427,11 @@ export class PersonalDetailsListComponent implements OnInit {
         AuthHelper.getLogin(),
       {
         method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
       }
     )
       .then((response) => response.json())

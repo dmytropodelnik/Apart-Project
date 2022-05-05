@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
@@ -29,6 +30,8 @@ namespace CloneBookingAPI.Controllers
             _appEnvironment = appEnvironment;
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("getimages")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FileModel>>> GetFiles(int page = -1, int pageSize = -1)
@@ -70,6 +73,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("search")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FileModel>>> Search(string file, int page = -1, int pageSize = -1)
@@ -111,7 +116,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        // [Authorize]
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("deleteimage")]
         [HttpDelete]
         public async Task<IActionResult> DeleteImage([FromBody] FileModel file)

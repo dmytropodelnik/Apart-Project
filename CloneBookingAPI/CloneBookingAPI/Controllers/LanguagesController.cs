@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -63,6 +64,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("search")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Language>>> Search(string lang, int page = -1, int pageSize = -1)
@@ -104,6 +106,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("addlanguage")]
         [HttpPost]
         public async Task<IActionResult> AddLanguage([FromBody] Language lang)
@@ -151,6 +155,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("editlanguage")]
         [HttpPut]
         public async Task<IActionResult> EditLanguage([FromBody] Language lang)
@@ -200,6 +206,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deletelangbyname")]
         [HttpDelete]
         public async Task<IActionResult> DeleteLangByName(string lang)
@@ -248,6 +256,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deletelang")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteLang([FromBody] Language lang)

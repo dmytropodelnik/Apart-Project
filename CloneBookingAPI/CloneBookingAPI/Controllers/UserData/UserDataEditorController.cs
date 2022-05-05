@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Generators;
 using Microsoft.AspNetCore.Authorization;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.UserData
 {
+    [TypeFilter(typeof(AuthorizationFilter))]
     [Route("api/[controller]")]
     [ApiController]
     public class UserDataEditorController : Controller

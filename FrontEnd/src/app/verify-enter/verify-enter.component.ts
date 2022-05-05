@@ -61,7 +61,7 @@ export class VerifyEnterComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(user),
     })
@@ -121,7 +121,7 @@ export class VerifyEnterComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(user),
     })
@@ -143,8 +143,9 @@ export class VerifyEnterComponent implements OnInit {
     fetch(`https://apartmain.azurewebsites.net/api/users/deleteuser?email=${this.email}`, {
         method: 'DELETE',
         headers: {
+          'Content-Type': 'application/json; charset=utf-8',
           Accept: 'application/json',
-          Authorization: 'Bearer ' + AuthHelper.getToken(),
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
         },
       }
     )

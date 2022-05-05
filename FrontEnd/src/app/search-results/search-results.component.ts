@@ -65,6 +65,14 @@ export class SearchResultsComponent implements OnInit {
 
   suggestionsAmount: number = 0;
 
+  yearIn: number | null = null;
+  monthIn: number | null = null;
+  dayIn: number | null = null;
+
+  yearOut: number | null = null;
+  monthOut: number | null = null;
+  dayOut: number | null = null;
+
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   model: any;
@@ -182,7 +190,7 @@ export class SearchResultsComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(this.filters),
     })
@@ -321,7 +329,7 @@ export class SearchResultsComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(suggestion),
     })
@@ -349,7 +357,7 @@ export class SearchResultsComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(suggestion),
     })
@@ -378,6 +386,11 @@ export class SearchResultsComponent implements OnInit {
         AuthHelper.getLogin(),
       {
         method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
       }
     )
       .then((response) => response.json())
@@ -418,6 +431,15 @@ export class SearchResultsComponent implements OnInit {
         +params['monthOut'],
         +params['dayOut']
       );
+
+      this.yearIn = +params['yearIn'];
+      this.monthIn = +params['monthIn'];
+      this.dayIn = +params['dayIn'];
+
+      this.yearOut = +params['yearOut'];
+      this.monthOut = +params['monthOut'];
+      this.dayOut = +params['dayOut'];
+
       this.filters.searchAdultsAmount = params['adults'];
       this.filters.searchChildrenAmount = params['children'];
       this.filters.searchRoomsAmount = params['rooms'];
@@ -457,6 +479,25 @@ export class SearchResultsComponent implements OnInit {
         );
         this.searchPlace = this.searchBookingCategory;
       }
+    });
+  }
+
+  showSuggestion(uniqueCode: number): void {
+    this.router.navigate(['suggestion', uniqueCode], {
+      queryParams: {
+        place: this.filters.place,
+        dateIn: this.filters.dateIn,
+        dateOut: this.filters.dateOut,
+        dayIn: this.dayIn,
+        monthIn: this.monthIn,
+        yearIn: this.yearIn,
+        dayOut: this.dayOut,
+        monthOut: this.monthOut,
+        yearOut: this.yearOut,
+        adults: this.filters.searchAdultsAmount,
+        children: this.filters.searchChildrenAmount,
+        rooms: this.filters.searchRoomsAmount,
+      },
     });
   }
 

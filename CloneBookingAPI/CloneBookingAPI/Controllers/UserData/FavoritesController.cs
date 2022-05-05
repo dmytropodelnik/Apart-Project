@@ -17,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.UserData
 {
-    // [Authorize]
+    [TypeFilter(typeof(AuthorizationFilter))]
     [Route("api/[controller]")]
     [ApiController]
     public class FavoritesController : Controller
@@ -29,6 +29,7 @@ namespace CloneBookingAPI.Controllers.UserData
             _context = context;
         }
 
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("getfavorites")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Favorite>>> GetFavorites(int page = -1, int pageSize = -1)

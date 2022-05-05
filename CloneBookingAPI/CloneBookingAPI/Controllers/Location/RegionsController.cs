@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Location;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -72,6 +73,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("search")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Region>>> Search(string region, int page = -1, int pageSize = -1)
@@ -116,6 +118,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("addregion")]
         [HttpPost]
         public async Task<IActionResult> AddRegion([FromBody] Region region, IFormFile uploadedFile)
@@ -163,6 +166,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("changeregionbyname")]
         [HttpPut]
         public async Task<IActionResult> ChangeRegionByName(string region, string newName)
@@ -212,6 +216,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("changeregion")]
         [HttpPut("{id}")]
         public async Task<IActionResult> ChangeRegion(int id, string newName)
@@ -261,6 +266,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deleteregionbyname")]
         [HttpDelete]
         public async Task<IActionResult> DeleteRegionByName(string region)
@@ -309,8 +316,10 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deleteregion")]
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteRegion(int id)
         {
             try

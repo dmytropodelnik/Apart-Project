@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.UserProfile;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -52,6 +53,7 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("search")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Gender>>> Search(string gender)
@@ -91,6 +93,8 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("addgender")]
         [HttpPost]
         public async Task<IActionResult> AddGender([FromBody] Gender gender)
@@ -134,6 +138,8 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("editgender")]
         [HttpPut]
         public async Task<IActionResult> EditGender([FromBody] Gender gender)
@@ -183,6 +189,8 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deletegender")]
         [HttpDelete]
         public async Task<IActionResult> DeleteGender([FromBody] Gender gender)

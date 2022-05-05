@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers
 {
-    [TypeFilter(typeof(AuthFilter))]
     [Route("api/[controller]")]
     // [ApiController]
     public class DealsController : Controller
@@ -29,7 +28,6 @@ namespace CloneBookingAPI.Controllers
             _emailSender = new DealsEmailSender(configuration);
         }
 
-        // GET: api/<AuthController>
         [Route("sendbestdealsletter")]
         [HttpGet]
         public async Task<ActionResult> SendBestDealsLetter(string email)

@@ -30,8 +30,9 @@ export class PromocodeGeneratorComponent implements OnInit {
       {
         method: 'POST',
         headers: {
+          'Content-Type': 'application/json; charset=utf-8',
           Accept: 'application/json',
-          Authorization: 'Bearer ' + AuthHelper.getToken(),
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
         },
       }
     )
@@ -41,8 +42,9 @@ export class PromocodeGeneratorComponent implements OnInit {
           fetch(`https://apartmain.azurewebsites.net/api/promocodes/getlastcodes`, {
             method: 'GET',
             headers: {
+              'Content-Type': 'application/json; charset=utf-8',
               Accept: 'application/json',
-              Authorization: 'Bearer ' + AuthHelper.getToken(),
+              Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
             },
           })
             .then((r) => r.json())
@@ -69,8 +71,9 @@ export class PromocodeGeneratorComponent implements OnInit {
     fetch(`https://apartmain.azurewebsites.net/api/promocodes/getlastcodes`, {
       method: 'GET',
       headers: {
+        'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
       .then((r) => r.json())

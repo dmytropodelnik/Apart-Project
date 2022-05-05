@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Interfaces;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Interfaces;
 using CloneBookingAPI.Services;
 using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
@@ -50,7 +51,6 @@ namespace CloneBookingAPI.Controllers
             _subjectChangeEmailLetterTemplate   = configuration["EmailLetterSubjectTemplates:ChangingEmailLetterSubject:Template"];
             _subjectDeleteUserLetterTemplate    = configuration["EmailLetterSubjectTemplates:DeleteUserLetterSubject:Template"];
         }
-
 
         [Route("isemailregistered")]
         [HttpGet]
@@ -160,6 +160,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("sendresetpasswordletter")]
         [HttpGet]
         public async Task<IActionResult> SendResetPasswordLetter(string emailTrim, string code)
@@ -207,6 +208,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("sendchangingemailletter")]
         [HttpGet]
         public async Task<IActionResult> SendChangingEmailLetter(string emailTrim, string oldEmailTrim, string code)
@@ -257,6 +259,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("senddeleteuserletter")]
         [HttpGet]
         public async Task<IActionResult> SendDeleteUserLetter(string emailTrim, string code)

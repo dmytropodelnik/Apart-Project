@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Location;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -77,6 +78,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("search")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Airport>>> Search(string airport, int page = -1, int pageSize = -1)
@@ -130,6 +132,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("addairport")]
         [HttpPost]
         public async Task<IActionResult> AddAirport([FromBody] string airport, IFormFile uploadedFile)
@@ -179,6 +182,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("changeairportbyname")]
         [HttpPut]
         public async Task<IActionResult> ChangeAirportByName(string airport, string newName)
@@ -228,6 +232,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("changeairportbyname")]
         [HttpPut("{id}")]
         public async Task<IActionResult> ChangeAirport(int id, string newName)
@@ -277,6 +282,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deleteairportbyname")]
         [HttpDelete]
         public async Task<IActionResult> DeleteAirportByName(string airport)
@@ -325,6 +332,8 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deleteairport")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAirport(int id)

@@ -29,6 +29,10 @@
   text-align: center;
 }
 
+.click-component {
+  cursor: pointer;
+}
+
 .dropdown_button:hover {
   color: #ed6648;
   background: #ffffff;

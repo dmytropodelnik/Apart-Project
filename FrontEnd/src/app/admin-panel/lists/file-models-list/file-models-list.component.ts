@@ -35,7 +35,7 @@ export class FileModelsListComponent implements OnInit {
       method: 'GET',
       headers: {
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
       .then((r) => r.json())
@@ -63,7 +63,7 @@ export class FileModelsListComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(file),
     })
@@ -94,7 +94,7 @@ export class FileModelsListComponent implements OnInit {
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
-        Authorization: 'Bearer ' + AuthHelper.getToken(),
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(file),
     })
@@ -140,9 +140,9 @@ export class FileModelsListComponent implements OnInit {
       fetch('https://apartmain.azurewebsites.net/api/fileuploader/uploadfile', {
         method: 'POST',
         headers: {
-          "Accept": "application/json",
-          "Authorization": "Bearer " + AuthHelper.getToken(),
-         },
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
         body: fData,
       })
       .then(r => r.json())

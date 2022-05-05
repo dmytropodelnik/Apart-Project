@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Location;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -68,6 +69,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("search")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Address>>> Search(string address, int page = -1, int pageSize = -1)
@@ -115,7 +117,7 @@ namespace CloneBookingAPI.Controllers
         }
 
         [Route("getaddress")]
-        [HttpGet("{id}")]
+        [HttpGet]
         public async Task<ActionResult<Address>> GetAddress(int id)
         {
             try
@@ -142,6 +144,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("addaddress")]
         [HttpPost]
         public async Task<IActionResult> AddAddress([FromBody] Address address)
@@ -198,6 +201,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("changeaddress")]
         [HttpPut]
         public async Task<IActionResult> ChangeAddress([FromBody] Address newAddress)
@@ -274,8 +278,10 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deleteaddress")]
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteAddress(int id)
         {
             try

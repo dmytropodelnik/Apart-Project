@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -63,6 +64,8 @@ namespace CloneBookingAPI.Controllers.Payment
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("addpayment")]
         [HttpPost]
         public async Task<IActionResult> AddPaymentType([FromBody] PaymentType type)
@@ -110,6 +113,8 @@ namespace CloneBookingAPI.Controllers.Payment
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("changetypebyname")]
         [HttpPut]
         public async Task<IActionResult> ChangeTypeByName(PaymentType type)
@@ -159,6 +164,8 @@ namespace CloneBookingAPI.Controllers.Payment
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deletetypebyname")]
         [HttpDelete]
         public async Task<IActionResult> DeleteType(string type)

@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.POCOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -71,7 +72,7 @@ namespace CloneBookingAPI.Controllers.Review
             }
         }
 
-
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("getuserreviews")]
         [HttpGet]
         public async Task<IActionResult> GetUserReviews(string email)
@@ -117,7 +118,6 @@ namespace CloneBookingAPI.Controllers.Review
             }
         }
 
-        // [Authorize]
         [Route("getuserpropertyreviews")]
         [HttpGet]
         public async Task<IActionResult> GetUserPropertyReviews(string email)
@@ -234,6 +234,7 @@ namespace CloneBookingAPI.Controllers.Review
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("addreview")]
         [HttpPost]
         public async Task<IActionResult> AddReview([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
@@ -276,6 +277,7 @@ namespace CloneBookingAPI.Controllers.Review
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("editreview")]
         [HttpPut]
         public async Task<IActionResult> EditReview([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
@@ -327,6 +329,7 @@ namespace CloneBookingAPI.Controllers.Review
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("editreviewbyid")]
         [HttpPut]
         public async Task<IActionResult> EditReviewById([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
@@ -376,8 +379,9 @@ namespace CloneBookingAPI.Controllers.Review
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("deletereview")]
-        [HttpDelete("{id}")]
+        [HttpDelete]
         public async Task<IActionResult> DeleteReview([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
         {
             try
@@ -402,25 +406,25 @@ namespace CloneBookingAPI.Controllers.Review
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
     }

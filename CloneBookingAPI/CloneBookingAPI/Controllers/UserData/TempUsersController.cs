@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.UserData;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -22,6 +23,8 @@ namespace CloneBookingAPI.Controllers.UserData
             _context = context;
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("getusers")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TempUser>>> GetUsers(int page = -1, int pageSize = -1)
@@ -63,6 +66,7 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("search")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TempUser>>> Search(string user, int page = -1, int pageSize = -1)
@@ -107,6 +111,8 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("edituser")]
         [HttpPut]
         public async Task<IActionResult> EditUser([FromBody] TempUser user)
