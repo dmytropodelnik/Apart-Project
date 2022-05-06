@@ -10,6 +10,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { RepositoryEnum } from '../enums/repositoryenum.item';
+import { ConsoleLogger } from '@angular/compiler-cli/private/localize';
 
 @Component({
   selector: 'app-auth',
@@ -29,6 +30,10 @@ export class AuthComponent implements OnInit {
   emailForm: FormGroup;
   submitted = false;
   isPasswordsEqual = false;
+
+  userFirstName: string = "";
+  userLastName: string = "";
+  facebookId: string = "";
 
   constructor(
     private authService: AuthorizationService,
@@ -57,6 +62,7 @@ export class AuthComponent implements OnInit {
         ],
       ],
     });
+    FB.XFBML.parse();
   }
 
   get f() {
@@ -110,8 +116,8 @@ export class AuthComponent implements OnInit {
       },
       body: JSON.stringify(user),
     })
-      .then(response => response.json())
-      .then(response => {
+      .then((response) => response.json())
+      .then((response) => {
         if (response.code !== 400) {
           this.authService.setTokenKey(response.encodedJwt);
           AuthHelper.saveAuth(user.email, response.encodedJwt);
@@ -119,7 +125,7 @@ export class AuthComponent implements OnInit {
           alert('You have successfully authenticated!');
           this.router.navigate(['']);
         } else {
-          alert("Token fetching error!");
+          alert('Token fetching error!');
         }
       })
       .catch((ex) => {
@@ -132,9 +138,13 @@ export class AuthComponent implements OnInit {
       this.isPasswordEqual = true;
     }
 
-    fetch('https://localhost:44381/api/codes/generateregistercode?email=' + this.email, {
-      method: 'GET',
-    })
+    fetch(
+      'https://localhost:44381/api/codes/generateregistercode?email=' +
+        this.email,
+      {
+        method: 'GET',
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         alert(data.code);
@@ -193,7 +203,98 @@ export class AuthComponent implements OnInit {
       });
   }
 
-  verifyEnter() {}
+  verifyFacebookEnter() {
+    FB.login(
+      (response) => {
+        if (response.status === 'connected') {
+          // Logged into your webpage and Facebook.
+          this.facebookId = response.authResponse.userID;
 
-  ngOnInit(): void {}
+          /* make the API call */
+          FB.api(response.authResponse.userID, (response) => {
+            if (response) {
+              let userName = (response as any).name as string;
+              this.userFirstName = userName.substring(0, userName.indexOf(' '));
+              this.userLastName = userName.substring(userName.indexOf(' ') + 1, userName.length);
+            }
+          });
+
+          fetch('https://localhost:44381/api/users/userexistsbyfacebook?id=' + this.facebookId, {
+              method: 'GET',
+            }
+          )
+            .then((r) => r.json())
+            .then((data) => {
+              if (data.code === 200 && data.userExisted) {
+                let user = {
+                  facebookId: this.facebookId,
+                  repository: RepositoryEnum.Enter,
+                };
+
+                fetch('https://localhost:44381/tokenforfacebook', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                  },
+                  body: JSON.stringify(user),
+                })
+                  .then((response) => response.json())
+                  .then((response) => {
+                    if (response.code !== 400) {
+                      this.authService.setTokenKey(response.encodedJwt);
+                      AuthHelper.saveAuth(user.facebookId, response.encodedJwt);
+                      this.authService.toggleLogCondition();
+                      this.authService.setFacebookAuthCondition(true);
+                      alert('You have successfully authenticated!');
+                      console.log('You have successfully authenticated!');
+                      this.router.navigate(['']);
+                    } else {
+                      alert('Token fetching error!');
+                    }
+                  })
+                  .catch((ex) => {
+                    alert(ex);
+                  });
+              } else {
+                let person = {
+                  facebookId: this.facebookId,
+                  firstName: this.userFirstName,
+                  lastName: this.userLastName,
+                };
+
+                fetch('https://localhost:44381/api/users/registerviafacebook', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                  },
+                  body: JSON.stringify(person),
+                })
+                  .then((r) => r.json())
+                  .then((response) => {
+                    if (response.code === 200) {
+                      this.userSignIn();
+                    } else {
+                      alert(response.code);
+                    }
+                  })
+                  .catch((ex) => {
+                    alert(ex);
+                  });
+              }
+            })
+            .catch((ex) => {
+              alert(ex);
+            });
+        } else {
+          // The person is not logged into your webpage or we are unable to tell.
+          alert('Login via facebook error!');
+        }
+      },
+      { scope: 'public_profile,email' }
+    );
+  }
+
+  ngOnInit(): void {
+    //FB.XFBML.parse();
+  }
 }

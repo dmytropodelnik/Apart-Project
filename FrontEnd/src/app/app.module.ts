@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
@@ -90,8 +90,12 @@ import { UserSavedComponent } from './user-saved/user-saved.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { LpApartmentsComponent } from './list-your-property/lp-apartments/lp-apartments.component';
 import { StaySuggestionPageComponent } from './stay-suggestion-page/stay-suggestion-page.component';
+import { appInitializer } from './utils/appInitializer';
+import { AppInitializerComponent } from './app-initializer/app-initializer.component';
+import { Router } from '@angular/router';
 
 @NgModule({
+  providers: [AuthorizationService, MainDataService, ListNewPropertyService, AdminContentService],
   declarations: [
     AppComponent,
     HeaderComponent,
@@ -172,6 +176,7 @@ import { StaySuggestionPageComponent } from './stay-suggestion-page/stay-suggest
     ResetPasswordComponent,
     LpApartmentsComponent,
     StaySuggestionPageComponent,
+    AppInitializerComponent,
   ],
   imports: [
     BrowserModule,
@@ -181,7 +186,13 @@ import { StaySuggestionPageComponent } from './stay-suggestion-page/stay-suggest
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [AuthorizationService, MainDataService, ListNewPropertyService, AdminContentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+
+// {
+//   provide: APP_INITIALIZER,
+//   useFactory: () => appInitializer,
+//   deps: [AuthorizationService, Router],
+//   multi: true
+//  },

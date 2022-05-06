@@ -117,31 +117,63 @@ export class PreferencesListComponent implements OnInit {
       });
   }
 
-  getCurrentUser(): void {
-    fetch(
-      'https://localhost:44381/api/users/getuser?email=' +
-        AuthHelper.getLogin(),
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Accept: 'application/json',
-          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.code === 200) {
-          this.user.currency = response.user?.profile?.currency.abbreviation;
-          this.user.language = response.user?.profile?.language?.title;
-        } else {
-          alert('Get current user error!');
+  async getCurrentUser(): Promise<void> {
+    if (!this.authService.isGotData) {
+      await this.authService.refreshAuth();
+    }
+    if (!this.authService.getFacebookAuthCondition()) {
+      fetch(
+        'https://localhost:44381/api/users/getuser?email=' +
+          AuthHelper.getLogin(),
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            Accept: 'application/json',
+            Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+          },
         }
-      })
-      .catch((ex) => {
-        alert(ex);
-      });
+      )
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.code === 200) {
+            this.authService.isGotData = true;
+
+            this.user.currency = response.user?.profile?.currency.abbreviation;
+            this.user.language = response.user?.profile?.language?.title;
+          } else {
+            alert('Get current user error!');
+          }
+        })
+        .catch((ex) => {
+          alert(ex);
+        });
+    } else {
+      fetch(
+        'https://localhost:44381/api/users/getuserbyfacebookid?id=' +
+          AuthHelper.getLogin(),
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            Accept: 'application/json',
+            Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.code === 200) {
+            this.user.currency = response.user?.profile?.currency.abbreviation;
+            this.user.language = response.user?.profile?.language?.title;
+          } else {
+            alert('Get current user error!');
+          }
+        })
+        .catch((ex) => {
+          alert(ex);
+        });
+    }
   }
 
   initializeBoolArray(): void {
@@ -196,8 +228,8 @@ export class PreferencesListComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.initializeBoolArray();
-    this.getCurrentUser();
+    await this.getCurrentUser();
   }
 }

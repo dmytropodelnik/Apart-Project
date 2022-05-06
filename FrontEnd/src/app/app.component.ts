@@ -7,5 +7,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'booking';
-  
+
+  constructor() {
+
+  }
+
+  ngOnInit(): void {
+
+  }
 }

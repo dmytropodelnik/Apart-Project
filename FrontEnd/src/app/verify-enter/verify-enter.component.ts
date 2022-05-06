@@ -60,8 +60,6 @@ export class VerifyEnterComponent implements OnInit {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: JSON.stringify(user),
     })

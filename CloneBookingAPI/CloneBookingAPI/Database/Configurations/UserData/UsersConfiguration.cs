@@ -18,16 +18,16 @@ namespace CloneBookingAPI.Services.Database.Configurations.UserProfile
               {
                 new User { Id = 1, Email = "apartproject@ukr.net", FirstName = "Admin", LastName = "Admin", DisplayName = "Admin",
                            PasswordHash =  _saltGenerator.GenerateKeyCode("12341234qwe"), SaltHash = _saltGenerator.Salt,
-                           RoleId = 1 },
+                           RoleId = 1, FacebookId = "none", },
                 new User { Id = 2, Email = "inko10092001@gmail.com", FirstName = "Admin2 FirstName", LastName = "Admin2 LastName",
                            PasswordHash =  _saltGenerator.GenerateKeyCode("12341234qwe"), SaltHash = _saltGenerator.Salt,
-                           RoleId = 1, DisplayName = "Admin2" },
+                           RoleId = 1, DisplayName = "Admin2", FacebookId = "none", },
                 new User { Id = 3, Email = "kanyesupreme@ukr.net", FirstName = "User FirstName", LastName = "Test", DisplayName = "UserTest",
                            PasswordHash =  _saltGenerator.GenerateKeyCode("12341234qwe"), SaltHash = _saltGenerator.Salt,
-                           RoleId = 2, },
+                           RoleId = 2, FacebookId = "none", },
                 new User { Id = 4, Email = "prokter222@gmail.com", FirstName = "User2 FirstName", LastName = "User2 LastName",
                            PasswordHash =  _saltGenerator.GenerateKeyCode("12341234qwe"), SaltHash = _saltGenerator.Salt,
-                           RoleId = 2, DisplayName = "UserTest2" },
+                           RoleId = 2, DisplayName = "UserTest2", FacebookId = "none", },
               });
         }
     }

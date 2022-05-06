@@ -24,6 +24,8 @@ namespace CloneBookingAPI.Services.POCOs
 
         public string BirthDate { get; set; }
 
+        public string FacebookId { get; set; }
+
         public string AddressText { get; set; }
         public string Country { get; set; }
         public string City { get; set; }

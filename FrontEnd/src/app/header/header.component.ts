@@ -56,6 +56,14 @@ export class HeaderComponent implements OnInit {
         if (response.code === 200) {
           this.authService.setLogCondition(false);
           AuthHelper.clearAuth();
+
+          FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+            if (response.status === 'connected') {  // Returns the login status.
+              FB.logout(function(response) {
+                // Person is now logged out
+             });
+            }
+          });
         } else {
           alert('Logout error!');
         }

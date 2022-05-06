@@ -36,10 +36,12 @@ namespace CloneBookingAPI.Services.Database.Models
         public string DisplayName { get; set; }
 
         [Display(Name = "Email")]
-        [Required(ErrorMessage = "Enter an email")]
+        //[Required(ErrorMessage = "Enter an email")]
         [DataType(DataType.EmailAddress)]
         [StringLength(320, ErrorMessage = "Incorrect length")]
         public string Email { get; set; }
+
+        public string FacebookId { get; set; }
 
         [Display(Name = "Phone Number")]
         [DataType(DataType.PhoneNumber)]
@@ -47,12 +49,12 @@ namespace CloneBookingAPI.Services.Database.Models
         public string PhoneNumber { get; set; }
 
         [Display(Name = "Password")]
-        [Required]
+        //[Required]
         [DataType(DataType.Password)]
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string PasswordHash { get; set; }
 
-        [Required]
+        //[Required]
         [DataType(DataType.Password)]
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string SaltHash { get; set; }
