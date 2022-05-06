@@ -211,8 +211,13 @@ export class AuthComponent implements OnInit {
       });
   }
 
-  verifyGoogleEnter(): void {
-    this.authSocialService.signIn(GoogleLoginProvider.PROVIDER_ID);
+  async verifyGoogleEnter(): Promise<void> {
+    await this.authSocialService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    this.authSocialService.authState.subscribe(user => {
+      this.user = user;
+      console.log(this.user);
+      this.googleEnter();
+    });
   }
 
   verifyFacebookEnter(): void {
@@ -392,10 +397,5 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void {
     //FB.XFBML.parse();
-
-    this.authSocialService.authState.subscribe(user => {
-      this.user = user;
-      this.googleEnter();
-    });
   }
 }

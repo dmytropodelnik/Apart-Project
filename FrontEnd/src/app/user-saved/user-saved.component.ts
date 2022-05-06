@@ -30,6 +30,7 @@ export class UserSavedComponent implements OnInit {
   userId: number | null = null;
 
   constructor(
+    private authService: AuthorizationService,
     public mainDataService: MainDataService,
     private router: Router
   ) {}
@@ -63,7 +64,6 @@ export class UserSavedComponent implements OnInit {
               return true;
             }
           });
-          console.log(response);
         } else {
           alert('User favorites fetching error!');
         }
@@ -74,10 +74,13 @@ export class UserSavedComponent implements OnInit {
   }
 
   getUserFavorites(): void {
-    fetch(
-      'https://apartmain.azurewebsites.net/api/favorites/getuserfavorites?email=' +
-        AuthHelper.getLogin(),
-      {
+    let url = 'https://apartmain.azurewebsites.net/api/favorites/getuserfavorites?email=' +
+                AuthHelper.getLogin();
+    if (this.authService.getFacebookAuthCondition()) {
+      url += '&isFacebookAuth=true';
+    }
+
+    fetch(url, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -93,7 +96,6 @@ export class UserSavedComponent implements OnInit {
           this.suggestionGrades = response.suggestionGrades;
           this.reviewsCount = response.reviewsCount;
           this.suggestionStartsFrom = response.suggestionStartsFrom;
-          console.log(this.suggestions);
         } else {
           alert('User favorites fetching error!');
         }
