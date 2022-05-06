@@ -265,8 +265,6 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.suggestionStartsFrom = data.suggestionStartsFrom;
           this.reviewsCount = data.reviewsCount;
           this.suggestionGrades = data.suggestionGrades;
-
-          console.log(this.suggestionStartsFrom);
         }
       })
       .catch((ex) => {

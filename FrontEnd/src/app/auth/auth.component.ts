@@ -10,7 +10,6 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { RepositoryEnum } from '../enums/repositoryenum.item';
-import { ConsoleLogger } from '@angular/compiler-cli/private/localize';
 
 @Component({
   selector: 'app-auth',
@@ -31,9 +30,9 @@ export class AuthComponent implements OnInit {
   submitted = false;
   isPasswordsEqual = false;
 
-  userFirstName: string = "";
-  userLastName: string = "";
-  facebookId: string = "";
+  userFirstName: string = '';
+  userLastName: string = '';
+  facebookId: string = '';
 
   constructor(
     private authService: AuthorizationService,
@@ -203,7 +202,19 @@ export class AuthComponent implements OnInit {
       });
   }
 
-  verifyFacebookEnter() {
+  verifyGoogleEnter(response: any): void {
+     alert("callback");
+
+    // google.accounts.id.initialize({
+    //   client_id: '1051280403604-gn2mjml14fgen0739ts5su7n22vclbiv.apps.googleusercontent.com',
+    //   callback: (response: any) => {
+    //     alert(response);
+    //   },
+    // });
+    // google.accounts.id.prompt();
+  }
+
+  verifyFacebookEnter(): void {
     FB.login(
       (response) => {
         if (response.status === 'connected') {
@@ -215,11 +226,17 @@ export class AuthComponent implements OnInit {
             if (response) {
               let userName = (response as any).name as string;
               this.userFirstName = userName.substring(0, userName.indexOf(' '));
-              this.userLastName = userName.substring(userName.indexOf(' ') + 1, userName.length);
+              this.userLastName = userName.substring(
+                userName.indexOf(' ') + 1,
+                userName.length
+              );
             }
           });
 
-          fetch('https://localhost:44381/api/users/userexistsbyfacebook?id=' + this.facebookId, {
+          fetch(
+            'https://localhost:44381/api/users/userexistsbyfacebook?id=' +
+              this.facebookId,
+            {
               method: 'GET',
             }
           )
