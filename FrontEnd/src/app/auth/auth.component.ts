@@ -349,7 +349,6 @@ export class AuthComponent implements OnInit {
                 this.authService.setTokenKey(response.encodedJwt);
                 AuthHelper.saveAuth(this.user.email, response.encodedJwt);
                 this.authService.toggleLogCondition();
-                this.authService.setFacebookAuthCondition(true);
                 alert('You have successfully authenticated!');
                 this.router.navigate(['']);
               } else {
