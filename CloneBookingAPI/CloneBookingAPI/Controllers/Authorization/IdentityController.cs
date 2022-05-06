@@ -261,7 +261,7 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(user.FacebookId))
+                if (string.IsNullOrWhiteSpace(user.Email))
                 {
                     return Json(new { code = 400 });
                 }
@@ -297,11 +297,11 @@ namespace CloneBookingAPI.Controllers
 
                 if (_jwtRepository.Repository.ContainsKey(resUser.Email))
                 {
-                    _jwtRepository.Repository[user.Email].Add(encodedJwt);
+                    _jwtRepository.Repository[resUser.Email].Add(encodedJwt);
                 }
                 else
                 {
-                    _jwtRepository.Repository.Add(user.Email, new List<string> { encodedJwt });
+                    _jwtRepository.Repository.Add(resUser.Email, new List<string> { encodedJwt });
                 }
 
                 // new JwtCodeCleanTimer(_jwtRepository, _configuration).SetTimer((key: user.Email, code: encodedJwt));
@@ -310,7 +310,7 @@ namespace CloneBookingAPI.Controllers
                 {
                     code = 200,
                     encodedJwt,
-                    resUser.FacebookId,
+                    resUser.Email,
                 });
             }
             catch (ArgumentNullException ex)
