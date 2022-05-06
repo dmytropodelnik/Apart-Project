@@ -10,7 +10,6 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { RepositoryEnum } from '../enums/repositoryenum.item';
-import { ConsoleLogger } from '@angular/compiler-cli/private/localize';
 
 @Component({
   selector: 'app-auth',
@@ -31,9 +30,9 @@ export class AuthComponent implements OnInit {
   submitted = false;
   isPasswordsEqual = false;
 
-  userFirstName: string = "";
-  userLastName: string = "";
-  facebookId: string = "";
+  userFirstName: string = '';
+  userLastName: string = '';
+  facebookId: string = '';
 
   constructor(
     private authService: AuthorizationService,
@@ -83,12 +82,15 @@ export class AuthComponent implements OnInit {
       password: this.password,
     };
     console.log(user);
-    fetch(`https://apartmain.azurewebsites.net/api/users/userexists?email=${user.email}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-    })
+    fetch(
+      `https://apartmain.azurewebsites.net/api/users/userexists?email=${user.email}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -138,9 +140,13 @@ export class AuthComponent implements OnInit {
       this.isPasswordEqual = true;
     }
 
-    fetch('https://apartmain.azurewebsites.net/api/codes/generateregistercode?email=' + this.email, {
-      method: 'GET',
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/codes/generateregistercode?email=' +
+        this.email,
+      {
+        method: 'GET',
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         alert(data.code);
@@ -199,7 +205,20 @@ export class AuthComponent implements OnInit {
       });
   }
 
-  verifyFacebookEnter() {
+  verifyGoogleEnter(response: any): void {
+    alert(response);
+    console.log(response);
+
+    // google.accounts.id.initialize({
+    //   client_id: '1051280403604-gn2mjml14fgen0739ts5su7n22vclbiv.apps.googleusercontent.com',
+    //   callback: (response: any) => {
+    //     alert(response);
+    //   },
+    // });
+    // google.accounts.id.prompt();
+  }
+
+  verifyFacebookEnter(): void {
     FB.login(
       (response) => {
         if (response.status === 'connected') {
@@ -211,11 +230,17 @@ export class AuthComponent implements OnInit {
             if (response) {
               let userName = (response as any).name as string;
               this.userFirstName = userName.substring(0, userName.indexOf(' '));
-              this.userLastName = userName.substring(userName.indexOf(' ') + 1, userName.length);
+              this.userLastName = userName.substring(
+                userName.indexOf(' ') + 1,
+                userName.length
+              );
             }
           });
 
-          fetch('https://apartmain.azurewebsites.net/api/users/userexistsbyfacebook?id=' + this.facebookId, {
+          fetch(
+            'https://apartmain.azurewebsites.net/api/users/userexistsbyfacebook?id=' +
+              this.facebookId,
+            {
               method: 'GET',
             }
           )
@@ -258,13 +283,16 @@ export class AuthComponent implements OnInit {
                   lastName: this.userLastName,
                 };
 
-                fetch('https://apartmain.azurewebsites.net/api/users/registerviafacebook', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                  },
-                  body: JSON.stringify(person),
-                })
+                fetch(
+                  'https://apartmain.azurewebsites.net/api/users/registerviafacebook',
+                  {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json; charset=utf-8',
+                    },
+                    body: JSON.stringify(person),
+                  }
+                )
                   .then((r) => r.json())
                   .then((response) => {
                     if (response.code === 200) {
