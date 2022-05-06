@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { UserProfile } from 'src/app/models/UserData/useprofile.item';
-import { isThisTypeNode } from 'typescript';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';

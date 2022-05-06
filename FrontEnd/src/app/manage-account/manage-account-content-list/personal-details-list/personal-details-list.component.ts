@@ -35,11 +35,7 @@ export class PersonalDetailsListComponent implements OnInit {
 
   user: UserData = new UserData();
 
-  constructor(
-    private authService: AuthorizationService
-    ) {
-
-    }
+  constructor(private authService: AuthorizationService) {}
 
   setCondition(id: number): void {
     this.isEditing[id] = !this.isEditing[id];
@@ -53,8 +49,7 @@ export class PersonalDetailsListComponent implements OnInit {
     if (id == 1) {
       this.tempValue = this.user.firstName;
       this.tempLastName = this.user.lastName;
-    }
-    else if (id == 5) {
+    } else if (id == 5) {
       this.tempBirthDate = value;
     } else if (id == 8) {
       this.zipCode = this.user.zipCode;
@@ -75,7 +70,6 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   cancelButtonClick(id: number): void {
-
     if (id == 0) {
       this.user.title = this.tempValue;
     } else if (id == 1) {
@@ -205,32 +199,41 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   sendChangingEmailLetter(id: number): void {
-    fetch(`https://apartmain.azurewebsites.net/api/auth/isemailregistered?email=${this.user.newEmail}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://apartmain.azurewebsites.net/api/auth/isemailregistered?email=${this.user.newEmail}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200 && data.isExisted == false) {
-          fetch(`https://apartmain.azurewebsites.net/api/codes/generatechangingemailcode?email=${this.user.newEmail}&oldEmail=${AuthHelper.getLogin()}`, {
-            method: 'GET',
-            headers: {
-              'Content-Type': 'application/json; charset=utf-8',
-              Accept: 'application/json',
-              Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-            },
-          })
+          fetch(
+            `https://apartmain.azurewebsites.net/api/codes/generatechangingemailcode?email=${
+              this.user.newEmail
+            }&oldEmail=${AuthHelper.getLogin()}`,
+            {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+                Accept: 'application/json',
+                Authorization:
+                  AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+              },
+            }
+          )
             .then((r) => r.json())
             .then((data) => {
               if (data.code === 200) {
                 this.saveButtonClick(id);
                 this.isEmailSent = true;
               } else {
-                alert("Error generating reset link");
+                alert('Error generating reset link');
               }
             })
             .catch((ex) => {
@@ -284,10 +287,10 @@ export class PersonalDetailsListComponent implements OnInit {
         '/' +
         this.user.pBirthDate!.year;
 
-        let user = {
-          birthDate: this.user.birthDate,
-          email: AuthHelper.getLogin(),
-        };
+      let user = {
+        birthDate: this.user.birthDate,
+        email: AuthHelper.getLogin(),
+      };
 
       fetch('https://apartmain.azurewebsites.net/api/userdataeditor/editbirthdate', {
         method: 'PUT',
@@ -421,47 +424,97 @@ export class PersonalDetailsListComponent implements OnInit {
     }
   }
 
-  getCurrentUser(): void {
-    fetch(
-      'https://apartmain.azurewebsites.net/api/users/getuser?email=' +
-        AuthHelper.getLogin(),
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Accept: 'application/json',
-          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.code === 200) {
-          this.user.addressText = response.user.profile?.address?.addressText;
-          this.user.zipCode = response.user.profile?.address?.zipCode;
-          this.user.country.title = response.user.profile?.address?.country?.title;
-          this.user.city.title = response.user.profile?.address?.city?.title;
-          this.user.title = response.user.title;
-          this.user.firstName = response.user.firstName;
-          this.user.lastName = response.user.lastName;
-          this.user.email = response.user.email;
-          this.user.displayName = response.user.displayName;
-          this.user.phoneNumber = response.user.phoneNumber;
-          if (response.user.profile.birthDate) {
-            this.user.pBirthDate = response.user.profile.birthDate.substring(
-              0,
-              response.user.profile.birthDate.indexOf('T')
-            );
-          }
-          this.user.nationality = response.user.profile.nationality;
-          this.user.genderId = response.user.profile.genderId;
-        } else {
-          alert('Get current user error!');
+  async getCurrentUser(): Promise<void> {
+    if (!this.authService.isGotData) {
+      await this.authService.refreshAuth();
+    }
+    if (!this.authService.getFacebookAuthCondition()) {
+      fetch(
+        'https://apartmain.azurewebsites.net/api/users/getuser?email=' +
+          AuthHelper.getLogin(),
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            Accept: 'application/json',
+            Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+          },
         }
-      })
-      .catch((ex) => {
-        alert(ex);
-      });
+      )
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.code === 200) {
+            this.authService.isGotData = true;
+
+            this.user.addressText = response.user.profile?.address?.addressText;
+            this.user.zipCode = response.user.profile?.address?.zipCode;
+            this.user.country.title =
+              response.user.profile?.address?.country?.title;
+            this.user.city.title = response.user.profile?.address?.city?.title;
+            this.user.title = response.user.title;
+            this.user.firstName = response.user.firstName;
+            this.user.lastName = response.user.lastName;
+            this.user.email = response.user.email;
+            this.user.displayName = response.user.displayName;
+            this.user.phoneNumber = response.user.phoneNumber;
+            if (response.user.profile.birthDate) {
+              this.user.pBirthDate = response.user.profile.birthDate.substring(
+                0,
+                response.user.profile.birthDate.indexOf('T')
+              );
+            }
+            this.user.nationality = response.user.profile.nationality;
+            this.user.genderId = response.user.profile.genderId;
+          } else {
+            alert('Get current user error!');
+          }
+        })
+        .catch((ex) => {
+          alert(ex);
+        });
+    } else {
+      fetch(
+        'https://apartmain.azurewebsites.net/api/users/getuserbyfacebookid?id=' +
+          AuthHelper.getLogin(),
+        {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            Accept: 'application/json',
+            Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.code === 200) {
+            this.user.addressText = response.user.profile?.address?.addressText;
+            this.user.zipCode = response.user.profile?.address?.zipCode;
+            this.user.country.title =
+              response.user.profile?.address?.country?.title;
+            this.user.city.title = response.user.profile?.address?.city?.title;
+            this.user.title = response.user.title;
+            this.user.firstName = response.user.firstName;
+            this.user.lastName = response.user.lastName;
+            this.user.email = response.user.email;
+            this.user.displayName = response.user.displayName;
+            this.user.phoneNumber = response.user.phoneNumber;
+            if (response.user.profile.birthDate) {
+              this.user.pBirthDate = response.user.profile.birthDate.substring(
+                0,
+                response.user.profile.birthDate.indexOf('T')
+              );
+            }
+            this.user.nationality = response.user.profile.nationality;
+            this.user.genderId = response.user.profile.genderId;
+          } else {
+            alert('Get current user error!');
+          }
+        })
+        .catch((ex) => {
+          alert(ex);
+        });
+    }
   }
 
   getCountries(id: number): void {
@@ -480,8 +533,7 @@ export class PersonalDetailsListComponent implements OnInit {
               nationalitiesSelect?.append(newOption);
             }
           } else if (id == 8) {
-            let countriesSelect =
-              document.getElementById('countrySelect');
+            let countriesSelect = document.getElementById('countrySelect');
             let newOption;
             for (let item of data.countries) {
               newOption = new Option(item.title, item.title);
@@ -497,8 +549,8 @@ export class PersonalDetailsListComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.initializeBoolArray();
-    this.getCurrentUser();
+    await this.getCurrentUser();
   }
 }

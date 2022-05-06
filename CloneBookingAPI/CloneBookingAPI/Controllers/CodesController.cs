@@ -1,5 +1,6 @@
 ﻿using CloneBookingAPI.Filters;
 using CloneBookingAPI.Interfaces;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Generators;
 using CloneBookingAPI.Services.POCOs;
@@ -30,6 +31,7 @@ namespace CloneBookingAPI.Controllers
         private readonly ResetPasswordCodesRepository _resetPasswordRepository;
         private readonly ChangingEmailCodesRepository _changingEmailRepository;
         private readonly EnterCodesRepository _enterRepository;
+        private readonly ApartProjectDbContext _context;
 
         public CodesController(
             IGenerator codeGenerator, 
@@ -39,7 +41,8 @@ namespace CloneBookingAPI.Controllers
             ResetPasswordCodesRepository resetPasswordRepository,
             ChangingEmailCodesRepository changingEmailRepository,
             EnterCodesRepository enterRepository,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            ApartProjectDbContext context)
         {
             _codeGenerator = codeGenerator;
             _registrationRepository = registrationRepository;
@@ -49,6 +52,7 @@ namespace CloneBookingAPI.Controllers
             _changingEmailRepository = changingEmailRepository;
             _enterRepository = enterRepository;
             _configuration = configuration;
+            _context = context;
         }
 
         [Route("generateregistercode")]
@@ -472,7 +476,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("refreshauth")]
         [HttpPost]
-        public IActionResult RefreshAuth([FromBody] TokenModel model)
+        public async Task<IActionResult> RefreshAuth([FromBody] TokenModel model)
         {
             try
             {
@@ -489,7 +493,19 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                return Json(new { code = 200 });
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.FacebookId.Equals(model.Username));
+                if (user is null)
+                {
+                    return Json(new { 
+                        code = 200,
+                        facebookAuth = false,
+                    });
+                }
+
+                return Json(new { 
+                    code = 200,
+                    facebookAuth = true,
+                });
             }
             catch (Exception ex)
             {

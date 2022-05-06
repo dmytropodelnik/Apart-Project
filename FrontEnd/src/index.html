@@ -6,6 +6,7 @@
   <title>Clone Booking</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> -->
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script src="https://kit.fontawesome.com/41d2771fb9.js" crossorigin="anonymous"></script>
 
@@ -25,26 +26,44 @@
 
 <body>
   <app-root></app-root>
-  
+  <div id="fb-root"></div>
+
+  <!-- JavaScript SDK -->
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v13.0&appId=347521480376594&autoLogAppEvents=1" nonce="eLnZSC1n"></script>
+
   <!-- FACEBOOK SDK -->
   <script>
-    window.fbAsyncInit = function () {
-      FB.init({
-        appId: '347521480376594',
-        autoLogAppEvents: true,
-        xfbml: true,
-        version: 'v12.0'
-      });
-    };
+      window.fbAsyncInit = function () {
+        FB.init({
+          appId: '347521480376594',
+          cookie: true,
+          xfbml: true,
+          version: 'v13.0',
+        });
 
-    (function (d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) { return; }
-      js = d.createElement(s); js.id = id;
-      js.src = "https://connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
+        // // auto authenticate with the api if already logged in with facebook
+        // FB.getLoginStatus(({ authResponse }) => {
+        //   console.log(authResponse);
+        //   if (authResponse) {
+        //     alert(authResponse + "OK");
+        //     authService.userSignIn(authResponse.accessToken);
+        //   } else {
+        //     alert(authResponse);
+        //   }
+        // });
+
+        FB.AppEvents.logPageView();
+      };
+
+    (function(d, s, id) {
+       var js, fjs = d.getElementsByTagName(s)[0];
+       if (d.getElementById(id)) {return;}
+       js = d.createElement(s); js.id = id;
+       js.src = "https://connect.facebook.net/en_US/sdk.js";
+       fjs.parentNode.insertBefore(js, fjs);
+     } (document, 'script', 'facebook-jssdk'));
   </script>
+
   <!-- JAVASCRIPT -->
   <script src="assets/admin-panel/libs/jquery/jquery.min.js"></script>
   <script src="assets/admin-panel/libs/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -87,6 +87,59 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [Route("userexistsbyfacebook")]
+        [HttpGet]
+        public async Task<IActionResult> UserExistsByFacebook(string id)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(id))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.FacebookId.Equals(id));
+                if (user is null)
+                {
+                    return Json(new { 
+                        code = 200,
+                        userExisted = false,
+                    });
+                }
+
+                return Json(new
+                {
+                    code = 200,
+                    userId = user.Id,
+                    userExisted = true,
+                });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
         [TypeFilter(typeof(AuthorizationFilter))]
         [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("getusers")]
@@ -238,6 +291,57 @@ namespace CloneBookingAPI.Controllers
         }
 
         [TypeFilter(typeof(AuthorizationFilter))]
+        [Route("getuserbyfacebookid")]
+        [HttpGet]
+        public async Task<ActionResult<User>> GetUserByFacebookId(string id)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(id))
+                {
+                    return NotFound();
+                }
+
+                var user = await _context.Users
+                    .Include(u => u.Profile)
+                        .ThenInclude(u => u.Address)
+                    .Include(u => u.Profile.Address.Country)
+                    .Include(u => u.Profile.Address.City)
+                    .Include(u => u.Profile.Currency)
+                    .Include(u => u.Profile.Language)
+                    .FirstOrDefaultAsync(u => u.FacebookId.Equals(id));
+                if (user is null)
+                {
+                    return NotFound();
+                }
+
+                return Json(new
+                {
+                    code = 200,
+                    user,
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("getuserproperties")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Suggestion>>> GetUserProperties(string email)
@@ -351,6 +455,71 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [Route("registerviafacebook")]
+        [HttpPost]
+        public async Task<IActionResult> RegisterViaFacebook([FromBody] CloneBookingAPI.Services.POCOs.PocoData person)
+        {
+            try
+            {
+                if (person is null ||
+                    string.IsNullOrWhiteSpace(person.FacebookId))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.FacebookId == person.FacebookId);
+                if (resUser is not null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                User newUser = new();
+                newUser.FacebookId = person.FacebookId;
+                newUser.RoleId = 2;
+                newUser.FirstName = person.FirstName;
+                newUser.LastName = person.LastName;
+
+                Favorite favorite = new();
+                var newFavorite = _context.Favorites.Add(favorite);
+                newUser.Favorite = favorite;
+
+                _context.Users.Add(newUser);
+
+                UserProfile userProfile = new();
+                userProfile.RegisterDate = DateTime.Now.ToUniversalTime();
+                userProfile.User = newUser;
+
+                _context.UserProfiles.Add(userProfile);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
         [Route("register")]
         [HttpPost]
         public async Task<IActionResult> Register([FromBody] CloneBookingAPI.Services.POCOs.PocoData person)
@@ -394,6 +563,7 @@ namespace CloneBookingAPI.Controllers
                 newUser.PasswordHash = hashedPassword;
                 newUser.SaltHash = _saltGenerator.Salt;
                 newUser.RoleId = 2;
+                newUser.FacebookId = "none";
 
                 Favorite favorite = new();
                 var newFavorite = _context.Favorites.Add(favorite);
