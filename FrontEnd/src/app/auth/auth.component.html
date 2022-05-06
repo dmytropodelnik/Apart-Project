@@ -16,19 +16,10 @@
                   Sign in or create an account
                 </h1>
                 <div class="alteritive_wrapper">
-                  <div id="g_id_onload"
-                    data-client_id="1051280403604-gn2mjml14fgen0739ts5su7n22vclbiv.apps.googleusercontent.com"
-                    data-context="signin" data-ux_mode="popup" data-callback="verifyGoogleEnter"
-                    data-auto_prompt="false">
-                  </div>
-
-                  <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline"
-                    data-text="$ {button.text}" data-size="large" data-locale="en-US" data-logo_alignment="left">
-                  </div>
-                  <!-- <button class="alteritive_signin">
+                  <button class="alteritive_signin" (click)="verifyGoogleEnter()">
                     <img src="../../assets/images/google.png" />Sign in with
                     Google
-                  </button> -->
+                  </button>
                   <button class="alteritive_signin" (click)="verifyFacebookEnter()">
                     <img src="../../assets/images/FB icon.png" />
                     Sign in with Facebook

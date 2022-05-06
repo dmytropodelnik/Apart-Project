@@ -11,6 +11,10 @@ import {
 } from '@angular/forms';
 import { RepositoryEnum } from '../enums/repositoryenum.item';
 
+import { SocialAuthService } from "angularx-social-login";
+import { SocialUser } from "angularx-social-login";
+import { GoogleLoginProvider } from "angularx-social-login";
+
 @Component({
   selector: 'app-auth',
   templateUrl: './auth.component.html',
@@ -34,10 +38,13 @@ export class AuthComponent implements OnInit {
   userLastName: string = '';
   facebookId: string = '';
 
+  public user: SocialUser = new SocialUser;
+
   constructor(
     private authService: AuthorizationService,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private authSocialService: SocialAuthService
   ) {
     this.passwordForm = this.formBuilder.group(
       {
@@ -205,17 +212,10 @@ export class AuthComponent implements OnInit {
       });
   }
 
-  verifyGoogleEnter(response: any): void {
-    alert(response);
-    console.log(response);
+  verifyGoogleEnter(): void {
+    alert("google ok");
 
-    // google.accounts.id.initialize({
-    //   client_id: '1051280403604-gn2mjml14fgen0739ts5su7n22vclbiv.apps.googleusercontent.com',
-    //   callback: (response: any) => {
-    //     alert(response);
-    //   },
-    // });
-    // google.accounts.id.prompt();
+    this.authSocialService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
   verifyFacebookEnter(): void {
@@ -320,5 +320,10 @@ export class AuthComponent implements OnInit {
 
   ngOnInit(): void {
     //FB.XFBML.parse();
+
+    this.authSocialService.authState.subscribe(user => {
+      this.user = user;
+      console.log(user);
+    });
   }
 }

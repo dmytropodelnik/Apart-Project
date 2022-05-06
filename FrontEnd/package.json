@@ -23,6 +23,7 @@
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "@types/facebook-js-sdk": "^3.3.5",
     "@types/gapi": "^0.0.41",
+    "angularx-social-login": "^4.1.0",
     "bootstrap": "^5.0.2",
     "firebase": "^9.6.6",
     "googleapis": "^100.0.0",

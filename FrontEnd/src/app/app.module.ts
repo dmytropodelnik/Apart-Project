@@ -94,8 +94,26 @@ import { appInitializer } from './utils/appInitializer';
 import { AppInitializerComponent } from './app-initializer/app-initializer.component';
 import { Router } from '@angular/router';
 
+import { SocialLoginModule,SocialAuthServiceConfig } from "angularx-social-login";
+import { GoogleLoginProvider } from "angularx-social-login";
+
 @NgModule({
-  providers: [AuthorizationService, MainDataService, ListNewPropertyService, AdminContentService],
+  providers: [AuthorizationService, MainDataService, ListNewPropertyService, AdminContentService,
+    {
+      provide: "SocialAuthServiceConfig",
+      useValue: {
+        autoLogin: true,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              "1051280403604-gn2mjml14fgen0739ts5su7n22vclbiv.apps.googleusercontent.com"
+            )
+          }
+        ]
+      } as SocialAuthServiceConfig
+    },
+  ],
   declarations: [
     AppComponent,
     HeaderComponent,
@@ -184,7 +202,8 @@ import { Router } from '@angular/router';
     NgbModule,
     SlickCarouselModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SocialLoginModule,
   ],
   bootstrap: [AppComponent]
 })
