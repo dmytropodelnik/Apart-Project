@@ -103,7 +103,6 @@ export class AuthComponent implements OnInit {
           this.isAccountExists = true;
         }
         this.isExistUser = true;
-        console.log(data);
       })
       .catch((ex) => {
         alert(ex);
@@ -198,12 +197,11 @@ export class AuthComponent implements OnInit {
     })
       .then((r) => r.json())
       .then((response) => {
-        alert(response.code);
-        console.log(response);
-
         if (response.code === 200) {
           this.userSignIn();
           this.router.navigate(['']);
+        } else {
+          alert(response.code);
         }
       })
       .catch((ex) => {
