@@ -41,7 +41,7 @@ export class AuthComponent implements OnInit {
   public user: SocialUser = new SocialUser;
 
   constructor(
-    private authService: AuthorizationService,
+    public authService: AuthorizationService,
     private router: Router,
     private formBuilder: FormBuilder,
     private authSocialService: SocialAuthService
@@ -88,7 +88,6 @@ export class AuthComponent implements OnInit {
       email: this.email,
       password: this.password,
     };
-    console.log(user);
     fetch(
       `https://apartmain.azurewebsites.net/api/users/userexists?email=${user.email}`,
       {
@@ -213,8 +212,6 @@ export class AuthComponent implements OnInit {
   }
 
   verifyGoogleEnter(): void {
-    alert("google ok");
-
     this.authSocialService.signIn(GoogleLoginProvider.PROVIDER_ID);
   }
 
@@ -318,12 +315,87 @@ export class AuthComponent implements OnInit {
     );
   }
 
+  googleEnter(): void {
+    fetch(
+      'https://apartmain.azurewebsites.net/api/users/userexistsbygoogle?email=' +
+        this.user.email,
+      {
+        method: 'GET',
+      }
+    )
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200 && data.userExisted) {
+          let user = {
+            email: this.user.email,
+            repository: RepositoryEnum.Enter,
+          };
+
+          fetch('https://apartmain.azurewebsites.net/tokenforgoogle', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json; charset=utf-8',
+            },
+            body: JSON.stringify(user),
+          })
+            .then((response) => response.json())
+            .then((response) => {
+              if (response.code !== 400) {
+                this.authService.setTokenKey(response.encodedJwt);
+                AuthHelper.saveAuth(this.user.email, response.encodedJwt);
+                this.authService.toggleLogCondition();
+                this.authService.setFacebookAuthCondition(true);
+                alert('You have successfully authenticated!');
+                this.router.navigate(['']);
+              } else {
+                alert('Token fetching error!');
+              }
+            })
+            .catch((ex) => {
+              alert(ex);
+            });
+        } else {
+          let person = {
+            email: this.email,
+            firstName: this.user.firstName,
+            lastName: this.user.lastName,
+            image: this.user.photoUrl,
+          };
+
+          fetch(
+            'https://apartmain.azurewebsites.net/api/users/registerviagoogle',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+              },
+              body: JSON.stringify(person),
+            }
+          )
+            .then((r) => r.json())
+            .then((response) => {
+              if (response.code === 200) {
+                this.userSignIn();
+              } else {
+                alert(response.code);
+              }
+            })
+            .catch((ex) => {
+              alert(ex);
+            });
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
   ngOnInit(): void {
     //FB.XFBML.parse();
 
     this.authSocialService.authState.subscribe(user => {
       this.user = user;
-      console.log(user);
+      this.googleEnter();
     });
   }
 }

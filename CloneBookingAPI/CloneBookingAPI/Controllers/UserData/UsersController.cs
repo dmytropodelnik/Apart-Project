@@ -87,6 +87,60 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [Route("userexistsbygoogle")]
+        [HttpGet]
+        public async Task<IActionResult> UserExistsByGoogle(string email)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
+                if (user is null)
+                {
+                    return Json(new
+                    {
+                        code = 200,
+                        userExisted = false,
+                    });
+                }
+
+                return Json(new
+                {
+                    code = 200,
+                    userId = user.Id,
+                    userExisted = true,
+                });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
         [Route("userexistsbyfacebook")]
         [HttpGet]
         public async Task<IActionResult> UserExistsByFacebook(string id)
@@ -259,6 +313,7 @@ namespace CloneBookingAPI.Controllers
                     .Include(u => u.Profile.Address.City)
                     .Include(u => u.Profile.Currency)
                     .Include(u => u.Profile.Language)
+                    .Include(u => u.Profile.Image)
                     .FirstOrDefaultAsync(m => m.Email == email);
                 if (user is null)
                 {
@@ -309,6 +364,7 @@ namespace CloneBookingAPI.Controllers
                     .Include(u => u.Profile.Address.City)
                     .Include(u => u.Profile.Currency)
                     .Include(u => u.Profile.Language)
+                    .Include(u => u.Profile.Image)
                     .FirstOrDefaultAsync(u => u.FacebookId.Equals(id));
                 if (user is null)
                 {
@@ -486,6 +542,89 @@ namespace CloneBookingAPI.Controllers
                 _context.Users.Add(newUser);
 
                 UserProfile userProfile = new();
+                userProfile.RegisterDate = DateTime.Now.ToUniversalTime();
+                userProfile.User = newUser;
+
+                _context.UserProfiles.Add(userProfile);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("registerviagoogle")]
+        [HttpPost]
+        public async Task<IActionResult> RegisterViaGoogle([FromBody] CloneBookingAPI.Services.POCOs.PocoData person)
+        {
+            try
+            {
+                if (person is null ||
+                    string.IsNullOrWhiteSpace(person.Email))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(person.Email));
+                if (resUser is not null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                User newUser = new();
+                newUser.Email = person.Email;
+                newUser.RoleId = 2;
+
+                UserProfile userProfile = new();
+
+                if (!string.IsNullOrWhiteSpace(person.FirstName))
+                {
+                    newUser.FirstName = person.FirstName;
+                }
+                if (!string.IsNullOrWhiteSpace(person.LastName))
+                {
+                    newUser.LastName = person.LastName;
+                }
+                if (!string.IsNullOrWhiteSpace(person.Image))
+                {
+                    FileModel image = new();
+                    image.Name = person.Image.Substring(person.Image.IndexOf("://") + 3);
+                    image.Path = person.Image;
+
+                    _context.Files.Add(image);
+
+                    userProfile.Image = image;
+                }
+
+                Favorite favorite = new();
+                var newFavorite = _context.Favorites.Add(favorite);
+                newUser.Favorite = favorite;
+
+                _context.Users.Add(newUser);
+
                 userProfile.RegisterDate = DateTime.Now.ToUniversalTime();
                 userProfile.User = newUser;
 

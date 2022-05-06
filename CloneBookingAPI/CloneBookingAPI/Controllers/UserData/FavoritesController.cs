@@ -174,7 +174,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("getuserfavorites")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Favorite>>> GetUserFavorites(string email)
+        public async Task<ActionResult<IEnumerable<Favorite>>> GetUserFavorites(string email, bool isFacebookAuth = false)
         {
             try
             {
@@ -182,24 +182,49 @@ namespace CloneBookingAPI.Controllers.UserData
                 List<double> suggestionGrades = new();
                 List<decimal> suggestionStartsFrom = new();
 
-                var favorites = await _context.Favorites
-                    .Include(f => f.User)
-                    .Include(f => f.Suggestions)
-                        .ThenInclude(s => s.SuggestionReviewGrades)
-                    .Include(f => f.Suggestions)
-                        .ThenInclude(s => s.Images)
-                    .Include(f => f.Suggestions)
-                        .ThenInclude(s => s.Reviews)
-                    .Include(f => f.Suggestions)
-                        .ThenInclude(s => s.Address)
-                     .Include(f => f.Suggestions)
-                        .ThenInclude(s => s.Address.Country)
-                     .Include(f => f.Suggestions)
-                        .ThenInclude(s => s.Address.City)
-                    .FirstOrDefaultAsync(f => f.User.Email.Equals(email));
-                if (favorites is null)
+                Favorite favorites;
+
+                if (!isFacebookAuth)
                 {
-                    return Json(new { code = 400 });
+                    favorites = await _context.Favorites
+                        .Include(f => f.User)
+                        .Include(f => f.Suggestions)
+                            .ThenInclude(s => s.SuggestionReviewGrades)
+                        .Include(f => f.Suggestions)
+                            .ThenInclude(s => s.Images)
+                        .Include(f => f.Suggestions)
+                            .ThenInclude(s => s.Reviews)
+                        .Include(f => f.Suggestions)
+                            .ThenInclude(s => s.Address)
+                                .ThenInclude(a => a.Country)
+                         .Include(f => f.Suggestions)
+                            .ThenInclude(s => s.Address.City)
+                        .FirstOrDefaultAsync(f => f.User.Email.Equals(email));
+                    if (favorites is null)
+                    {
+                        return Json(new { code = 400 });
+                    }
+                }
+                else
+                {
+                    favorites = await _context.Favorites
+                        .Include(f => f.User)
+                        .Include(f => f.Suggestions)
+                            .ThenInclude(s => s.SuggestionReviewGrades)
+                        .Include(f => f.Suggestions)
+                            .ThenInclude(s => s.Images)
+                        .Include(f => f.Suggestions)
+                            .ThenInclude(s => s.Reviews)
+                        .Include(f => f.Suggestions)
+                            .ThenInclude(s => s.Address)
+                                .ThenInclude(a => a.Country)
+                         .Include(f => f.Suggestions)
+                            .ThenInclude(s => s.Address.City)
+                        .FirstOrDefaultAsync(f => f.User.FacebookId.Equals(email));
+                    if (favorites is null)
+                    {
+                        return Json(new { code = 400 });
+                    }
                 }
 
                 for (int i = 0; i < favorites.Suggestions.Count; i++)

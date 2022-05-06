@@ -138,6 +138,7 @@ export class PreferencesListComponent implements OnInit {
         .then((response) => {
           if (response.code === 200) {
             this.authService.isGotData = true;
+            this.authService.setUserImage(response.user.profile.image.path);
 
             this.user.currency = response.user?.profile?.currency.abbreviation;
             this.user.language = response.user?.profile?.language?.title;
@@ -164,6 +165,9 @@ export class PreferencesListComponent implements OnInit {
         .then((response) => response.json())
         .then((response) => {
           if (response.code === 200) {
+            this.authService.isGotData = true;
+            this.authService.setUserImage(response.user.profile.image.path);
+
             this.user.currency = response.user?.profile?.currency.abbreviation;
             this.user.language = response.user?.profile?.language?.title;
           } else {

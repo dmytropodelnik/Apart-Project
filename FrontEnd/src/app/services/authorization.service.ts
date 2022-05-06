@@ -8,6 +8,7 @@ export class AuthorizationService {
   private isAdmin: boolean = false;
   private isFacebookAuth: boolean = false;
   private token: string | null = null;
+  private userImage: string = '';
 
   public isGotData: boolean = false;
 
@@ -19,6 +20,14 @@ export class AuthorizationService {
 
   getIsAdmin(): boolean {
     return this.isAdmin;
+  }
+
+  getUserImage(): string {
+    return this.userImage;
+  }
+
+  setUserImage(value: string): void {
+    this.userImage = value;
   }
 
   setIsAdmin(value: boolean): void {
@@ -54,10 +63,20 @@ export class AuthorizationService {
   }
 
   async refreshAuth(): Promise<void> {
-    let model = {
-      username: AuthHelper.getLogin(),
-      accessToken: AuthHelper.getToken(),
-    };
+    let model
+
+    if (this.isFacebookAuth) {
+      model = {
+        username: AuthHelper.getLogin(),
+        accessToken: AuthHelper.getToken(),
+        isFacebookAuth: true,
+      };
+    } else {
+      model = {
+        username: AuthHelper.getLogin(),
+        accessToken: AuthHelper.getToken(),
+      };
+    }
 
     if (AuthHelper.getToken()) {
       await fetch('https://apartmain.azurewebsites.net/api/codes/refreshauth', {
@@ -76,6 +95,7 @@ export class AuthorizationService {
             if (response.facebookAuth == true) {
               this.isFacebookAuth = true;
             }
+            this.userImage = response.user.profile.image.path;
             this.isGotData = true;
           } else {
             alert("Refresh auth error!");

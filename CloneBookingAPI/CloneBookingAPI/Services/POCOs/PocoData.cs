@@ -17,6 +17,7 @@ namespace CloneBookingAPI.Services.POCOs
         public string NewPassword { get; set; }
         public string PhoneNumber { get; set; }
         public string Nationality { get; set; }
+        public string Image { get; set; }
         public int LanguageId { get; set; }
         public string VerificationCode { get; set; }
         public int RoleId { get; set; }

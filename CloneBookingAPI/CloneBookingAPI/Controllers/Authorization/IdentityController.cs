@@ -255,6 +255,96 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [Route("tokenforgoogle")]
+        [HttpPost]
+        public async Task<IActionResult> TokenForGoogle([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(user.FacebookId))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resUser = await _context.Users
+                    .Include(u => u.Role)
+                    .FirstOrDefaultAsync(u => u.Email.Equals(user.Email));
+                if (resUser is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var claims = GetIdentityForGoogle(resUser.Email, resUser.Role.Name);
+                if (claims is null)
+                {
+                    return Unauthorized();
+                }
+
+                var now = DateTime.UtcNow;
+                var jwt = new JwtSecurityToken(
+                        issuer: AuthOptions.ISSUER,
+                        audience: AuthOptions.AUDIENCE,
+                        notBefore: now,
+                        claims: claims,
+                        expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                        signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+
+                var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+                if (encodedJwt is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                if (_jwtRepository.Repository.ContainsKey(resUser.Email))
+                {
+                    _jwtRepository.Repository[user.Email].Add(encodedJwt);
+                }
+                else
+                {
+                    _jwtRepository.Repository.Add(user.Email, new List<string> { encodedJwt });
+                }
+
+                // new JwtCodeCleanTimer(_jwtRepository, _configuration).SetTimer((key: user.Email, code: encodedJwt));
+
+                return Json(new
+                {
+                    code = 200,
+                    encodedJwt,
+                    resUser.FacebookId,
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (ArgumentException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (SecurityTokenEncryptionFailedException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
         private async Task<IReadOnlyCollection<Claim>> GetIdentity(string email, string password)
         {
             try
@@ -312,6 +402,37 @@ namespace CloneBookingAPI.Controllers
                 List<Claim> claims = new List<Claim>
                     {
                         new Claim(ClaimsIdentity.DefaultNameClaimType, id),
+                        new Claim(ClaimsIdentity.DefaultRoleClaimType, role)
+                    };
+                return claims;
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return null;
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return null;
+            }
+        }
+
+        private IReadOnlyCollection<Claim> GetIdentityForGoogle(string email, string role)
+        {
+            try
+            {
+                List<Claim> claims = new List<Claim>
+                    {
+                        new Claim(ClaimsIdentity.DefaultNameClaimType, email),
                         new Claim(ClaimsIdentity.DefaultRoleClaimType, role)
                     };
                 return claims;
