@@ -356,7 +356,7 @@ export class AuthComponent implements OnInit {
             });
         } else {
           let person = {
-            email: this.email,
+            email: this.user.email,
             firstName: this.user.firstName,
             lastName: this.user.lastName,
             image: this.user.photoUrl,
