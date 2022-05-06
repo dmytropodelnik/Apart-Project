@@ -6,6 +6,7 @@ import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
 
 import { AuthorizationService } from '../services/authorization.service';
+import { SocialAuthService } from 'angularx-social-login';
 
 @Component({
   selector: 'app-header',
@@ -29,7 +30,8 @@ export class HeaderComponent implements OnInit {
   constructor(
     config: NgbModalConfig,
     private modalService: NgbModal,
-    public authService: AuthorizationService
+    public authService: AuthorizationService,
+    private authSocialService: SocialAuthService,
   ) {}
 
   getToken(): string {
@@ -64,6 +66,11 @@ export class HeaderComponent implements OnInit {
              });
             }
           });
+
+          if (AuthHelper.isGoogleLogin()) {
+            this.authSocialService.signOut();
+            AuthHelper.clearGoogleAuth();
+          }
         } else {
           alert('Logout error!');
         }

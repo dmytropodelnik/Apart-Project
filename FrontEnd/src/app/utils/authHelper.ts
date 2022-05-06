@@ -4,8 +4,16 @@ export default {
         sessionStorage.setItem('tokenKey', JSON.stringify({ userName: userName, accessToken: token }));
     },
 
+    saveGoogleAuth: () => {
+      sessionStorage.setItem('googleAuth', JSON.stringify({ isGoogleAuth: true }));
+    },
+
     clearAuth: () => {
         sessionStorage.removeItem('tokenKey');
+    },
+
+    clearGoogleAuth: () => {
+      sessionStorage.removeItem('googleAuth');
     },
 
     getLogin: () => {
@@ -15,6 +23,15 @@ export default {
             login = JSON.parse(item).userName;
         }
         return login;
+    },
+
+    isGoogleLogin: () => {
+      let item = sessionStorage.getItem('googleAuth');
+      let login = false;
+      if (item) {
+          login = JSON.parse(item).isGoogleAuth;
+      }
+      return login;
     },
 
     isLogged: () => {

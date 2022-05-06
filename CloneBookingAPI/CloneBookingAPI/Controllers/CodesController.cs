@@ -527,6 +527,7 @@ namespace CloneBookingAPI.Controllers
                 return Json(new { 
                     code = 200,
                     facebookAuth = false,
+                    googleAuth = model.IsGoogleAuth,
                     user,
                 });
             }

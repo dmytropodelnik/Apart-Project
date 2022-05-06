@@ -346,6 +346,7 @@ export class AuthComponent implements OnInit {
               if (response.code !== 400) {
                 this.authService.setTokenKey(response.encodedJwt);
                 AuthHelper.saveAuth(this.user.email, response.encodedJwt);
+                AuthHelper.saveGoogleAuth();
                 this.authService.toggleLogCondition();
                 alert('You have successfully authenticated!');
                 this.router.navigate(['']);

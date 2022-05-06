@@ -62,7 +62,7 @@ export class AuthorizationService {
     this.isLogged = !this.isLogged;
   }
 
-  async refreshAuth(): Promise<void> {
+  async refreshAuth(isGoogleAuth: boolean = false): Promise<void> {
     let model;
 
     if (this.isFacebookAuth) {
@@ -75,6 +75,7 @@ export class AuthorizationService {
       model = {
         username: AuthHelper.getLogin(),
         accessToken: AuthHelper.getToken(),
+        isGoogleAuth: AuthHelper.isGoogleLogin(),
       };
     }
 
