@@ -34,7 +34,7 @@
     src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v13.0&appId=347521480376594&autoLogAppEvents=1"
     nonce="eLnZSC1n"></script>
 
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
 
   <!-- FACEBOOK SDK -->
   <script>
@@ -56,28 +56,6 @@
       js.src = "https://connect.facebook.net/en_US/sdk.js";
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
-
-    var client;
-    var access_token;
-
-    function initClient() {
-      alert('Please enter a client123');
-      client = google.accounts.oauth2.initTokenClient({
-        client_id: '1051280403604-gn2mjml14fgen0739ts5su7n22vclbiv.apps.googleusercontent.com',
-        scope: 'https://www.googleapis.com/auth/userinfo.email \
-                  https://www.googleapis.com/auth/userinfo.profile',
-        callback: (tokenResponse) => {
-          access_token = tokenResponse.access_token;
-        },
-      });
-
-      console.log(client);
-    }
-  </script>
-
-  <!-- Google SDK -->
-  <script>
-
   </script>
 
   <!-- JAVASCRIPT -->

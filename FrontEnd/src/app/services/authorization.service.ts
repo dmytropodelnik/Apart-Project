@@ -63,7 +63,7 @@ export class AuthorizationService {
   }
 
   async refreshAuth(): Promise<void> {
-    let model
+    let model;
 
     if (this.isFacebookAuth) {
       model = {

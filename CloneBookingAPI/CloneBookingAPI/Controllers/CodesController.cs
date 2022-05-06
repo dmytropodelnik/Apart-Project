@@ -508,7 +508,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new
                     {
                         code = 200,
-                        facebookAuth = false,
+                        facebookAuth = true,
                         user,
                     });
                 }
@@ -526,7 +526,7 @@ namespace CloneBookingAPI.Controllers
 
                 return Json(new { 
                     code = 200,
-                    facebookAuth = true,
+                    facebookAuth = false,
                     user,
                 });
             }

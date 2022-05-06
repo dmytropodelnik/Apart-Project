@@ -428,6 +428,8 @@ export class PersonalDetailsListComponent implements OnInit {
     if (!this.authService.isGotData) {
       await this.authService.refreshAuth();
     }
+    alert(this.authService.getFacebookAuthCondition());
+    console.log(this.authService.getFacebookAuthCondition());
     if (!this.authService.getFacebookAuthCondition()) {
       fetch(
         'https://apartmain.azurewebsites.net/api/users/getuser?email=' +
