@@ -70,7 +70,7 @@ export class LpNameAndLocationComponent implements OnInit {
       login: AuthHelper.getLogin(),
     };
 
-    fetch(`https://localhost:44381/api/listnewproperty/addname`, {
+    fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addname`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -92,7 +92,7 @@ export class LpNameAndLocationComponent implements OnInit {
   }
 
   getCountries(): void {
-    fetch('https://localhost:44381/api/countries/getcountries', {
+    fetch('https://apartmain.azurewebsites.net/api/countries/getcountries', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -132,7 +132,7 @@ export class LpNameAndLocationComponent implements OnInit {
       login: AuthHelper.getLogin(),
     };
 
-    fetch(`https://localhost:44381/api/listnewproperty/addaddress`, {
+    fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addaddress`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',

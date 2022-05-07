@@ -44,7 +44,7 @@ export class AdminAuthComponent implements OnInit {
       repository: RepositoryEnum.Enter,
     };
 
-    fetch('https://localhost:44381/api/admin/login', {
+    fetch('https://apartmain.azurewebsites.net/api/admin/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -54,7 +54,7 @@ export class AdminAuthComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          fetch('https://localhost:44381/token', {
+          fetch('https://apartmain.azurewebsites.net/token', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json; charset=utf-8',

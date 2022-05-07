@@ -29,7 +29,7 @@ export class SuggestionRuleTypesListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://localhost:44381/api/suggestionruletypes/search?type=' + this.searchType, {
+    fetch('https://apartmain.azurewebsites.net/api/suggestionruletypes/search?type=' + this.searchType, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -55,7 +55,7 @@ export class SuggestionRuleTypesListComponent implements OnInit {
       name: this.type,
     };
 
-    fetch('https://localhost:44381/api/suggestionruletypes/addtype', {
+    fetch('https://apartmain.azurewebsites.net/api/suggestionruletypes/addtype', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -84,7 +84,7 @@ export class SuggestionRuleTypesListComponent implements OnInit {
       name: this.type,
     };
 
-    fetch('https://localhost:44381/api/suggestionruletypes/edittype', {
+    fetch('https://apartmain.azurewebsites.net/api/suggestionruletypes/edittype', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -114,7 +114,7 @@ export class SuggestionRuleTypesListComponent implements OnInit {
       name: this.type,
     };
 
-    fetch('https://localhost:44381/api/suggestionruletypes/deletetype', {
+    fetch('https://apartmain.azurewebsites.net/api/suggestionruletypes/deletetype', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -139,7 +139,7 @@ export class SuggestionRuleTypesListComponent implements OnInit {
   }
 
   getTypes(): void {
-    fetch(`https://localhost:44381/api/suggestionruletypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/suggestionruletypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -164,7 +164,7 @@ export class SuggestionRuleTypesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/suggestionruletypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/suggestionruletypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

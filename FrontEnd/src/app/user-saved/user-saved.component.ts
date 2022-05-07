@@ -45,7 +45,7 @@ export class UserSavedComponent implements OnInit {
       login: AuthHelper.getLogin(),
     };
 
-    fetch('https://localhost:44381/api/favorites/removesuggestion', {
+    fetch('https://apartmain.azurewebsites.net/api/favorites/removesuggestion', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -74,7 +74,7 @@ export class UserSavedComponent implements OnInit {
   }
 
   getUserFavorites(): void {
-    let url = 'https://localhost:44381/api/favorites/getuserfavorites?email=' +
+    let url = 'https://apartmain.azurewebsites.net/api/favorites/getuserfavorites?email=' +
                 AuthHelper.getLogin();
     if (AuthHelper.isFacebookLogin()) {
       url += '&isFacebookAuth=true';

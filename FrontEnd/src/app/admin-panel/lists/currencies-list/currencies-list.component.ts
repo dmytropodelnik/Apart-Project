@@ -27,7 +27,7 @@ export class CurrenciesListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://localhost:44381/api/currencies/search?currency=' + this.searchCurrency, {
+    fetch('https://apartmain.azurewebsites.net/api/currencies/search?currency=' + this.searchCurrency, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -57,7 +57,7 @@ export class CurrenciesListComponent implements OnInit {
 
     console.log(currency);
 
-    fetch('https://localhost:44381/api/currencies/addcurrency', {
+    fetch('https://apartmain.azurewebsites.net/api/currencies/addcurrency', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -90,7 +90,7 @@ export class CurrenciesListComponent implements OnInit {
       bankCode:     this.currency.bankCode,
     };
 
-    fetch('https://localhost:44381/api/currencies/editcurrency', {
+    fetch('https://apartmain.azurewebsites.net/api/currencies/editcurrency', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -124,7 +124,7 @@ export class CurrenciesListComponent implements OnInit {
       bankCode:     this.currency.bankCode,
     };
 
-    fetch('https://localhost:44381/api/currencies/deletecurrency', {
+    fetch('https://apartmain.azurewebsites.net/api/currencies/deletecurrency', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -151,7 +151,7 @@ export class CurrenciesListComponent implements OnInit {
   }
 
   getCurrencies(): void {
-    fetch(`https://localhost:44381/api/currencies/getcurrencies?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/currencies/getcurrencies?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -176,7 +176,7 @@ export class CurrenciesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/currencies/getcurrencies?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/currencies/getcurrencies?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

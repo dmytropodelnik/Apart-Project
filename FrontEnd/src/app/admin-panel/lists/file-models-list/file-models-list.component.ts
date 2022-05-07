@@ -31,7 +31,7 @@ export class FileModelsListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://localhost:44381/api/files/search?file=' + this.searchFile, {
+    fetch('https://apartmain.azurewebsites.net/api/files/search?file=' + this.searchFile, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -58,7 +58,7 @@ export class FileModelsListComponent implements OnInit {
       path: this.path,
     };
 
-    fetch('https://localhost:44381/api/files/addimage', {
+    fetch('https://apartmain.azurewebsites.net/api/files/addimage', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -89,7 +89,7 @@ export class FileModelsListComponent implements OnInit {
       path: this.path,
     };
 
-    fetch('https://localhost:44381/api/files/deleteimage', {
+    fetch('https://apartmain.azurewebsites.net/api/files/deleteimage', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -115,7 +115,7 @@ export class FileModelsListComponent implements OnInit {
   }
 
   getFiles(): void {
-    fetch(`https://localhost:44381/api/files/getimages?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/files/getimages?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -137,7 +137,7 @@ export class FileModelsListComponent implements OnInit {
       fData.append('uploadedFile', this.uploadedFile);
     }
 
-      fetch('https://localhost:44381/api/fileuploader/uploadfile', {
+      fetch('https://apartmain.azurewebsites.net/api/fileuploader/uploadfile', {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -174,7 +174,7 @@ export class FileModelsListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/files/getimages?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/files/getimages?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

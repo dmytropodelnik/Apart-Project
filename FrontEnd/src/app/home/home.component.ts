@@ -157,7 +157,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getRecommendedDestData(): void {
-    fetch(`https://localhost:44381/api/stayspage/getrecommendeddestdata`, {
+    fetch(`https://apartmain.azurewebsites.net/api/stayspage/getrecommendeddestdata`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -175,7 +175,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getCategoriesData(): void {
-    fetch('https://localhost:44381/api/stayspage/getcategoriesdata?country=' + this.mainDataService.getCurrentCountry(), {
+    fetch('https://apartmain.azurewebsites.net/api/stayspage/getcategoriesdata?country=' + this.mainDataService.getCurrentCountry(), {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -193,7 +193,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getRegionsData(): void {
-    fetch('https://localhost:44381/api/stayspage/getregionsdata', {
+    fetch('https://apartmain.azurewebsites.net/api/stayspage/getregionsdata', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -211,7 +211,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getCountriesData(): void {
-    fetch('https://localhost:44381/api/stayspage/getinterestplacesdata', {
+    fetch('https://apartmain.azurewebsites.net/api/stayspage/getinterestplacesdata', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -229,7 +229,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getCitiesData(): void {
-    fetch('https://localhost:44381/api/stayspage/getcitiesdata?country=' + this.mainDataService.getCurrentCountry(), {
+    fetch('https://apartmain.azurewebsites.net/api/stayspage/getcitiesdata?country=' + this.mainDataService.getCurrentCountry(), {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -248,7 +248,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getGuestsLoveData(): void {
-    fetch(`https://localhost:44381/api/stayspage/getguestslovedata`, {
+    fetch(`https://apartmain.azurewebsites.net/api/stayspage/getguestslovedata`, {
       method: 'GET',
     })
       .then((r) => r.json())

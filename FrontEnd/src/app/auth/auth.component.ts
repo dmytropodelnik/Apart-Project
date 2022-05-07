@@ -89,7 +89,7 @@ export class AuthComponent implements OnInit {
       password: this.password,
     };
     fetch(
-      `https://localhost:44381/api/users/userexists?email=${user.email}`,
+      `https://apartmain.azurewebsites.net/api/users/userexists?email=${user.email}`,
       {
         method: 'GET',
         headers: {
@@ -116,7 +116,7 @@ export class AuthComponent implements OnInit {
       repository: RepositoryEnum.Enter,
     };
 
-    fetch('https://localhost:44381/token', {
+    fetch('https://apartmain.azurewebsites.net/token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -146,7 +146,7 @@ export class AuthComponent implements OnInit {
     }
 
     fetch(
-      'https://localhost:44381/api/codes/generateregistercode?email=' +
+      'https://apartmain.azurewebsites.net/api/codes/generateregistercode?email=' +
         this.email,
       {
         method: 'GET',
@@ -188,7 +188,7 @@ export class AuthComponent implements OnInit {
       verificationCode: this.verificationCode,
     };
 
-    fetch('https://localhost:44381/api/users/register', {
+    fetch('https://apartmain.azurewebsites.net/api/users/register', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -236,7 +236,7 @@ export class AuthComponent implements OnInit {
               );
 
               fetch(
-                'https://localhost:44381/api/users/userexistsbyfacebook?id=' +
+                'https://apartmain.azurewebsites.net/api/users/userexistsbyfacebook?id=' +
                   this.facebookId,
                 {
                   method: 'GET',
@@ -250,7 +250,7 @@ export class AuthComponent implements OnInit {
                       repository: RepositoryEnum.Enter,
                     };
 
-                    fetch('https://localhost:44381/tokenforfacebook', {
+                    fetch('https://apartmain.azurewebsites.net/tokenforfacebook', {
                       method: 'POST',
                       headers: {
                         'Content-Type': 'application/json; charset=utf-8',
@@ -282,7 +282,7 @@ export class AuthComponent implements OnInit {
                     };
 
                     fetch(
-                      'https://localhost:44381/api/users/registerviafacebook',
+                      'https://apartmain.azurewebsites.net/api/users/registerviafacebook',
                       {
                         method: 'POST',
                         headers: {
@@ -322,7 +322,7 @@ export class AuthComponent implements OnInit {
 
   googleEnter(): void {
     fetch(
-      'https://localhost:44381/api/users/userexistsbygoogle?email=' +
+      'https://apartmain.azurewebsites.net/api/users/userexistsbygoogle?email=' +
         this.user.email,
       {
         method: 'GET',
@@ -336,7 +336,7 @@ export class AuthComponent implements OnInit {
             repository: RepositoryEnum.Enter,
           };
 
-          fetch('https://localhost:44381/tokenforgoogle', {
+          fetch('https://apartmain.azurewebsites.net/tokenforgoogle', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json; charset=utf-8',
@@ -368,7 +368,7 @@ export class AuthComponent implements OnInit {
           };
 
           fetch(
-            'https://localhost:44381/api/users/registerviagoogle',
+            'https://apartmain.azurewebsites.net/api/users/registerviagoogle',
             {
               method: 'POST',
               headers: {

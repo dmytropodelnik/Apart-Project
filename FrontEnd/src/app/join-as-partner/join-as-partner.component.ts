@@ -25,7 +25,7 @@ export class JoinAsPartnerComponent implements OnInit {
       accessToken: AuthHelper.getToken(),
     };
 
-    fetch('https://localhost:44381/api/users/signoutuser', {
+    fetch('https://apartmain.azurewebsites.net/api/users/signoutuser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',

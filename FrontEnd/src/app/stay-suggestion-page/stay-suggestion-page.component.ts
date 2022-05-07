@@ -39,7 +39,7 @@ export class StaySuggestionPageComponent implements OnInit {
 
   getSuggestion(): void {
     fetch(
-      'https://localhost:44381/api/suggestions/getsuggestion?code=' + this.uniqueCode,
+      'https://apartmain.azurewebsites.net/api/suggestions/getsuggestion?code=' + this.uniqueCode,
       {
         method: 'GET',
       }

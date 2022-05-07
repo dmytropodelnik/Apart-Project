@@ -101,7 +101,7 @@ export class LpPropertySetupComponent implements OnInit {
       login: AuthHelper.getLogin(),
     };
 
-    fetch(`https://localhost:44381/api/bedtypes/getbedtypes`, {
+    fetch(`https://apartmain.azurewebsites.net/api/bedtypes/getbedtypes`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -117,7 +117,7 @@ export class LpPropertySetupComponent implements OnInit {
         }
       })
       .then(r => {
-        fetch(`https://localhost:44381/api/listnewproperty/addbeds`, {
+        fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addbeds`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -147,7 +147,7 @@ export class LpPropertySetupComponent implements OnInit {
       isParkingAvailable: this.parking,
     };
 
-    fetch(`https://localhost:44381/api/listnewproperty/addparking`, {
+    fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addparking`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -175,7 +175,7 @@ export class LpPropertySetupComponent implements OnInit {
       languages: this.correctLanguages,
     };
 
-    fetch(`https://localhost:44381/api/listnewproperty/addlanguages`, {
+    fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addlanguages`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -201,7 +201,7 @@ export class LpPropertySetupComponent implements OnInit {
       suggestionRules: this.includedRules,
     };
 
-    fetch(`https://localhost:44381/api/listnewproperty/addrules`, {
+    fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addrules`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -228,7 +228,7 @@ export class LpPropertySetupComponent implements OnInit {
       facilities: this.includedFacilities,
     };
 
-    fetch(`https://localhost:44381/api/listnewproperty/addfacilities`, {
+    fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addfacilities`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -249,7 +249,7 @@ export class LpPropertySetupComponent implements OnInit {
   }
 
   getFacilities(): void {
-    fetch(`https://localhost:44381/api/facilities/getfacilities`, {
+    fetch(`https://apartmain.azurewebsites.net/api/facilities/getfacilities`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -271,7 +271,7 @@ export class LpPropertySetupComponent implements OnInit {
   }
 
   getRules(): void {
-    fetch(`https://localhost:44381/api/suggestionrules/getrules`, {
+    fetch(`https://apartmain.azurewebsites.net/api/suggestionrules/getrules`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -298,7 +298,7 @@ export class LpPropertySetupComponent implements OnInit {
       description: this.description,
     };
 
-    fetch(`https://localhost:44381/api/listnewproperty/adddescription`, {
+    fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/adddescription`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -324,7 +324,7 @@ export class LpPropertySetupComponent implements OnInit {
       starsRating: this.starsRating,
     };
 
-    fetch(`https://localhost:44381/api/listnewproperty/addstarsrating`, {
+    fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addstarsrating`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',

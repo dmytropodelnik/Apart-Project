@@ -47,7 +47,7 @@ export class AddPropertyComponent implements OnInit {
       login: AuthHelper.getLogin(),
     };
 
-    fetch(`https://localhost:44381/api/listnewproperty/addbookingcategory`, {
+    fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addbookingcategory`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -71,7 +71,7 @@ export class AddPropertyComponent implements OnInit {
   }
 
   getBookingCategories(): void {
-    fetch('https://localhost:44381/api/bookingcategories/getcategoriesforlist?categoryTypeId=' + this.choice, {
+    fetch('https://apartmain.azurewebsites.net/api/bookingcategories/getcategoriesforlist?categoryTypeId=' + this.choice, {
       method: 'GET',
     })
       .then((r) => r.json())

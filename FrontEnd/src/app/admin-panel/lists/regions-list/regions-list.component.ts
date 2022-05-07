@@ -29,7 +29,7 @@ export class RegionsListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://localhost:44381/api/regions/search?region=' + this.searchRegion, {
+    fetch('https://apartmain.azurewebsites.net/api/regions/search?region=' + this.searchRegion, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -55,7 +55,7 @@ export class RegionsListComponent implements OnInit {
       name: this.region,
     };
 
-    fetch('https://localhost:44381/api/regions/addregion', {
+    fetch('https://apartmain.azurewebsites.net/api/regions/addregion', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -84,7 +84,7 @@ export class RegionsListComponent implements OnInit {
       name: this.region,
     };
 
-    fetch('https://localhost:44381/api/regions/editregion', {
+    fetch('https://apartmain.azurewebsites.net/api/regions/editregion', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -114,7 +114,7 @@ export class RegionsListComponent implements OnInit {
       name: this.region,
     };
 
-    fetch('https://localhost:44381/api/regions/deleteregion', {
+    fetch('https://apartmain.azurewebsites.net/api/regions/deleteregion', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -139,7 +139,7 @@ export class RegionsListComponent implements OnInit {
   }
 
   getRegions(): void {
-    fetch(`https://localhost:44381/api/regions/getregions?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/regions/getregions?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -164,7 +164,7 @@ export class RegionsListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/regions/getregions?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/regions/getregions?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

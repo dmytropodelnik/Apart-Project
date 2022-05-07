@@ -30,7 +30,7 @@ export class ReviewMessagesListComponent implements OnInit {
       name: this.message,
     };
 
-    fetch('https://localhost:44381/api/reviewmessages/addmessage', {
+    fetch('https://apartmain.azurewebsites.net/api/reviewmessages/addmessage', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -59,7 +59,7 @@ export class ReviewMessagesListComponent implements OnInit {
       name: this.message,
     };
 
-    fetch('https://localhost:44381/api/reviewmessages/editmessage', {
+    fetch('https://apartmain.azurewebsites.net/api/reviewmessages/editmessage', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -89,7 +89,7 @@ export class ReviewMessagesListComponent implements OnInit {
       name: this.message,
     };
 
-    fetch('https://localhost:44381/api/reviewmessages/deletemessage', {
+    fetch('https://apartmain.azurewebsites.net/api/reviewmessages/deletemessage', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -114,7 +114,7 @@ export class ReviewMessagesListComponent implements OnInit {
   }
 
   getMessages(): void {
-    fetch(`https://localhost:44381/api/reviewmessages/getmessages?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/reviewmessages/getmessages?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -139,7 +139,7 @@ export class ReviewMessagesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/reviewmessages/getmessages?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/reviewmessages/getmessages?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

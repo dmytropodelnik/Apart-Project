@@ -27,7 +27,7 @@ export class FacilityTypesListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://localhost:44381/api/facilitytypes/search?type=' + this.searchType, {
+    fetch('https://apartmain.azurewebsites.net/api/facilitytypes/search?type=' + this.searchType, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -53,7 +53,7 @@ export class FacilityTypesListComponent implements OnInit {
       type: this.type.type,
     };
 
-    fetch('https://localhost:44381/api/facilitytypes/addtype', {
+    fetch('https://apartmain.azurewebsites.net/api/facilitytypes/addtype', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -82,7 +82,7 @@ export class FacilityTypesListComponent implements OnInit {
       type: this.type.type,
     };
 
-    fetch('https://localhost:44381/api/facilitytypes/edittype', {
+    fetch('https://apartmain.azurewebsites.net/api/facilitytypes/edittype', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -112,7 +112,7 @@ export class FacilityTypesListComponent implements OnInit {
       type: this.type.type,
     };
 
-    fetch('https://localhost:44381/api/facilitytypes/deletetype', {
+    fetch('https://apartmain.azurewebsites.net/api/facilitytypes/deletetype', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -137,7 +137,7 @@ export class FacilityTypesListComponent implements OnInit {
   }
 
   getTypes(): void {
-    fetch(`https://localhost:44381/api/facilitytypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/facilitytypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -162,7 +162,7 @@ export class FacilityTypesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/facilitytypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://apartmain.azurewebsites.net/api/facilitytypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
