@@ -60,6 +60,8 @@ export class HomeComponent implements OnInit, OnDestroy {
   reviewsCount: any;
   suggestionGrades: any;
 
+  isGotData: boolean = false;
+
   searchViewModel: SearchViewModel = new SearchViewModel();
 
   slides = [
@@ -154,8 +156,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.searchViewModel.searchRoomsAmount += value;
   }
 
-  getRecommendedDestData(): void {
-    fetch(`https://localhost:44381/api/stayspage/getrecommendeddestdata`, {
+  async getRecommendedDestData(): Promise<void> {
+    await fetch(`https://localhost:44381/api/stayspage/getrecommendeddestdata`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -172,8 +174,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  getCategoriesData(): void {
-    fetch('https://localhost:44381/api/stayspage/getcategoriesdata?country=' + this.mainDataService.getCurrentCountry(), {
+  async getCategoriesData(): Promise<void> {
+    await fetch('https://localhost:44381/api/stayspage/getcategoriesdata?country=' + this.mainDataService.getCurrentCountry(), {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -190,8 +192,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  getRegionsData(): void {
-    fetch('https://localhost:44381/api/stayspage/getregionsdata', {
+  async getRegionsData(): Promise<void> {
+    await fetch('https://localhost:44381/api/stayspage/getregionsdata', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -208,8 +210,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  getCountriesData(): void {
-    fetch('https://localhost:44381/api/stayspage/getinterestplacesdata', {
+  async getCountriesData(): Promise<void> {
+    await fetch('https://localhost:44381/api/stayspage/getinterestplacesdata', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -226,8 +228,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  getCitiesData(): void {
-    fetch('https://localhost:44381/api/stayspage/getcitiesdata?country=' + this.mainDataService.getCurrentCountry(), {
+  async getCitiesData(): Promise<void> {
+    await fetch('https://localhost:44381/api/stayspage/getcitiesdata?country=' + this.mainDataService.getCurrentCountry(), {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -245,8 +247,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  getGuestsLoveData(): void {
-    fetch(`https://localhost:44381/api/stayspage/getguestslovedata`, {
+  async getGuestsLoveData(): Promise<void> {
+    await fetch(`https://localhost:44381/api/stayspage/getguestslovedata`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -337,13 +339,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  ngOnInit(): void {
+  async getData(): Promise<void> {
     this.getCategoriesData();
     this.getRegionsData();
     this.getCountriesData();
     this.getCitiesData();
     this.getRecommendedDestData();
     this.getGuestsLoveData();
+  }
+
+  async ngOnInit(): Promise<void> {
+    await this.getData();
+    $(window).on('load', () => {
+      this.isGotData = true;
+  });
   }
 
   ngOnDestroy() {}

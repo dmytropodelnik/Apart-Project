@@ -3,7 +3,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/app",
-    "types": ["facebook-js-sdk"]
+    "types": ["facebook-js-sdk", "jquery"]
   },
   "files": [
     "src/main.ts",

@@ -234,81 +234,83 @@ export class AuthComponent implements OnInit {
                 userName.indexOf(' ') + 1,
                 userName.length
               );
+
+              fetch(
+                'https://localhost:44381/api/users/userexistsbyfacebook?id=' +
+                  this.facebookId,
+                {
+                  method: 'GET',
+                }
+              )
+                .then((r) => r.json())
+                .then((data) => {
+                  if (data.code === 200 && data.userExisted) {
+                    let user = {
+                      facebookId: this.facebookId,
+                      repository: RepositoryEnum.Enter,
+                    };
+
+                    fetch('https://localhost:44381/tokenforfacebook', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json; charset=utf-8',
+                      },
+                      body: JSON.stringify(user),
+                    })
+                      .then((response) => response.json())
+                      .then((response) => {
+                        if (response.code !== 400) {
+                          this.authService.setTokenKey(response.encodedJwt);
+                          AuthHelper.saveAuth(user.facebookId, response.encodedJwt);
+                          this.authService.toggleLogCondition();
+                          AuthHelper.saveFacebookAuth();
+                          alert('You have successfully authenticated!');
+                          console.log('You have successfully authenticated!');
+                          document.location.href="https://localhost:4200";
+                        } else {
+                          alert('Token fetching error!');
+                        }
+                      })
+                      .catch((ex) => {
+                        alert(ex);
+                      });
+                  } else {
+                    let person = {
+                      facebookId: this.facebookId,
+                      firstName: this.userFirstName,
+                      lastName: this.userLastName,
+                    };
+
+                    fetch(
+                      'https://localhost:44381/api/users/registerviafacebook',
+                      {
+                        method: 'POST',
+                        headers: {
+                          'Content-Type': 'application/json; charset=utf-8',
+                        },
+                        body: JSON.stringify(person),
+                      }
+                    )
+                      .then((r) => r.json())
+                      .then((response) => {
+                        if (response.code === 200) {
+                          this.userSignIn();
+                        } else {
+                          alert(response.code);
+                        }
+                      })
+                      .catch((ex) => {
+                        alert(ex);
+                      });
+                  }
+                })
+                .catch((ex) => {
+                  alert(ex);
+                });
+            } else {
+              alert('Login via facebook error!');
             }
           });
-
-          fetch(
-            'https://localhost:44381/api/users/userexistsbyfacebook?id=' +
-              this.facebookId,
-            {
-              method: 'GET',
-            }
-          )
-            .then((r) => r.json())
-            .then((data) => {
-              if (data.code === 200 && data.userExisted) {
-                let user = {
-                  facebookId: this.facebookId,
-                  repository: RepositoryEnum.Enter,
-                };
-
-                fetch('https://localhost:44381/tokenforfacebook', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                  },
-                  body: JSON.stringify(user),
-                })
-                  .then((response) => response.json())
-                  .then((response) => {
-                    if (response.code !== 400) {
-                      this.authService.setTokenKey(response.encodedJwt);
-                      AuthHelper.saveAuth(user.facebookId, response.encodedJwt);
-                      this.authService.toggleLogCondition();
-                      AuthHelper.saveFacebookAuth();
-                      alert('You have successfully authenticated!');
-                      console.log('You have successfully authenticated!');
-                      this.router.navigate(['']);
-                    } else {
-                      alert('Token fetching error!');
-                    }
-                  })
-                  .catch((ex) => {
-                    alert(ex);
-                  });
-              } else {
-                let person = {
-                  facebookId: this.facebookId,
-                  firstName: this.userFirstName,
-                  lastName: this.userLastName,
-                };
-
-                fetch(
-                  'https://localhost:44381/api/users/registerviafacebook',
-                  {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json; charset=utf-8',
-                    },
-                    body: JSON.stringify(person),
-                  }
-                )
-                  .then((r) => r.json())
-                  .then((response) => {
-                    if (response.code === 200) {
-                      this.userSignIn();
-                    } else {
-                      alert(response.code);
-                    }
-                  })
-                  .catch((ex) => {
-                    alert(ex);
-                  });
-              }
-            })
-            .catch((ex) => {
-              alert(ex);
-            });
         } else {
           // The person is not logged into your webpage or we are unable to tell.
           alert('Login via facebook error!');
