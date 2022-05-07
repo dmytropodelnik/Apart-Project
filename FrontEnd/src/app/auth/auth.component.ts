@@ -266,7 +266,7 @@ export class AuthComponent implements OnInit {
                           AuthHelper.saveFacebookAuth();
                           alert('You have successfully authenticated!');
                           console.log('You have successfully authenticated!');
-                          document.location.href="https://localhost:4200";
+                          document.location.href="https://www.apartstep.fun";
                         } else {
                           alert('Token fetching error!');
                         }
@@ -351,7 +351,7 @@ export class AuthComponent implements OnInit {
                 AuthHelper.saveGoogleAuth();
                 this.authService.toggleLogCondition();
                 alert('You have successfully authenticated!');
-                document.location.href="https://localhost:4200";
+                document.location.href="https://www.apartstep.fun";
               } else {
                 alert('Token fetching error!');
               }
