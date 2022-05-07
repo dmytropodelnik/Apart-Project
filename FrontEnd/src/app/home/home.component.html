@@ -197,9 +197,12 @@
                 </div>
               </div>
               <div class="col-md-2 mt-1 mt-md-0 px-6">
-                <div>
-                  <a href="javascript:void(0)" class="btn btn-blue">Search</a>
-                </div>
+                <button
+                  class="btn btn-blue"
+                  (click)="searchSuggestions($event)"
+                >
+                  Search
+                </button>
               </div>
             </div>
           </div>
