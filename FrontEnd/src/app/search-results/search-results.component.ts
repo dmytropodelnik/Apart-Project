@@ -73,7 +73,9 @@ export class SearchResultsComponent implements OnInit {
   monthOut: number | null = null;
   dayOut: number | null = null;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+
+  }
 
   model: any;
   model1: any;

@@ -67,6 +67,9 @@ export class HeaderComponent implements OnInit {
             }
           });
 
+          if (AuthHelper.isFacebookLogin()) {
+            AuthHelper.clearFacebookAuth();
+          }
           if (AuthHelper.isGoogleLogin()) {
             this.authSocialService.signOut();
             AuthHelper.clearGoogleAuth();

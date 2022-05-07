@@ -76,7 +76,7 @@ export class UserSavedComponent implements OnInit {
   getUserFavorites(): void {
     let url = 'https://localhost:44381/api/favorites/getuserfavorites?email=' +
                 AuthHelper.getLogin();
-    if (this.authService.getFacebookAuthCondition()) {
+    if (AuthHelper.isFacebookLogin()) {
       url += '&isFacebookAuth=true';
     }
 

@@ -6,7 +6,6 @@ import AuthHelper from '../utils/authHelper';
 export class AuthorizationService {
   private isLogged: boolean = false;
   private isAdmin: boolean = false;
-  private isFacebookAuth: boolean = false;
   private token: string | null = null;
   private userImage: string = '';
 
@@ -34,20 +33,12 @@ export class AuthorizationService {
     this.isAdmin = value;
   }
 
-  setFacebookAuthCondition(value: boolean): void {
-    this.isFacebookAuth = value;
-  }
-
   setLogCondition(value: boolean): void {
     this.isLogged = value;
   }
 
   getLogCondition(): boolean {
     return this.isLogged;
-  }
-
-  getFacebookAuthCondition(): boolean {
-    return this.isFacebookAuth;
   }
 
   getTokenKey(): string | null {
@@ -65,7 +56,7 @@ export class AuthorizationService {
   async refreshAuth(isGoogleAuth: boolean = false): Promise<void> {
     let model;
 
-    if (this.isFacebookAuth) {
+    if (AuthHelper.isFacebookLogin()) {
       model = {
         username: AuthHelper.getLogin(),
         accessToken: AuthHelper.getToken(),
@@ -94,9 +85,9 @@ export class AuthorizationService {
           if (response.code === 200) {
             this.setLogCondition(true);
             if (response.facebookAuth == true) {
-              this.isFacebookAuth = true;
+              AuthHelper.saveFacebookAuth();
             }
-            this.userImage = response.user.profile.image.path;
+            this.userImage = response.user.profile.image?.path;
             this.isGotData = true;
           } else {
             alert("Refresh auth error!");

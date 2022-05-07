@@ -44,7 +44,7 @@ export class AuthComponent implements OnInit {
     public authService: AuthorizationService,
     private router: Router,
     private formBuilder: FormBuilder,
-    private authSocialService: SocialAuthService
+    private authSocialService: SocialAuthService,
   ) {
     this.passwordForm = this.formBuilder.group(
       {
@@ -265,7 +265,7 @@ export class AuthComponent implements OnInit {
                       this.authService.setTokenKey(response.encodedJwt);
                       AuthHelper.saveAuth(user.facebookId, response.encodedJwt);
                       this.authService.toggleLogCondition();
-                      this.authService.setFacebookAuthCondition(true);
+                      AuthHelper.saveFacebookAuth();
                       alert('You have successfully authenticated!');
                       console.log('You have successfully authenticated!');
                       this.router.navigate(['']);

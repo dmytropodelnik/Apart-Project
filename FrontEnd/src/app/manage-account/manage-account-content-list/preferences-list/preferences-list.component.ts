@@ -121,7 +121,7 @@ export class PreferencesListComponent implements OnInit {
     if (!this.authService.isGotData) {
       await this.authService.refreshAuth();
     }
-    if (!this.authService.getFacebookAuthCondition()) {
+    if (!AuthHelper.isFacebookLogin()) {
       fetch(
         'https://localhost:44381/api/users/getuser?email=' +
           AuthHelper.getLogin(),
@@ -138,7 +138,7 @@ export class PreferencesListComponent implements OnInit {
         .then((response) => {
           if (response.code === 200) {
             this.authService.isGotData = true;
-            this.authService.setUserImage(response.user.profile.image.path);
+            this.authService.setUserImage(response.user.profile.image?.path);
 
             this.user.currency = response.user?.profile?.currency.abbreviation;
             this.user.language = response.user?.profile?.language?.title;
@@ -166,7 +166,7 @@ export class PreferencesListComponent implements OnInit {
         .then((response) => {
           if (response.code === 200) {
             this.authService.isGotData = true;
-            this.authService.setUserImage(response.user.profile.image.path);
+            this.authService.setUserImage(response.user.profile.image?.path);
 
             this.user.currency = response.user?.profile?.currency.abbreviation;
             this.user.language = response.user?.profile?.language?.title;

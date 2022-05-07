@@ -8,12 +8,20 @@ export default {
       sessionStorage.setItem('googleAuth', JSON.stringify({ isGoogleAuth: true }));
     },
 
+    saveFacebookAuth: () => {
+      sessionStorage.setItem('facebookAuth', JSON.stringify({ isFacebookAuth: true }));
+    },
+
     clearAuth: () => {
         sessionStorage.removeItem('tokenKey');
     },
 
     clearGoogleAuth: () => {
       sessionStorage.removeItem('googleAuth');
+    },
+
+    clearFacebookAuth: () => {
+      sessionStorage.removeItem('facebookAuth');
     },
 
     getLogin: () => {
@@ -27,11 +35,20 @@ export default {
 
     isGoogleLogin: () => {
       let item = sessionStorage.getItem('googleAuth');
-      let login = false;
+      let state = false;
       if (item) {
-          login = JSON.parse(item).isGoogleAuth;
+        state = JSON.parse(item).isGoogleAuth;
       }
-      return login;
+      return state;
+    },
+
+    isFacebookLogin: () => {
+      let item = sessionStorage.getItem('facebookAuth');
+      let state = false;
+      if (item) {
+        state = JSON.parse(item).isFacebookAuth;
+      }
+      return state;
     },
 
     isLogged: () => {

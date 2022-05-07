@@ -428,7 +428,7 @@ export class PersonalDetailsListComponent implements OnInit {
     if (!this.authService.isGotData) {
       await this.authService.refreshAuth();
     }
-    if (!this.authService.getFacebookAuthCondition()) {
+    if (!AuthHelper.isFacebookLogin()) {
       fetch(
         'https://localhost:44381/api/users/getuser?email=' +
           AuthHelper.getLogin(),
@@ -445,7 +445,7 @@ export class PersonalDetailsListComponent implements OnInit {
         .then((response) => {
           if (response.code === 200) {
             this.authService.isGotData = true;
-            this.authService.setUserImage(response.user.profile.image.path);
+            this.authService.setUserImage(response.user.profile.image?.path);
 
             this.user.addressText = response.user.profile?.address?.addressText;
             this.user.zipCode = response.user.profile?.address?.zipCode;
@@ -490,7 +490,7 @@ export class PersonalDetailsListComponent implements OnInit {
         .then((response) => {
           if (response.code === 200) {
             this.authService.isGotData = true;
-            this.authService.setUserImage(response.user.profile.image.path);
+            this.authService.setUserImage(response.user.profile.image?.path);
 
             this.user.addressText = response.user.profile?.address?.addressText;
             this.user.zipCode = response.user.profile?.address?.zipCode;
