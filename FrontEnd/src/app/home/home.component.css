@@ -2022,6 +2022,10 @@ a.bui-card:link {
     min-width: auto;
   }
 
+  .row{
+    gap: 3px;
+  }
+
   .bui-card {
     flex-direction: column;
     align-items: center;
