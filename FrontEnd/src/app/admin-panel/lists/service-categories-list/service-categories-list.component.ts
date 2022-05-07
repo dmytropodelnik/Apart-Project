@@ -27,7 +27,7 @@ export class ServiceCategoriesListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://apartmain.azurewebsites.net/api/servicecategories/search?category=' + this.searchCategory, {
+    fetch('https://localhost:44381/api/servicecategories/search?category=' + this.searchCategory, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -53,7 +53,7 @@ export class ServiceCategoriesListComponent implements OnInit {
       category: this.category.category,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/servicecategories/addcategory', {
+    fetch('https://localhost:44381/api/servicecategories/addcategory', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -82,7 +82,7 @@ export class ServiceCategoriesListComponent implements OnInit {
       category: this.category.category,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/servicecategories/editcategory', {
+    fetch('https://localhost:44381/api/servicecategories/editcategory', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -112,7 +112,7 @@ export class ServiceCategoriesListComponent implements OnInit {
       category: this.category.category,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/servicecategories/deletecategory', {
+    fetch('https://localhost:44381/api/servicecategories/deletecategory', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -137,7 +137,7 @@ export class ServiceCategoriesListComponent implements OnInit {
   }
 
   getCategories(): void {
-    fetch('https://apartmain.azurewebsites.net/api/servicecategories/getcategories', {
+    fetch('https://localhost:44381/api/servicecategories/getcategories', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -162,7 +162,7 @@ export class ServiceCategoriesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://apartmain.azurewebsites.net/api/servicecategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/servicecategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

@@ -30,7 +30,7 @@ export class SuggestionsListComponent implements OnInit {
       name: this.suggestion,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/suggestions/addsuggestion', {
+    fetch('https://localhost:44381/api/suggestions/addsuggestion', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -59,7 +59,7 @@ export class SuggestionsListComponent implements OnInit {
       name: this.suggestion,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/suggestions/editsuggestion', {
+    fetch('https://localhost:44381/api/suggestions/editsuggestion', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -89,7 +89,7 @@ export class SuggestionsListComponent implements OnInit {
       name: this.suggestion,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/suggestions/deletesuggestion', {
+    fetch('https://localhost:44381/api/suggestions/deletesuggestion', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -114,7 +114,7 @@ export class SuggestionsListComponent implements OnInit {
   }
 
   getSuggestions(): void {
-    fetch(`https://apartmain.azurewebsites.net/api/suggestions/getsuggestions?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/suggestions/getsuggestions?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -139,7 +139,7 @@ export class SuggestionsListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://apartmain.azurewebsites.net/api/suggestions/getsuggestions?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/suggestions/getsuggestions?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

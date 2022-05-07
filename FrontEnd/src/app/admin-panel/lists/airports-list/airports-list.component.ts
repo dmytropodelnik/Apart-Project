@@ -30,7 +30,7 @@ export class AirportsListComponent implements OnInit {
       name: this.airport,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/airports/addairport', {
+    fetch('https://localhost:44381/api/airports/addairport', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -59,7 +59,7 @@ export class AirportsListComponent implements OnInit {
       name: this.airport,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/airports/editairport', {
+    fetch('https://localhost:44381/api/airports/editairport', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -89,7 +89,7 @@ export class AirportsListComponent implements OnInit {
       name: this.airport,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/airports/deleteairport', {
+    fetch('https://localhost:44381/api/airports/deleteairport', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -114,7 +114,7 @@ export class AirportsListComponent implements OnInit {
   }
 
   getAirports(): void {
-    fetch(`https://apartmain.azurewebsites.net/api/airports/getairports?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/airports/getairports?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -139,7 +139,7 @@ export class AirportsListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://apartmain.azurewebsites.net/api/airports/getairports?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/airports/getairports?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

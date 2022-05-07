@@ -112,7 +112,7 @@ export class PersonalDetailsListComponent implements OnInit {
       email: AuthHelper.getLogin(),
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/userdataeditor/edittitle', {
+    fetch('https://localhost:44381/api/userdataeditor/edittitle', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -143,7 +143,7 @@ export class PersonalDetailsListComponent implements OnInit {
       email: AuthHelper.getLogin(),
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/userdataeditor/editname', {
+    fetch('https://localhost:44381/api/userdataeditor/editname', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -174,7 +174,7 @@ export class PersonalDetailsListComponent implements OnInit {
       email: AuthHelper.getLogin(),
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/userdataeditor/editdisplayname', {
+    fetch('https://localhost:44381/api/userdataeditor/editdisplayname', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -200,7 +200,7 @@ export class PersonalDetailsListComponent implements OnInit {
 
   sendChangingEmailLetter(id: number): void {
     fetch(
-      `https://apartmain.azurewebsites.net/api/auth/isemailregistered?email=${this.user.newEmail}`,
+      `https://localhost:44381/api/auth/isemailregistered?email=${this.user.newEmail}`,
       {
         method: 'GET',
         headers: {
@@ -214,7 +214,7 @@ export class PersonalDetailsListComponent implements OnInit {
       .then((data) => {
         if (data.code === 200 && data.isExisted == false) {
           fetch(
-            `https://apartmain.azurewebsites.net/api/codes/generatechangingemailcode?email=${
+            `https://localhost:44381/api/codes/generatechangingemailcode?email=${
               this.user.newEmail
             }&oldEmail=${AuthHelper.getLogin()}`,
             {
@@ -254,7 +254,7 @@ export class PersonalDetailsListComponent implements OnInit {
       email: AuthHelper.getLogin(),
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/userdataeditor/editphonenumber', {
+    fetch('https://localhost:44381/api/userdataeditor/editphonenumber', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -292,7 +292,7 @@ export class PersonalDetailsListComponent implements OnInit {
         email: AuthHelper.getLogin(),
       };
 
-      fetch('https://apartmain.azurewebsites.net/api/userdataeditor/editbirthdate', {
+      fetch('https://localhost:44381/api/userdataeditor/editbirthdate', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
@@ -328,7 +328,7 @@ export class PersonalDetailsListComponent implements OnInit {
       email: AuthHelper.getLogin(),
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/userdataeditor/editnationality', {
+    fetch('https://localhost:44381/api/userdataeditor/editnationality', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -358,7 +358,7 @@ export class PersonalDetailsListComponent implements OnInit {
       email: AuthHelper.getLogin(),
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/userdataeditor/editgender', {
+    fetch('https://localhost:44381/api/userdataeditor/editgender', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -391,7 +391,7 @@ export class PersonalDetailsListComponent implements OnInit {
       email: AuthHelper.getLogin(),
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/userdataeditor/editaddress', {
+    fetch('https://localhost:44381/api/userdataeditor/editaddress', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -430,7 +430,7 @@ export class PersonalDetailsListComponent implements OnInit {
     }
     if (!this.authService.getFacebookAuthCondition()) {
       fetch(
-        'https://apartmain.azurewebsites.net/api/users/getuser?email=' +
+        'https://localhost:44381/api/users/getuser?email=' +
           AuthHelper.getLogin(),
         {
           method: 'GET',
@@ -475,7 +475,7 @@ export class PersonalDetailsListComponent implements OnInit {
         });
     } else {
       fetch(
-        'https://apartmain.azurewebsites.net/api/users/getuserbyfacebookid?id=' +
+        'https://localhost:44381/api/users/getuserbyfacebookid?id=' +
           AuthHelper.getLogin(),
         {
           method: 'GET',
@@ -522,7 +522,7 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   getCountries(id: number): void {
-    fetch(`https://apartmain.azurewebsites.net/api/countries/getcountries`, {
+    fetch(`https://localhost:44381/api/countries/getcountries`, {
       method: 'GET',
     })
       .then((r) => r.json())

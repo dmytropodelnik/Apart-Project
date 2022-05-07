@@ -48,7 +48,7 @@ export class LpApartmentsComponent implements OnInit {
       apartments: this.apartments,
     };
 
-    fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addapartments`, {
+    fetch(`https://localhost:44381/api/listnewproperty/addapartments`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',

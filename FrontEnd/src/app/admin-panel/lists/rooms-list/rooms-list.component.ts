@@ -30,7 +30,7 @@ export class RoomsListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://apartmain.azurewebsites.net/api/rooms/search?room=' + this.searchRoom, {
+    fetch('https://localhost:44381/api/rooms/search?room=' + this.searchRoom, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -56,7 +56,7 @@ export class RoomsListComponent implements OnInit {
       title: this.room,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/rooms/addroom', {
+    fetch('https://localhost:44381/api/rooms/addroom', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -85,7 +85,7 @@ export class RoomsListComponent implements OnInit {
       title: this.room,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/rooms/editroom', {
+    fetch('https://localhost:44381/api/rooms/editroom', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -115,7 +115,7 @@ export class RoomsListComponent implements OnInit {
       title: this.room,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/rooms/deleteroom', {
+    fetch('https://localhost:44381/api/rooms/deleteroom', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -140,7 +140,7 @@ export class RoomsListComponent implements OnInit {
   }
 
   getRooms(): void {
-    fetch(`https://apartmain.azurewebsites.net/api/rooms/getrooms?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/rooms/getrooms?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -165,7 +165,7 @@ export class RoomsListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://apartmain.azurewebsites.net/api/rooms/getrooms?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/rooms/getrooms?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

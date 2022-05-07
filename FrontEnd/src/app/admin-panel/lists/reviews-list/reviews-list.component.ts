@@ -34,7 +34,7 @@ export class ReviewsListComponent implements OnInit {
       title: this.review,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/reviews/addreview', {
+    fetch('https://localhost:44381/api/reviews/addreview', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -64,7 +64,7 @@ export class ReviewsListComponent implements OnInit {
       title: this.review,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/reviews/editreview', {
+    fetch('https://localhost:44381/api/reviews/editreview', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -94,7 +94,7 @@ export class ReviewsListComponent implements OnInit {
       title: this.review,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/reviews/deletereview', {
+    fetch('https://localhost:44381/api/reviews/deletereview', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -118,7 +118,7 @@ export class ReviewsListComponent implements OnInit {
   }
 
   getReviews(): void {
-    fetch(`https://apartmain.azurewebsites.net/api/reviews/getreviews?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/reviews/getreviews?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -143,7 +143,7 @@ export class ReviewsListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://apartmain.azurewebsites.net/api/reviews/getreviews?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/reviews/getreviews?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

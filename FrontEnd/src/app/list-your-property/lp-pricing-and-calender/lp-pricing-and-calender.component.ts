@@ -28,7 +28,7 @@ export class LpPricingAndCalenderComponent implements OnInit {
       priceInUserCurrency: this.price,
     };
 
-    fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addprice`, {
+    fetch(`https://localhost:44381/api/listnewproperty/addprice`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',

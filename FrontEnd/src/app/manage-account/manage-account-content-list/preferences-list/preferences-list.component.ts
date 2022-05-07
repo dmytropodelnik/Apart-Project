@@ -63,7 +63,7 @@ export class PreferencesListComponent implements OnInit {
       email: AuthHelper.getLogin(),
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/userdataeditor/editcurrency', {
+    fetch('https://localhost:44381/api/userdataeditor/editcurrency', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -93,7 +93,7 @@ export class PreferencesListComponent implements OnInit {
       email: AuthHelper.getLogin(),
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/userdataeditor/editlanguage', {
+    fetch('https://localhost:44381/api/userdataeditor/editlanguage', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -123,7 +123,7 @@ export class PreferencesListComponent implements OnInit {
     }
     if (!this.authService.getFacebookAuthCondition()) {
       fetch(
-        'https://apartmain.azurewebsites.net/api/users/getuser?email=' +
+        'https://localhost:44381/api/users/getuser?email=' +
           AuthHelper.getLogin(),
         {
           method: 'GET',
@@ -151,7 +151,7 @@ export class PreferencesListComponent implements OnInit {
         });
     } else {
       fetch(
-        'https://apartmain.azurewebsites.net/api/users/getuserbyfacebookid?id=' +
+        'https://localhost:44381/api/users/getuserbyfacebookid?id=' +
           AuthHelper.getLogin(),
         {
           method: 'GET',
@@ -187,7 +187,7 @@ export class PreferencesListComponent implements OnInit {
   }
 
   getCurrencies(): void {
-    fetch(`https://apartmain.azurewebsites.net/api/currencies/getcurrencies`, {
+    fetch(`https://localhost:44381/api/currencies/getcurrencies`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -209,7 +209,7 @@ export class PreferencesListComponent implements OnInit {
   }
 
   getLanguages(): void {
-    fetch(`https://apartmain.azurewebsites.net/api/languages/getlanguages`, {
+    fetch(`https://localhost:44381/api/languages/getlanguages`, {
       method: 'GET',
     })
       .then((r) => r.json())

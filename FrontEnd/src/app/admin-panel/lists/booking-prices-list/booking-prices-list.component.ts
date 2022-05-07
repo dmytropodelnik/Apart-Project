@@ -30,7 +30,7 @@ export class BookingPricesListComponent implements OnInit {
       name: this.price,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/bookingprices/addprice', {
+    fetch('https://localhost:44381/api/bookingprices/addprice', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -59,7 +59,7 @@ export class BookingPricesListComponent implements OnInit {
       name: this.price,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/bookingprices/editprices', {
+    fetch('https://localhost:44381/api/bookingprices/editprices', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -89,7 +89,7 @@ export class BookingPricesListComponent implements OnInit {
       name: this.price,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/bookingprices/deleteprice', {
+    fetch('https://localhost:44381/api/bookingprices/deleteprice', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -114,7 +114,7 @@ export class BookingPricesListComponent implements OnInit {
   }
 
   getPrices(): void {
-    fetch(`https://apartmain.azurewebsites.net/api/bookingprices/getprices?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/bookingprices/getprices?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -139,7 +139,7 @@ export class BookingPricesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://apartmain.azurewebsites.net/api/bookingprices/getprices?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/bookingprices/getprices?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

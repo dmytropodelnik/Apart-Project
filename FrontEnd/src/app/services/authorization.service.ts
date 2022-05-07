@@ -80,7 +80,7 @@ export class AuthorizationService {
     }
 
     if (AuthHelper.getToken()) {
-      await fetch('https://apartmain.azurewebsites.net/api/codes/refreshauth', {
+      await fetch('https://localhost:44381/api/codes/refreshauth', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',

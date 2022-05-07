@@ -30,7 +30,7 @@ export class LpReviewAndCompleteComponent implements OnInit {
       contactEmail: this.contactDetails?.email,
     };
 
-    fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addcontactdetails`, {
+    fetch(`https://localhost:44381/api/listnewproperty/addcontactdetails`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',

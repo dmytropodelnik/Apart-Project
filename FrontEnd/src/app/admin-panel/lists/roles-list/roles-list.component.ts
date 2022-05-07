@@ -18,7 +18,7 @@ export class RolesListComponent implements OnInit {
   constructor() {}
 
   search(): void {
-    fetch('https://apartmain.azurewebsites.net/api/roles/search?role=' + this.searchRole, {
+    fetch('https://localhost:44381/api/roles/search?role=' + this.searchRole, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -44,7 +44,7 @@ export class RolesListComponent implements OnInit {
       name: this.role,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/roles/addrole', {
+    fetch('https://localhost:44381/api/roles/addrole', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -73,7 +73,7 @@ export class RolesListComponent implements OnInit {
       name: this.role,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/roles/editrole', {
+    fetch('https://localhost:44381/api/roles/editrole', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -104,7 +104,7 @@ export class RolesListComponent implements OnInit {
       name: this.role,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/roles/deleterole', {
+    fetch('https://localhost:44381/api/roles/deleterole', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -130,7 +130,7 @@ export class RolesListComponent implements OnInit {
   }
 
   getRoles(): void {
-    fetch('https://apartmain.azurewebsites.net/api/roles/getroles', {
+    fetch('https://localhost:44381/api/roles/getroles', {
       method: 'GET',
     })
       .then((r) => r.json())

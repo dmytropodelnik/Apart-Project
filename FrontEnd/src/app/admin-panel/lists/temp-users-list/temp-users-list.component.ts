@@ -27,7 +27,7 @@ export class TempUsersListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://apartmain.azurewebsites.net/api/tempusers/search?user=' + this.searchUser, {
+    fetch('https://localhost:44381/api/tempusers/search?user=' + this.searchUser, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -53,7 +53,7 @@ export class TempUsersListComponent implements OnInit {
       name: this.user,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/tempusers/adduser', {
+    fetch('https://localhost:44381/api/tempusers/adduser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -82,7 +82,7 @@ export class TempUsersListComponent implements OnInit {
       name: this.user,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/tempusers/edituser', {
+    fetch('https://localhost:44381/api/tempusers/edituser', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -117,7 +117,7 @@ export class TempUsersListComponent implements OnInit {
       name: this.user,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/tempusers/deleteuser', {
+    fetch('https://localhost:44381/api/tempusers/deleteuser', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -142,7 +142,7 @@ export class TempUsersListComponent implements OnInit {
   }
 
   getUsers(): void {
-    fetch(`https://apartmain.azurewebsites.net/api/tempusers/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/tempusers/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -167,7 +167,7 @@ export class TempUsersListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://apartmain.azurewebsites.net/api/tempusers/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/tempusers/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

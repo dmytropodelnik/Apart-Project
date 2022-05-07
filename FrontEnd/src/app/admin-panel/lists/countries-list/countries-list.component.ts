@@ -29,7 +29,7 @@ export class CountriesListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://apartmain.azurewebsites.net/api/countries/search?country=' + this.searchCountry, {
+    fetch('https://localhost:44381/api/countries/search?country=' + this.searchCountry, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -56,7 +56,7 @@ export class CountriesListComponent implements OnInit {
       name: this.country,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/countries/addcountry', {
+    fetch('https://localhost:44381/api/countries/addcountry', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -85,7 +85,7 @@ export class CountriesListComponent implements OnInit {
       name: this.country,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/countries/editcountry', {
+    fetch('https://localhost:44381/api/countries/editcountry', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -115,7 +115,7 @@ export class CountriesListComponent implements OnInit {
       name: this.country,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/countries/deletecountry', {
+    fetch('https://localhost:44381/api/countries/deletecountry', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -140,7 +140,7 @@ export class CountriesListComponent implements OnInit {
   }
 
   getCountries(): void {
-    fetch(`https://apartmain.azurewebsites.net/api/countries/getcountries?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/countries/getcountries?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -165,7 +165,7 @@ export class CountriesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://apartmain.azurewebsites.net/api/countries/getcountries?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/countries/getcountries?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

@@ -52,7 +52,7 @@ export class ResetPasswordComponent implements OnInit {
       newPassword: this.password,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/userdataeditor/editpassword', {
+    fetch('https://localhost:44381/api/userdataeditor/editpassword', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',

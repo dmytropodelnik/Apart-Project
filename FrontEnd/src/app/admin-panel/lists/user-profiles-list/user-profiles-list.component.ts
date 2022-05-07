@@ -29,7 +29,7 @@ export class UserProfilesListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://apartmain.azurewebsites.net/api/userprofiles/search?profile=' + this.searchProfile, {
+    fetch('https://localhost:44381/api/userprofiles/search?profile=' + this.searchProfile, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -55,7 +55,7 @@ export class UserProfilesListComponent implements OnInit {
       birthDate: this.birthDate,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/userprofiles/addprofile', {
+    fetch('https://localhost:44381/api/userprofiles/addprofile', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -85,7 +85,7 @@ export class UserProfilesListComponent implements OnInit {
       birthDate: this.birthDate,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/userprofiles/editprofile', {
+    fetch('https://localhost:44381/api/userprofiles/editprofile', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -120,7 +120,7 @@ export class UserProfilesListComponent implements OnInit {
       birthDate: this.birthDate,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/userprofiles/deleteprofile', {
+    fetch('https://localhost:44381/api/userprofiles/deleteprofile', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -145,7 +145,7 @@ export class UserProfilesListComponent implements OnInit {
   }
 
   getProfiles(): void {
-    fetch(`https://apartmain.azurewebsites.net/api/userprofiles/getprofiles?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/userprofiles/getprofiles?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -170,7 +170,7 @@ export class UserProfilesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://apartmain.azurewebsites.net/api/userprofiles/getprofiles?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/userprofiles/getprofiles?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())

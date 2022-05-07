@@ -30,7 +30,7 @@ export class FacilitiesListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://apartmain.azurewebsites.net/api/facilities/search?facility=' + this.searchFacility, {
+    fetch('https://localhost:44381/api/facilities/search?facility=' + this.searchFacility, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -58,7 +58,7 @@ export class FacilitiesListComponent implements OnInit {
       imageId: this.facility.image?.id,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/facilities/addfacility', {
+    fetch('https://localhost:44381/api/facilities/addfacility', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -89,7 +89,7 @@ export class FacilitiesListComponent implements OnInit {
       suggestion: null,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/facilities/editfacility', {
+    fetch('https://localhost:44381/api/facilities/editfacility', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -121,7 +121,7 @@ export class FacilitiesListComponent implements OnInit {
       imageId: this.facility.image?.id,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/facilities/deletefacility', {
+    fetch('https://localhost:44381/api/facilities/deletefacility', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -153,7 +153,7 @@ export class FacilitiesListComponent implements OnInit {
   }
 
   getFacilities(): void {
-    fetch(`https://apartmain.azurewebsites.net/api/facilities/getfacilities?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/facilities/getfacilities?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -178,7 +178,7 @@ export class FacilitiesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://apartmain.azurewebsites.net/api/facilities/getfacilities?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/facilities/getfacilities?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -206,7 +206,7 @@ export class FacilitiesListComponent implements OnInit {
   }
 
   getFacilityTypes(): void {
-    fetch('https://apartmain.azurewebsites.net/api/facilitytypes/gettypes', {
+    fetch('https://localhost:44381/api/facilitytypes/gettypes', {
       method: 'GET',
     })
       .then((r) => r.json())
