@@ -52,6 +52,10 @@ body {
   padding-bottom: 0;
 }
 
+.right_content {
+  width: 100%;
+}
+
 .bui-header__bar {
   padding: 8px;
   display: -webkit-box;
@@ -289,7 +293,8 @@ li::marker {
 .manageaccount {
   display: flex;
   flex-wrap: nowrap;
-  width: fit-content;
+  width: 1240px;
+  max-width: 100%;
 }
 
 @media (min-width: 992px) {

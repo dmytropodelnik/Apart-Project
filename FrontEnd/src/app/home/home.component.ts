@@ -339,7 +339,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  getData():void {
+  getData(): void {
     this.getCategoriesData();
     this.getRegionsData();
     this.getCountriesData();
