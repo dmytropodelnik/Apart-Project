@@ -156,8 +156,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.searchViewModel.searchRoomsAmount += value;
   }
 
-  async getRecommendedDestData(): Promise<void> {
-    await fetch(`https://localhost:44381/api/stayspage/getrecommendeddestdata`, {
+   getRecommendedDestData(): void {
+     fetch(`https://localhost:44381/api/stayspage/getrecommendeddestdata`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -174,8 +174,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  async getCategoriesData(): Promise<void> {
-    await fetch('https://localhost:44381/api/stayspage/getcategoriesdata?country=' + this.mainDataService.getCurrentCountry(), {
+   getCategoriesData(): void {
+     fetch('https://localhost:44381/api/stayspage/getcategoriesdata?country=' + this.mainDataService.getCurrentCountry(), {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -192,8 +192,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  async getRegionsData(): Promise<void> {
-    await fetch('https://localhost:44381/api/stayspage/getregionsdata', {
+   getRegionsData(): void {
+     fetch('https://localhost:44381/api/stayspage/getregionsdata', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -210,8 +210,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  async getCountriesData(): Promise<void> {
-    await fetch('https://localhost:44381/api/stayspage/getinterestplacesdata', {
+   getCountriesData(): void {
+     fetch('https://localhost:44381/api/stayspage/getinterestplacesdata', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -228,8 +228,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  async getCitiesData(): Promise<void> {
-    await fetch('https://localhost:44381/api/stayspage/getcitiesdata?country=' + this.mainDataService.getCurrentCountry(), {
+   getCitiesData(): void {
+     fetch('https://localhost:44381/api/stayspage/getcitiesdata?country=' + this.mainDataService.getCurrentCountry(), {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -247,8 +247,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  async getGuestsLoveData(): Promise<void> {
-    await fetch(`https://localhost:44381/api/stayspage/getguestslovedata`, {
+   getGuestsLoveData(): void {
+     fetch(`https://localhost:44381/api/stayspage/getguestslovedata`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -339,7 +339,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-  async getData(): Promise<void> {
+   getData(): void {
     this.getCategoriesData();
     this.getRegionsData();
     this.getCountriesData();
@@ -348,11 +348,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getGuestsLoveData();
   }
 
-  async ngOnInit(): Promise<void> {
-    await this.getData();
-    $(window).on('load', () => {
-      this.isGotData = true;
-  });
+   ngOnInit(): void {
+     this.getData();
   }
 
   ngOnDestroy() {}

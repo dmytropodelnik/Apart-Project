@@ -351,7 +351,7 @@ export class AuthComponent implements OnInit {
                 AuthHelper.saveGoogleAuth();
                 this.authService.toggleLogCondition();
                 alert('You have successfully authenticated!');
-                this.router.navigate(['']);
+                document.location.href = 'https://localhost:4200/';
               } else {
                 alert('Token fetching error!');
               }
