@@ -68,7 +68,6 @@ export class AuthComponent implements OnInit {
         ],
       ],
     });
-    FB.XFBML.parse();
   }
 
   get f() {
@@ -131,6 +130,69 @@ export class AuthComponent implements OnInit {
           this.authService.toggleLogCondition();
           alert('You have successfully authenticated!');
           this.router.navigate(['']);
+        } else {
+          alert('Token fetching error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  userFacebookSignIn(): void {
+    let user = {
+      facebookId: this.facebookId,
+      repository: RepositoryEnum.Enter,
+    };
+
+    fetch('https://apartmain.azurewebsites.net/tokenforfacebook', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: JSON.stringify(user),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code !== 400) {
+          this.authService.setTokenKey(response.encodedJwt);
+          AuthHelper.saveAuth(user.facebookId, response.encodedJwt);
+          this.authService.toggleLogCondition();
+          AuthHelper.saveFacebookAuth();
+          alert('You have successfully authenticated!');
+          console.log('You have successfully authenticated!');
+          document.location.href="https://www.apartstep.fun";
+        } else {
+          alert('Token fetching error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  userGoogleSignIn(): void {
+    let user = {
+      email: this.user.email,
+      repository: RepositoryEnum.Enter,
+    };
+
+    fetch('https://apartmain.azurewebsites.net/tokenforgoogle', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      body: JSON.stringify(user),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code !== 400) {
+          this.authService.setTokenKey(response.encodedJwt);
+          AuthHelper.saveAuth(this.user.email, response.encodedJwt);
+          AuthHelper.saveGoogleAuth();
+          this.authService.toggleLogCondition();
+          alert('You have successfully authenticated!');
+          document.location.href="https://www.apartstep.fun";
         } else {
           alert('Token fetching error!');
         }
@@ -245,35 +307,7 @@ export class AuthComponent implements OnInit {
                 .then((r) => r.json())
                 .then((data) => {
                   if (data.code === 200 && data.userExisted) {
-                    let user = {
-                      facebookId: this.facebookId,
-                      repository: RepositoryEnum.Enter,
-                    };
-
-                    fetch('https://apartmain.azurewebsites.net/tokenforfacebook', {
-                      method: 'POST',
-                      headers: {
-                        'Content-Type': 'application/json; charset=utf-8',
-                      },
-                      body: JSON.stringify(user),
-                    })
-                      .then((response) => response.json())
-                      .then((response) => {
-                        if (response.code !== 400) {
-                          this.authService.setTokenKey(response.encodedJwt);
-                          AuthHelper.saveAuth(user.facebookId, response.encodedJwt);
-                          this.authService.toggleLogCondition();
-                          AuthHelper.saveFacebookAuth();
-                          alert('You have successfully authenticated!');
-                          console.log('You have successfully authenticated!');
-                          document.location.href="https://www.apartstep.fun";
-                        } else {
-                          alert('Token fetching error!');
-                        }
-                      })
-                      .catch((ex) => {
-                        alert(ex);
-                      });
+                    this.userFacebookSignIn();
                   } else {
                     let person = {
                       facebookId: this.facebookId,
@@ -294,7 +328,7 @@ export class AuthComponent implements OnInit {
                       .then((r) => r.json())
                       .then((response) => {
                         if (response.code === 200) {
-                          this.userSignIn();
+                          this.userFacebookSignIn();
                         } else {
                           alert(response.code);
                         }
@@ -320,6 +354,51 @@ export class AuthComponent implements OnInit {
     );
   }
 
+  userSignOut(): void {
+    let model = {
+      username: AuthHelper.getLogin(),
+      accessToken: AuthHelper.getToken(),
+    };
+
+    fetch('https://apartmain.azurewebsites.net/api/users/signoutuser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(model),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.authService.setLogCondition(false);
+          AuthHelper.clearAuth();
+
+          FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
+            if (response.status === 'connected') {  // Returns the login status.
+              FB.logout(function(response) {
+                // Person is now logged out
+             });
+            }
+          });
+
+          if (AuthHelper.isFacebookLogin()) {
+            AuthHelper.clearFacebookAuth();
+          }
+          if (AuthHelper.isGoogleLogin()) {
+            this.authSocialService.signOut();
+            AuthHelper.clearGoogleAuth();
+          }
+        } else {
+          alert('Logout error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
   googleEnter(): void {
     fetch(
       'https://apartmain.azurewebsites.net/api/users/userexistsbygoogle?email=' +
@@ -331,34 +410,7 @@ export class AuthComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200 && data.userExisted) {
-          let user = {
-            email: this.user.email,
-            repository: RepositoryEnum.Enter,
-          };
-
-          fetch('https://apartmain.azurewebsites.net/tokenforgoogle', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json; charset=utf-8',
-            },
-            body: JSON.stringify(user),
-          })
-            .then((response) => response.json())
-            .then((response) => {
-              if (response.code !== 400) {
-                this.authService.setTokenKey(response.encodedJwt);
-                AuthHelper.saveAuth(this.user.email, response.encodedJwt);
-                AuthHelper.saveGoogleAuth();
-                this.authService.toggleLogCondition();
-                alert('You have successfully authenticated!');
-                document.location.href="https://www.apartstep.fun";
-              } else {
-                alert('Token fetching error!');
-              }
-            })
-            .catch((ex) => {
-              alert(ex);
-            });
+          this.userGoogleSignIn();
         } else {
           let person = {
             email: this.user.email,
@@ -380,7 +432,7 @@ export class AuthComponent implements OnInit {
             .then((r) => r.json())
             .then((response) => {
               if (response.code === 200) {
-                this.userSignIn();
+                this.userGoogleSignIn();
               } else {
                 alert(response.code);
               }
