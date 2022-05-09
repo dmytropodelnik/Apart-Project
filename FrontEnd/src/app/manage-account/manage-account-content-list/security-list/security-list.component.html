@@ -39,7 +39,7 @@
           </button>
         </div>
         <div *ngIf="isEditing[0]" class="colTest">
-          
+
             <div *ngIf="!isEmailSent">
               <button class="buttonTest1" (click)="cancelButtonClick(0)">
                 Cancel
@@ -50,7 +50,7 @@
                 Send email
               </button>
             </div>
-          
+
         </div>
       </div>
     </li>
@@ -133,8 +133,6 @@
             >
               Unsubscribe
             </button>
-          </div>
-          <div>
             <button
               *ngIf="deleteReason == 2"
               class="buttonTest"
@@ -142,8 +140,6 @@
             >
               Edit email
             </button>
-          </div>
-          <div>
             <button
               *ngIf="
                 (deleteReason == 0 || deleteReason == 3) && !isDeleteRequested

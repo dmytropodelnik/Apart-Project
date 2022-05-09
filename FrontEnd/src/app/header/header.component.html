@@ -112,7 +112,7 @@
               <div class="bui-avatar bui-avatar--small" aria-hidden="true">
                 <img *ngIf="authService.getUserImage() && authService.getUserImage().indexOf('https://') !== -1"
                   class="bui-avatar__image"
-                  src="{{ authService.getUserImage() }} "
+                  src="{{ authService.getUserImage() }}"
                   alt="user image"
                 />
                 <img *ngIf="authService.getUserImage() && authService.getUserImage().indexOf('https://') === -1"
