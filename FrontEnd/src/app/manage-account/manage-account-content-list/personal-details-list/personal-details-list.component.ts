@@ -20,6 +20,8 @@ export class PersonalDetailsListComponent implements OnInit {
   isEditing: boolean[] = [];
   isDisabled: boolean[] = [];
 
+  imageHelper: any = ImageHelper;
+
   isEmailSent: boolean = false;
 
   errorMessage: string = '';
@@ -35,7 +37,9 @@ export class PersonalDetailsListComponent implements OnInit {
 
   user: UserData = new UserData();
 
-  constructor(private authService: AuthorizationService) {}
+  constructor(public authService: AuthorizationService) {
+
+  }
 
   setCondition(id: number): void {
     this.isEditing[id] = !this.isEditing[id];
