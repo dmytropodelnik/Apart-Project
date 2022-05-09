@@ -493,40 +493,19 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                User user;
-                if (model.IsFacebookAuth)
-                {
-                    user = await _context.Users
-                        .Include(u => u.Profile)
-                        .Include(u => u.Profile.Image)
-                        .FirstOrDefaultAsync(u => u.FacebookId.Equals(model.Username));
-                    if (user is null)
-                    {
-                        return Json(new { code = 400 });
-                    }
-
-                    return Json(new
-                    {
-                        code = 200,
-                        facebookAuth = true,
-                        user,
-                    });
-                }
-                else
-                {
-                    user = await _context.Users
+                var user = await _context.Users
                         .Include(u => u.Profile)
                         .Include(u => u.Profile.Image)
                         .FirstOrDefaultAsync(u => u.Email.Equals(model.Username));
-                    if (user is null)
-                    {
-                        return Json(new { code = 400 });
-                    }
+                if (user is null)
+                {
+                    return Json(new { code = 400 });
                 }
 
-                return Json(new { 
+                return Json(new
+                {
                     code = 200,
-                    facebookAuth = false,
+                    facebookAuth = model.IsFacebookAuth,
                     googleAuth = model.IsGoogleAuth,
                     user,
                 });

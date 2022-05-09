@@ -68,12 +68,9 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(user.FacebookId))
+                if (user is null || string.IsNullOrWhiteSpace(user.Email))
                 {
-                    if (user is null || string.IsNullOrWhiteSpace(user.Email))
-                    {
-                        return Json(new { code = 400 });
-                    }
+                    return Json(new { code = 400 });
                 }
 
                 if (!string.IsNullOrWhiteSpace(user.Code) &&
@@ -165,99 +162,9 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        [Route("tokenforfacebook")]
+        [Route("tokenforsocial")]
         [HttpPost]
-        public async Task<IActionResult> TokenForFacebook([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(user.FacebookId))
-                {
-                    return Json(new { code = 400 });
-                }
-
-                var resUser = await _context.Users
-                    .Include(u => u.Role)
-                    .FirstOrDefaultAsync(u => u.FacebookId.Equals(user.FacebookId));
-                if (resUser is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                var claims = GetIdentityForFacebook(resUser.FacebookId, resUser.Role.Name);
-                if (claims is null)
-                {
-                    return Unauthorized();
-                }
-
-                var now = DateTime.UtcNow;
-                var jwt = new JwtSecurityToken(
-                        issuer: AuthOptions.ISSUER,
-                        audience: AuthOptions.AUDIENCE,
-                        notBefore: now,
-                        claims: claims,
-                        expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                        signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-
-                var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-                if (encodedJwt is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                if (_jwtRepository.Repository.ContainsKey(resUser.FacebookId))
-                {
-                    _jwtRepository.Repository[user.FacebookId].Add(encodedJwt);
-                }
-                else
-                {
-                    _jwtRepository.Repository.Add(user.FacebookId, new List<string> { encodedJwt });
-                }
-
-                // new JwtCodeCleanTimer(_jwtRepository, _configuration).SetTimer((key: user.Email, code: encodedJwt));
-
-                return Json(new
-                {
-                    code = 200,
-                    encodedJwt,
-                    resUser.FacebookId,
-                });
-            }
-            catch (ArgumentNullException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (ArgumentOutOfRangeException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (ArgumentException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (SecurityTokenEncryptionFailedException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-        }
-
-        [Route("tokenforgoogle")]
-        [HttpPost]
-        public async Task<IActionResult> TokenForGoogle([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
+        public async Task<IActionResult> TokenForSocial([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
         {
             try
             {
@@ -274,7 +181,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                var claims = GetIdentityForGoogle(resUser.Email, resUser.Role.Name);
+                var claims = GetIdentityForSocial(resUser.Email, resUser.Role.Name);
                 if (claims is null)
                 {
                     return Unauthorized();
@@ -394,39 +301,7 @@ namespace CloneBookingAPI.Controllers
                 return null;
             }
         }
-
-        private IReadOnlyCollection<Claim> GetIdentityForFacebook(string id, string role)
-        {
-            try
-            {
-                List<Claim> claims = new List<Claim>
-                    {
-                        new Claim(ClaimsIdentity.DefaultNameClaimType, id),
-                        new Claim(ClaimsIdentity.DefaultRoleClaimType, role)
-                    };
-                return claims;
-            }
-            catch (ArgumentNullException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return null;
-            }
-            catch (OperationCanceledException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return null;
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return null;
-            }
-        }
-
-        private IReadOnlyCollection<Claim> GetIdentityForGoogle(string email, string role)
+        private IReadOnlyCollection<Claim> GetIdentityForSocial(string email, string role)
         {
             try
             {

@@ -6,6 +6,5 @@ export default {
 
   getRootDirectoryPath(): string {
     return "https://apartmain.azurewebsites.net";
-  }
-
+  },
 }

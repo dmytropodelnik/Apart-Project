@@ -36,6 +36,7 @@ export class AuthComponent implements OnInit {
 
   userFirstName: string = '';
   userLastName: string = '';
+  image: string = '';
   facebookId: string = '';
 
   public user: SocialUser = new SocialUser;
@@ -139,13 +140,13 @@ export class AuthComponent implements OnInit {
       });
   }
 
-  userFacebookSignIn(): void {
+  userSocialSignIn(): void {
     let user = {
-      facebookId: this.facebookId,
+      email: this.email,
       repository: RepositoryEnum.Enter,
     };
 
-    fetch('https://localhost:44381/tokenforfacebook', {
+    fetch('https://localhost:44381/tokenforsocial', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -156,39 +157,7 @@ export class AuthComponent implements OnInit {
       .then((response) => {
         if (response.code !== 400) {
           this.authService.setTokenKey(response.encodedJwt);
-          AuthHelper.saveAuth(user.facebookId, response.encodedJwt);
-          this.authService.toggleLogCondition();
-          AuthHelper.saveFacebookAuth();
-          alert('You have successfully authenticated!');
-          console.log('You have successfully authenticated!');
-          document.location.href="https://localhost:4200";
-        } else {
-          alert('Token fetching error!');
-        }
-      })
-      .catch((ex) => {
-        alert(ex);
-      });
-  }
-
-  userGoogleSignIn(): void {
-    let user = {
-      email: this.user.email,
-      repository: RepositoryEnum.Enter,
-    };
-
-    fetch('https://localhost:44381/tokenforgoogle', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-      body: JSON.stringify(user),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.code !== 400) {
-          this.authService.setTokenKey(response.encodedJwt);
-          AuthHelper.saveAuth(this.user.email, response.encodedJwt);
+          AuthHelper.saveAuth(this.email, response.encodedJwt);
           AuthHelper.saveGoogleAuth();
           this.authService.toggleLogCondition();
           alert('You have successfully authenticated!');
@@ -275,6 +244,7 @@ export class AuthComponent implements OnInit {
     await this.authSocialService.signIn(GoogleLoginProvider.PROVIDER_ID);
     this.authSocialService.authState.subscribe(user => {
       this.user = user;
+      this.email = user.email;
       console.log(this.user);
       this.googleEnter();
     });
@@ -288,7 +258,7 @@ export class AuthComponent implements OnInit {
           this.facebookId = response.authResponse.userID;
 
           /* make the API call */
-          FB.api(response.authResponse.userID, (response) => {
+          FB.api('/me?fields=id,email,name,picture', (response) => {
             if (response) {
               let userName = (response as any).name as string;
               this.userFirstName = userName.substring(0, userName.indexOf(' '));
@@ -296,10 +266,15 @@ export class AuthComponent implements OnInit {
                 userName.indexOf(' ') + 1,
                 userName.length
               );
+              this.email = (response as any).email;
+              this.image =(response as any).picture.data.url;
+              this.authService.setUserImage(this.image);
+
+              console.log(response);
 
               fetch(
-                'https://localhost:44381/api/users/userexistsbyfacebook?id=' +
-                  this.facebookId,
+                'https://localhost:44381/api/users/userexistsbysocial?email=' +
+                  this.email,
                 {
                   method: 'GET',
                 }
@@ -307,16 +282,17 @@ export class AuthComponent implements OnInit {
                 .then((r) => r.json())
                 .then((data) => {
                   if (data.code === 200 && data.userExisted) {
-                    this.userFacebookSignIn();
+                    this.userSocialSignIn();
                   } else {
                     let person = {
-                      facebookId: this.facebookId,
+                      email: this.email,
                       firstName: this.userFirstName,
                       lastName: this.userLastName,
+                      image: this.image,
                     };
 
                     fetch(
-                      'https://localhost:44381/api/users/registerviafacebook',
+                      'https://localhost:44381/api/users/registerviasocial',
                       {
                         method: 'POST',
                         headers: {
@@ -328,7 +304,7 @@ export class AuthComponent implements OnInit {
                       .then((r) => r.json())
                       .then((response) => {
                         if (response.code === 200) {
-                          this.userFacebookSignIn();
+                          this.userSocialSignIn();
                         } else {
                           alert(response.code);
                         }
@@ -344,13 +320,17 @@ export class AuthComponent implements OnInit {
             } else {
               alert('Login via facebook error!');
             }
-          });
+          },
+          );
         } else {
           // The person is not logged into your webpage or we are unable to tell.
           alert('Login via facebook error!');
         }
       },
-      { scope: 'public_profile,email' }
+      { scope: 'email, public_profile,',
+        return_scopes: true,
+      },
+
     );
   }
 
@@ -401,7 +381,7 @@ export class AuthComponent implements OnInit {
 
   googleEnter(): void {
     fetch(
-      'https://localhost:44381/api/users/userexistsbygoogle?email=' +
+      'https://localhost:44381/api/users/userexistsbysocial?email=' +
         this.user.email,
       {
         method: 'GET',
@@ -410,7 +390,7 @@ export class AuthComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200 && data.userExisted) {
-          this.userGoogleSignIn();
+          this.userSocialSignIn();
         } else {
           let person = {
             email: this.user.email,
@@ -420,7 +400,7 @@ export class AuthComponent implements OnInit {
           };
 
           fetch(
-            'https://localhost:44381/api/users/registerviagoogle',
+            'https://localhost:44381/api/users/registerviasocial',
             {
               method: 'POST',
               headers: {
@@ -432,7 +412,7 @@ export class AuthComponent implements OnInit {
             .then((r) => r.json())
             .then((response) => {
               if (response.code === 200) {
-                this.userGoogleSignIn();
+                this.userSocialSignIn();
               } else {
                 alert(response.code);
               }

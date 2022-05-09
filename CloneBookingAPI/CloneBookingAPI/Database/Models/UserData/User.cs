@@ -25,30 +25,23 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string FirstName { get; set; }
 
-        [Display(Name = "Last name")]
         [DataType(DataType.Text)]
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string LastName { get; set; }
 
-        [Display(Name = "Display name")]
         [DataType(DataType.Text)]
         [StringLength(60, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string DisplayName { get; set; }
 
-        [Display(Name = "Email")]
-        //[Required(ErrorMessage = "Enter an email")]
+        [Required]
         [DataType(DataType.EmailAddress)]
         [StringLength(320, ErrorMessage = "Incorrect length")]
         public string Email { get; set; }
 
-        public string FacebookId { get; set; }
-
-        [Display(Name = "Phone Number")]
         [DataType(DataType.PhoneNumber)]
         [StringLength(20, MinimumLength = 6, ErrorMessage = "Incorrect length")]
         public string PhoneNumber { get; set; }
 
-        [Display(Name = "Password")]
         //[Required]
         [DataType(DataType.Password)]
         [StringLength(50, MinimumLength = 8, ErrorMessage = "Incorrect length")]

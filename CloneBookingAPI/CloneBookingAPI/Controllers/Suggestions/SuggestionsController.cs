@@ -154,50 +154,29 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                List<Suggestion> suggestions;
+                var suggestions = await _context.Suggestions
+                    .Include(s => s.User)
+                    .Include(s => s.Address)
+                    .Include(s => s.Address.Country)
+                        .ThenInclude(c => c.Image)
+                    .Include(s => s.Address.City)
+                    .Include(s => s.Address.Region)
+                    .Include(s => s.SuggestionStatus)
+                    .Include(s => s.Images)
+                    .Where(s => s.User.Email.Equals(email))
+                    .ToListAsync();
 
-                if (!isFacebookAuth)
+                if (suggestions is null)
                 {
-                    suggestions = await _context.Suggestions
-                        .Include(s => s.User)
-                        .Include(s => s.Address)
-                        .Include(s => s.Address.Country)
-                            .ThenInclude(c => c.Image)
-                        .Include(s => s.Address.City)
-                        .Include(s => s.Address.Region)
-                        .Include(s => s.SuggestionStatus)
-                        .Include(s => s.Images)
-                        .Where(s => s.User.Email.Equals(email))
-                        .ToListAsync();
-
-                    if (suggestions is null)
-                    {
-                        return Json(new { code = STATUS_400 });
-                    }
-                }
-                else
-                {
-                    suggestions = await _context.Suggestions
-                        .Include(s => s.User)
-                        .Include(s => s.Address)
-                        .Include(s => s.Address.Country)
-                            .ThenInclude(c => c.Image)
-                        .Include(s => s.Address.City)
-                        .Include(s => s.Address.Region)
-                        .Include(s => s.SuggestionStatus)
-                        .Include(s => s.Images)
-                        .Where(s => s.User.FacebookId.Equals(email))
-                        .ToListAsync();
-                    if (suggestions is null)
-                    {
-                        return Json(new { code = STATUS_400 });
-                    }
+                    return Json(new { code = STATUS_400 });
                 }
 
-                return Json(new { 
+                return Json(new
+                {
                     code = STATUS_200,
                     suggestions = suggestions
-                        .Select(s => new {
+                        .Select(s => new
+                        {
                             s.Id,
                             s.UniqueCode,
                             s.Name,
