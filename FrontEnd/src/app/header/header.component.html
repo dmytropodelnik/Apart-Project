@@ -110,15 +110,20 @@
               data-toggle="dropdown"
             >
               <div class="bui-avatar bui-avatar--small" aria-hidden="true">
-                <img *ngIf="authService.getUserImage()"
+                <img *ngIf="authService.getUserImage() && authService.getUserImage().indexOf('https://') !== -1"
                   class="bui-avatar__image"
                   src="{{ authService.getUserImage() }} "
                   alt="user image"
                 />
+                <img *ngIf="authService.getUserImage() && authService.getUserImage().indexOf('https://') === -1"
+                  class="bui-avatar__image"
+                  src="{{ imageHelper.getRootDirectoryPath() }}{{ authService.getUserImage() }}"
+                  alt="user image"
+                />
                 <img *ngIf="!authService.getUserImage()"
-                class="bui-avatar__image"
-                src="../../assets/images/User1.png"
-                alt="user image"
+                  class="bui-avatar__image"
+                  src="../../assets/images/User1.png"
+                  alt="user image"
               />
               </div>
               <span class="bui-avatar--button-auth">
