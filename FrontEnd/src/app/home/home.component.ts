@@ -156,8 +156,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.searchViewModel.searchRoomsAmount += value;
   }
 
+<<<<<<< HEAD
   getRecommendedDestData(): void {
     fetch(`https://localhost:44381/api/stayspage/getrecommendeddestdata`, {
+=======
+   getRecommendedDestData(): void {
+     fetch(`https://localhost:44381/api/stayspage/getrecommendeddestdata`, {
+>>>>>>> HeiderFrontEnd
       method: 'GET',
     })
       .then((r) => r.json())
@@ -174,8 +179,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-  getCategoriesData(): void {
-    fetch('https://localhost:44381/api/stayspage/getcategoriesdata?country=' + this.mainDataService.getCurrentCountry(), {
+   getCategoriesData(): void {
+     fetch('https://localhost:44381/api/stayspage/getcategoriesdata?country=' + this.mainDataService.getCurrentCountry(), {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -192,8 +197,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
+<<<<<<< HEAD
   getRegionsData(): void {
     fetch('https://localhost:44381/api/stayspage/getregionsdata', {
+=======
+   getRegionsData(): void {
+     fetch('https://localhost:44381/api/stayspage/getregionsdata', {
+>>>>>>> HeiderFrontEnd
       method: 'GET',
     })
       .then((r) => r.json())
@@ -210,8 +220,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
+<<<<<<< HEAD
   getCountriesData(): void {
     fetch('https://localhost:44381/api/stayspage/getinterestplacesdata', {
+=======
+   getCountriesData(): void {
+     fetch('https://localhost:44381/api/stayspage/getinterestplacesdata', {
+>>>>>>> HeiderFrontEnd
       method: 'GET',
     })
       .then((r) => r.json())
@@ -228,8 +243,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
+<<<<<<< HEAD
   getCitiesData(): void {
     fetch('https://localhost:44381/api/stayspage/getcitiesdata?country=' + this.mainDataService.getCurrentCountry(), {
+=======
+   getCitiesData(): void {
+     fetch('https://localhost:44381/api/stayspage/getcitiesdata?country=' + this.mainDataService.getCurrentCountry(), {
+>>>>>>> HeiderFrontEnd
       method: 'GET',
     })
       .then((r) => r.json())
@@ -247,8 +267,13 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
+<<<<<<< HEAD
   getGuestsLoveData(): void {
     fetch(`https://localhost:44381/api/stayspage/getguestslovedata`, {
+=======
+   getGuestsLoveData(): void {
+     fetch(`https://localhost:44381/api/stayspage/getguestslovedata`, {
+>>>>>>> HeiderFrontEnd
       method: 'GET',
     })
       .then((r) => r.json())
@@ -339,7 +364,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
+<<<<<<< HEAD
   getData():void {
+=======
+   getData(): void {
+>>>>>>> HeiderFrontEnd
     this.getCategoriesData();
     this.getRegionsData();
     this.getCountriesData();
@@ -348,8 +377,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getGuestsLoveData();
   }
 
+<<<<<<< HEAD
   ngOnInit(): void {
     this.getData();
+=======
+   ngOnInit(): void {
+     this.getData();
+>>>>>>> HeiderFrontEnd
   }
 
   ngOnDestroy() {}

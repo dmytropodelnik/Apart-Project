@@ -3,9 +3,13 @@
   justify-content: center;
 }
 
+.right{
+  width: 1140px;
+}
+
 .search_results_top_buttons {
   display: flex;
-  min-width: 728px;
+  min-width: 800px;
   border-radius: 0.5px;
 }
 
@@ -75,9 +79,9 @@
   padding: 25px;
   gap: 1rem;
   margin: 16px 0;
-  width: 1065px;
+  width: 100%;
   height: 277px;
-  min-width: 728px;
+  min-width: 800px;
   background: #f9f9f9;
   border: 0.5px solid rgba(0, 0, 0, 0.3);
   box-sizing: border-box;
