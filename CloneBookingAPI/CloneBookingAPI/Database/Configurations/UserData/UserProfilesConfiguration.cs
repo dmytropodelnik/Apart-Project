@@ -23,7 +23,7 @@ namespace CloneBookingAPI.Services.Database.Configurations.UserProfile
                   new Models.UserProfile.UserProfile
                   {
                       Id = 2, RegisterDate = DateTime.Now.ToUniversalTime(), GenderId = 1, AddressId = 2, CurrencyId = 2, LanguageId = 2,
-                      UserId = 2, ImageId = 2,
+                      UserId = 2,
                   },
                   new Models.UserProfile.UserProfile
                   {
