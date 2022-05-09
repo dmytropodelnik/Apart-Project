@@ -504,17 +504,24 @@ export class SearchResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getBookingCategories();
-    this.getFacilities();
-    this.getHighlights();
-    this.getTypes();
-    this.getLangs();
-    this.getBedTypes();
-    if (AuthHelper.getLogin() != '') {
-      this.getUserFavorites();
-    }
+    this.activatedRoute.queryParams.subscribe((params: any) => {
+      if (!params['adults'] || !params['rooms'] || !params['children']) {
+        this.router.navigate(['']);
+        return;
+      }
 
-    this.addMainSearchFilter();
-    this.sortItems();
+      this.getBookingCategories();
+      this.getFacilities();
+      this.getHighlights();
+      this.getTypes();
+      this.getLangs();
+      this.getBedTypes();
+      if (AuthHelper.getLogin() != '') {
+        this.getUserFavorites();
+      }
+
+      this.addMainSearchFilter();
+      this.sortItems();
+    });
   }
 }
