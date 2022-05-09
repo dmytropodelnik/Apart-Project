@@ -6,7 +6,15 @@
           <h1>Personal details</h1>
           <p>Update your info and find out how it's used.</p>
         </div>
-        <div class="colTest"><button class="change-image"><img src="../../../../assets/flag/flag-48.png"/></button></div>
+        <div class="colTest">
+          <button class="change-image">
+            <img *ngIf="authService.getUserImage() && authService.getUserImage().indexOf('https://') !== -1"
+                 src="{{ authService.getUserImage() }}"/>
+            <img *ngIf="authService.getUserImage() && authService.getUserImage().indexOf('https://') === -1"
+                 src="{{ imageHelper.getRootDirectoryPath() }}{{ authService.getUserImage() }}"/>
+            <img *ngIf="!authService.getUserImage()" src="../../../../assets/images/User1.png"/>
+          </button>
+        </div>
       </div>
     </li>
     <li class="list-group-item">
