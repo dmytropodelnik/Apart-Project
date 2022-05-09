@@ -363,8 +363,8 @@ a.a11y-skip-to-content {
 }
 
 .bui-avatar--small {
-  height: 24px;
-  width: 24px;
+  height: 20px;
+  width: 20px;
   font-size: 12px;
   font-weight: 400;
   line-height: 18px;
@@ -417,8 +417,8 @@ a.a11y-skip-to-content {
 }
 
 .bui-avatar--small {
-  height: 24px;
-  width: 24px;
+  height: 20px;
+  width: 20px;
   font-size: 12px;
   font-weight: 400;
   line-height: 18px;
@@ -800,7 +800,6 @@ a.a11y-skip-to-content {
     height: 100vh;
     z-index: 1;
   }
-
 
   .fa-times {
     position: absolute;

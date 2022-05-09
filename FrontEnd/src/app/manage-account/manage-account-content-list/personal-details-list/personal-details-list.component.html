@@ -1,4 +1,4 @@
-<div class="container container-fluid">
+<div class="container-fluid">
   <ul class="list-group list-group-flush container-fluid">
     <li class="list-group-item">
       <div class="list-group-item_content">
@@ -6,7 +6,7 @@
           <h1>Personal details</h1>
           <p>Update your info and find out how it's used.</p>
         </div>
-        <div class="col">Image</div>
+        <div class="colTest"><button class="change-image"><img src="../../../../assets/flag/flag-48.png"/></button></div>
       </div>
     </li>
     <li class="list-group-item">
@@ -492,7 +492,7 @@
             Edit
           </button>
         </div>
-        <div *ngIf="isEditing[8]" class="colTest">
+        <div *ngIf="isEditing[8]" class="colTest1">
           <div>
             <button class="buttonTest1" (click)="cancelButtonClick(8)">
               Cancel
