@@ -11,11 +11,11 @@
           <div *ngIf="isExistUser === false; then thenBlock; else elseBlock"></div>
           <ng-template #thenBlock>
             <form [formGroup]="emailForm">
-              <div class="form-group align_formGroup">
+              <div class="form-group align_formGroup" *ngIf="!authService.getLogCondition()">
                 <h1 class="bui_font_display_two">
                   Sign in or create an account
                 </h1>
-                <div class="alteritive_wrapper" *ngIf="!authService.getLogCondition()">
+                <div class="alteritive_wrapper">
                   <button class="alteritive_signin" (click)="verifyGoogleEnter()">
                     <img src="../../assets/images/google.png" />Sign in with
                     Google
@@ -38,6 +38,11 @@
                     Continue with email
                   </button>
                 </div>
+              </div>
+              <div class="signinbutton" *ngIf="authService.getLogCondition()">
+                <button class="auth-btn" (click)="userSignOut()">
+                  Logout
+                </button>
               </div>
             </form>
           </ng-template>
