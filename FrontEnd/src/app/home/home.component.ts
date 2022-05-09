@@ -13,7 +13,12 @@ import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
 import MathHelper from '../utils/mathHelper';
 import { SortState } from '../enums/sortstate.item';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -157,9 +162,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getRecommendedDestData(): void {
-    fetch(`https://apartmain.azurewebsites.net/api/stayspage/getrecommendeddestdata`, {
-      method: 'GET',
-    })
+    fetch(
+      `https://apartmain.azurewebsites.net/api/stayspage/getrecommendeddestdata`,
+      {
+        method: 'GET',
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -175,9 +183,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getCategoriesData(): void {
-    fetch('https://apartmain.azurewebsites.net/api/stayspage/getcategoriesdata?country=' + this.mainDataService.getCurrentCountry(), {
-      method: 'GET',
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/stayspage/getcategoriesdata?country=' +
+        this.mainDataService.getCurrentCountry(),
+      {
+        method: 'GET',
+      }
+    )
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
@@ -211,9 +223,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getCountriesData(): void {
-    fetch('https://apartmain.azurewebsites.net/api/stayspage/getinterestplacesdata', {
-      method: 'GET',
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/stayspage/getinterestplacesdata',
+      {
+        method: 'GET',
+      }
+    )
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
@@ -229,9 +244,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getCitiesData(): void {
-    fetch('https://apartmain.azurewebsites.net/api/stayspage/getcitiesdata?country=' + this.mainDataService.getCurrentCountry(), {
-      method: 'GET',
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/stayspage/getcitiesdata?country=' +
+        this.mainDataService.getCurrentCountry(),
+      {
+        method: 'GET',
+      }
+    )
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
@@ -248,9 +267,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   getGuestsLoveData(): void {
-    fetch(`https://apartmain.azurewebsites.net/api/stayspage/getguestslovedata`, {
-      method: 'GET',
-    })
+    fetch(
+      `https://apartmain.azurewebsites.net/api/stayspage/getguestslovedata`,
+      {
+        method: 'GET',
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
