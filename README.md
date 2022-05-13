@@ -1,1 +1,2 @@
 # Apart-Project
+export CODACY_PROJECT_TOKEN=24ee4c4e5d3f4a88a6814ef1124fd3c6
