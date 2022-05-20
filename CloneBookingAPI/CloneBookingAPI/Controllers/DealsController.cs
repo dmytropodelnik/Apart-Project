@@ -39,6 +39,29 @@ namespace CloneBookingAPI.Controllers
 
         [TypeFilter(typeof(AuthorizationFilter))]
         [TypeFilter(typeof(OnlyAdminFilter))]
+        [Route("getmails")]
+        [HttpGet]
+        public async Task<ActionResult> GetMails()
+        {
+            try
+            {
+                var sentLetters = await _context.MailLetters.ToListAsync();
+
+                return Json(new { 
+                    code = 200,
+                    sentLetters,
+                });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("sendbestdealsletter")]
         [HttpPost]
         public async Task<ActionResult> SendBestDealsLetter(MailLetterPoco letter)

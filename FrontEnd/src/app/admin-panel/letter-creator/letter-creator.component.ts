@@ -126,5 +126,28 @@ export class LetterCreatorComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
+  getSentMails(): void {
+    fetch('https://localhost:44381/api/deals/getmails', {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((r) => {
+        if (r.code === 200) {
+          this.sentLetters == r.sentLetters;
+        } else {
+          alert('Getting mails error!');
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
+
+  ngOnInit(): void {
+    this.getSentMails();
+  }
 }
