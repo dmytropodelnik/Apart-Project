@@ -9,7 +9,15 @@ import { MailLetter } from 'src/app/models/mailletter.item';
 export class LetterCreatorComponent implements OnInit {
   sentLetters: MailLetter[] = [];
 
+  newLetter: MailLetter = new MailLetter();
+
+  choice: boolean = false;
+
   constructor() { }
+
+  setChoice(): void {
+    this.choice = !this.choice;
+  }
 
   ngOnInit(): void {
   }

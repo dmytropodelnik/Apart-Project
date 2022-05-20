@@ -1,12 +1,35 @@
-<div class="input-group mt-3">
-  <input type="search" class="form-control rounded" placeholder="Title" aria-label="Search"
-    aria-describedby="search-addon" name="title"  />
+<h4 class="mb-3 text-center mt-3">Mailing creator</h4>
+
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="choice" id="choice1" (change)="setChoice()" checked>
+  <label class="form-check-label" for="choice1">
+    Manual letter
+  </label>
+</div>
+<div class="form-check">
+  <input class="form-check-input" type="radio" name="choice" id="choice2" (change)="setChoice()" >
+  <label class="form-check-label" for="choice2">
+    HTML-file
+  </label>
 </div>
 
 <div class="input-group mt-3">
-  <textarea width="100%"></textarea>
-  <button type="button" class="btn btn-dark">generate</button>
+  <input type="search" class="form-control rounded" placeholder="Enter title" aria-label="Search"
+    aria-describedby="search-addon" name="newLetter.title" [(ngModel)]="newLetter.title" />
 </div>
+
+<div>
+  <div *ngIf="!choice" class="input-group mt-3">
+    <textarea class="form-control rounded" placeholder="Enter description" aria-label="Description"
+              name="newLetter.text" [(ngModel)]="newLetter.text"></textarea>
+  </div>
+  <div *ngIf="choice" class="mt-2" >
+    <label for="formFile" class="form-label">Upload HTML letter file</label>
+    <input class="form-control" type="file" id="formFile">
+  </div>
+</div>
+
+<button class="mt-3 btn btn-dark">Create and send</button>
 
 <h4 class="mb-3 text-center mt-3">Sent letters to subscribers</h4>
 
