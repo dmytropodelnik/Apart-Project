@@ -25,7 +25,6 @@ namespace CloneBookingAPI.Controllers
     {
         private readonly ApartProjectDbContext  _context;
         private readonly IEmailSender _dealsMailSender;
-        private string _letterTemplate = "<p>HELLO TEST</p>";
 
         public DealsController(
             IConfiguration configuration,
@@ -42,13 +41,9 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                var res = _dealsMailSender.SendEmail(letter);
-                if (res == true)
-                {
-                    return Json(new { code = 200 });
-                }
+                _dealsMailSender.NotifySubscribers(letter);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 200 });
             }
             catch (OperationCanceledException ex)
             {

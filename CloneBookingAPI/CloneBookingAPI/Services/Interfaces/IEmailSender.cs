@@ -13,5 +13,10 @@ namespace CloneBookingAPI.Services.Interfaces
         {
             return false;
         }
+
+        public void NotifySubscribers(MailLetterPoco letter)
+        {
+
+        }
     }
 }

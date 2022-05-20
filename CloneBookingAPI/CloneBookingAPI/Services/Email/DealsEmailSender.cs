@@ -1,4 +1,5 @@
 ﻿using CloneBookingAPI.Interfaces;
+using CloneBookingAPI.Services.Interfaces;
 using CloneBookingAPI.Services.POCOs;
 using CloneBookingAPI.Services.Repositories;
 using MailKit.Net.Smtp;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Services.Email
 {
-    public class DealsEmailSender : IEmailSenderAsync
+    public class DealsEmailSender : IEmailSender
     {
         private readonly string _emailSender    = default;
         private readonly string _emailPassword  = default;
@@ -19,6 +20,20 @@ namespace CloneBookingAPI.Services.Email
         private readonly string _smtpPort       = default;
 
         private readonly MailUserListRepository _repository;
+
+        delegate bool MailingHandler(MailLetterPoco letter);
+        private MailingHandler _sendEmails;
+        event MailingHandler SendEmails
+        {
+            add
+            {
+                _sendEmails += value;
+            }
+            remove
+            {
+                _sendEmails -= value;
+            }
+        }
 
         public DealsEmailSender(IConfiguration configuration, MailUserListRepository repository)
         {
@@ -28,6 +43,12 @@ namespace CloneBookingAPI.Services.Email
             _smtpPort       = configuration["EmitterData:SmtpData:Gmail:Port"];
 
             _repository = repository;
+            _sendEmails += SendEmail;
+        }
+
+        public void NotifySubscribers(MailLetterPoco letter)
+        {
+            _sendEmails?.Invoke(letter);
         }
 
         public bool SendEmail(MailLetterPoco letter)

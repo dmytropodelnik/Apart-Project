@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Interfaces
 {
-    public interface IEmailSenderAsync : IEmailSender
+    public interface IEmailSenderAsync
     {
 #pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
         async Task<bool> SendEmailAsync(string email, string subject, string message)
