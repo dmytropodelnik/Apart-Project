@@ -81,17 +81,18 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<Apartment> Apartments { get; set; }
         public DbSet<SuggestionStatus> SuggestionStatuses { get; set; }
         public DbSet<BookingCategoryType> BookingCategoryTypes { get; set; }
+        public DbSet<MailLetter> MailLetters { get; set; }
 
         public ApartProjectDbContext(DbContextOptions<ApartProjectDbContext> options) : base(options)
         {
-            //// if database already exists then delete it
-            //if (Database.CanConnect())
-            //{
-            //    Database.EnsureDeleted();
-            //}
+            // if database already exists then delete it
+            if (Database.CanConnect())
+            {
+                Database.EnsureDeleted();
+            }
 
-            //// create database
-            //Database.EnsureCreated();
+            // create database
+            Database.EnsureCreated();
         }
 
         /// <summary>s
@@ -216,6 +217,7 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new SuggestionsFileModelsConfiguration());
             modelBuilder.ApplyConfiguration(new BookingCategoryTypesConfiguration());
             modelBuilder.ApplyConfiguration(new SuggestionStatusesConfiguration());
+            modelBuilder.ApplyConfiguration(new MailLettersConfiguration());
         }
     }
 }

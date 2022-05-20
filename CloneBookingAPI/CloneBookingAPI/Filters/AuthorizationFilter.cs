@@ -24,21 +24,21 @@ namespace CloneBookingAPI.Filters
             {
                 if (context.HttpContext.Request.Headers.Authorization.Count == 0)
                 {
-                    context.Result = new JsonResult(new { code = 400 });
+                    context.Result = new JsonResult(new { code = 403 });
                     return;
                 }
 
                 string[] userData = context.HttpContext.Request.Headers.Authorization.ToString().Split(";");
                 if (userData.Length < 2)
                 {
-                    context.Result = new JsonResult(new { code = 400 });
+                    context.Result = new JsonResult(new { code = 403 });
                     return;
                 }
 
                 bool res = _jwtRepository.IsValueCorrect(userData[0], userData[1]);
                 if (res is false)
                 {
-                    context.Result = new JsonResult(new { code = 400 });
+                    context.Result = new JsonResult(new { code = 403 });
                 }
             }
             catch (Exception ex)

@@ -22,14 +22,14 @@ namespace CloneBookingAPI.Filters
             {
                 if (context.HttpContext.Request.Headers.Authorization.Count == 0)
                 {
-                    context.Result = new JsonResult(new { code = 400 });
+                    context.Result = new JsonResult(new { code = 403 });
                     return;
                 }
 
                 string[] userData = context.HttpContext.Request.Headers.Authorization.ToString().Split(";");
                 if (userData.Length < 1)
                 {
-                    context.Result = new JsonResult(new { code = 400 });
+                    context.Result = new JsonResult(new { code = 403 });
                     return;
                 }
 
@@ -38,7 +38,7 @@ namespace CloneBookingAPI.Filters
                     .FirstOrDefaultAsync(u => u.Email.Equals(userData[0]) && u.Role.Name.Equals("admin"));
                 if (res is null)
                 {
-                    context.Result = new JsonResult(new { code = 400 });
+                    context.Result = new JsonResult(new { code = 403 });
                 }
             }
             catch (Exception ex)
