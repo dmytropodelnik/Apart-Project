@@ -1,4 +1,5 @@
 ﻿using CloneBookingAPI.Interfaces;
+using CloneBookingAPI.Services.POCOs;
 using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
@@ -23,7 +24,7 @@ namespace CloneBookingAPI.Services.Email
             _smtpPort       = configuration["EmitterData:SmtpData:Gmail:Port"];
         }
 
-        public async Task<bool> SendEmailAsync(string email, string subject, string message)
+        public async Task<bool> SendEmailAsync(MailLetterPoco letter)
         {
             try
             {
@@ -31,10 +32,10 @@ namespace CloneBookingAPI.Services.Email
 
                 emailMessage.From.Add(new MailboxAddress("Apart.com", _emailSender));
                 emailMessage.To.Add(new MailboxAddress("", email));
-                emailMessage.Subject = subject;
+                emailMessage.Subject = letter.Title;
                 emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
                 {
-                    Text = message
+                    Text = letter.Text
                 };
 
                 using (var client = new SmtpClient())

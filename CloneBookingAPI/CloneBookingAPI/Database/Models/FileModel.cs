@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Database.Models.ViewModels;
+﻿using CloneBookingAPI.Database.Models;
+using CloneBookingAPI.Database.Models.ViewModels;
 using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using System.Collections.Generic;
@@ -19,6 +20,10 @@ namespace CloneBookingAPI.Services.Database.Models
 
         [Required]
         public string Path { get; set; }
+
+        public int? MailLetterId { get; set; }
+        [ForeignKey("MailLetterId")]
+        public MailLetter MailLetter { get; set; }
 
         public List<UserProfile.UserProfile> UserProfiles { get; set; } = new();
         public List<Facility> Facilities { get; set; } = new();

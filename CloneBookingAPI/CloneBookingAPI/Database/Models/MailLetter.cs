@@ -28,5 +28,7 @@ namespace CloneBookingAPI.Database.Models
         [ForeignKey("SenderId")]
         public User Sender { get; set; }
 
+        public FileModel File { get; set; }
+
     }
 }

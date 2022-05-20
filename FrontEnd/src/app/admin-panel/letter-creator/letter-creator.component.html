@@ -25,11 +25,11 @@
   </div>
   <div *ngIf="choice" class="mt-2" >
     <label for="formFile" class="form-label">Upload HTML letter file</label>
-    <input class="form-control" type="file" id="formFile">
+    <input class="form-control" type="file" name="htmlFile" id="formFile" (change)="handleFileInput($any($event).target.files)">
   </div>
 </div>
 
-<button class="mt-3 btn btn-dark">Create and send</button>
+<button class="mt-3 btn btn-dark" (click)="createLetter()">Create and send</button>
 
 <h4 class="mb-3 text-center mt-3">Sent letters to subscribers</h4>
 

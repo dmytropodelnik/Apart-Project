@@ -3,6 +3,7 @@ using CloneBookingAPI.Interfaces;
 using CloneBookingAPI.Services;
 using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Email;
+using CloneBookingAPI.Services.POCOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -14,27 +15,29 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers
 {
+    [TypeFilter(typeof(AuthorizationFilter))]
+    [TypeFilter(typeof(OnlyAdminFilter))]
     [Route("api/[controller]")]
     // [ApiController]
     public class DealsController : Controller
     {
         private readonly ApartProjectDbContext  _context;
-        private readonly IEmailSender           _emailSender;
+        private readonly IEmailSender           _dealsMailSender;
         private string _letterTemplate = "<p>HELLO TEST</p>";
 
         public DealsController(ApartProjectDbContext context, IConfiguration configuration)
         {
             _context = context;
-            _emailSender = new DealsEmailSender(configuration);
+            _dealsMailSender = new DealsEmailSender(configuration);
         }
 
         [Route("sendbestdealsletter")]
         [HttpGet]
-        public async Task<ActionResult> SendBestDealsLetter(string email)
+        public async Task<ActionResult> SendBestDealsLetter(MailLetterPoco letter)
         {
             try
             {
-                var res = await _emailSender.SendEmailAsync(email, "Finish subscribing to get deals, inspiration, and more", _letterTemplate);
+                var res = await _emailSender.SendEmailAsync(let, "Finish subscribing to get deals, inspiration, and more", _letterTemplate);
                 if (res == true)
                 {
                     return Json(new { code = 200 });
