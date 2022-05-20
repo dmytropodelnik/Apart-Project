@@ -3,7 +3,9 @@ using CloneBookingAPI.Interfaces;
 using CloneBookingAPI.Services;
 using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Email;
+using CloneBookingAPI.Services.Interfaces;
 using CloneBookingAPI.Services.POCOs;
+using CloneBookingAPI.Services.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -22,22 +24,25 @@ namespace CloneBookingAPI.Controllers
     public class DealsController : Controller
     {
         private readonly ApartProjectDbContext  _context;
-        private readonly IEmailSender           _dealsMailSender;
+        private readonly IEmailSender _dealsMailSender;
         private string _letterTemplate = "<p>HELLO TEST</p>";
 
-        public DealsController(ApartProjectDbContext context, IConfiguration configuration)
+        public DealsController(
+            IConfiguration configuration,
+            ApartProjectDbContext context, 
+            MailUserListRepository repository)
         {
             _context = context;
-            _dealsMailSender = new DealsEmailSender(configuration);
+            _dealsMailSender = new DealsEmailSender(configuration, repository);
         }
 
         [Route("sendbestdealsletter")]
         [HttpGet]
-        public async Task<ActionResult> SendBestDealsLetter(MailLetterPoco letter)
+        public ActionResult SendBestDealsLetter(MailLetterPoco letter)
         {
             try
             {
-                var res = await _emailSender.SendEmailAsync(let, "Finish subscribing to get deals, inspiration, and more", _letterTemplate);
+                var res = _dealsMailSender.SendEmail(letter);
                 if (res == true)
                 {
                     return Json(new { code = 200 });

@@ -1,20 +1,15 @@
 ﻿using CloneBookingAPI.Services.POCOs;
-using System.Threading.Tasks;
 
-namespace CloneBookingAPI.Interfaces
+namespace CloneBookingAPI.Services.Interfaces
 {
     public interface IEmailSender
     {
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-        async Task<bool> SendEmailAsync(string email, string subject, string message)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+        bool SendEmail(string email, string subject, string message)
         {
             return false;
         }
 
-#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
-        async Task<bool> SendEmailAsync(MailLetterPoco letter)
-#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
+        bool SendEmail(MailLetterPoco letter)
         {
             return false;
         }
