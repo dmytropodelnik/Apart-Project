@@ -8,6 +8,7 @@ using CloneBookingAPI.Services.POCOs;
 using CloneBookingAPI.Services.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,6 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers
 {
-    [TypeFilter(typeof(AuthorizationFilter))]
-    [TypeFilter(typeof(OnlyAdminFilter))]
     [Route("api/[controller]")]
     // [ApiController]
     public class DealsController : Controller
@@ -37,6 +36,8 @@ namespace CloneBookingAPI.Controllers
             _repository = repository;
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("sendbestdealsletter")]
         [HttpGet]
         public ActionResult SendBestDealsLetter(MailLetterPoco letter)
@@ -63,7 +64,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("addsubscriber")]
         [HttpPost]
-        public ActionResult AddSubscriber(string email)
+        public async Task<ActionResult> AddSubscriber(string email)
         {
             try
             {
@@ -79,6 +80,14 @@ namespace CloneBookingAPI.Controllers
 
                 _repository.Subscribers.Add(email);
 
+                var user = await _context.Users
+                    .Include(u => u.Profile)
+                    .FirstOrDefaultAsync(u => u.Email.Equals(email));
+                if (user is not null)
+                {
+                    user.Profile.HasMailing = true;
+                }
+
                 return Json(new { code = 200 });
             }
             catch (Exception ex)
@@ -89,9 +98,10 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("removesubscriber")]
         [HttpDelete]
-        public ActionResult RemoveSubscriber(string email)
+        public async Task<ActionResult> RemoveSubscriber(string email)
         {
             try
             {
@@ -106,6 +116,14 @@ namespace CloneBookingAPI.Controllers
                 }
 
                 _repository.Subscribers.Remove(email);
+
+                var user = await _context.Users
+                    .Include(u => u.Profile)
+                    .FirstOrDefaultAsync(u => u.Email.Equals(email));
+                if (user is not null)
+                {
+                    user.Profile.HasMailing = false;
+                }
 
                 return Json(new { code = 200 });
             }

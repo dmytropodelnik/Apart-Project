@@ -19,24 +19,15 @@
           <div *ngIf="isEditing[0]">
             <form>
               <label for="currenciesSelect" class="form-label">Currency</label>
-              <select
-                class="form-select"
-                aria-label="Default select example"
-                id="currenciesSelect"
-                name="user.currency"
-                [(ngModel)]="user.currency"
-              >
+              <select class="form-select" aria-label="Default select example" id="currenciesSelect" name="user.currency"
+                [(ngModel)]="user.currency">
                 <option selected>Select the currency</option>
               </select>
             </form>
           </div>
         </div>
         <div *ngIf="!isEditing[0]" class="colTest">
-          <button
-            class="buttonTest"
-            (click)="editButtonClick(0, user.currency)"
-            [disabled]="isDisabled[0]"
-          >
+          <button class="buttonTest" (click)="editButtonClick(0, user.currency)" [disabled]="isDisabled[0]">
             Edit
           </button>
         </div>
@@ -63,24 +54,15 @@
           <div *ngIf="isEditing[1]">
             <form>
               <label for="languagesSelect" class="form-label">Language</label>
-              <select
-                class="form-select"
-                aria-label="Default select example"
-                id="languagesSelect"
-                name="user.language"
-                [(ngModel)]="user.language"
-              >
+              <select class="form-select" aria-label="Default select example" id="languagesSelect" name="user.language"
+                [(ngModel)]="user.language">
                 <option selected>Select the language</option>
               </select>
             </form>
           </div>
         </div>
         <div *ngIf="!isEditing[1]" class="colTest">
-          <button
-            class="buttonTest"
-            (click)="editButtonClick(1, user.language)"
-            [disabled]="isDisabled[1]"
-          >
+          <button class="buttonTest" (click)="editButtonClick(1, user.language)" [disabled]="isDisabled[1]">
             Edit
           </button>
         </div>
@@ -93,6 +75,23 @@
           <div>
             <button class="buttonTest" (click)="saveLanguage(1)">Save</button>
           </div>
+        </div>
+      </div>
+    </li>
+    <li class="list-group-item">
+      <div class="row">
+        <div class="col">Mailings</div>
+        <div class="col-6">
+            <p *ngIf="!user.hasMailing">Subscribe and we'll send the best deals to you</p>
+            <p *ngIf="user.hasMailing">If you don't want us to send you mails, you can unsubscribe from this</p>
+        </div>
+        <div *ngIf="!isEditing[0]" class="colTest">
+          <button *ngIf="!user.hasMailing" class="buttonTest" (click)="toggleUserMailings(true)" [disabled]="isDisabled[3]">
+            Subscribe
+          </button>
+          <button *ngIf="user.hasMailing" class="buttonTest" (click)="toggleUserMailings(false)" [disabled]="isDisabled[3]">
+            Unsubscribe
+          </button>
         </div>
       </div>
     </li>

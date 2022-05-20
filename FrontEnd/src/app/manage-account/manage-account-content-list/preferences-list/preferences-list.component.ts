@@ -25,6 +25,50 @@ export class PreferencesListComponent implements OnInit {
     this.isEditing[id] = !this.isEditing[id];
   }
 
+  toggleUserMailings(value: boolean): void {
+    if (value) {
+      fetch('https://localhost:44381/api/deals/addsubscriber?email=' + AuthHelper.getLogin(), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.code === 200) {
+            this.user.hasMailing = true;
+          } else {
+            alert('Add subscriber error!');
+          }
+        })
+        .catch((ex) => {
+          alert(ex);
+        });
+    } else {
+      fetch('https://localhost:44381/api/deals/removesubscriber?email=' + AuthHelper.getLogin(), {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      })
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.code === 200) {
+            this.user.hasMailing = false;
+          } else {
+            alert('Remove subscriber error!');
+          }
+        })
+        .catch((ex) => {
+          alert(ex);
+        });
+    }
+  }
+
   editButtonClick(id: number, value: any): void {
     this.tempValue = value;
     this.getCurrencies();
@@ -139,7 +183,7 @@ export class PreferencesListComponent implements OnInit {
           if (response.code === 200) {
             this.authService.isGotData = true;
             this.authService.setUserImage(response.user.profile.image?.path);
-
+            this.user.hasMailing = response.user.profile.hasMailing;
             this.user.currency = response.user?.profile?.currency.abbreviation;
             this.user.language = response.user?.profile?.language?.title;
           } else {
@@ -181,7 +225,7 @@ export class PreferencesListComponent implements OnInit {
   }
 
   initializeBoolArray(): void {
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
       this.isDisabled[i] = false;
     }
   }

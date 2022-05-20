@@ -26,17 +26,17 @@ export class FooterComponent implements OnInit {
 
   }
 
-  fetchRequest() {
+  addDealsSubscriber() {
     if (!this.email.match('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')) {
       alert('Incorrect email pattern!');
       return;
     }
 
     fetch(
-      'https://localhost:44381/api/deals/sendbestdealsletter?email=' +
+      'https://localhost:44381/api/deals/addsubscriber?email=' +
         this.email,
       {
-        method: 'GET',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           Accept: 'application/json',
@@ -47,9 +47,9 @@ export class FooterComponent implements OnInit {
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
-          alert('A letter has been successfully sent to your email address!');
+          alert('You have been successfully subscribed to out new deals!');
         } else {
-          alert('Error!');
+          alert('Add deals subscriber error!');
         }
       })
       .catch((err) => {

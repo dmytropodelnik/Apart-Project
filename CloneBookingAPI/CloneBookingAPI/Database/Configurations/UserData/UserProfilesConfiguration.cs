@@ -11,6 +11,7 @@ namespace CloneBookingAPI.Services.Database.Configurations.UserProfile
             builder.Property(up => up.RegisterDate).HasDefaultValue(DateTime.Now);
             builder.Property(up => up.LanguageId).HasDefaultValue(1);
             builder.Property(up => up.CurrencyId).HasDefaultValue(1);
+            builder.Property(up => up.HasMailing).HasDefaultValue(false);
 
             builder.HasData(
               new Models.UserProfile.UserProfile[]
