@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Filters;
+﻿using CloneBookingAPI.Database.Models;
+using CloneBookingAPI.Filters;
 using CloneBookingAPI.Interfaces;
 using CloneBookingAPI.Services;
 using CloneBookingAPI.Services.Database;
@@ -39,14 +40,32 @@ namespace CloneBookingAPI.Controllers
         [TypeFilter(typeof(AuthorizationFilter))]
         [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("sendbestdealsletter")]
-        [HttpGet]
-        public ActionResult SendBestDealsLetter(MailLetterPoco letter)
+        [HttpPost]
+        public async Task<ActionResult> SendBestDealsLetter(MailLetterPoco letter)
         {
             try
             {
+                var sender = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(letter.Sender));
+                if (sender is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                MailLetter newMail = new();
+                newMail.Title = letter.Title;
+                newMail.Text = letter.Text;
+                newMail.SenderId = sender.Id;
+                newMail.ReceiversAmount = _repository.Subscribers.Count + 1;  // previous +1 new subscriber
+
+                _context.MailLetters.Add(newMail);
+                await _context.SaveChangesAsync();
+
                 _dealsMailSender.NotifySubscribers(letter);
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200, 
+                    sentLetters = await _context.MailLetters.ToListAsync(),
+                });
             }
             catch (OperationCanceledException ex)
             {

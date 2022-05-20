@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using CloneBookingAPI.Services.Generators;
 using System.Diagnostics;
 using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.POCOs;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
