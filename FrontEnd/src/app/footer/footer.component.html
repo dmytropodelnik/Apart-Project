@@ -60,13 +60,31 @@
         class="footer-navigation-links-wrapper clearfix"
         role="navigation"
       >
-        <div id="footer_links" class="footer-navigation-links">
+        <div id="footer_links1" class="footer-navigation-links">
           <div class="footer-navigation-links-column mb-3 mb-md-0">
             <ul class="footer-navigation-links-list footer-seo-links-to-index">
               <li class="footer-navigation-link button-class"
                   *ngFor="let category of mainDataService.getBookingCategories(); let i = index"
                   (click)="searchSuggestionsByCategory($event, category.category)">
                 <a> {{category.category}} </a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer-navigation-links-column mb-3 mb-md-0">
+            <ul class="footer-navigation-links-list footer-seo-links-to-index">
+              <li class="footer-navigation-link button-class"
+                  *ngFor="let country of mainDataService.getSearchingCountries(); let i = index"
+                  (click)="searchSuggestionsByPlace($event, country)">
+                <a> {{country}} </a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer-navigation-links-column mb-3 mb-md-0">
+            <ul class="footer-navigation-links-list footer-seo-links-to-index">
+              <li class="footer-navigation-link button-class"
+                  *ngFor="let city of mainDataService.getSearchingCities(); let i = index"
+                  (click)="searchSuggestionsByPlace($event, city.title)">
+                <a> {{city.title}} </a>
               </li>
             </ul>
           </div>

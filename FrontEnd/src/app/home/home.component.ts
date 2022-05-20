@@ -206,6 +206,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (r.code === 200) {
           this.countriesSuggestions = r.countriesSuggestions;
           this.countries = r.countries;
+          this.mainDataService.setSearchingCountries(this.countries);
         } else {
           alert('Data fetching error!');
         }
@@ -225,6 +226,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.cities = r.cities;
           this.citySuggestionsLength = r.citySuggestionsLength;
           this.footerCities = r.footerCities;
+          this.mainDataService.setSearchingCities(this.cities);
         } else {
           alert('Data fetching error!');
         }

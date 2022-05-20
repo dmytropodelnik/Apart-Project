@@ -70,5 +70,18 @@ export class FooterComponent implements OnInit {
     });
   }
 
+  searchSuggestionsByPlace($event: any, place: string): void {
+    $event.stopPropagation();
+
+    this.router.navigate(['/searchresults'], {
+      queryParams: {
+        adults: this.searchViewModel.searchAdultsAmount,
+        children: this.searchViewModel.searchChildrenAmount,
+        rooms: this.searchViewModel.searchRoomsAmount,
+        place: place,
+      },
+    });
+  }
+
   ngOnInit(): void {}
 }
