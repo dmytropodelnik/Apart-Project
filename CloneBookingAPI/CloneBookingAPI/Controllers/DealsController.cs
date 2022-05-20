@@ -23,16 +23,18 @@ namespace CloneBookingAPI.Controllers
     // [ApiController]
     public class DealsController : Controller
     {
-        private readonly ApartProjectDbContext  _context;
+        private readonly MailUserListRepository _repository;
+        private readonly ApartProjectDbContext _context;
         private readonly IEmailSender _dealsMailSender;
 
         public DealsController(
             IConfiguration configuration,
-            ApartProjectDbContext context, 
+            ApartProjectDbContext context,
             MailUserListRepository repository)
         {
             _context = context;
             _dealsMailSender = new DealsEmailSender(configuration, repository);
+            _repository = repository;
         }
 
         [Route("sendbestdealsletter")]
@@ -49,13 +51,69 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("addsubscriber")]
+        [HttpPost]
+        public ActionResult AddSubscriber(string email)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                if (_repository.Subscribers.Contains(email))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                _repository.Subscribers.Add(email);
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("removesubscriber")]
+        [HttpDelete]
+        public ActionResult RemoveSubscriber(string email)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                if (!_repository.Subscribers.Contains(email))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                _repository.Subscribers.Remove(email);
+
+                return Json(new { code = 200 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
             }
         }
     }
