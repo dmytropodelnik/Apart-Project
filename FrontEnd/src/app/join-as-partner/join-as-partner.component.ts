@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import AuthHelper from '../utils/authHelper';
+import ImageHelper from '../utils/imageHelper';
 
 import { AuthorizationService } from '../services/authorization.service';
 
@@ -11,6 +12,7 @@ import { AuthorizationService } from '../services/authorization.service';
 })
 export class JoinAsPartnerComponent implements OnInit {
   authHelper: any = AuthHelper;
+  imageHelper: any = ImageHelper;
   login = false;
 
   constructor(
