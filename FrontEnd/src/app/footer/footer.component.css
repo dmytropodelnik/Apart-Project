@@ -10,6 +10,10 @@
   color: #fcb4b4;
 }
 
+.button-class {
+  cursor: pointer;
+}
+
 .emk-subscription-entry-point.subscription-error .-error {
   display: block;
   color: #fcb4b4;

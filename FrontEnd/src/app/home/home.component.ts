@@ -39,9 +39,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   citySuggestionsLength: number[] = [];
 
-  bookingCategories: BookingCategory[] | undefined;
+  bookingCategories: BookingCategory[] = [];
   imagePath: string = '123';
-  cities: City[] | undefined;
+  cities: City[] = [];
   citySuggestions: any;
   suggestions: any;
   footerCities: string[] = [];
@@ -63,20 +63,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   isGotData: boolean = false;
 
   searchViewModel: SearchViewModel = new SearchViewModel();
-
-  slides = [
-    { text: 'Educational Consulting', img: 'assets/images/21.png' },
-    { text: 'University and Higher Education', img: 'assets/images/21.png' },
-    { text: 'Migration Consulting', img: 'assets/images/21.png' },
-    { text: 'NAATI Translations', img: 'assets/images/21.png' },
-    { text: 'English Courses', img: 'assets/images/21.png' },
-    { text: 'Tax Return', img: 'assets/images/21.png' },
-    { text: 'Tax Return', img: 'assets/images/21.png' },
-    { text: 'Tax Return', img: 'assets/images/21.png' },
-    { text: 'Tax Return', img: 'assets/images/21.png' },
-    { text: 'Tax Return', img: 'assets/images/21.png' },
-    { text: 'Tax Return', img: 'assets/images/21.png' },
-  ];
 
   slideConfig = {
     slidesToShow: 6,
@@ -183,6 +169,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (r.code === 200) {
           this.suggestions = r.suggestions;
           this.bookingCategories = r.categories;
+          this.mainDataService.setBookingCategories(this.bookingCategories);
         } else {
           alert('Categories data fetching error!');
         }
