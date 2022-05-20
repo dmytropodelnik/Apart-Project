@@ -25,12 +25,14 @@ namespace CloneBookingAPI.Filters
                 if (context.HttpContext.Request.Headers.Authorization.Count == 0)
                 {
                     context.Result = new JsonResult(new { code = 400 });
+                    return;
                 }
 
                 string[] userData = context.HttpContext.Request.Headers.Authorization.ToString().Split(";");
                 if (userData.Length < 2)
                 {
                     context.Result = new JsonResult(new { code = 400 });
+                    return;
                 }
 
                 bool res = _jwtRepository.IsValueCorrect(userData[0], userData[1]);

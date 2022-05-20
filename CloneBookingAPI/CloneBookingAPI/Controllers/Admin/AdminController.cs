@@ -16,7 +16,7 @@ using CloneBookingAPI.Filters;
 
 namespace CloneBookingAPI.Controllers
 {
-    [TypeFilter(typeof(OnlyAdminFilter))]
+    // [TypeFilter(typeof(OnlyAdminFilter))]
     [Route("api/[controller]")]
     //[ApiController]
     public class AdminController : Controller
@@ -32,7 +32,6 @@ namespace CloneBookingAPI.Controllers
             _saltGenerator = saltGenerator;
         }
 
-        [AllowAnonymous]
         [Route("login")]
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] User person)

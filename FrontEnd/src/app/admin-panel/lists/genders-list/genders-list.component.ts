@@ -135,6 +135,11 @@ export class GendersListComponent implements OnInit {
   getGenders(): void {
     fetch('https://localhost:44381/api/genders/getgenders', {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {

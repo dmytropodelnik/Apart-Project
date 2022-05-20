@@ -142,6 +142,11 @@ export class UserListComponent implements OnInit {
   getUsers(): void {
     fetch(`https://localhost:44381/api/users/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {
@@ -159,6 +164,11 @@ export class UserListComponent implements OnInit {
   getUserRoles(): void {
     fetch('https://localhost:44381/api/roles/getroles', {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {
@@ -201,6 +211,11 @@ export class UserListComponent implements OnInit {
 
     fetch(`https://localhost:44381/api/users/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {

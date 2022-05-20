@@ -142,6 +142,11 @@ export class RoomTypesListComponent implements OnInit {
   getTypes(): void {
     fetch(`https://localhost:44381/api/roomtypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {
@@ -167,6 +172,11 @@ export class RoomTypesListComponent implements OnInit {
 
     fetch(`https://localhost:44381/api/roomtypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {
