@@ -49,7 +49,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("uploadfile")]
         [HttpPost]
-        public async Task<IActionResult> UploadFile(IFormFile uploadedFile, Suggestion resSuggestion)
+        public async Task<IActionResult> UploadFile(IFormFile uploadedFile)
         {
             try
             {

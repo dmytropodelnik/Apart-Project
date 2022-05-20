@@ -45,7 +45,9 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                var sentLetters = await _context.MailLetters.ToListAsync();
+                var sentLetters = await _context.MailLetters
+                    .Include(l => l.Sender)
+                    .ToListAsync();
 
                 return Json(new { 
                     code = 200,
@@ -64,7 +66,7 @@ namespace CloneBookingAPI.Controllers
         [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("sendbestdealsletter")]
         [HttpPost]
-        public async Task<ActionResult> SendBestDealsLetter(MailLetterPoco letter)
+        public async Task<ActionResult> SendBestDealsLetter([FromBody] MailLetterPoco letter)
         {
             try
             {

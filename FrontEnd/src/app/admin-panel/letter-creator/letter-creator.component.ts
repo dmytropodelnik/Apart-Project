@@ -40,13 +40,16 @@ export class LetterCreatorComponent implements OnInit {
       sender: AuthHelper.getLogin(),
     };
 
+    console.log(letter);
+
     fetch('https://localhost:44381/api/deals/sendbestdealsletter', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
+        'Content-Type': 'application/json',
         Accept: 'application/json',
         Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
+      body: JSON.stringify(letter),
     })
       .then((r) => r.json())
       .then((r) => {
@@ -130,6 +133,7 @@ export class LetterCreatorComponent implements OnInit {
     fetch('https://localhost:44381/api/deals/getmails', {
       method: 'GET',
       headers: {
+        'Content-Type': 'application/json',
         Accept: 'application/json',
         Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
@@ -137,7 +141,7 @@ export class LetterCreatorComponent implements OnInit {
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
-          this.sentLetters == r.sentLetters;
+          this.sentLetters = r.sentLetters;
         } else {
           alert('Getting mails error!');
         }

@@ -175,7 +175,7 @@ namespace CloneBookingAPI.Controllers
         public ActionResult ReadFileContent(IFormFile uploadedFile)
         {
             try
-            {s
+            {
                 string letterText = default;
 
                 using (StreamReader sr = new(uploadedFile.OpenReadStream()))

@@ -82,7 +82,7 @@ namespace CloneBookingAPI.Services.Email
                     }
                 });
 
-                newThread.Start();
+                newThread.Start(letter);
 
                 return true;
             }
