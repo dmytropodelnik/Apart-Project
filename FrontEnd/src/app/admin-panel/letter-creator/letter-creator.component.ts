@@ -31,6 +31,12 @@ export class LetterCreatorComponent implements OnInit {
         alert('Upload a file!');
         return;
       }
+      // checking file type
+      if (!['text/html', 'text/plain'].includes(this.htmlLetterFile.type)) {
+        alert('Only HTML and TXT files are allowed!');
+        return;
+      }
+
       await this.uploadFile();
     }
 
@@ -53,9 +59,9 @@ export class LetterCreatorComponent implements OnInit {
       .then((r) => {
         if (r.code === 200) {
           this.sentLetters = r.sentLetters;
-          alert('File has been successfully uploaded!');
+          alert('Letter has been successfully sent!');
         } else {
-          alert('Uploading file error!');
+          alert('Sending letter to subscribers error!');
         }
       })
       .catch((err) => {
@@ -104,7 +110,7 @@ export class LetterCreatorComponent implements OnInit {
       .then((r) => {
         if (r.code === 200) {
           this.newLetter.text = r.letterText;
-          alert('File has been successfully uploaded!');
+          alert('File content has been successfully read!');
         } else {
           alert('Reading content from file error!');
         }
@@ -116,11 +122,6 @@ export class LetterCreatorComponent implements OnInit {
 
   handleFileInput(files: FileList): void {
     if (files !== null) {
-      // checking file type
-      if (!['text/html', 'text/plain'].includes(files.item(0)!.type)) {
-        alert('Only HTML files are allowed!');
-        return;
-      }
       this.htmlLetterFile = files.item(0);
     }
   }
