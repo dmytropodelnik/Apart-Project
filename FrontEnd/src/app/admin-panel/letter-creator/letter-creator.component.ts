@@ -20,6 +20,8 @@ export class LetterCreatorComponent implements OnInit {
   page: number = 0;
   pageSize: number = 15;
 
+  lettersAmount: number = 0;
+
   constructor() {}
 
   setChoice(): void {
@@ -158,6 +160,7 @@ export class LetterCreatorComponent implements OnInit {
       .then((r) => {
         if (r.code === 200) {
           this.collectElements(r.sentLetters);
+          this.lettersAmount = r.amount;
         } else {
           alert('Getting mails error!');
         }

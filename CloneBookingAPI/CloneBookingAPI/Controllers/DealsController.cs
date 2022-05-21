@@ -65,6 +65,7 @@ namespace CloneBookingAPI.Controllers
                 return Json(new { 
                     code = 200,
                     sentLetters,
+                    amount = await _context.MailLetters.CountAsync(),
                 });
             }
             catch (Exception ex)
