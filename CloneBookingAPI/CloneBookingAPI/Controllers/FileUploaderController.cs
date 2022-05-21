@@ -31,7 +31,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         private readonly ApartProjectDbContext _context;
         private readonly IWebHostEnvironment _appEnvironment;
-        private readonly string _storagePath = "/files/cities/";
+        private readonly string _storagePath = "/files/letters/";
         private readonly SHA256 sha256 = SHA256.Create();
 
         public FileUploaderController(ApartProjectDbContext context, IWebHostEnvironment appEnvironment)
@@ -66,6 +66,9 @@ namespace CloneBookingAPI.Controllers.UserData
                     while (System.IO.File.Exists(_appEnvironment.WebRootPath + path))
                     {
                         newFileName = Convert.ToBase64String(sha256.ComputeHash(Encoding.UTF8.GetBytes(newFileName)));
+                        newFileName = newFileName
+                                .Replace("/", "")
+                                .Replace("\\", "");
                         // path to folder Files
                         path = _storagePath + newFileName + extension;
                     }
@@ -78,8 +81,8 @@ namespace CloneBookingAPI.Controllers.UserData
                     }
                     FileModel file = new FileModel { Name = newFileName + extension, Path = path };
 
-                    //file.Suggestions.Add(resSuggestion);
                     _context.Files.Add(file);
+                    await _context.SaveChangesAsync();
 
                     return Json(new { code = STATUS_200 });
                 }

@@ -40,8 +40,6 @@ export class LetterCreatorComponent implements OnInit {
       sender: AuthHelper.getLogin(),
     };
 
-    console.log(letter);
-
     fetch('https://localhost:44381/api/deals/sendbestdealsletter', {
       method: 'POST',
       headers: {
@@ -74,16 +72,15 @@ export class LetterCreatorComponent implements OnInit {
     await fetch('https://localhost:44381/api/fileuploader/uploadfile', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
         Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
       body: fData,
     })
       .then((r) => r.json())
-      .then((r) => {
+      .then(async (r) => {
         if (r.code === 200) {
-          this.readContentFromFile(fData);
+          await this.readContentFromFile(fData);
           alert('File has been successfully uploaded!');
         } else {
           alert('Uploading file error!');
@@ -98,7 +95,6 @@ export class LetterCreatorComponent implements OnInit {
     await fetch('https://localhost:44381/api/files/readfilecontent', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
         Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
@@ -110,7 +106,7 @@ export class LetterCreatorComponent implements OnInit {
           this.newLetter.text = r.letterText;
           alert('File has been successfully uploaded!');
         } else {
-          alert('Uploading file error!');
+          alert('Reading content from file error!');
         }
       })
       .catch((err) => {

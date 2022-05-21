@@ -80,7 +80,7 @@ namespace CloneBookingAPI.Controllers
                 newMail.Title = letter.Title;
                 newMail.Text = letter.Text;
                 newMail.SenderId = sender.Id;
-                newMail.ReceiversAmount = _repository.Subscribers.Count + 1;  // previous +1 new subscriber
+                newMail.ReceiversAmount = _repository.Subscribers.Count;
 
                 _context.MailLetters.Add(newMail);
                 await _context.SaveChangesAsync();

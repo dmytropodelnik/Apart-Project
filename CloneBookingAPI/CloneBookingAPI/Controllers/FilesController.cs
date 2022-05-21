@@ -171,7 +171,7 @@ namespace CloneBookingAPI.Controllers
         [TypeFilter(typeof(AuthorizationFilter))]
         [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("readfilecontent")]
-        [HttpGet]
+        [HttpPost]
         public ActionResult ReadFileContent(IFormFile uploadedFile)
         {
             try
