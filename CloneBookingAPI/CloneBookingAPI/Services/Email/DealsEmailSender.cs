@@ -58,15 +58,16 @@ namespace CloneBookingAPI.Services.Email
         {
             try
             {
-                Thread newThread = new(async obj =>
+                var receivers = _context.LettersReceivers.ToList();
+                if (receivers is null)
+                {
+                    return false;
+                }
+
+                Thread newThread = new(obj =>
                 {
                     if (obj is MailLetterPoco letter)
                     {
-                        var receivers = await _context.LettersReceivers.ToListAsync();
-                        if (receivers is null)
-                        {
-                            return;
-                        }
 
                         foreach (var receiver in receivers)
                         {

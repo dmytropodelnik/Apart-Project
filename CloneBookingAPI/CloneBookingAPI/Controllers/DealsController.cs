@@ -99,8 +99,7 @@ namespace CloneBookingAPI.Controllers
                 _dealsMailSender.NotifySubscribers(letter);
 
                 return Json(new { 
-                    code = 200, 
-                    sentLetters = await _context.MailLetters.ToListAsync(),
+                    code = 200,
                 });
             }
             catch (OperationCanceledException ex)
@@ -145,9 +144,9 @@ namespace CloneBookingAPI.Controllers
                 if (user is not null)
                 {
                     user.Profile.HasMailing = true;
+                    _context.Users.Update(user);
                 }
 
-                _context.Users.Update(user);
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });
@@ -186,9 +185,9 @@ namespace CloneBookingAPI.Controllers
                 if (user is not null)
                 {
                     user.Profile.HasMailing = false;
+                    _context.Users.Update(user);
                 }
 
-                _context.Users.Update(user);
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });

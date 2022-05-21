@@ -56,4 +56,4 @@
   </tbody>
 </table>
 
-<button *ngIf="lettersAmount > 15" class="btn btn-dark" (click)="getSentMails()">Load more</button>
+<button *ngIf="lettersAmount > 15 && lettersAmount / page >= 15" class="btn btn-dark" (click)="getSentMails(true)">Load more</button>

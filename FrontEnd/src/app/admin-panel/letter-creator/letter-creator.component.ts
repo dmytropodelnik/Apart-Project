@@ -17,8 +17,10 @@ export class LetterCreatorComponent implements OnInit {
 
   htmlLetterFile: File | null = null;
 
-  page: number = 0;
+  page: number = 1;
   pageSize: number = 15;
+
+  isCreated: boolean = false;
 
   lettersAmount: number = 0;
 
@@ -78,7 +80,8 @@ export class LetterCreatorComponent implements OnInit {
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
-          this.sentLetters = r.sentLetters;
+          this.isCreated = true;
+          this.getSentMails();
           alert('Letter has been successfully sent!');
         } else {
           alert('Sending letter to subscribers error!');
@@ -146,9 +149,18 @@ export class LetterCreatorComponent implements OnInit {
     }
   }
 
-  getSentMails(): void {
-    this.page++;
-    fetch(`https://localhost:44381/api/deals/getmails?page=${this.page}&pageSize=${this.pageSize}`, {
+  getSentMails(value: boolean = false): void {
+    if (value) {
+      this.page++;
+    }
+
+    let url = `https://localhost:44381/api/deals/getmails?page=${this.page}&pageSize=${this.pageSize}`;
+    if (this.isCreated) {
+      url = 'https://localhost:44381/api/deals/getmails';
+      this.isCreated = false;
+    }
+
+    fetch(url, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -159,7 +171,11 @@ export class LetterCreatorComponent implements OnInit {
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
-          this.collectElements(r.sentLetters);
+          if (value) {
+            this.collectElements(r.sentLetters);
+          } else {
+            this.sentLetters = r.sentLetters;
+          }
           this.lettersAmount = r.amount;
         } else {
           alert('Getting mails error!');
