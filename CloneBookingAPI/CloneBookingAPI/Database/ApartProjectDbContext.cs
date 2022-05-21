@@ -82,6 +82,7 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<SuggestionStatus> SuggestionStatuses { get; set; }
         public DbSet<BookingCategoryType> BookingCategoryTypes { get; set; }
         public DbSet<MailLetter> MailLetters { get; set; }
+        public DbSet<LettersReceiver> LettersReceivers { get; set; }
 
         public ApartProjectDbContext(DbContextOptions<ApartProjectDbContext> options) : base(options)
         {

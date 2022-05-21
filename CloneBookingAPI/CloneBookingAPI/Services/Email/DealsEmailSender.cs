@@ -1,12 +1,15 @@
 ﻿using CloneBookingAPI.Interfaces;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Interfaces;
 using CloneBookingAPI.Services.POCOs;
 using CloneBookingAPI.Services.Repositories;
 using MailKit.Net.Smtp;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -19,7 +22,7 @@ namespace CloneBookingAPI.Services.Email
         private readonly string _smtpHost       = default;
         private readonly string _smtpPort       = default;
 
-        private readonly MailUserListRepository _repository;
+        private readonly ApartProjectDbContext _context;
 
         delegate bool MailingHandler(MailLetterPoco letter);
         private MailingHandler _sendEmails;
@@ -35,14 +38,14 @@ namespace CloneBookingAPI.Services.Email
             }
         }
 
-        public DealsEmailSender(IConfiguration configuration, MailUserListRepository repository)
+        public DealsEmailSender(IConfiguration configuration, ApartProjectDbContext context)
         {
             _emailSender    = configuration["EmitterData:EmmiterEmail"];
             _emailPassword  = configuration["EmitterData:EmmiterPass"];
             _smtpHost       = configuration["EmitterData:SmtpData:Gmail:Host"];
             _smtpPort       = configuration["EmitterData:SmtpData:Gmail:Port"];
 
-            _repository = repository;
+            _context = context;
             _sendEmails += SendEmail;
         }
 
@@ -55,16 +58,22 @@ namespace CloneBookingAPI.Services.Email
         {
             try
             {
-                Thread newThread = new(obj =>
+                Thread newThread = new(async obj =>
                 {
                     if (obj is MailLetterPoco letter)
                     {
-                        foreach (var emailTo in _repository.Subscribers)
+                        var receivers = await _context.LettersReceivers.ToListAsync();
+                        if (receivers is null)
+                        {
+                            return;
+                        }
+
+                        foreach (var receiver in receivers)
                         {
                             var emailMessage = new MimeMessage();
 
                             emailMessage.From.Add(new MailboxAddress("Apartstep.com", _emailSender));
-                            emailMessage.To.Add(new MailboxAddress("", emailTo));
+                            emailMessage.To.Add(new MailboxAddress("", receiver.Receiver));
                             emailMessage.Subject = letter.Title;
                             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
                             {

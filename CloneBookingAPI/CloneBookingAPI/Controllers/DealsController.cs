@@ -23,18 +23,15 @@ namespace CloneBookingAPI.Controllers
     // [ApiController]
     public class DealsController : Controller
     {
-        private readonly MailUserListRepository _repository;
         private readonly ApartProjectDbContext _context;
         private readonly IEmailSender _dealsMailSender;
 
         public DealsController(
             IConfiguration configuration,
-            ApartProjectDbContext context,
-            MailUserListRepository repository)
+            ApartProjectDbContext context)
         {
             _context = context;
-            _dealsMailSender = new DealsEmailSender(configuration, repository);
-            _repository = repository;
+            _dealsMailSender = new DealsEmailSender(configuration, _context);
         }
 
         [TypeFilter(typeof(AuthorizationFilter))]
@@ -94,7 +91,7 @@ namespace CloneBookingAPI.Controllers
                 newMail.Title = letter.Title;
                 newMail.Text = letter.Text;
                 newMail.SenderId = sender.Id;
-                newMail.ReceiversAmount = _repository.Subscribers.Count;
+                newMail.ReceiversAmount = await _context.LettersReceivers.CountAsync();
 
                 _context.MailLetters.Add(newMail);
                 await _context.SaveChangesAsync();
@@ -131,12 +128,16 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                if (_repository.Subscribers.Contains(email))
+                var receiver = await _context.LettersReceivers.FirstOrDefaultAsync(r => r.Receiver.Equals(email));
+                if (receiver is not null)
                 {
                     return Json(new { code = 400 });
                 }
 
-                _repository.Subscribers.Add(email);
+                LettersReceiver newReceiver = new();
+                newReceiver.Receiver = email;
+
+                _context.LettersReceivers.Add(newReceiver);
 
                 var user = await _context.Users
                     .Include(u => u.Profile)
@@ -145,6 +146,9 @@ namespace CloneBookingAPI.Controllers
                 {
                     user.Profile.HasMailing = true;
                 }
+
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });
             }
@@ -168,12 +172,13 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400 });
                 }
 
-                if (!_repository.Subscribers.Contains(email))
+                var receiver = await _context.LettersReceivers.FirstOrDefaultAsync(r => r.Receiver.Equals(email));
+                if (receiver is null)
                 {
                     return Json(new { code = 400 });
                 }
 
-                _repository.Subscribers.Remove(email);
+                _context.LettersReceivers.Remove(receiver);
 
                 var user = await _context.Users
                     .Include(u => u.Profile)
@@ -182,6 +187,9 @@ namespace CloneBookingAPI.Controllers
                 {
                     user.Profile.HasMailing = false;
                 }
+
+                _context.Users.Update(user);
+                await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });
             }

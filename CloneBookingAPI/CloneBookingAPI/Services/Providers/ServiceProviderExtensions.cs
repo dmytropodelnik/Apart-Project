@@ -25,10 +25,6 @@ namespace CloneBookingAPI.Services.Providers
         {
             services.AddSingleton<JwtRepository>();
         }
-        public static void AddMailUserListRepositoryRepositoryService(this IServiceCollection services)
-        {
-            services.AddSingleton<MailUserListRepository>();
-        }
         public static void AddSaltGeneratorService(this IServiceCollection services)
         {
             services.AddSingleton<SaltGenerator>();
