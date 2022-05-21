@@ -36,6 +36,29 @@ export class LetterCreatorComponent implements OnInit {
     }
   }
 
+  sendLetterAgain(value: number): void {
+    fetch('https://localhost:44381/api/deals/sendbestdealsletteragain?letterId=' + value, {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((r) => {
+        if (r.code === 200) {
+          this.isCreated = true;
+          this.getSentMails();
+          alert('Letter has been successfully sent!');
+        } else {
+          alert('Sending letter to subscribers error!');
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }
+
   async createLetter(): Promise<void> {
     if (this.newLetter.title.length < 3) {
       alert("Title must have at least 3 characters");

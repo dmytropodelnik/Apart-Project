@@ -75,12 +75,69 @@ namespace CloneBookingAPI.Controllers
 
         [TypeFilter(typeof(AuthorizationFilter))]
         [TypeFilter(typeof(OnlyAdminFilter))]
+        [Route("sendbestdealsletteragain")]
+        [HttpPost]
+        public async Task<ActionResult> SendBestDealsLetterAgain(int letterId)
+        {
+            try
+            {
+                if (letterId < 1)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var letter = await _context.MailLetters
+                    .Include(l => l.Sender)
+                    .FirstOrDefaultAsync(l => l.Id == letterId);
+                if (letter is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                MailLetterPoco newLetter = new();
+                newLetter.Sender = letter.Sender.Email;
+                newLetter.Title = letter.Title;
+                newLetter.Text = letter.Text;
+                newLetter.File = letter.File;
+                newLetter.SendingDate = letter.SendingDate;
+                newLetter.ReceiversAmount = await _context.LettersReceivers.CountAsync();
+
+                letter.SentCount++;
+
+                _context.MailLetters.Update(letter);
+                await _context.SaveChangesAsync();
+
+                _dealsMailSender.NotifySubscribers(newLetter);
+
+                return Json(new { code = 200 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("sendbestdealsletter")]
         [HttpPost]
         public async Task<ActionResult> SendBestDealsLetter([FromBody] MailLetterPoco letter)
         {
             try
             {
+                if (letter is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
                 var sender = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(letter.Sender));
                 if (sender is null)
                 {

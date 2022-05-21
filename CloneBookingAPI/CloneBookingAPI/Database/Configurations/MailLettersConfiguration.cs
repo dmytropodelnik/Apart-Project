@@ -9,6 +9,8 @@ namespace CloneBookingAPI.Database.Configurations
     {
         public void Configure(EntityTypeBuilder<MailLetter> builder)
         {
+            builder.Property(l => l.SentCount).HasDefaultValue(1);
+
             builder.HasData(
               new[]
               {

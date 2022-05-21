@@ -24,6 +24,9 @@ namespace CloneBookingAPI.Database.Models
         [Required]
         public int ReceiversAmount { get; set; }
 
+        [Required]
+        public int SentCount { get; set; }
+
         public int SenderId { get; set; }
         [ForeignKey("SenderId")]
         public User Sender { get; set; }

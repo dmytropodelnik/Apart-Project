@@ -41,7 +41,9 @@
       <th scope="col">Text</th>
       <th scope="col">Sending date</th>
       <th scope="col">Receivers amount</th>
+      <th scope="col">Sent count</th>
       <th scope="col">Sender</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -51,7 +53,11 @@
       <td>{{item.text}}</td>
       <td>{{item.sendingDate}}</td>
       <td>{{item.receiversAmount}}</td>
+      <td>{{item.sentCount}}</td>
       <td>{{item.sender?.email}}</td>
+      <td>
+        <button class="mt-3 btn btn-outline-light" (click)="sendLetterAgain(item.id)">Send again</button>
+      </td>
     </tr>
   </tbody>
 </table>
