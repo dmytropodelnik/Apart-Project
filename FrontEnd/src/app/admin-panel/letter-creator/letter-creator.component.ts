@@ -17,13 +17,31 @@ export class LetterCreatorComponent implements OnInit {
 
   htmlLetterFile: File | null = null;
 
+  page: number = 0;
+  pageSize: number = 15;
+
   constructor() {}
 
   setChoice(): void {
     this.choice = !this.choice;
   }
 
+  collectElements(sentLetters: MailLetter[]): void {
+    for (let item of sentLetters) {
+      this.sentLetters?.push(item);
+    }
+  }
+
   async createLetter(): Promise<void> {
+    if (this.newLetter.title.length < 3) {
+      alert("Title must have at least 3 characters");
+      return;
+    }
+    if (this.newLetter.text.length < 10) {
+      alert("Text must have at least 10 characters");
+      return;
+    }
+
     let letter;
 
     if (this.choice) {
@@ -127,7 +145,8 @@ export class LetterCreatorComponent implements OnInit {
   }
 
   getSentMails(): void {
-    fetch('https://localhost:44381/api/deals/getmails', {
+    this.page++;
+    fetch(`https://localhost:44381/api/deals/getmails?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -138,7 +157,7 @@ export class LetterCreatorComponent implements OnInit {
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
-          this.sentLetters = r.sentLetters;
+          this.collectElements(r.sentLetters);
         } else {
           alert('Getting mails error!');
         }

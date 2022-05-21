@@ -41,13 +41,26 @@ namespace CloneBookingAPI.Controllers
         [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("getmails")]
         [HttpGet]
-        public async Task<ActionResult> GetMails()
+        public async Task<ActionResult> GetMails(int page = -1, int pageSize = -1)
         {
             try
             {
-                var sentLetters = await _context.MailLetters
-                    .Include(l => l.Sender)
-                    .ToListAsync();
+                List<MailLetter> sentLetters = new();
+
+                if (page == -1 || pageSize == -1)
+                {
+                    sentLetters = await _context.MailLetters
+                        .Include(l => l.Sender)
+                        .ToListAsync();
+                }
+                else
+                {
+                    sentLetters = await _context.MailLetters
+                        .Include(l => l.Sender)
+                        .Skip((page - 1) * pageSize)
+                        .Take(pageSize)
+                        .ToListAsync();
+                }
 
                 return Json(new { 
                     code = 200,
