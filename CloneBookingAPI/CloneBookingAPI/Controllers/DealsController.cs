@@ -62,6 +62,7 @@ namespace CloneBookingAPI.Controllers
                 return Json(new { 
                     code = 200,
                     sentLetters,
+                    lastLetter = sentLetters.LastOrDefault(),
                     amount = await _context.MailLetters.CountAsync(),
                 });
             }
@@ -99,9 +100,9 @@ namespace CloneBookingAPI.Controllers
                 newLetter.Title = letter.Title;
                 newLetter.Text = letter.Text;
                 newLetter.File = letter.File;
-                newLetter.SendingDate = letter.SendingDate;
                 newLetter.ReceiversAmount = await _context.LettersReceivers.CountAsync();
 
+                letter.SendingDate = DateTime.UtcNow;
                 letter.SentCount++;
 
                 _context.MailLetters.Update(letter);
@@ -148,6 +149,7 @@ namespace CloneBookingAPI.Controllers
                 newMail.Title = letter.Title;
                 newMail.Text = letter.Text;
                 newMail.SenderId = sender.Id;
+                newMail.SendingDate = DateTime.UtcNow;
                 newMail.ReceiversAmount = await _context.LettersReceivers.CountAsync();
 
                 _context.MailLetters.Add(newMail);

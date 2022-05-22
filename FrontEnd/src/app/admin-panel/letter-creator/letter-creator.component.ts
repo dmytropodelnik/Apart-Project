@@ -64,7 +64,7 @@ export class LetterCreatorComponent implements OnInit {
       alert("Title must have at least 3 characters");
       return;
     }
-    if (this.newLetter.text.length < 10) {
+    if (this.newLetter.text.length < 10 && !this.choice) {
       alert("Text must have at least 10 characters");
       return;
     }
@@ -104,6 +104,8 @@ export class LetterCreatorComponent implements OnInit {
       .then((r) => {
         if (r.code === 200) {
           this.isCreated = true;
+          this.newLetter.title = '';
+          this.newLetter.text = '';
           this.getSentMails();
           alert('Letter has been successfully sent!');
         } else {
@@ -197,7 +199,11 @@ export class LetterCreatorComponent implements OnInit {
           if (value) {
             this.collectElements(r.sentLetters);
           } else {
-            this.sentLetters = r.sentLetters;
+            if (r.sentLetters.length <= 15) {
+              this.sentLetters = r.sentLetters;
+            } else if (this.sentLetters.length / this.page < 15) {
+              this.sentLetters?.push(r.lastLetter);
+            }
           }
           this.lettersAmount = r.amount;
         } else {
