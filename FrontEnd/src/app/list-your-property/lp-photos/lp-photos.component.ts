@@ -29,7 +29,7 @@ export class LpPhotosComponent implements OnInit {
   selectFiles(event: any): void {
     this.selectedFiles = event.target.files;
 
-    this.previews = [];
+    //this.previews = [];
 
     if (this.selectedFiles && this.selectedFiles[0]) {
       const numberOfFiles = this.selectedFiles.length;
@@ -48,7 +48,7 @@ export class LpPhotosComponent implements OnInit {
   handleFileInput(files: FileList | null): void {
     if (files !== null) {
       for (let i = 0; i < files.length; i++) {
-        this.uploadedFiles[i] = files.item(i) as File;
+        this.uploadedFiles.push(files.item(i) as File);
       }
     }
   }
@@ -60,7 +60,7 @@ export class LpPhotosComponent implements OnInit {
       for (let i = 0; i < this.uploadedFiles.length; i++) {
         fData.append('uploadedFiles', this.uploadedFiles[i]);
       }
-
+        console.log(fData.getAll('uploadedFiles'));
         fetch('https://localhost:44381/api/listnewproperty/addphotos?suggestionId=' + this.listNewPropertyService.getSavedPropertyId(), {
           method: 'POST',
           headers: {

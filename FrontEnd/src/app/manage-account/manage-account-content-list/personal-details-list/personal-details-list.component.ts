@@ -10,6 +10,7 @@ import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { Country } from 'src/app/models/Location/country.item';
 import { City } from 'src/app/models/Location/city.item';
 import { ThrowStmt } from '@angular/compiler';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-personal-details-list',
