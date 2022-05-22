@@ -32,6 +32,7 @@
                 <input
                   type="text"
                   class="form-control"
+                  formControlName="title"
                   id="title"
                   name="user.title"
                   [(ngModel)]="user.title"
@@ -111,7 +112,7 @@
             </button>
           </div>
           <div>
-            <button class="buttonTest" (click)="saveTitle(1)">Save</button>
+            <button class="buttonTest" (click)="saveName(1)">Save</button>
           </div>
         </div>
       </div>
@@ -155,7 +156,7 @@
             </button>
           </div>
           <div>
-            <button class="buttonTest" (click)="saveTitle(2)">Save</button>
+            <button class="buttonTest" (click)="saveDisplayName(2)">Save</button>
           </div>
         </div>
       </div>
@@ -216,7 +217,7 @@
             </button>
           </div>
           <div>
-            <button class="buttonTest" (click)="saveTitle(3)">Save</button>
+            <button class="buttonTest" (click)="sendChangingEmailLetter(3)">Save</button>
           </div>
         </div>
       </div>
@@ -262,7 +263,7 @@
             </button>
           </div>
           <div>
-            <button class="buttonTest" (click)="saveTitle(4)">Save</button>
+            <button class="buttonTest" (click)="savePhoneNumber(4)">Save</button>
           </div>
         </div>
       </div>
@@ -324,7 +325,7 @@
             </button>
           </div>
           <div>
-            <button class="buttonTest" (click)="saveTitle(5)">Save</button>
+            <button class="buttonTest" (click)="saveBirthDate(5)">Save</button>
           </div>
         </div>
       </div>
@@ -370,7 +371,7 @@
             </button>
           </div>
           <div>
-            <button class="buttonTest" (click)="saveTitle(6)">Save</button>
+            <button class="buttonTest" (click)="saveNationality(6)">Save</button>
           </div>
         </div>
       </div>
@@ -418,7 +419,7 @@
             </button>
           </div>
           <div>
-            <button class="buttonTest" (click)="saveTitle(7)">Save</button>
+            <button class="buttonTest" (click)="saveGender(7)">Save</button>
           </div>
         </div>
       </div>
@@ -507,7 +508,7 @@
             </button>
           </div>
           <div>
-            <button class="buttonTest" (click)="saveTitle(8)">Save</button>
+            <button class="buttonTest" (click)="saveAddress(8)">Save</button>
           </div>
         </div>
       </div>
