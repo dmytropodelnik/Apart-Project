@@ -4,16 +4,16 @@
       "Template": ""
     },
     "EnterLetter": {
-      "Template": "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&isToDeleteCode=true\">Verify enter</a>"
+      "Template": "<a href=\"https://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&isToDeleteCode=true\">Verify enter</a>"
     },
     "ResetPasswordLetter": {
-      "Template": "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&resetPassword=true&isToDeleteCode=true\">Reset password</a>"
+      "Template": "<a href=\"https://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&resetPassword=true&isToDeleteCode=true\">Reset password</a>"
     },
     "ChangingEmailLetter": {
-      "Template": "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&oldEmail=oldEmailTemplate&code=codeTemplate&changeEmail=true&isToDeleteCode=true\">Change email</a>"
+      "Template": "<a href=\"https://localhost:4200/confirmemail?email=emailTemplate&oldEmail=oldEmailTemplate&code=codeTemplate&changeEmail=true&isToDeleteCode=true\">Change email</a>"
     },
     "DeleteUserLetter": {
-      "Template": "<a href=\"http://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&isToDeleteCode=true&isToDeleteUser=true\">Delete account</a>"
+      "Template": "<a href=\"https://localhost:4200/confirmemail?email=emailTemplate&code=codeTemplate&isToDeleteCode=true&isToDeleteUser=true\">Delete account</a>"
     },
     "DealsLetter": {
       "Template": ""

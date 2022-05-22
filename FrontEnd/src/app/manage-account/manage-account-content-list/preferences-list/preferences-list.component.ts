@@ -27,14 +27,18 @@ export class PreferencesListComponent implements OnInit {
 
   toggleUserMailings(value: boolean): void {
     if (value) {
-      fetch('https://localhost:44381/api/deals/addsubscriber?email=' + AuthHelper.getLogin(), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Accept: 'application/json',
-          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-        },
-      })
+      fetch(
+        'https://localhost:44381/api/deals/addsubscriber?email=' +
+          AuthHelper.getLogin(),
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            Accept: 'application/json',
+            Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+          },
+        }
+      )
         .then((response) => response.json())
         .then((response) => {
           if (response.code === 200) {
@@ -47,14 +51,18 @@ export class PreferencesListComponent implements OnInit {
           alert(ex);
         });
     } else {
-      fetch('https://localhost:44381/api/deals/removesubscriber?email=' + AuthHelper.getLogin(), {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Accept: 'application/json',
-          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-        },
-      })
+      fetch(
+        'https://localhost:44381/api/deals/removesubscriber?email=' +
+          AuthHelper.getLogin(),
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            Accept: 'application/json',
+            Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+          },
+        }
+      )
         .then((response) => response.json())
         .then((response) => {
           if (response.code === 200) {
@@ -165,63 +173,33 @@ export class PreferencesListComponent implements OnInit {
     if (!this.authService.isGotData) {
       await this.authService.refreshAuth();
     }
-    if (!AuthHelper.isFacebookLogin()) {
-      fetch(
-        'https://localhost:44381/api/users/getuser?email=' +
-          AuthHelper.getLogin(),
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            Accept: 'application/json',
-            Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-          },
+    fetch(
+      'https://localhost:44381/api/users/getuser?email=' +
+        AuthHelper.getLogin(),
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.authService.isGotData = true;
+          this.authService.setUserImage(response.user.profile.image?.path);
+          this.user.hasMailing = response.user.profile.hasMailing;
+          this.user.currency = response.user?.profile?.currency.abbreviation;
+          this.user.language = response.user?.profile?.language?.title;
+        } else {
+          alert('Get current user error!');
         }
-      )
-        .then((response) => response.json())
-        .then((response) => {
-          if (response.code === 200) {
-            this.authService.isGotData = true;
-            this.authService.setUserImage(response.user.profile.image?.path);
-            this.user.hasMailing = response.user.profile.hasMailing;
-            this.user.currency = response.user?.profile?.currency.abbreviation;
-            this.user.language = response.user?.profile?.language?.title;
-          } else {
-            alert('Get current user error!');
-          }
-        })
-        .catch((ex) => {
-          alert(ex);
-        });
-    } else {
-      fetch(
-        'https://localhost:44381/api/users/getuserbyfacebookid?id=' +
-          AuthHelper.getLogin(),
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            Accept: 'application/json',
-            Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((response) => {
-          if (response.code === 200) {
-            this.authService.isGotData = true;
-            this.authService.setUserImage(response.user.profile.image?.path);
-
-            this.user.currency = response.user?.profile?.currency.abbreviation;
-            this.user.language = response.user?.profile?.language?.title;
-          } else {
-            alert('Get current user error!');
-          }
-        })
-        .catch((ex) => {
-          alert(ex);
-        });
-    }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   initializeBoolArray(): void {

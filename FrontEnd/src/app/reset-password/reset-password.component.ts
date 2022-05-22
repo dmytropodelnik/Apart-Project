@@ -67,7 +67,7 @@ export class ResetPasswordComponent implements OnInit {
           alert('You have successfully reset your password!');
           this.router.navigate(['']);
         } else {
-          alert('Editing password error!');
+          alert(response.message);
         }
       })
       .catch((ex) => {

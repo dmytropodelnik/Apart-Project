@@ -37,9 +37,7 @@ export class PersonalDetailsListComponent implements OnInit {
 
   user: UserData = new UserData();
 
-  constructor(public authService: AuthorizationService) {
-
-  }
+  constructor(public authService: AuthorizationService) {}
 
   setCondition(id: number): void {
     this.isEditing[id] = !this.isEditing[id];
@@ -432,97 +430,50 @@ export class PersonalDetailsListComponent implements OnInit {
     if (!this.authService.isGotData) {
       await this.authService.refreshAuth();
     }
-    if (!AuthHelper.isFacebookLogin()) {
-      fetch(
-        'https://localhost:44381/api/users/getuser?email=' +
-          AuthHelper.getLogin(),
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            Accept: 'application/json',
-            Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((response) => {
-          if (response.code === 200) {
-            this.authService.isGotData = true;
-            this.authService.setUserImage(response.user.profile.image?.path);
+    fetch(
+      'https://localhost:44381/api/users/getuser?email=' +
+        AuthHelper.getLogin(),
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.authService.isGotData = true;
+          this.authService.setUserImage(response.user.profile.image?.path);
 
-            this.user.addressText = response.user.profile?.address?.addressText;
-            this.user.zipCode = response.user.profile?.address?.zipCode;
-            this.user.country.title =
-              response.user.profile?.address?.country?.title;
-            this.user.city.title = response.user.profile?.address?.city?.title;
-            this.user.title = response.user.title;
-            this.user.firstName = response.user.firstName;
-            this.user.lastName = response.user.lastName;
-            this.user.email = response.user.email;
-            this.user.displayName = response.user.displayName;
-            this.user.phoneNumber = response.user.phoneNumber;
-            if (response.user.profile.birthDate) {
-              this.user.pBirthDate = response.user.profile.birthDate.substring(
-                0,
-                response.user.profile.birthDate.indexOf('T')
-              );
-            }
-            this.user.nationality = response.user.profile.nationality;
-            this.user.genderId = response.user.profile.genderId;
-          } else {
-            alert('Get current user error!');
+          this.user.addressText = response.user.profile?.address?.addressText;
+          this.user.zipCode = response.user.profile?.address?.zipCode;
+          this.user.country.title =
+            response.user.profile?.address?.country?.title;
+          this.user.city.title = response.user.profile?.address?.city?.title;
+          this.user.title = response.user.title;
+          this.user.firstName = response.user.firstName;
+          this.user.lastName = response.user.lastName;
+          this.user.email = response.user.email;
+          this.user.displayName = response.user.displayName;
+          this.user.phoneNumber = response.user.phoneNumber;
+          if (response.user.profile.birthDate) {
+            this.user.pBirthDate = response.user.profile.birthDate.substring(
+              0,
+              response.user.profile.birthDate.indexOf('T')
+            );
           }
-        })
-        .catch((ex) => {
-          alert(ex);
-        });
-    } else {
-      fetch(
-        'https://localhost:44381/api/users/getuserbyfacebookid?id=' +
-          AuthHelper.getLogin(),
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            Accept: 'application/json',
-            Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-          },
+          this.user.nationality = response.user.profile.nationality;
+          this.user.genderId = response.user.profile.genderId;
+        } else {
+          alert('Get current user error!');
         }
-      )
-        .then((response) => response.json())
-        .then((response) => {
-          if (response.code === 200) {
-            this.authService.isGotData = true;
-            this.authService.setUserImage(response.user.profile.image?.path);
-
-            this.user.addressText = response.user.profile?.address?.addressText;
-            this.user.zipCode = response.user.profile?.address?.zipCode;
-            this.user.country.title =
-              response.user.profile?.address?.country?.title;
-            this.user.city.title = response.user.profile?.address?.city?.title;
-            this.user.title = response.user.title;
-            this.user.firstName = response.user.firstName;
-            this.user.lastName = response.user.lastName;
-            this.user.email = response.user.email;
-            this.user.displayName = response.user.displayName;
-            this.user.phoneNumber = response.user.phoneNumber;
-            if (response.user.profile.birthDate) {
-              this.user.pBirthDate = response.user.profile.birthDate.substring(
-                0,
-                response.user.profile.birthDate.indexOf('T')
-              );
-            }
-            this.user.nationality = response.user.profile.nationality;
-            this.user.genderId = response.user.profile.genderId;
-          } else {
-            alert('Get current user error!');
-          }
-        })
-        .catch((ex) => {
-          alert(ex);
-        });
-    }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   getCountries(id: number): void {
