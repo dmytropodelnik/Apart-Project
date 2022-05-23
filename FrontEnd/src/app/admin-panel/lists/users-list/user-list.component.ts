@@ -110,19 +110,12 @@ export class UserListComponent implements OnInit {
   }
 
   deleteUser(): void {
-    let user = {
-      id: this.checkedUser,
-      name: this.user,
-    };
-
-    fetch('https://localhost:44381/api/users/deleteuser', {
+    fetch('https://localhost:44381/api/users/deluser?id=' + this.checkedUser, {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
         Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
-      body: JSON.stringify(user),
     })
       .then((r) => r.json())
       .then((data) => {

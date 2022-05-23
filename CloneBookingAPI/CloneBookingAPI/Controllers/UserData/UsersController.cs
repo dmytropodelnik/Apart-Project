@@ -688,5 +688,63 @@ namespace CloneBookingAPI.Controllers
                 return Json(new { code = 400 });
             }
         }
+
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
+        [Route("deluser")]
+        [HttpDelete]
+        public async Task<IActionResult> DelUser(int id)
+        {
+            try
+            {
+                if (id < 1)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+                if (resUser is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resFavorite = await _context.Favorites.FirstOrDefaultAsync(u => u.UserId == resUser.Id);
+                if (resFavorite is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                _context.Favorites.Remove(resFavorite);
+                _context.Users.Remove(resUser);
+
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
     }
 }
