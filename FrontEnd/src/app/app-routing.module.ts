@@ -22,6 +22,7 @@ import { UserSavedComponent } from './user-saved/user-saved.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { LpApartmentsComponent } from './list-your-property/lp-apartments/lp-apartments.component';
 import { StaySuggestionPageComponent } from './stay-suggestion-page/stay-suggestion-page.component';
+import { ManageAccountGuard } from './manage-account/manage-account-body/manage-account.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'stays', pathMatch: 'full' },
@@ -40,7 +41,10 @@ const routes: Routes = [
   { path: 'saved', component: UserSavedComponent },
   { path: 'viewproperty', component: ViewPropertyComponent },
   { path: 'lp/addproperty', component: AddPropertyComponent, pathMatch: 'full' },
-  { path: 'mysettings', component: ManageAccountComponent },
+  {
+    path: 'mysettings',
+    component: ManageAccountComponent,
+    canActivate: [ManageAccountGuard], },
   { path: 'searchresults', component: SearchResultsComponent },
   { path: 'suggestion/:id', component: StaySuggestionPageComponent },
   { path: 'resetpassword', component: ResetPasswordComponent },
@@ -82,6 +86,6 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' }),
   ],
   exports: [RouterModule],
-  providers: [AdminPanelGuard],
+  providers: [AdminPanelGuard, ManageAccountGuard],
 })
 export class AppRoutingModule {}
