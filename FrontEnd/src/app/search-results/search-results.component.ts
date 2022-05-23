@@ -46,6 +46,7 @@ export class SearchResultsComponent implements OnInit {
   filters: SearchViewModel = new SearchViewModel();
   filterChecks: FilterViewModel[] = [];
   filterCheckBoxes: boolean[] = [];
+  suggestionsAmountWithFilters: number[] = [];
 
   bookingCategories: BookingCategory[] = [];
   facilities: Facility[] = [];
