@@ -248,7 +248,7 @@
             <label class="filters_check_label" for="Superb: 9+">
               Superb: 9+
             </label>
-            <span>{{filterCheckBoxes[11 + bookingCategories.length]}}</span>
+            <span>{{suggestionsAmountWithFilters[11 + bookingCategories.length]}}</span>
           </div>
           <div>
             <input class="" type="checkbox" value="" id="Very good: 8+" (change)="
@@ -257,14 +257,14 @@
             <label class="filters_check_label" for="Very good: 8+">
               Very good: 8+
             </label>
-            <span>{{filterCheckBoxes[12 + bookingCategories.length]}}</span>
+            <span>{{suggestionsAmountWithFilters[12 + bookingCategories.length]}}</span>
           </div>
           <div>
             <input class="" type="checkbox" value="" id="Good: 7+" (change)="
                 addFilterCheck('reviewScores', 7, 13 + bookingCategories.length)
               " [(ngModel)]="filterCheckBoxes[13 + bookingCategories.length]" />
             <label class="filters_check_label" for="Good: 7+"> Good: 7+ </label>
-            <span>{{filterCheckBoxes[13 + bookingCategories.length]}}</span>
+            <span>{{suggestionsAmountWithFilters[13 + bookingCategories.length]}}</span>
           </div>
           <div>
             <input class="" type="checkbox" value="" id="Pleasant: 6+" (change)="
@@ -273,7 +273,21 @@
             <label class="filters_check_label" for="Pleasant: 6+">
               Pleasant: 6+
             </label>
-            <span>{{filterCheckBoxes[14 + bookingCategories.length]}}</span>
+            <span>{{suggestionsAmountWithFilters[14 + bookingCategories.length]}}</span>
+          </div>
+        </div>
+        <div class="filters_box" *ngIf="bookingCategories.length != 0">
+          <span class="filters_box_title">Property type</span>
+          <div *ngFor="let item of bookingCategories; let i = index">
+            <div>
+              <input class="" type="checkbox" value="" id="{{ item.category }}" (change)="
+                  addFilterCheck('bookingCategories', item.category, 11 + i)
+                " [(ngModel)]="filterCheckBoxes[11 + i]" />
+              <label class="filters_check_label" for="{{ item.category }}">
+                {{ item.category }}
+              </label>
+              <span>{{suggestionsAmountWithFilters[11 + i]}}</span>
+            </div>
           </div>
         </div>
         <div class="filters_box" *ngIf="highlights.length != 0">
@@ -409,20 +423,6 @@
             </div>
           </div>
         </div>
-        <div class="filters_box" *ngIf="bookingCategories.length != 0">
-          <span class="filters_box_title">Property type</span>
-          <div *ngFor="let item of bookingCategories; let i = index">
-            <div>
-              <input class="" type="checkbox" value="" id="{{ item.category }}" (change)="
-                  addFilterCheck('bookingCategories', item.category, 11 + i)
-                " [(ngModel)]="filterCheckBoxes[11 + i]" />
-              <label class="filters_check_label" for="{{ item.category }}">
-                {{ item.category }}
-              </label>
-              <span>{{filterCheckBoxes[11 + i]}}</span>
-            </div>
-          </div>
-        </div>
         <div class="filters_box" *ngIf="facilities.length != 0">
           <span class="filters_box_title">Facilities</span>
           <div *ngFor="let item of facilities; let i = index">
@@ -439,7 +439,7 @@
               <label class="filters_check_label" for="{{ item.text }}">
                 {{ item.text }}
               </label>
-              <span>{{filterCheckBoxes[15 + bookingCategories.length + i]}}</span>
+              <span>{{suggestionsAmountWithFilters[15 + bookingCategories.length + i]}}</span>
             </div>
           </div>
         </div>
