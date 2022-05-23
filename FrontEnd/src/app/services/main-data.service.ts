@@ -1,6 +1,7 @@
 import { BookingCategory } from "../models/bookingcategory.item";
 import { City } from "../models/Location/city.item";
 import { Country } from "../models/Location/country.item";
+import { Region } from "../models/Location/region.item";
 
 export class MainDataService {
 
@@ -8,6 +9,7 @@ export class MainDataService {
   private bookingCategories: BookingCategory[] = [];
   private searchingCities: City[] = [];
   private searchingCountries: string[] = [];
+  private searchingRegions: Region[] = [];
 
   constructor() {
 
@@ -43,5 +45,13 @@ export class MainDataService {
 
   setSearchingCountries(countries: string[]): void {
     this.searchingCountries = countries;
+  }
+
+  getSearchingRegions(): Region[] {
+    return this.searchingRegions;
+  }
+
+  setSearchingRegions(regions: Region[]): void {
+    this.searchingRegions = regions;
   }
 }

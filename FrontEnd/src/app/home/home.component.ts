@@ -188,6 +188,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (r.code === 200) {
           this.regions = r.regions;
           this.regionsSuggestions = r.regionsSuggestions;
+          this.mainDataService.setSearchingRegions(this.regions);
         } else {
           alert('Data fetching error!');
         }

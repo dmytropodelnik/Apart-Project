@@ -57,6 +57,14 @@ export class FooterComponent implements OnInit {
       });
   }
 
+  routerToMySettings(): void {
+    if (AuthHelper.isLogged()) {
+      this.router.navigate(['mysettings']);
+    } else {
+      this.router.navigate(['auth']);
+    }
+  }
+
   searchSuggestionsByCategory($event: any, category: string): void {
     $event.stopPropagation();
 
