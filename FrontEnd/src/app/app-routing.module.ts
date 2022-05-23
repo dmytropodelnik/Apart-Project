@@ -44,7 +44,8 @@ const routes: Routes = [
   {
     path: 'mysettings',
     component: ManageAccountComponent,
-    canActivate: [ManageAccountGuard], },
+    canActivate: [ManageAccountGuard],
+  },
   { path: 'searchresults', component: SearchResultsComponent },
   { path: 'suggestion/:id', component: StaySuggestionPageComponent },
   { path: 'resetpassword', component: ResetPasswordComponent },

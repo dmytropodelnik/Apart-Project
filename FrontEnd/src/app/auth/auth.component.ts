@@ -128,7 +128,7 @@ export class AuthComponent implements OnInit {
         if (response.code !== 400) {
           this.authService.setTokenKey(response.encodedJwt);
           AuthHelper.saveAuth(user.email, response.encodedJwt);
-          this.authService.toggleLogCondition();
+          this.authService.setLogCondition(true);
           alert('You have successfully authenticated!');
           this.router.navigate(['']);
         } else {
@@ -158,7 +158,7 @@ export class AuthComponent implements OnInit {
         if (response.code !== 400) {
           this.authService.setTokenKey(response.encodedJwt);
           AuthHelper.saveAuth(this.email, response.encodedJwt);
-          this.authService.toggleLogCondition();
+          this.authService.setLogCondition(true);
           alert('You have successfully authenticated!');
           document.location.href="https://localhost:4200";
         } else {

@@ -27,7 +27,7 @@ export class ManageAccountGuard
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
-    if (!this.authService.getLogCondition()) {
+    if (!AuthHelper.isLogged()) {
       this.router.navigate(['']);
       return false;
     }
