@@ -36,6 +36,8 @@ export class PersonalDetailsListComponent implements OnInit {
   country: string = '';
   city: string = '';
 
+  tempNationalityCheck: string = '';
+
   user: UserData = new UserData();
 
   constructor(public authService: AuthorizationService) {}
@@ -54,6 +56,9 @@ export class PersonalDetailsListComponent implements OnInit {
       this.tempLastName = this.user.lastName;
     } else if (id == 5) {
       this.tempBirthDate = value;
+    } else if (id == 6) {
+      this.tempNationalityCheck = this.user.nationality;
+      this.user.nationality = "-1";
     } else if (id == 8) {
       this.zipCode = this.user.zipCode;
       this.addressText = this.user.addressText;
@@ -87,7 +92,7 @@ export class PersonalDetailsListComponent implements OnInit {
     } else if (id == 5) {
       this.user.pBirthDate = this.tempBirthDate;
     } else if (id == 6) {
-      this.user.nationality = this.tempValue;
+      this.user.nationality = this.tempNationalityCheck;
     } else if (id == 7) {
       this.user.genderId = +this.tempValue;
     } else if (id == 8) {
@@ -326,7 +331,7 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveNationality(id: number): void {
-    if (!this.user.nationality) {
+    if (this.user.nationality == '-1') {
       alert("Select your nationality!");
       return;
     }

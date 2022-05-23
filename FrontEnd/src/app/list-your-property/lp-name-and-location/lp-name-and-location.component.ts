@@ -116,6 +116,11 @@ export class LpNameAndLocationComponent implements OnInit {
   }
 
   addPropertyAddress(): void {
+    if (this.sCountry == '-1' || !this.sCountry.match(/\d/)) {
+      alert("Select your country!");
+      return;
+    }
+
     let suggestion = {
       id: this.listNewPropertyService.getSavedPropertyId(),
       address: {
