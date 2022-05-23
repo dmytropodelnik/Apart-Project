@@ -8,6 +8,7 @@ export class AuthorizationService {
   private isAdmin: boolean = false;
   private token: string | null = null;
   private userImage: string = '';
+  private isAllowedToResetPassword: boolean = false;
 
   public isGotData: boolean = false;
 
@@ -53,7 +54,15 @@ export class AuthorizationService {
     this.isLogged = !this.isLogged;
   }
 
-  async refreshAuth(isGoogleAuth: boolean = false): Promise<void> {
+  setResetPasswordCondition(value: boolean): void {
+    this.isAllowedToResetPassword = value;
+  }
+
+  getResetPasswordCondition(): boolean {
+    return this.isAllowedToResetPassword;
+  }
+
+  async refreshAuth(): Promise<void> {
     let model;
 
     if (AuthHelper.isFacebookLogin()) {

@@ -37,7 +37,7 @@ const routes: Routes = [
   { path: 'adminlogin', component: AdminAuthComponent },
   { path: 'upload', component: FileUploadComponent },
   { path: 'confirmemail', component: VerifyEnterComponent },
-  { path: 'flights', component: FlightsComponent },
+  //{ path: 'flights', component: FlightsComponent },
   { path: 'joinpartner', component: JoinAsPartnerComponent },
   { path: 'saved', component: UserSavedComponent },
   {

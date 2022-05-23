@@ -41,10 +41,12 @@ export class VerifyEnterComponent implements OnInit {
           await this.authorize();
         } else {
           alert('Enter error!');
+          this.router.navigate(['']);
         }
       })
       .catch((ex) => {
         alert(ex);
+        this.router.navigate(['']);
       });
   }
 
@@ -82,6 +84,7 @@ export class VerifyEnterComponent implements OnInit {
           }
         } else {
           alert('Token fetching error!');
+          this.router.navigate(['']);
         }
       })
       .catch((ex) => {
@@ -97,14 +100,17 @@ export class VerifyEnterComponent implements OnInit {
       .then((r) => r.json())
       .then(async (data) => {
         if (data.code === 200) {
+          this.authService.setResetPasswordCondition(true);
           this.repositoryEnum = RepositoryEnum.ResetPassword;
           await this.authorize();
         } else {
           alert('Enter error!');
+          this.router.navigate(['']);
         }
       })
       .catch((ex) => {
         alert(ex);
+        this.router.navigate(['']);
       });
   }
 
@@ -130,10 +136,12 @@ export class VerifyEnterComponent implements OnInit {
           alert('You have successfully changed your email!');
         } else {
           alert('Save email error!');
+          this.router.navigate(['']);
         }
       })
       .catch((ex) => {
         alert(ex);
+        this.router.navigate(['']);
       });
   }
 
@@ -154,10 +162,12 @@ export class VerifyEnterComponent implements OnInit {
           this.router.navigate(['']);
         } else {
           alert('Delete user error!');
+          this.router.navigate(['']);
         }
       })
       .catch((ex) => {
         alert(ex);
+        this.router.navigate(['']);
       });
   }
 
@@ -172,10 +182,12 @@ export class VerifyEnterComponent implements OnInit {
           this.deleteUserEventually();
         } else {
           alert('Verify user deletion error!');
+          this.router.navigate(['']);
         }
       })
       .catch((ex) => {
         alert(ex);
+        this.router.navigate(['']);
       });
   }
 
@@ -193,16 +205,23 @@ export class VerifyEnterComponent implements OnInit {
           await this.authorize();
         } else {
           alert('Verify email changing error!');
+          this.router.navigate(['']);
         }
       })
       .catch((ex) => {
         alert(ex);
+        this.router.navigate(['']);
       });
   }
 
   async ngOnInit(): Promise<void> {
     // Note: Below 'queryParams' can be replaced with 'params' depending on your requirements
     this.activatedRoute.queryParams.subscribe(async (params: any) => {
+      if (!params['email'] || !params['code']) {
+        this.router.navigate(['']);
+        return;
+      }
+
       this.email = params['email'];
       this.oldEmail = params['oldEmail'];
       this.code = params['code'];
