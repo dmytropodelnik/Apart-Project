@@ -196,7 +196,7 @@ namespace CloneBookingAPI.Controllers
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(user) || page == -1 || pageSize == -1)
+                if (string.IsNullOrWhiteSpace(user))
                 {
                     var res = await _context.Users
                         .Include(u => u.Profile)
