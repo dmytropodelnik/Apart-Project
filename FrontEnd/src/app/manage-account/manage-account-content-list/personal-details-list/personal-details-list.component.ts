@@ -326,6 +326,11 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveNationality(id: number): void {
+    if (!this.user.nationality) {
+      alert("Select your nationality!");
+      return;
+    }
+
     let user = {
       nationality: this.user.nationality,
       email: AuthHelper.getLogin(),
@@ -356,6 +361,11 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveGender(id: number): void {
+    if (this.user.genderId != 1 && this.user.genderId != 2) {
+      alert("Select your gender!");
+      return;
+    }
+
     let user = {
       genderId: this.user.genderId,
       email: AuthHelper.getLogin(),
