@@ -72,12 +72,13 @@ namespace CloneBookingAPI.Controllers.Search
                     .Include(s => s.SuggestionReviewGrades)
                     .Where(s => s.Progress == 100)
                     .ToListAsync();
- 
 
                 string place = filters.Place ?? "";
 
+                List<int> amountFilteringSuggestions = new();
+
                 // FILTERING
-                var resSuggestions = _suggestionsFilter.FilterItems(suggestions.AsQueryable(), filters.Filters);
+                var resSuggestions = _suggestionsFilter.FilterItems(suggestions.AsQueryable(), filters.Filters, amountFilteringSuggestions);
                 if (resSuggestions is null)
                 {
                     return Json(new { code = 400 });

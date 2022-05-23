@@ -75,7 +75,7 @@ export class SearchResultsComponent implements OnInit {
   dayOut: number | null = null;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
-
+    this.suggestionsAmountWithFilters.fill(0);
   }
 
   model: any;
