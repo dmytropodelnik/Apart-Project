@@ -282,7 +282,7 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveBirthDate(id: number): void {
-    if (this.user.pBirthDate) {
+    if (this.user.pBirthDate?.year) {
       this.user.birthDate =
         this.user.pBirthDate!.day +
         '/' +
