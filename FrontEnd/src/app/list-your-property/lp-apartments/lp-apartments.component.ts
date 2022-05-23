@@ -69,7 +69,12 @@ export class LpApartmentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    if (!AuthHelper.isLogged()) {
+      this.router.navigate(['']);
+    }
+    else if (!this.listNewPropertyService.getSavedPropertyId()) {
+      this.router.navigate(['']);
+    }
   }
 
 }
