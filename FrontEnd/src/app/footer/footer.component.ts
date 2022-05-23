@@ -51,6 +51,7 @@ export class FooterComponent implements OnInit {
         } else {
           alert('Add deals subscriber error!');
         }
+        this.email = '';
       })
       .catch((err) => {
         alert(err);
