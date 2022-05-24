@@ -69,7 +69,7 @@ namespace CloneBookingAPI.Controllers.Search
                     .Include(s => s.Languages)
                     .Include(s => s.Images)
                     .Include(s => s.Reviews)
-                    .Include(s => s.SuggestionReviewGrades)
+                        .ThenInclude(r => r.Grade)
                     .Where(s => s.Progress == 100)
                     .ToListAsync();
 
@@ -106,13 +106,13 @@ namespace CloneBookingAPI.Controllers.Search
                 List<decimal> suggestionStartsFrom = new();
                 for (int i = 0; i < finalSuggestions.Count; i++)
                 {
-                    if (finalSuggestions[i].SuggestionReviewGrades.Count == 0)
+                    if (finalSuggestions[i].Reviews.Count == 0)
                     {
                         suggestionGrades.Add(0);
                     }
                     else 
                     {
-                        suggestionGrades.Add(finalSuggestions[i].SuggestionReviewGrades.Average(g => g.Value));
+                        suggestionGrades.Add(finalSuggestions[i].Reviews.Average(g => g.Grade.Value));
                     } 
                     if (finalSuggestions[i].Apartments.Count != 0) // finalSuggestions[i].Apartments is not null && 
                     {

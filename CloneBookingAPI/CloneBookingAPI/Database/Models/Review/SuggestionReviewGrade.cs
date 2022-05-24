@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CloneBookingAPI.Services.Database.Models.Suggestions
+namespace CloneBookingAPI.Database.Models.Review
 {
     [Table("SuggestionReviewGrades")]
     public class SuggestionReviewGrade
@@ -22,8 +22,8 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [ForeignKey("ReviewCategoryId")]
         public ReviewCategory ReviewCategory { get; set; }
 
-        public int SuggestionId { get; set; }
-        [ForeignKey("SuggestionId")]
-        public Suggestion Suggestion { get; set; }
+        public int ReviewId { get; set; }
+        [ForeignKey("ReviewId")]
+        public Services.Database.Models.Review.Review Review { get; set; }
     }
 }

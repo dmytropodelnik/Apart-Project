@@ -2,6 +2,7 @@
 using CloneBookingAPI.Database.Configurations.Suggestions;
 using CloneBookingAPI.Database.Configurations.ViewModels;
 using CloneBookingAPI.Database.Models;
+using CloneBookingAPI.Database.Models.Review;
 using CloneBookingAPI.Database.Models.Suggestions;
 using CloneBookingAPI.Database.Models.ViewModels;
 using CloneBookingAPI.Services.Database.Configurations;

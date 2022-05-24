@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Filters;
+﻿using CloneBookingAPI.Database.Models.Review;
+using CloneBookingAPI.Filters;
 using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.POCOs;
 using Microsoft.AspNetCore.Mvc;
@@ -93,7 +94,8 @@ namespace CloneBookingAPI.Controllers.Review
                     return Json(new { code = 400 });
                 }
 
-                return Json(new { 
+                return Json(new
+                {
                     code = 200,
                     reviews,
                 });
@@ -118,6 +120,7 @@ namespace CloneBookingAPI.Controllers.Review
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("getuserpropertyreviews")]
         [HttpGet]
         public async Task<IActionResult> GetUserPropertyReviews(string email)
@@ -179,32 +182,30 @@ namespace CloneBookingAPI.Controllers.Review
 
         [Route("getsuggestionreviews")]
         [HttpGet]
-        public async Task<IActionResult> GetSuggestionReviews([FromBody] SuggestionPoco suggestion)
+        public async Task<IActionResult> GetSuggestionReviews(int id, int page)
         {
             try
             {
-                int pageHelper = suggestion.Page;
 
-                if (suggestion is null || pageHelper < 1)
+                if (id < 1 || page < 1)
                 {
                     return NotFound();
                 }
 
-                if (suggestion.Page == 1)
-                {
-                    pageHelper = 0;
-                }
-
                 var reviews = await _context.Reviews
                     .Include(r => r.ReviewMessage)
-                    //.Include(r => r.Suggestion)
+                    .Include(r => r.Grade)
                     .Include(r => r.User)
-                    .Where(r => r.SuggestionId == suggestion.Id)
+                        .ThenInclude(u => u.Profile)
+                            .ThenInclude(p => p.Address)
+                                .ThenInclude(a => a.Country)
+                    .Include(r => r.User.Profile.Image)
+                    .Where(r => r.SuggestionId == id)
                     .ToListAsync();
 
                 // PAGINATION
                 reviews = reviews
-                    .Skip((pageHelper - 1) * 10)
+                    .Skip((page - 1) * 10)
                     .Take(10)
                     .ToList();
 
@@ -290,13 +291,13 @@ namespace CloneBookingAPI.Controllers.Review
                 }
 
                 var resReview = await _context.Reviews.FirstOrDefaultAsync(r => r.ReviewMessage == review.ReviewMessage &&
-                                                                                r.SuggestionId == review.SuggestionId   &&
+                                                                                r.SuggestionId == review.SuggestionId &&
                                                                                 r.UserId == review.UserId);
                 if (resReview is null)
                 {
                     return Json(new { code = 400 });
                 }
-                resReview.ReviewMessage = review.ReviewMessage; 
+                resReview.ReviewMessage = review.ReviewMessage;
 
                 _context.Reviews.Update(resReview);
                 await _context.SaveChangesAsync();
@@ -398,6 +399,140 @@ namespace CloneBookingAPI.Controllers.Review
                 }
 
                 _context.Reviews.Remove(resReview);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("likereview")]
+        [HttpPut]
+        public async Task<IActionResult> LikeReview([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
+        {
+            try
+            {
+                if (review is null ||
+                    review.Id < 1 ||
+                    string.IsNullOrWhiteSpace(review.User.Email))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resReview = await _context.Reviews
+                    .Include(r => r.Reactions)
+                        .ThenInclude(rc => rc.User)
+                    .FirstOrDefaultAsync(r => r.Id == review.Id); ;
+                if (resReview is null)
+                {
+                    return Json(new { code = 400, message = "Review with such id doesn't exist!" });
+                }
+
+                var isReacted = resReview.Reactions
+                    .Where(r => r.User.Email.Equals(review.User.Email) && r.IsLiked)
+                    .FirstOrDefault();
+                if (isReacted is not null)
+                {
+                    return Json(new { code = 400, message = "You had already liked this review!" });
+                }
+
+                Reaction newReaction = new();
+                newReaction.IsLiked = true;
+                newReaction.UserId = resReview.UserId;
+
+                resReview.Reactions.Add(newReaction);
+
+                _context.Reviews.Update(resReview);
+                await _context.SaveChangesAsync();
+
+                return Json(new { code = 200 });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("dislikereview")]
+        [HttpPut]
+        public async Task<IActionResult> DislikeReview([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
+        {
+            try
+            {
+                if (review is null || 
+                    review.Id < 1  || 
+                    string.IsNullOrWhiteSpace(review.User.Email))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resReview = await _context.Reviews
+                    .Include(r => r.Reactions)
+                        .ThenInclude(rc => rc.User)
+                    .FirstOrDefaultAsync(r => r.Id == review.Id);
+                if (resReview is null)
+                {
+                    return Json(new { code = 400, message = "Review with such id doesn't exist!" });
+                }
+
+                var isReacted = resReview.Reactions
+                    .Where(r => r.User.Email.Equals(review.User.Email) && r.IsDisliked)
+                    .FirstOrDefault();
+                if (isReacted is not null)
+                {
+                    return Json(new { code = 400, message = "You had already disliked this review!" });
+                }
+
+                Reaction newReaction = new();
+                newReaction.IsDisliked = true;
+                newReaction.UserId = resReview.UserId;
+
+                resReview.Reactions.Add(newReaction);
+
+                _context.Reviews.Update(resReview);
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });

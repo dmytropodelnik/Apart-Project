@@ -114,17 +114,19 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     .Include(s => s.Languages)
                     .Include(s => s.Images)
                     .Include(s => s.Reviews)
-                        .ThenInclude(r => r.ReviewMessage)
-                    .Include(s => s.SuggestionReviewGrades)
+                        .ThenInclude(r => r.Grade)
                     .FirstOrDefaultAsync(s => s.UniqueCode.Equals(code));
                 if (suggestion is null)
                 {
                     return Json(new { code = STATUS_400 });
                 }
 
+                int reviewsAmount = suggestion.Reviews.Count;
+
                 return Json(new { 
                     code = STATUS_200, 
                     suggestion,
+                    reviewsAmount,
                 });
             }
             catch (ArgumentNullException ex)

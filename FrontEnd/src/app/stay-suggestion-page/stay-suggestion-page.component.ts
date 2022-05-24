@@ -35,6 +35,8 @@ export class StaySuggestionPageComponent implements OnInit {
   monthOut: number | null = null;
   dayOut: number | null = null;
 
+  reviewsPage: number = 0;
+
   constructor(private activatedRouter: ActivatedRoute) {}
 
   getSuggestion(): void {
@@ -48,6 +50,7 @@ export class StaySuggestionPageComponent implements OnInit {
       .then((response) => {
         if (response.code === 200) {
           this.suggestion = response.suggestion;
+          this.suggestion.reviewsAmount = response.reviewsAmount;
         } else {
           alert('Suggestion fetching error!');
         }
@@ -121,6 +124,27 @@ export class StaySuggestionPageComponent implements OnInit {
         this.searchPlace = this.searchBookingCategory;
       }
     });
+  }
+
+  getSuggestionReviews(): void {
+    this.reviewsPage++;
+    fetch(
+      `https://localhost:44381/api/reviews/getsuggestionreviews?id=${this.suggestion.id}&page=${this.reviewsPage}`,
+      {
+        method: 'GET',
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.suggestion.reviews = response.reviews;
+        } else {
+          alert('Suggestion fetching error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   ngOnInit(): void {
