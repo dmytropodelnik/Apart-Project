@@ -10,7 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CloneBookingAPI.Controllers.Suggestions
+namespace CloneBookingAPI.Controllers.Review
 {
     [Route("api/[controller]")]
     [ApiController]

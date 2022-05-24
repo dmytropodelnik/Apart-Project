@@ -1,6 +1,7 @@
 ﻿using CloneBookingAPI.Database.Models.Review;
 using CloneBookingAPI.Filters;
 using CloneBookingAPI.Services.Database;
+using CloneBookingAPI.Services.Database.Configurations.Review;
 using CloneBookingAPI.Services.POCOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -34,8 +35,6 @@ namespace CloneBookingAPI.Controllers.Review
                 {
                     reviews = await _context.Reviews
                     .Include(r => r.User)
-                    //.Include(r => r.Suggestion)
-                    //.ThenInclude(s => s.StayBookings)
                     .Include(r => r.ReviewMessage)
                     .ToListAsync();
                 }
@@ -43,8 +42,6 @@ namespace CloneBookingAPI.Controllers.Review
                 {
                     reviews = await _context.Reviews
                     .Include(r => r.User)
-                    //.Include(r => r.Suggestion)
-                    //.ThenInclude(s => s.StayBookings)
                     .Include(r => r.ReviewMessage)
                     .Skip((page - 1) * pageSize)
                     .Take(pageSize)
@@ -74,6 +71,7 @@ namespace CloneBookingAPI.Controllers.Review
         }
 
         [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("getuserreviews")]
         [HttpGet]
         public async Task<IActionResult> GetUserReviews(string email)
@@ -82,7 +80,7 @@ namespace CloneBookingAPI.Controllers.Review
             {
                 if (string.IsNullOrWhiteSpace(email))
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "User data is null." });
                 }
 
                 var reviews = await _context.Reviews
@@ -91,73 +89,13 @@ namespace CloneBookingAPI.Controllers.Review
                     .ToListAsync();
                 if (reviews is null)
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Reviews are not found." });
                 }
 
                 return Json(new
                 {
                     code = 200,
                     reviews,
-                });
-            }
-            catch (ArgumentNullException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 500 });
-            }
-            catch (OperationCanceledException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 500 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 500 });
-            }
-        }
-
-        [TypeFilter(typeof(AuthorizationFilter))]
-        [Route("getuserpropertyreviews")]
-        [HttpGet]
-        public async Task<IActionResult> GetUserPropertyReviews(string email)
-        {
-            try
-            {
-                if (string.IsNullOrWhiteSpace(email))
-                {
-                    return NotFound();
-                }
-
-                List<List<CloneBookingAPI.Services.Database.Models.Review.Review>> reviewsList = new();
-
-                var suggestions = await _context.Suggestions
-                    .Include(s => s.User)
-                    .Where(s => s.User.Email.Equals(email))
-                    .ToListAsync();
-
-                var reviews = await _context.Reviews
-                    .Include(r => r.User)
-                    .Where(r => r.User.Email.Equals(email))
-                    .ToListAsync();
-
-                for (int i = 0; i < reviewsList.Count; i++)
-                {
-                    var exactReviews = reviews
-                    .Where(r => r.SuggestionId == suggestions[i].Id)
-                    .ToList();
-
-                    reviewsList.Add(exactReviews);
-                }
-
-                return Json(new
-                {
-                    code = 200,
-                    reviews,
-                    reviewsList,
                 });
             }
             catch (ArgumentNullException ex)
@@ -186,22 +124,25 @@ namespace CloneBookingAPI.Controllers.Review
         {
             try
             {
-
                 if (id < 1 || page < 1)
                 {
-                    return NotFound();
+                    return Json(new { code = 400, message = "Suggestion id cannot be less than 1." });
                 }
 
                 var reviews = await _context.Reviews
-                    .Include(r => r.ReviewMessage)
-                    .Include(r => r.Grade)
                     .Include(r => r.User)
                         .ThenInclude(u => u.Profile)
                             .ThenInclude(p => p.Address)
                                 .ThenInclude(a => a.Country)
-                    .Include(r => r.User.Profile.Image)
+                    .Include(r => r.ReviewMessage)
+                    .Include(r => r.Reactions)
+                    .Include(r => r.Grade)
                     .Where(r => r.SuggestionId == id)
                     .ToListAsync();
+                if (reviews is null)
+                {
+                    return Json(new { code = 400, message = "Suggetion reviews are not found." });
+                }
 
                 // PAGINATION
                 reviews = reviews
@@ -242,12 +183,38 @@ namespace CloneBookingAPI.Controllers.Review
         {
             try
             {
-                if (review is null)
+                if (review is null               ||
+                    review.ReviewMessage is null ||
+                    review.Grade is null         ||
+                    review.SuggestionId < 1      ||
+                    string.IsNullOrWhiteSpace(review.User.Email)          ||
+                    string.IsNullOrWhiteSpace(review.ReviewMessage.Title) ||
+                    string.IsNullOrWhiteSpace(review.ReviewMessage.Text))
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Review data is null." });
                 }
 
-                _context.Reviews.Add(review);
+                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(review.User.Email));
+                if (resUser is null)
+                {
+                    return Json(new { code = 400, message = "User is not found." });
+                }
+
+                SuggestionReviewGrade newGrade = new();
+                newGrade.Value = review.Grade.Value;
+
+                ReviewMessage newReviewMessage = new();
+                newReviewMessage.Title = review.ReviewMessage.Title;
+                newReviewMessage.Text = review.ReviewMessage.Text;
+
+                CloneBookingAPI.Services.Database.Models.Review.Review newReview = new();
+                newReview.ReviewMessage = newReviewMessage;
+                newReview.UserId = resUser.Id;
+                newReview.ReviewedDate = DateTime.UtcNow;
+                newReview.SuggestionId = review.SuggestionId;
+                newReview.Grade = newGrade;
+
+                _context.Reviews.Add(newReview);
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });
@@ -279,76 +246,38 @@ namespace CloneBookingAPI.Controllers.Review
         }
 
         [TypeFilter(typeof(AuthorizationFilter))]
-        [Route("editreview")]
-        [HttpPut]
-        public async Task<IActionResult> EditReview([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
-        {
-            try
-            {
-                if (review is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                var resReview = await _context.Reviews.FirstOrDefaultAsync(r => r.ReviewMessage == review.ReviewMessage &&
-                                                                                r.SuggestionId == review.SuggestionId &&
-                                                                                r.UserId == review.UserId);
-                if (resReview is null)
-                {
-                    return Json(new { code = 400 });
-                }
-                resReview.ReviewMessage = review.ReviewMessage;
-
-                _context.Reviews.Update(resReview);
-                await _context.SaveChangesAsync();
-
-                return Json(new { code = 200 });
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 500 });
-            }
-            catch (DbUpdateException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 500 });
-            }
-            catch (OperationCanceledException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 500 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 500 });
-            }
-        }
-
-        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(AccessoryReviewFilter))]
         [Route("editreviewbyid")]
         [HttpPut]
-        public async Task<IActionResult> EditReviewById([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
+        public async Task<IActionResult> EditReviewById([FromBody] ReviewMessage message)
         {
             try
             {
-                if (review is null)
+                if (message is null ||
+                    string.IsNullOrWhiteSpace(message.Title) ||
+                    string.IsNullOrWhiteSpace(message.Text))
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Review data is null." });
                 }
 
-                var resReview = await _context.Reviews.FirstOrDefaultAsync(r => r.Id == review.Id);
+                var resReviewMessage = await _context.ReviewMessages.FirstOrDefaultAsync(m => m.Id == message.Id);
+                if (resReviewMessage is null)
+                {
+                    return Json(new { code = 400, message = "Review message is not found." });
+                }
+
+                var resReview = await _context.Reviews.FirstOrDefaultAsync(r => r.Id == resReviewMessage.ReviewId);
                 if (resReview is null)
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Review is not found." });
                 }
-                resReview.ReviewMessage = review.ReviewMessage;
 
+                resReviewMessage.Title = message.Title;
+                resReviewMessage.Text = message.Text;
+
+                resReview.ReviewedDate = DateTime.UtcNow;
+
+                _context.ReviewMessages.Update(resReviewMessage);
                 _context.Reviews.Update(resReview);
                 await _context.SaveChangesAsync();
 
@@ -381,21 +310,22 @@ namespace CloneBookingAPI.Controllers.Review
         }
 
         [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(AccessoryReviewFilter))]
         [Route("deletereview")]
         [HttpDelete]
-        public async Task<IActionResult> DeleteReview([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
+        public async Task<IActionResult> DeleteReview(int id)
         {
             try
             {
-                if (review is null)
+                if (id < 1)
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Review id cannot be less than 1." });
                 }
 
-                var resReview = await _context.Reviews.FirstOrDefaultAsync(r => r.Id == review.Id);
+                var resReview = await _context.Reviews.FirstOrDefaultAsync(r => r.Id == id);
                 if (resReview is null)
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Review is not found." });
                 }
 
                 _context.Reviews.Remove(resReview);
