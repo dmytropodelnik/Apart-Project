@@ -71,7 +71,6 @@ namespace CloneBookingAPI.Controllers.Review
         }
 
         [TypeFilter(typeof(AuthorizationFilter))]
-        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("getuserreviews")]
         [HttpGet]
         public async Task<IActionResult> GetUserReviews(string email)
@@ -85,6 +84,11 @@ namespace CloneBookingAPI.Controllers.Review
 
                 var reviews = await _context.Reviews
                     .Include(r => r.User)
+                    .Include(r => r.Grades)
+                        .ThenInclude(g => g.ReviewCategory)
+                    .Include(r => r.ReviewMessage)
+                    .Include(r => r.Reactions)
+                    .Include(r => r.Suggestion)
                     .Where(r => r.User.Email.Equals(email))
                     .ToListAsync();
                 if (reviews is null)
