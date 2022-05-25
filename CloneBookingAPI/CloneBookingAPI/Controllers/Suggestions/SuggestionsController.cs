@@ -110,11 +110,14 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     .Include(s => s.BookingCategory)
                         .ThenInclude(c => c.BookingCategoryType)
                     .Include(s => s.Facilities)
+                        .ThenInclude(f => f.FacilityType)
                     .Include(s => s.Highlights)
                     .Include(s => s.Languages)
                     .Include(s => s.Images)
                     .Include(s => s.Reviews)
                         .ThenInclude(r => r.Grades)
+                    .Include(s => s.SuggestionRules)
+                        .ThenInclude(r => r.SuggestionRuleType)
                     .FirstOrDefaultAsync(s => s.UniqueCode.Equals(code));
                 if (suggestion is null)
                 {
