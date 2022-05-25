@@ -189,7 +189,7 @@ namespace CloneBookingAPI.Controllers.UserData
                         .ThenInclude(s => s.Images)
                     .Include(f => f.Suggestions)
                         .ThenInclude(s => s.Reviews)
-                            .ThenInclude(r => r.Grade)
+                            .ThenInclude(r => r.Grades)
                     .Include(f => f.Suggestions)
                         .ThenInclude(s => s.Address)
                             .ThenInclude(a => a.Country)
@@ -218,7 +218,7 @@ namespace CloneBookingAPI.Controllers.UserData
                     }
                     else
                     {
-                        suggestionGrades.Add(favorites.Suggestions[i].Reviews.Average(g => g.Grade.Value));
+                        suggestionGrades.Add(favorites.Suggestions[i].Reviews.Average(r => r.Grades.Average(g => g.Value)));
                     }
                     if (favorites.Suggestions[i].Apartments.Count != 0) // favorites.Suggestions[i].Apartments is not null && 
                     {

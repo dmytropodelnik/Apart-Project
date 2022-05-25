@@ -12,10 +12,7 @@ namespace CloneBookingAPI.Database.Models.Review
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Display(Name = "Grade")]
         [Required]
-        [DataType(DataType.Text)]
-        [StringLength(10, MinimumLength = 1, ErrorMessage = "Incorrect length")]
         public double Value { get; set; }
 
         public int ReviewCategoryId { get; set; }

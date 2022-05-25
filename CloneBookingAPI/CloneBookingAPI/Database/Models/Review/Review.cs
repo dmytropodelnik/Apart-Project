@@ -31,7 +31,7 @@ namespace CloneBookingAPI.Services.Database.Models.Review
         public DateTime ReviewedDate { get; set; }
 
         public ReviewMessage ReviewMessage { get; set; }
-        public SuggestionReviewGrade Grade { get; set; }
+        public List<SuggestionReviewGrade> Grades { get; set; }
 
         public List<Reaction> Reactions { get; set; } = new();
     }

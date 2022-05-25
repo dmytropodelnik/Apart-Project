@@ -114,7 +114,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     .Include(s => s.Languages)
                     .Include(s => s.Images)
                     .Include(s => s.Reviews)
-                        .ThenInclude(r => r.Grade)
+                        .ThenInclude(r => r.Grades)
                     .FirstOrDefaultAsync(s => s.UniqueCode.Equals(code));
                 if (suggestion is null)
                 {

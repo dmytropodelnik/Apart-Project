@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace CloneBookingAPI.Services.Database.Configurations.Suggestions
+namespace CloneBookingAPI.Database.Configurations.Review
 {
     public class SuggestionReviewGradesConfiguration : IEntityTypeConfiguration<SuggestionReviewGrade>
     {
@@ -12,28 +12,28 @@ namespace CloneBookingAPI.Services.Database.Configurations.Suggestions
               new SuggestionReviewGrade[]
               {
                   new SuggestionReviewGrade { Id = 1, Value = 10, ReviewCategoryId = 1, ReviewId = 1, },
-                  new SuggestionReviewGrade { Id = 2, Value = 9.2, ReviewCategoryId = 2, ReviewId = 2, },
+                  new SuggestionReviewGrade { Id = 2, Value = 9, ReviewCategoryId = 2, ReviewId = 2, },
                   new SuggestionReviewGrade { Id = 3, Value = 10, ReviewCategoryId = 3, ReviewId = 3, },
-                  new SuggestionReviewGrade { Id = 4, Value = 9.4, ReviewCategoryId = 4, ReviewId = 4, },
+                  new SuggestionReviewGrade { Id = 4, Value = 9, ReviewCategoryId = 4, ReviewId = 4, },
                   new SuggestionReviewGrade { Id = 5, Value = 10, ReviewCategoryId = 5, ReviewId = 5, },
                   new SuggestionReviewGrade { Id = 6, Value = 10, ReviewCategoryId = 6, ReviewId = 6, },
                   new SuggestionReviewGrade { Id = 7, Value = 10, ReviewCategoryId = 7, ReviewId = 7, },
-                  new SuggestionReviewGrade { Id = 8, Value = 9.1, ReviewCategoryId = 8, ReviewId = 8, },
-                  new SuggestionReviewGrade { Id = 9, Value = 9.2, ReviewCategoryId = 9, ReviewId = 9, },
-                  new SuggestionReviewGrade { Id = 10, Value = 9.5, ReviewCategoryId = 10, ReviewId = 10, },
+                  new SuggestionReviewGrade { Id = 8, Value = 9, ReviewCategoryId = 8, ReviewId = 8, },
+                  new SuggestionReviewGrade { Id = 9, Value = 9, ReviewCategoryId = 9, ReviewId = 9, },
+                  new SuggestionReviewGrade { Id = 10, Value = 9, ReviewCategoryId = 10, ReviewId = 10, },
                   new SuggestionReviewGrade { Id = 11, Value = 10, ReviewCategoryId = 11, ReviewId = 11, },
-                  new SuggestionReviewGrade { Id = 12, Value = 9.9, ReviewCategoryId = 12, ReviewId = 12, },
-                  new SuggestionReviewGrade { Id = 13, Value = 9.7, ReviewCategoryId = 1, ReviewId = 13, },
-                  new SuggestionReviewGrade { Id = 14, Value = 9.8, ReviewCategoryId = 2, ReviewId = 14, },
-                  new SuggestionReviewGrade { Id = 15, Value = 9.5, ReviewCategoryId = 3, ReviewId = 15, },
+                  new SuggestionReviewGrade { Id = 12, Value = 9, ReviewCategoryId = 12, ReviewId = 12, },
+                  new SuggestionReviewGrade { Id = 13, Value = 9, ReviewCategoryId = 1, ReviewId = 13, },
+                  new SuggestionReviewGrade { Id = 14, Value = 9, ReviewCategoryId = 2, ReviewId = 14, },
+                  new SuggestionReviewGrade { Id = 15, Value = 9, ReviewCategoryId = 3, ReviewId = 15, },
                   new SuggestionReviewGrade { Id = 16, Value = 10, ReviewCategoryId = 4, ReviewId = 16, },
                   new SuggestionReviewGrade { Id = 17, Value = 10, ReviewCategoryId = 5, ReviewId = 17, },
                   new SuggestionReviewGrade { Id = 18, Value = 9, ReviewCategoryId = 6, ReviewId = 18, },
                   new SuggestionReviewGrade { Id = 19, Value = 9, ReviewCategoryId = 7, ReviewId = 19, },
                   new SuggestionReviewGrade { Id = 20, Value = 9, ReviewCategoryId = 8, ReviewId = 20, },
-                  new SuggestionReviewGrade { Id = 21, Value = 9.2, ReviewCategoryId = 9, ReviewId = 21, },
-                  new SuggestionReviewGrade { Id = 22, Value = 9.3, ReviewCategoryId = 10, ReviewId = 22, },
-                  new SuggestionReviewGrade { Id = 23, Value = 9.4, ReviewCategoryId = 11, ReviewId = 23, },
+                  new SuggestionReviewGrade { Id = 21, Value = 9, ReviewCategoryId = 9, ReviewId = 21, },
+                  new SuggestionReviewGrade { Id = 22, Value = 9, ReviewCategoryId = 10, ReviewId = 22, },
+                  new SuggestionReviewGrade { Id = 23, Value = 9, ReviewCategoryId = 11, ReviewId = 23, },
                   new SuggestionReviewGrade { Id = 24, Value = 10, ReviewCategoryId = 12, ReviewId = 24, },
                   new SuggestionReviewGrade { Id = 25, Value = 9, ReviewCategoryId = 1, ReviewId = 25, },
                   new SuggestionReviewGrade { Id = 26, Value = 10, ReviewCategoryId = 2, ReviewId = 26, },

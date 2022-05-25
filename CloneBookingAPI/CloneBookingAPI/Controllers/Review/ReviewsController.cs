@@ -136,12 +136,37 @@ namespace CloneBookingAPI.Controllers.Review
                                 .ThenInclude(a => a.Country)
                     .Include(r => r.ReviewMessage)
                     .Include(r => r.Reactions)
-                    .Include(r => r.Grade)
+                    .Include(r => r.Grades)
+                        .ThenInclude(g => g.ReviewCategory)
                     .Where(r => r.SuggestionId == id)
                     .ToListAsync();
                 if (reviews is null)
                 {
-                    return Json(new { code = 400, message = "Suggetion reviews are not found." });
+                    return Json(new { code = 400, message = "Suggestion reviews are not found." });
+                }
+
+                var reviewCategories = await _context.ReviewCategories.ToListAsync();
+                if (reviewCategories is null)
+                {
+                    return Json(new { code = 400, message = "Review's categories are not found." });
+                }
+
+                List<List<ReviewTuple>> grades = new();
+                for (int i = 0; i < reviews.Count; i++)
+                {
+                    for (int j = 0; j < reviewCategories.Count; j++)
+                    {
+                        grades[j].Add(new ReviewTuple(reviewCategories[j].Id, reviews[i].Grades[j].Value));
+                    }
+                }
+
+                List<ReviewTuple> categoryGrades = new();
+                for (int i = 0; i < reviewCategories.Count; i++)
+                {
+                    categoryGrades[i].Grade = grades[i]
+                        .Where(g => g.ReviewCategoryId == i + 1)
+                        .Average(g => g.Grade);
+                    categoryGrades[i].ReviewCategoryId = i + 1;
                 }
 
                 // PAGINATION
@@ -154,6 +179,8 @@ namespace CloneBookingAPI.Controllers.Review
                 {
                     code = 200,
                     reviews,
+                    reviewCategories,
+                    categoryGrades,
                 });
             }
             catch (ArgumentNullException ex)
@@ -179,40 +206,47 @@ namespace CloneBookingAPI.Controllers.Review
         [TypeFilter(typeof(AuthorizationFilter))]
         [Route("addreview")]
         [HttpPost]
-        public async Task<IActionResult> AddReview([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
+        public async Task<IActionResult> AddReview([FromBody] ReviewPoco review)
         {
             try
             {
                 if (review is null               ||
                     review.ReviewMessage is null ||
-                    review.Grade is null         ||
+                    review.Grades is null         ||
                     review.SuggestionId < 1      ||
-                    string.IsNullOrWhiteSpace(review.User.Email)          ||
+                    string.IsNullOrWhiteSpace(review.UserEmail)          ||
                     string.IsNullOrWhiteSpace(review.ReviewMessage.Title) ||
                     string.IsNullOrWhiteSpace(review.ReviewMessage.Text))
                 {
                     return Json(new { code = 400, message = "Review data is null." });
                 }
 
-                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(review.User.Email));
+                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(review.UserEmail));
                 if (resUser is null)
                 {
                     return Json(new { code = 400, message = "User is not found." });
                 }
 
-                SuggestionReviewGrade newGrade = new();
-                newGrade.Value = review.Grade.Value;
+                CloneBookingAPI.Services.Database.Models.Review.Review newReview = new();
+
+                for (int i = 0; i < review.Grades.Count; i++)
+                {
+                    SuggestionReviewGrade newGrade = new()
+                    {
+                        Value = review.Grades[i].Grade,
+                        ReviewCategoryId = review.Grades[i].ReviewCategoryId,
+                    };
+                    newReview.Grades.Add(newGrade);
+                }
 
                 ReviewMessage newReviewMessage = new();
                 newReviewMessage.Title = review.ReviewMessage.Title;
                 newReviewMessage.Text = review.ReviewMessage.Text;
 
-                CloneBookingAPI.Services.Database.Models.Review.Review newReview = new();
                 newReview.ReviewMessage = newReviewMessage;
                 newReview.UserId = resUser.Id;
                 newReview.ReviewedDate = DateTime.UtcNow;
                 newReview.SuggestionId = review.SuggestionId;
-                newReview.Grade = newGrade;
 
                 _context.Reviews.Add(newReview);
                 await _context.SaveChangesAsync();

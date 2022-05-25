@@ -1,4 +1,5 @@
 ﻿using CloneBookingAPI.Database.Configurations;
+using CloneBookingAPI.Database.Configurations.Review;
 using CloneBookingAPI.Database.Configurations.Suggestions;
 using CloneBookingAPI.Database.Configurations.ViewModels;
 using CloneBookingAPI.Database.Models;
