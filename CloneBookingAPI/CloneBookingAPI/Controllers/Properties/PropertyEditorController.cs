@@ -17,6 +17,7 @@ using System.Threading.Tasks;
 namespace CloneBookingAPI.Controllers.Properties
 {
     [TypeFilter(typeof(AuthorizationFilter))]
+    [TypeFilter(typeof(AccessorySuggestionFilter))]
     [Route("api/[controller]")]
     [ApiController]
     public class PropertyEditorController : Controller

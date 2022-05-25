@@ -28,15 +28,15 @@ namespace CloneBookingAPI.Filters
                 }
 
                 string[] userData = context.HttpContext.Request.Headers.Authorization.ToString().Split(";");
-                if (userData.Length < 2)
+                if (userData.Length < 1)
                 {
                     context.Result = new JsonResult(new { code = 403 });
                     return;
                 }
 
-                var res = await _context.Suggestions
-                    .Include(s => s.User)
-                    .FirstOrDefaultAsync(s => s.User.Email.Equals(userData[0]) && s.UniqueCode.Equals(userData[1]));
+                var res = await _context.Reviews
+                    .Include(r => r.User)
+                    .FirstOrDefaultAsync(r => r.User.Email.Equals(userData[0]) && context.HttpContext.Request.Query["id"] == r.Id);
                 if (res is null)
                 {
                     context.Result = new JsonResult(new { code = 403 });
