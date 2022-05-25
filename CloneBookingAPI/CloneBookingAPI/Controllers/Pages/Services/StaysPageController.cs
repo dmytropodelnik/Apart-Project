@@ -328,7 +328,9 @@ namespace CloneBookingAPI.Controllers.Pages
                         .ThenInclude(r => r.Grades)
                     .Include(s => s.Apartments)
                     .Where(s => s.Progress == 100 && s.Apartments.Count > 0)
-                    .Where(s => s.Reviews.Average(r => r.Grades.Average(g => g.Value)) >= 9.0)
+                    .Where(s => s.Reviews.Count != 0 && s.Reviews
+                        .All(r => r.Grades
+                            .Average(g => g.Value) >= 9.0))
                     .Take(5)
                     .ToListAsync();
 
@@ -349,7 +351,9 @@ namespace CloneBookingAPI.Controllers.Pages
                     }
                     else
                     {
-                        suggestionGrades.Add(resSuggestion[i].Reviews.Average(r => r.Grades.Average(g => g.Value)));
+                        suggestionGrades.Add(resSuggestion[i].Reviews
+                            .Average(r => r.Grades
+                                .Average(g => g.Value))); 
                     }
                     if (resSuggestion[i].Apartments.Count != 0) // resSuggestion[i].Apartments is not null && 
                     {
