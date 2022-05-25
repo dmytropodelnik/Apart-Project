@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CloneBookingAPI.Database.Models
 {
-    [Table("ReviewMessages")]
+    [Table("Messages")]
     public class Message
     {
         [Column("Id")]  // Можно было не указывать потому, что так было бы по умолчанию, благодаря соглашению о наименованиях EF
