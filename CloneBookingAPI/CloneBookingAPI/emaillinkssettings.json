@@ -17,6 +17,9 @@
     },
     "DealsLetter": {
       "Template": ""
+    },
+    "SubscriptionLetter": {
+      "Template": "<a href=\"https://www.apartstep.fun/confirmemail?email=emailTemplate&code=codeTemplate&subscribeNews=true&isToDeleteCode=true\">Subscribe to news!</a>"
     }
   }
 }

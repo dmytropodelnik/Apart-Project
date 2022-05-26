@@ -48,7 +48,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
           AuthHelper.clearAuth();
 
           alert("Success logout!");
-          this.router.navigate(['']);
+          document.location.href="https://localhost:4200";
         } else {
           alert("Logout error!");
         }

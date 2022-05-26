@@ -33,7 +33,6 @@ export class ListNewPropertyService {
   }
 
   getSavedPropertyId(): string {
-
     return this.savedPropertyId;
 }
 

@@ -128,7 +128,7 @@ export class AuthComponent implements OnInit {
         if (response.code !== 400) {
           this.authService.setTokenKey(response.encodedJwt);
           AuthHelper.saveAuth(user.email, response.encodedJwt);
-          this.authService.toggleLogCondition();
+          this.authService.setLogCondition(true);
           alert('You have successfully authenticated!');
           this.router.navigate(['']);
         } else {
@@ -158,12 +158,16 @@ export class AuthComponent implements OnInit {
         if (response.code !== 400) {
           this.authService.setTokenKey(response.encodedJwt);
           AuthHelper.saveAuth(this.email, response.encodedJwt);
-          AuthHelper.saveGoogleAuth();
-          this.authService.toggleLogCondition();
+          this.authService.setLogCondition(true);
           alert('You have successfully authenticated!');
           document.location.href="https://www.apartstep.fun";
         } else {
           alert('Token fetching error!');
+          if (AuthHelper.isFacebookLogin()) {
+            AuthHelper.clearFacebookAuth();
+          } else if (AuthHelper.isGoogleLogin()) {
+            AuthHelper.clearGoogleAuth();
+          }
         }
       })
       .catch((ex) => {
@@ -282,6 +286,7 @@ export class AuthComponent implements OnInit {
                 .then((r) => r.json())
                 .then((data) => {
                   if (data.code === 200 && data.userExisted) {
+                    AuthHelper.saveFacebookAuth();
                     this.userSocialSignIn();
                   } else {
                     let person = {
@@ -412,6 +417,7 @@ export class AuthComponent implements OnInit {
             .then((r) => r.json())
             .then((response) => {
               if (response.code === 200) {
+                AuthHelper.saveGoogleAuth();
                 this.userSocialSignIn();
               } else {
                 alert(response.code);

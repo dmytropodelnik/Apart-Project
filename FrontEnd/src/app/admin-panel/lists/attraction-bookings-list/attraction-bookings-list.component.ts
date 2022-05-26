@@ -108,6 +108,11 @@ export class AttractionBookingsListComponent implements OnInit {
   getBookings(): void {
     fetch('https://apartmain.azurewebsites.net/api/attractions/getbookings', {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {

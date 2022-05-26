@@ -11,12 +11,13 @@ using Microsoft.AspNetCore.Authorization;
 using CloneBookingAPI.Services.Generators;
 using System.Diagnostics;
 using CloneBookingAPI.Filters;
+using CloneBookingAPI.Services.POCOs;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace CloneBookingAPI.Controllers
 {
-    [TypeFilter(typeof(OnlyAdminFilter))]
+    // [TypeFilter(typeof(OnlyAdminFilter))]
     [Route("api/[controller]")]
     //[ApiController]
     public class AdminController : Controller
@@ -32,7 +33,6 @@ namespace CloneBookingAPI.Controllers
             _saltGenerator = saltGenerator;
         }
 
-        [AllowAnonymous]
         [Route("login")]
         [HttpPost]
         public async Task<IActionResult> Login([FromBody] User person)

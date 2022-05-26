@@ -141,6 +141,11 @@ export class DistrictsListComponent implements OnInit {
   getDistricts(): void {
     fetch(`https://apartmain.azurewebsites.net/api/districts/getdistricts?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {
@@ -166,6 +171,11 @@ export class DistrictsListComponent implements OnInit {
 
     fetch(`https://apartmain.azurewebsites.net/api/districts/getdistricts?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {

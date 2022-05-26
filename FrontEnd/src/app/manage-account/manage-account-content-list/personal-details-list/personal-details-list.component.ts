@@ -10,6 +10,7 @@ import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { Country } from 'src/app/models/Location/country.item';
 import { City } from 'src/app/models/Location/city.item';
 import { ThrowStmt } from '@angular/compiler';
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-personal-details-list',
@@ -35,11 +36,13 @@ export class PersonalDetailsListComponent implements OnInit {
   country: string = '';
   city: string = '';
 
+  tempNationalityCheck: string = '';
+
   user: UserData = new UserData();
 
-  constructor(public authService: AuthorizationService) {
+  check: boolean = false;
 
-  }
+  constructor(public authService: AuthorizationService) {}
 
   setCondition(id: number): void {
     this.isEditing[id] = !this.isEditing[id];
@@ -55,6 +58,9 @@ export class PersonalDetailsListComponent implements OnInit {
       this.tempLastName = this.user.lastName;
     } else if (id == 5) {
       this.tempBirthDate = value;
+    } else if (id == 6) {
+      this.tempNationalityCheck = this.user.nationality;
+      this.user.nationality = "-1";
     } else if (id == 8) {
       this.zipCode = this.user.zipCode;
       this.addressText = this.user.addressText;
@@ -88,7 +94,7 @@ export class PersonalDetailsListComponent implements OnInit {
     } else if (id == 5) {
       this.user.pBirthDate = this.tempBirthDate;
     } else if (id == 6) {
-      this.user.nationality = this.tempValue;
+      this.user.nationality = this.tempNationalityCheck;
     } else if (id == 7) {
       this.user.genderId = +this.tempValue;
     } else if (id == 8) {
@@ -103,6 +109,51 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   setConditionEditButtons(id: number, value: boolean): void {
+    if (value == false) {
+      this.check = false;
+      if (id == 0) {
+        let title = document.getElementById('title');
+        if (title !== null) {
+          title.classList.remove('invalid');
+        }
+      } else if (id == 1) {
+        let firstName = document.getElementById('firstName');
+        if (firstName !== null) {
+          firstName.classList.remove('invalid');
+        }
+
+        let lastName = document.getElementById('lastName');
+        if (lastName !== null) {
+          lastName.classList.remove('invalid');
+        }
+      } else if (id == 2) {
+        let userName = document.getElementById('userName');
+        if (userName !== null) {
+          userName.classList.remove('invalid');
+        }
+      } else if (id == 3) {
+        let email = document.getElementById('email');
+        if (email !== null) {
+          email.classList.remove('invalid');
+        }
+      } else if (id == 4) {
+        let phoneNumber = document.getElementById('phone-number');
+        if (phoneNumber !== null) {
+          phoneNumber.classList.remove('invalid');
+        }
+      } else if (id == 5) {
+        this.user.pBirthDate = this.tempBirthDate;
+      } else if (id == 6) {
+        this.user.nationality = this.tempValue;
+      } else if (id == 7) {
+        this.user.genderId = +this.tempValue;
+      } else if (id == 8) {
+        this.user.zipCode = this.zipCode;
+        this.user.addressText = this.addressText;
+        this.user.country.title = this.country;
+        this.user.city.title = this.city;
+      }
+    }
     for (let i = 0; i < this.isDisabled.length; i++) {
       if (i !== id) {
         this.isDisabled[i] = value;
@@ -111,6 +162,15 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveTitle(id: number): void {
+    if (this.user.title.length < 1) {
+      this.check = true;
+      let title = document.getElementById('title');
+      if (title !== null) {
+        title.classList.add('invalid');
+      }
+      return;
+    }
+
     let user = {
       title: this.user.title,
       email: AuthHelper.getLogin(),
@@ -141,6 +201,24 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveName(id: number): void {
+    if (this.user.firstName.length < 1) {
+      this.check = true;
+      let firstName = document.getElementById('firstName');
+      if (firstName !== null) {
+        firstName.classList.add('invalid');
+      }
+      return;
+    }
+
+    if (this.user.lastName.length < 1) {
+      this.check = true;
+      let lastName = document.getElementById('lastName');
+      if (lastName !== null) {
+        lastName.classList.add('invalid');
+      }
+      return;
+    }
+
     let user = {
       firstName: this.user.firstName,
       lastName: this.user.lastName,
@@ -173,6 +251,15 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveDisplayName(id: number): void {
+    if (this.user.displayName.length < 1) {
+      this.check = true;
+      let displayName = document.getElementById('displayName');
+      if (displayName !== null) {
+        displayName.classList.add('invalid');
+      }
+      return;
+    }
+
     let user = {
       displayName: this.user.displayName,
       email: AuthHelper.getLogin(),
@@ -203,6 +290,15 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   sendChangingEmailLetter(id: number): void {
+    if (!this.user.newEmail.match('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')) {
+      this.check = true;
+      let email = document.getElementById('email');
+      if (email !== null) {
+        email.classList.add('invalid');
+      }
+      return;
+    }
+
     fetch(
       `https://apartmain.azurewebsites.net/api/auth/isemailregistered?email=${this.user.newEmail}`,
       {
@@ -253,6 +349,19 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   savePhoneNumber(id: number): void {
+    if (
+      !this.user.phoneNumber.match(
+        '^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$'
+      )
+    ) {
+      this.check = true;
+      let phoneNumber = document.getElementById('phone-number');
+      if (phoneNumber !== null) {
+        phoneNumber.classList.add('invalid');
+      }
+      return;
+    }
+
     let user = {
       phoneNumber: this.user.phoneNumber,
       email: AuthHelper.getLogin(),
@@ -283,7 +392,7 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveBirthDate(id: number): void {
-    if (this.user.pBirthDate) {
+    if (this.user.pBirthDate?.year) {
       this.user.birthDate =
         this.user.pBirthDate!.day +
         '/' +
@@ -327,6 +436,11 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveNationality(id: number): void {
+    if (this.user.nationality == '-1') {
+      alert("Select your nationality!");
+      return;
+    }
+
     let user = {
       nationality: this.user.nationality,
       email: AuthHelper.getLogin(),
@@ -357,6 +471,11 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveGender(id: number): void {
+    if (this.user.genderId != 1 && this.user.genderId != 2) {
+      alert("Select your gender!");
+      return;
+    }
+
     let user = {
       genderId: this.user.genderId,
       email: AuthHelper.getLogin(),
@@ -387,6 +506,26 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveAddress(id: number): void {
+    if (this.user.addressText.length < 1) {
+      this.check = true;
+      let address = document.getElementById('address');
+      if (address !== null) {
+        address.classList.add('invalid');
+      }
+    }
+
+    if (this.user.city.title.length < 1) {
+      this.check = true;
+      let city = document.getElementById('city');
+      if (city !== null) {
+        city.classList.add('invalid');
+      }
+    }
+
+    if (this.check) {
+      return;
+    }
+
     let user = {
       addressText: this.user.addressText,
       country: this.user.country.title,
@@ -432,97 +571,50 @@ export class PersonalDetailsListComponent implements OnInit {
     if (!this.authService.isGotData) {
       await this.authService.refreshAuth();
     }
-    if (!AuthHelper.isFacebookLogin()) {
-      fetch(
-        'https://apartmain.azurewebsites.net/api/users/getuser?email=' +
-          AuthHelper.getLogin(),
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            Accept: 'application/json',
-            Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((response) => {
-          if (response.code === 200) {
-            this.authService.isGotData = true;
-            this.authService.setUserImage(response.user.profile.image?.path);
+    fetch(
+      'https://apartmain.azurewebsites.net/api/users/getuser?email=' +
+        AuthHelper.getLogin(),
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.authService.isGotData = true;
+          this.authService.setUserImage(response.user.profile.image?.path);
 
-            this.user.addressText = response.user.profile?.address?.addressText;
-            this.user.zipCode = response.user.profile?.address?.zipCode;
-            this.user.country.title =
-              response.user.profile?.address?.country?.title;
-            this.user.city.title = response.user.profile?.address?.city?.title;
-            this.user.title = response.user.title;
-            this.user.firstName = response.user.firstName;
-            this.user.lastName = response.user.lastName;
-            this.user.email = response.user.email;
-            this.user.displayName = response.user.displayName;
-            this.user.phoneNumber = response.user.phoneNumber;
-            if (response.user.profile.birthDate) {
-              this.user.pBirthDate = response.user.profile.birthDate.substring(
-                0,
-                response.user.profile.birthDate.indexOf('T')
-              );
-            }
-            this.user.nationality = response.user.profile.nationality;
-            this.user.genderId = response.user.profile.genderId;
-          } else {
-            alert('Get current user error!');
+          this.user.addressText = response.user.profile?.address?.addressText;
+          this.user.zipCode = response.user.profile?.address?.zipCode;
+          this.user.country.title =
+            response.user.profile?.address?.country?.title;
+          this.user.city.title = response.user.profile?.address?.city?.title;
+          this.user.title = response.user.title;
+          this.user.firstName = response.user.firstName;
+          this.user.lastName = response.user.lastName;
+          this.user.email = response.user.email;
+          this.user.displayName = response.user.displayName;
+          this.user.phoneNumber = response.user.phoneNumber;
+          if (response.user.profile.birthDate) {
+            this.user.pBirthDate = response.user.profile.birthDate.substring(
+              0,
+              response.user.profile.birthDate.indexOf('T')
+            );
           }
-        })
-        .catch((ex) => {
-          alert(ex);
-        });
-    } else {
-      fetch(
-        'https://apartmain.azurewebsites.net/api/users/getuserbyfacebookid?id=' +
-          AuthHelper.getLogin(),
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            Accept: 'application/json',
-            Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-          },
+          this.user.nationality = response.user.profile.nationality;
+          this.user.genderId = response.user.profile.genderId;
+        } else {
+          alert('Get current user error!');
         }
-      )
-        .then((response) => response.json())
-        .then((response) => {
-          if (response.code === 200) {
-            this.authService.isGotData = true;
-            this.authService.setUserImage(response.user.profile.image?.path);
-
-            this.user.addressText = response.user.profile?.address?.addressText;
-            this.user.zipCode = response.user.profile?.address?.zipCode;
-            this.user.country.title =
-              response.user.profile?.address?.country?.title;
-            this.user.city.title = response.user.profile?.address?.city?.title;
-            this.user.title = response.user.title;
-            this.user.firstName = response.user.firstName;
-            this.user.lastName = response.user.lastName;
-            this.user.email = response.user.email;
-            this.user.displayName = response.user.displayName;
-            this.user.phoneNumber = response.user.phoneNumber;
-            if (response.user.profile.birthDate) {
-              this.user.pBirthDate = response.user.profile.birthDate.substring(
-                0,
-                response.user.profile.birthDate.indexOf('T')
-              );
-            }
-            this.user.nationality = response.user.profile.nationality;
-            this.user.genderId = response.user.profile.genderId;
-          } else {
-            alert('Get current user error!');
-          }
-        })
-        .catch((ex) => {
-          alert(ex);
-        });
-    }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   getCountries(id: number): void {

@@ -116,6 +116,11 @@ export class LpNameAndLocationComponent implements OnInit {
   }
 
   addPropertyAddress(): void {
+    if (this.sCountry == '-1' || !this.sCountry.match(/\d/)) {
+      alert("Select your country!");
+      return;
+    }
+
     let suggestion = {
       id: this.listNewPropertyService.getSavedPropertyId(),
       address: {
@@ -152,5 +157,12 @@ export class LpNameAndLocationComponent implements OnInit {
       });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (!AuthHelper.isLogged()) {
+      this.router.navigate(['']);
+    }
+    else if (!this.listNewPropertyService.getSavedPropertyId()) {
+      this.router.navigate(['']);
+    }
+  }
 }

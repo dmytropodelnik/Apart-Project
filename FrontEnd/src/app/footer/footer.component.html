@@ -26,7 +26,7 @@
           #offEmail="ngModel"
           [(ngModel)]="email"
         />
-        <button id="newsletter_button_footer" (click)="fetchRequest()">
+        <button id="newsletter_button_footer" (click)="addDealsSubscriber()">
           Subscribe
         </button>
       </div>
@@ -60,150 +60,76 @@
         class="footer-navigation-links-wrapper clearfix"
         role="navigation"
       >
-        <div id="footer_links" class="footer-navigation-links">
-          <div
-            class="footer-navigation-links-column footer-seo-links-to-html-sitemaps mb-3 mb-md-0"
-          >
-            <ul class="footer-navigation-links-list">
-              <li class="footer-navigation-link">
-                <a> Countries </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a> Regions </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a> Cities </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a> Districts </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a> Airports </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a> Hotels </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a> Places of interest </a>
-              </li>
-            </ul>
-          </div>
+        <div id="footer_links1" class="footer-navigation-links">
           <div class="footer-navigation-links-column mb-3 mb-md-0">
+            <span class="footer-navigation-link-title">Property categories</span>
             <ul class="footer-navigation-links-list footer-seo-links-to-index">
-              <li class="footer-navigation-link">
-                <a data-ga="booking-home"> Homes </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a> Apartments </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a> Resorts </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a> Villas </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a> Hostels </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a> B&amp;Bs </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a> Guest houses </a>
+              <li class="footer-navigation-link button-class"
+                  *ngFor="let category of mainDataService.getBookingCategories(); let i = index"
+                  (click)="searchSuggestionsByCategory($event, category.category)">
+                <a> {{category.category}} </a>
               </li>
             </ul>
           </div>
           <div class="footer-navigation-links-column mb-3 mb-md-0">
-            <ul class="footer-navigation-links-list">
-              <li class="footer-navigation-link">
-                <a> Unique places to stay </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a> All destinations </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a> Discover </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a class="js-reviews-footer-link"> Reviews </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a
-                  type="nav"
-                  location="main-site-footer"
-                  category="articles-link"
-                >
-                  Unpacked: Travel articles
-                </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a data-ep-link=""> Travel communities </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a title="Seasonal and holiday deals">
-                  Seasonal and holiday deals
-                </a>
+            <span class="footer-navigation-link-title">Countries</span>
+            <ul class="footer-navigation-links-list footer-seo-links-to-index">
+              <li class="footer-navigation-link button-class"
+                  *ngFor="let country of mainDataService.getSearchingCountries(); let i = index"
+                  (click)="searchSuggestionsByPlace($event, country)">
+                <a> {{country}} </a>
               </li>
             </ul>
           </div>
           <div class="footer-navigation-links-column mb-3 mb-md-0">
-            <ul class="footer-navigation-links-list">
-              <li class="footer-navigation-link">
-                <a rel="nofollow" target="_blank"> Car rental </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a rel="nofollow" target="_blank"> Flight finder </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a rel="nofollow" target="_blank"> Restaurant reservations </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a title="Booking.com for Travel Advisers">
-                  Booking.com for Travel Agents
-                </a>
+            <span class="footer-navigation-link-title">Regions</span>
+            <ul class="footer-navigation-links-list footer-seo-links-to-index">
+              <li class="footer-navigation-link button-class"
+                  *ngFor="let region of mainDataService.getSearchingRegions(); let i = index"
+                  (click)="searchSuggestionsByPlace($event, region.title)">
+                <a> {{region.title}} </a>
               </li>
             </ul>
           </div>
           <div class="footer-navigation-links-column mb-3 mb-md-0">
-            <ul class="footer-navigation-links-list">
-              <li class="footer-navigation-link">
-                <a> Coronavirus (COVID-19) FAQs </a>
+            <span class="footer-navigation-link-title">Cities</span>
+            <ul class="footer-navigation-links-list footer-seo-links-to-index">
+              <li class="footer-navigation-link button-class"
+                  *ngFor="let city of mainDataService.getSearchingCities(); let i = index"
+                  (click)="searchSuggestionsByPlace($event, city.title)">
+                <a> {{city.title}} </a>
               </li>
-              <li class="footer-navigation-link">
-                <a>About Booking.com</a>
+            </ul>
+          </div>
+          <div class="footer-navigation-links-column mb-3 mb-md-0">
+            <span class="footer-navigation-link-title">Explore</span>
+            <ul class="footer-navigation-links-list footer-seo-links-to-index">
+              <li class="footer-navigation-link button-class" (click)="routerToMySettings()">
+                <a> Your account </a>
               </li>
-              <li class="footer-navigation-link">
-                <a> Contact Customer Service </a>
+              <li class="footer-navigation-link button-class" routerLink="/joinpartner">
+                <a> List your property </a>
               </li>
-              <li class="footer-navigation-link">
-                <a> Partner help </a>
+              <li class="footer-navigation-link button-class" >
+                <a> Terms & Conditions </a>
               </li>
-              <li class="footer-navigation-link">
-                <a> Careers </a>
+              <li class="footer-navigation-link button-class" >
+                <a> Customer Service help </a>
               </li>
-              <li class="footer-navigation-link">
-                <a> Sustainability </a>
+              <li class="footer-navigation-link button-class" >
+                <a> About </a>
               </li>
-              <li class="footer-navigation-link">
-                <a class="tracked"> Press center </a>
+              <li class="footer-navigation-link button-class" >
+                <a> Facebook </a>
               </li>
-              <li class="footer-navigation-link">
-                <a class="tracked"> Safety Resource Center </a>
+              <li class="footer-navigation-link button-class" >
+                <a> Instagram </a>
               </li>
-              <li class="footer-navigation-link">
-                <a class="tracked"> Investor relations </a>
+              <li class="footer-navigation-link button-class" >
+                <a> Twitter </a>
               </li>
-              <li class="footer-navigation-link">
-                <a> Terms &amp; conditions </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a> Partner dispute </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a> Privacy &amp; cookie statement </a>
-              </li>
-              <li class="footer-navigation-link">
-                <a> Corporate contact </a>
+              <li class="footer-navigation-link button-class" routerLink="/auth">
+                <a> Sign up | Logout </a>
               </li>
             </ul>
           </div>
@@ -211,7 +137,7 @@
       </div>
     </div>
     <div class="copyright_text">
-      Copyright © 1996–2022 Booking.com™. All rights reserved.
+      Copyright © 2022 Apartstep.fun™. All rights reserved.
     </div>
   </div>
 </div>

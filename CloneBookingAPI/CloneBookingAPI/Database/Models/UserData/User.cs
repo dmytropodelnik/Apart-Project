@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database.Models.Services;
+﻿using CloneBookingAPI.Database.Models;
+using CloneBookingAPI.Services.Database.Models.Services;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Database.Models.UserProfile;
 using System;
@@ -73,6 +74,7 @@ namespace CloneBookingAPI.Services.Database.Models
         public List<CarRentalBooking> CarRentalBookings { get; set; } = new();
         public List<AttractionBooking> AttractionBookings { get; set; } = new();
         public List<AirportTaxiBooking> AirportTaxiBookings { get; set; } = new();
+        public List<Message> Messages { get; set; } = new();
 
         public override string ToString()
         {

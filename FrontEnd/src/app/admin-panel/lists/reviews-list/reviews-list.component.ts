@@ -120,6 +120,11 @@ export class ReviewsListComponent implements OnInit {
   getReviews(): void {
     fetch(`https://apartmain.azurewebsites.net/api/reviews/getreviews?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {
@@ -145,6 +150,11 @@ export class ReviewsListComponent implements OnInit {
 
     fetch(`https://apartmain.azurewebsites.net/api/reviews/getreviews?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {

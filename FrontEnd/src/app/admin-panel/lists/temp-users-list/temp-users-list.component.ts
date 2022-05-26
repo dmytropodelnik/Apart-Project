@@ -144,6 +144,11 @@ export class TempUsersListComponent implements OnInit {
   getUsers(): void {
     fetch(`https://apartmain.azurewebsites.net/api/tempusers/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {
@@ -169,6 +174,11 @@ export class TempUsersListComponent implements OnInit {
 
     fetch(`https://apartmain.azurewebsites.net/api/tempusers/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {

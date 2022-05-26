@@ -9,7 +9,7 @@ import { VerifyEnterComponent } from './verify-enter/verify-enter.component';
 import { FlightsComponent } from './flights/flights.component';
 import { AdminPanelGuard } from './admin-panel/admin-main-body/admin-panel.guard';
 import { JoinAsPartnerComponent } from './join-as-partner/join-as-partner.component';
-import { ViewPropertyComponent } from './view-property/view-property.component';
+import { ViewPropertyComponent as ViewPropertiesComponent } from './view-properties/view-properties.component';
 import { AddPropertyComponent } from './list-your-property/add-property/add-property.component';
 import { LpNameAndLocationComponent } from './list-your-property/lp-name-and-location/lp-name-and-location.component';
 import { LpPhotosComponent } from './list-your-property/lp-photos/lp-photos.component';
@@ -22,6 +22,8 @@ import { UserSavedComponent } from './user-saved/user-saved.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { LpApartmentsComponent } from './list-your-property/lp-apartments/lp-apartments.component';
 import { StaySuggestionPageComponent } from './stay-suggestion-page/stay-suggestion-page.component';
+import { ManageAccountGuard } from './manage-account/manage-account-body/manage-account.guard';
+import { ViewPropertiesGuard } from './view-properties/view-properties.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'stays', pathMatch: 'full' },
@@ -30,18 +32,28 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminPanelComponent,
-    // canActivate: [AdminPanelGuard],
+    canActivate: [AdminPanelGuard],
   },
   { path: 'adminlogin', component: AdminAuthComponent },
   { path: 'upload', component: FileUploadComponent },
   { path: 'confirmemail', component: VerifyEnterComponent },
-  { path: 'flights', component: FlightsComponent },
+  //{ path: 'flights', component: FlightsComponent },
   { path: 'joinpartner', component: JoinAsPartnerComponent },
   { path: 'saved', component: UserSavedComponent },
-  { path: 'viewproperty', component: ViewPropertyComponent },
+  {
+    path: 'viewproperties',
+    component: ViewPropertiesComponent,
+    canActivate: [ViewPropertiesGuard]
+  },
   { path: 'lp/addproperty', component: AddPropertyComponent, pathMatch: 'full' },
-  { path: 'mysettings', component: ManageAccountComponent },
-  { path: 'searchresults', component: SearchResultsComponent },
+  {
+    path: 'mysettings',
+    component: ManageAccountComponent,
+    canActivate: [ManageAccountGuard],
+  },
+  { path: 'searchresults',
+    component: SearchResultsComponent,
+ },
   { path: 'suggestion/:id', component: StaySuggestionPageComponent },
   { path: 'resetpassword', component: ResetPasswordComponent },
   {
@@ -82,6 +94,6 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { scrollPositionRestoration: 'enabled' }),
   ],
   exports: [RouterModule],
-  // providers: [AdminPanelGuard],
+  providers: [AdminPanelGuard, ManageAccountGuard, ViewPropertiesGuard],
 })
 export class AppRoutingModule {}

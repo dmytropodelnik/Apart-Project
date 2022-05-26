@@ -10,22 +10,9 @@ namespace CloneBookingAPI.Services.Generators
 {
     public class CodeGenerator : BaseGenerator, IGenerator
     {
-        private RegistrationCodesRepository _registrationRepository;
-        private ChangingEmailCodesRepository _changingEmailRepository;
-        private DeleteUserCodesRepository _deleteUserRepository;
-        private ResetPasswordCodesRepository _resetPasswordCodesRepository;
-
-        public CodeGenerator(
-            RegistrationCodesRepository registrationRepository,
-            ChangingEmailCodesRepository changingEmailRepository,
-            DeleteUserCodesRepository deleteUserRepository,
-            ResetPasswordCodesRepository resetPasswordCodesRepository
-            )
+        public CodeGenerator()
         {
-            _registrationRepository = registrationRepository;
-            _changingEmailRepository = changingEmailRepository;
-            _deleteUserRepository = deleteUserRepository;
-            _resetPasswordCodesRepository = resetPasswordCodesRepository;
+
         }
         public string GenerateKeyCode(string key, BaseRepository repository)
         {

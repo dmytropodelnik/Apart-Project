@@ -2,6 +2,7 @@
 using CloneBookingAPI.Controllers.Search.Pagination;
 using CloneBookingAPI.Controllers.Search.Sorting;
 using CloneBookingAPI.Interfaces;
+using CloneBookingAPI.Services.Cleaners;
 using CloneBookingAPI.Services.Files;
 using CloneBookingAPI.Services.Generators;
 using CloneBookingAPI.Services.Interfaces;
@@ -69,6 +70,10 @@ namespace CloneBookingAPI.Services.Providers
         {
             services.AddSingleton<DeleteUserCodesRepository>();
         }
+        public static void AddSubscriptionCodesRepositoryService(this IServiceCollection services)
+        {
+            services.AddSingleton<SubscriptionCodesRepository>();
+        }
         public static void AddChangingEmailCodeCleanerService(this IServiceCollection services)
         {
             services.AddTransient<ChangingEmailCodeCleaner>();
@@ -81,6 +86,10 @@ namespace CloneBookingAPI.Services.Providers
         {
             services.AddTransient<EnterCodeCleaner>();
         }
+        public static void AddSubscriptionCodeCleanerService(this IServiceCollection services)
+        {
+            services.AddTransient<SubscriptionCodeCleaner>();
+        }
         public static void AddJwtCodeCleanerService(this IServiceCollection services)
         {
             services.AddSingleton<JwtCodeCleaner>();
@@ -88,10 +97,6 @@ namespace CloneBookingAPI.Services.Providers
         public static void AddRegistrationCodeCleanerService(this IServiceCollection services)
         {
             services.AddTransient<RegistrationCodeCleaner>();
-        }
-        public static void AddResetPasswordCodeCleanerService(this IServiceCollection services)
-        {
-            services.AddTransient<ResetPasswordCodeCleanTimer>();
         }
     }
 }

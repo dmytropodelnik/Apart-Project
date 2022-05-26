@@ -10,6 +10,7 @@ import { switchMap } from 'rxjs/operators';
 import { FilterViewModel } from '../view-models/filterviewmodel.item';
 import { SearchViewModel } from '../view-models/searchviewmodel.item';
 import { Suggestion } from '../models/Suggestions/suggestion.item';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-stay-suggestion-page',
@@ -35,11 +36,27 @@ export class StaySuggestionPageComponent implements OnInit {
   monthOut: number | null = null;
   dayOut: number | null = null;
 
-  constructor(private activatedRouter: ActivatedRoute) {}
+  reviewsPage: number = 0;
+
+  constructor(
+    private activatedRouter: ActivatedRoute,
+    private modalService: NgbModal
+  ) {}
+
+  openWindowCustomClass(longContent: any) {
+    this.modalService.open(longContent, {
+      modalDialogClass: 'modal-fullscreen',
+    });
+  }
+
+  openVerticallyCentered(content : any) {
+    this.modalService.open(content, { centered: true });
+  }
 
   getSuggestion(): void {
     fetch(
-      'https://apartmain.azurewebsites.net/api/suggestions/getsuggestion?code=' + this.uniqueCode,
+      'https://apartmain.azurewebsites.net/api/suggestions/getsuggestion?code=' +
+        this.uniqueCode,
       {
         method: 'GET',
       }
@@ -48,6 +65,7 @@ export class StaySuggestionPageComponent implements OnInit {
       .then((response) => {
         if (response.code === 200) {
           this.suggestion = response.suggestion;
+          this.suggestion.reviewsAmount = response.reviewsAmount;
         } else {
           alert('Suggestion fetching error!');
         }
@@ -121,6 +139,27 @@ export class StaySuggestionPageComponent implements OnInit {
         this.searchPlace = this.searchBookingCategory;
       }
     });
+  }
+
+  getSuggestionReviews(): void {
+    this.reviewsPage++;
+    fetch(
+      `https://localhost:44381/api/reviews/getsuggestionreviews?id=${this.suggestion.id}&page=${this.reviewsPage}`,
+      {
+        method: 'GET',
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.suggestion.reviews = response.reviews;
+        } else {
+          alert('Suggestion fetching error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   ngOnInit(): void {

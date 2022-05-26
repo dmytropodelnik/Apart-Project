@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CloneBookingAPI.Services.Database.Models.Suggestions
+namespace CloneBookingAPI.Database.Models.Review
 {
     [Table("SuggestionReviewGrades")]
     public class SuggestionReviewGrade
@@ -12,18 +12,15 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Display(Name = "Grade")]
         [Required]
-        [DataType(DataType.Text)]
-        [StringLength(10, MinimumLength = 1, ErrorMessage = "Incorrect length")]
         public double Value { get; set; }
 
         public int ReviewCategoryId { get; set; }
         [ForeignKey("ReviewCategoryId")]
         public ReviewCategory ReviewCategory { get; set; }
 
-        public int SuggestionId { get; set; }
-        [ForeignKey("SuggestionId")]
-        public Suggestion Suggestion { get; set; }
+        public int ReviewId { get; set; }
+        [ForeignKey("ReviewId")]
+        public Services.Database.Models.Review.Review Review { get; set; }
     }
 }

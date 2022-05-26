@@ -58,9 +58,9 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                     case SortState.BestReviewed:
                         {
                             var tempSuggestions = suggestions
-                                .Where(s => s.SuggestionReviewGrades.Count > 0)
-                                .OrderByDescending(s => s.SuggestionReviewGrades
-                                    .Average(g => g.Value))
+                                .Where(s => s.Reviews.Count > 0)
+                                .OrderByDescending(s => s.Reviews
+                                    .Average(r => r.Grades.Average(g => g.Value)))
                                 .ToList();
 
                             tempSuggestions.AddRange(suggestions.Except(tempSuggestions));
@@ -72,9 +72,10 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                     case SortState.WorstReviewed:
                         {
                             var tempSuggestions = suggestions
-                                .Where(s => s.SuggestionReviewGrades.Count > 0)
-                                .OrderBy(s => s.SuggestionReviewGrades
-                                    .Average(g => g.Value))
+                                .Where(s => s.Reviews.Count > 0)
+                                .OrderBy(s => s.Reviews
+                                    .Average(g => g.Grades
+                                        .Average(g => g.Value)))
                                 .ToList();
 
                             tempSuggestions.InsertRange(0, suggestions.Except(tempSuggestions));
@@ -107,10 +108,12 @@ namespace CloneBookingAPI.Controllers.Search.Sorting
                     case SortState.BestReviewedAndLowerPrice:
                         {
                             var tempSuggestions = suggestions
-                                .Where(s => s.SuggestionReviewGrades.Count > 0)
+                                .Where(s => s.Reviews.Count > 0)
                                 .OrderBy(s => s.Apartments
                                     .Min(a => a.PriceInUSD))
-                                .OrderByDescending(s => s.SuggestionReviewGrades.Average(g => g.Value))
+                                .OrderByDescending(s => s.Reviews
+                                    .Average(g => g.Grades
+                                        .Average(g => g.Value)))
                                 .ToList();
 
                             tempSuggestions.AddRange(suggestions.Except(tempSuggestions));

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+
+import { MainDataService } from '../services/main-data.service';
+
 import AuthHelper from '../utils/authHelper';
+import { SearchViewModel } from '../view-models/searchviewmodel.item';
 
 @Component({
   selector: 'app-footer',
@@ -12,37 +17,76 @@ export class FooterComponent implements OnInit {
   email: string = '';
   emailPattern = '^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$';
 
-  constructor() {}
+  searchViewModel: SearchViewModel = new SearchViewModel();
 
-  fetchRequest() {
+  constructor(
+    public mainDataService: MainDataService,
+    private router: Router,
+    ) {
+
+  }
+
+  addDealsSubscriber() {
     if (!this.email.match('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')) {
       alert('Incorrect email pattern!');
       return;
     }
 
     fetch(
-      'https://apartmain.azurewebsites.net/api/deals/sendbestdealsletter?email=' +
+      'https://apartmain.azurewebsites.net/api/codes/generatesubscriptioncode?email=' +
         this.email,
       {
         method: 'GET',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Accept: 'application/json',
-          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-        },
       }
     )
       .then((r) => r.json())
-      .then((r) => {
-        if (r.code === 200) {
-          alert('A letter has been successfully sent to your email address!');
-        } else {
-          alert('Error!');
+      .then((data) => {
+        if (data.code === 200) {
+          alert('We sent verification letter to your email!');
+          console.log(data);
         }
+        else {
+          alert(data.message);
+        }
+        this.email = '';
       })
-      .catch((err) => {
-        alert(err);
+      .catch((ex) => {
+        alert(ex);
       });
+  }
+
+  routerToMySettings(): void {
+    if (AuthHelper.isLogged()) {
+      this.router.navigate(['mysettings']);
+    } else {
+      this.router.navigate(['auth']);
+    }
+  }
+
+  searchSuggestionsByCategory($event: any, category: string): void {
+    $event.stopPropagation();
+
+    this.router.navigate(['/searchresults'], {
+      queryParams: {
+        adults: this.searchViewModel.searchAdultsAmount,
+        children: this.searchViewModel.searchChildrenAmount,
+        rooms: this.searchViewModel.searchRoomsAmount,
+        bookingCategory: category,
+      },
+    });
+  }
+
+  searchSuggestionsByPlace($event: any, place: string): void {
+    $event.stopPropagation();
+
+    this.router.navigate(['/searchresults'], {
+      queryParams: {
+        adults: this.searchViewModel.searchAdultsAmount,
+        children: this.searchViewModel.searchChildrenAmount,
+        rooms: this.searchViewModel.searchRoomsAmount,
+        place: place,
+      },
+    });
   }
 
   ngOnInit(): void {}

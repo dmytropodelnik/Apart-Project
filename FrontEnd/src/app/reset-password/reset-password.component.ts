@@ -67,8 +67,9 @@ export class ResetPasswordComponent implements OnInit {
           alert('You have successfully reset your password!');
           this.router.navigate(['']);
         } else {
-          alert('Editing password error!');
+          alert(response.message);
         }
+        this.authService.setResetPasswordCondition(false);
       })
       .catch((ex) => {
         alert(ex);
@@ -95,5 +96,9 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!AuthHelper.isLogged() || !this.authService.getResetPasswordCondition()) {
+      this.router.navigate(['']);
+      return;
+    }
   }
 }

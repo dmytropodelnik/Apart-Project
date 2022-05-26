@@ -31,7 +31,7 @@ namespace CloneBookingAPI.Services.Database.Models.Location
 
         [Display(Name = "Zip Code")]
         [DataType(DataType.Text)]
-        [MinLength(4)]
+        [MinLength(2)]
         public string ZipCode { get; set; }
 
         [Display(Name = "Phone Number")]

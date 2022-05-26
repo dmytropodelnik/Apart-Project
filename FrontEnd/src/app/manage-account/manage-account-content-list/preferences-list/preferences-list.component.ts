@@ -25,6 +25,58 @@ export class PreferencesListComponent implements OnInit {
     this.isEditing[id] = !this.isEditing[id];
   }
 
+  toggleUserMailings(value: boolean): void {
+    if (value) {
+      fetch(
+        'https://localhost:44381/api/deals/addsubscriber?email=' +
+          AuthHelper.getLogin(),
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            Accept: 'application/json',
+            Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.code === 200) {
+            this.user.hasMailing = true;
+          } else {
+            alert('Add subscriber error!');
+          }
+        })
+        .catch((ex) => {
+          alert(ex);
+        });
+    } else {
+      fetch(
+        'https://localhost:44381/api/deals/removesubscriber?email=' +
+          AuthHelper.getLogin(),
+        {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json; charset=utf-8',
+            Accept: 'application/json',
+            Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.code === 200) {
+            this.user.hasMailing = false;
+          } else {
+            alert('Remove subscriber error!');
+          }
+        })
+        .catch((ex) => {
+          alert(ex);
+        });
+    }
+  }
+
   editButtonClick(id: number, value: any): void {
     this.tempValue = value;
     this.getCurrencies();
@@ -58,6 +110,11 @@ export class PreferencesListComponent implements OnInit {
   }
 
   saveCurrency(id: number): void {
+    if (!this.user.currency) {
+      alert("Select your currency!");
+      return;
+    }
+
     let user = {
       currency: this.user.currency,
       email: AuthHelper.getLogin(),
@@ -88,6 +145,11 @@ export class PreferencesListComponent implements OnInit {
   }
 
   saveLanguage(id: number): void {
+    if (this.user.language == '-1' || !this.user.language.match(/\d/)) {
+      alert("Select your language!");
+      return;
+    }
+
     let user = {
       languageId: this.user.language,
       email: AuthHelper.getLogin(),
@@ -121,67 +183,37 @@ export class PreferencesListComponent implements OnInit {
     if (!this.authService.isGotData) {
       await this.authService.refreshAuth();
     }
-    if (!AuthHelper.isFacebookLogin()) {
-      fetch(
-        'https://apartmain.azurewebsites.net/api/users/getuser?email=' +
-          AuthHelper.getLogin(),
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            Accept: 'application/json',
-            Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-          },
+    fetch(
+      'https://apartmain.azurewebsites.net/api/users/getuser?email=' +
+        AuthHelper.getLogin(),
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.authService.isGotData = true;
+          this.authService.setUserImage(response.user.profile.image?.path);
+          this.user.hasMailing = response.user.profile.hasMailing;
+          this.user.currency = response.user?.profile?.currency.abbreviation;
+          this.user.language = response.user?.profile?.language?.title;
+        } else {
+          alert('Get current user error!');
         }
-      )
-        .then((response) => response.json())
-        .then((response) => {
-          if (response.code === 200) {
-            this.authService.isGotData = true;
-            this.authService.setUserImage(response.user.profile.image?.path);
-
-            this.user.currency = response.user?.profile?.currency.abbreviation;
-            this.user.language = response.user?.profile?.language?.title;
-          } else {
-            alert('Get current user error!');
-          }
-        })
-        .catch((ex) => {
-          alert(ex);
-        });
-    } else {
-      fetch(
-        'https://apartmain.azurewebsites.net/api/users/getuserbyfacebookid?id=' +
-          AuthHelper.getLogin(),
-        {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json; charset=utf-8',
-            Accept: 'application/json',
-            Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-          },
-        }
-      )
-        .then((response) => response.json())
-        .then((response) => {
-          if (response.code === 200) {
-            this.authService.isGotData = true;
-            this.authService.setUserImage(response.user.profile.image?.path);
-
-            this.user.currency = response.user?.profile?.currency.abbreviation;
-            this.user.language = response.user?.profile?.language?.title;
-          } else {
-            alert('Get current user error!');
-          }
-        })
-        .catch((ex) => {
-          alert(ex);
-        });
-    }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   initializeBoolArray(): void {
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 3; i++) {
       this.isDisabled[i] = false;
     }
   }

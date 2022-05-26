@@ -110,21 +110,33 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     .Include(s => s.BookingCategory)
                         .ThenInclude(c => c.BookingCategoryType)
                     .Include(s => s.Facilities)
+                        .ThenInclude(f => f.FacilityType)
                     .Include(s => s.Highlights)
                     .Include(s => s.Languages)
                     .Include(s => s.Images)
                     .Include(s => s.Reviews)
-                        .ThenInclude(r => r.ReviewMessage)
-                    .Include(s => s.SuggestionReviewGrades)
+                        .ThenInclude(r => r.Grades)
+                    .Include(s => s.SuggestionRules)
+                        .ThenInclude(r => r.SuggestionRuleType)
                     .FirstOrDefaultAsync(s => s.UniqueCode.Equals(code));
                 if (suggestion is null)
                 {
                     return Json(new { code = STATUS_400 });
                 }
 
+                int reviewsAmount = suggestion.Reviews.Count;
+
+                int savedAmount = await _context.Favorites
+                    .Include(f => f.Suggestions)
+                    .Where(f => f.Suggestions
+                        .All(s => s.Id == suggestion.Id))
+                    .CountAsync();
+
                 return Json(new { 
                     code = STATUS_200, 
                     suggestion,
+                    reviewsAmount,
+                    savedAmount,
                 });
             }
             catch (ArgumentNullException ex)
@@ -150,7 +162,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
         [TypeFilter(typeof(AuthorizationFilter))]
         [Route("getusersuggestions")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Suggestion>>> GetUserSuggestions(string email, bool isFacebookAuth = false)
+        public async Task<ActionResult<IEnumerable<Suggestion>>> GetUserSuggestions(string email)
         {
             try
             {
@@ -163,13 +175,21 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     .Include(s => s.Address.Region)
                     .Include(s => s.SuggestionStatus)
                     .Include(s => s.Images)
+                    .Include(s => s.Messages)
                     .Where(s => s.User.Email.Equals(email))
                     .ToListAsync();
-
                 if (suggestions is null)
                 {
                     return Json(new { code = STATUS_400 });
                 }
+
+                int activeSuggestionsAmount = suggestions
+                    .Where(s => s.Progress == 100)
+                    .Count();
+
+                int inProgressSuggestionsAmount = suggestions
+                    .Where(s => s.Progress != 100)
+                    .Count();
 
                 return Json(new
                 {
@@ -181,6 +201,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                             s.UniqueCode,
                             s.Name,
                             s.Progress,
+                            messagesCount = s.Messages.Count,
                             suggestionStatus = s.SuggestionStatus.Status,
                             country = s.Address.Country.Title,
                             city = s.Address.City.Title,
@@ -189,6 +210,8 @@ namespace CloneBookingAPI.Controllers.Suggestions
                             images = s.Images.Select(i => new { i.Path, i.Name }),
                             countryImage = s.Address.Country.Image,
                         }),
+                    activeSuggestionsAmount,
+                    inProgressSuggestionsAmount,
                 });
             }
             catch (ArgumentNullException ex)

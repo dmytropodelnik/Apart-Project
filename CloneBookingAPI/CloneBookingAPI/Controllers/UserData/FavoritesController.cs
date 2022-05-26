@@ -185,11 +185,11 @@ namespace CloneBookingAPI.Controllers.UserData
                 var favorites = await _context.Favorites
                     .Include(f => f.User)
                     .Include(f => f.Suggestions)
-                        .ThenInclude(s => s.SuggestionReviewGrades)
                     .Include(f => f.Suggestions)
                         .ThenInclude(s => s.Images)
                     .Include(f => f.Suggestions)
                         .ThenInclude(s => s.Reviews)
+                            .ThenInclude(r => r.Grades)
                     .Include(f => f.Suggestions)
                         .ThenInclude(s => s.Address)
                             .ThenInclude(a => a.Country)
@@ -212,13 +212,13 @@ namespace CloneBookingAPI.Controllers.UserData
 
                 for (int i = 0; i < favorites.Suggestions.Count; i++)
                 {
-                    if (favorites.Suggestions[i].SuggestionReviewGrades.Count == 0)
+                    if (favorites.Suggestions[i].Reviews.Count == 0)
                     {
                         suggestionGrades.Add(0);
                     }
                     else
                     {
-                        suggestionGrades.Add(favorites.Suggestions[i].SuggestionReviewGrades.Average(g => g.Value));
+                        suggestionGrades.Add(favorites.Suggestions[i].Reviews.Average(r => r.Grades.Average(g => g.Value)));
                     }
                     if (favorites.Suggestions[i].Apartments.Count != 0) // favorites.Suggestions[i].Apartments is not null && 
                     {
