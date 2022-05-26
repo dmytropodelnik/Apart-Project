@@ -72,7 +72,7 @@
             </ul>
           </div>
           <div class="footer-navigation-links-column mb-3 mb-md-0">
-            <span class="footer-navigation-link-title">Country</span>
+            <span class="footer-navigation-link-title">Countries</span>
             <ul class="footer-navigation-links-list footer-seo-links-to-index">
               <li class="footer-navigation-link button-class"
                   *ngFor="let country of mainDataService.getSearchingCountries(); let i = index"
@@ -82,7 +82,17 @@
             </ul>
           </div>
           <div class="footer-navigation-links-column mb-3 mb-md-0">
-            <span class="footer-navigation-link-title">City</span>
+            <span class="footer-navigation-link-title">Regions</span>
+            <ul class="footer-navigation-links-list footer-seo-links-to-index">
+              <li class="footer-navigation-link button-class"
+                  *ngFor="let region of mainDataService.getSearchingRegions(); let i = index"
+                  (click)="searchSuggestionsByPlace($event, region.title)">
+                <a> {{region.title}} </a>
+              </li>
+            </ul>
+          </div>
+          <div class="footer-navigation-links-column mb-3 mb-md-0">
+            <span class="footer-navigation-link-title">Cities</span>
             <ul class="footer-navigation-links-list footer-seo-links-to-index">
               <li class="footer-navigation-link button-class"
                   *ngFor="let city of mainDataService.getSearchingCities(); let i = index"
@@ -92,22 +102,34 @@
             </ul>
           </div>
           <div class="footer-navigation-links-column mb-3 mb-md-0">
-            <span class="footer-navigation-link-title">Property categories</span>
+            <span class="footer-navigation-link-title">Explore</span>
             <ul class="footer-navigation-links-list footer-seo-links-to-index">
-              <li class="footer-navigation-link button-class"
-                  *ngFor="let category of mainDataService.getBookingCategories(); let i = index"
-                  (click)="searchSuggestionsByCategory($event, category.category)">
-                <a> {{category.category}} </a>
+              <li class="footer-navigation-link button-class" (click)="routerToMySettings()">
+                <a> Your account </a>
               </li>
-            </ul>
-          </div>
-          <div class="footer-navigation-links-column mb-3 mb-md-0">
-            <span class="footer-navigation-link-title">City</span>
-            <ul class="footer-navigation-links-list footer-seo-links-to-index">
-              <li class="footer-navigation-link button-class"
-                  *ngFor="let city of mainDataService.getSearchingCities(); let i = index"
-                  (click)="searchSuggestionsByPlace($event, city.title)">
-                <a> {{city.title}} </a>
+              <li class="footer-navigation-link button-class" routerLink="/joinpartner">
+                <a> List your property </a>
+              </li>
+              <li class="footer-navigation-link button-class" >
+                <a> Terms & Conditions </a>
+              </li>
+              <li class="footer-navigation-link button-class" >
+                <a> Customer Service help </a>
+              </li>
+              <li class="footer-navigation-link button-class" >
+                <a> About </a>
+              </li>
+              <li class="footer-navigation-link button-class" >
+                <a> Facebook </a>
+              </li>
+              <li class="footer-navigation-link button-class" >
+                <a> Instagram </a>
+              </li>
+              <li class="footer-navigation-link button-class" >
+                <a> Twitter </a>
+              </li>
+              <li class="footer-navigation-link button-class" routerLink="/auth">
+                <a> Sign up | Logout </a>
               </li>
             </ul>
           </div>

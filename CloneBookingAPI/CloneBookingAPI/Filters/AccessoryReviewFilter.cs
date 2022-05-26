@@ -4,16 +4,15 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Filters
 {
-    public class AccessorySuggestionFilter : Attribute, IAsyncAuthorizationFilter
+    public class AccessoryReviewFilter : Attribute, IAsyncAuthorizationFilter
     {
         private readonly ApartProjectDbContext _context;
 
-        public AccessorySuggestionFilter(ApartProjectDbContext context)
+        public AccessoryReviewFilter(ApartProjectDbContext context)
         {
             _context = context;
         }
@@ -35,9 +34,9 @@ namespace CloneBookingAPI.Filters
                     return;
                 }
 
-                var res = await _context.Suggestions
-                    .Include(s => s.User)
-                    .FirstOrDefaultAsync(s => s.User.Email.Equals(userData[0]) && context.HttpContext.Request.Query["id"] == s.Id);
+                var res = await _context.Reviews
+                    .Include(r => r.User)
+                    .FirstOrDefaultAsync(r => r.User.Email.Equals(userData[0]) && context.HttpContext.Request.Query["id"] == r.Id);
                 if (res is null)
                 {
                     context.Result = new JsonResult(new { code = 403 });

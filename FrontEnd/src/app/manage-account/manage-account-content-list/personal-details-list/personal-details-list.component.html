@@ -365,7 +365,9 @@
                 id="nationalitySelect"
                 name="user.profile.nationality"
                 [(ngModel)]="user.nationality"
-              ></select>
+              >
+                <option value="-1" selected>Select the country you're from</option>
+              </select>
             </form>
           </div>
         </div>
@@ -411,9 +413,8 @@
                 id="gender"
                 name="user.profile.gender.title"
                 [(ngModel)]="user.genderId"
-                required
+                placeholder="Select your gender"
               >
-                <option selected>Select your gender</option>
                 <option value="1">I'm a man</option>
                 <option value="2">I'm a woman</option>
               </select>

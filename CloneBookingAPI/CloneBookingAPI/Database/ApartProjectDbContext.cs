@@ -1,7 +1,9 @@
 ﻿using CloneBookingAPI.Database.Configurations;
+using CloneBookingAPI.Database.Configurations.Review;
 using CloneBookingAPI.Database.Configurations.Suggestions;
 using CloneBookingAPI.Database.Configurations.ViewModels;
 using CloneBookingAPI.Database.Models;
+using CloneBookingAPI.Database.Models.Review;
 using CloneBookingAPI.Database.Models.Suggestions;
 using CloneBookingAPI.Database.Models.ViewModels;
 using CloneBookingAPI.Services.Database.Configurations;
@@ -83,6 +85,7 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<BookingCategoryType> BookingCategoryTypes { get; set; }
         public DbSet<MailLetter> MailLetters { get; set; }
         public DbSet<LettersReceiver> LettersReceivers { get; set; }
+        public DbSet<Message> Messages { get; set; }
 
         public ApartProjectDbContext(DbContextOptions<ApartProjectDbContext> options) : base(options)
         {

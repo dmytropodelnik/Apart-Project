@@ -42,7 +42,8 @@ export class LpReviewAndCompleteComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          this.router.navigate(['/joinpartner']);
+          this.listNewPropertyService.setSavedPropertyId('');
+          this.router.navigate(['/viewproperties']);
         }
       })
       .catch((ex) => {
@@ -51,7 +52,12 @@ export class LpReviewAndCompleteComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    if (!AuthHelper.isLogged()) {
+      this.router.navigate(['']);
+    }
+    else if (!this.listNewPropertyService.getSavedPropertyId()) {
+      this.router.navigate(['']);
+    }
   }
 
 }

@@ -332,7 +332,7 @@ namespace CloneBookingAPI.Controllers
             }
         }
 
-        private bool VerifyUser(CloneBookingAPI.Services.POCOs.PocoData user)
+        private bool VerifyUser(PocoData user)
         {
             try
             {
@@ -382,7 +382,7 @@ namespace CloneBookingAPI.Controllers
                 return false;
             }
         }
-        void SetRepository(CloneBookingAPI.Services.POCOs.PocoData user)
+        void SetRepository(PocoData user)
         {
             switch (user.Repository)
             {

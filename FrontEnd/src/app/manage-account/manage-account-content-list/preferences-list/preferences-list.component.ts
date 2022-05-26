@@ -110,6 +110,11 @@ export class PreferencesListComponent implements OnInit {
   }
 
   saveCurrency(id: number): void {
+    if (!this.user.currency) {
+      alert("Select your currency!");
+      return;
+    }
+
     let user = {
       currency: this.user.currency,
       email: AuthHelper.getLogin(),
@@ -140,6 +145,11 @@ export class PreferencesListComponent implements OnInit {
   }
 
   saveLanguage(id: number): void {
+    if (this.user.language == '-1' || !this.user.language.match(/\d/)) {
+      alert("Select your language!");
+      return;
+    }
+
     let user = {
       languageId: this.user.language,
       email: AuthHelper.getLogin(),

@@ -36,6 +36,8 @@ export class PersonalDetailsListComponent implements OnInit {
   country: string = '';
   city: string = '';
 
+  tempNationalityCheck: string = '';
+
   user: UserData = new UserData();
 
   check: boolean = false;
@@ -56,6 +58,9 @@ export class PersonalDetailsListComponent implements OnInit {
       this.tempLastName = this.user.lastName;
     } else if (id == 5) {
       this.tempBirthDate = value;
+    } else if (id == 6) {
+      this.tempNationalityCheck = this.user.nationality;
+      this.user.nationality = "-1";
     } else if (id == 8) {
       this.zipCode = this.user.zipCode;
       this.addressText = this.user.addressText;
@@ -89,7 +94,7 @@ export class PersonalDetailsListComponent implements OnInit {
     } else if (id == 5) {
       this.user.pBirthDate = this.tempBirthDate;
     } else if (id == 6) {
-      this.user.nationality = this.tempValue;
+      this.user.nationality = this.tempNationalityCheck;
     } else if (id == 7) {
       this.user.genderId = +this.tempValue;
     } else if (id == 8) {
@@ -387,7 +392,7 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveBirthDate(id: number): void {
-    if (this.user.pBirthDate) {
+    if (this.user.pBirthDate?.year) {
       this.user.birthDate =
         this.user.pBirthDate!.day +
         '/' +
@@ -431,6 +436,11 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveNationality(id: number): void {
+    if (this.user.nationality == '-1') {
+      alert("Select your nationality!");
+      return;
+    }
+
     let user = {
       nationality: this.user.nationality,
       email: AuthHelper.getLogin(),
@@ -461,6 +471,11 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveGender(id: number): void {
+    if (this.user.genderId != 1 && this.user.genderId != 2) {
+      alert("Select your gender!");
+      return;
+    }
+
     let user = {
       genderId: this.user.genderId,
       email: AuthHelper.getLogin(),

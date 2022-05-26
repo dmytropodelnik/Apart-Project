@@ -49,6 +49,7 @@ export class Suggestion {
   beds: Bed[] | null = null;
   suggestionRules: SuggestionRule[] | null = null;
   surroundingObjects: SurroundingObject[] | null = null;
+  reviewsAmount: number | null = null;
 
   images: FileModel[] = [];
 

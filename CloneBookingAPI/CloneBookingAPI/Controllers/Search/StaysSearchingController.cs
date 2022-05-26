@@ -69,15 +69,16 @@ namespace CloneBookingAPI.Controllers.Search
                     .Include(s => s.Languages)
                     .Include(s => s.Images)
                     .Include(s => s.Reviews)
-                    .Include(s => s.SuggestionReviewGrades)
+                        .ThenInclude(r => r.Grades)
                     .Where(s => s.Progress == 100)
                     .ToListAsync();
- 
 
                 string place = filters.Place ?? "";
 
+                List<int> amountFilteringSuggestions = new();
+
                 // FILTERING
-                var resSuggestions = _suggestionsFilter.FilterItems(suggestions.AsQueryable(), filters.Filters);
+                var resSuggestions = _suggestionsFilter.FilterItems(suggestions.AsQueryable(), filters.Filters, amountFilteringSuggestions);
                 if (resSuggestions is null)
                 {
                     return Json(new { code = 400 });
@@ -105,13 +106,13 @@ namespace CloneBookingAPI.Controllers.Search
                 List<decimal> suggestionStartsFrom = new();
                 for (int i = 0; i < finalSuggestions.Count; i++)
                 {
-                    if (finalSuggestions[i].SuggestionReviewGrades.Count == 0)
+                    if (finalSuggestions[i].Reviews.Count == 0)
                     {
                         suggestionGrades.Add(0);
                     }
                     else 
                     {
-                        suggestionGrades.Add(finalSuggestions[i].SuggestionReviewGrades.Average(g => g.Value));
+                        suggestionGrades.Add(finalSuggestions[i].Reviews.Average(r => r.Grades.Average(g => g.Value)));
                     } 
                     if (finalSuggestions[i].Apartments.Count != 0) // finalSuggestions[i].Apartments is not null && 
                     {

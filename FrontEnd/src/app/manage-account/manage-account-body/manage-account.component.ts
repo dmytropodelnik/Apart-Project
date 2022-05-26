@@ -24,9 +24,6 @@ export class ManageAccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // if (!this.authService.getIsAdmin()      ||
-    //     !this.authService.getLogCondition()) {
-    //       this.router.navigate(['']);
-    // }
+    
   }
 }

@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewPropertyComponent } from './view-property.component';
+import { ViewPropertyComponent } from './view-properties.component';
 
 describe('ViewPropertyComponent', () => {
   let component: ViewPropertyComponent;

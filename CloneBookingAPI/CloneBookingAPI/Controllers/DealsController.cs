@@ -189,7 +189,7 @@ namespace CloneBookingAPI.Controllers
                 var receiver = await _context.LettersReceivers.FirstOrDefaultAsync(r => r.Receiver.Equals(email));
                 if (receiver is not null)
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "You have already subscribed to our deals!" });
                 }
 
                 LettersReceiver newReceiver = new();

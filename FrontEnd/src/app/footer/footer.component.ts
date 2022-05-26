@@ -33,28 +33,34 @@ export class FooterComponent implements OnInit {
     }
 
     fetch(
-      'https://localhost:44381/api/deals/addsubscriber?email=' +
+      'https://localhost:44381/api/codes/generatesubscriptioncode?email=' +
         this.email,
       {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Accept: 'application/json',
-          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-        },
+        method: 'GET',
       }
     )
       .then((r) => r.json())
-      .then((r) => {
-        if (r.code === 200) {
-          alert('You have been successfully subscribed to out new deals!');
-        } else {
-          alert('Add deals subscriber error!');
+      .then((data) => {
+        if (data.code === 200) {
+          alert('We sent verification letter to your email!');
+          console.log(data);
         }
+        else {
+          alert(data.message);
+        }
+        this.email = '';
       })
-      .catch((err) => {
-        alert(err);
+      .catch((ex) => {
+        alert(ex);
       });
+  }
+
+  routerToMySettings(): void {
+    if (AuthHelper.isLogged()) {
+      this.router.navigate(['mysettings']);
+    } else {
+      this.router.navigate(['auth']);
+    }
   }
 
   searchSuggestionsByCategory($event: any, category: string): void {

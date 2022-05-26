@@ -23,6 +23,8 @@ namespace CloneBookingAPI.Services.Database.Configurations.Review
         [StringLength(1000, MinimumLength = 6, ErrorMessage = "Incorrect length")]
         public string Text { get; set; }
 
+        public int ReviewId { get; set; }
+        [ForeignKey("ReviewId")]
         public Models.Review.Review Review { get; set; }
     }
 }
