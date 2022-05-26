@@ -5,20 +5,20 @@ using System.Diagnostics;
 
 namespace CloneBookingAPI.Services.Cleaners
 {
-    public class SubscribeCodeCleaner : ICleaner
+    public class SubscriptionCodeCleaner : ICleaner
     {
-        private readonly SubscribeCodesRepository _subscribesRepository;
+        private readonly SubscriptionCodesRepository _subscriptionsRepository;
 
-        public SubscribeCodeCleaner(SubscribeCodesRepository subscribesRepository)
+        public SubscriptionCodeCleaner(SubscriptionCodesRepository subscriptionsRepository)
         {
-            _subscribesRepository = subscribesRepository;
+            _subscriptionsRepository = subscriptionsRepository;
         }
 
         public bool ClearAllCodes()
         {
             try
             {
-                _subscribesRepository.Repository.Clear();
+                _subscriptionsRepository.Repository.Clear();
 
                 return true;
             }
@@ -36,13 +36,13 @@ namespace CloneBookingAPI.Services.Cleaners
             {
                 var codeTuple = ((string, string))data;
 
-                if (_subscribesRepository.Repository.ContainsKey(codeTuple.Item1))
+                if (_subscriptionsRepository.Repository.ContainsKey(codeTuple.Item1))
                 {
-                    _subscribesRepository.Repository[codeTuple.Item1].Remove(codeTuple.Item2);
+                    _subscriptionsRepository.Repository[codeTuple.Item1].Remove(codeTuple.Item2);
 
-                    if (_subscribesRepository.Repository[codeTuple.Item1].Count == 0)
+                    if (_subscriptionsRepository.Repository[codeTuple.Item1].Count == 0)
                     {
-                        _subscribesRepository.Repository.Remove(codeTuple.Item1);
+                        _subscriptionsRepository.Repository.Remove(codeTuple.Item1);
                     }
                 }
             }

@@ -8,21 +8,21 @@ using System.Threading;
 
 namespace CloneBookingAPI.Services.Timers
 {
-    public class SubscribeCodeCleanTimer : ITimer
+    public class SubscriptionCodeCleanTimer : ITimer
     {
-        private readonly SubscribeCodesRepository _subscribesRepository;
-        private SubscribeCodeCleaner _subscribesCleaner;
+        private readonly SubscriptionCodesRepository _subscriptionsRepository;
+        private readonly SubscriptionCodeCleaner _subscriptionsCleaner;
 
         private readonly int _CODE_ALIVE_TIME;
 
-        public SubscribeCodeCleanTimer(
-            SubscribeCodesRepository enterRepository,
+        public SubscriptionCodeCleanTimer(
+            SubscriptionCodesRepository subscriptionsRepository,
             IConfiguration configuration)
         {
-            _subscribesRepository = enterRepository;
-            _subscribesCleaner = new SubscribeCodeCleaner(_subscribesRepository);
+            _subscriptionsRepository = subscriptionsRepository;
+            _subscriptionsCleaner = new SubscriptionCodeCleaner(_subscriptionsRepository);
 
-            _CODE_ALIVE_TIME = int.Parse(configuration["CodeAliveTimes:SubscribeCodeAliveTime"]);
+            _CODE_ALIVE_TIME = int.Parse(configuration["CodeAliveTimes:SubscriptionCodeAliveTime"]);
         }
 
         public bool SetTimer((string key, string code) codeTuple)
@@ -30,7 +30,7 @@ namespace CloneBookingAPI.Services.Timers
             try
             {
                 // устанавливаем метод обратного вызова
-                TimerCallback tm = new TimerCallback(_subscribesCleaner.ClearCode);
+                TimerCallback tm = new TimerCallback(_subscriptionsCleaner.ClearCode);
                 // создаем таймер
                 Timer timer = new Timer(tm, codeTuple, _CODE_ALIVE_TIME, -1);
 

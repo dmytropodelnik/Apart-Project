@@ -2,7 +2,7 @@
 
 namespace CloneBookingAPI.Services.Repositories
 {
-    public class SubscribeCodesRepository : BaseRepository, IRepository
+    public class SubscriptionCodesRepository : BaseRepository, IRepository
     {
 
     }

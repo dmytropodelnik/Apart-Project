@@ -17,6 +17,9 @@
     },
     "DealsLetterTemplate": {
       "Template": ""
+    },
+    "SubscriptionLetterTemplate": {
+      "Template": ""
     }
   },
   "EmailLetterSubjectTemplates": {
@@ -37,6 +40,9 @@
     },
     "DealsLetterSubject": {
       "Template": "<p>HELLO TEST</p>"
+    },
+    "SubscriptionLetterSubject": {
+      "Template": "Verify email to subscribe to our news!"
     }
   }
 }

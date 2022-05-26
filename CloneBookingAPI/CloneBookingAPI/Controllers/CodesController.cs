@@ -31,7 +31,7 @@ namespace CloneBookingAPI.Controllers
         private readonly ResetPasswordCodesRepository _resetPasswordRepository;
         private readonly ChangingEmailCodesRepository _changingEmailRepository;
         private readonly EnterCodesRepository _enterRepository;
-        private readonly SubscribeCodesRepository _subscribesRepository;
+        private readonly SubscriptionCodesRepository _subscriptionsRepository;
         private readonly ApartProjectDbContext _context;
 
         public CodesController(
@@ -42,7 +42,7 @@ namespace CloneBookingAPI.Controllers
             ResetPasswordCodesRepository resetPasswordRepository,
             ChangingEmailCodesRepository changingEmailRepository,
             EnterCodesRepository enterRepository,
-            SubscribeCodesRepository subscribesRepository,
+            SubscriptionCodesRepository subscriptionsRepository,
             IConfiguration configuration,
             ApartProjectDbContext context)
         {
@@ -53,7 +53,7 @@ namespace CloneBookingAPI.Controllers
             _resetPasswordRepository = resetPasswordRepository;
             _changingEmailRepository = changingEmailRepository;
             _enterRepository = enterRepository;
-            _subscribesRepository = subscribesRepository;
+            _subscriptionsRepository = subscriptionsRepository;
             _configuration = configuration;
             _context = context;
         }
@@ -85,13 +85,13 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -116,7 +116,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 411 });
                 }
 
-                new ChangingEmailCodeCleanTimer(_changingEmailRepository, _configuration).SetTimer((key: emailTrim, code: code));
+                new ChangingEmailCodeCleanTimer(_changingEmailRepository, _configuration).SetTimer((key: emailTrim, code));
 
                 return RedirectToAction("SendChangingEmailLetter", "Auth", new { emailTrim, oldEmailTrim, code });
             }
@@ -124,13 +124,13 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -154,7 +154,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 411 });
                 }
 
-                new DeleteUserCodeCleanTimer(_deleteUserRepository, _configuration).SetTimer((key: emailTrim, code: code));
+                new DeleteUserCodeCleanTimer(_deleteUserRepository, _configuration).SetTimer((key: emailTrim, code));
 
                 return RedirectToAction("SendDeleteUserLetter", "Auth", new { emailTrim, code });
             }
@@ -162,13 +162,13 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -192,7 +192,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 411 });
                 }
 
-                new ResetPasswordCodeCleanTimer(_resetPasswordRepository, _configuration).SetTimer((key: emailTrim, code: code));
+                new ResetPasswordCodeCleanTimer(_resetPasswordRepository, _configuration).SetTimer((key: emailTrim, code));
 
                 return RedirectToAction("SendResetPasswordLetter", "Auth", new { emailTrim, code });
             }
@@ -200,13 +200,13 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -229,7 +229,7 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 411 });
                 }
 
-                new EnterCodeCleanTimer(_enterRepository, _configuration).SetTimer((key: emailTrim, code: code));
+                new EnterCodeCleanTimer(_enterRepository, _configuration).SetTimer((key: emailTrim, code));
 
                 return RedirectToAction("SendVerifyEnterLetter", "Auth", new { emailTrim, code });
             }
@@ -237,19 +237,19 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
-        [Route("generatesubscribecode")]
+        [Route("generatesubscriptioncode")]
         [HttpGet]
-        public IActionResult GenerateSubscribeCode(string email)
+        public async Task<IActionResult> GenerateSubscriptionCode(string email)
         {
             try
             {
@@ -258,29 +258,35 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 410 });
                 }
 
+                var subscriber = await _context.LettersReceivers.FirstOrDefaultAsync(r => r.Receiver.Equals(email));
+                if (subscriber is not null)
+                {
+                    return Json(new { code = 400, message = "You have already subscribed to our deals!" });
+                }
+
                 string emailTrim = email.Trim();
 
-                var code = _codeGenerator.GenerateKeyCode(emailTrim, _enterRepository);
+                var code = _codeGenerator.GenerateKeyCode(emailTrim, _subscriptionsRepository);
                 if (code is null)
                 {
                     return Json(new { code = 411 });
                 }
 
-                new EnterCodeCleanTimer(_enterRepository, _configuration).SetTimer((key: emailTrim, code: code));
+                new SubscriptionCodeCleanTimer(_subscriptionsRepository, _configuration).SetTimer((key: emailTrim, code));
 
-                return RedirectToAction("SendVerifyEnterLetter", "Auth", new { emailTrim, code });
+                return RedirectToAction("SendSubscriptionLetter", "Auth", new { emailTrim, code });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -320,13 +326,13 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -366,13 +372,59 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("verifyusersubscription")]
+        [HttpGet]
+        public IActionResult VerifyUserSubscription(string email, string code, bool confidant = false)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(code) || string.IsNullOrWhiteSpace(email))
+                {
+                    return Json(new { code = 400 });
+                }
+
+                bool res = _subscriptionsRepository.IsValueCorrect(email, code);
+                if (res is false)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                if (!confidant)
+                {
+                    if (_subscriptionsRepository.Repository.ContainsKey(email))
+                    {
+                        _subscriptionsRepository.Repository[email].Remove(code);
+
+                        if (_subscriptionsRepository.Repository[email].Count == 0)
+                        {
+                            _subscriptionsRepository.Repository.Remove(email);
+                        }
+                    }
+                }
+
+                return Json(new { code = 200 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
             }
         }
 
@@ -412,13 +464,13 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -458,13 +510,13 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -504,13 +556,13 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -554,7 +606,7 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
     }

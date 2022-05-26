@@ -29,11 +29,13 @@ namespace CloneBookingAPI.Controllers
         private readonly string _subjectResetPasswordLetterTemplate = default;
         private readonly string _subjectChangeEmailLetterTemplate   = default;
         private readonly string _subjectDeleteUserLetterTemplate    = default;
+        private readonly string _subjectSubscriptionLetterTemplate = default;
 
         private readonly string _enterLinkTemplate          = default;
         private readonly string _resetPasswordLinkTemplate  = default;
         private readonly string _changeEmailLinkTemplate    = default;
         private readonly string _deleteUserLinkTemplate     = default;
+        private readonly string _subscriptionLinkTemplate = default;
 
         public AuthController(ApartProjectDbContext context, IConfiguration configuration)
         {
@@ -44,12 +46,14 @@ namespace CloneBookingAPI.Controllers
             _resetPasswordLinkTemplate = configuration["EmailLinksTemplates:ResetPasswordLetter:Template"];
             _changeEmailLinkTemplate   = configuration["EmailLinksTemplates:ChangingEmailLetter:Template"];
             _deleteUserLinkTemplate    = configuration["EmailLinksTemplates:DeleteUserLetter:Template"];
+            _subscriptionLinkTemplate  = configuration["EmailLinksTemplates:SubscriptionLetter:Template"];
 
             _subjectRegistrationLetterTemplate  = configuration["EmailLetterSubjectTemplates:RegistrationLetterSubject:Template"];
             _subjectVerifyEnterLetterTemplate   = configuration["EmailLetterSubjectTemplates:EnterLetterSubject:Template"];
             _subjectResetPasswordLetterTemplate = configuration["EmailLetterSubjectTemplates:ResetPasswordLetterSubject:Template"];
             _subjectChangeEmailLetterTemplate   = configuration["EmailLetterSubjectTemplates:ChangingEmailLetterSubject:Template"];
             _subjectDeleteUserLetterTemplate    = configuration["EmailLetterSubjectTemplates:DeleteUserLetterSubject:Template"];
+            _subjectSubscriptionLetterTemplate  = configuration["EmailLetterSubjectTemplates:SubscriptionLetterSubject:Template"];
         }
 
         [Route("isemailregistered")]
@@ -280,6 +284,54 @@ namespace CloneBookingAPI.Controllers
                 bool res = await _emailSender.SendEmailAsync(
                     correctEmail,
                     _subjectDeleteUserLetterTemplate,
+                    linkTemplate);
+                if (res is false)
+                {
+                    return Json(new { code = 416 });
+                }
+
+                return Json(new { code = 200 });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (ArgumentException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = ex.Message });
+            }
+        }
+
+        [Route("sendsubscriptionletter")]
+        [HttpGet]
+        public async Task<IActionResult> SendSubscriptionLetter(string emailTrim, string code)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(emailTrim) || string.IsNullOrWhiteSpace(code))
+                {
+                    return Json(new { code = 415 });
+                }
+
+                string correctEmail = emailTrim.Trim();
+
+                string linkTemplate = _subscriptionLinkTemplate
+                        .Replace("codeTemplate", code);
+                linkTemplate = linkTemplate.Replace("emailTemplate", correctEmail);
+
+                bool res = await _emailSender.SendEmailAsync(
+                    correctEmail,
+                    _subjectSubscriptionLetterTemplate,
                     linkTemplate);
                 if (res is false)
                 {
