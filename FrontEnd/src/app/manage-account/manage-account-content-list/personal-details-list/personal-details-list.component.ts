@@ -38,6 +38,8 @@ export class PersonalDetailsListComponent implements OnInit {
 
   user: UserData = new UserData();
 
+  check: boolean = false;
+
   constructor(public authService: AuthorizationService) {}
 
   setCondition(id: number): void {
@@ -102,6 +104,51 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   setConditionEditButtons(id: number, value: boolean): void {
+    if (value == false) {
+      this.check = false;
+      if (id == 0) {
+        let title = document.getElementById('title');
+        if (title !== null) {
+          title.classList.remove('invalid');
+        }
+      } else if (id == 1) {
+        let firstName = document.getElementById('firstName');
+        if (firstName !== null) {
+          firstName.classList.remove('invalid');
+        }
+
+        let lastName = document.getElementById('lastName');
+        if (lastName !== null) {
+          lastName.classList.remove('invalid');
+        }
+      } else if (id == 2) {
+        let userName = document.getElementById('userName');
+        if (userName !== null) {
+          userName.classList.remove('invalid');
+        }
+      } else if (id == 3) {
+        let email = document.getElementById('email');
+        if (email !== null) {
+          email.classList.remove('invalid');
+        }
+      } else if (id == 4) {
+        let phoneNumber = document.getElementById('phone-number');
+        if (phoneNumber !== null) {
+          phoneNumber.classList.remove('invalid');
+        }
+      } else if (id == 5) {
+        this.user.pBirthDate = this.tempBirthDate;
+      } else if (id == 6) {
+        this.user.nationality = this.tempValue;
+      } else if (id == 7) {
+        this.user.genderId = +this.tempValue;
+      } else if (id == 8) {
+        this.user.zipCode = this.zipCode;
+        this.user.addressText = this.addressText;
+        this.user.country.title = this.country;
+        this.user.city.title = this.city;
+      }
+    }
     for (let i = 0; i < this.isDisabled.length; i++) {
       if (i !== id) {
         this.isDisabled[i] = value;
@@ -110,6 +157,15 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveTitle(id: number): void {
+    if (this.user.title.length < 1) {
+      this.check = true;
+      let title = document.getElementById('title');
+      if (title !== null) {
+        title.classList.add('invalid');
+      }
+      return;
+    }
+
     let user = {
       title: this.user.title,
       email: AuthHelper.getLogin(),
@@ -140,6 +196,24 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveName(id: number): void {
+    if (this.user.firstName.length < 1) {
+      this.check = true;
+      let firstName = document.getElementById('firstName');
+      if (firstName !== null) {
+        firstName.classList.add('invalid');
+      }
+      return;
+    }
+
+    if (this.user.lastName.length < 1) {
+      this.check = true;
+      let lastName = document.getElementById('lastName');
+      if (lastName !== null) {
+        lastName.classList.add('invalid');
+      }
+      return;
+    }
+
     let user = {
       firstName: this.user.firstName,
       lastName: this.user.lastName,
@@ -172,6 +246,15 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveDisplayName(id: number): void {
+    if (this.user.displayName.length < 1) {
+      this.check = true;
+      let displayName = document.getElementById('displayName');
+      if (displayName !== null) {
+        displayName.classList.add('invalid');
+      }
+      return;
+    }
+
     let user = {
       displayName: this.user.displayName,
       email: AuthHelper.getLogin(),
@@ -202,6 +285,15 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   sendChangingEmailLetter(id: number): void {
+    if (!this.user.newEmail.match('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')) {
+      this.check = true;
+      let email = document.getElementById('email');
+      if (email !== null) {
+        email.classList.add('invalid');
+      }
+      return;
+    }
+
     fetch(
       `https://localhost:44381/api/auth/isemailregistered?email=${this.user.newEmail}`,
       {
@@ -252,6 +344,19 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   savePhoneNumber(id: number): void {
+    if (
+      !this.user.phoneNumber.match(
+        '^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$'
+      )
+    ) {
+      this.check = true;
+      let phoneNumber = document.getElementById('phone-number');
+      if (phoneNumber !== null) {
+        phoneNumber.classList.add('invalid');
+      }
+      return;
+    }
+
     let user = {
       phoneNumber: this.user.phoneNumber,
       email: AuthHelper.getLogin(),
@@ -386,6 +491,26 @@ export class PersonalDetailsListComponent implements OnInit {
   }
 
   saveAddress(id: number): void {
+    if (this.user.addressText.length < 1) {
+      this.check = true;
+      let address = document.getElementById('address');
+      if (address !== null) {
+        address.classList.add('invalid');
+      }
+    }
+
+    if (this.user.city.title.length < 1) {
+      this.check = true;
+      let city = document.getElementById('city');
+      if (city !== null) {
+        city.classList.add('invalid');
+      }
+    }
+
+    if (this.check) {
+      return;
+    }
+
     let user = {
       addressText: this.user.addressText,
       country: this.user.country.title,

@@ -10,6 +10,7 @@ import { switchMap } from 'rxjs/operators';
 import { FilterViewModel } from '../view-models/filterviewmodel.item';
 import { SearchViewModel } from '../view-models/searchviewmodel.item';
 import { Suggestion } from '../models/Suggestions/suggestion.item';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-stay-suggestion-page',
@@ -35,11 +36,25 @@ export class StaySuggestionPageComponent implements OnInit {
   monthOut: number | null = null;
   dayOut: number | null = null;
 
-  constructor(private activatedRouter: ActivatedRoute) {}
+  constructor(
+    private activatedRouter: ActivatedRoute,
+    private modalService: NgbModal
+  ) {}
+
+  openWindowCustomClass(longContent: any) {
+    this.modalService.open(longContent, {
+      modalDialogClass: 'modal-fullscreen',
+    });
+  }
+
+  openVerticallyCentered(content : any) {
+    this.modalService.open(content, { centered: true });
+  }
 
   getSuggestion(): void {
     fetch(
-      'https://localhost:44381/api/suggestions/getsuggestion?code=' + this.uniqueCode,
+      'https://localhost:44381/api/suggestions/getsuggestion?code=' +
+        this.uniqueCode,
       {
         method: 'GET',
       }
