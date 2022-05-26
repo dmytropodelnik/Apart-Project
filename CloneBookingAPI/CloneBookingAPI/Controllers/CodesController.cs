@@ -31,6 +31,7 @@ namespace CloneBookingAPI.Controllers
         private readonly ResetPasswordCodesRepository _resetPasswordRepository;
         private readonly ChangingEmailCodesRepository _changingEmailRepository;
         private readonly EnterCodesRepository _enterRepository;
+        private readonly SubscribeCodesRepository _subscribesRepository;
         private readonly ApartProjectDbContext _context;
 
         public CodesController(
@@ -41,6 +42,7 @@ namespace CloneBookingAPI.Controllers
             ResetPasswordCodesRepository resetPasswordRepository,
             ChangingEmailCodesRepository changingEmailRepository,
             EnterCodesRepository enterRepository,
+            SubscribeCodesRepository subscribesRepository,
             IConfiguration configuration,
             ApartProjectDbContext context)
         {
@@ -51,6 +53,7 @@ namespace CloneBookingAPI.Controllers
             _resetPasswordRepository = resetPasswordRepository;
             _changingEmailRepository = changingEmailRepository;
             _enterRepository = enterRepository;
+            _subscribesRepository = subscribesRepository;
             _configuration = configuration;
             _context = context;
         }
@@ -210,6 +213,43 @@ namespace CloneBookingAPI.Controllers
         [Route("generateentercode")]
         [HttpGet]
         public IActionResult GenerateEnterCode(string email)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return Json(new { code = 410 });
+                }
+
+                string emailTrim = email.Trim();
+
+                var code = _codeGenerator.GenerateKeyCode(emailTrim, _enterRepository);
+                if (code is null)
+                {
+                    return Json(new { code = 411 });
+                }
+
+                new EnterCodeCleanTimer(_enterRepository, _configuration).SetTimer((key: emailTrim, code: code));
+
+                return RedirectToAction("SendVerifyEnterLetter", "Auth", new { emailTrim, code });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 400 });
+            }
+        }
+
+        [Route("generatesubscribecode")]
+        [HttpGet]
+        public IActionResult GenerateSubscribeCode(string email)
         {
             try
             {
