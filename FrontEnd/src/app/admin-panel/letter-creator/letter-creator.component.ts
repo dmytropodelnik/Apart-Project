@@ -37,7 +37,7 @@ export class LetterCreatorComponent implements OnInit {
   }
 
   sendLetterAgain(value: number): void {
-    fetch('https://localhost:44381/api/deals/sendbestdealsletteragain?letterId=' + value, {
+    fetch('https://apartmain.azurewebsites.net/api/deals/sendbestdealsletteragain?letterId=' + value, {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -91,7 +91,7 @@ export class LetterCreatorComponent implements OnInit {
       sender: AuthHelper.getLogin(),
     };
 
-    fetch('https://localhost:44381/api/deals/sendbestdealsletter', {
+    fetch('https://apartmain.azurewebsites.net/api/deals/sendbestdealsletter', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -123,7 +123,7 @@ export class LetterCreatorComponent implements OnInit {
       fData.append('uploadedFile', this.htmlLetterFile);
     }
 
-    await fetch('https://localhost:44381/api/fileuploader/uploadfile', {
+    await fetch('https://apartmain.azurewebsites.net/api/fileuploader/uploadfile', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -146,7 +146,7 @@ export class LetterCreatorComponent implements OnInit {
   }
 
   async readContentFromFile(file: FormData): Promise<void> {
-    await fetch('https://localhost:44381/api/files/readfilecontent', {
+    await fetch('https://apartmain.azurewebsites.net/api/files/readfilecontent', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -179,9 +179,9 @@ export class LetterCreatorComponent implements OnInit {
       this.page++;
     }
 
-    let url = `https://localhost:44381/api/deals/getmails?page=${this.page}&pageSize=${this.pageSize}`;
+    let url = `https://apartmain.azurewebsites.net/api/deals/getmails?page=${this.page}&pageSize=${this.pageSize}`;
     if (this.isCreated) {
-      url = 'https://localhost:44381/api/deals/getmails';
+      url = 'https://apartmain.azurewebsites.net/api/deals/getmails';
       this.isCreated = false;
     }
 

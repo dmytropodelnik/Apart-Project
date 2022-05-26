@@ -216,7 +216,7 @@ export class VerifyEnterComponent implements OnInit {
 
   subscribeUser(): void {
     fetch(
-      `https://localhost:44381/api/codes/verifyusersubscription?email=${this.email}&code=${this.code}`, {
+      `https://apartmain.azurewebsites.net/api/codes/verifyusersubscription?email=${this.email}&code=${this.code}`, {
         method: 'GET',
       }
     )
@@ -237,7 +237,7 @@ export class VerifyEnterComponent implements OnInit {
 
   addUserSubscription(): void {
     fetch(
-      'https://localhost:44381/api/deals/addsubscriber?email=' +
+      'https://apartmain.azurewebsites.net/api/deals/addsubscriber?email=' +
         this.email,
       {
         method: 'POST',

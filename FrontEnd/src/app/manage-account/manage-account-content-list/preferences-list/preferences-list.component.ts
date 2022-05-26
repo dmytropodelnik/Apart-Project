@@ -28,7 +28,7 @@ export class PreferencesListComponent implements OnInit {
   toggleUserMailings(value: boolean): void {
     if (value) {
       fetch(
-        'https://localhost:44381/api/deals/addsubscriber?email=' +
+        'https://apartmain.azurewebsites.net/api/deals/addsubscriber?email=' +
           AuthHelper.getLogin(),
         {
           method: 'POST',
@@ -52,7 +52,7 @@ export class PreferencesListComponent implements OnInit {
         });
     } else {
       fetch(
-        'https://localhost:44381/api/deals/removesubscriber?email=' +
+        'https://apartmain.azurewebsites.net/api/deals/removesubscriber?email=' +
           AuthHelper.getLogin(),
         {
           method: 'DELETE',
