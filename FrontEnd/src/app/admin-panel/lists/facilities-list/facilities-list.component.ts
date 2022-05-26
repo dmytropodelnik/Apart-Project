@@ -155,6 +155,11 @@ export class FacilitiesListComponent implements OnInit {
   getFacilities(): void {
     fetch(`https://apartmain.azurewebsites.net/api/facilities/getfacilities?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {
@@ -180,6 +185,11 @@ export class FacilitiesListComponent implements OnInit {
 
     fetch(`https://apartmain.azurewebsites.net/api/facilities/getfacilities?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {
@@ -208,6 +218,11 @@ export class FacilitiesListComponent implements OnInit {
   getFacilityTypes(): void {
     fetch('https://apartmain.azurewebsites.net/api/facilitytypes/gettypes', {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {

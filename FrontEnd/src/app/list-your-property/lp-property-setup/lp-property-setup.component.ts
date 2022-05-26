@@ -345,6 +345,14 @@ export class LpPropertySetupComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if (!AuthHelper.isLogged()) {
+      this.router.navigate(['']);
+      return;
+    }
+    else if (!this.listNewPropertyService.getSavedPropertyId()) {
+      this.router.navigate(['']);
+      return;
+    }
     this.getFacilities();
     this.getRules();
   }

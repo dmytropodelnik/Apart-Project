@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Services
 {
-    public class AuthEmailSender : IEmailSender
+    public class AuthEmailSender : IEmailSenderAsync
     {
         private readonly string _emailSender    = default;
         private readonly string _emailPassword  = default;

@@ -24,21 +24,23 @@ namespace CloneBookingAPI.Filters
             {
                 if (context.HttpContext.Request.Headers.Authorization.Count == 0)
                 {
-                    context.Result = new JsonResult(new { code = 400 });
+                    context.Result = new JsonResult(new { code = 403 });
+                    return;
                 }
 
                 string[] userData = context.HttpContext.Request.Headers.Authorization.ToString().Split(";");
-                if (userData.Length < 2)
+                if (userData.Length < 1)
                 {
-                    context.Result = new JsonResult(new { code = 400 });
+                    context.Result = new JsonResult(new { code = 403 });
+                    return;
                 }
 
                 var res = await _context.Suggestions
                     .Include(s => s.User)
-                    .FirstOrDefaultAsync(s => s.User.Email.Equals(userData[0]) && s.UniqueCode.Equals(userData[1]));
+                    .FirstOrDefaultAsync(s => s.User.Email.Equals(userData[0]) && context.HttpContext.Request.Query["id"] == s.Id);
                 if (res is null)
                 {
-                    context.Result = new JsonResult(new { code = 400 });
+                    context.Result = new JsonResult(new { code = 403 });
                 }
             }
             catch (Exception ex)

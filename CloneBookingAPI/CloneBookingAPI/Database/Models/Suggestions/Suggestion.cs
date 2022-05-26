@@ -60,8 +60,6 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public List<InterestPlace> InterestPlaces { get; set; } = new();
         public List<Review.Review> Reviews { get; set; } = new();
         public List<StayBooking> StayBookings { get; set; } = new();
-        public List<ReviewCategory> ReviewCategories { get; set; } = new();
-        public List<SuggestionReviewGrade> SuggestionReviewGrades { get; set; } = new();
         public List<Favorite> Favorites { get; set; } = new();
         public List<FileModel> Images { get; set; } = new();
         public List<SuggestionHighlight> Highlights { get; set; } = new();
@@ -71,6 +69,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public List<SuggestionRule> SuggestionRules { get; set; } = new();
         public List<SurroundingObject> SurroundingObjects { get; set; } = new();
         public List<Apartment> Apartments { get; set; } = new();
+        public List<Message> Messages { get; set; } = new();
 
         public List<SuggestionFileModel> SuggestionsFileModels { get; set; } = new();
     }

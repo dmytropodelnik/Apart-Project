@@ -10,6 +10,10 @@
   color: #fcb4b4;
 }
 
+.button-class {
+  cursor: pointer;
+}
+
 .emk-subscription-entry-point.subscription-error .-error {
   display: block;
   color: #fcb4b4;
@@ -431,6 +435,19 @@ a.footer__priceline__title {
   list-style-type: none;
   margin: 0;
   padding: 0;
+}
+
+.footer-navigation-link-title {
+  display: block;
+  height: 20px;
+  font-family: "Calibri";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 20px;
+  text-decoration-line: underline;
+  color: rgba(0, 0, 0, 0.85);
+  margin-bottom: 26px !important;
 }
 
 .footer-navigation-link {

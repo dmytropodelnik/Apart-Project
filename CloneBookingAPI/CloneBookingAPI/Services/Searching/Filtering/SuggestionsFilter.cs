@@ -24,7 +24,7 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
             _context = context;
         }
 
-        public IQueryable<Suggestion> FilterItems(IQueryable<Suggestion> suggestions, IEnumerable<FilterViewModel> filters)
+        public IQueryable<Suggestion> FilterItems(IQueryable<Suggestion> suggestions, IEnumerable<FilterViewModel> filters, IEnumerable<int> amountFilteringSuggestions)
         {
             try
             {            

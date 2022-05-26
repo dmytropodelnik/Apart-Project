@@ -117,6 +117,11 @@ export class PaymentsListComponent implements OnInit {
   getPayments(): void {
     fetch(`https://apartmain.azurewebsites.net/api/payments/getpayments?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {
@@ -142,6 +147,11 @@ export class PaymentsListComponent implements OnInit {
 
     fetch(`https://apartmain.azurewebsites.net/api/payments/getpayments?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {

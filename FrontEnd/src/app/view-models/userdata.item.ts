@@ -25,6 +25,7 @@ export class UserData {
    country: Country = new Country();
    city: City = new City();
    currency: string = '';
+   hasMailing: boolean = false;
 
    address: Address | null = null;
 

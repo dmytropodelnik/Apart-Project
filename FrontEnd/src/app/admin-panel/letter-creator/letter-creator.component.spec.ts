@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewPropertyComponent } from './view-property.component';
+import { LetterCreatorComponent } from './letter-creator.component';
 
-describe('ViewPropertyComponent', () => {
-  let component: ViewPropertyComponent;
-  let fixture: ComponentFixture<ViewPropertyComponent>;
+describe('LetterCreatorComponent', () => {
+  let component: LetterCreatorComponent;
+  let fixture: ComponentFixture<LetterCreatorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewPropertyComponent ]
+      declarations: [ LetterCreatorComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewPropertyComponent);
+    fixture = TestBed.createComponent(LetterCreatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

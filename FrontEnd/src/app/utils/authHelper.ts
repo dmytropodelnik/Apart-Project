@@ -53,7 +53,13 @@ export default {
 
     isLogged: () => {
         let item = sessionStorage.getItem('tokenKey');
-        if (item) {
+        let itemLogin = sessionStorage.getItem('tokenKey');
+        let login = '';
+        if (itemLogin) {
+            login = JSON.parse(itemLogin).userName;
+        }
+
+        if (item && login) {
             return true;
         } else {
             return false;

@@ -1,1 +1,1131 @@
-<p>stay-suggestion-page works!</p>
+<body>
+  <app-header></app-header>
+  <div class="basiclayout">
+    <div class="right">
+      <div class="main-information-container">
+        <div class="searchbox">
+          <form class="searchbox_form">
+            <span class="searchbox_check_label">Search</span>
+            <div class="searchbox_country">
+              <span class="textdecoration" id="basic-addon1"
+                >Destination/property name:</span
+              >
+              <input
+                type="text"
+                class="inputfield"
+                placeholder="City/Country"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                name="filters.place"
+                [(ngModel)]="filters.place"
+              />
+            </div>
+            <div class="searchbox_date">
+              <span class="textdecoration">Check-in Date</span>
+              <input
+                class="inputfield"
+                placeholder="yyyy-mm-dd"
+                name="filters.pdateIn"
+                [(ngModel)]="filters.pdateIn"
+                ngbDatepicker
+                #d="ngbDatepicker"
+                (click)="d.toggle()"
+                readonly
+              />
+            </div>
+            <div class="searchbox_date">
+              <span class="textdecoration">Check-out Date</span>
+              <input
+                class="inputfield"
+                placeholder="yyyy-mm-dd"
+                name="filters.pdateOut"
+                [(ngModel)]="filters.pdateOut"
+                ngbDatepicker
+                #d1="ngbDatepicker"
+                (click)="d1.toggle()"
+                readonly
+              />
+            </div>
+            <div class="searchbox_country" data-toggle="dropdown">
+              <span class="textdecoration" id="basic-addon1"
+                >How many people?</span
+              >
+              <input
+                type="text"
+                class="inputfield"
+                placeholder="{{ filters.searchAdultsAmount }} adult {{
+                  filters.searchChildrenAmount
+                }} children {{ filters.searchRoomsAmount }} room"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
+            </div>
+            <div class="dropdown-menu">
+              <form class="dropdownFormReservation">
+                <div class="form-group">
+                  <div class="dropdownSubSection"></div>
+                </div>
+                <div class="form-group">
+                  <div class="dropdownSubSection"></div>
+                </div>
+                <div class="form-group">
+                  <div class="dropdownSubSection"></div>
+                </div>
+              </form>
+            </div>
+            <div class="searchbox_search">
+              <button class="searchbox_button">Search</button>
+            </div>
+          </form>
+        </div>
+        <div class="main-information">
+          <div class="search_results_top_buttons">
+            <button>Info & prices</button>
+            <button>Facilities</button>
+            <button>House rules</button>
+            <button (click)="openWindowCustomClass(longContent)">
+              Guest reviews (18,500)
+            </button>
+          </div>
+          <div class="information-container">
+            Hotel Schulz Hotel Berlin Wall at the East Side Gallery Travel
+            Sustainable property Stralauer Platz 36, Friedrichshain-Kreuzberg,
+            10243 Berlin, Germany –
+          </div>
+          <div class="image-container">
+            <div class="image-container-main">
+              <div>
+                <img src="../../assets/images/10.jpg" />
+                <img src="../../assets/images/10.jpg" />
+              </div>
+              <div>
+                <img src="../../assets/images/10.jpg" />
+              </div>
+            </div>
+            <div class="">
+              <div class="image-container-wrapper">
+                <div><img src="../../assets/images/10.jpg" /></div>
+                <div><img src="../../assets/images/10.jpg" /></div>
+                <div><img src="../../assets/images/10.jpg" /></div>
+                <div><img src="../../assets/images/10.jpg" /></div>
+                <div><img src="../../assets/images/10.jpg" /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="facilities-main">
+        <h2>Facilities</h2>
+        <div class="facilities-container">
+          <div class="facilities-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="facilities-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="facilities-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="facilities-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="facilities-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="facilities-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="facilities-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="facilities-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="facilities-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="facilities-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="facilities-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="facilities-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+        </div>
+      </div>
+      <div class="housingRules-main">
+        <h2>House rules</h2>
+        <div class="housingRules-container">
+          <div class="housingRules-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="housingRules-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="housingRules-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="housingRules-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="housingRules-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="housingRules-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="housingRules-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="housingRules-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="housingRules-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="housingRules-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="housingRules-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+          <div class="housingRules-item">
+            <span class="font-weight-bold">Front Desk Services</span>
+            <span>Invoice provided</span>
+            <span>Private check-in/out</span>
+            <span>Concierge</span>
+            <span>Baggage storage</span>
+            <span>24-hour front desk</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</body>
+
+<ng-template #longContent let-modal>
+  <div class="modal-header">
+    <div>
+      <div class="review-card-left-avatar-block">
+        <div class="review-card-avatar">
+          <div class="bui-review-score__badge">9.0</div>
+        </div>
+        <div class="review-card-avatar-block-text">
+          <span class="font-weight-bold">Very Good</span>
+          <span class="text-block-subtitles">
+            <span>2,143 reviews</span>
+          </span>
+        </div>
+      </div>
+    </div>
+    <button
+      class="btn btn-outline-primary btn-sm"
+      (click)="openVerticallyCentered(content)"
+    >
+      Write review
+    </button>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="categories-main">
+      <h5>Categories:</h5>
+      <div class="categories-container">
+        <div class="categories-item">
+          <span>Staff</span>
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: 90%"
+              aria-valuenow="50"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              9.0
+            </div>
+          </div>
+        </div>
+        <div class="categories-item">
+          <span>Facilities</span>
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: 83%"
+              aria-valuenow="50"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              8.3
+            </div>
+          </div>
+        </div>
+        <div class="categories-item">
+          <span>Cleanliness</span>
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: 95%"
+              aria-valuenow="50"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              9.5
+            </div>
+          </div>
+        </div>
+        <div class="categories-item">
+          <span>Comfort</span>
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: 87%"
+              aria-valuenow="50"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              8.7
+            </div>
+          </div>
+        </div>
+        <div class="categories-item">
+          <span>Atmosphere</span>
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: 80%"
+              aria-valuenow="50"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              8.0
+            </div>
+          </div>
+        </div>
+        <div class="categories-item">
+          <span> Location</span>
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: 97%"
+              aria-valuenow="50"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              9.7
+            </div>
+          </div>
+        </div>
+        <div class="categories-item">
+          <span>Free WiFi</span>
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: 73%"
+              aria-valuenow="50"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              7.3
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-card-left">
+        <div>
+          <div class="review-card-left-avatar-block">
+            <div class="review-card-avatar">
+              <img src="../../assets/images/10.jpg" />
+            </div>
+            <div class="review-card-avatar-block-text">
+              <span class="font-weight-bold">Jose</span>
+              <span class="text-block-subtitles">
+                <span class="avatar-block-flag"
+                  ><img src="../../assets/flag/flag-10.png"
+                /></span>
+                <span>Spain</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span> Superior Double Room</span>
+        </div>
+        <div>
+          <span>5 nights · April 2022</span>
+        </div>
+        <div>
+          <span>Couple</span>
+        </div>
+      </div>
+      <div class="review-card-right">
+        <div>
+          <div class="review-card-right-main-item">
+            <div class="review-card-right-main-item-info">
+              <span>Reviewed: May 23, 2022</span>
+              <span class="font-weight-bold">
+                Great hotel with very nice staff and location
+              </span>
+            </div>
+            <div class="bui-review-score__badge">9.0</div>
+          </div>
+        </div>
+        <div>
+          <span
+            >· Staff was very helpful. Installations and rooms are clean, tidy
+            and very well maintained. Area is very nice and quiet. The location
+            is very good, 10 minutes to center by tram or by a nice walk</span
+          >
+        </div>
+        <div>
+          <span
+            >· Pillows could be more comfortable. For us were a little big and
+            hard.</span
+          >
+        </div>
+        <div class="like-reviews">
+          <span
+            ><svg
+              class="bk-icon -iconset-thumbs_up"
+              fill="#0071C2"
+              height="14"
+              width="14"
+              viewBox="0 0 128 128"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M8 76a12 12 0 0 1 3.6-8.6A12 12 0 0 1 21 48h35.9L49 28a15.2 15.2 0 0 1-1-4 8 8 0 0 1 15-4l17 36v56H30a12 12 0 0 1-12-10.7 12 12 0 0 1-6.6-17A12 12 0 0 1 8 76zm112-20H88v56h32z"
+              ></path>
+            </svg>
+            Helpful</span
+          >
+          <span>
+            <svg
+              class="bk-icon -iconset-thumbs_down"
+              fill="#0071C2"
+              height="14"
+              width="14"
+              viewBox="0 0 128 128"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M11.4 43.6a12 12 0 0 1 6.7-17A12 12 0 0 1 30 16h50v56l-17 36a8 8 0 0 1-15-4 15.2 15.2 0 0 1 1-4l7.9-20H21a12 12 0 0 1-9.4-19.4 12 12 0 0 1-.2-17zM120 16H88v56h32z"
+              ></path>
+            </svg>
+            Not helpful</span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-card-left">
+        <div>
+          <div class="review-card-left-avatar-block">
+            <div class="review-card-avatar">
+              <img src="../../assets/images/10.jpg" />
+            </div>
+            <div class="review-card-avatar-block-text">
+              <span class="font-weight-bold">Jose</span>
+              <span class="text-block-subtitles">
+                <span class="avatar-block-flag"
+                  ><img src="../../assets/flag/flag-10.png"
+                /></span>
+                <span>Spain</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span> Superior Double Room</span>
+        </div>
+        <div>
+          <span>5 nights · April 2022</span>
+        </div>
+        <div>
+          <span>Couple</span>
+        </div>
+      </div>
+      <div class="review-card-right">
+        <div>
+          <div class="review-card-right-main-item">
+            <div class="review-card-right-main-item-info">
+              <span>Reviewed: May 23, 2022</span>
+              <span class="font-weight-bold">
+                Great hotel with very nice staff and location
+              </span>
+            </div>
+            <div class="bui-review-score__badge">9.0</div>
+          </div>
+        </div>
+        <div>
+          <span
+            >· Staff was very helpful. Installations and rooms are clean, tidy
+            and very well maintained. Area is very nice and quiet. The location
+            is very good, 10 minutes to center by tram or by a nice walk</span
+          >
+        </div>
+        <div>
+          <span
+            >· Pillows could be more comfortable. For us were a little big and
+            hard.</span
+          >
+        </div>
+        <div class="like-reviews">
+          <span
+            ><svg
+              class="bk-icon -iconset-thumbs_up"
+              fill="#0071C2"
+              height="14"
+              width="14"
+              viewBox="0 0 128 128"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M8 76a12 12 0 0 1 3.6-8.6A12 12 0 0 1 21 48h35.9L49 28a15.2 15.2 0 0 1-1-4 8 8 0 0 1 15-4l17 36v56H30a12 12 0 0 1-12-10.7 12 12 0 0 1-6.6-17A12 12 0 0 1 8 76zm112-20H88v56h32z"
+              ></path>
+            </svg>
+            Helpful</span
+          >
+          <span>
+            <svg
+              class="bk-icon -iconset-thumbs_down"
+              fill="#0071C2"
+              height="14"
+              width="14"
+              viewBox="0 0 128 128"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M11.4 43.6a12 12 0 0 1 6.7-17A12 12 0 0 1 30 16h50v56l-17 36a8 8 0 0 1-15-4 15.2 15.2 0 0 1 1-4l7.9-20H21a12 12 0 0 1-9.4-19.4 12 12 0 0 1-.2-17zM120 16H88v56h32z"
+              ></path>
+            </svg>
+            Not helpful</span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-card-left">
+        <div>
+          <div class="review-card-left-avatar-block">
+            <div class="review-card-avatar">
+              <img src="../../assets/images/10.jpg" />
+            </div>
+            <div class="review-card-avatar-block-text">
+              <span class="font-weight-bold">Jose</span>
+              <span class="text-block-subtitles">
+                <span class="avatar-block-flag"
+                  ><img src="../../assets/flag/flag-10.png"
+                /></span>
+                <span>Spain</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span> Superior Double Room</span>
+        </div>
+        <div>
+          <span>5 nights · April 2022</span>
+        </div>
+        <div>
+          <span>Couple</span>
+        </div>
+      </div>
+      <div class="review-card-right">
+        <div>
+          <div class="review-card-right-main-item">
+            <div class="review-card-right-main-item-info">
+              <span>Reviewed: May 23, 2022</span>
+              <span class="font-weight-bold">
+                Great hotel with very nice staff and location
+              </span>
+            </div>
+            <div class="bui-review-score__badge">9.0</div>
+          </div>
+        </div>
+        <div>
+          <span
+            >· Staff was very helpful. Installations and rooms are clean, tidy
+            and very well maintained. Area is very nice and quiet. The location
+            is very good, 10 minutes to center by tram or by a nice walk</span
+          >
+        </div>
+        <div>
+          <span
+            >· Pillows could be more comfortable. For us were a little big and
+            hard.</span
+          >
+        </div>
+        <div class="like-reviews">
+          <span
+            ><svg
+              class="bk-icon -iconset-thumbs_up"
+              fill="#0071C2"
+              height="14"
+              width="14"
+              viewBox="0 0 128 128"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M8 76a12 12 0 0 1 3.6-8.6A12 12 0 0 1 21 48h35.9L49 28a15.2 15.2 0 0 1-1-4 8 8 0 0 1 15-4l17 36v56H30a12 12 0 0 1-12-10.7 12 12 0 0 1-6.6-17A12 12 0 0 1 8 76zm112-20H88v56h32z"
+              ></path>
+            </svg>
+            Helpful</span
+          >
+          <span>
+            <svg
+              class="bk-icon -iconset-thumbs_down"
+              fill="#0071C2"
+              height="14"
+              width="14"
+              viewBox="0 0 128 128"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M11.4 43.6a12 12 0 0 1 6.7-17A12 12 0 0 1 30 16h50v56l-17 36a8 8 0 0 1-15-4 15.2 15.2 0 0 1 1-4l7.9-20H21a12 12 0 0 1-9.4-19.4 12 12 0 0 1-.2-17zM120 16H88v56h32z"
+              ></path>
+            </svg>
+            Not helpful</span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-card-left">
+        <div>
+          <div class="review-card-left-avatar-block">
+            <div class="review-card-avatar">
+              <img src="../../assets/images/10.jpg" />
+            </div>
+            <div class="review-card-avatar-block-text">
+              <span class="font-weight-bold">Jose</span>
+              <span class="text-block-subtitles">
+                <span class="avatar-block-flag"
+                  ><img src="../../assets/flag/flag-10.png"
+                /></span>
+                <span>Spain</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span> Superior Double Room</span>
+        </div>
+        <div>
+          <span>5 nights · April 2022</span>
+        </div>
+        <div>
+          <span>Couple</span>
+        </div>
+      </div>
+      <div class="review-card-right">
+        <div>
+          <div class="review-card-right-main-item">
+            <div class="review-card-right-main-item-info">
+              <span>Reviewed: May 23, 2022</span>
+              <span class="font-weight-bold">
+                Great hotel with very nice staff and location
+              </span>
+            </div>
+            <div class="bui-review-score__badge">9.0</div>
+          </div>
+        </div>
+        <div>
+          <span
+            >· Staff was very helpful. Installations and rooms are clean, tidy
+            and very well maintained. Area is very nice and quiet. The location
+            is very good, 10 minutes to center by tram or by a nice walk</span
+          >
+        </div>
+        <div>
+          <span
+            >· Pillows could be more comfortable. For us were a little big and
+            hard.</span
+          >
+        </div>
+        <div class="like-reviews">
+          <span
+            ><svg
+              class="bk-icon -iconset-thumbs_up"
+              fill="#0071C2"
+              height="14"
+              width="14"
+              viewBox="0 0 128 128"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M8 76a12 12 0 0 1 3.6-8.6A12 12 0 0 1 21 48h35.9L49 28a15.2 15.2 0 0 1-1-4 8 8 0 0 1 15-4l17 36v56H30a12 12 0 0 1-12-10.7 12 12 0 0 1-6.6-17A12 12 0 0 1 8 76zm112-20H88v56h32z"
+              ></path>
+            </svg>
+            Helpful</span
+          >
+          <span>
+            <svg
+              class="bk-icon -iconset-thumbs_down"
+              fill="#0071C2"
+              height="14"
+              width="14"
+              viewBox="0 0 128 128"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M11.4 43.6a12 12 0 0 1 6.7-17A12 12 0 0 1 30 16h50v56l-17 36a8 8 0 0 1-15-4 15.2 15.2 0 0 1 1-4l7.9-20H21a12 12 0 0 1-9.4-19.4 12 12 0 0 1-.2-17zM120 16H88v56h32z"
+              ></path>
+            </svg>
+            Not helpful</span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-card-left">
+        <div>
+          <div class="review-card-left-avatar-block">
+            <div class="review-card-avatar">
+              <img src="../../assets/images/10.jpg" />
+            </div>
+            <div class="review-card-avatar-block-text">
+              <span class="font-weight-bold">Jose</span>
+              <span class="text-block-subtitles">
+                <span class="avatar-block-flag"
+                  ><img src="../../assets/flag/flag-10.png"
+                /></span>
+                <span>Spain</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span> Superior Double Room</span>
+        </div>
+        <div>
+          <span>5 nights · April 2022</span>
+        </div>
+        <div>
+          <span>Couple</span>
+        </div>
+      </div>
+      <div class="review-card-right">
+        <div>
+          <div class="review-card-right-main-item">
+            <div class="review-card-right-main-item-info">
+              <span>Reviewed: May 23, 2022</span>
+              <span class="font-weight-bold">
+                Great hotel with very nice staff and location
+              </span>
+            </div>
+            <div class="bui-review-score__badge">9.0</div>
+          </div>
+        </div>
+        <div>
+          <span
+            >· Staff was very helpful. Installations and rooms are clean, tidy
+            and very well maintained. Area is very nice and quiet. The location
+            is very good, 10 minutes to center by tram or by a nice walk</span
+          >
+        </div>
+        <div>
+          <span
+            >· Pillows could be more comfortable. For us were a little big and
+            hard.</span
+          >
+        </div>
+        <div class="like-reviews">
+          <span
+            ><svg
+              class="bk-icon -iconset-thumbs_up"
+              fill="#0071C2"
+              height="14"
+              width="14"
+              viewBox="0 0 128 128"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M8 76a12 12 0 0 1 3.6-8.6A12 12 0 0 1 21 48h35.9L49 28a15.2 15.2 0 0 1-1-4 8 8 0 0 1 15-4l17 36v56H30a12 12 0 0 1-12-10.7 12 12 0 0 1-6.6-17A12 12 0 0 1 8 76zm112-20H88v56h32z"
+              ></path>
+            </svg>
+            Helpful</span
+          >
+          <span>
+            <svg
+              class="bk-icon -iconset-thumbs_down"
+              fill="#0071C2"
+              height="14"
+              width="14"
+              viewBox="0 0 128 128"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M11.4 43.6a12 12 0 0 1 6.7-17A12 12 0 0 1 30 16h50v56l-17 36a8 8 0 0 1-15-4 15.2 15.2 0 0 1 1-4l7.9-20H21a12 12 0 0 1-9.4-19.4 12 12 0 0 1-.2-17zM120 16H88v56h32z"
+              ></path>
+            </svg>
+            Not helpful</span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-card-left">
+        <div>
+          <div class="review-card-left-avatar-block">
+            <div class="review-card-avatar">
+              <img src="../../assets/images/10.jpg" />
+            </div>
+            <div class="review-card-avatar-block-text">
+              <span class="font-weight-bold">Jose</span>
+              <span class="text-block-subtitles">
+                <span class="avatar-block-flag"
+                  ><img src="../../assets/flag/flag-10.png"
+                /></span>
+                <span>Spain</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span> Superior Double Room</span>
+        </div>
+        <div>
+          <span>5 nights · April 2022</span>
+        </div>
+        <div>
+          <span>Couple</span>
+        </div>
+      </div>
+      <div class="review-card-right">
+        <div>
+          <div class="review-card-right-main-item">
+            <div class="review-card-right-main-item-info">
+              <span>Reviewed: May 23, 2022</span>
+              <span class="font-weight-bold">
+                Great hotel with very nice staff and location
+              </span>
+            </div>
+            <div class="bui-review-score__badge">9.0</div>
+          </div>
+        </div>
+        <div>
+          <span
+            >· Staff was very helpful. Installations and rooms are clean, tidy
+            and very well maintained. Area is very nice and quiet. The location
+            is very good, 10 minutes to center by tram or by a nice walk</span
+          >
+        </div>
+        <div>
+          <span
+            >· Pillows could be more comfortable. For us were a little big and
+            hard.</span
+          >
+        </div>
+        <div class="like-reviews">
+          <span
+            ><svg
+              class="bk-icon -iconset-thumbs_up"
+              fill="#0071C2"
+              height="14"
+              width="14"
+              viewBox="0 0 128 128"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M8 76a12 12 0 0 1 3.6-8.6A12 12 0 0 1 21 48h35.9L49 28a15.2 15.2 0 0 1-1-4 8 8 0 0 1 15-4l17 36v56H30a12 12 0 0 1-12-10.7 12 12 0 0 1-6.6-17A12 12 0 0 1 8 76zm112-20H88v56h32z"
+              ></path>
+            </svg>
+            Helpful</span
+          >
+          <span>
+            <svg
+              class="bk-icon -iconset-thumbs_down"
+              fill="#0071C2"
+              height="14"
+              width="14"
+              viewBox="0 0 128 128"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M11.4 43.6a12 12 0 0 1 6.7-17A12 12 0 0 1 30 16h50v56l-17 36a8 8 0 0 1-15-4 15.2 15.2 0 0 1 1-4l7.9-20H21a12 12 0 0 1-9.4-19.4 12 12 0 0 1-.2-17zM120 16H88v56h32z"
+              ></path>
+            </svg>
+            Not helpful</span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="review-card">
+      <div class="review-card-left">
+        <div>
+          <div class="review-card-left-avatar-block">
+            <div class="review-card-avatar">
+              <img src="../../assets/images/10.jpg" />
+            </div>
+            <div class="review-card-avatar-block-text">
+              <span class="font-weight-bold">Jose</span>
+              <span class="text-block-subtitles">
+                <span class="avatar-block-flag"
+                  ><img src="../../assets/flag/flag-10.png"
+                /></span>
+                <span>Spain</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <span> Superior Double Room</span>
+        </div>
+        <div>
+          <span>5 nights · April 2022</span>
+        </div>
+        <div>
+          <span>Couple</span>
+        </div>
+      </div>
+      <div class="review-card-right">
+        <div>
+          <div class="review-card-right-main-item">
+            <div class="review-card-right-main-item-info">
+              <span>Reviewed: May 23, 2022</span>
+              <span class="font-weight-bold">
+                Great hotel with very nice staff and location
+              </span>
+            </div>
+            <div class="bui-review-score__badge">9.0</div>
+          </div>
+        </div>
+        <div>
+          <span
+            >· Staff was very helpful. Installations and rooms are clean, tidy
+            and very well maintained. Area is very nice and quiet. The location
+            is very good, 10 minutes to center by tram or by a nice walk</span
+          >
+        </div>
+        <div>
+          <span
+            >· Pillows could be more comfortable. For us were a little big and
+            hard.</span
+          >
+        </div>
+        <div class="like-reviews">
+          <span
+            ><svg
+              class="bk-icon -iconset-thumbs_up"
+              fill="#0071C2"
+              height="14"
+              width="14"
+              viewBox="0 0 128 128"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M8 76a12 12 0 0 1 3.6-8.6A12 12 0 0 1 21 48h35.9L49 28a15.2 15.2 0 0 1-1-4 8 8 0 0 1 15-4l17 36v56H30a12 12 0 0 1-12-10.7 12 12 0 0 1-6.6-17A12 12 0 0 1 8 76zm112-20H88v56h32z"
+              ></path>
+            </svg>
+            Helpful</span
+          >
+          <span>
+            <svg
+              class="bk-icon -iconset-thumbs_down"
+              fill="#0071C2"
+              height="14"
+              width="14"
+              viewBox="0 0 128 128"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M11.4 43.6a12 12 0 0 1 6.7-17A12 12 0 0 1 30 16h50v56l-17 36a8 8 0 0 1-15-4 15.2 15.2 0 0 1 1-4l7.9-20H21a12 12 0 0 1-9.4-19.4 12 12 0 0 1-.2-17zM120 16H88v56h32z"
+              ></path>
+            </svg>
+            Not helpful</span
+          >
+        </div>
+      </div>
+    </div>
+    <div class="load-more-review-cards">
+      <div class="d-grid gap-2 col-6 mx-auto">
+        <button class="btn btn-outline-primary" type="button">Load more</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Modal title</h4>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <p>One fine body&hellip;</p>
+  </div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.close('Close click')"
+    >
+      Close
+    </button>
+  </div>
+</ng-template>

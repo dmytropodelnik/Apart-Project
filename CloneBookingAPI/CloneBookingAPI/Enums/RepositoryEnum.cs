@@ -7,5 +7,6 @@
         ResetPassword,
         ChangingEmail,
         UserDeletion,
+        UserSubscription,
     }
 }

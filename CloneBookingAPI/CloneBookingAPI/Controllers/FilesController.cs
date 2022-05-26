@@ -57,19 +57,19 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -100,19 +100,19 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -152,19 +152,59 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
+            }
+        }
+
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
+        [Route("readfilecontent")]
+        [HttpPost]
+        public ActionResult ReadFileContent(IFormFile uploadedFile)
+        {
+            try
+            {
+                string letterText = default;
+
+                using (StreamReader sr = new(uploadedFile.OpenReadStream()))
+                {
+                    letterText = sr.ReadToEnd();
+                }
+
+                return Json(new {
+                    code = 200,
+                    letterText,
+                });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
             }
         }
     }

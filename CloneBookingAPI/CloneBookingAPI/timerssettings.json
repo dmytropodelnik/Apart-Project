@@ -3,6 +3,7 @@
     "ChangingEmailCodeAliveTime": "600000",
     "ResetPasswordCodeAliveTime": "600000",
     "EnterCodeAliveTime": "600000",
+    "SubscriptionCodeAliveTime": "600000",
     "RegistrationCodeAliveTime": "600000",
     "DeleteUserCodeAliveTime": "600000",
     "JwtCodeAliveTime": "900000"

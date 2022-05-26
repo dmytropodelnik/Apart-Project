@@ -116,6 +116,11 @@ export class AirportsListComponent implements OnInit {
   getAirports(): void {
     fetch(`https://apartmain.azurewebsites.net/api/airports/getairports?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {
@@ -141,6 +146,11 @@ export class AirportsListComponent implements OnInit {
 
     fetch(`https://apartmain.azurewebsites.net/api/airports/getairports?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {

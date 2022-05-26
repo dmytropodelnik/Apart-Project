@@ -147,6 +147,11 @@ export class LanguagesListComponent implements OnInit {
 
     fetch(`https://apartmain.azurewebsites.net/api/languages/getlanguages?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {
@@ -172,6 +177,11 @@ export class LanguagesListComponent implements OnInit {
   getLangs(): void {
     fetch(`https://apartmain.azurewebsites.net/api/languages/getlanguages?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {

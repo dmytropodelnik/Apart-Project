@@ -1,6 +1,8 @@
-﻿using CloneBookingAPI.Services.Database.Configurations.Review;
+﻿using CloneBookingAPI.Database.Models.Review;
+using CloneBookingAPI.Services.Database.Configurations.Review;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,8 +14,6 @@ namespace CloneBookingAPI.Services.Database.Models.Review
         [Column("Id")]  // Можно было не указывать потому, что так было бы по умолчанию, благодаря соглашению о наименованиях EF
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
-        public double Grade { get; set; }
 
         public int? UserId { get; set; }
         [ForeignKey("UserId")]
@@ -30,13 +30,9 @@ namespace CloneBookingAPI.Services.Database.Models.Review
         [Required]
         public DateTime ReviewedDate { get; set; }
 
-        public int ReviewMessageId { get; set; }
-        [ForeignKey("ReviewMessageId")]
         public ReviewMessage ReviewMessage { get; set; }
+        public List<SuggestionReviewGrade> Grades { get; set; }
 
-        [Required]
-        public uint LikesAmount { get; set; }
-        [Required]
-        public uint DislikesAmount { get; set; }
+        public List<Reaction> Reactions { get; set; } = new();
     }
 }

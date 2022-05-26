@@ -37,9 +37,9 @@ namespace CloneBookingAPI.Services.Searching.Filtering
                 }
 
                 suggestions = suggestions
-                    .Include(s => s.SuggestionReviewGrades)
-                    .Where(s => s.SuggestionReviewGrades
-                                    .Average(g => g.Value) >= int.Parse(_value));
+                    .Where(s => s.Reviews
+                        .All(r => r.Grades
+                            .Average(g => g.Value) >= int.Parse(_value)));
 
                 return suggestions;
             }

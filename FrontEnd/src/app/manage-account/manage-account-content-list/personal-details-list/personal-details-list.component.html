@@ -8,11 +8,26 @@
         </div>
         <div class="colTest">
           <button class="change-image">
-            <img *ngIf="authService.getUserImage() && authService.getUserImage().indexOf('https://') !== -1"
-                 src="{{ authService.getUserImage() }}"/>
-            <img *ngIf="authService.getUserImage() && authService.getUserImage().indexOf('https://') === -1"
-                 src="{{ imageHelper.getRootDirectoryPath() }}{{ authService.getUserImage() }}"/>
-            <img *ngIf="!authService.getUserImage()" src="../../../../assets/images/User1.png"/>
+            <img
+              *ngIf="
+                authService.getUserImage() &&
+                authService.getUserImage().indexOf('https://') !== -1
+              "
+              src="{{ authService.getUserImage() }}"
+            />
+            <img
+              *ngIf="
+                authService.getUserImage() &&
+                authService.getUserImage().indexOf('https://') === -1
+              "
+              src="{{ imageHelper.getRootDirectoryPath() }}{{
+                authService.getUserImage()
+              }}"
+            />
+            <img
+              *ngIf="!authService.getUserImage()"
+              src="../../../../assets/images/User1.png"
+            />
           </button>
         </div>
       </div>
@@ -36,6 +51,7 @@
                   name="user.title"
                   [(ngModel)]="user.title"
                 />
+                <span class="errorMessage" *ngIf="check"> Enter title </span>
               </div>
             </form>
           </div>
@@ -82,7 +98,6 @@
                   name="user.firstName"
                   [(ngModel)]="user.firstName"
                 />
-
                 <label for="lastName" class="form-label">Last name</label>
                 <input
                   type="text"
@@ -91,6 +106,9 @@
                   name="user.lastName"
                   [(ngModel)]="user.lastName"
                 />
+                <span class="errorMessage" *ngIf="check">
+                  Enter first name or last name.
+                </span>
               </div>
             </form>
           </div>
@@ -111,7 +129,7 @@
             </button>
           </div>
           <div>
-            <button class="buttonTest" (click)="saveTitle(1)">Save</button>
+            <button class="buttonTest" (click)="saveName(1)">Save</button>
           </div>
         </div>
       </div>
@@ -135,6 +153,9 @@
                   name="user.displayName"
                   [(ngModel)]="user.displayName"
                 />
+                <span class="errorMessage" *ngIf="check">
+                  Enter display name
+                </span>
               </div>
             </form>
           </div>
@@ -155,7 +176,9 @@
             </button>
           </div>
           <div>
-            <button class="buttonTest" (click)="saveTitle(2)">Save</button>
+            <button class="buttonTest" (click)="saveDisplayName(2)">
+              Save
+            </button>
           </div>
         </div>
       </div>
@@ -191,10 +214,13 @@
                   name="user.newEmail"
                   [(ngModel)]="user.newEmail"
                 />
-                <span
+                <span *ngIf="!check"
                   >We'll send a verification link to your new email address –
                   check your inbox.</span
                 >
+                <span class="errorMessage" *ngIf="check">
+                  Enter a correct email
+                </span>
               </div>
             </form>
           </div>
@@ -216,7 +242,9 @@
             </button>
           </div>
           <div>
-            <button class="buttonTest" (click)="saveTitle(3)">Save</button>
+            <button class="buttonTest" (click)="sendChangingEmailLetter(3)">
+              Save
+            </button>
           </div>
         </div>
       </div>
@@ -242,6 +270,9 @@
                   name="user.phoneNumber"
                   [(ngModel)]="user.phoneNumber"
                 />
+                <span class="errorMessage" *ngIf="check">
+                  Enter a correct phone number
+                </span>
               </div>
             </form>
           </div>
@@ -262,7 +293,9 @@
             </button>
           </div>
           <div>
-            <button class="buttonTest" (click)="saveTitle(4)">Save</button>
+            <button class="buttonTest" (click)="savePhoneNumber(4)">
+              Save
+            </button>
           </div>
         </div>
       </div>
@@ -278,29 +311,13 @@
           <div *ngIf="isEditing[5]">
             <form>
               <div class="input-with-icon">
-                <span class="input-icon">
-                  <svg
-                    aria-hidden="true"
-                    class="bk-icon -experiments-calendar sb-date-picker_icon-svg"
-                    fill="#BDBDBD"
-                    focusable="false"
-                    height="20"
-                    role="presentation"
-                    width="20"
-                    viewBox="0 0 128 128"
-                  >
-                    <path
-                      d="m112 16h-16v-8h-8v8h-48v-8h-8v8h-16c-4.4 0-8 3.9-8 8.7v86.6c0 4.8 3.6 8.7 8 8.7h96c4.4 0 8-3.9 8-8.7v-86.6c0-4.8-3.6-8.7-8-8.7zm0 95.3a1.1 1.1 0 0 1 -.2.7h-95.6a1.1 1.1 0 0 1 -.2-.7v-71.3h96zm-68-43.3h-12v-12h12zm0 28h-12v-12h12zm26-28h-12v-12h12zm0 28h-12v-12h12zm26 0h-12v-12h12zm0-28h-12v-12h12z"
-                      fill-rule="evenodd"
-                    ></path>
-                  </svg>
-                </span>
                 <input
                   (click)="t.toggle()"
-                  class="header-input pl-50"
+                  class="header-input"
                   placeholder="Check-out"
                   name="user.profile.birthDate"
                   [(ngModel)]="user.pBirthDate"
+                  [minDate]="{ year: 1950, month: 1, day: 1 }"
                   ngbDatepicker
                   #t="ngbDatepicker"
                 />
@@ -324,7 +341,7 @@
             </button>
           </div>
           <div>
-            <button class="buttonTest" (click)="saveTitle(5)">Save</button>
+            <button class="buttonTest" (click)="saveBirthDate(5)">Save</button>
           </div>
         </div>
       </div>
@@ -349,7 +366,7 @@
                 name="user.profile.nationality"
                 [(ngModel)]="user.nationality"
               >
-                <option selected>Select the country you're from</option>
+                <option value="-1" selected>Select the country you're from</option>
               </select>
             </form>
           </div>
@@ -370,7 +387,9 @@
             </button>
           </div>
           <div>
-            <button class="buttonTest" (click)="saveTitle(6)">Save</button>
+            <button class="buttonTest" (click)="saveNationality(6)">
+              Save
+            </button>
           </div>
         </div>
       </div>
@@ -394,8 +413,8 @@
                 id="gender"
                 name="user.profile.gender.title"
                 [(ngModel)]="user.genderId"
+                placeholder="Select your gender"
               >
-                <option selected>Select your gender</option>
                 <option value="1">I'm a man</option>
                 <option value="2">I'm a woman</option>
               </select>
@@ -418,7 +437,7 @@
             </button>
           </div>
           <div>
-            <button class="buttonTest" (click)="saveTitle(7)">Save</button>
+            <button class="buttonTest" (click)="saveGender(7)">Save</button>
           </div>
         </div>
       </div>
@@ -477,8 +496,13 @@
                   id="city"
                   name="user.city.title"
                   [(ngModel)]="user.city.title"
+                  placeholder="Your town or city"
                 />
-
+                <span class="errorMessage" *ngIf="check">
+                  Fill in address and city
+                </span>
+              </div>
+              <div class="mb-3">
                 <label for="zip-code" class="form-label">Zip code</label>
                 <input
                   type="text"
@@ -507,7 +531,7 @@
             </button>
           </div>
           <div>
-            <button class="buttonTest" (click)="saveTitle(8)">Save</button>
+            <button class="buttonTest" (click)="saveAddress(8)">Save</button>
           </div>
         </div>
       </div>

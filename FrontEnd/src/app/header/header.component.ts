@@ -1,12 +1,14 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../models/UserData/user.item';
+import { Router } from '@angular/router';
 
 import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
 
 import { AuthorizationService } from '../services/authorization.service';
 import { SocialAuthService } from 'angularx-social-login';
+
 
 @Component({
   selector: 'app-header',
@@ -29,6 +31,7 @@ export class HeaderComponent implements OnInit {
 
   constructor(
     config: NgbModalConfig,
+    private router: Router,
     private modalService: NgbModal,
     public authService: AuthorizationService,
     private authSocialService: SocialAuthService,
@@ -74,6 +77,8 @@ export class HeaderComponent implements OnInit {
             this.authSocialService.signOut();
             AuthHelper.clearGoogleAuth();
           }
+
+          this.router.navigate(['']);
         } else {
           alert('Logout error!');
         }

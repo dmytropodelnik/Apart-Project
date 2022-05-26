@@ -135,6 +135,11 @@ export class GendersListComponent implements OnInit {
   getGenders(): void {
     fetch('https://apartmain.azurewebsites.net/api/genders/getgenders', {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {

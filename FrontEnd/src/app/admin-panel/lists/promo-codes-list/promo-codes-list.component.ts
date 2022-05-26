@@ -139,6 +139,11 @@ export class PromoCodesListComponent implements OnInit {
   getCodes(): void {
     fetch(`https://apartmain.azurewebsites.net/api/promocodes/getcodes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {
@@ -164,6 +169,11 @@ export class PromoCodesListComponent implements OnInit {
 
     fetch(`https://apartmain.azurewebsites.net/api/promocodes/getcodes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {

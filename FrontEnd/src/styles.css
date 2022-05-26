@@ -12,7 +12,8 @@ body {
   box-sizing: border-box;
 }
 
-a, a:hover{
+a,
+a:hover {
   text-decoration: none;
 }
 
@@ -22,7 +23,6 @@ input,
 optgroup,
 select,
 textarea {
-  background-color: ;
   color: #262626;
   font-size: 14px;
   font-weight: 400;
@@ -55,53 +55,54 @@ a:active {
   align-items: center;
 }
 
-.btn-blue:hover{
+.btn-blue:hover {
   background-color: #005999;
 }
 
-.px-6{
+.px-6 {
   padding-left: 2px;
   padding-right: 2px;
 }
 
-.input-with-icon{
+.input-with-icon {
   position: relative;
 }
 
-.input-with-icon img, .input-with-icon .input-icon{
+.input-with-icon img,
+.input-with-icon .input-icon {
   position: absolute;
   top: 18px;
   left: 14px;
 }
 
-.pl-50{
+.pl-50 {
   padding-left: 50px !important;
 }
 
-.input-with-icon.icon-2 i{
+.input-with-icon.icon-2 i {
   position: absolute;
   right: 45px;
   top: 5px;
 }
 
-.input-with-icon .px-40{
+.input-with-icon .px-40 {
   padding-left: 40px !important;
   padding-right: 49px !important;
 }
 
-.fs-14{
+.fs-14 {
   font-size: 14px;
 }
 
-.fw-400{
+.fw-400 {
   font-weight: 400;
 }
 
-.fw-700{
+.fw-700 {
   font-weight: 700;
 }
 
-.lh-20{
+.lh-20 {
   line-height: 20px;
 }
 
@@ -138,8 +139,6 @@ a:active {
   border-radius: 2px;
 }
 
-
-
 /* When the checkbox is checked, add a blue background */
 .custom-checkbox input:checked ~ .checkmark {
   background-color: #ed6648;
@@ -168,4 +167,19 @@ a:active {
   -webkit-transform: rotate(45deg);
   -ms-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+.modal-fullscreen {
+  position: absolute;
+  right: 0;
+  width: 100vw;
+  max-width: 50%;
+  height: 100%;
+  margin: 0;
+}
+
+@media screen and (max-width: 676px) {
+  .modal-fullscreen {
+    max-width: 100%;
+  }
 }

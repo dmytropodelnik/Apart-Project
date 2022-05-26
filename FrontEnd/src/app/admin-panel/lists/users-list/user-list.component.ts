@@ -110,19 +110,12 @@ export class UserListComponent implements OnInit {
   }
 
   deleteUser(): void {
-    let user = {
-      id: this.checkedUser,
-      name: this.user,
-    };
-
-    fetch('https://apartmain.azurewebsites.net/api/users/deleteuser', {
+    fetch('https://apartmain.azurewebsites.net/api/users/deluser?id=' + this.checkedUser, {
       method: 'DELETE',
       headers: {
-        'Content-Type': 'application/json; charset=utf-8',
         Accept: 'application/json',
         Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
-      body: JSON.stringify(user),
     })
       .then((r) => r.json())
       .then((data) => {
@@ -142,6 +135,11 @@ export class UserListComponent implements OnInit {
   getUsers(): void {
     fetch(`https://apartmain.azurewebsites.net/api/users/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {
@@ -159,6 +157,11 @@ export class UserListComponent implements OnInit {
   getUserRoles(): void {
     fetch('https://apartmain.azurewebsites.net/api/roles/getroles', {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {
@@ -201,6 +204,11 @@ export class UserListComponent implements OnInit {
 
     fetch(`https://apartmain.azurewebsites.net/api/users/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {

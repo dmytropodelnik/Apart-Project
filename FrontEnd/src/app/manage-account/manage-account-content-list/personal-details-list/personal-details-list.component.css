@@ -99,6 +99,23 @@
   border: 1px solid #ed6648;
 }
 
+
+.errorMessage {
+  color: red;
+  margin-bottom: 10px;
+}
+
+select,
+input{
+  margin-bottom: 10px;
+}
+
+
+
+input.invalid {
+  border-color: red;
+}
+
 @media screen and (max-width: 495px) {
   .list-group-item {
     min-width: 345px;

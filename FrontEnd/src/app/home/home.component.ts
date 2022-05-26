@@ -44,9 +44,9 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   citySuggestionsLength: number[] = [];
 
-  bookingCategories: BookingCategory[] | undefined;
+  bookingCategories: BookingCategory[] = [];
   imagePath: string = '123';
-  cities: City[] | undefined;
+  cities: City[] = [];
   citySuggestions: any;
   suggestions: any;
   footerCities: string[] = [];
@@ -68,20 +68,6 @@ export class HomeComponent implements OnInit, OnDestroy {
   isGotData: boolean = false;
 
   searchViewModel: SearchViewModel = new SearchViewModel();
-
-  slides = [
-    { text: 'Educational Consulting', img: 'assets/images/21.png' },
-    { text: 'University and Higher Education', img: 'assets/images/21.png' },
-    { text: 'Migration Consulting', img: 'assets/images/21.png' },
-    { text: 'NAATI Translations', img: 'assets/images/21.png' },
-    { text: 'English Courses', img: 'assets/images/21.png' },
-    { text: 'Tax Return', img: 'assets/images/21.png' },
-    { text: 'Tax Return', img: 'assets/images/21.png' },
-    { text: 'Tax Return', img: 'assets/images/21.png' },
-    { text: 'Tax Return', img: 'assets/images/21.png' },
-    { text: 'Tax Return', img: 'assets/images/21.png' },
-    { text: 'Tax Return', img: 'assets/images/21.png' },
-  ];
 
   slideConfig = {
     slidesToShow: 6,
@@ -195,6 +181,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (r.code === 200) {
           this.suggestions = r.suggestions;
           this.bookingCategories = r.categories;
+          this.mainDataService.setBookingCategories(this.bookingCategories);
         } else {
           alert('Categories data fetching error!');
         }
@@ -213,6 +200,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (r.code === 200) {
           this.regions = r.regions;
           this.regionsSuggestions = r.regionsSuggestions;
+          this.mainDataService.setSearchingRegions(this.regions);
         } else {
           alert('Data fetching error!');
         }
@@ -234,6 +222,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         if (r.code === 200) {
           this.countriesSuggestions = r.countriesSuggestions;
           this.countries = r.countries;
+          this.mainDataService.setSearchingCountries(this.countries);
         } else {
           alert('Data fetching error!');
         }
@@ -257,6 +246,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.cities = r.cities;
           this.citySuggestionsLength = r.citySuggestionsLength;
           this.footerCities = r.footerCities;
+          this.mainDataService.setSearchingCities(this.cities);
         } else {
           alert('Data fetching error!');
         }

@@ -7,11 +7,11 @@ using System.Text;
 
 namespace CloneBookingAPI.Services.Generators
 {
-    public class SaltGenerator : BaseGenerator, IGenerator
+    public class SaltGenerator : BaseGenerator //, IGenerator
     {
         private byte[] _salt = new byte[128 / 8];
         // private readonly string _salt = "saltforpassapartproject321WE";
-        public string GenerateKeyCode(string str)
+        public string GenerateKeyCode(string str, string existedSalt = default)
         {
             try
             {
@@ -20,15 +20,22 @@ namespace CloneBookingAPI.Services.Generators
                     return null;
                 }
 
-                byte[] salt = new byte[128 / 8];
-                // generate a 128 - bit salt using a cryptographically strong random sequence of nonzero values
-                using (var rngCsp = RandomNumberGenerator.Create())
+                if (string.IsNullOrWhiteSpace(existedSalt))
                 {
-                    rngCsp.GetNonZeroBytes(salt);
-                }
-                _salt = salt;
+                    byte[] salt = new byte[128 / 8];
+                    // generate a 128 - bit salt using a cryptographically strong random sequence of nonzero values
+                    using (var rngCsp = RandomNumberGenerator.Create())
+                    {
+                        rngCsp.GetNonZeroBytes(salt);
+                    }
+                    _salt = salt;
 
-                GeneratePassHash(str, Convert.ToBase64String(_salt));
+                    GeneratePassHash(str, Convert.ToBase64String(_salt));
+                }
+                else
+                {
+                    GeneratePassHash(str, existedSalt);
+                }
 
                 return _code;
             }

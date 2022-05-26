@@ -132,6 +132,11 @@ export class RolesListComponent implements OnInit {
   getRoles(): void {
     fetch('https://apartmain.azurewebsites.net/api/roles/getroles', {
       method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
     })
       .then((r) => r.json())
       .then((data) => {

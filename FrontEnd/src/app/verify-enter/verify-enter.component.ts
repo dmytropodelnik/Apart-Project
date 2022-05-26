@@ -18,6 +18,7 @@ export class VerifyEnterComponent implements OnInit {
   isToChangeEmail: boolean = false;
   isToDeleteCode: boolean = false;
   isToDeleteUser: boolean = false;
+  isToSubscribeUser: boolean = false;
 
   repositoryEnum: RepositoryEnum = RepositoryEnum.Enter;
 
@@ -41,10 +42,12 @@ export class VerifyEnterComponent implements OnInit {
           await this.authorize();
         } else {
           alert('Enter error!');
+          this.router.navigate(['']);
         }
       })
       .catch((ex) => {
         alert(ex);
+        this.router.navigate(['']);
       });
   }
 
@@ -82,6 +85,7 @@ export class VerifyEnterComponent implements OnInit {
           }
         } else {
           alert('Token fetching error!');
+          this.router.navigate(['']);
         }
       })
       .catch((ex) => {
@@ -97,14 +101,17 @@ export class VerifyEnterComponent implements OnInit {
       .then((r) => r.json())
       .then(async (data) => {
         if (data.code === 200) {
+          this.authService.setResetPasswordCondition(true);
           this.repositoryEnum = RepositoryEnum.ResetPassword;
           await this.authorize();
         } else {
           alert('Enter error!');
+          this.router.navigate(['']);
         }
       })
       .catch((ex) => {
         alert(ex);
+        this.router.navigate(['']);
       });
   }
 
@@ -131,9 +138,11 @@ export class VerifyEnterComponent implements OnInit {
         } else {
           alert('Save email error!');
         }
+        this.router.navigate(['']);
       })
       .catch((ex) => {
         alert(ex);
+        this.router.navigate(['']);
       });
   }
 
@@ -151,18 +160,19 @@ export class VerifyEnterComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           alert("Your account has been successfully deleted!");
-          this.router.navigate(['']);
         } else {
           alert('Delete user error!');
         }
+        this.router.navigate(['']);
       })
       .catch((ex) => {
         alert(ex);
+        this.router.navigate(['']);
       });
   }
 
   deleteUser(): void {
-    fetch(`https://apartmain.azurewebsites.net/api/codes/verifyuserdeletion?email=${this.email}&code=${this.code}&confidant=true`, {
+    fetch(`https://apartmain.azurewebsites.net/api/codes/verifyuserdeletion?email=${this.email}&code=${this.code}`, {
         method: 'GET',
       }
     )
@@ -172,10 +182,12 @@ export class VerifyEnterComponent implements OnInit {
           this.deleteUserEventually();
         } else {
           alert('Verify user deletion error!');
+          this.router.navigate(['']);
         }
       })
       .catch((ex) => {
         alert(ex);
+        this.router.navigate(['']);
       });
   }
 
@@ -193,16 +205,71 @@ export class VerifyEnterComponent implements OnInit {
           await this.authorize();
         } else {
           alert('Verify email changing error!');
+          this.router.navigate(['']);
         }
       })
       .catch((ex) => {
         alert(ex);
+        this.router.navigate(['']);
+      });
+  }
+
+  subscribeUser(): void {
+    fetch(
+      `https://localhost:44381/api/codes/verifyusersubscription?email=${this.email}&code=${this.code}`, {
+        method: 'GET',
+      }
+    )
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.addUserSubscription();
+        } else {
+          alert('Verifying email to subscribe to our news error!');
+          this.router.navigate(['']);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+        this.router.navigate(['']);
+      });
+  }
+
+  addUserSubscription(): void {
+    fetch(
+      'https://localhost:44381/api/deals/addsubscriber?email=' +
+        this.email,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+      .then((r) => r.json())
+      .then((r) => {
+        if (r.code === 200) {
+          alert('You have successfully subscribed to our new deals!');
+        } else {
+          alert('Add deals subscriber error!');
+        }
+        this.router.navigate(['']);
+      })
+      .catch((err) => {
+        alert(err);
       });
   }
 
   async ngOnInit(): Promise<void> {
     // Note: Below 'queryParams' can be replaced with 'params' depending on your requirements
     this.activatedRoute.queryParams.subscribe(async (params: any) => {
+      if (!params['email'] || !params['code']) {
+        this.router.navigate(['']);
+        return;
+      }
+
       this.email = params['email'];
       this.oldEmail = params['oldEmail'];
       this.code = params['code'];
@@ -210,6 +277,7 @@ export class VerifyEnterComponent implements OnInit {
       this.isToChangeEmail = params['changeEmail'];
       this.isToDeleteCode = params['isToDeleteCode'];
       this.isToDeleteUser = params['isToDeleteUser'];
+      this.isToSubscribeUser = params['subscribeNews'];
 
       if (this.isToChangeEmail) {
         this.repositoryEnum = RepositoryEnum.ChangingEmail;
@@ -220,6 +288,9 @@ export class VerifyEnterComponent implements OnInit {
       } else if (this.isToDeleteUser) {
         this.repositoryEnum = RepositoryEnum.UserDeletion;
         this.deleteUser();
+      } else if (this.isToSubscribeUser) {
+        this.repositoryEnum = RepositoryEnum.UserSubscription;
+        this.subscribeUser();
       } else {
         await this.verifyEnterUser();
       }
