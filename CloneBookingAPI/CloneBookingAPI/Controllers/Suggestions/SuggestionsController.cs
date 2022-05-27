@@ -119,13 +119,23 @@ namespace CloneBookingAPI.Controllers.Suggestions
                             s.UniqueCode,
                             s.Name,
                             s.Description,
-                            country = s.Address.Country.Title,
-                            city = s.Address.City.Title,
-                            region = s.Address.Region.Title,
-                            address = s.Address.AddressText,
-                            starsRating = new short[s.StarsRating],
-                            reviews = s.Reviews.Count,
-                            images = s.Images.Select(i => new { i.Path, i.Name }),
+                            Country = s.Address.Country.Title,
+                            City = s.Address.City.Title,
+                            Region = s.Address.Region.Title,
+                            Address = s.Address.AddressText,
+                            StarsRating = new short[s.StarsRating],
+                            ReviewsAmount = s.Reviews.Count,
+                            Reviews = s.Reviews
+                                .Select(r => new
+                                {
+                                    r.Id,
+                                    Grades = r.Grades
+                                        .Select(g => new
+                                        {
+                                            g.Value,
+                                        }),
+                                }),
+                            Images = s.Images.Select(i => new { i.Path, i.Name }),
                         })
                     .FirstOrDefaultAsync(s => s.UniqueCode.Equals(code));
                 if (suggestion is null)
@@ -149,19 +159,21 @@ namespace CloneBookingAPI.Controllers.Suggestions
                             .Any(s => s.Id == suggestion.Id)))
                     .ToListAsync();
 
-                int reviewsAmount = suggestion.reviews;
-
+                int reviewsAmount = suggestion.ReviewsAmount;
                 int savedAmount = await _context.Favorites
                     .Include(f => f.Suggestions)
                     .Where(f => f.Suggestions
                         .All(s => s.Id == suggestion.Id))
                     .CountAsync();
 
+                double grade = suggestion.Reviews.Average(r => r.Grades.Average(g => g.Value));
+
                 return Json(new { 
                     code = STATUS_200, 
                     suggestion,
                     reviewsAmount,
                     savedAmount,
+                    grade,
                     facilities = facilities
                         .Select(t => new
                         {

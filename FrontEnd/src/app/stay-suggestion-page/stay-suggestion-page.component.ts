@@ -22,6 +22,8 @@ import { SuggestionRuleType } from '../models/Suggestions/suggestionruletype.ite
 export class StaySuggestionPageComponent implements OnInit {
   uniqueCode: number | undefined;
 
+  mathHelper: any = MathHelper;
+
   filters: SearchViewModel = new SearchViewModel();
   filterChecks: FilterViewModel[] = [];
 
@@ -40,7 +42,10 @@ export class StaySuggestionPageComponent implements OnInit {
   monthOut: number | null = null;
   dayOut: number | null = null;
 
+  reviewsAmount: number = 0;
   reviewsPage: number = 0;
+
+  grade: number = 0;
 
   constructor(
     private activatedRouter: ActivatedRoute,
@@ -72,7 +77,9 @@ export class StaySuggestionPageComponent implements OnInit {
           this.suggestion.reviewsAmount = response.reviewsAmount;
           this.facilityTypes = response.facilities;
           this.ruleTypes = response.rules
-          alert(this.suggestion.id);
+          this.reviewsAmount = response.reviewsAmount;
+          this.grade = response.grade;
+          //alert(this.suggestion.id);
         } else {
           alert('Suggestion fetching error!');
         }
