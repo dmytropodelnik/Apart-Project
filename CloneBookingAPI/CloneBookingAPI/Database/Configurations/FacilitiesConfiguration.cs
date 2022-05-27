@@ -58,6 +58,13 @@ namespace CloneBookingAPI.Services.Database.Configurations
                 new Facility { Id = 45, Text = "Facilities for disabled guests", FacilityTypeId = 15, ImageId = 1 },
                 new Facility { Id = 46, Text = "Non-smoking rooms", FacilityTypeId = 15, ImageId = 1 },
                 new Facility { Id = 47, Text = "Room service", FacilityTypeId = 15, ImageId = 1 },
+                new Facility { Id = 48, Text = "Free WiFi", FacilityTypeId = 15, ImageId = 1 },
+                new Facility { Id = 49, Text = "Parking", FacilityTypeId = 1, ImageId = 1 },
+                new Facility { Id = 50, Text = "Family rooms", FacilityTypeId = 1, ImageId = 1 },
+                new Facility { Id = 51, Text = "Non-smoking rooms", FacilityTypeId = 1, ImageId = 1 },
+                new Facility { Id = 52, Text = "Fitness centre", FacilityTypeId = 1, ImageId = 1 },
+                new Facility { Id = 53, Text = "Pets allowed", FacilityTypeId = 1, ImageId = 1 },
+                new Facility { Id = 54, Text = "Bar", FacilityTypeId = 1, ImageId = 1 },
               });
         }
     }

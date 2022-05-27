@@ -11,6 +11,8 @@ import { FilterViewModel } from '../view-models/filterviewmodel.item';
 import { SearchViewModel } from '../view-models/searchviewmodel.item';
 import { Suggestion } from '../models/Suggestions/suggestion.item';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FacilityType } from '../models/facilitytype.item';
+import { SuggestionRuleType } from '../models/Suggestions/suggestionruletype.item';
 
 @Component({
   selector: 'app-stay-suggestion-page',
@@ -24,6 +26,8 @@ export class StaySuggestionPageComponent implements OnInit {
   filterChecks: FilterViewModel[] = [];
 
   suggestion: Suggestion = new Suggestion();
+  facilityTypes: FacilityType[] = [];
+  ruleTypes: SuggestionRuleType[] = [];
 
   searchBookingCategory: string = '';
   searchPlace: string = '';
@@ -66,6 +70,9 @@ export class StaySuggestionPageComponent implements OnInit {
         if (response.code === 200) {
           this.suggestion = response.suggestion;
           this.suggestion.reviewsAmount = response.reviewsAmount;
+          this.facilityTypes = response.facilities;
+          this.ruleTypes = response.rules
+          alert(this.suggestion.id);
         } else {
           alert('Suggestion fetching error!');
         }

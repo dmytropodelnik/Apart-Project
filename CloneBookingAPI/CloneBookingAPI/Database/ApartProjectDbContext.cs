@@ -172,7 +172,7 @@ namespace CloneBookingAPI.Services.Database
                         .HasForeignKey(pt => pt.FacilityId),
                     j => j
                         .HasOne(pt => pt.Suggestion)
-                        .WithMany(p => p.SuggestionsFacilities)
+                        .WithMany(f => f.SuggestionsFacilities)
                         .HasForeignKey(pt => pt.SuggestionId),
                     j =>
                     {
@@ -189,7 +189,7 @@ namespace CloneBookingAPI.Services.Database
                         .HasForeignKey(pt => pt.SuggestionRuleId),
                     j => j
                         .HasOne(pt => pt.Suggestion)
-                        .WithMany(p => p.SuggestionsSuggestionRules)
+                        .WithMany(f => f.SuggestionsSuggestionRules)
                         .HasForeignKey(pt => pt.SuggestionId),
                     j =>
                     {

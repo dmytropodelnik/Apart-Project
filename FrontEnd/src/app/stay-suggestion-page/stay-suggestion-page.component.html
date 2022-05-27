@@ -117,115 +117,23 @@
       <div class="facilities-main">
         <h2>Facilities</h2>
         <div class="facilities-container">
-          <div class="facilities-item"
-               *ngFor="let facility of suggestion.facilities let i = index">
-            <span class="font-weight-bold">Front Desk Services</span>
-            <span>Invoice provided</span>
-            <span>Private check-in/out</span>
-            <span>Concierge</span>
-            <span>Baggage storage</span>
-            <span>24-hour front desk</span>
+          <div *ngFor="let type of facilityTypes let i = index" class="facilities-item">
+            <span class="font-weight-bold">{{type.type}}</span>
+            <span *ngFor="let facility of type.facilities let j = index">
+              <svg class="bk-icon -streamline-checkmark" height="14" width="14" viewBox="0 0 128 128" role="presentation" aria-hidden="true" focusable="false"><path d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"></path></svg>
+              <span>{{facility.text}}</span>
+            </span>
           </div>
         </div>
       </div>
       <div class="housingRules-main">
         <h2>House rules</h2>
         <div class="housingRules-container">
-          <div class="housingRules-item">
-            <span class="font-weight-bold">Front Desk Services</span>
-            <span>Invoice provided</span>
-            <span>Private check-in/out</span>
-            <span>Concierge</span>
-            <span>Baggage storage</span>
-            <span>24-hour front desk</span>
-          </div>
-          <div class="housingRules-item">
-            <span class="font-weight-bold">Front Desk Services</span>
-            <span>Invoice provided</span>
-            <span>Private check-in/out</span>
-            <span>Concierge</span>
-            <span>Baggage storage</span>
-            <span>24-hour front desk</span>
-          </div>
-          <div class="housingRules-item">
-            <span class="font-weight-bold">Front Desk Services</span>
-            <span>Invoice provided</span>
-            <span>Private check-in/out</span>
-            <span>Concierge</span>
-            <span>Baggage storage</span>
-            <span>24-hour front desk</span>
-          </div>
-          <div class="housingRules-item">
-            <span class="font-weight-bold">Front Desk Services</span>
-            <span>Invoice provided</span>
-            <span>Private check-in/out</span>
-            <span>Concierge</span>
-            <span>Baggage storage</span>
-            <span>24-hour front desk</span>
-          </div>
-          <div class="housingRules-item">
-            <span class="font-weight-bold">Front Desk Services</span>
-            <span>Invoice provided</span>
-            <span>Private check-in/out</span>
-            <span>Concierge</span>
-            <span>Baggage storage</span>
-            <span>24-hour front desk</span>
-          </div>
-          <div class="housingRules-item">
-            <span class="font-weight-bold">Front Desk Services</span>
-            <span>Invoice provided</span>
-            <span>Private check-in/out</span>
-            <span>Concierge</span>
-            <span>Baggage storage</span>
-            <span>24-hour front desk</span>
-          </div>
-          <div class="housingRules-item">
-            <span class="font-weight-bold">Front Desk Services</span>
-            <span>Invoice provided</span>
-            <span>Private check-in/out</span>
-            <span>Concierge</span>
-            <span>Baggage storage</span>
-            <span>24-hour front desk</span>
-          </div>
-          <div class="housingRules-item">
-            <span class="font-weight-bold">Front Desk Services</span>
-            <span>Invoice provided</span>
-            <span>Private check-in/out</span>
-            <span>Concierge</span>
-            <span>Baggage storage</span>
-            <span>24-hour front desk</span>
-          </div>
-          <div class="housingRules-item">
-            <span class="font-weight-bold">Front Desk Services</span>
-            <span>Invoice provided</span>
-            <span>Private check-in/out</span>
-            <span>Concierge</span>
-            <span>Baggage storage</span>
-            <span>24-hour front desk</span>
-          </div>
-          <div class="housingRules-item">
-            <span class="font-weight-bold">Front Desk Services</span>
-            <span>Invoice provided</span>
-            <span>Private check-in/out</span>
-            <span>Concierge</span>
-            <span>Baggage storage</span>
-            <span>24-hour front desk</span>
-          </div>
-          <div class="housingRules-item">
-            <span class="font-weight-bold">Front Desk Services</span>
-            <span>Invoice provided</span>
-            <span>Private check-in/out</span>
-            <span>Concierge</span>
-            <span>Baggage storage</span>
-            <span>24-hour front desk</span>
-          </div>
-          <div class="housingRules-item">
-            <span class="font-weight-bold">Front Desk Services</span>
-            <span>Invoice provided</span>
-            <span>Private check-in/out</span>
-            <span>Concierge</span>
-            <span>Baggage storage</span>
-            <span>24-hour front desk</span>
+          <div *ngFor="let type of ruleTypes let i = index" class="housingRules-item">
+            <span class="font-weight-bold">{{type.type}}</span>
+            <span *ngFor="let rule of type.suggestionRules let j = index">
+              <span>{{rule.text}}</span>
+            </span>
           </div>
         </div>
       </div>

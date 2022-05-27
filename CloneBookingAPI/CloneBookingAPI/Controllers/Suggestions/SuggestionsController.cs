@@ -114,8 +114,19 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     .Include(s => s.Images)
                     .Include(s => s.Reviews)
                         .ThenInclude(r => r.Grades)
-                    .Include(s => s.SuggestionRules)
-                        .ThenInclude(r => r.SuggestionRuleType)
+                     .Select(s => new {
+                            s.Id,
+                            s.UniqueCode,
+                            s.Name,
+                            s.Description,
+                            country = s.Address.Country.Title,
+                            city = s.Address.City.Title,
+                            region = s.Address.Region.Title,
+                            address = s.Address.AddressText,
+                            starsRating = new short[s.StarsRating],
+                            reviews = s.Reviews.Count,
+                            images = s.Images.Select(i => new { i.Path, i.Name }),
+                        })
                     .FirstOrDefaultAsync(s => s.UniqueCode.Equals(code));
                 if (suggestion is null)
                 {
@@ -125,12 +136,20 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 var facilities = await _context.FacilityTypes
                     .Include(t => t.Facilities)
                         .ThenInclude(f => f.Suggestions)
-                    .Where(t => t.Facilities
+                    .Where(t => t.Facilities.Any() && t.Facilities
                         .All(f => f.Suggestions
-                            .All(s => s.Id == suggestion.Id)))
+                            .Any(s => s.Id == suggestion.Id)))
                     .ToListAsync();
 
-                int reviewsAmount = suggestion.Reviews.Count;
+                var rules = await _context.SuggestionRuleTypes
+                    .Include(t => t.SuggestionRules)
+                        .ThenInclude(f => f.Suggestions)
+                    .Where(t => t.SuggestionRules.Any() && t.SuggestionRules
+                        .All(f => f.Suggestions
+                            .Any(s => s.Id == suggestion.Id)))
+                    .ToListAsync();
+
+                int reviewsAmount = suggestion.reviews;
 
                 int savedAmount = await _context.Favorites
                     .Include(f => f.Suggestions)
@@ -143,6 +162,30 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     suggestion,
                     reviewsAmount,
                     savedAmount,
+                    facilities = facilities
+                        .Select(t => new
+                        {
+                            t.Id,
+                            t.Type,
+                            facilities = t.Facilities
+                                .Select(f => new
+                                {
+                                    f.Id,
+                                    f.Text,
+                                }),
+                        }),
+                    rules = rules
+                        .Select(t => new
+                        {
+                            t.Id,
+                            t.Type,
+                            suggestionRules = t.SuggestionRules
+                                .Select(r => new
+                                {
+                                    r.Id,
+                                    r.Text,
+                                }),
+                        }),
                 });
             }
             catch (ArgumentNullException ex)
