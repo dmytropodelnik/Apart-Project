@@ -71,7 +71,11 @@
                 <img src="../../assets/images/10.jpg" />
               </div>
               <div>
-                <img src="../../assets/images/10.jpg" />
+                <div>
+                  <img width="600px" height="350px" src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
+                  suggestion.images[0].name
+                }}" />
+              </div>
               </div>
             </div>
             <div class="">
@@ -85,6 +89,9 @@
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        <p>{{suggestion.description}}</p>
       </div>
       <div class="facilities-main">
         <h2>Facilities</h2>
@@ -300,7 +307,7 @@
         </div>
       </div>
     </div>
-    <div class="load-more-review-cards">
+    <div *ngIf="reviewsAmount > 10" class="load-more-review-cards">
       <div class="d-grid gap-2 col-6 mx-auto">
         <button class="btn btn-outline-primary" type="button">Load more</button>
       </div>

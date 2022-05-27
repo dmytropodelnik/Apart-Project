@@ -23,6 +23,7 @@ export class StaySuggestionPageComponent implements OnInit {
   uniqueCode: number | undefined;
 
   mathHelper: any = MathHelper;
+  imageHelper: any = ImageHelper;
 
   filters: SearchViewModel = new SearchViewModel();
   filterChecks: FilterViewModel[] = [];
