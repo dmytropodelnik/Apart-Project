@@ -27,7 +27,7 @@ export class StaySuggestionPageComponent implements OnInit {
   filters: SearchViewModel = new SearchViewModel();
   filterChecks: FilterViewModel[] = [];
 
-  suggestion: Suggestion = new Suggestion();
+  suggestion: any;
   facilityTypes: FacilityType[] = [];
   ruleTypes: SuggestionRuleType[] = [];
 
