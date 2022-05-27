@@ -109,8 +109,6 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     .Include(s => s.Beds)
                     .Include(s => s.BookingCategory)
                         .ThenInclude(c => c.BookingCategoryType)
-                    .Include(s => s.Facilities)
-                        .ThenInclude(f => f.FacilityType)
                     .Include(s => s.Highlights)
                     .Include(s => s.Languages)
                     .Include(s => s.Images)
@@ -123,6 +121,14 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 {
                     return Json(new { code = STATUS_400 });
                 }
+
+                var facilities = await _context.FacilityTypes
+                    .Include(t => t.Facilities)
+                        .ThenInclude(f => f.Suggestions)
+                    .Where(t => t.Facilities
+                        .All(f => f.Suggestions
+                            .All(s => s.Id == suggestion.Id)))
+                    .ToListAsync();
 
                 int reviewsAmount = suggestion.Reviews.Count;
 

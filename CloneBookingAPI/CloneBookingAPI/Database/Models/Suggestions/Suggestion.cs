@@ -72,5 +72,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public List<Message> Messages { get; set; } = new();
 
         public List<SuggestionFileModel> SuggestionsFileModels { get; set; } = new();
+        public List<SuggestionFacility> SuggestionsFacilities { get; set; } = new();
+        public List<SuggestionSuggestionRule> SuggestionsSuggestionRules { get; set; } = new();
     }
 }

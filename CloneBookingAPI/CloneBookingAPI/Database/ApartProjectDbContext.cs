@@ -162,6 +162,40 @@ namespace CloneBookingAPI.Services.Database
                         j.HasKey(t => new { t.ApartmentId, t.BookedPeriodId });
                     });
 
+            modelBuilder.Entity<Suggestion>()
+                .HasMany(s => s.Facilities)
+                .WithMany(f => f.Suggestions)
+                .UsingEntity<SuggestionFacility>(
+                    j => j
+                        .HasOne(sf => sf.Facility)
+                        .WithMany(s => s.SuggestionsFacilities)
+                        .HasForeignKey(pt => pt.FacilityId),
+                    j => j
+                        .HasOne(pt => pt.Suggestion)
+                        .WithMany(p => p.SuggestionsFacilities)
+                        .HasForeignKey(pt => pt.SuggestionId),
+                    j =>
+                    {
+                        j.HasKey(t => new { t.SuggestionId, t.FacilityId });
+                    });
+
+            modelBuilder.Entity<Suggestion>()
+                .HasMany(s => s.SuggestionRules)
+                .WithMany(f => f.Suggestions)
+                .UsingEntity<SuggestionSuggestionRule>(
+                    j => j
+                        .HasOne(sf => sf.SuggestionRule)
+                        .WithMany(s => s.SuggestionsSuggestionRules)
+                        .HasForeignKey(pt => pt.SuggestionRuleId),
+                    j => j
+                        .HasOne(pt => pt.Suggestion)
+                        .WithMany(p => p.SuggestionsSuggestionRules)
+                        .HasForeignKey(pt => pt.SuggestionId),
+                    j =>
+                    {
+                        j.HasKey(t => new { t.SuggestionId, t.SuggestionRuleId });
+                    });
+
             modelBuilder.ApplyConfiguration(new FlightClassTypesConfiguration());
             modelBuilder.ApplyConfiguration(new AddressesConfiguration());
             modelBuilder.ApplyConfiguration(new AirportsConfiguration());
@@ -216,12 +250,14 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new ContactDetailsConfiguration());
             modelBuilder.ApplyConfiguration(new BookedPeriodsConfiguration());
             modelBuilder.ApplyConfiguration(new ApartmentsConfiguration());
-            modelBuilder.ApplyConfiguration(new ApartmentRoomTypesConfiguration());
-            modelBuilder.ApplyConfiguration(new ApartmentBookedPeriodConfiguration());
+            modelBuilder.ApplyConfiguration(new ApartmentsRoomTypesConfiguration());
+            modelBuilder.ApplyConfiguration(new ApartmentsBookedPeriodsConfiguration());
             modelBuilder.ApplyConfiguration(new SuggestionsFileModelsConfiguration());
             modelBuilder.ApplyConfiguration(new BookingCategoryTypesConfiguration());
             modelBuilder.ApplyConfiguration(new SuggestionStatusesConfiguration());
             modelBuilder.ApplyConfiguration(new MailLettersConfiguration());
+            modelBuilder.ApplyConfiguration(new SuggestionsFacilitiesConfiguration());
+            modelBuilder.ApplyConfiguration(new SuggestionsSuggestionRulesConfiguration());
         }
     }
 }

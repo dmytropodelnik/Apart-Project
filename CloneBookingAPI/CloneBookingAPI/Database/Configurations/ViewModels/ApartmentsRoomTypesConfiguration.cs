@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CloneBookingAPI.Database.Configurations.ViewModels
 {
-    public class ApartmentRoomTypesConfiguration : IEntityTypeConfiguration<ApartmentRoomType>
+    public class ApartmentsRoomTypesConfiguration : IEntityTypeConfiguration<ApartmentRoomType>
     {
         public void Configure(EntityTypeBuilder<ApartmentRoomType> builder)
         {
