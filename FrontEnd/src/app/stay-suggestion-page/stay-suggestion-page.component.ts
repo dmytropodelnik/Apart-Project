@@ -14,6 +14,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FacilityType } from '../models/facilitytype.item';
 import { SuggestionRuleType } from '../models/Suggestions/suggestionruletype.item';
 import { Review } from '../models/Review/review.item';
+import { ReviewCategory } from '../models/Review/reviewcategory.item';
 
 @Component({
   selector: 'app-stay-suggestion-page',
@@ -32,7 +33,6 @@ export class StaySuggestionPageComponent implements OnInit {
   suggestion: any;
   facilityTypes: FacilityType[] = [];
   ruleTypes: SuggestionRuleType[] = [];
-  reviews: Review[] = [];
 
   searchBookingCategory: string = '';
   searchPlace: string = '';
@@ -47,6 +47,10 @@ export class StaySuggestionPageComponent implements OnInit {
 
   reviewsAmount: number = 0;
   reviewsPage: number = 0;
+  reviews: any;
+  reviewGrades: number[] = [];
+  reviewCategories: ReviewCategory[] = [];
+  categoryGrades: number[] = [];
 
   grade: number = 0;
 
@@ -177,7 +181,11 @@ export class StaySuggestionPageComponent implements OnInit {
           for (let i = 0; i < response.reviews.length; i++) {
             this.reviews.push(response.reviews[i]);
           }
+          this.reviewCategories = response.reviewCategories;
+          this.categoryGrades = response.categoryGrades;
           console.log(this.suggestion.reviews);
+          console.log(this.reviewCategories);
+          console.log(this.categoryGrades);
         } else {
           alert('Suggestion reviews fetching error!');
         }

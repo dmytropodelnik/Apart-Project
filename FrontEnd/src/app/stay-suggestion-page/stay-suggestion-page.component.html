@@ -184,63 +184,9 @@
             </div>
           </div>
         </div>
-        <div class="categories-item">
-          <span>Facilities</span>
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 83%" aria-valuenow="50" aria-valuemin="0"
-              aria-valuemax="100">
-              8.3
-            </div>
-          </div>
-        </div>
-        <div class="categories-item">
-          <span>Cleanliness</span>
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 95%" aria-valuenow="50" aria-valuemin="0"
-              aria-valuemax="100">
-              9.5
-            </div>
-          </div>
-        </div>
-        <div class="categories-item">
-          <span>Comfort</span>
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 87%" aria-valuenow="50" aria-valuemin="0"
-              aria-valuemax="100">
-              8.7
-            </div>
-          </div>
-        </div>
-        <div class="categories-item">
-          <span>Atmosphere</span>
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="50" aria-valuemin="0"
-              aria-valuemax="100">
-              8.0
-            </div>
-          </div>
-        </div>
-        <div class="categories-item">
-          <span> Location</span>
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 97%" aria-valuenow="50" aria-valuemin="0"
-              aria-valuemax="100">
-              9.7
-            </div>
-          </div>
-        </div>
-        <div class="categories-item">
-          <span>Free WiFi</span>
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 73%" aria-valuenow="50" aria-valuemin="0"
-              aria-valuemax="100">
-              7.3
-            </div>
-          </div>
-        </div>
       </div>
     </div>
-    <div class="review-card">
+    <div *ngFor="let review of reviews; let i = index" class="review-card">
       <div class="review-card-left">
         <div>
           <div class="review-card-left-avatar-block">
@@ -248,10 +194,10 @@
               <img src="../../assets/images/10.jpg" />
             </div>
             <div class="review-card-avatar-block-text">
-              <span class="font-weight-bold">Jose</span>
+              <span class="font-weight-bold">{{review.author}}</span>
               <span class="text-block-subtitles">
                 <span class="avatar-block-flag"><img src="../../assets/flag/flag-10.png" /></span>
-                <span>Spain</span>
+                <span>{{review.country}}</span>
               </span>
             </div>
           </div>
@@ -270,22 +216,19 @@
         <div>
           <div class="review-card-right-main-item">
             <div class="review-card-right-main-item-info">
-              <span>Reviewed: May 23, 2022</span>
+              <span>Reviewed: {{review.reviewDate}}</span>
               <span class="font-weight-bold">
-                Great hotel with very nice staff and location
+                {{review.message.title}}
               </span>
             </div>
-            <div class="bui-review-score__badge">9.0</div>
+            <div class="bui-review-score__badge">{{reviewGrades[i]}}</div>
           </div>
         </div>
         <div>
-          <span>· Staff was very helpful. Installations and rooms are clean, tidy
-            and very well maintained. Area is very nice and quiet. The location
-            is very good, 10 minutes to center by tram or by a nice walk</span>
+          <span>{{review.message.positiveMessage}}</span>
         </div>
         <div>
-          <span>· Pillows could be more comfortable. For us were a little big and
-            hard.</span>
+          <span>{{review.message.negativeMessage}}</span>
         </div>
         <div class="like-reviews">
           <span><svg class="bk-icon -iconset-thumbs_up" fill="#0071C2" height="14" width="14" viewBox="0 0 128 128"

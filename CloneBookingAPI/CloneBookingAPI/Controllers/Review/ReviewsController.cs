@@ -138,11 +138,24 @@ namespace CloneBookingAPI.Controllers.Review
                         .ThenInclude(u => u.Profile)
                             .ThenInclude(p => p.Address)
                                 .ThenInclude(a => a.Country)
+                    .Include(r => r.User.Profile.Image)
                     .Include(r => r.ReviewMessage)
                     .Include(r => r.Reactions)
                     .Include(r => r.Grades)
                         .ThenInclude(g => g.ReviewCategory)
                     .Where(r => r.SuggestionId == id)
+                    .Select(r => new
+                    {
+                        r.Id,
+                        Author = r.User.FirstName,
+                        Country = r.User.Profile.Address.Country.Title,
+                        CountryImage = r.User.Profile.Address.Country.Image,
+                        AuthorImage = r.User.Profile.Image,
+                        ReviewDate = r.ReviewedDate.ToShortDateString(),
+                        PositiveMessage = r.ReviewMessage.PositiveText,
+                        NegativeMessage = r.ReviewMessage.NegativeText,
+                        r.Grades,
+                    })
                     .ToListAsync();
                 if (reviews is null)
                 {
@@ -155,6 +168,7 @@ namespace CloneBookingAPI.Controllers.Review
                     return Json(new { code = 400, message = "Review's categories are not found." });
                 }
 
+                List<double> reviewGrades = new();
                 List<List<ReviewTuple>> grades = new()
                 {
                     Capacity = reviewCategories.Count,
@@ -169,6 +183,7 @@ namespace CloneBookingAPI.Controllers.Review
                         }
                         grades[j].Add(new ReviewTuple(reviewCategories[j].Id, reviews[i].Grades[j].Value));
                     }
+                    reviewGrades.Add(reviews[i].Grades.Average(g => g.Value));
                 }
 
                 List<ReviewTuple> categoryGrades = new()
@@ -193,6 +208,7 @@ namespace CloneBookingAPI.Controllers.Review
                 {
                     code = 200,
                     reviews,
+                    reviewGrades,
                     reviewCategories,
                     categoryGrades,
                 });
@@ -230,7 +246,8 @@ namespace CloneBookingAPI.Controllers.Review
                     review.SuggestionId < 1      ||
                     string.IsNullOrWhiteSpace(review.UserEmail)          ||
                     string.IsNullOrWhiteSpace(review.ReviewMessage.Title) ||
-                    string.IsNullOrWhiteSpace(review.ReviewMessage.Text))
+                    string.IsNullOrWhiteSpace(review.ReviewMessage.PositiveText) ||
+                    string.IsNullOrWhiteSpace(review.ReviewMessage.NegativeText))
                 {
                     return Json(new { code = 400, message = "Review data is null." });
                 }
@@ -255,7 +272,8 @@ namespace CloneBookingAPI.Controllers.Review
 
                 ReviewMessage newReviewMessage = new();
                 newReviewMessage.Title = review.ReviewMessage.Title;
-                newReviewMessage.Text = review.ReviewMessage.Text;
+                newReviewMessage.PositiveText = review.ReviewMessage.PositiveText;
+                newReviewMessage.NegativeText = review.ReviewMessage.NegativeText;
 
                 newReview.ReviewMessage = newReviewMessage;
                 newReview.UserId = resUser.Id;
@@ -303,7 +321,8 @@ namespace CloneBookingAPI.Controllers.Review
             {
                 if (message is null ||
                     string.IsNullOrWhiteSpace(message.Title) ||
-                    string.IsNullOrWhiteSpace(message.Text))
+                    string.IsNullOrWhiteSpace(message.PositiveText) ||
+                    string.IsNullOrWhiteSpace(message.NegativeText))
                 {
                     return Json(new { code = 400, message = "Review data is null." });
                 }
@@ -321,7 +340,8 @@ namespace CloneBookingAPI.Controllers.Review
                 }
 
                 resReviewMessage.Title = message.Title;
-                resReviewMessage.Text = message.Text;
+                resReviewMessage.PositiveText = message.PositiveText;
+                resReviewMessage.NegativeText = message.NegativeText;
 
                 resReview.ReviewedDate = DateTime.UtcNow;
 

@@ -80,62 +80,13 @@ namespace CloneBookingAPI.Controllers.Review
                 }
 
                 ReviewMessage newMessage = new();
-                newMessage.Text = message.Text;
+                newMessage.PositiveText = message.PositiveText;
+                newMessage.NegativeText = message.NegativeText;
                 _context.ReviewMessages.Add(newMessage);
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });
 
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (DbUpdateException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (OperationCanceledException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-        }
-
-        [TypeFilter(typeof(AuthorizationFilter))]
-        [Route("changereviewbyname")]
-        [HttpPut]
-        public async Task<IActionResult> ChangeReviewByName([FromBody] ReviewMessage message)
-        {
-            try
-            {
-                if (message is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                var resMessage = await _context.ReviewMessages.FirstOrDefaultAsync(m => m.Text == message.Text);
-                if (resMessage is null)
-                {
-                    return Json(new { code = 400 });
-                }
-                resMessage.Text = message.Text;
-
-                _context.ReviewMessages.Update(resMessage);
-                await _context.SaveChangesAsync();
-
-                return Json(new { code = 200 });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -180,7 +131,8 @@ namespace CloneBookingAPI.Controllers.Review
                 {
                     return Json(new { code = 400 });
                 }
-                resMessage.Text = message.Text;
+                resMessage.PositiveText = message.PositiveText;
+                resMessage.NegativeText = message.NegativeText;
 
                 _context.ReviewMessages.Update(resMessage);
                 await _context.SaveChangesAsync();
