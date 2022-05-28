@@ -131,6 +131,14 @@ namespace CloneBookingAPI.Database.Configurations.ViewModels
                   new SuggestionFileModel { Id = 118, ImageId = 26, SuggestionId = 118, },
                   new SuggestionFileModel { Id = 119, ImageId = 27, SuggestionId = 119, },
                   new SuggestionFileModel { Id = 120, ImageId = 28, SuggestionId = 120, },
+
+                  new SuggestionFileModel { Id = 121, ImageId = 25, SuggestionId = 15, },
+                  new SuggestionFileModel { Id = 122, ImageId = 21, SuggestionId = 15, },
+                  new SuggestionFileModel { Id = 123, ImageId = 27, SuggestionId = 15, },
+                  new SuggestionFileModel { Id = 124, ImageId = 24, SuggestionId = 15, },
+                  new SuggestionFileModel { Id = 125, ImageId = 22, SuggestionId = 15, },
+                  new SuggestionFileModel { Id = 126, ImageId = 23, SuggestionId = 15, },
+                  new SuggestionFileModel { Id = 127, ImageId = 26, SuggestionId = 15, },
               });
         }
     }
