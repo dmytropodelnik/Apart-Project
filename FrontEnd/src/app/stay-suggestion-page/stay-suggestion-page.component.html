@@ -240,7 +240,6 @@
         </div>
       </div>
     </div>
-
     <div class="review-card">
       <div class="review-card-left">
         <div>
@@ -309,7 +308,7 @@
     </div>
     <div *ngIf="reviewsAmount > 10" class="load-more-review-cards">
       <div class="d-grid gap-2 col-6 mx-auto">
-        <button class="btn btn-outline-primary" type="button">Load more</button>
+        <button class="btn btn-outline-primary" type="button" (click)="loadMoreReviews()">Load more</button>
       </div>
     </div>
   </div>

@@ -155,22 +155,32 @@ namespace CloneBookingAPI.Controllers.Review
                     return Json(new { code = 400, message = "Review's categories are not found." });
                 }
 
-                List<List<ReviewTuple>> grades = new();
+                List<List<ReviewTuple>> grades = new()
+                {
+                    Capacity = reviewCategories.Count,
+                };
                 for (int i = 0; i < reviews.Count; i++)
                 {
                     for (int j = 0; j < reviewCategories.Count; j++)
                     {
+                        if (i == 0)
+                        {
+                            grades.Add(new List<ReviewTuple>());
+                        }
                         grades[j].Add(new ReviewTuple(reviewCategories[j].Id, reviews[i].Grades[j].Value));
                     }
                 }
 
-                List<ReviewTuple> categoryGrades = new();
+                List<ReviewTuple> categoryGrades = new()
+                {
+                    Capacity = reviewCategories.Count,
+                };
                 for (int i = 0; i < reviewCategories.Count; i++)
                 {
-                    categoryGrades[i].Grade = grades[i]
-                        .Where(g => g.ReviewCategoryId == i + 1)
-                        .Average(g => g.Grade);
-                    categoryGrades[i].ReviewCategoryId = i + 1;
+                    categoryGrades.Add(new ReviewTuple(
+                        i + 1,
+                        (int)grades[i].Where(g => g.ReviewCategoryId == i + 1).Average(g => g.Grade)
+                        ));
                 }
 
                 // PAGINATION

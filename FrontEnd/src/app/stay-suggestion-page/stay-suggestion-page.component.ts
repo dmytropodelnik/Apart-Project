@@ -13,6 +13,7 @@ import { Suggestion } from '../models/Suggestions/suggestion.item';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FacilityType } from '../models/facilitytype.item';
 import { SuggestionRuleType } from '../models/Suggestions/suggestionruletype.item';
+import { Review } from '../models/Review/review.item';
 
 @Component({
   selector: 'app-stay-suggestion-page',
@@ -31,6 +32,7 @@ export class StaySuggestionPageComponent implements OnInit {
   suggestion: any;
   facilityTypes: FacilityType[] = [];
   ruleTypes: SuggestionRuleType[] = [];
+  reviews: Review[] = [];
 
   searchBookingCategory: string = '';
   searchPlace: string = '';
@@ -54,6 +56,7 @@ export class StaySuggestionPageComponent implements OnInit {
   ) {}
 
   openWindowCustomClass(longContent: any) {
+    this.getSuggestionReviews();
     this.modalService.open(longContent, {
       modalDialogClass: 'modal-fullscreen',
     });
@@ -88,6 +91,10 @@ export class StaySuggestionPageComponent implements OnInit {
       .catch((ex) => {
         alert(ex);
       });
+  }
+
+  loadMoreReviews(): void {
+    this.getSuggestionReviews();
   }
 
   addMainSearchFilter(): void {
@@ -167,9 +174,12 @@ export class StaySuggestionPageComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.suggestion.reviews = response.reviews;
+          for (let i = 0; i < response.reviews.length; i++) {
+            this.reviews.push(response.reviews[i]);
+          }
+          console.log(this.suggestion.reviews);
         } else {
-          alert('Suggestion fetching error!');
+          alert('Suggestion reviews fetching error!');
         }
       })
       .catch((ex) => {
