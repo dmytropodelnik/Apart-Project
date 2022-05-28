@@ -187,7 +187,7 @@ export class StaySuggestionPageComponent implements OnInit {
   }
 
   getSuggestionReviews(): void {
-    this.reviewsPage++;
+    this.reviewsPage = 1;
     fetch(
       `https://localhost:44381/api/reviews/getsuggestionreviews?id=${this.suggestion.id}&page=${this.reviewsPage}`,
       {
