@@ -145,18 +145,27 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
                 var facilities = await _context.FacilityTypes
                     .Include(t => t.Facilities)
-                        .ThenInclude(f => f.Suggestions)
-                    .Where(t => t.Facilities.Any() && t.Facilities
-                        .All(f => f.Suggestions
-                            .Any(s => s.Id == suggestion.Id)))
-                    .ToListAsync();
+                        .ThenInclude(f => f.SuggestionsFacilities)
+                    .Include(t => t.Image)
+                    .Select(t => new 
+                    {
+                        t.Id,
+                        t.Type,
+                        Facilities = t.Facilities.Where(f => f.SuggestionsFacilities.Where(sf => sf.SuggestionId == suggestion.Id).Any()),
+                    })
+                    .Where(t => t.Facilities.Any())
+                    .ToListAsync();                 
 
                 var rules = await _context.SuggestionRuleTypes
                     .Include(t => t.SuggestionRules)
-                        .ThenInclude(f => f.Suggestions)
-                    .Where(t => t.SuggestionRules.Any() && t.SuggestionRules
-                        .All(f => f.Suggestions
-                            .Any(s => s.Id == suggestion.Id)))
+                        .ThenInclude(f => f.SuggestionsSuggestionRules)
+                    .Select(t => new
+                    {
+                        t.Id,
+                        t.Type,
+                        Rules = t.SuggestionRules.Where(f => f.SuggestionsSuggestionRules.Where(sf => sf.SuggestionId == suggestion.Id).Any()),
+                    })
+                    .Where(t => t.Rules.Any())
                     .ToListAsync();
 
                 int reviewsAmount = suggestion.ReviewsAmount;
@@ -191,7 +200,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                         {
                             t.Id,
                             t.Type,
-                            suggestionRules = t.SuggestionRules
+                            suggestionRules = t.Rules
                                 .Select(r => new
                                 {
                                     r.Id,
