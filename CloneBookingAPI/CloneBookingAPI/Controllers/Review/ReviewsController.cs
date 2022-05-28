@@ -195,7 +195,7 @@ namespace CloneBookingAPI.Controllers.Review
                 {
                     categoryGrades.Add(new ReviewTuple(
                         i + 1,
-                        (int)grades[i].Where(g => g.ReviewCategoryId == i + 1).Average(g => g.Grade)
+                        grades[i].Where(g => g.ReviewCategoryId == i + 1).Average(g => g.Grade)
                         ));
                 }
 

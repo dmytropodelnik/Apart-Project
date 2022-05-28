@@ -178,9 +178,9 @@
         <div *ngFor="let category of reviewCategories; let i = index" class="categories-item">
           <span>{{category.category}}</span>
           <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="50" aria-valuemin="0"
+            <div class="progress-bar" role="progressbar" style="width: {{mathHelper.Round10(categoryGrades[i]) * 10}}%" aria-valuenow="50" aria-valuemin="0"
               aria-valuemax="100">
-              {{categoryGrades[i]}}
+              {{mathHelper.Round10(categoryGrades[i])}}
             </div>
           </div>
         </div>
