@@ -94,7 +94,7 @@
         <p>{{suggestion.description}}</p>
       </div>
       <div class="facilities-main">
-        <h2>Facilities</h2>
+        <h2 *ngIf="facilityTypes.length != 0" >Facilities</h2>
         <div class="facilities-container">
           <div *ngFor="let type of facilityTypes let i = index" class="facilities-item">
             <span class="font-weight-bold">{{type.type}}</span>
@@ -110,7 +110,7 @@
           </div>
         </div>
       </div>
-      <div class="housingRules-main">
+      <div *ngIf="ruleTypes.length != 0" class="housingRules-main">
         <h2>House rules</h2>
         <div class="housingRules-container">
           <div *ngFor="let type of ruleTypes let i = index" class="housingRules-item">
