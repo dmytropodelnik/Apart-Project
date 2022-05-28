@@ -156,6 +156,8 @@ namespace CloneBookingAPI.Controllers.Review
                         NegativeMessage = r.ReviewMessage.NegativeText,
                         r.ReviewMessage.Title,
                         r.Grades,
+                        Likes = r.Reactions.Where(r => r.IsLiked).Count(),
+                        Dislikes = r.Reactions.Where(r => r.IsDisliked).Count(),
                     })
                     .ToListAsync();
                 if (reviews is null)
@@ -430,13 +432,12 @@ namespace CloneBookingAPI.Controllers.Review
 
         [Route("likereview")]
         [HttpPut]
-        public async Task<IActionResult> LikeReview([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
+        public async Task<IActionResult> LikeReview(int id, string email)
         {
             try
             {
-                if (review is null ||
-                    review.Id < 1 ||
-                    string.IsNullOrWhiteSpace(review.User.Email))
+                if (id < 1 ||
+                    string.IsNullOrWhiteSpace(email))
                 {
                     return Json(new { code = 400 });
                 }
@@ -444,30 +445,55 @@ namespace CloneBookingAPI.Controllers.Review
                 var resReview = await _context.Reviews
                     .Include(r => r.Reactions)
                         .ThenInclude(rc => rc.User)
-                    .FirstOrDefaultAsync(r => r.Id == review.Id); ;
+                    .FirstOrDefaultAsync(r => r.Id == id); ;
                 if (resReview is null)
                 {
                     return Json(new { code = 400, message = "Review with such id doesn't exist!" });
                 }
 
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
+                if (user is null)
+                {
+                    return Json(new { code = 400, message = "You are not authorized!" });
+                }
+
                 var isReacted = resReview.Reactions
-                    .Where(r => r.User.Email.Equals(review.User.Email) && r.IsLiked)
+                    .Where(r => r.User.Email.Equals(email))
                     .FirstOrDefault();
                 if (isReacted is not null)
                 {
-                    return Json(new { code = 400, message = "You had already liked this review!" });
+                    if (isReacted.IsLiked)
+                    {
+                        return Json(new { code = 400, message = "You had already liked this review!" });
+                    }
+
+                    isReacted.IsDisliked = false;
+                    isReacted.IsLiked = true;
+
+                    _context.Reactions.Update(isReacted);
+                }
+                else
+                {
+                    Reaction newReaction = new()
+                    {
+                        IsLiked = true,
+                        UserId = user.Id,
+                    };
+                    resReview.Reactions.Add(newReaction);
+                    _context.Reviews.Update(resReview);
                 }
 
-                Reaction newReaction = new();
-                newReaction.IsLiked = true;
-                newReaction.UserId = resReview.UserId;
-
-                resReview.Reactions.Add(newReaction);
-
-                _context.Reviews.Update(resReview);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    reviewData = new
+                    {
+                        resReview.Id,
+                        Likes = resReview.Reactions.Where(r => r.IsLiked).Count(),
+                        Dislikes = resReview.Reactions.Where(r => r.IsDisliked).Count(),
+                    },
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {
@@ -497,13 +523,12 @@ namespace CloneBookingAPI.Controllers.Review
 
         [Route("dislikereview")]
         [HttpPut]
-        public async Task<IActionResult> DislikeReview([FromBody] CloneBookingAPI.Services.Database.Models.Review.Review review)
+        public async Task<IActionResult> DislikeReview(int id, string email)
         {
             try
             {
-                if (review is null || 
-                    review.Id < 1  || 
-                    string.IsNullOrWhiteSpace(review.User.Email))
+                if (id < 1  || 
+                    string.IsNullOrWhiteSpace(email))
                 {
                     return Json(new { code = 400 });
                 }
@@ -511,30 +536,55 @@ namespace CloneBookingAPI.Controllers.Review
                 var resReview = await _context.Reviews
                     .Include(r => r.Reactions)
                         .ThenInclude(rc => rc.User)
-                    .FirstOrDefaultAsync(r => r.Id == review.Id);
+                    .FirstOrDefaultAsync(r => r.Id == id);
                 if (resReview is null)
                 {
                     return Json(new { code = 400, message = "Review with such id doesn't exist!" });
                 }
 
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(email));
+                if (user is null)
+                {
+                    return Json(new { code = 400, message = "You are not authorized!" });
+                }
+
                 var isReacted = resReview.Reactions
-                    .Where(r => r.User.Email.Equals(review.User.Email) && r.IsDisliked)
+                    .Where(r => r.User.Email.Equals(email))
                     .FirstOrDefault();
                 if (isReacted is not null)
                 {
-                    return Json(new { code = 400, message = "You had already disliked this review!" });
+                    if (isReacted.IsDisliked)
+                    {
+                        return Json(new { code = 400, message = "You had already disliked this review!" });
+                    }
+
+                    isReacted.IsLiked = false;
+                    isReacted.IsDisliked = true;
+
+                    _context.Reactions.Update(isReacted);
+                }
+                else
+                {
+                    Reaction newReaction = new()
+                    {
+                        IsDisliked = true,
+                        UserId = user.Id,
+                    };
+                    resReview.Reactions.Add(newReaction);
+                    _context.Reviews.Update(resReview);
                 }
 
-                Reaction newReaction = new();
-                newReaction.IsDisliked = true;
-                newReaction.UserId = resReview.UserId;
-
-                resReview.Reactions.Add(newReaction);
-
-                _context.Reviews.Update(resReview);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    reviewData = new
+                    {
+                        resReview.Id,
+                        Likes = resReview.Reactions.Where(r => r.IsLiked).Count(),
+                        Dislikes = resReview.Reactions.Where(r => r.IsDisliked).Count(),
+                    },
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {

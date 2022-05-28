@@ -26,6 +26,7 @@ export class StaySuggestionPageComponent implements OnInit {
 
   mathHelper: any = MathHelper;
   imageHelper: any = ImageHelper;
+  authHelper: any = AuthHelper;
 
   filters: SearchViewModel = new SearchViewModel();
   filterChecks: FilterViewModel[] = [];
@@ -184,6 +185,54 @@ export class StaySuggestionPageComponent implements OnInit {
         this.searchPlace = this.searchBookingCategory;
       }
     });
+  }
+
+  likeComment(id: number): void {
+    fetch(`https://localhost:44381/api/reviews/likereview?id=${id}&email=${AuthHelper.getLogin()}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.reviews[id - 1].likes = data.reviewData.likes;
+          this.reviews[id - 1].dislikes = data.reviewData.dislikes;
+          alert("Liked successfully!");
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  dislikeComment(id: number): void {
+    fetch(`https://localhost:44381/api/reviews/dislikereview?id=${id}&email=${AuthHelper.getLogin()}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          this.reviews[id - 1].likes = data.reviewData.likes;
+          this.reviews[id - 1].dislikes = data.reviewData.dislikes;
+          alert("Disliked successfully!");
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   getSuggestionReviews(): void {
