@@ -210,7 +210,7 @@ namespace CloneBookingAPI.Controllers.Review
                     reviews,
                     reviewGrades,
                     reviewCategories,
-                    categoryGrades,
+                    categoryGrades = categoryGrades.Select(g => g.Grade),
                 });
             }
             catch (ArgumentNullException ex)

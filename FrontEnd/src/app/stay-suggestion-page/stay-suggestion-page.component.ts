@@ -178,9 +178,7 @@ export class StaySuggestionPageComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          for (let i = 0; i < response.reviews.length; i++) {
-            this.reviews.push(response.reviews[i]);
-          }
+          this.reviews += response.reviews;
           this.reviewCategories = response.reviewCategories;
           this.categoryGrades = response.categoryGrades;
           console.log(this.suggestion.reviews);
