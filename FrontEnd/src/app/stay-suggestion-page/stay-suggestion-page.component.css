@@ -8,11 +8,18 @@
   min-width: 1060px;
 }
 
+.button-cursor {
+  cursor: pointer;
+}
+
 .bk-icon {
   vertical-align: middle;
   max-width: 256px;
   max-height: 256px;
   overflow: hidden;
+}
+
+.facilities-margin {
   margin-right: 15px;
 }
 

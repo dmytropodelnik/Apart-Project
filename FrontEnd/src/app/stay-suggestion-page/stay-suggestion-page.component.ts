@@ -47,7 +47,7 @@ export class StaySuggestionPageComponent implements OnInit {
 
   reviewsAmount: number = 0;
   reviewsPage: number = 0;
-  reviews: any;
+  reviews: any[] = [];
   reviewGrades: number[] = [];
   reviewCategories: ReviewCategory[] = [];
   categoryGrades: number[] = [];
@@ -98,7 +98,26 @@ export class StaySuggestionPageComponent implements OnInit {
   }
 
   loadMoreReviews(): void {
-    this.getSuggestionReviews();
+    this.reviewsPage++;
+    fetch(
+      `https://localhost:44381/api/reviews/getsuggestionreviews?id=${this.suggestion.id}&page=${this.reviewsPage}`,
+      {
+        method: 'GET',
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          for (let i = 0; i < response.reviews.length; i++) {
+            this.reviews.push(response.reviews[i]);
+          }
+        } else {
+          alert('Suggestion reviews fetching error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   addMainSearchFilter(): void {
@@ -178,12 +197,9 @@ export class StaySuggestionPageComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.reviews += response.reviews;
+          this.reviews = response.reviews;
           this.reviewCategories = response.reviewCategories;
           this.categoryGrades = response.categoryGrades;
-          console.log(this.suggestion.reviews);
-          console.log(this.reviewCategories);
-          console.log(this.categoryGrades);
         } else {
           alert('Suggestion reviews fetching error!');
         }
