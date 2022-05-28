@@ -154,6 +154,7 @@ namespace CloneBookingAPI.Controllers.Review
                         ReviewDate = r.ReviewedDate.ToShortDateString(),
                         PositiveMessage = r.ReviewMessage.PositiveText,
                         NegativeMessage = r.ReviewMessage.NegativeText,
+                        r.ReviewMessage.Title,
                         r.Grades,
                     })
                     .ToListAsync();

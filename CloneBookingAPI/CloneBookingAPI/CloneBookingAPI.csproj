@@ -40,8 +40,8 @@
   <ItemGroup>
     <Folder Include="wwwroot\files\location\cities\" />
     <Folder Include="wwwroot\files\categories\booking-categories\" />
-    <Folder Include="wwwroot\files\location\countries\" />
     <Folder Include="wwwroot\files\location\regions\" />
+    <Folder Include="wwwroot\files\avatars\" />
     <Folder Include="wwwroot\files\suggestions\flights\" />
     <Folder Include="wwwroot\files\suggestions\car-rentals\" />
     <Folder Include="wwwroot\files\suggestions\attractions\" />

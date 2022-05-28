@@ -198,6 +198,7 @@ export class StaySuggestionPageComponent implements OnInit {
       .then((response) => {
         if (response.code === 200) {
           this.reviews = response.reviews;
+          this.reviewGrades = response.reviewGrades;
           this.reviewCategories = response.reviewCategories;
           this.categoryGrades = response.categoryGrades;
         } else {
