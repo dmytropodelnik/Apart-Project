@@ -67,8 +67,6 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<SuggestionHighlight> SuggestionHighlights { get; set; }
         public DbSet<FlightClassType> FlightClassTypes { get; set; }
         public DbSet<Suggestion> Suggestions { get; set; }
-        public DbSet<Room> Rooms { get; set; }
-        public DbSet<RoomType> RoomTypes { get; set; }
         public DbSet<CardType> CardTypes { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Address> Addresses { get; set; }
@@ -77,8 +75,6 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<Country> Countries { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Airport> Airports { get; set; }
-        public DbSet<Bed> Beds { get; set; }
-        public DbSet<BedType> BedTypes { get; set; }
         public DbSet<BookedPeriod> BookedDates { get; set; }
         public DbSet<Apartment> Apartments { get; set; }
         public DbSet<SuggestionStatus> SuggestionStatuses { get; set; }
@@ -127,23 +123,6 @@ namespace CloneBookingAPI.Services.Database
                     j =>
                     {
                         j.HasKey(t => new { t.SuggestionId, t.ImageId });
-                    });
-
-            modelBuilder.Entity<Apartment>()
-                .HasMany(a => a.RoomTypes)
-                .WithMany(t => t.Apartments)
-                .UsingEntity<ApartmentRoomType>(
-                    j => j
-                        .HasOne(rt => rt.RoomType)
-                        .WithMany(a => a.ApartmentsRoomTypes)
-                        .HasForeignKey(pt => pt.RoomTypeId),
-                    j => j
-                        .HasOne(pt => pt.Apartment)
-                        .WithMany(p => p.ApartmentsRoomTypes)
-                        .HasForeignKey(pt => pt.ApartmentId),
-                    j =>
-                    {
-                        j.HasKey(t => new { t.ApartmentId, t.RoomTypeId });
                     });
 
             modelBuilder.Entity<Apartment>()
@@ -235,8 +214,6 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new FileModelConfiguration());
             modelBuilder.ApplyConfiguration(new CartsConfiguration());
             modelBuilder.ApplyConfiguration(new TempUsersConfiguration());
-            modelBuilder.ApplyConfiguration(new RoomsConfiguration());
-            modelBuilder.ApplyConfiguration(new RoomTypesConfiguration());
             modelBuilder.ApplyConfiguration(new SuggestionsConfiguration());
             modelBuilder.ApplyConfiguration(new SuggestionHighlightsConfiguration());
             modelBuilder.ApplyConfiguration(new SuggestionReviewGradesConfiguration());
@@ -246,12 +223,9 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new SurroundingObjectTypesConfiguration());
             modelBuilder.ApplyConfiguration(new BookingPricesConfiguration());
             modelBuilder.ApplyConfiguration(new InterestPlacesConfiguration());
-            modelBuilder.ApplyConfiguration(new BedsConfiguration());
-            modelBuilder.ApplyConfiguration(new BedTypesConfiguration());
             modelBuilder.ApplyConfiguration(new ContactDetailsConfiguration());
             modelBuilder.ApplyConfiguration(new BookedPeriodsConfiguration());
             modelBuilder.ApplyConfiguration(new ApartmentsConfiguration());
-            modelBuilder.ApplyConfiguration(new ApartmentsRoomTypesConfiguration());
             modelBuilder.ApplyConfiguration(new ApartmentsBookedPeriodsConfiguration());
             modelBuilder.ApplyConfiguration(new SuggestionsFileModelsConfiguration());
             modelBuilder.ApplyConfiguration(new BookingCategoryTypesConfiguration());

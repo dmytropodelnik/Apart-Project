@@ -26,6 +26,15 @@ namespace CloneBookingAPI.Database.Models.Suggestions
         // [Required]
         public int BathroomsAmount { get; set; }
 
+        [Required]
+        public ushort AparmentSize { get; set; }
+
+        [Required]
+        public bool IsSmokingAllowed { get; set; }
+
+        [Required]
+        public bool IsSuite { get; set; }
+
         // [Required]
         [DataType(DataType.Text)]
         public string Name { get; set; }
@@ -38,9 +47,6 @@ namespace CloneBookingAPI.Database.Models.Suggestions
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }
         public List<BookedPeriod> BookedPeriods { get; set; } = new();
-        public List<RoomType> RoomTypes { get; set; } = new();
-
-        public List<ApartmentRoomType> ApartmentsRoomTypes { get; set; } = new();
         public List<ApartmentBookedPeriod> ApartmentsBookedPeriods { get; set; } = new();
     }
 }

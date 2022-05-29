@@ -79,7 +79,6 @@ namespace CloneBookingAPI.Services.Database.Models
         [ForeignKey("UserId")]
         public User User { get; set; }
 
-        public List<Room> Rooms { get; set; } = new();
         public List<TempUser> Guests { get; set; } = new();
 
     }
