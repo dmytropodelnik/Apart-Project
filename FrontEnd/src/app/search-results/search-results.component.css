@@ -220,12 +220,40 @@
   right: -187px;
 }
 
-.save_image {
+.information-container-like {
   border-radius: 0px 5px;
   width: 40px;
   height: 40px;
   border: 0;
-  background: rgb(10, 2, 56);
+  background: #ed6649;
+}
+
+.information-container-like > svg {
+  fill: #ed6649;
+  stroke: white;
+  stroke-width: 10px;
+}
+
+.information-container-like > svg:hover {
+  fill: white;
+}
+
+.information-container-like1 > svg:hover {
+  fill: #ed6648;
+}
+
+.information-container-like1 {
+  border-radius: 0px 5px;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  background: #ed6649;
+}
+
+.information-container-like1 > svg {
+  fill: white;
+  stroke: white;
+  stroke-width: 10px;
 }
 
 .save_image > svg {
