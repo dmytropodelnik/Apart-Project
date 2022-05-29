@@ -22,6 +22,6 @@ namespace CloneBookingAPI.Database.Models.Suggestions
         [ForeignKey("BedTypeId")]
         public BedType BedType { get; set; }
 
-        public List<Suggestion> Suggestions { get; set; } = new();
+        public List<Room> Rooms { get; set; } = new();
     }
 }

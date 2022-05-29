@@ -40,6 +40,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         [Required]
         [DataType(DataType.Currency)]
         public decimal PriceInUSD { get; set; }
+        public List<Bed> Beds { get; set; } = new();
 
         public List<SuggestionHighlight> Facilities { get; set; } = new();
     }
