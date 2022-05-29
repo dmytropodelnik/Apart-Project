@@ -154,8 +154,9 @@ body.zh .emk_footer_form_layout {
   line-height: 28px;
   font-weight: 300;
   height: 48px;
-  color: #ed6648;
-  background-color: white;
+  color: white;
+  background-color: #ed6648;
+  border: 1px solid white;
   -webkit-box-shadow: none;
   box-shadow: none;
   -webkit-box-flex: 1;
@@ -166,8 +167,8 @@ body.zh .emk_footer_form_layout {
 }
 
 .emk_footer_form_layout button#newsletter_button_footer:hover {
-  color: white;
-  background-color: #ed6648;
+  color: #ed6648;
+  background-color: white;
   border: 1px solid white;
 }
 
@@ -343,7 +344,7 @@ a.footer__priceline__title {
   border: 1px solid #ed6648;
   display: inline-block;
   font-weight: normal;
-  padding: 15px 15px;
+  padding: 5px 15px;
   text-decoration: none;
   margin: 20px 0px;
 }

@@ -7,26 +7,58 @@
           <form class="searchbox_form">
             <span class="searchbox_check_label">Search</span>
             <div class="searchbox_country">
-              <span class="textdecoration" id="basic-addon1">Destination/property name:</span>
-              <input type="text" class="inputfield" placeholder="City/Country" aria-label="Username"
-                aria-describedby="basic-addon1" name="filters.place" [(ngModel)]="filters.place" />
+              <span class="textdecoration" id="basic-addon1"
+                >Destination/property name:</span
+              >
+              <input
+                type="text"
+                class="inputfield"
+                placeholder="City/Country"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+                name="filters.place"
+                [(ngModel)]="filters.place"
+              />
             </div>
             <div class="searchbox_date">
               <span class="textdecoration">Check-in Date</span>
-              <input class="inputfield" placeholder="yyyy-mm-dd" name="filters.pdateIn" [(ngModel)]="filters.pdateIn"
-                ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" readonly />
+              <input
+                class="inputfield"
+                placeholder="yyyy-mm-dd"
+                name="filters.pdateIn"
+                [(ngModel)]="filters.pdateIn"
+                ngbDatepicker
+                #d="ngbDatepicker"
+                (click)="d.toggle()"
+                readonly
+              />
             </div>
             <div class="searchbox_date">
               <span class="textdecoration">Check-out Date</span>
-              <input class="inputfield" placeholder="yyyy-mm-dd" name="filters.pdateOut" [(ngModel)]="filters.pdateOut"
-                ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()" readonly />
+              <input
+                class="inputfield"
+                placeholder="yyyy-mm-dd"
+                name="filters.pdateOut"
+                [(ngModel)]="filters.pdateOut"
+                ngbDatepicker
+                #d1="ngbDatepicker"
+                (click)="d1.toggle()"
+                readonly
+              />
             </div>
             <div class="searchbox_country" data-toggle="dropdown">
-              <span class="textdecoration" id="basic-addon1">How many people?</span>
-              <input type="text" class="inputfield" placeholder="{{ filters.searchAdultsAmount }} adult {{
+              <span class="textdecoration" id="basic-addon1"
+                >How many people?</span
+              >
+              <input
+                type="text"
+                class="inputfield"
+                placeholder="{{ filters.searchAdultsAmount }} adult {{
                   filters.searchChildrenAmount
-                }} children {{ filters.searchRoomsAmount }} room" aria-label="Username"
-                aria-describedby="basic-addon1" />
+                }} children {{ filters.searchRoomsAmount }} room"
+                aria-label="Username"
+                aria-describedby="basic-addon1"
+              />
             </div>
             <div class="dropdown-menu">
               <form class="dropdownFormReservation">
@@ -52,74 +84,623 @@
             <button>Facilities</button>
             <button>House rules</button>
             <button (click)="openWindowCustomClass(longContent)">
-              Guest reviews ({{reviewsAmount}})
+              Guest reviews ({{ reviewsAmount }})
             </button>
           </div>
-          <div class="information-container">
-            {{ suggestion.name }}
-          </div>
-          <div *ngFor="let item of suggestion.starsRating; let i = index">
-            <img src="../../assets/images/Star 1.png" />
-          </div>
-          <div class="information-container">
-            {{ suggestion.address + ", " + suggestion.region + ", " + suggestion.city + ", " + suggestion.country }}
+          <div>
+            <div class="information-container">
+              <div>
+                <span class="bold-title">{{ suggestion.name }}</span>
+                <div *ngFor="let item of suggestion.starsRating; let i = index">
+                  <img src="../../assets/images/Star 1.png" />
+                </div>
+              </div>
+              <div>
+                <button class="information-container-like">
+                  <svg viewBox="0 0 128 128" width="26px" height="26px">
+                    <path
+                      d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z"
+                    ></path>
+                  </svg>
+                </button>
+                <button class="information-container-like1">
+                  <svg viewBox="0 0 128 128" width="26px" height="26px">
+                    <path
+                      d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z"
+                    ></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <div class="information-container2 subtitle">
+              {{
+                suggestion.address +
+                  ", " +
+                  suggestion.region +
+                  ", " +
+                  suggestion.city +
+                  ", " +
+                  suggestion.country
+              }}
+            </div>
           </div>
           <div class="image-container">
             <div class="image-container-main">
               <div>
-                <img src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
-                  suggestion.images[1].name
-                }}" />
-                <img src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
-                  suggestion.images[2].name
-                }}" />
+                <img
+                  src="{{
+                    imageHelper.getImageDirectoryPath()
+                  }}suggestions/stays/{{ suggestion.images[1].name }}"
+                />
+                <img
+                  src="{{
+                    imageHelper.getImageDirectoryPath()
+                  }}suggestions/stays/{{ suggestion.images[2].name }}"
+                />
               </div>
               <div>
-                <div>
-                  <img width="600px" height="350px" src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
-                  suggestion.images[0].name
-                }}" />
-              </div>
+                <img
+                  src="{{
+                    imageHelper.getImageDirectoryPath()
+                  }}suggestions/stays/{{ suggestion.images[0].name }}"
+                />
               </div>
             </div>
             <div class="">
               <div class="image-container-wrapper">
-                <div><img src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
-                  suggestion.images[3].name
-                }}" /></div>
-                <div><img src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
-                  suggestion.images[4].name
-                }}" /></div>
-                <div><img src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
-                  suggestion.images[5].name
-                }}" /></div>
-                <div><img src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
-                  suggestion.images[6].name
-                }}" /></div>
-                <div><img src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
-                  suggestion.images[7].name
-                }}" /></div>
+                <div>
+                  <img
+                    src="{{
+                      imageHelper.getImageDirectoryPath()
+                    }}suggestions/stays/{{ suggestion.images[3].name }}"
+                  />
+                </div>
+                <div>
+                  <img
+                    src="{{
+                      imageHelper.getImageDirectoryPath()
+                    }}suggestions/stays/{{ suggestion.images[4].name }}"
+                  />
+                </div>
+                <div>
+                  <img
+                    src="{{
+                      imageHelper.getImageDirectoryPath()
+                    }}suggestions/stays/{{ suggestion.images[5].name }}"
+                  />
+                </div>
+                <div>
+                  <img
+                    src="{{
+                      imageHelper.getImageDirectoryPath()
+                    }}suggestions/stays/{{ suggestion.images[6].name }}"
+                  />
+                </div>
+                <div>
+                  <img
+                    src="{{
+                      imageHelper.getImageDirectoryPath()
+                    }}suggestions/stays/{{ suggestion.images[7].name }}"
+                  />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
       <div>
-        <p>{{suggestion.description}}</p>
+        <span class="bold-title">Title</span>
+        <p>
+          What is Lorem Ipsum? Lorem Ipsum is simply dummy text of the printing
+          and typesetting industry. Lorem Ipsum has been the industry's standard
+          dummy text ever since the 1500s, when an unknown printer took a galley
+          of type and scrambled it to make a type specimen book. It has survived
+          not only five centuries, but also the leap into electronic
+          typesetting, remaining essentially unchanged. It was popularised in
+          the 1960s with the release of Letraset sheets containing Lorem Ipsum
+          passages, and more recently with desktop publishing software like
+          Aldus PageMaker including versions of Lorem Ipsum. Why do we use it?
+          It is a long established fact that a reader will be distracted by the
+          readable content of a page when looking at its layout. The point of
+          using Lorem Ipsum is that it has a more-or-less normal distribution of
+          letters, as opposed to using 'Content here, content here', making it
+          look like readable English. Many desktop publishing packages and web
+          page editors now use Lorem Ipsum as their default model text, and a
+          search for 'lorem ipsum' will uncover many web sites still in their
+          infancy. Various versions have evolved over the years, sometimes by
+          accident, sometimes on purpose (injected humour and the like). Where
+          does it come from? Contrary to popular belief, Lorem Ipsum is not
+          simply random text. It has roots in a piece of classical Latin
+          literature from 45 BC, making it over 2000 years old. Richard
+          McClintock, a Latin professor at Hampden-Sydney College in Virginia,
+          looked up one of the more obscure Latin words, consectetur, from a
+          Lorem Ipsum passage, and going through the cites of the word in
+          classical literature, discovered the undoubtable source. Lorem Ipsum
+          comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et
+          Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC.
+          This book is a treatise on the theory of ethics, very popular during
+          the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit
+          amet..", comes from a line in section 1.10.32. The standard chunk of
+          Lorem Ipsum used since the 1500s is reproduced below for those
+          interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et
+          Malorum" by Cicero are also reproduced in their exact original form,
+          accompanied by English versions from the 1914 translation by H.
+          Rackham. Where can I get some? There are many variations of passages
+          of Lorem Ipsum available, but the majority have suffered alteration in
+          some form, by injected humour, or randomised words which don't look
+          even slightly believable. If you are going to use a passage of Lorem
+          Ipsum, you need to be sure there isn't anything embarrassing hidden in
+          the middle of text. All the Lorem Ipsum generators on the Internet
+          tend to repeat predefined chunks as necessary, making this the first
+          true generator on the Internet. It uses a dictionary of over 200 Latin
+          words, combined with a handful of model sentence structures, to
+          generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum
+          is therefore always free from repetition, injected humour, or
+          non-characteristic words etc.
+        </p>
       </div>
+
+      <div class="availability-main">
+        <h2>Availability</h2>
+        <div class="availability-container">
+          <div class="availability-item">
+            <span class="availability-title">Double room</span>
+            <div class="availability-img">
+              <img src="../../assets/images/27.jpg" />
+            </div>
+            <div class="availability-description">
+              <div class="availability-description-item">
+                <span><img src="../../assets/images/Bed.png" />1 king bed</span>
+                <span
+                  ><img src="../../assets/images/Bed.png" />Private
+                  bathroom</span
+                >
+                <span
+                  ><img src="../../assets/images/Bed.png" />Air
+                  conditioning</span
+                >
+                <span><img src="../../assets/images/Bed.png" />Free Wi-Fi</span>
+                <span
+                  ><img src="../../assets/images/Bed.png" />Flat-screen TV</span
+                >
+              </div>
+            </div>
+            <div class="availability-description">
+              <div class="availability-description-item1">
+                <span
+                  ><img src="../../assets/images/Vector.png" />Free
+                  toiletries</span
+                >
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Washing
+                  machine</span
+                >
+
+                <span><img src="../../assets/images/Vector.png" />TV</span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Bathtub or
+                  shower</span
+                >
+
+                <span><img src="../../assets/images/Vector.png" />Towels</span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Kitchenette
+                </span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Microwave</span
+                >
+
+                <span><img src="../../assets/images/Vector.png" />Heating</span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Hairdryer</span
+                >
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Stovetop</span
+                >
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Ironing
+                  facilities</span
+                >
+              </div>
+            </div>
+
+            <span class="availability-subtitle"
+              ><span class="availability-subtitle-price">$125</span>/night</span
+            >
+          </div>
+          <div class="availability-item">
+            <span class="availability-title">Double room</span>
+            <div class="availability-img">
+              <img src="../../assets/images/27.jpg" />
+            </div>
+            <div class="availability-description">
+              <div class="availability-description-item">
+                <span><img src="../../assets/images/Bed.png" />1 king bed</span>
+                <span
+                  ><img src="../../assets/images/Bed.png" />Private
+                  bathroom</span
+                >
+                <span
+                  ><img src="../../assets/images/Bed.png" />Air
+                  conditioning</span
+                >
+                <span><img src="../../assets/images/Bed.png" />Free Wi-Fi</span>
+                <span
+                  ><img src="../../assets/images/Bed.png" />Flat-screen TV</span
+                >
+              </div>
+            </div>
+            <div class="availability-description">
+              <div class="availability-description-item1">
+                <span
+                  ><img src="../../assets/images/Vector.png" />Free
+                  toiletries</span
+                >
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Washing
+                  machine</span
+                >
+
+                <span><img src="../../assets/images/Vector.png" />TV</span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Bathtub or
+                  shower</span
+                >
+
+                <span><img src="../../assets/images/Vector.png" />Towels</span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Kitchenette
+                </span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Microwave</span
+                >
+
+                <span><img src="../../assets/images/Vector.png" />Heating</span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Hairdryer</span
+                >
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Stovetop</span
+                >
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Ironing
+                  facilities</span
+                >
+              </div>
+            </div>
+
+            <span class="availability-subtitle"
+              ><span class="availability-subtitle-price">$125</span>/night</span
+            >
+          </div>
+          <div class="availability-item">
+            <span class="availability-title">Double room</span>
+            <div class="availability-img">
+              <img src="../../assets/images/27.jpg" />
+            </div>
+            <div class="availability-description">
+              <div class="availability-description-item">
+                <span><img src="../../assets/images/Bed.png" />1 king bed</span>
+                <span
+                  ><img src="../../assets/images/Bed.png" />Private
+                  bathroom</span
+                >
+                <span
+                  ><img src="../../assets/images/Bed.png" />Air
+                  conditioning</span
+                >
+                <span><img src="../../assets/images/Bed.png" />Free Wi-Fi</span>
+                <span
+                  ><img src="../../assets/images/Bed.png" />Flat-screen TV</span
+                >
+              </div>
+            </div>
+            <div class="availability-description">
+              <div class="availability-description-item1">
+                <span
+                  ><img src="../../assets/images/Vector.png" />Free
+                  toiletries</span
+                >
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Washing
+                  machine</span
+                >
+
+                <span><img src="../../assets/images/Vector.png" />TV</span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Bathtub or
+                  shower</span
+                >
+
+                <span><img src="../../assets/images/Vector.png" />Towels</span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Kitchenette
+                </span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Microwave</span
+                >
+
+                <span><img src="../../assets/images/Vector.png" />Heating</span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Hairdryer</span
+                >
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Stovetop</span
+                >
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Ironing
+                  facilities</span
+                >
+              </div>
+            </div>
+
+            <span class="availability-subtitle"
+              ><span class="availability-subtitle-price">$125</span>/night</span
+            >
+          </div>
+          <div class="availability-item">
+            <span class="availability-title">Double room</span>
+            <div class="availability-img">
+              <img src="../../assets/images/27.jpg" />
+            </div>
+            <div class="availability-description">
+              <div class="availability-description-item">
+                <span><img src="../../assets/images/Bed.png" />1 king bed</span>
+                <span
+                  ><img src="../../assets/images/Bed.png" />Private
+                  bathroom</span
+                >
+                <span
+                  ><img src="../../assets/images/Bed.png" />Air
+                  conditioning</span
+                >
+                <span><img src="../../assets/images/Bed.png" />Free Wi-Fi</span>
+                <span
+                  ><img src="../../assets/images/Bed.png" />Flat-screen TV</span
+                >
+              </div>
+            </div>
+            <div class="availability-description">
+              <div class="availability-description-item1">
+                <span
+                  ><img src="../../assets/images/Vector.png" />Free
+                  toiletries</span
+                >
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Washing
+                  machine</span
+                >
+
+                <span><img src="../../assets/images/Vector.png" />TV</span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Bathtub or
+                  shower</span
+                >
+
+                <span><img src="../../assets/images/Vector.png" />Towels</span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Kitchenette
+                </span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Microwave</span
+                >
+
+                <span><img src="../../assets/images/Vector.png" />Heating</span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Hairdryer</span
+                >
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Stovetop</span
+                >
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Ironing
+                  facilities</span
+                >
+              </div>
+            </div>
+
+            <span class="availability-subtitle"
+              ><span class="availability-subtitle-price">$125</span>/night</span
+            >
+          </div>
+          <div class="availability-item">
+            <span class="availability-title">Double room</span>
+            <div class="availability-img">
+              <img src="../../assets/images/27.jpg" />
+            </div>
+            <div class="availability-description">
+              <div class="availability-description-item">
+                <span><img src="../../assets/images/Bed.png" />1 king bed</span>
+                <span
+                  ><img src="../../assets/images/Bed.png" />Private
+                  bathroom</span
+                >
+                <span
+                  ><img src="../../assets/images/Bed.png" />Air
+                  conditioning</span
+                >
+                <span><img src="../../assets/images/Bed.png" />Free Wi-Fi</span>
+                <span
+                  ><img src="../../assets/images/Bed.png" />Flat-screen TV</span
+                >
+              </div>
+            </div>
+            <div class="availability-description">
+              <div class="availability-description-item1">
+                <span
+                  ><img src="../../assets/images/Vector.png" />Free
+                  toiletries</span
+                >
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Washing
+                  machine</span
+                >
+
+                <span><img src="../../assets/images/Vector.png" />TV</span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Bathtub or
+                  shower</span
+                >
+
+                <span><img src="../../assets/images/Vector.png" />Towels</span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Kitchenette
+                </span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Microwave</span
+                >
+
+                <span><img src="../../assets/images/Vector.png" />Heating</span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Hairdryer</span
+                >
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Stovetop</span
+                >
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Ironing
+                  facilities</span
+                >
+              </div>
+            </div>
+
+            <span class="availability-subtitle"
+              ><span class="availability-subtitle-price">$125</span>/night</span
+            >
+          </div>
+          <div class="availability-item">
+            <span class="availability-title">Double room</span>
+            <div class="availability-img">
+              <img src="../../assets/images/27.jpg" />
+            </div>
+            <div class="availability-description">
+              <div class="availability-description-item">
+                <span><img src="../../assets/images/Bed.png" />1 king bed</span>
+                <span
+                  ><img src="../../assets/images/Bed.png" />Private
+                  bathroom</span
+                >
+                <span
+                  ><img src="../../assets/images/Bed.png" />Air
+                  conditioning</span
+                >
+                <span><img src="../../assets/images/Bed.png" />Free Wi-Fi</span>
+                <span
+                  ><img src="../../assets/images/Bed.png" />Flat-screen TV</span
+                >
+              </div>
+            </div>
+            <div class="availability-description">
+              <div class="availability-description-item1">
+                <span
+                  ><img src="../../assets/images/Vector.png" />Free
+                  toiletries</span
+                >
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Washing
+                  machine</span
+                >
+
+                <span><img src="../../assets/images/Vector.png" />TV</span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Bathtub or
+                  shower</span
+                >
+
+                <span><img src="../../assets/images/Vector.png" />Towels</span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Kitchenette
+                </span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Microwave</span
+                >
+
+                <span><img src="../../assets/images/Vector.png" />Heating</span>
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Hairdryer</span
+                >
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Stovetop</span
+                >
+
+                <span
+                  ><img src="../../assets/images/Vector.png" />Ironing
+                  facilities</span
+                >
+              </div>
+            </div>
+
+            <span class="availability-subtitle"
+              ><span class="availability-subtitle-price">$125</span>/night</span
+            >
+          </div>
+        </div>
+      </div>
+
       <div class="facilities-main">
-        <h2 *ngIf="facilityTypes.length != 0" >Facilities</h2>
+        <h2 *ngIf="facilityTypes.length != 0">Facilities</h2>
         <div class="facilities-container">
-          <div *ngFor="let type of facilityTypes let i = index" class="facilities-item">
-            <span class="font-weight-bold">{{type.type}}</span>
-            <span *ngFor="let facility of type.facilities let j = index">
-              <svg class="bk-icon -streamline-checkmark facilities-margin" height="14" width="14" viewBox="0 0 128 128"
-                role="presentation" aria-hidden="true" focusable="false">
+          <div
+            *ngFor="let type of facilityTypes; let i = index"
+            class="facilities-item"
+          >
+            <span class="font-weight-bold">{{ type.type }}</span>
+            <span *ngFor="let facility of type.facilities; let j = index">
+              <svg
+                class="bk-icon -streamline-checkmark facilities-margin"
+                height="14"
+                width="14"
+                viewBox="0 0 128 128"
+                role="presentation"
+                aria-hidden="true"
+                focusable="false"
+              >
                 <path
-                  d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z">
-                </path>
+                  d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"
+                ></path>
               </svg>
-              <span>{{facility.text}}</span>
+              <span>{{ facility.text }}</span>
             </span>
           </div>
         </div>
@@ -127,10 +708,13 @@
       <div *ngIf="ruleTypes.length != 0" class="housingRules-main">
         <h2>House rules</h2>
         <div class="housingRules-container">
-          <div *ngFor="let type of ruleTypes let i = index" class="housingRules-item">
-            <span class="font-weight-bold">{{type.type}}</span>
-            <span *ngFor="let rule of type.suggestionRules let j = index">
-              <span>{{rule.text}}</span>
+          <div
+            *ngFor="let type of ruleTypes; let i = index"
+            class="housingRules-item"
+          >
+            <span class="font-weight-bold">{{ type.type }}</span>
+            <span *ngFor="let rule of type.suggestionRules; let j = index">
+              <span>{{ rule.text }}</span>
             </span>
           </div>
         </div>
@@ -145,56 +729,85 @@
     <div>
       <div class="review-card-left-avatar-block">
         <div class="review-card-avatar">
-          <div class="bui-review-score__badge">{{mathHelper.Round10(grade)}}</div>
+          <div class="bui-review-score__badge">
+            {{ mathHelper.Round10(grade) }}
+          </div>
         </div>
         <div class="review-card-avatar-block-text">
-          <span *ngIf="
-            mathHelper.Round10(grade) >= 9.7;
-          ">Exceptional</span>
-          <span *ngIf="
-            mathHelper.Round10(grade) >= 9.0 &&
-              mathHelper.Round10(grade) < 9.7;
-          ">Wonderful</span>
-          <span *ngIf="
-            mathHelper.Round10(grade) >= 8.7 &&
-              mathHelper.Round10(grade) < 9.0;
-          ">Excellent</span>
-          <span *ngIf="
-            mathHelper.Round10(grade) >= 8.2 &&
-              mathHelper.Round10(grade) < 8.7;
-          ">Very Good</span>
-          <span *ngIf="
-            mathHelper.Round10(grade) > 7.6 &&
-              mathHelper.Round10(grade) < 8.2;
-          ">Good</span>
-          <span *ngIf="
-            mathHelper.Round10(grade) >= 7.0 &&
-              mathHelper.Round10(grade) < 7.7;
-          ">Normal</span>
-          <span *ngIf="grade == 0">
-            Unrated
-          </span>
+          <span *ngIf="mathHelper.Round10(grade) >= 9.7">Exceptional</span>
+          <span
+            *ngIf="
+              mathHelper.Round10(grade) >= 9.0 &&
+              mathHelper.Round10(grade) < 9.7
+            "
+            >Wonderful</span
+          >
+          <span
+            *ngIf="
+              mathHelper.Round10(grade) >= 8.7 &&
+              mathHelper.Round10(grade) < 9.0
+            "
+            >Excellent</span
+          >
+          <span
+            *ngIf="
+              mathHelper.Round10(grade) >= 8.2 &&
+              mathHelper.Round10(grade) < 8.7
+            "
+            >Very Good</span
+          >
+          <span
+            *ngIf="
+              mathHelper.Round10(grade) > 7.6 && mathHelper.Round10(grade) < 8.2
+            "
+            >Good</span
+          >
+          <span
+            *ngIf="
+              mathHelper.Round10(grade) >= 7.0 &&
+              mathHelper.Round10(grade) < 7.7
+            "
+            >Normal</span
+          >
+          <span *ngIf="grade == 0"> Unrated </span>
           <span class="text-block-subtitles">
-            <span>{{reviewsAmount}} reviews</span>
+            <span>{{ reviewsAmount }} reviews</span>
           </span>
         </div>
       </div>
     </div>
-    <button class="btn btn-outline-primary btn-sm" (click)="openVerticallyCentered(content)">
+    <button
+      class="btn btn-outline-primary btn-sm"
+      (click)="openVerticallyCentered(content)"
+    >
       Write review
     </button>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
   </div>
   <div class="modal-body">
     <div class="categories-main">
       <h5>Categories:</h5>
       <div class="categories-container">
-        <div *ngFor="let category of reviewCategories; let i = index" class="categories-item">
-          <span>{{category.category}}</span>
+        <div
+          *ngFor="let category of reviewCategories; let i = index"
+          class="categories-item"
+        >
+          <span>{{ category.category }}</span>
           <div class="progress">
-            <div class="progress-bar" role="progressbar" style="width: {{mathHelper.Round10(categoryGrades[i]) * 10}}%" aria-valuenow="50" aria-valuemin="0"
-              aria-valuemax="100">
-              {{mathHelper.Round10(categoryGrades[i])}}
+            <div
+              class="progress-bar"
+              role="progressbar"
+              style="width: {{ mathHelper.Round10(categoryGrades[i]) * 10 }}%"
+              aria-valuenow="50"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            >
+              {{ mathHelper.Round10(categoryGrades[i]) }}
             </div>
           </div>
         </div>
@@ -205,16 +818,22 @@
         <div>
           <div class="review-card-left-avatar-block">
             <div class="review-card-avatar">
-              <img src="{{ imageHelper.getRootDirectoryPath() }}{{ review.authorImage.path }}" />
+              <img
+                src="{{ imageHelper.getRootDirectoryPath() }}{{
+                  review.authorImage.path
+                }}"
+              />
             </div>
             <div class="review-card-avatar-block-text">
-              <span class="font-weight-bold">{{review.author}}</span>
+              <span class="font-weight-bold">{{ review.author }}</span>
               <span class="text-block-subtitles">
                 <span class="avatar-block-flag">
-                  <img src="{{
-                  imageHelper.getRootDirectoryPath()
-                }}{{ review.countryImage.path }}" /></span>
-                <span>{{review.country}}</span>
+                  <img
+                    src="{{ imageHelper.getRootDirectoryPath() }}{{
+                      review.countryImage.path
+                    }}"
+                /></span>
+                <span>{{ review.country }}</span>
               </span>
             </div>
           </div>
@@ -233,60 +852,105 @@
         <div>
           <div class="review-card-right-main-item">
             <div class="review-card-right-main-item-info">
-              <span>Reviewed: {{review.reviewDate}}</span>
+              <span>Reviewed: {{ review.reviewDate }}</span>
               <span class="font-weight-bold">
-                {{review.title}}
+                {{ review.title }}
               </span>
             </div>
-            <div class="bui-review-score__badge">{{mathHelper.Round10(reviewGrades[i])}}</div>
+            <div class="bui-review-score__badge">
+              {{ mathHelper.Round10(reviewGrades[i]) }}
+            </div>
           </div>
         </div>
         <div>
-          <span>{{review.positiveMessage}}</span>
+          <span>{{ review.positiveMessage }}</span>
         </div>
         <div>
-          <span>{{review.negativeMessage}}</span>
+          <span>{{ review.negativeMessage }}</span>
         </div>
         <div class="like-reviews" *ngIf="authHelper.isLogged()">
           <a class="button-cursor" (click)="likeComment(review.id)">
-            <svg class="bk-icon -iconset-thumbs_up" fill="#0071C2" height="14" width="14" viewBox="0 0 128 128"
-              role="presentation" aria-hidden="true" focusable="false">
+            <svg
+              class="bk-icon -iconset-thumbs_up"
+              fill="#0071C2"
+              height="14"
+              width="14"
+              viewBox="0 0 128 128"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
               <path
-                d="M8 76a12 12 0 0 1 3.6-8.6A12 12 0 0 1 21 48h35.9L49 28a15.2 15.2 0 0 1-1-4 8 8 0 0 1 15-4l17 36v56H30a12 12 0 0 1-12-10.7 12 12 0 0 1-6.6-17A12 12 0 0 1 8 76zm112-20H88v56h32z">
-              </path>
+                d="M8 76a12 12 0 0 1 3.6-8.6A12 12 0 0 1 21 48h35.9L49 28a15.2 15.2 0 0 1-1-4 8 8 0 0 1 15-4l17 36v56H30a12 12 0 0 1-12-10.7 12 12 0 0 1-6.6-17A12 12 0 0 1 8 76zm112-20H88v56h32z"
+              ></path>
             </svg>
-            Helpful {{review.likes}}</a>
+            Helpful {{ review.likes }}</a
+          >
           <a class="button-cursor" (click)="dislikeComment(review.id)">
-            <svg class="bk-icon -iconset-thumbs_down" fill="#0071C2" height="14" width="14" viewBox="0 0 128 128"
-              role="presentation" aria-hidden="true" focusable="false">
+            <svg
+              class="bk-icon -iconset-thumbs_down"
+              fill="#0071C2"
+              height="14"
+              width="14"
+              viewBox="0 0 128 128"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
               <path
-                d="M11.4 43.6a12 12 0 0 1 6.7-17A12 12 0 0 1 30 16h50v56l-17 36a8 8 0 0 1-15-4 15.2 15.2 0 0 1 1-4l7.9-20H21a12 12 0 0 1-9.4-19.4 12 12 0 0 1-.2-17zM120 16H88v56h32z">
-              </path>
+                d="M11.4 43.6a12 12 0 0 1 6.7-17A12 12 0 0 1 30 16h50v56l-17 36a8 8 0 0 1-15-4 15.2 15.2 0 0 1 1-4l7.9-20H21a12 12 0 0 1-9.4-19.4 12 12 0 0 1-.2-17zM120 16H88v56h32z"
+              ></path>
             </svg>
-            Not helpful {{review.dislikes}}</a>
+            Not helpful {{ review.dislikes }}</a
+          >
         </div>
         <div class="like-reviews" *ngIf="!authHelper.isLogged()">
-          <span><svg class="bk-icon -iconset-thumbs_up" fill="#0071C2" height="14" width="14" viewBox="0 0 128 128"
-            role="presentation" aria-hidden="true" focusable="false">
-            <path
-              d="M8 76a12 12 0 0 1 3.6-8.6A12 12 0 0 1 21 48h35.9L49 28a15.2 15.2 0 0 1-1-4 8 8 0 0 1 15-4l17 36v56H30a12 12 0 0 1-12-10.7 12 12 0 0 1-6.6-17A12 12 0 0 1 8 76zm112-20H88v56h32z">
-            </path>
-          </svg>
-          {{review.likes}}</span>
-        <span>
-          <svg class="bk-icon -iconset-thumbs_down" fill="#0071C2" height="14" width="14" viewBox="0 0 128 128"
-            role="presentation" aria-hidden="true" focusable="false">
-            <path
-              d="M11.4 43.6a12 12 0 0 1 6.7-17A12 12 0 0 1 30 16h50v56l-17 36a8 8 0 0 1-15-4 15.2 15.2 0 0 1 1-4l7.9-20H21a12 12 0 0 1-9.4-19.4 12 12 0 0 1-.2-17zM120 16H88v56h32z">
-            </path>
-          </svg>
-          {{review.dislikes}}</span>
+          <span
+            ><svg
+              class="bk-icon -iconset-thumbs_up"
+              fill="#0071C2"
+              height="14"
+              width="14"
+              viewBox="0 0 128 128"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M8 76a12 12 0 0 1 3.6-8.6A12 12 0 0 1 21 48h35.9L49 28a15.2 15.2 0 0 1-1-4 8 8 0 0 1 15-4l17 36v56H30a12 12 0 0 1-12-10.7 12 12 0 0 1-6.6-17A12 12 0 0 1 8 76zm112-20H88v56h32z"
+              ></path>
+            </svg>
+            {{ review.likes }}</span
+          >
+          <span>
+            <svg
+              class="bk-icon -iconset-thumbs_down"
+              fill="#0071C2"
+              height="14"
+              width="14"
+              viewBox="0 0 128 128"
+              role="presentation"
+              aria-hidden="true"
+              focusable="false"
+            >
+              <path
+                d="M11.4 43.6a12 12 0 0 1 6.7-17A12 12 0 0 1 30 16h50v56l-17 36a8 8 0 0 1-15-4 15.2 15.2 0 0 1 1-4l7.9-20H21a12 12 0 0 1-9.4-19.4 12 12 0 0 1-.2-17zM120 16H88v56h32z"
+              ></path>
+            </svg>
+            {{ review.dislikes }}</span
+          >
         </div>
       </div>
     </div>
     <div *ngIf="reviewsAmount > 10" class="load-more-review-cards">
       <div class="d-grid gap-2 col-6 mx-auto">
-        <button class="btn btn-outline-primary" type="button" (click)="loadMoreReviews()">Load more</button>
+        <button
+          class="btn btn-outline-primary"
+          type="button"
+          (click)="loadMoreReviews()"
+        >
+          Load more
+        </button>
       </div>
     </div>
   </div>
@@ -295,13 +959,22 @@
 <ng-template #content let-modal>
   <div class="modal-header">
     <h4 class="modal-title">Modal title</h4>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
   </div>
   <div class="modal-body">
     <p>One fine body&hellip;</p>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">
+    <button
+      type="button"
+      class="btn btn-light"
+      (click)="modal.close('Close click')"
+    >
       Close
     </button>
   </div>
