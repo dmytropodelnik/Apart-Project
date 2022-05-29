@@ -451,7 +451,7 @@ export class SearchResultsComponent implements OnInit {
     });
   }
 
-  showSuggestion(uniqueCode: number): void {
+  showSuggestion(uniqueCode: number, id: number): void {
     this.router.navigate(['suggestion', uniqueCode], {
       queryParams: {
         place: this.filters.place,
@@ -466,6 +466,7 @@ export class SearchResultsComponent implements OnInit {
         adults: this.filters.searchAdultsAmount,
         children: this.filters.searchChildrenAmount,
         rooms: this.filters.searchRoomsAmount,
+        isSaved: this.isSaved(id),
       },
     });
   }

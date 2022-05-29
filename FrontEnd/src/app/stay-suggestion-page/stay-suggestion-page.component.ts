@@ -55,6 +55,8 @@ export class StaySuggestionPageComponent implements OnInit {
 
   grade: number = 0;
 
+  isSaved: string = 'false';
+
   constructor(
     private activatedRouter: ActivatedRoute,
     private modalService: NgbModal
@@ -121,6 +123,62 @@ export class StaySuggestionPageComponent implements OnInit {
       });
   }
 
+  addSuggestionToSaved(id: any): void {
+    const suggestion = {
+      id: id,
+      login: AuthHelper.getLogin(),
+    };
+
+    fetch('https://localhost:44381/api/favorites/addsuggestion', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(suggestion),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.isSaved = 'true';
+        } else {
+          alert('User favorites fetching error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  removeSuggestion(id: any): void {
+    const suggestion = {
+      id: id,
+      login: AuthHelper.getLogin(),
+    };
+
+    fetch('https://localhost:44381/api/favorites/removesuggestion', {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(suggestion),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.isSaved = 'false';
+        } else {
+          alert('User favorites fetching error!');
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
   addMainSearchFilter(): void {
     this.activatedRouter.queryParams.subscribe((params: any) => {
       this.filters.place = params['place'];
@@ -150,6 +208,8 @@ export class StaySuggestionPageComponent implements OnInit {
       this.filters.searchRoomsAmount = params['rooms'];
 
       this.searchBookingCategory = params['bookingCategory'];
+
+      this.isSaved = params['isSaved'];
 
       if (this.filters.place) {
         this.filterChecks.push(

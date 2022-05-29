@@ -39,19 +39,17 @@
   align-items: center;
 }
 
-.information-container > div {
-  display: flex;
-  gap: 5px;
-}
-
 .information-container-like {
+  border-radius: 0px 5px;
+  width: 40px;
+  height: 40px;
   border: 0;
-  background: white;
+  background: #ed6649;
 }
 
 .information-container-like > svg {
-  fill: none;
-  stroke: #ed6649;
+  fill: white;
+  stroke: white;
   stroke-width: 10px;
 }
 
@@ -59,14 +57,21 @@
   fill: #ed6648;
 }
 
+.information-container-like1 > svg:hover {
+  fill: white;
+}
+
 .information-container-like1 {
+  border-radius: 0px 5px;
+  width: 40px;
+  height: 40px;
   border: 0;
-  background: white;
+  background: #ed6649;
 }
 
 .information-container-like1 > svg {
-  fill: #ed6649;
-  stroke: #ed6649;
+  fill: #ed6648;
+  stroke: white;
   stroke-width: 10px;
 }
 

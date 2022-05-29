@@ -508,7 +508,7 @@
           <div class="image_container">
             <img class="click-component" src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
                 item.images[0]?.name
-              }}" width="200px" height="200px" (click)="showSuggestion(item.uniqueCode)" />
+              }}" width="200px" height="200px" (click)="showSuggestion(item.uniqueCode, item.id)" />
             <div class="save_image_position">
               <div *ngIf="isSaved(item.id) == true">
                 <button class="information-container-like1" (click)="removeSuggestion(item.id)">
@@ -533,7 +533,7 @@
           <div>
             <div class="left_information">
               <div class="left_information_name">
-                <div class="left_information_title click-component" (click)="showSuggestion(item.uniqueCode)">{{
+                <div class="left_information_title click-component" (click)="showSuggestion(item.uniqueCode, item.id)">{{
                   item?.name }}</div>
                 <div *ngFor="let item of item.starsRating; let i = index">
                   <img src="../../assets/images/Star 1.png" />
@@ -605,7 +605,7 @@
                     }}</span>
                 </span>
               </div>
-              <button class="search_card_show_prices click-component" (click)="showSuggestion(item.uniqueCode)">Show
+              <button class="search_card_show_prices click-component" (click)="showSuggestion(item.uniqueCode, item.id)">Show
                 Prices</button>
             </div>
           </div>
