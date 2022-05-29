@@ -3,7 +3,7 @@
   justify-content: center;
 }
 
-.right{
+.right {
   width: 1140px;
 }
 
@@ -416,6 +416,11 @@
   line-height: 24px;
   margin-bottom: 10px;
   color: #000000;
+}
+
+.page-item.active .page-link {
+  background-color: #ed6648 !important;
+  border: 1px solid #ed6648 !important;
 }
 
 .pagination {
