@@ -232,6 +232,7 @@ namespace CloneBookingAPI.Controllers.UserData
                     favorites = favorites.Suggestions.Select(s => new
                     {
                         s.Id,
+                        s.UniqueCode,
                         s.Name,
                         s.Description,
                         country = s.Address.Country.Title,
