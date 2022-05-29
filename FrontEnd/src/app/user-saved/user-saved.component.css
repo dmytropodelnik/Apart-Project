@@ -191,6 +191,10 @@
   gap: 10px;
 }
 
+.button-cursor {
+  cursor: pointer;
+}
+
 .saved-score-item {
   display: flex;
   flex-direction: column;
@@ -200,7 +204,7 @@
   font-family: "Calibri";
   font-style: normal;
   font-weight: 400;
-  font-size: 20px;
+
   line-height: 24px;
   letter-spacing: 0.02em;
 
