@@ -332,6 +332,19 @@ namespace CloneBookingAPI.Controllers.Pages
                         .All(r => r.Grades
                             .Average(g => g.Value) >= 9.0))
                     .Take(5)
+                    .Select(s => new
+                    {
+                        s.Id,
+                        s.Name,
+                        s.Address,
+                        s.Images,
+                        s.Apartments,
+                        Reviews = s.Reviews.Select(r => new
+                            {
+                                r.Id,
+                                r.Grades,
+                            })
+                    })
                     .ToListAsync();
 
                 for (int i = 0; i < resSuggestion.Count; i++)
@@ -345,7 +358,7 @@ namespace CloneBookingAPI.Controllers.Pages
 
                 for (int i = 0; i < resSuggestion.Count; i++)
                 {
-                    if (resSuggestion[i].Reviews.Count == 0)
+                    if (resSuggestion[i].Reviews.Count() == 0)
                     {
                         suggestionGrades.Add(0);
                     }
@@ -353,7 +366,7 @@ namespace CloneBookingAPI.Controllers.Pages
                     {
                         suggestionGrades.Add(resSuggestion[i].Reviews
                             .Average(r => r.Grades
-                                .Average(g => g.Value))); 
+                                .Average(g => g.Value)));
                     }
                     if (resSuggestion[i].Apartments.Count != 0) // resSuggestion[i].Apartments is not null && 
                     {
