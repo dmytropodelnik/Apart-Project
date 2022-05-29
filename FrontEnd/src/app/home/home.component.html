@@ -392,10 +392,7 @@
                       background-position: center center;
                       background-repeat: no-repeat;
                       background-size: cover;
-                      background-image: url('{{
-                      imageHelper.getImageDirectoryPath()
-                    }}/location/cities/{{ recommendedCities[0]?.image.name }}');
-                    "
+                      background-image: url('{{imageHelper.getImageDirectoryPath()}}/location/cities/{{ recommendedCities[0]?.image.name }}');"
                     (click)="
                       searchSuggestionsByPlace(
                         $event,

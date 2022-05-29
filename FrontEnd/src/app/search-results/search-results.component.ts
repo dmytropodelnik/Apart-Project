@@ -270,23 +270,6 @@ export class SearchResultsComponent implements OnInit {
       });
   }
 
-  getTypes(): void {
-    fetch('https://localhost:44381/api/roomtypes/gettypes', {
-      method: 'GET',
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.code === 200) {
-          this.roomTypes = data.types;
-        } else {
-          alert('Room types fetching error!');
-        }
-      })
-      .catch((ex) => {
-        alert(ex);
-      });
-  }
-
   getLangs(): void {
     fetch('https://localhost:44381/api/languages/getlanguages', {
       method: 'GET',
@@ -297,23 +280,6 @@ export class SearchResultsComponent implements OnInit {
           this.staffLanguages = data.languages;
         } else {
           alert('Staff languages fetching error!');
-        }
-      })
-      .catch((ex) => {
-        alert(ex);
-      });
-  }
-
-  getBedTypes(): void {
-    fetch('https://localhost:44381/api/bedtypes/getbedtypes', {
-      method: 'GET',
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.code === 200) {
-          this.bedTypes = data.bedTypes;
-        } else {
-          alert('Bed types fetching error!');
         }
       })
       .catch((ex) => {
@@ -514,9 +480,7 @@ export class SearchResultsComponent implements OnInit {
       this.getBookingCategories();
       this.getFacilities();
       this.getHighlights();
-      this.getTypes();
       this.getLangs();
-      this.getBedTypes();
       if (AuthHelper.getLogin() != '') {
         this.getUserFavorites();
       }
