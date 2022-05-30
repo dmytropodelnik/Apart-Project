@@ -16,13 +16,21 @@
           {{item.name}}
         </div>
         <div>{{
-          item.address +
+          (item.address +
             ", " +
             item.region +
             ", " +
             item.city +
             ", " +
-            item.country
+            item.country).length > 6 ?
+            item.address +
+            ", " +
+            item.region +
+            ", " +
+            item.city +
+            ", " +
+            item.country :
+            ''
         }}</div>
         <div class="progress">
           <div
@@ -65,13 +73,21 @@
           <span class="button-cursor" (click)="showSuggestion(item.uniqueCode, item.id)">{{item.name}} <span>[edit]</span></span>
         </div>
         <div> {{
-          item.address +
+          (item.address +
             ", " +
             item.region +
             ", " +
             item.city +
             ", " +
-            item.country
+            item.country).length > 6 ?
+            item.address +
+            ", " +
+            item.region +
+            ", " +
+            item.city +
+            ", " +
+            item.country :
+            ''
         }}</div>
         <div>{{item.status}}</div>
         <div class="action-text">

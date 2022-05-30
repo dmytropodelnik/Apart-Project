@@ -29,7 +29,8 @@ export class LpPropertySetupComponent implements OnInit {
     'Russian',
     'Spanish',
     'Italian',
-    'Arabic',];
+    'Arabic',
+  ];
 
   rules: SuggestionRule[] | null = null;
   includedRules: boolean[] = [];
@@ -39,10 +40,8 @@ export class LpPropertySetupComponent implements OnInit {
   constructor(
     private listNewPropertyService: ListNewPropertyService,
     private router: Router,
-    private activatedRouter: ActivatedRoute,
-  ) {
-
-  }
+    private activatedRouter: ActivatedRoute
+  ) {}
   choice: number = 1;
   bedTypesAmount = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -117,7 +116,7 @@ export class LpPropertySetupComponent implements OnInit {
           }
         }
       })
-      .then(r => {
+      .then((r) => {
         fetch(`https://localhost:44381/api/listnewproperty/addbeds`, {
           method: 'POST',
           headers: {
@@ -350,12 +349,27 @@ export class LpPropertySetupComponent implements OnInit {
       if (params['toSaveId'] == 'true') {
         this.listNewPropertyService.setSavedPropertyId(params['id']);
         this.choice = params['choice'];
+        if (
+          this.choice == 1 ||
+          this.choice == 2 ||
+          this.choice == 3 ||
+          this.choice == 4 ||
+          this.choice == 5
+        ) {
+          let secondLine = document.getElementById('secondLine');
+          if (secondLine !== null) {
+            secondLine.classList.add('navstep__container--after');
+          }
+          let thirdLine = document.getElementById('thirdLine');
+          if (thirdLine !== null) {
+            thirdLine.classList.add('navstep__container--active');
+          }
+        }
       }
       if (!AuthHelper.isLogged()) {
         this.router.navigate(['']);
         return;
-      }
-      else if (!this.listNewPropertyService.getSavedPropertyId()) {
+      } else if (!this.listNewPropertyService.getSavedPropertyId()) {
         this.router.navigate(['']);
         return;
       }

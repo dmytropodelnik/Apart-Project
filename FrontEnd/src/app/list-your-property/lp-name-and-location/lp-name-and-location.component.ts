@@ -165,6 +165,17 @@ export class LpNameAndLocationComponent implements OnInit {
           params['id']
         );
         this.choice = params['choice'];
+        if (this.choice == 0) {
+          let firstLine = document.getElementById('firstLine');
+          if (firstLine !== null) {
+            firstLine.classList.add('navstep__container--after');
+          }
+
+          let secondLine = document.getElementById('secondLine');
+          if (secondLine !== null) {
+            secondLine.classList.add('navstep__container--active');
+          }
+        }
       }
       if (!AuthHelper.isLogged()) {
         this.router.navigate(['']);
