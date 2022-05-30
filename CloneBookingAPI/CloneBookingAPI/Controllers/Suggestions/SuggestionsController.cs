@@ -229,7 +229,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
         [TypeFilter(typeof(AuthorizationFilter))]
         [Route("getusersuggestions")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Suggestion>>> GetUserSuggestions(string email, string filter, string kind = "all")
+        public async Task<ActionResult<IEnumerable<Suggestion>>> GetUserSuggestions(string email, string filter)
         {
             try
             {

@@ -200,6 +200,10 @@ export class ViewPropertyComponent implements OnInit {
   }
 
   deleteSuggestion(id: number): void {
+    if (!confirm('Are you sure to delete this suggestion?')) {
+      return;
+    }
+
     fetch(`https://localhost:44381/api/suggestions/deletesuggestion?id=${id}`, {
       method: 'DELETE',
       headers: {
