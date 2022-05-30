@@ -1,7 +1,7 @@
 <body>
   <app-header></app-header>
   <div class="progress-properties-main">
-    <h2>Properties in progress</h2>
+    <h2>Properties in progress [{{inProgressSuggestionsAmount}}]</h2>
     <div><input type="text" name="" id="" /></div>
     <div class="progress-properties-container">
       <div class="progress-properties-header">
@@ -10,11 +10,12 @@
         <span>Registration progress</span>
         <span>Action</span>
       </div>
-      <div class="progress-properties-item">
+      <div *ngFor="let item of inProgressSuggestions; let i = index" class="progress-properties-item">
         <div class="name-text">
-          <img src="../../assets/flag/flag-12.png" />Unnamed property
+          <img src="../../assets/flag/flag-12.png" />
+          {{item.name}}
         </div>
-        <div>Ukraine</div>
+        <div>{{item.country}}</div>
         <div class="progress">
           <div
             class="progress-bar"
@@ -24,199 +25,7 @@
             aria-valuemin="0"
             aria-valuemax="100"
           >
-            50%
-          </div>
-        </div>
-        <div class="action-text">
-          <span class="text-continue">Continue registration</span
-          ><span class="text-delete"
-            ><img src="../../assets/images/trashcan.png" />Delete</span
-          >
-        </div>
-      </div>
-      <div class="progress-properties-item">
-        <div class="name-text">
-          <img src="../../assets/flag/flag-12.png" />Unnamed property
-        </div>
-        <div>Ukraine</div>
-        <div class="progress">
-          <div
-            class="progress-bar"
-            role="progressbar"
-            style="width: 50%"
-            aria-valuenow="50"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          >
-            50%
-          </div>
-        </div>
-        <div class="action-text">
-          <span class="text-continue">Continue registration</span
-          ><span class="text-delete"
-            ><img src="../../assets/images/trashcan.png" />Delete</span
-          >
-        </div>
-      </div>
-      <div class="progress-properties-item">
-        <div class="name-text">
-          <img src="../../assets/flag/flag-12.png" />Unnamed property
-        </div>
-        <div>Ukraine</div>
-        <div class="progress">
-          <div
-            class="progress-bar"
-            role="progressbar"
-            style="width: 50%"
-            aria-valuenow="50"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          >
-            50%
-          </div>
-        </div>
-        <div class="action-text">
-          <span class="text-continue">Continue registration</span
-          ><span class="text-delete"
-            ><img src="../../assets/images/trashcan.png" />Delete</span
-          >
-        </div>
-      </div>
-      <div class="progress-properties-item">
-        <div class="name-text">
-          <img src="../../assets/flag/flag-12.png" />Unnamed property
-        </div>
-        <div>Ukraine</div>
-        <div class="progress">
-          <div
-            class="progress-bar"
-            role="progressbar"
-            style="width: 50%"
-            aria-valuenow="50"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          >
-            50%
-          </div>
-        </div>
-        <div class="action-text">
-          <span class="text-continue">Continue registration</span
-          ><span class="text-delete"
-            ><img src="../../assets/images/trashcan.png" />Delete</span
-          >
-        </div>
-      </div>
-      <div class="progress-properties-item">
-        <div class="name-text">
-          <img src="../../assets/flag/flag-12.png" />Unnamed property
-        </div>
-        <div>Ukraine</div>
-        <div class="progress">
-          <div
-            class="progress-bar"
-            role="progressbar"
-            style="width: 50%"
-            aria-valuenow="50"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          >
-            50%
-          </div>
-        </div>
-        <div class="action-text">
-          <span class="text-continue">Continue registration</span
-          ><span class="text-delete"
-            ><img src="../../assets/images/trashcan.png" />Delete</span
-          >
-        </div>
-      </div>
-      <div class="progress-properties-item">
-        <div class="name-text">
-          <img src="../../assets/flag/flag-12.png" />Unnamed property
-        </div>
-        <div>Ukraine</div>
-        <div class="progress">
-          <div
-            class="progress-bar"
-            role="progressbar"
-            style="width: 50%"
-            aria-valuenow="50"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          >
-            50%
-          </div>
-        </div>
-        <div class="action-text">
-          <span class="text-continue">Continue registration</span
-          ><span class="text-delete"
-            ><img src="../../assets/images/trashcan.png" />Delete</span
-          >
-        </div>
-      </div>
-      <div class="progress-properties-item">
-        <div class="name-text">
-          <img src="../../assets/flag/flag-12.png" />Unnamed property
-        </div>
-        <div>Ukraine</div>
-        <div class="progress">
-          <div
-            class="progress-bar"
-            role="progressbar"
-            style="width: 50%"
-            aria-valuenow="50"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          >
-            50%
-          </div>
-        </div>
-        <div class="action-text">
-          <span class="text-continue">Continue registration</span
-          ><span class="text-delete"
-            ><img src="../../assets/images/trashcan.png" />Delete</span
-          >
-        </div>
-      </div>
-      <div class="progress-properties-item">
-        <div class="name-text">
-          <img src="../../assets/flag/flag-12.png" />Unnamed property
-        </div>
-        <div>Ukraine</div>
-        <div class="progress">
-          <div
-            class="progress-bar"
-            role="progressbar"
-            style="width: 50%"
-            aria-valuenow="50"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          >
-            50%
-          </div>
-        </div>
-        <div class="action-text">
-          <span class="text-continue">Continue registration</span
-          ><span class="text-delete"
-            ><img src="../../assets/images/trashcan.png" />Delete</span
-          >
-        </div>
-      </div>
-      <div class="progress-properties-item">
-        <div class="name-text">
-          <img src="../../assets/flag/flag-12.png" />Unnamed property
-        </div>
-        <div>Ukraine</div>
-        <div class="progress">
-          <div
-            class="progress-bar"
-            role="progressbar"
-            style="width: 50%"
-            aria-valuenow="50"
-            aria-valuemin="0"
-            aria-valuemax="100"
-          >
-            50%
+            {{item.progress}}%
           </div>
         </div>
         <div class="action-text">
@@ -229,7 +38,7 @@
     </div>
   </div>
   <div class="active-properties-main">
-    <h2>Active properties</h2>
+    <h2>Active properties [{{activeSuggestionsAmount}}]</h2>
     <div><input type="text" name="" id="" /></div>
     <div class="active-properties-container">
       <div class="active-properties-header">
@@ -239,15 +48,24 @@
         <span>Status</span>
         <span>Guest messages</span>
       </div>
-      <div class="active-properties-item">
-        <div>853723</div>
+      <div *ngFor="let item of activeSuggestions; let i = index" class="active-properties-item">
+        <div class="button-cursor" (click)="showSuggestion(item.uniqueCode, item.id)">{{item.uniqueCode}}</div>
         <div class="name-text">
-          <img src="../../assets/flag/flag-12.png" />Unnamed property
+          <img src="../../assets/flag/flag-12.png" />
+          <span class="button-cursor">{{item.name}}</span>
         </div>
-        <div>Berlin, Germany</div>
-        <div>Open/Bookable</div>
+        <div> {{
+          item.address +
+            ", " +
+            item.region +
+            ", " +
+            item.city +
+            ", " +
+            item.country
+        }}</div>
+        <div>{{item.status}}</div>
         <div class="action-text">
-          <span class="text-continue">6</span>
+          <span class="text-continue button-cursor">{{item.messagesCount}}</span>
         </div>
       </div>
     </div>

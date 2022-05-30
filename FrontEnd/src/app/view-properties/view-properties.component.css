@@ -15,6 +15,11 @@
   flex-wrap: nowrap;
 }
 
+
+.button-cursor {
+  cursor: pointer;
+}
+
 .progress-properties-container > * {
   padding: 20px;
   border-bottom: 1px solid rgb(173, 173, 173);

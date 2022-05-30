@@ -261,13 +261,32 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 return Json(new
                 {
                     code = STATUS_200,
-                    suggestions = suggestions
+                    inProgressSuggestions = suggestions
+                        .Where(s => s.Progress < 100)
                         .Select(s => new
                         {
                             s.Id,
                             s.UniqueCode,
                             s.Name,
                             s.Progress,
+                            messagesCount = s.Messages.Count,
+                            suggestionStatus = s.SuggestionStatus.Status,
+                            country = s.Address.Country.Title,
+                            city = s.Address.City.Title,
+                            region = s.Address.Region.Title,
+                            address = s.Address.AddressText,
+                            images = s.Images.Select(i => new { i.Path, i.Name }),
+                            countryImage = s.Address.Country.Image,
+                        }),
+                    activeSuggestions = suggestions
+                        .Where(s => s.Progress == 100)
+                        .Select(s => new
+                        {
+                            s.Id,
+                            s.UniqueCode,
+                            s.Name,
+                            s.Progress,
+                            s.SuggestionStatus.Status,
                             messagesCount = s.Messages.Count,
                             suggestionStatus = s.SuggestionStatus.Status,
                             country = s.Address.Country.Title,
