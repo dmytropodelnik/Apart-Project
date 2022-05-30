@@ -22,7 +22,7 @@ export class ViewPropertyComponent implements OnInit {
   activeSuggestionsAmount: number = 0;
   inProgressSuggestionsAmount: number = 0;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
+  constructor(private router: Router, private activatedRouter: ActivatedRoute) {}
 
   getProperties(): void {
     fetch(
@@ -52,6 +52,94 @@ export class ViewPropertyComponent implements OnInit {
       .catch((ex) => {
         alert(ex);
       });
+  }
+
+  continueRegistration(suggestion: any): void {
+    if (suggestion.progress == 5) {
+      this.router.navigate(['lp/nameandlocation'], {
+        queryParams: {
+          id: suggestion.id,
+          choice: 0,
+          toSaveId: true,
+        },
+      });
+    } else if (suggestion.progress == 10) {
+      this.router.navigate(['lp/nameandlocation'], {
+        queryParams: {
+          id: suggestion.id,
+          choice: 1,
+          toSaveId: true,
+        },
+      });
+    } else if (suggestion.progress == 15) {
+      this.router.navigate(['/lp/apartments'], {
+        queryParams: {
+          id: suggestion.id,
+          toSaveId: true,
+        },
+      });
+    } else if (suggestion.progress == 25) {
+      this.router.navigate(['/lp/propertysetup'], {
+        queryParams: {
+          id: suggestion.id,
+          choice: 1,
+        },
+      });
+    } else if (suggestion.progress == 30) {
+      this.router.navigate(['/lp/propertysetup'], {
+        queryParams: {
+          id: suggestion.id,
+          choice: 2,
+          toSaveId: true,
+        },
+      });
+    } else if (suggestion.progress == 35) {
+      this.router.navigate(['/lp/propertysetup'], {
+        queryParams: {
+          id: suggestion.id,
+          choice: 3,
+          toSaveId: true,
+        },
+      });
+    } else if (suggestion.progress == 40) {
+      this.router.navigate(['/lp/propertysetup'], {
+        queryParams: {
+          id: suggestion.id,
+          choice: 4,
+          toSaveId: true,
+        },
+      });
+    } else if (suggestion.progress == 45) {
+      this.router.navigate(['/lp/propertysetup'], {
+        queryParams: {
+          id: suggestion.id,
+          choice: 5,
+          toSaveId: true,
+        },
+      });
+    } else if (suggestion.progress == 50) {
+      this.router.navigate(['/lp/propertysetup'], {
+        queryParams: {
+          id: suggestion.id,
+          choice: 6,
+          toSaveId: true,
+        },
+      });
+    } else if (suggestion.progress == 65) {
+      this.router.navigate(['/lp/photos'], {
+        queryParams: {
+          id: suggestion.id,
+          toSaveId: true,
+        },
+      });
+    } else if (suggestion.progress == 75) {
+      this.router.navigate(['/lp/reviewandcomplete'], {
+        queryParams: {
+          id: suggestion.id,
+          toSaveId: true,
+        },
+      });
+    }
   }
 
   deleteSuggestion(id: number): void {

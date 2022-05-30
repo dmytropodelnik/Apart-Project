@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Facility } from 'src/app/models/facility.item';
 import { SuggestionRule } from 'src/app/models/Suggestions/suggestionrule.item';
 
@@ -39,6 +39,7 @@ export class LpPropertySetupComponent implements OnInit {
   constructor(
     private listNewPropertyService: ListNewPropertyService,
     private router: Router,
+    private activatedRouter: ActivatedRoute,
   ) {
 
   }
@@ -345,6 +346,15 @@ export class LpPropertySetupComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.activatedRouter.queryParams.subscribe((params: any) => {
+      if (params['toSaveId'] == true) {
+        this.listNewPropertyService.setSavedPropertyId(
+          params['id']
+        );
+        this.choice = params['choice'];
+      }
+    });
+
     if (!AuthHelper.isLogged()) {
       this.router.navigate(['']);
       return;

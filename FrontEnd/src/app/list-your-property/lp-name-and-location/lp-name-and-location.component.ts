@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Address } from 'src/app/models/Location/address.item';
 import { Country } from 'src/app/models/Location/country.item';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ListNewPropertyService } from '../../services/list-new-property.service';
 
@@ -27,7 +27,8 @@ export class LpNameAndLocationComponent implements OnInit {
 
   constructor(
     private listNewPropertyService: ListNewPropertyService,
-    private router: Router
+    private router: Router,
+    private activatedRouter: ActivatedRoute,
   ) {}
   choice: number = 0;
 
@@ -158,6 +159,15 @@ export class LpNameAndLocationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.activatedRouter.queryParams.subscribe((params: any) => {
+      if (params['toSaveId'] == true) {
+        this.listNewPropertyService.setSavedPropertyId(
+          params['id']
+        );
+        this.choice = params['choice'];
+      }
+    });
+
     if (!AuthHelper.isLogged()) {
       this.router.navigate(['']);
     }
