@@ -12,7 +12,7 @@
       </div>
       <div *ngFor="let item of inProgressSuggestions; let i = index" class="progress-properties-item">
         <div class="name-text">
-          <img src="../../assets/flag/flag-12.png" />
+          <img src="../../assets/images/unknown_house.png" />
           {{item.name}}
         </div>
         <div>{{
@@ -30,7 +30,7 @@
             item.city +
             ", " +
             item.country :
-            ''
+            'No address'
         }}</div>
         <div class="progress">
           <div
@@ -87,7 +87,7 @@
             item.city +
             ", " +
             item.country :
-            ''
+            'No address'
         }}</div>
         <div>{{item.status}}</div>
         <div class="action-text">
