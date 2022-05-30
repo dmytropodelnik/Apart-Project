@@ -172,7 +172,11 @@ namespace CloneBookingAPI.Controllers.Suggestions
                         .All(s => s.Id == suggestion.Id))
                     .CountAsync();
 
-                double grade = suggestion.Reviews.Average(r => r.Grades.Average(g => g.Value));
+                double grade = 0;
+                if (suggestion.Reviews.Any())
+                {
+                    grade = suggestion.Reviews.Average(r => r.Grades.Average(g => g.Value));
+                }
 
                 return Json(new { 
                     code = STATUS_200, 

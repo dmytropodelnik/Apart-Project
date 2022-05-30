@@ -76,7 +76,10 @@
           <img src="{{
             imageHelper.getImageDirectoryPath()
           }}suggestions/stays/{{ item.images[0].name }}" />
-          <span class="button-cursor" (click)="showSuggestion(item.uniqueCode, item.id)">{{item.name}} <span>[edit]</span></span>
+          <span class="button-cursor">
+            <span (click)="showSuggestion(item.uniqueCode, item.id)">{{item.name}} </span>
+            <span>[edit]</span>
+          </span>
         </div>
         <div> {{
           (item.address +
