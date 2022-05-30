@@ -72,7 +72,7 @@ export class ViewPropertyComponent implements OnInit {
         },
       });
     } else if (suggestion.progress == 15) {
-      this.router.navigate(['/lp/apartments'], {
+      this.router.navigate(['lp/apartments'], {
         queryParams: {
           id: suggestion.id,
           toSaveId: true,
@@ -83,6 +83,7 @@ export class ViewPropertyComponent implements OnInit {
         queryParams: {
           id: suggestion.id,
           choice: 1,
+          toSaveId: true,
         },
       });
     } else if (suggestion.progress == 30) {
@@ -94,7 +95,7 @@ export class ViewPropertyComponent implements OnInit {
         },
       });
     } else if (suggestion.progress == 35) {
-      this.router.navigate(['/lp/propertysetup'], {
+      this.router.navigate(['lp/propertysetup'], {
         queryParams: {
           id: suggestion.id,
           choice: 3,
@@ -102,7 +103,7 @@ export class ViewPropertyComponent implements OnInit {
         },
       });
     } else if (suggestion.progress == 40) {
-      this.router.navigate(['/lp/propertysetup'], {
+      this.router.navigate(['lp/propertysetup'], {
         queryParams: {
           id: suggestion.id,
           choice: 4,
@@ -110,7 +111,7 @@ export class ViewPropertyComponent implements OnInit {
         },
       });
     } else if (suggestion.progress == 45) {
-      this.router.navigate(['/lp/propertysetup'], {
+      this.router.navigate(['lp/propertysetup'], {
         queryParams: {
           id: suggestion.id,
           choice: 5,
@@ -118,7 +119,7 @@ export class ViewPropertyComponent implements OnInit {
         },
       });
     } else if (suggestion.progress == 50) {
-      this.router.navigate(['/lp/propertysetup'], {
+      this.router.navigate(['lp/propertysetup'], {
         queryParams: {
           id: suggestion.id,
           choice: 6,
@@ -126,14 +127,14 @@ export class ViewPropertyComponent implements OnInit {
         },
       });
     } else if (suggestion.progress == 65) {
-      this.router.navigate(['/lp/photos'], {
+      this.router.navigate(['lp/photos'], {
         queryParams: {
           id: suggestion.id,
           toSaveId: true,
         },
       });
     } else if (suggestion.progress == 75) {
-      this.router.navigate(['/lp/reviewandcomplete'], {
+      this.router.navigate(['lp/reviewandcomplete'], {
         queryParams: {
           id: suggestion.id,
           toSaveId: true,

@@ -347,23 +347,20 @@ export class LpPropertySetupComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRouter.queryParams.subscribe((params: any) => {
-      if (params['toSaveId'] == true) {
-        this.listNewPropertyService.setSavedPropertyId(
-          params['id']
-        );
+      if (params['toSaveId'] == 'true') {
+        this.listNewPropertyService.setSavedPropertyId(params['id']);
         this.choice = params['choice'];
       }
+      if (!AuthHelper.isLogged()) {
+        this.router.navigate(['']);
+        return;
+      }
+      else if (!this.listNewPropertyService.getSavedPropertyId()) {
+        this.router.navigate(['']);
+        return;
+      }
+      this.getFacilities();
+      this.getRules();
     });
-
-    if (!AuthHelper.isLogged()) {
-      this.router.navigate(['']);
-      return;
-    }
-    else if (!this.listNewPropertyService.getSavedPropertyId()) {
-      this.router.navigate(['']);
-      return;
-    }
-    this.getFacilities();
-    this.getRules();
   }
 }

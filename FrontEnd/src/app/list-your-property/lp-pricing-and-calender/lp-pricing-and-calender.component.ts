@@ -51,19 +51,18 @@ export class LpPricingAndCalenderComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRouter.queryParams.subscribe((params: any) => {
-      if (params['toSaveId'] == true) {
+      if (params['toSaveId'] == 'true') {
         this.listNewPropertyService.setSavedPropertyId(
           params['id']
         );
       }
+      if (!AuthHelper.isLogged()) {
+        this.router.navigate(['']);
+      }
+      else if (!this.listNewPropertyService.getSavedPropertyId()) {
+        this.router.navigate(['']);
+      }
     });
-
-    if (!AuthHelper.isLogged()) {
-      this.router.navigate(['']);
-    }
-    else if (!this.listNewPropertyService.getSavedPropertyId()) {
-      this.router.navigate(['']);
-    }
   }
 
 }
