@@ -14,6 +14,8 @@ import MathHelper from '../utils/mathHelper';
   styleUrls: ['./view-properties.component.css'],
 })
 export class ViewPropertyComponent implements OnInit {
+  imageHelper: any = ImageHelper;
+
   inProgressSuggestions: any[] = [];
   activeSuggestions: any[] = [];
 
