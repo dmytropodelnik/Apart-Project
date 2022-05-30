@@ -271,11 +271,11 @@ namespace CloneBookingAPI.Controllers.Suggestions
                         .Include(s => s.Images)
                         .Include(s => s.Messages)
                         .Where(s => s.User.Email.Equals(email)                 && 
-                                    s.Name.Contains(filter)                    ||
+                                    (s.Name.Contains(filter)                   ||
                                     s.Progress.ToString().Contains(filter)     ||
                                     s.UniqueCode.Contains(filter)              ||
                                     s.SuggestionStatus.Status.Contains(filter) ||
-                                    s.Messages.Count.ToString().Contains(filter))
+                                    s.Messages.Count.ToString().Contains(filter)))
                         .ToListAsync();
                 }
                 if (suggestions is null)
