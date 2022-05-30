@@ -22,6 +22,9 @@ export class ViewPropertyComponent implements OnInit {
   activeSuggestionsAmount: number = 0;
   inProgressSuggestionsAmount: number = 0;
 
+  activeFilter: string = '';
+  inProgressFilter: string = '';
+
   constructor(private router: Router, private activatedRouter: ActivatedRoute) {}
 
   getProperties(): void {
@@ -46,7 +49,7 @@ export class ViewPropertyComponent implements OnInit {
           this.inProgressSuggestionsAmount =
             response.inProgressSuggestionsAmount;
         } else {
-          alert('User favorites fetching error!');
+          alert('Get properties fetching error!');
         }
       })
       .catch((ex) => {
@@ -141,6 +144,59 @@ export class ViewPropertyComponent implements OnInit {
         },
       });
     }
+  }
+
+  filterActiveSuggestions(): void {
+    fetch(
+      `https://localhost:44381/api/suggestions/getusersuggestions?email=${AuthHelper.getLogin()}&filter=${this.activeFilter}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.activeSuggestions = response.activeSuggestions;
+          this.activeSuggestionsAmount = response.activeSuggestionsAmount;
+        } else {
+          alert(response.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  filterInProgressSuggestions(): void {
+    fetch(
+      `https://localhost:44381/api/suggestions/getusersuggestions?email=${AuthHelper.getLogin()}&filter=${this.inProgressFilter}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.inProgressSuggestions = response.inProgressSuggestions;
+          this.inProgressSuggestionsAmount =
+            response.inProgressSuggestionsAmount;
+        } else {
+          alert(response.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   deleteSuggestion(id: number): void {

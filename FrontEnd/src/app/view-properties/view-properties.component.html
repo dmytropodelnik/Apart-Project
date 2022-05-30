@@ -2,7 +2,10 @@
   <app-header></app-header>
   <div class="progress-properties-main">
     <h2>Properties in progress [{{inProgressSuggestionsAmount}}]</h2>
-    <div><input type="text" name="" id="" /></div>
+    <div>
+      <input type="text" name="inProgressFilter" [(ngModel)]="inProgressFilter" />
+      <button class="btn btn-primary" (click)="filterInProgressSuggestions()">Filter</button>
+    </div>
     <div class="progress-properties-container">
       <div class="progress-properties-header">
         <span>Name</span>
@@ -55,7 +58,10 @@
   </div>
   <div class="active-properties-main">
     <h2>Active properties [{{activeSuggestionsAmount}}]</h2>
-    <div><input type="text" name="" id="" /></div>
+    <div>
+      <input type="text" name="activeFilter" [(ngModel)]="activeFilter" />
+      <button class="btn btn-primary" (click)="filterActiveSuggestions()">Filter</button>
+    </div>
     <div class="active-properties-container">
       <div class="active-properties-header">
         <span>ID</span>

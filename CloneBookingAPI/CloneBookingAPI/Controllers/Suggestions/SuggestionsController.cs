@@ -229,25 +229,54 @@ namespace CloneBookingAPI.Controllers.Suggestions
         [TypeFilter(typeof(AuthorizationFilter))]
         [Route("getusersuggestions")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Suggestion>>> GetUserSuggestions(string email)
+        public async Task<ActionResult<IEnumerable<Suggestion>>> GetUserSuggestions(string email, string filter, string kind = "all")
         {
             try
             {
-                var suggestions = await _context.Suggestions
-                    .Include(s => s.User)
-                    .Include(s => s.Address)
-                    .Include(s => s.Address.Country)
-                        .ThenInclude(c => c.Image)
-                    .Include(s => s.Address.City)
-                    .Include(s => s.Address.Region)
-                    .Include(s => s.SuggestionStatus)
-                    .Include(s => s.Images)
-                    .Include(s => s.Messages)
-                    .Where(s => s.User.Email.Equals(email))
-                    .ToListAsync();
+                if (string.IsNullOrWhiteSpace(email))
+                {
+                    return Json(new { code = STATUS_400, message = "Email data is null." });
+                }
+
+                List<Suggestion> suggestions;
+                if (string.IsNullOrWhiteSpace(filter))
+                {
+                    suggestions = await _context.Suggestions
+                        .Include(s => s.User)
+                        .Include(s => s.Address)
+                        .Include(s => s.Address.Country)
+                            .ThenInclude(c => c.Image)
+                        .Include(s => s.Address.City)
+                        .Include(s => s.Address.Region)
+                        .Include(s => s.SuggestionStatus)
+                        .Include(s => s.Images)
+                        .Include(s => s.Messages)
+                        .Where(s => s.User.Email.Equals(email))
+                        .ToListAsync();
+                }
+                else
+                {
+                    suggestions = await _context.Suggestions
+                        .Include(s => s.User)
+                        .Include(s => s.Address)
+                        .Include(s => s.Address.Country)
+                            .ThenInclude(c => c.Image)
+                        .Include(s => s.Address.City)
+                        .Include(s => s.Address.Region)
+                        .Include(s => s.SuggestionStatus)
+                        .Include(s => s.Images)
+                        .Include(s => s.Messages)
+                        .Where(s => s.User.Email.Equals(email)                 && 
+                                    s.Name.Contains(filter)                    ||
+                                    s.Progress.ToString().Contains(filter)     ||
+                                    s.UniqueCode.Contains(filter)              ||
+                                    s.SuggestionStatus.Status.Contains(filter) ||
+                                    s.Messages.Count.ToString().Contains(filter))
+                        .ToListAsync();
+                }
                 if (suggestions is null)
                 {
-                    return Json(new { code = STATUS_400 });
+                    return Json(new { code = STATUS_400, message = "Suggestions are not found." });
                 }
 
                 int activeSuggestionsAmount = suggestions
