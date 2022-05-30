@@ -54,6 +54,29 @@ export class ViewPropertyComponent implements OnInit {
       });
   }
 
+  deleteSuggestion(id: number): void {
+    fetch(`https://localhost:44381/api/suggestions/deletesuggestion?id=${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
+    })
+      .then((r) => r.json())
+      .then((data) => {
+        if (data.code === 200) {
+          alert("Suggestion was deleted successfully!");
+          this.getProperties();
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
   showSuggestion(uniqueCode: number, id: number): void {
     this.router.navigate(['suggestion', uniqueCode], {
       queryParams: {},

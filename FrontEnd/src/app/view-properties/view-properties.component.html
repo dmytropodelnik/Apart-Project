@@ -38,8 +38,8 @@
         </div>
         <div class="action-text">
           <span class="text-continue button-cursor">Continue registration</span
-          ><span class="text-delete button-cursor"
-            ><img src="../../assets/images/trashcan.png" />Delete</span
+          ><span class="text-delete button-cursor" (click)="deleteSuggestion(item.id)">
+            <img src="../../assets/images/trashcan.png" />Delete</span
           >
         </div>
       </div>

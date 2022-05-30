@@ -321,6 +321,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
         }
 
         [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(AccessorySuggestionFilter))]
         [Route("deletesuggestion")]
         [HttpDelete]
         public async Task<IActionResult> DeleteSuggestion(int id)
@@ -335,7 +336,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 var suggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == id);
                 if (suggestion is null)
                 {
-                    return Json(new { code = STATUS_400 });
+                    return Json(new { code = STATUS_400, message = "Suggestion is not found." });
                 }
 
                 _context.Suggestions.Remove(suggestion);
