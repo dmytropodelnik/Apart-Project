@@ -3,9 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
 import MathHelper from '../utils/mathHelper';
-
+import { Router } from '@angular/router';
+import { ViewportScroller } from '@angular/common';
+import { ExtraOptions } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbDate } from '@ng-bootstrap/ng-bootstrap';
 import { switchMap } from 'rxjs/operators';
 import { FilterViewModel } from '../view-models/filterviewmodel.item';
 import { SearchViewModel } from '../view-models/searchviewmodel.item';
@@ -57,11 +59,19 @@ export class StaySuggestionPageComponent implements OnInit {
 
   isSaved: string = 'false';
 
+  isAuth: boolean = false;
+
   constructor(
+    private router: Router,
     private activatedRouter: ActivatedRoute,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    private scroller: ViewportScroller
   ) {}
 
+  routerOptions: ExtraOptions = {
+    anchorScrolling: 'enabled',
+    //scrollPositionRestoration: "enabled"
+  };
   openWindowCustomClass(longContent: any) {
     this.getSuggestionReviews();
     this.modalService.open(longContent, {
@@ -69,8 +79,21 @@ export class StaySuggestionPageComponent implements OnInit {
     });
   }
 
-  openVerticallyCentered(content : any) {
-    this.modalService.open(content, { centered: true });
+  openVerticallyCentered(content: any) {
+    this.modalService.open(content, {
+      centered: true,
+    });
+  }
+
+  goDown1() {
+    this.scroller.scrollToAnchor('targetAvailability');
+  }
+  goDown2() {
+    this.scroller.scrollToAnchor('targetFacilities');
+  }
+
+  goDown3() {
+    this.scroller.scrollToAnchor('targetHouserules');
   }
 
   getSuggestion(): void {
@@ -87,7 +110,7 @@ export class StaySuggestionPageComponent implements OnInit {
           this.suggestion = response.suggestion;
           this.suggestion.reviewsAmount = response.reviewsAmount;
           this.facilityTypes = response.facilities;
-          this.ruleTypes = response.rules
+          this.ruleTypes = response.rules;
           this.reviewsAmount = response.reviewsAmount;
           this.grade = response.grade;
           //alert(this.suggestion.id);
@@ -249,20 +272,23 @@ export class StaySuggestionPageComponent implements OnInit {
   }
 
   likeComment(id: number): void {
-    fetch(`https://localhost:44381/api/reviews/likereview?id=${id}&email=${AuthHelper.getLogin()}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://localhost:44381/api/reviews/likereview?id=${id}&email=${AuthHelper.getLogin()}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.reviews[id - 1].likes = data.reviewData.likes;
           this.reviews[id - 1].dislikes = data.reviewData.dislikes;
-          alert("Liked successfully!");
+          alert('Liked successfully!');
         } else {
           alert(data.message);
         }
@@ -273,20 +299,23 @@ export class StaySuggestionPageComponent implements OnInit {
   }
 
   dislikeComment(id: number): void {
-    fetch(`https://localhost:44381/api/reviews/dislikereview?id=${id}&email=${AuthHelper.getLogin()}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://localhost:44381/api/reviews/dislikereview?id=${id}&email=${AuthHelper.getLogin()}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.reviews[id - 1].likes = data.reviewData.likes;
           this.reviews[id - 1].dislikes = data.reviewData.dislikes;
-          alert("Disliked successfully!");
+          alert('Disliked successfully!');
         } else {
           alert(data.message);
         }
