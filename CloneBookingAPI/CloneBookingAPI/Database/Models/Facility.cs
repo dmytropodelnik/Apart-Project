@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Database.Models.ViewModels;
+﻿using CloneBookingAPI.Database.Models.Suggestions;
+using CloneBookingAPI.Database.Models.ViewModels;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -23,7 +24,9 @@ namespace CloneBookingAPI.Services.Database.Models
         public FacilityType FacilityType { get; set; }
 
         public List<Suggestion> Suggestions { get; set; } = new();
+        public List<Apartment> Apartments { get; set; } = new();
 
         public List<SuggestionFacility> SuggestionsFacilities { get; set; } = new();
+        public List<ApartmentFacility> ApartmentsFacilities { get; set; } = new();
     }
 }

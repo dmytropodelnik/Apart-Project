@@ -91,6 +91,7 @@ export class StaySuggestionPageComponent implements OnInit {
           this.reviewsAmount = response.reviewsAmount;
           this.grade = response.grade;
           //alert(this.suggestion.id);
+          console.log(this.suggestion);
         } else {
           alert('Suggestion fetching error!');
         }

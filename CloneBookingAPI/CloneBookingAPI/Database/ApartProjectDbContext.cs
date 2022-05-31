@@ -176,6 +176,23 @@ namespace CloneBookingAPI.Services.Database
                         j.HasKey(t => new { t.SuggestionId, t.SuggestionRuleId });
                     });
 
+            modelBuilder.Entity<Apartment>()
+                .HasMany(s => s.Facilities)
+                .WithMany(f => f.Apartments)
+                .UsingEntity<ApartmentFacility>(
+                    j => j
+                        .HasOne(sf => sf.Facility)
+                        .WithMany(s => s.ApartmentsFacilities)
+                        .HasForeignKey(pt => pt.FacilityId),
+                    j => j
+                        .HasOne(pt => pt.Apartment)
+                        .WithMany(f => f.ApartmentsFacilities)
+                        .HasForeignKey(pt => pt.ApartmentId),
+                    j =>
+                    {
+                        j.HasKey(t => new { t.ApartmentId, t.FacilityId });
+                    });
+
             modelBuilder.ApplyConfiguration(new FlightClassTypesConfiguration());
             modelBuilder.ApplyConfiguration(new AddressesConfiguration());
             modelBuilder.ApplyConfiguration(new AirportsConfiguration());
@@ -233,6 +250,7 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new MailLettersConfiguration());
             modelBuilder.ApplyConfiguration(new SuggestionsFacilitiesConfiguration());
             modelBuilder.ApplyConfiguration(new SuggestionsSuggestionRulesConfiguration());
+            modelBuilder.ApplyConfiguration(new ApartmentsFacilitiesConfiguration());
         }
     }
 }

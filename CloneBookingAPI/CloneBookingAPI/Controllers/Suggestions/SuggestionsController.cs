@@ -104,6 +104,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     .Include(s => s.Apartments)
                         .ThenInclude(a => a.BookedPeriods)
                     .Include(s => s.Apartments)
+                        .ThenInclude(a => a.Facilities)
                     .Include(s => s.BookingCategory)
                         .ThenInclude(c => c.BookingCategoryType)
                     .Include(s => s.Highlights)
@@ -122,6 +123,27 @@ namespace CloneBookingAPI.Controllers.Suggestions
                             Address = s.Address.AddressText,
                             StarsRating = new short[s.StarsRating],
                             ReviewsAmount = s.Reviews.Count,
+                            Apartments = s.Apartments
+                                .Select(a => new
+                                {
+                                    a.Id,
+                                    a.Name,
+                                    a.PriceInUSD,
+                                    a.PriceInUserCurrency,
+                                    a.RoomsAmount,
+                                    a.IsSmokingAllowed,
+                                    a.GuestsLimit,
+                                    a.AparmentSize,
+                                    a.BathroomsAmount,
+                                    a.Description,
+                                    a.IsSuite,
+                                    Facilities = a.Facilities
+                                        .Select(f => new
+                                        {
+                                            f.Id,
+                                            f.Text,
+                                        })
+                                }),
                             Reviews = s.Reviews
                                 .Select(r => new
                                 {
