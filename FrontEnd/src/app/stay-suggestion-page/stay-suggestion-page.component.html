@@ -80,9 +80,9 @@
         </div>
         <div class="main-information">
           <div class="search_results_top_buttons">
-            <button>Info & prices</button>
-            <button>Facilities</button>
-            <button>House rules</button>
+            <button (click)="goDown1()">Info & prices</button>
+            <button (click)="goDown2()">Facilities</button>
+            <button (click)="goDown3()">House rules</button>
             <button (click)="openWindowCustomClass(longContent)">
               Guest reviews ({{ reviewsAmount }})
             </button>
@@ -91,27 +91,39 @@
             <div class="information-container">
               <div>
                 <span class="bold-title">{{ suggestion.name }}</span>
-                <div *ngFor="let item of suggestion.starsRating; let i = index">
-                  <img src="../../assets/images/Star 1.png" />
+                <div class="information-container3">
+                  <div
+                    *ngFor="let item of suggestion.starsRating; let i = index"
+                  >
+                    <img src="../../assets/images/Star 1.png" />
+                  </div>
                 </div>
               </div>
-              <div *ngIf="isSaved === 'true'">
-                <button class="information-container-like" (click)="removeSuggestion(suggestion.id)">
-                  <svg viewBox="0 0 128 128" width="26px" height="26px">
-                    <path
-                      d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z"
-                    ></path>
-                  </svg>
-                </button>
-              </div>
-              <div *ngIf="isSaved === 'false'">
-                <button class="information-container-like1" (click)="addSuggestionToSaved(suggestion.id)">
-                  <svg viewBox="0 0 128 128" width="26px" height="26px">
-                    <path
-                      d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z"
-                    ></path>
-                  </svg>
-                </button>
+              <div>
+                <div *ngIf="isSaved === 'true'">
+                  <button
+                    class="information-container-like"
+                    (click)="removeSuggestion(suggestion.id)"
+                  >
+                    <svg viewBox="0 0 128 128" width="26px" height="26px">
+                      <path
+                        d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
+                <div *ngIf="isSaved === 'false'">
+                  <button
+                    class="information-container-like1"
+                    (click)="addSuggestionToSaved(suggestion.id)"
+                  >
+                    <svg viewBox="0 0 128 128" width="26px" height="26px">
+                      <path
+                        d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z"
+                      ></path>
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
             <div class="information-container2 subtitle">
@@ -242,7 +254,7 @@
         </p>
       </div>
 
-      <div class="availability-main">
+      <div class="availability-main" id="targetAvailability">
         <h2>Availability</h2>
         <div class="availability-container">
           <div class="availability-item">
@@ -680,7 +692,7 @@
         </div>
       </div>
 
-      <div class="facilities-main">
+      <div class="facilities-main" id="targetFacilities">
         <h2 *ngIf="facilityTypes.length != 0">Facilities</h2>
         <div class="facilities-container">
           <div
@@ -707,7 +719,11 @@
           </div>
         </div>
       </div>
-      <div *ngIf="ruleTypes.length != 0" class="housingRules-main">
+      <div
+        *ngIf="ruleTypes.length != 0"
+        class="housingRules-main"
+        id="targetHouserules"
+      >
         <h2>House rules</h2>
         <div class="housingRules-container">
           <div
@@ -781,6 +797,7 @@
     <button
       class="btn btn-outline-primary btn-sm"
       (click)="openVerticallyCentered(content)"
+      (click)="modal.dismiss()"
     >
       Write review
     </button>
@@ -959,8 +976,14 @@
 </ng-template>
 
 <ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title">Modal title</h4>
+  <div class="modal-header" *ngIf="isAuth == false">
+    <div class="write-review-header">
+      <h4 class="modal-title">Enter your booking details</h4>
+      <h6>
+        Check your booking confirmation email to find your booking number and
+        PIN
+      </h6>
+    </div>
     <button
       type="button"
       class="btn-close"
@@ -968,16 +991,162 @@
       (click)="modal.dismiss('Cross click')"
     ></button>
   </div>
-  <div class="modal-body">
-    <p>One fine body&hellip;</p>
+  <div class="modal-body" *ngIf="isAuth == false">
+    <div class="write-review-container">
+      <div class="write-review-item">
+        <label for="booking-number">Booking number</label>
+        <input type="text" value="" id="booking-number" />
+      </div>
+      <div class="write-review-item">
+        <label for="pin">PIN</label>
+        <input type="text" value="" id="pin" />
+      </div>
+      <div class="write-review-item"><button>Rate your stay</button></div>
+      <div class="write-review-item">
+        Only a customer who booked through Booking.com and stayed at a specific
+        property can write a review. This lets us know our reviews come from
+        real guests like you.
+      </div>
+    </div>
   </div>
-  <div class="modal-footer">
+
+  <div class="modal-header" *ngIf="isAuth == true">
+    <div class="write-review-header">
+      <h4 class="modal-title">Enter your rating for this Hotel</h4>
+      <h6>
+        Check your booking confirmation email to find your booking number and
+        PIN
+      </h6>
+    </div>
     <button
       type="button"
-      class="btn btn-light"
-      (click)="modal.close('Close click')"
-    >
-      Close
-    </button>
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body" *ngIf="isAuth == true">
+    <div class="write-review-container">
+      <div class="write-review-item">
+        <label for="staff">Staff rating</label>
+        <select name="" id="staff">
+          <option value="" disabled selected>
+            Please select your rating value from 1 - 10
+          </option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+      <div class="write-review-item">
+        <label for="facilities">Facilities rating</label>
+        <select name="" id="facilities">
+          <option value="" disabled selected>
+            Please select your rating value from 1 - 10
+          </option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+      <div class="write-review-item">
+        <label for="cleanliness">Cleanliness</label>
+        <select name="" id="cleanliness">
+          <option value="" disabled selected>
+            Please select your rating value from 1 - 10
+          </option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+      <div class="write-review-item">
+        <label for="comfort">Comfort rating</label>
+        <select name="" id="comfort">
+          <option value="" disabled selected>
+            Please select your rating value from 1 - 10
+          </option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+      <div class="write-review-item">
+        <label for="location">Location rating</label>
+        <select name="" id="location">
+          <option value="" disabled selected>
+            Please select your rating value from 1 - 10
+          </option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+      <div class="write-review-item">
+        <label for="cityview">City view rating</label>
+        <select name="" id="cityview">
+          <option value="" disabled selected>
+            Please select your rating value from 1 - 10
+          </option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select>
+      </div>
+      <div class="write-review-item">
+        <input type="text" />
+      </div>
+      <div class="write-review-item">
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+      </div>
+      <div class="write-review-item">
+        <textarea name="" id="" cols="30" rows="10"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer" *ngIf="isAuth == true">
+    <div class="write-review-item"><button>Rate your stay</button></div>
   </div>
 </ng-template>

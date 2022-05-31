@@ -15,7 +15,6 @@
   flex-wrap: nowrap;
 }
 
-
 .button-cursor {
   cursor: pointer;
 }
@@ -181,4 +180,15 @@
   width: 16px;
   height: 20px;
   margin-right: 5px;
+}
+
+.inputfield {
+  border: 1px solid #ed6648;
+  width: 300px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+body {
+  min-width: 768px;
 }

@@ -1,10 +1,17 @@
 <body>
   <app-header></app-header>
   <div class="progress-properties-main">
-    <h2>Properties in progress [{{inProgressSuggestionsAmount}}]</h2>
+    <h2>Properties in progress [{{ inProgressSuggestionsAmount }}]</h2>
     <div>
-      <input type="text" name="inProgressFilter" [(ngModel)]="inProgressFilter" />
-      <button class="btn btn-primary" (click)="filterInProgressSuggestions()">Filter</button>
+      <input
+        type="text"
+        class="inputfield"
+        name="inProgressFilter"
+        [(ngModel)]="inProgressFilter"
+      />
+      <button class="btn btn-primary" (click)="filterInProgressSuggestions()">
+        Filter
+      </button>
     </div>
     <div class="progress-properties-container">
       <div class="progress-properties-header">
@@ -13,43 +20,56 @@
         <span>Registration progress</span>
         <span>Action</span>
       </div>
-      <div *ngFor="let item of inProgressSuggestions; let i = index" class="progress-properties-item">
+      <div
+        *ngFor="let item of inProgressSuggestions; let i = index"
+        class="progress-properties-item"
+      >
         <div class="name-text">
           <img src="../../assets/images/unknown_house.png" />
-          {{item.name}}
+          {{ item.name }}
         </div>
-        <div>{{
-          (item.address +
-            ", " +
-            item.region +
-            ", " +
-            item.city +
-            ", " +
-            item.country).length > 6 ?
-            item.address +
-            ", " +
-            item.region +
-            ", " +
-            item.city +
-            ", " +
-            item.country :
-            'No address'
-        }}</div>
+        <div>
+          {{
+            (
+              item.address +
+              ", " +
+              item.region +
+              ", " +
+              item.city +
+              ", " +
+              item.country
+            ).length > 6
+              ? item.address +
+                ", " +
+                item.region +
+                ", " +
+                item.city +
+                ", " +
+                item.country
+              : "No address"
+          }}
+        </div>
         <div class="progress">
           <div
             class="progress-bar"
             role="progressbar"
-            style="width: {{item.progress}}%"
+            style="width: {{ item.progress }}%"
             aria-valuenow="50"
             aria-valuemin="0"
             aria-valuemax="100"
           >
-            {{item.progress}}%
+            {{ item.progress }}%
           </div>
         </div>
         <div class="action-text">
-          <span class="text-continue button-cursor" (click)="continueRegistration(item)">Continue registration</span
-          ><span class="text-delete button-cursor" (click)="deleteSuggestion(item.id)">
+          <span
+            class="text-continue button-cursor"
+            (click)="continueRegistration(item)"
+            >Continue registration</span
+          ><span
+            class="text-delete button-cursor"
+            (click)="deleteSuggestion(item.id)"
+          >
             <img src="../../assets/images/trashcan.png" />Delete</span
           >
         </div>
@@ -57,10 +77,12 @@
     </div>
   </div>
   <div class="active-properties-main">
-    <h2>Active properties [{{activeSuggestionsAmount}}]</h2>
+    <h2>Active properties [{{ activeSuggestionsAmount }}]</h2>
     <div>
       <input type="text" name="activeFilter" [(ngModel)]="activeFilter" />
-      <button class="btn btn-primary" (click)="filterActiveSuggestions()">Filter</button>
+      <button class="btn btn-primary" (click)="filterActiveSuggestions()">
+        Filter
+      </button>
     </div>
     <div class="active-properties-container">
       <div class="active-properties-header">
@@ -70,37 +92,55 @@
         <span>Status</span>
         <span>Guest messages</span>
       </div>
-      <div *ngFor="let item of activeSuggestions; let i = index" class="active-properties-item">
-        <div class="button-cursor" (click)="showSuggestion(item.uniqueCode, item.id)">{{item.uniqueCode}}</div>
+      <div
+        *ngFor="let item of activeSuggestions; let i = index"
+        class="active-properties-item"
+      >
+        <div
+          class="button-cursor"
+          (click)="showSuggestion(item.uniqueCode, item.id)"
+        >
+          {{ item.uniqueCode }}
+        </div>
         <div class="name-text">
-          <img src="{{
-            imageHelper.getImageDirectoryPath()
-          }}suggestions/stays/{{ item.images[0].name }}" />
+          <img
+            src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
+              item.images[0].name
+            }}"
+          />
           <span class="button-cursor">
-            <span (click)="showSuggestion(item.uniqueCode, item.id)">{{item.name}} </span>
+            <span (click)="showSuggestion(item.uniqueCode, item.id)"
+              >{{ item.name }}
+            </span>
             <span>[edit]</span>
           </span>
         </div>
-        <div> {{
-          (item.address +
-            ", " +
-            item.region +
-            ", " +
-            item.city +
-            ", " +
-            item.country).length > 6 ?
-            item.address +
-            ", " +
-            item.region +
-            ", " +
-            item.city +
-            ", " +
-            item.country :
-            'No address'
-        }}</div>
-        <div>{{item.status}}</div>
+        <div>
+          {{
+            (
+              item.address +
+              ", " +
+              item.region +
+              ", " +
+              item.city +
+              ", " +
+              item.country
+            ).length > 6
+              ? item.address +
+                ", " +
+                item.region +
+                ", " +
+                item.city +
+                ", " +
+                item.country
+              : "No address"
+          }}
+        </div>
+        <div>{{ item.status }}</div>
         <div class="action-text">
-          <span class="text-continue button-cursor">{{item.messagesCount}}</span>
+          <span class="text-continue button-cursor">{{
+            item.messagesCount
+          }}</span>
         </div>
       </div>
     </div>
