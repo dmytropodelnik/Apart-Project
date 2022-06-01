@@ -98,6 +98,8 @@ import { SocialLoginModule,SocialAuthServiceConfig } from "angularx-social-login
 import { GoogleLoginProvider } from "angularx-social-login";
 import { LetterCreatorComponent } from './admin-panel/letter-creator/letter-creator.component';
 import { UserBookingsComponent } from './user-bookings/user-bookings.component';
+import { FillingUserDetailsComponent } from './booking-properties/filling-user-details/filling-user-details.component';
+import { BookingFinalStepComponent } from './booking-final-step/booking-final-step.component';
 
 @NgModule({
   providers: [AuthorizationService, MainDataService, ListNewPropertyService, AdminContentService,
@@ -199,6 +201,8 @@ import { UserBookingsComponent } from './user-bookings/user-bookings.component';
     AppInitializerComponent,
     LetterCreatorComponent,
     UserBookingsComponent,
+    FillingUserDetailsComponent,
+    BookingFinalStepComponent,
   ],
   imports: [
     BrowserModule,
