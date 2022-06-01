@@ -97,6 +97,7 @@ import { Router } from '@angular/router';
 import { SocialLoginModule,SocialAuthServiceConfig } from "angularx-social-login";
 import { GoogleLoginProvider } from "angularx-social-login";
 import { LetterCreatorComponent } from './admin-panel/letter-creator/letter-creator.component';
+import { UserBookingsComponent } from './user-bookings/user-bookings.component';
 
 @NgModule({
   providers: [AuthorizationService, MainDataService, ListNewPropertyService, AdminContentService,
@@ -197,6 +198,7 @@ import { LetterCreatorComponent } from './admin-panel/letter-creator/letter-crea
     StaySuggestionPageComponent,
     AppInitializerComponent,
     LetterCreatorComponent,
+    UserBookingsComponent,
   ],
   imports: [
     BrowserModule,
