@@ -10,7 +10,7 @@ body {
   list-style: none;
   margin: 0;
   padding: 0;
-  border: 1px solid #ed6648;
+  border: 1px solid #9966ff;
 }
 
 .side_menu_content {
@@ -22,7 +22,7 @@ body {
   text-decoration: none;
   height: 100%;
   box-sizing: border-box;
-  border-bottom: 1px solid #ed6648;
+  border-bottom: 1px solid #9966ff;
   margin: 0px 10px;
   width: 308px;
   height: 69px;
@@ -45,7 +45,7 @@ body {
 }
 
 .bui-header {
-  background: #ed6648;
+  background: #9966ff;
 }
 
 .bui-header__bar:not(:last-child) {
@@ -126,7 +126,7 @@ body {
 
 .bui-button__text {
   position: relative;
-  color: #ed6648;
+  color: #9966ff;
 }
 
 .bui-avatar--button-auth {

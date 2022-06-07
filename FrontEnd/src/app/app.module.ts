@@ -94,28 +94,35 @@ import { appInitializer } from './utils/appInitializer';
 import { AppInitializerComponent } from './app-initializer/app-initializer.component';
 import { Router } from '@angular/router';
 
-import { SocialLoginModule,SocialAuthServiceConfig } from "angularx-social-login";
-import { GoogleLoginProvider } from "angularx-social-login";
+import {
+  SocialLoginModule,
+  SocialAuthServiceConfig,
+} from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
 import { LetterCreatorComponent } from './admin-panel/letter-creator/letter-creator.component';
 import { UserBookingsComponent } from './user-bookings/user-bookings.component';
 import { FillingUserDetailsComponent } from './booking-properties/filling-user-details/filling-user-details.component';
 import { BookingFinalStepComponent } from './booking-properties/booking-final-step/booking-final-step.component';
 
 @NgModule({
-  providers: [AuthorizationService, MainDataService, ListNewPropertyService, AdminContentService,
+  providers: [
+    AuthorizationService,
+    MainDataService,
+    ListNewPropertyService,
+    AdminContentService,
     {
-      provide: "SocialAuthServiceConfig",
+      provide: 'SocialAuthServiceConfig',
       useValue: {
         autoLogin: true,
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
             provider: new GoogleLoginProvider(
-              "1051280403604-gn2mjml14fgen0739ts5su7n22vclbiv.apps.googleusercontent.com"
-            )
-          }
-        ]
-      } as SocialAuthServiceConfig
+              '1051280403604-gn2mjml14fgen0739ts5su7n22vclbiv.apps.googleusercontent.com'
+            ),
+          },
+        ],
+      } as SocialAuthServiceConfig,
     },
   ],
   declarations: [
@@ -213,9 +220,9 @@ import { BookingFinalStepComponent } from './booking-properties/booking-final-st
     ReactiveFormsModule,
     SocialLoginModule,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
 
 // {
 //   provide: APP_INITIALIZER,

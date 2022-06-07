@@ -21,7 +21,7 @@
 
 .ngbDatepicker .ngb-dp-today {
   color: #ffffff !important;
-  background-color: #ed6648 !important;
+  background-color: #9966ff !important;
 }
 
 .xpi__searchbox {
@@ -124,7 +124,7 @@ form {
   color: #333;
   border: 0;
   display: table;
-  background-color: #ed6648;
+  background-color: #9966ff;
   padding: 4px;
   border-radius: 4px;
   margin: 24px 0 16px;
@@ -643,8 +643,8 @@ div#basiclayout {
 }
 
 .coronavirus-banner__icon {
-  fill: #ed6648;
-  color: #ed6648;
+  fill: #9966ff;
+  color: #9966ff;
   background: #fff;
   height: 40px;
   width: 40px;
@@ -980,7 +980,7 @@ a:link {
 a.coronavirus-banner__link {
   font-weight: 400;
   text-decoration: none;
-  color: #ed6648;
+  color: #9966ff;
 }
 
 .bui-f-font-display_two,
@@ -1457,7 +1457,7 @@ a.coronavirus-banner__link {
 }
 
 .bui-review-score__badge {
-  background: #ed6648;
+  background: #9966ff;
   color: #fff;
   display: flex;
   -webkit-box-pack: center;
@@ -1708,8 +1708,8 @@ a.bui-card:link {
 
 /* tabs style */
 .nav-tabs .nav-link:hover {
-  color: #ed6648;
-  border-color: #ed6648;
+  color: #9966ff;
+  border-color: #9966ff;
   border: 1px solid;
 }
 .nav-tabs {
@@ -1717,11 +1717,11 @@ a.bui-card:link {
 }
 .nav-tabs .nav-link.active:hover {
   background: #ffffff;
-  color: #ed6648;
+  color: #9966ff;
 }
 
 .nav-tabs .nav-link.active {
-  background: #ed6648;
+  background: #9966ff;
   color: white;
 }
 
@@ -1734,7 +1734,7 @@ a.bui-card:link {
   border-radius: 999px;
   padding: 11px 15px;
   border: 1px solid transparent;
-  color: #ed6648;
+  color: #9966ff;
   font-weight: 500;
   font-size: 14px;
 }
@@ -1768,7 +1768,7 @@ a.bui-card:link {
 }
 
 .inner-tabs-links a:hover {
-  color: #ed6648;
+  color: #9966ff;
 }
 
 .inner-tabs-links li {
@@ -1919,7 +1919,7 @@ a.bui-card:link {
   border: 1px solid white;
   border-radius: 2px;
   color: #fff !important;
-  background-color: #ed6648;
+  background-color: #9966ff;
   height: 52px;
   min-width: 100% !important;
   margin: 0;
@@ -2022,7 +2022,7 @@ a.bui-card:link {
     min-width: auto;
   }
 
-  .row{
+  .row {
     gap: 3px;
   }
 
@@ -2071,7 +2071,7 @@ a.bui-card:link {
   display: block;
   width: 80px;
   height: 80px;
-  border: 10px solid rgba(0, 0, 0, .3);
+  border: 10px solid rgba(0, 0, 0, 0.3);
   border-radius: 50%;
   border-top-color: #000;
   animation: spin 1s ease-in-out infinite;
@@ -2090,7 +2090,6 @@ a.bui-card:link {
   }
 }
 
-
 /** MODAL STYLING **/
 
 .modal-content {
@@ -2108,5 +2107,5 @@ a.bui-card:link {
   border: 1px solid #222;
   max-width: 350px;
   margin: 35px auto;
-  font-family: 'Roboto', sans-serif !important;
+  font-family: "Roboto", sans-serif !important;
 }

@@ -24,6 +24,9 @@ import { LpApartmentsComponent } from './list-your-property/lp-apartments/lp-apa
 import { StaySuggestionPageComponent } from './stay-suggestion-page/stay-suggestion-page.component';
 import { ManageAccountGuard } from './manage-account/manage-account-body/manage-account.guard';
 import { ViewPropertiesGuard } from './view-properties/view-properties.guard';
+import { UserBookingsComponent } from './user-bookings/user-bookings.component';
+import { FillingUserDetailsComponent } from './booking-properties/filling-user-details/filling-user-details.component';
+import { BookingFinalStepComponent } from './booking-properties/booking-final-step/booking-final-step.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'stays', pathMatch: 'full' },
@@ -43,17 +46,19 @@ const routes: Routes = [
   {
     path: 'viewproperties',
     component: ViewPropertiesComponent,
-    canActivate: [ViewPropertiesGuard]
+    canActivate: [ViewPropertiesGuard],
   },
-  { path: 'lp/addproperty', component: AddPropertyComponent, pathMatch: 'full' },
+  {
+    path: 'lp/addproperty',
+    component: AddPropertyComponent,
+    pathMatch: 'full',
+  },
   {
     path: 'mysettings',
     component: ManageAccountComponent,
     canActivate: [ManageAccountGuard],
   },
-  { path: 'searchresults',
-    component: SearchResultsComponent,
- },
+  { path: 'searchresults', component: SearchResultsComponent },
   { path: 'suggestion/:id', component: StaySuggestionPageComponent },
   { path: 'resetpassword', component: ResetPasswordComponent },
   {
@@ -84,6 +89,17 @@ const routes: Routes = [
   {
     path: 'lp/apartments',
     component: LpApartmentsComponent,
+    pathMatch: 'full',
+  },
+  { path: 'userbookings', component: UserBookingsComponent, pathMatch: 'full' },
+  {
+    path: 'fillinguserdetails',
+    component: FillingUserDetailsComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'bookingfinalstep',
+    component: BookingFinalStepComponent,
     pathMatch: 'full',
   },
   { path: '**', redirectTo: 'stays', pathMatch: 'full' },
