@@ -18,7 +18,7 @@
 
 .carousel_item {
   box-sizing: border-box;
-  border: 1px solid #ed6648;
+  border: 1px solid #9966ff;
 }
 
 .carousel_item_img {
@@ -82,7 +82,7 @@
 
 .item_action > button {
   border: 0;
-  background-color: #ed6648;
+  background-color: #9966ff;
   width: 100%;
 }
 
@@ -105,7 +105,7 @@
   width: 120px;
   height: 40px;
   border-radius: 10px;
-  background-color: #ed6648;
+  background-color: #9966ff;
 }
 
 .saved-container-main {
@@ -237,7 +237,7 @@
   border: 0;
   border-radius: 0px 0px 10px 10px;
   color: white;
-  background-color: #ed6648;
+  background-color: #9966ff;
   height: 35px;
 }
 

@@ -1,8 +1,189 @@
-<p>
+<!-- <p>
   Этот компонент позволяет ввести информацию о людях, которые будут проживать в арендованном жилье.
   Пример как это должно выглядеть: https://prnt.sc/rcwGp-vx-D9r
   То, что я зачеркнул - делать не нужно.
   Если у тебя есть идеи как это сделать лучше - делай, я только рад!)
   Там, где цена - оставить только цену в $, и выдели ее.
   Это то, что должно быть ниже того, что сверху. Просто не влезло в один скриншот: https://prnt.sc/eAT_i3L_R0Vz
-</p>
+</p> -->
+
+<body>
+  <app-header></app-header>
+  <div class="basiclayout">
+    <div class="left">
+      <div class="booking-details">
+        <form class="booking-details-form">
+          <div class="booking-details-header">
+            <span class="textdecoration" id="basic-addon1"
+              >Your booking details</span
+            >
+          </div>
+          <div class="booking-details-date">
+            <div class="booking-details-date-item">
+              <span class="textdecoration">Check-in Date</span>
+              <span>Thu 9 Jun 2022</span>
+              <span>From 15:00</span>
+            </div>
+            <div class="booking-details-date-item">
+              <span class="textdecoration">Check-out Date</span>
+              <span>Fri 10 Jun 2022</span>
+              <span>Until 12:00</span>
+            </div>
+          </div>
+          <div class="booking-details-stay">
+            <span class="textdecoration" id="basic-addon1"
+              >Total length of stay:</span
+            >
+            <span>1 night</span>
+          </div>
+          <div class="booking-details-room">
+            <span class="textdecoration" id="basic-addon1">You selected:</span>
+            <span>Basic Queen Room</span>
+          </div>
+        </form>
+      </div>
+      <div class="booking-details-price">
+        <div class="booking-details-price-item">
+          <span>Price</span> <span>US$287.10</span>
+        </div>
+        <div><span>(For all quests)</span></div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="booking-details-card">
+        <div class="booking-details-card-image">
+          <img src="../../../assets/images/12.jpg" alt="" />
+        </div>
+        <div class="booking-details-card-container">
+          <div class="booking-details-card-container-item">
+            <span>Hotel</span>
+            <span><img src="../../../assets/images/Star 1.png" alt="" /></span>
+          </div>
+          <div class="booking-details-card-container-item">
+            <span>Room Mate Grace Boutique Hotel</span>
+          </div>
+          <div class="booking-details-card-container-item">
+            <span>125 West 45th Street, New York, NY 10036, United States</span>
+          </div>
+          <div class="booking-details-card-container-item">
+            <span class="bui-review-score__badge">8.6</span>
+            <span></span>
+            <span>Very good</span>
+            <span>2,056 reviews</span>
+          </div>
+          <div class="booking-details-card-container-item">
+            <span>parking</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-details-fill-details">
+        <div><span>Enter your details</span></div>
+        <div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault1"
+            />
+            <label class="form-check-label" for="flexRadioDefault1">Yes</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault2"
+              checked
+            />
+            <label class="form-check-label" for="flexRadioDefault2">No</label>
+          </div>
+        </div>
+        <div class="booking-details-fill-name">
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"
+              >First name</label
+            >
+            <input type="text" class="form-control" id="firstname" />
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"
+              >Last name</label
+            >
+            <input type="text" class="form-control" id="lastname" />
+          </div>
+        </div>
+        <div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"
+              >Email address</label
+            >
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+            />
+            <div id="emailHelp" class="form-text">
+              We'll never share your email with anyone else.
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"
+              >Confirm email address</label
+            >
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="booking-details-fill-details">
+        <div class="booking-details-fill-queenRoom">
+          <span>Basic queen room</span>
+          <span>No smoking</span>
+          <div class="booking-details-fill-queenRoom-item">
+            <span>15 m²</span>
+            <span>Air conditioning</span>
+            <span>Ensuite bathroom</span>
+            <span>Flat-screen TV</span>
+            <span>Soundproofing</span>
+          </div>
+          <div>
+            <span>Max persons: 2 + 1</span>
+          </div>
+          <div class="mb-3">
+            <label for="fullQuestName" class="form-label"
+              >Full quest name</label
+            >
+            <input type="text" class="form-control" id="fullQuestName" />
+          </div>
+        </div>
+      </div>
+      <div class="booking-details-fill-details">
+        <div class="booking-details-fill-specialrequest">
+          <span>Special requests</span>
+          <span
+            >Special requests cannot be guaranteed - but the property will do
+            its best to meet your needs. You can always make a special request
+            after your booking is complete!</span
+          >
+          <label for="specialrequest"></label>
+          <textarea name="" id="specialrequest" cols="30" rows="10"></textarea>
+          <div class="booking-details-fill-specialrequest-buttons">
+            <button type="button" class="btn btn-primary">
+              Next: Final details
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</body>

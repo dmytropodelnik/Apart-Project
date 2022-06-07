@@ -1,4 +1,4 @@
-<p>
+<!-- <p>
   Это компонент, который показывает арендованные пользователем объекты.
   Должен находится там же, где и My settings, Saved и т.д. Добавь там еще Bookings.
   https://prnt.sc/tEpZlGXrAU_t - Вот пример как сделать.
@@ -13,5 +13,143 @@
   При нажатии на 3 точки, чтобы можно было выбрать "Remove booking".
   Открывается опять модальное окно с подтверждением для удаления.
   Вот так: https://prnt.sc/RnZba3O3oUk8
-</p>
+</p> -->
 
+<body>
+  <app-header></app-header>
+  <div class="user-bookings-container">
+    <div class="user-bookings-navbar">
+      <div class="user-bookings-navbar-buttons">
+        <button>My dashboard</button>
+        <button>Bookings</button>
+        <button>Reviews</button>
+        <button>Settings</button>
+        <button>List your property</button>
+      </div>
+    </div>
+    <div class="user-bookings-main-container">
+      <h2>Bookings</h2>
+      <div>
+        <div class="user-bookings-subheader">
+          <span>Irpin</span>
+          <span>23 Aug 2019 - 24 Aug 2019</span>
+        </div>
+        <div class="user-bookings-card">
+          <div
+            class="user-bookings-card-left"
+            (click)="openVerticallyCentered(revealContent)"
+          >
+            <img src="../../assets/images/12.jpg" alt="" />
+            <div class="user-bookings-card-left-item">
+              <span>Hostel</span>
+              <span>23 Aug 2019 - 24 Aug 2019 5 rooms Irpin</span>
+              <span>Cancelled</span>
+            </div>
+          </div>
+          <div class="user-bookings-card-right">
+            <div class="user-bookings-card-right-item">
+              <span>UAH 1,250</span>
+              <div class="btn-group">
+                <button
+                  type="button"
+                  class="dropdown-button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  ...
+                </button>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-item">
+                    <button
+                      class="dropdown-button"
+                      (click)="openVerticallyCentered(revealContent)"
+                    >
+                      Reveal information
+                    </button>
+                  </li>
+                  <li class="dropdown-item">
+                    <button
+                      class="dropdown-button"
+                      (click)="openVerticallyCentered(removeContent)"
+                    >
+                      Remove object
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</body>
+
+<ng-template #removeContent let-modal>
+  <div class="modal-header">
+    <h2>Remove Booking</h2>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="user-bookings-card-left">
+      <img src="../../assets/images/12.jpg" alt="" />
+      <div class="user-bookings-card-left-item">
+        <span>Hostel</span>
+        <span>23 Aug 2019 - 24 Aug 2019</span>
+        <span>Cancelled</span>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="modal-footer-remove">
+      <span
+        >You are about to permanently remove this booking from your bookings
+        list.</span
+      >
+      <div>
+        <button type="button" class="btn btn-primary">Remove</button>
+        <button type="button" class="btn btn-primary">Keep</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #revealContent let-modal>
+  <div class="modal-header">
+    <h2>Remove Booking</h2>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <div class="user-bookings-card-left">
+      <img src="../../assets/images/12.jpg" alt="" />
+      <div class="user-bookings-card-left-item">
+        <span>Hostel</span>
+        <span>23 Aug 2019 - 24 Aug 2019</span>
+        <span>Cancelled</span>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="modal-footer-remove">
+      <span
+        >You are about to permanently remove this booking from your bookings
+        list.</span
+      >
+      <div>
+        <button type="button" class="btn btn-primary">Remove</button>
+        <button type="button" class="btn btn-primary">Keep</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

@@ -1,5 +1,5 @@
 .bui-header {
-  background: #ed6648;
+  background: #9966ff;
 }
 
 .bui-header__bar:not(:last-child) {
@@ -76,7 +76,7 @@
 
 .bui-button__text {
   position: relative;
-  color: #ed6648;
+  color: #9966ff;
 }
 
 .bui-avatar--button-auth {
@@ -263,7 +263,7 @@
   width: 160px;
   height: 37px;
   color: #ffffff;
-  background: #ed6648;
+  background: #9966ff;
   border: 0;
   border-radius: 7px;
 }
@@ -272,9 +272,9 @@
   display: block;
   width: 65px;
   height: 37px;
-  color: #ed6648;
+  color: #9966ff;
   background: #ffffff;
-  border: 0.5px solid #ed6648;
+  border: 0.5px solid #9966ff;
   border-radius: 7px;
   margin-right: 10px;
 }

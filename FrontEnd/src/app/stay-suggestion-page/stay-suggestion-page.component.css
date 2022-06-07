@@ -64,7 +64,7 @@
 }
 
 .information-container-like > svg:hover {
-  fill: #ed6648;
+  fill: #9966ff;
 }
 
 .information-container-like1 > svg:hover {
@@ -80,7 +80,7 @@
 }
 
 .information-container-like1 > svg {
-  fill: #ed6648;
+  fill: #9966ff;
   stroke: white;
   stroke-width: 10px;
 }
@@ -144,19 +144,19 @@
 .search_results_top_buttons > button {
   height: 30px;
   color: #ffffff;
-  background: #ed6648;
+  background: #9966ff;
   border: 1px solid transparent;
 }
 
 .search_results_top_buttons > button:hover {
-  color: #ed6648;
+  color: #9966ff;
   background: #ffffff;
-  border: 1px solid #ed6648;
+  border: 1px solid #9966ff;
 }
 
 .dropdown_button {
   color: #ffffff;
-  background: #ed6648;
+  background: #9966ff;
   border: 1px solid transparent;
   text-align: center;
 }
@@ -166,9 +166,9 @@
 }
 
 .dropdown_button:hover {
-  color: #ed6648;
+  color: #9966ff;
   background: #ffffff;
-  border: 1px solid #ed6648;
+  border: 1px solid #9966ff;
 }
 
 .search_results_top_buttons > * {
@@ -185,12 +185,12 @@
 
 .search_card_show_prices {
   display: flex;
-  background: #ed6648;
+  background: #9966ff;
   color: #ffffff;
   width: 159px;
   height: 37px;
   border-radius: 10px;
-  border: 1px solid #ed6648;
+  border: 1px solid #9966ff;
   justify-content: center;
   align-items: center;
   margin-top: auto;
@@ -264,7 +264,7 @@
 
   /* Basic */
 
-  background: #ed6648;
+  background: #9966ff;
   border-radius: 10px;
   border: 0px;
 
@@ -591,7 +591,7 @@
 }
 
 .bui-review-score__badge {
-  background: #ed6648;
+  background: #9966ff;
   color: #fff;
   display: flex;
   -webkit-box-pack: center;
