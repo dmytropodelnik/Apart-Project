@@ -13,6 +13,8 @@ import MathHelper from '../utils/mathHelper';
   styleUrls: ['./user-bookings.component.css'],
 })
 export class UserBookingsComponent implements OnInit {
+  bookings: any[] = [];
+
   constructor(
     private modalService: NgbModal,
     private router: Router,

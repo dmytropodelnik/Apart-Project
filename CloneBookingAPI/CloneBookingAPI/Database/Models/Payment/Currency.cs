@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using CloneBookingAPI.Services.Database.Models.Payment;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -28,5 +29,6 @@ namespace CloneBookingAPI.Services.Database.Models
         public string BankCode { get; set; }
 
         public List<UserProfile.UserProfile> UserProfiles { get; set; } = new();
+        public List<BookingPrice> BookingPrices { get; set; } = new();
     }
 }

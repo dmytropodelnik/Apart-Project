@@ -12,11 +12,7 @@ namespace CloneBookingAPI.Services.Database.Models.Payment
 
         [Required]
         [DataType(DataType.Currency)]
-        public decimal AmountInUserCurrency { get; set; }
-
-        [Required]
-        [DataType(DataType.Currency)]
-        public decimal AmountInUSD { get; set; }
+        public decimal Amount { get; set; }
 
         [Required]
         [DataType(DataType.Currency)]
@@ -33,6 +29,10 @@ namespace CloneBookingAPI.Services.Database.Models.Payment
         [Required]
         [DataType(DataType.Currency)]
         public decimal CancellationPrice { get; set; }
+
+        public int? CurrencyId { get; set; }
+        [ForeignKey("CurrencyId")]
+        public Currency Currency { get; set; }
 
         public StayBooking Booking { get; set; }
     }

@@ -29,10 +29,10 @@
     </div>
     <div class="user-bookings-main-container">
       <h2>Bookings</h2>
-      <div>
+      <div *ngFor="let item of bookings; let i = index">
         <div class="user-bookings-subheader">
-          <span>Irpin</span>
-          <span>23 Aug 2019 - 24 Aug 2019</span>
+          <span>{{item.suggestion.address.city.title}}</span>
+          <span>{{item.checkIn}} - {{item.checkOut}}</span>
         </div>
         <div class="user-bookings-card">
           <div
@@ -48,7 +48,7 @@
           </div>
           <div class="user-bookings-card-right">
             <div class="user-bookings-card-right-item">
-              <span>UAH 1,250</span>
+              <span>{{item.price.currency.bankCode}} {{item.price.amount}}</span>
               <div class="btn-group">
                 <button
                   type="button"

@@ -16,9 +16,6 @@ namespace CloneBookingAPI.Database.Models.Suggestions
 
         // [Required]
         [DataType(DataType.Currency)]
-        public decimal? PriceInUserCurrency { get; set; }
-        // [Required]
-        [DataType(DataType.Currency)]
         public decimal PriceInUSD { get; set; }
         // [Required]
         public int RoomsAmount { get; set; }

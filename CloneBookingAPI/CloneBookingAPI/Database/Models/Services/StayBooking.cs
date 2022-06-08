@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database.Models.Location;
+﻿using CloneBookingAPI.Database.Models.Suggestions;
+using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Payment;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Database.Models.UserData;
@@ -19,14 +20,6 @@ namespace CloneBookingAPI.Services.Database.Models
         [Required]
         public bool IsForWork { get; set; }
 
-        [Required]
-        public bool IsRequestedAirportShuttle { get; set; }
-
-        [Required]
-        public bool IsRequestedRentingCar { get; set; }
-
-        public bool IsFinished { get; set; }
-
         [Display(Name = "Special Requests")]
         [DataType(DataType.Text)]
         [StringLength(1000, MinimumLength = 6, ErrorMessage = "Incorrect length")]
@@ -40,10 +33,6 @@ namespace CloneBookingAPI.Services.Database.Models
         [ForeignKey("PriceId")]
         public BookingPrice Price { get; set; }
 
-        //  public int? AddressId { get; set; }
-        //  [ForeignKey("AddressId")]
-        //  public Address Address { get; set; }
-
         [Display(Name = "Check-in")]
         [Required]
         [DataType(DataType.Date)]
@@ -53,11 +42,6 @@ namespace CloneBookingAPI.Services.Database.Models
         [Required]
         [DataType(DataType.Date)]
         public DateTime CheckOut { get; set; }
-
-        [Display(Name = "Arrival time")]
-        [Required]
-        [DataType(DataType.Date)]
-        public DateTime ArrivalTime { get; set; }
 
         [Display(Name = "Promo code")]
         [DataType(DataType.Text)]
@@ -70,7 +54,10 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(20, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string UniqueNumber { get; set; }
 
-        
+        public int? BookingStatusId { get; set; }
+        [ForeignKey("BookingStatusId")]
+        public SuggestionStatus BookingStatus { get; set; }
+
         public int SuggestionId { get; set; }
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }

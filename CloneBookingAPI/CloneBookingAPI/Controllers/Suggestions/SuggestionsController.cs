@@ -129,7 +129,6 @@ namespace CloneBookingAPI.Controllers.Suggestions
                                     a.Id,
                                     a.Name,
                                     a.PriceInUSD,
-                                    a.PriceInUserCurrency,
                                     a.RoomsAmount,
                                     a.IsSmokingAllowed,
                                     a.GuestsLimit,

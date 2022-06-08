@@ -71,7 +71,7 @@ namespace CloneBookingAPI.Controllers.Payment
         [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("addpayment")]
         [HttpPost]
-        public async Task<IActionResult> AddPayment([FromBody] CloneBookingAPI.Services.Database.Models.Payment.Payment payment)
+        public IActionResult AddPayment([FromBody] CloneBookingAPI.Services.Database.Models.Payment.Payment payment)
         {
             try
             {
@@ -123,7 +123,7 @@ namespace CloneBookingAPI.Controllers.Payment
         [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("changepayment")]
         [HttpPut]
-        public async Task<IActionResult> ChangePayment(CloneBookingAPI.Services.Database.Models.Payment.Payment payment)
+        public IActionResult ChangePayment(CloneBookingAPI.Services.Database.Models.Payment.Payment payment)
         {
             try
             {
@@ -174,7 +174,7 @@ namespace CloneBookingAPI.Controllers.Payment
         [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("deletepayment")]
         [HttpDelete]
-        public async Task<IActionResult> DeletePayment(CloneBookingAPI.Services.Database.Models.Payment.Payment payment)
+        public IActionResult DeletePayment(CloneBookingAPI.Services.Database.Models.Payment.Payment payment)
         {
             try
             {

@@ -9,8 +9,6 @@ namespace CloneBookingAPI.Services.Database.Configurations
         public void Configure(EntityTypeBuilder<StayBooking> builder)
         {
             builder.Property(b => b.IsForWork).HasDefaultValue(false);
-            builder.Property(b => b.IsRequestedAirportShuttle).HasDefaultValue(false);
-            builder.Property(b => b.IsRequestedRentingCar).HasDefaultValue(false);
 
             builder.HasData(
               new StayBooking[]
