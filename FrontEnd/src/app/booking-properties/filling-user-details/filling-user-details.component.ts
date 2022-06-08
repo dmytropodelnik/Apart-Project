@@ -14,8 +14,9 @@ export class FillingUserDetailsComponent implements OnInit {
     roomsAmount: number;
     guestsLimit: number;
     bathroomsAmount: number;
-    isSuite: boolean;
-    isSmokingAllowed: boolean;
+    apartmentSize: number;
+    isSuite: string;
+    isSmokingAllowed: string;
     facilities: any;
   }[] = [];
 

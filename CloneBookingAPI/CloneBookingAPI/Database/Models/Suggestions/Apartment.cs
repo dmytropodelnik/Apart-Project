@@ -28,7 +28,7 @@ namespace CloneBookingAPI.Database.Models.Suggestions
         public int BathroomsAmount { get; set; }
 
         [Required]
-        public ushort AparmentSize { get; set; }
+        public ushort ApartmentSize { get; set; }
 
         [Required]
         public bool IsSmokingAllowed { get; set; }

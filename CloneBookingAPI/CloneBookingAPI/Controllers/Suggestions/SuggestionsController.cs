@@ -133,7 +133,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                                     a.RoomsAmount,
                                     a.IsSmokingAllowed,
                                     a.GuestsLimit,
-                                    a.AparmentSize,
+                                    a.ApartmentSize,
                                     a.BathroomsAmount,
                                     a.Description,
                                     a.IsSuite,

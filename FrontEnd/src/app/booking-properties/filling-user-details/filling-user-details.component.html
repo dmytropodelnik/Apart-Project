@@ -145,18 +145,25 @@
         </div>
       </div>
       <div class="booking-details-fill-details">
-        <div class="booking-details-fill-queenRoom">
-          <span>Basic queen room</span>
-          <span>No smoking</span>
+        <div *ngFor="let item of chosenApartments; let i = index"
+             class="booking-details-fill-queenRoom">
+          <span>{{item.name}}</span>
+          <span><img width="28px" height="26px"
+            src="../../assets/images/smoking_icon.png" />{{item.isSmokingAllowed == 'true' ? 'Smoking allowed' :
+          'No smoking'}}</span>
           <div class="booking-details-fill-queenRoom-item">
-            <span>15 m²</span>
-            <span>Air conditioning</span>
-            <span>Ensuite bathroom</span>
-            <span>Flat-screen TV</span>
-            <span>Soundproofing</span>
+            <span><img width="28px" height="26px" src="../../assets/images/km2.png" />{{item.apartmentSize}} </span>
+            <span><img width="28px" height="26px" src="../../assets/images/room_icon.png" />{{item.roomsAmount == 1
+              ? item.roomsAmount + " room" : item.roomsAmount + ' rooms'}}</span>
+              <span><img width="28px" height="26px"
+                src="../../assets/images//bathroom_icon.png" />{{item.bathroomsAmount == 1 ? item.bathroomsAmount +
+              " bathroom" : item.bathroomsAmount + ' bathrooms'}}</span>
+              <span *ngIf="item.isSuite == 'true'"><img width="28px" height="26px"
+                src="../../assets/images/suite_icon.png" />Suite</span>
           </div>
           <div>
-            <span>Max persons: 2 + 1</span>
+            <span><img src="../../assets/images/Bed.png" />{{item.guestsLimit == 1 ? item.guestsLimit + " sleep" :
+              item.guestsLimit + ' sleeps'}}</span>
           </div>
           <div class="mb-3">
             <label for="fullQuestName" class="form-label"

@@ -43,8 +43,9 @@ export class StaySuggestionPageComponent implements OnInit {
     roomsAmount: number;
     guestsLimit: number;
     bathroomsAmount: number;
-    isSuite: boolean;
-    isSmokingAllowed: boolean;
+    apartmentSize: number;
+    isSuite: string;
+    isSmokingAllowed: string;
     facilities: any;
   }[] = [];
 
@@ -116,6 +117,7 @@ export class StaySuggestionPageComponent implements OnInit {
         roomsAmount: this.suggestion.apartments.roomsAmount,
         guestsLimit: this.suggestion.apartments.guestsLimit,
         bathroomsAmount: this.suggestion.apartments.bathroomsAmount,
+        apartmentSize: this.suggestion.apartments.apartmentSize,
         isSuite: this.suggestion.apartments.isSuite,
         isSmokingAllowed: this.suggestion.apartments.isSmokingAllowed,
         facilities: this.suggestion.apartments.facilities,
