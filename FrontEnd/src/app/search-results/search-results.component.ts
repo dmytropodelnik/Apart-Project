@@ -288,6 +288,11 @@ export class SearchResultsComponent implements OnInit {
   }
 
   addSuggestionToSaved(id: any): void {
+    if (!AuthHelper.isLogged()) {
+      this.router.navigate(['auth']);
+      return;
+    }
+
     const suggestion = {
       id: id,
       login: AuthHelper.getLogin(),
@@ -316,6 +321,11 @@ export class SearchResultsComponent implements OnInit {
   }
 
   removeSuggestion(id: any): void {
+    if (!AuthHelper.isLogged()) {
+      this.router.navigate(['auth']);
+      return;
+    }
+
     const suggestion = {
       id: id,
       login: AuthHelper.getLogin(),

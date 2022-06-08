@@ -148,6 +148,11 @@ export class StaySuggestionPageComponent implements OnInit {
   }
 
   addSuggestionToSaved(id: any): void {
+    if (!AuthHelper.isLogged()) {
+      this.router.navigate(['auth']);
+      return;
+    }
+
     const suggestion = {
       id: id,
       login: AuthHelper.getLogin(),
@@ -176,6 +181,11 @@ export class StaySuggestionPageComponent implements OnInit {
   }
 
   removeSuggestion(id: any): void {
+    if (!AuthHelper.isLogged()) {
+      this.router.navigate(['auth']);
+      return;
+    }
+
     const suggestion = {
       id: id,
       login: AuthHelper.getLogin(),
