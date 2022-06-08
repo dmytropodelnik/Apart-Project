@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
 import MathHelper from '../utils/mathHelper';
+
 import { Router } from '@angular/router';
 import { ViewportScroller } from '@angular/common';
 import { ExtraOptions } from '@angular/router';
@@ -46,7 +47,6 @@ export class StaySuggestionPageComponent implements OnInit {
     apartmentSize: number;
     isSuite: string;
     isSmokingAllowed: string;
-    facilities: any;
   }[] = [];
 
   searchBookingCategory: string = '';
@@ -120,7 +120,6 @@ export class StaySuggestionPageComponent implements OnInit {
         apartmentSize: this.suggestion.apartments.apartmentSize,
         isSuite: this.suggestion.apartments.isSuite,
         isSmokingAllowed: this.suggestion.apartments.isSmokingAllowed,
-        facilities: this.suggestion.apartments.facilities,
       });
     }
   }
@@ -244,12 +243,13 @@ export class StaySuggestionPageComponent implements OnInit {
   chooseApartments(): void {
     for (let i = 0; i < this.chosenApartments.length; i++) {
       if (this.chosenApartments[i].amount > 0) {
+        console.log(this.chosenApartments);
         this.router.navigate(['fillinguserdetails'], {
           queryParams: {
-            chosenApartments: this.chooseApartments,
+            chosenApartments: this.chosenApartments,
           },
         });
-        break;
+        return;
       }
     }
     alert('Select apartments amount!');
