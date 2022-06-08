@@ -41,9 +41,9 @@
           >
             <img src="../../assets/images/12.jpg" alt="" />
             <div class="user-bookings-card-left-item">
-              <span>Hostel</span>
-              <span>23 Aug 2019 - 24 Aug 2019 5 rooms Irpin</span>
-              <span>Cancelled</span>
+              <span>{{item.suggestion.name}}</span>
+              <span>{{item.checkIn}} - {{item.checkOut}}, {{item.suggestion.address.city.title}}</span>
+              <span>{{item.bookingStatus.status}}</span>
             </div>
           </div>
           <div class="user-bookings-card-right">

@@ -1,9 +1,11 @@
 ﻿using CloneBookingAPI.Database.Configurations;
 using CloneBookingAPI.Database.Configurations.Review;
+using CloneBookingAPI.Database.Configurations.Services;
 using CloneBookingAPI.Database.Configurations.Suggestions;
 using CloneBookingAPI.Database.Configurations.ViewModels;
 using CloneBookingAPI.Database.Models;
 using CloneBookingAPI.Database.Models.Review;
+using CloneBookingAPI.Database.Models.Services;
 using CloneBookingAPI.Database.Models.Suggestions;
 using CloneBookingAPI.Database.Models.ViewModels;
 using CloneBookingAPI.Services.Database.Configurations;
@@ -83,17 +85,18 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<LettersReceiver> LettersReceivers { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<Reaction> Reactions { get; set; }
+        public DbSet<BookingStatus> BookingStatuses { get; set; }
 
         public ApartProjectDbContext(DbContextOptions<ApartProjectDbContext> options) : base(options)
         {
-            //// if database already exists then delete it
-            //if (Database.CanConnect())
-            //{
-            //    Database.EnsureDeleted();
-            //}
+            // if database already exists then delete it
+            if (Database.CanConnect())
+            {
+                Database.EnsureDeleted();
+            }
 
-            //// create database
-            //Database.EnsureCreated();
+            // create database
+            Database.EnsureCreated();
         }
 
         /// <summary>s
@@ -251,6 +254,7 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new SuggestionsFacilitiesConfiguration());
             modelBuilder.ApplyConfiguration(new SuggestionsSuggestionRulesConfiguration());
             modelBuilder.ApplyConfiguration(new ApartmentsFacilitiesConfiguration());
+            modelBuilder.ApplyConfiguration(new BookingStatusesConfiguration());
         }
     }
 }

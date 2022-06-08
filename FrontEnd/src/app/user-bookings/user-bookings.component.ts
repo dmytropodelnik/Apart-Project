@@ -15,6 +15,8 @@ import MathHelper from '../utils/mathHelper';
 export class UserBookingsComponent implements OnInit {
   bookings: any[] = [];
 
+  imageHelper: any = ImageHelper;
+
   constructor(
     private modalService: NgbModal,
     private router: Router,
