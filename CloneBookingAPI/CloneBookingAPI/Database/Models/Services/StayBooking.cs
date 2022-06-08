@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Database.Models.Suggestions;
+﻿using CloneBookingAPI.Database.Models.Services;
+using CloneBookingAPI.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Payment;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
@@ -56,7 +57,7 @@ namespace CloneBookingAPI.Services.Database.Models
 
         public int? BookingStatusId { get; set; }
         [ForeignKey("BookingStatusId")]
-        public SuggestionStatus BookingStatus { get; set; }
+        public BookingStatus BookingStatus { get; set; }
 
         public int SuggestionId { get; set; }
         [ForeignKey("SuggestionId")]

@@ -39,7 +39,9 @@
             class="user-bookings-card-left"
             (click)="openVerticallyCentered(revealContent)"
           >
-            <img src="../../assets/images/12.jpg" alt="" />
+            <img src="{{
+              imageHelper.getImageDirectoryPath()
+            }}suggestions/stays/{{ item.suggestion.images[0].name }}" alt="image" />
             <div class="user-bookings-card-left-item">
               <span>{{item.suggestion.name}}</span>
               <span>{{item.checkIn}} - {{item.checkOut}}, {{item.suggestion.address.city.title}}</span>
