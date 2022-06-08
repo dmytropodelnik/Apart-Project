@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SuggestionDetailsService } from 'src/app/services/suggestion-details.service';
 
 import AuthHelper from '../../utils/authHelper';
 import ImageHelper from '../../utils/imageHelper';
@@ -20,32 +21,25 @@ export class FillingUserDetailsComponent implements OnInit {
     bathroomsAmount: number;
     apartmentSize: number;
     isSuite: string;
-    isSmokingAllowed: string;
+    isSmokingAllowed: boolean;
   }[] = [];
 
   constructor(
     private router: Router,
-    private activatedRouter: ActivatedRoute,) { }
+    private activatedRouter: ActivatedRoute,
+    private suggestionDetailsService: SuggestionDetailsService,
+    ) {
 
-  getParams(): void {
-    this.activatedRouter.queryParams.subscribe((params: any) => {
-      console.log(params['chosenApartments']);
-      if (params['chosenApartments'].length > 0) {
-        for (let i = 0; i < params['chosenApartments'].length; i++) {
-          if (params['chosenApartments'][i].amount > 0) {
-            this.chosenApartments.push(params['chosenApartments'][i]);
-          }
-          console.log(this.chosenApartments[i]);
-        }
-      } else {
-        this.router.navigate(['']);
-      }
-
-    });
-  }
+    }
 
   ngOnInit(): void {
-    this.getParams();
+    if (this.suggestionDetailsService.getChosenApartments() != null) {
+      this.chosenApartments = this.suggestionDetailsService.getChosenApartments();
+      console.log(this.chosenApartments);
+    } else {
+      console.log(this.chosenApartments);
+      this.router.navigate(['']);
+    }
   }
 
 }

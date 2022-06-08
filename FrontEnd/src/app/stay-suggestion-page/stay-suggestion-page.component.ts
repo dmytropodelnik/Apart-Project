@@ -18,6 +18,7 @@ import { FacilityType } from '../models/facilitytype.item';
 import { SuggestionRuleType } from '../models/Suggestions/suggestionruletype.item';
 import { Review } from '../models/Review/review.item';
 import { ReviewCategory } from '../models/Review/reviewcategory.item';
+import { SuggestionDetailsService } from '../services/suggestion-details.service';
 
 @Component({
   selector: 'app-stay-suggestion-page',
@@ -39,6 +40,17 @@ export class StaySuggestionPageComponent implements OnInit {
   ruleTypes: SuggestionRuleType[] = [];
 
   chosenApartments: {
+    name: string;
+    amount: number;
+    roomsAmount: number;
+    guestsLimit: number;
+    bathroomsAmount: number;
+    apartmentSize: number;
+    isSuite: string;
+    isSmokingAllowed: string;
+  }[] = [];
+
+  chosenFinalApartments: {
     name: string;
     amount: number;
     roomsAmount: number;
@@ -77,7 +89,8 @@ export class StaySuggestionPageComponent implements OnInit {
     private router: Router,
     private activatedRouter: ActivatedRoute,
     private modalService: NgbModal,
-    private scroller: ViewportScroller
+    private scroller: ViewportScroller,
+    private suggestionDetailsService: SuggestionDetailsService,
   ) {}
 
   routerOptions: ExtraOptions = {
@@ -243,16 +256,18 @@ export class StaySuggestionPageComponent implements OnInit {
   chooseApartments(): void {
     for (let i = 0; i < this.chosenApartments.length; i++) {
       if (this.chosenApartments[i].amount > 0) {
-        console.log(this.chosenApartments);
-        this.router.navigate(['fillinguserdetails'], {
-          queryParams: {
-            chosenApartments: this.chosenApartments,
-          },
-        });
-        return;
+        for (let j = 0; j < this.chosenApartments[i].amount; j++) {
+          this.chosenFinalApartments.push(this.suggestion.apartments[i]);
+        }
       }
     }
-    alert('Select apartments amount!');
+    if (this.chosenFinalApartments.length == 0) {
+      alert('Select apartments amount!');
+      return;
+    }
+
+    this.suggestionDetailsService.setChosenApartments(this.chosenFinalApartments);
+    this.router.navigate(['/fillinguserdetails']);
   }
 
   addMainSearchFilter(): void {
