@@ -22,6 +22,15 @@
   background: white;
 }
 
+.empty-saved-button {
+  color: white;
+  border: 0;
+  width: 120px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #9966ff;
+}
+
 .user-bookings-navbar-buttons > button:hover {
   padding: 10px;
   color: #000000;
