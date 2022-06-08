@@ -37,6 +37,17 @@ export class StaySuggestionPageComponent implements OnInit {
   facilityTypes: FacilityType[] = [];
   ruleTypes: SuggestionRuleType[] = [];
 
+  chosenApartments: {
+    name: string;
+    amount: number;
+    roomsAmount: number;
+    guestsLimit: number;
+    bathroomsAmount: number;
+    isSuite: boolean;
+    isSmokingAllowed: boolean;
+    facilities: any;
+  }[] = [];
+
   searchBookingCategory: string = '';
   searchPlace: string = '';
 
@@ -72,6 +83,7 @@ export class StaySuggestionPageComponent implements OnInit {
     anchorScrolling: 'enabled',
     //scrollPositionRestoration: "enabled"
   };
+
   openWindowCustomClass(longContent: any) {
     this.getSuggestionReviews();
     this.modalService.open(longContent, {
@@ -96,6 +108,21 @@ export class StaySuggestionPageComponent implements OnInit {
     this.scroller.scrollToAnchor('targetHouserules');
   }
 
+  fillApartmentsArray(): void {
+    for (let i = 0; i < this.suggestion.apartments.length; i++) {
+      this.chosenApartments.push({
+        name: this.suggestion.apartments[i].name,
+        amount: -1,
+        roomsAmount: this.suggestion.apartments.roomsAmount,
+        guestsLimit: this.suggestion.apartments.guestsLimit,
+        bathroomsAmount: this.suggestion.apartments.bathroomsAmount,
+        isSuite: this.suggestion.apartments.isSuite,
+        isSmokingAllowed: this.suggestion.apartments.isSmokingAllowed,
+        facilities: this.suggestion.apartments.facilities,
+      });
+    }
+  }
+
   getSuggestion(): void {
     fetch(
       'https://localhost:44381/api/suggestions/getsuggestion?code=' +
@@ -113,8 +140,7 @@ export class StaySuggestionPageComponent implements OnInit {
           this.ruleTypes = response.rules;
           this.reviewsAmount = response.reviewsAmount;
           this.grade = response.grade;
-          //alert(this.suggestion.id);
-          console.log(this.suggestion);
+          this.fillApartmentsArray();
         } else {
           alert('Suggestion fetching error!');
         }
@@ -211,6 +237,20 @@ export class StaySuggestionPageComponent implements OnInit {
       .catch((ex) => {
         alert(ex);
       });
+  }
+
+  chooseApartments(): void {
+    for (let i = 0; i < this.chosenApartments.length; i++) {
+      if (this.chosenApartments[i].amount > 0) {
+        this.router.navigate(['fillinguserdetails'], {
+          queryParams: {
+            chosenApartments: this.chooseApartments,
+          },
+        });
+        break;
+      }
+    }
+    alert('Select apartments amount!');
   }
 
   addMainSearchFilter(): void {
