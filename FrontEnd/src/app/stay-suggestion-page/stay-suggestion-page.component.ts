@@ -86,12 +86,14 @@ export class StaySuggestionPageComponent implements OnInit {
   isSaved: string = 'false';
 
   isDateChosen: boolean = false;
-  isAuth: boolean = false;
+  isOwnerVerified: boolean = true;
 
   diffDays: number = 0;
 
   bookingNumber: string = '';
   bookingPin: string = '';
+
+  reviewCategoryGrades: number[] = [-1, -1, -1, -1, -1, -1];
 
   constructor(
     private router: Router,
@@ -531,17 +533,18 @@ export class StaySuggestionPageComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.reviews = response.reviews;
-          this.reviewGrades = response.reviewGrades;
-          this.reviewCategories = response.reviewCategories;
-          this.categoryGrades = response.categoryGrades;
+          this.isOwnerVerified = true;
         } else {
-          alert('Suggestion reviews fetching error!');
+          alert(response.message);
         }
       })
       .catch((ex) => {
         alert(ex);
       });
+  }
+
+  submitReview(): void {
+
   }
 
   ngOnInit(): void {
