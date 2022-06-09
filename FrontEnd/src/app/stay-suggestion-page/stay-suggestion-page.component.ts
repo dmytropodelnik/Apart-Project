@@ -46,6 +46,7 @@ export class StaySuggestionPageComponent implements OnInit {
     guestsLimit: number;
     bathroomsAmount: number;
     apartmentSize: number;
+    priceInUSD: number;
     isSuite: string;
     isSmokingAllowed: string;
   }[] = [];
@@ -57,6 +58,7 @@ export class StaySuggestionPageComponent implements OnInit {
     guestsLimit: number;
     bathroomsAmount: number;
     apartmentSize: number;
+    priceInUSD: number;
     isSuite: string;
     isSmokingAllowed: string;
   }[] = [];
@@ -130,12 +132,13 @@ export class StaySuggestionPageComponent implements OnInit {
       this.chosenApartments.push({
         name: this.suggestion.apartments[i].name,
         amount: -1,
-        roomsAmount: this.suggestion.apartments.roomsAmount,
-        guestsLimit: this.suggestion.apartments.guestsLimit,
-        bathroomsAmount: this.suggestion.apartments.bathroomsAmount,
-        apartmentSize: this.suggestion.apartments.apartmentSize,
-        isSuite: this.suggestion.apartments.isSuite,
-        isSmokingAllowed: this.suggestion.apartments.isSmokingAllowed,
+        roomsAmount: this.suggestion.apartments[i].roomsAmount,
+        guestsLimit: this.suggestion.apartments[i].guestsLimit,
+        bathroomsAmount: this.suggestion.apartments[i].bathroomsAmount,
+        apartmentSize: this.suggestion.apartments[i].apartmentSize,
+        priceInUSD: this.suggestion.apartments[i].priceInUSD,
+        isSuite: this.suggestion.apartments[i].isSuite,
+        isSmokingAllowed: this.suggestion.apartments[i].isSmokingAllowed,
       });
     }
   }

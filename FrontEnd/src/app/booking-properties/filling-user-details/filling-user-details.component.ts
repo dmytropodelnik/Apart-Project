@@ -20,6 +20,7 @@ export class FillingUserDetailsComponent implements OnInit {
     guestsLimit: number;
     bathroomsAmount: number;
     apartmentSize: number;
+    priceInUSD: number;
     isSuite: string;
     isSmokingAllowed: boolean;
   }[] = [];
@@ -29,6 +30,8 @@ export class FillingUserDetailsComponent implements OnInit {
 
   checkIn: Date | null = null;
   checkOut: Date | null = null;
+
+  totalPrice: number = 0;
 
   mathHelper: any = MathHelper;
 
@@ -40,6 +43,12 @@ export class FillingUserDetailsComponent implements OnInit {
 
     }
 
+  calculateTotalPrice(): void {
+    for (let i = 0; i < this.chosenApartments.length; i++) {
+      this.totalPrice += this.chosenApartments[i].priceInUSD;
+    }
+  }
+
   ngOnInit(): void {
     this.chosenApartments = this.bookingDetailsService.getChosenApartments();
     this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();
@@ -47,6 +56,8 @@ export class FillingUserDetailsComponent implements OnInit {
     this.diffDays = this.bookingDetailsService.getDiffDays();
     this.checkIn = this.bookingDetailsService.getCheckInDate();
     this.checkOut = this.bookingDetailsService.getCheckOutDate();
+
+    this.calculateTotalPrice();
     // if (this.bookingDetailsService.getChosenApartments() != null) {
     //   this.chosenApartments = this.bookingDetailsService.getChosenApartments();
     //   this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();
