@@ -46,10 +46,10 @@ namespace CloneBookingAPI.Controllers.Suggestions
                                 a.GuestsLimit >= filters.GuestsAmount      &&
                                 a.RoomsAmount >= filters.SearchRoomsAmount &&
                                 a.BookedPeriods
-                                    .Where(bp => (bp.DateIn > Convert.ToDateTime(filters.DateIn) &&
-                                                   bp.DateIn > Convert.ToDateTime(filters.DateOut)) ||
-                                                   bp.DateOut < Convert.ToDateTime(filters.DateIn) &&
-                                                   bp.DateOut < Convert.ToDateTime(filters.DateOut)).Any())
+                                    .All(bp => (bp.DateIn > Convert.ToDateTime(filters.DateIn) &&
+                                                   bp.DateOut > Convert.ToDateTime(filters.DateOut)) ||
+                                                   bp.DateIn < Convert.ToDateTime(filters.DateIn) &&
+                                                   bp.DateOut < Convert.ToDateTime(filters.DateOut)))
                     .ToListAsync();
 
                 return Json(new

@@ -83,6 +83,7 @@ export class StaySuggestionPageComponent implements OnInit {
 
   isSaved: string = 'false';
 
+  isDateChosen: boolean = false;
   isAuth: boolean = false;
 
   constructor(
@@ -254,6 +255,11 @@ export class StaySuggestionPageComponent implements OnInit {
   }
 
   chooseApartments(): void {
+    if (!this.isDateChosen) {
+      alert('Select the check in and check out dates!');
+      return;
+    }
+
     for (let i = 0; i < this.chosenApartments.length; i++) {
       if (this.chosenApartments[i].amount > 0) {
         for (let j = 0; j < this.chosenApartments[i].amount; j++) {
@@ -285,6 +291,12 @@ export class StaySuggestionPageComponent implements OnInit {
         +params['monthOut'],
         +params['dayOut']
       );
+
+      if (this.filters.pdateIn?.day != null && this.filters.pdateOut?.day != null &&
+        this.filters.pdateIn?.month != null && this.filters.pdateOut?.month != null &&
+        this.filters.pdateIn?.year != null && this.filters.pdateOut?.year != null) {
+          this.isDateChosen = true;
+      }
 
       this.yearIn = +params['yearIn'];
       this.monthIn = +params['monthIn'];
@@ -419,7 +431,9 @@ export class StaySuggestionPageComponent implements OnInit {
   filterApartments(): void {
     let dateIn, dateOut;
 
-    if (this.filters.pdateIn && this.filters.pdateOut) {
+    if (this.filters.pdateIn?.day != null && this.filters.pdateOut?.day != null &&
+        this.filters.pdateIn?.month != null && this.filters.pdateOut?.month != null &&
+        this.filters.pdateIn?.year != null && this.filters.pdateOut?.year != null) {
       dateIn =
         this.filters.pdateIn!.year +
         '-' +
@@ -441,7 +455,7 @@ export class StaySuggestionPageComponent implements OnInit {
       dateIn: dateIn,
       dateOut: dateOut,
       searchRoomsAmount: this.filters.searchRoomsAmount,
-      guestsAmount: this.filters.searchAdultsAmount + this.filters.searchChildrenAmount,
+      guestsAmount: +this.filters.searchAdultsAmount + +this.filters.searchChildrenAmount,
       suggestionId: this.suggestion.id,
     };
 
@@ -460,7 +474,8 @@ export class StaySuggestionPageComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-
+          this.suggestion.apartments = response.apartments;
+          this.isDateChosen = true;
         } else {
           alert(response.message + "123");
         }

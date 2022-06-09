@@ -165,7 +165,11 @@
             ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()" readonly />
         </div>
 
-        <button class="btn btn-primary" (click)="filterApartments()">Search</button>
+        <button class="btn btn-primary" (click)="filterApartments()">Check availability</button>
+      </div>
+
+      <div *ngIf="!isDateChosen">
+        <p>You need to select the check in and check out date to see the available apartments.</p>
       </div>
 
       <div class="availability-main" id="targetAvailability">
@@ -173,7 +177,7 @@
         <div class="availability-container">
           <div *ngFor="let item of suggestion.apartments; let i = index" class="availability-item">
             <span class="availability-title click-component">{{item.name}}</span>
-            <select name="chosenApartments{{i}}.amount" [(ngModel)]="chosenApartments[i].amount">
+            <select *ngIf="isDateChosen" name="chosenApartments{{i}}.amount" [(ngModel)]="chosenApartments[i].amount">
               <option value="-1">Select amount</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -220,7 +224,7 @@
         </div>
       </div>
 
-      <button class="btn btn-primary" (click)="chooseApartments()">Reserve</button>
+      <button *ngIf="isDateChosen" class="btn btn-primary" (click)="chooseApartments()">Reserve</button>
 
       <div class="facilities-main" id="targetFacilities">
         <h2 *ngIf="facilityTypes.length != 0">Facilities</h2>
