@@ -25,7 +25,7 @@ namespace CloneBookingAPI.Services.Database.Configurations.Review
         [DataType(DataType.Text)]
         public string NegativeText { get; set; }
 
-        public int ReviewId { get; set; }
+        public int? ReviewId { get; set; }
         [ForeignKey("ReviewId")]
         public Models.Review.Review Review { get; set; }
     }

@@ -236,7 +236,6 @@ namespace CloneBookingAPI.Controllers.Review
             }
         }
 
-        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("addreview")]
         [HttpPost]
         public async Task<IActionResult> AddReview([FromBody] ReviewPoco review)
@@ -245,23 +244,35 @@ namespace CloneBookingAPI.Controllers.Review
             {
                 if (review is null               ||
                     review.ReviewMessage is null ||
-                    review.Grades is null         ||
+                    review.Grades is null        ||
+                    review.OwnerId < 1           ||
                     review.SuggestionId < 1      ||
-                    string.IsNullOrWhiteSpace(review.UserEmail)          ||
-                    string.IsNullOrWhiteSpace(review.ReviewMessage.Title) ||
+                    //string.IsNullOrWhiteSpace(review.BookingNumber)              ||
+                    //string.IsNullOrWhiteSpace(review.BookingPIN)                 ||
+                    string.IsNullOrWhiteSpace(review.ReviewMessage.Title)        ||
                     string.IsNullOrWhiteSpace(review.ReviewMessage.PositiveText) ||
                     string.IsNullOrWhiteSpace(review.ReviewMessage.NegativeText))
                 {
                     return Json(new { code = 400, message = "Review data is null." });
                 }
 
-                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(review.UserEmail));
+                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == review.OwnerId);
                 if (resUser is null)
                 {
                     return Json(new { code = 400, message = "User is not found." });
                 }
 
+                //var resBooking = await _context.StayBookings
+                //    .FirstOrDefaultAsync(b => b.UserId == resUser.Id &&
+                //                              b.UniqueNumber.Equals(review.BookingNumber) &&
+                //                              b.PIN.Equals(review.BookingPIN));
+                //if (resBooking is null)
+                //{
+                //    return Json(new { code = 400, message = "You don't have access to write a review to this suggestion." });
+                //}
+
                 CloneBookingAPI.Services.Database.Models.Review.Review newReview = new();
+                List<SuggestionReviewGrade> reviewGrades = new();
 
                 for (int i = 0; i < review.Grades.Count; i++)
                 {
@@ -270,13 +281,16 @@ namespace CloneBookingAPI.Controllers.Review
                         Value = review.Grades[i].Grade,
                         ReviewCategoryId = review.Grades[i].ReviewCategoryId,
                     };
-                    newReview.Grades.Add(newGrade);
+                    reviewGrades.Add(newGrade);
                 }
+                newReview.Grades = reviewGrades;
 
-                ReviewMessage newReviewMessage = new();
-                newReviewMessage.Title = review.ReviewMessage.Title;
-                newReviewMessage.PositiveText = review.ReviewMessage.PositiveText;
-                newReviewMessage.NegativeText = review.ReviewMessage.NegativeText;
+                ReviewMessage newReviewMessage = new()
+                {
+                    Title = review.ReviewMessage.Title,
+                    PositiveText = review.ReviewMessage.PositiveText,
+                    NegativeText = review.ReviewMessage.NegativeText
+                };
 
                 newReview.ReviewMessage = newReviewMessage;
                 newReview.UserId = resUser.Id;
@@ -286,7 +300,10 @@ namespace CloneBookingAPI.Controllers.Review
                 _context.Reviews.Add(newReview);
                 await _context.SaveChangesAsync();
 
-                return Json(new { code = 200 });
+                return Json(new { 
+                    code = 200,
+                    newReview,
+                });
             }
             catch (DbUpdateConcurrencyException ex)
             {

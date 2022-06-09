@@ -312,7 +312,7 @@ export class SearchResultsComponent implements OnInit {
         if (response.code === 200) {
           this.savedSuggestions.push(response.resSuggestion);
         } else {
-          alert('User favorites fetching error!');
+          alert('Adding suggestion to saved error!');
         }
       })
       .catch((ex) => {

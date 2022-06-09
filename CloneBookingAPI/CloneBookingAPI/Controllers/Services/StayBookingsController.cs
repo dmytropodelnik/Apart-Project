@@ -307,6 +307,7 @@ namespace CloneBookingAPI.Controllers.Services
                 return Json(new { 
                     code = 200,
                     bookingId = res.Id,
+                    ownerId = res.UserId,
                     message = "Owner is verified.",
                 });
             }

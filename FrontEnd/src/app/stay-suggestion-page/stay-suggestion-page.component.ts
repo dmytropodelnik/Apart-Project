@@ -99,12 +99,14 @@ export class StaySuggestionPageComponent implements OnInit {
   positiveSide: string = '';
   negativeSide: string = '';
 
+  ownerId: string = '';
+
   constructor(
     private router: Router,
     private activatedRouter: ActivatedRoute,
     private modalService: NgbModal,
     private scroller: ViewportScroller,
-    private bookingDetailsService: BookingDetailsService,
+    private bookingDetailsService: BookingDetailsService
   ) {}
 
   routerOptions: ExtraOptions = {
@@ -298,7 +300,12 @@ export class StaySuggestionPageComponent implements OnInit {
 
     this.diffDays = hours / 24;
     this.bookingDetailsService.setChosenDates(dateIn, dateOut);
-    this.bookingDetailsService.setChosenApartmentsAndSuggestion(this.chosenFinalApartments, this.suggestion, this.grade, this.diffDays);
+    this.bookingDetailsService.setChosenApartmentsAndSuggestion(
+      this.chosenFinalApartments,
+      this.suggestion,
+      this.grade,
+      this.diffDays
+    );
     this.router.navigate(['/fillinguserdetails']);
   }
 
@@ -318,10 +325,15 @@ export class StaySuggestionPageComponent implements OnInit {
         +params['dayOut']
       );
 
-      if (this.filters.pdateIn?.day != null && this.filters.pdateOut?.day != null &&
-        this.filters.pdateIn?.month != null && this.filters.pdateOut?.month != null &&
-        this.filters.pdateIn?.year != null && this.filters.pdateOut?.year != null) {
-          this.isDateChosen = true;
+      if (
+        this.filters.pdateIn?.day != null &&
+        this.filters.pdateOut?.day != null &&
+        this.filters.pdateIn?.month != null &&
+        this.filters.pdateOut?.month != null &&
+        this.filters.pdateIn?.year != null &&
+        this.filters.pdateOut?.year != null
+      ) {
+        this.isDateChosen = true;
       }
 
       this.yearIn = +params['yearIn'];
@@ -457,9 +469,14 @@ export class StaySuggestionPageComponent implements OnInit {
   filterApartments(): void {
     let dateIn, dateOut;
 
-    if (this.filters.pdateIn?.day != null && this.filters.pdateOut?.day != null &&
-        this.filters.pdateIn?.month != null && this.filters.pdateOut?.month != null &&
-        this.filters.pdateIn?.year != null && this.filters.pdateOut?.year != null) {
+    if (
+      this.filters.pdateIn?.day != null &&
+      this.filters.pdateOut?.day != null &&
+      this.filters.pdateIn?.month != null &&
+      this.filters.pdateOut?.month != null &&
+      this.filters.pdateIn?.year != null &&
+      this.filters.pdateOut?.year != null
+    ) {
       dateIn =
         this.filters.pdateIn!.year +
         '-' +
@@ -473,14 +490,14 @@ export class StaySuggestionPageComponent implements OnInit {
         '-' +
         this.filters.pdateOut!.day;
 
-        this.dayIn = this.filters.pdateIn!.day;
-        this.monthIn = this.filters.pdateIn!.month;
-        this.yearIn = this.filters.pdateIn!.year;
-        this.dayOut = this.filters.pdateOut!.day;
-        this.monthOut = this.filters.pdateOut!.month;
-        this.yearOut = this.filters.pdateOut!.year;
+      this.dayIn = this.filters.pdateIn!.day;
+      this.monthIn = this.filters.pdateIn!.month;
+      this.yearIn = this.filters.pdateIn!.year;
+      this.dayOut = this.filters.pdateOut!.day;
+      this.monthOut = this.filters.pdateOut!.month;
+      this.yearOut = this.filters.pdateOut!.year;
     } else {
-      alert("Select the check in and check out date!");
+      alert('Select the check in and check out date!');
       return;
     }
 
@@ -488,29 +505,27 @@ export class StaySuggestionPageComponent implements OnInit {
       dateIn: dateIn,
       dateOut: dateOut,
       searchRoomsAmount: this.filters.searchRoomsAmount,
-      guestsAmount: +this.filters.searchAdultsAmount + +this.filters.searchChildrenAmount,
+      guestsAmount:
+        +this.filters.searchAdultsAmount + +this.filters.searchChildrenAmount,
       suggestionId: this.suggestion.id,
     };
 
-    fetch(
-      `https://localhost:44381/api/apartments/filter`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Accept: 'application/json',
-          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-        },
-        body: JSON.stringify(filters),
-      }
-    )
+    fetch(`https://localhost:44381/api/apartments/filter`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(filters),
+    })
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
           this.suggestion.apartments = response.apartments;
           this.isDateChosen = true;
         } else {
-          alert(response.message + "123");
+          alert(response.message + '123');
         }
       })
       .catch((ex) => {
@@ -538,6 +553,7 @@ export class StaySuggestionPageComponent implements OnInit {
       .then((response) => {
         if (response.code === 200) {
           this.isOwnerVerified = true;
+          this.ownerId = response.ownerId;
         } else {
           alert(response.message);
         }
@@ -567,6 +583,66 @@ export class StaySuggestionPageComponent implements OnInit {
         return;
       }
     }
+
+    const review = {
+      bookingNumber: this.bookingNumber,
+      bookingPIN: this.bookingPin,
+      suggestionId: this.suggestion.id,
+      ownerId: 1, // this.ownerId,
+      reviewMessage: {
+        title: this.title,
+        positiveText: this.positiveSide,
+        negativeText: this.negativeSide,
+      },
+      grades: [
+        {
+          grade: this.reviewCategoryGrades[0],
+          reviewCategoryId: 1,
+        },
+        {
+          grade: this.reviewCategoryGrades[1],
+          reviewCategoryId: 2,
+        },
+        {
+          grade: this.reviewCategoryGrades[2],
+          reviewCategoryId: 3,
+        },
+        {
+          grade: this.reviewCategoryGrades[3],
+          reviewCategoryId: 4,
+        },
+        {
+          grade: this.reviewCategoryGrades[4],
+          reviewCategoryId: 5,
+        },
+        {
+          grade: this.reviewCategoryGrades[5],
+          reviewCategoryId: 6,
+        },
+      ],
+    };
+
+    fetch(`https://localhost:44381/api/reviews/addreview`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(review),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.reviews.push(response.newReview);
+          this.isOwnerVerified = false;
+        } else {
+          alert(response.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   ngOnInit(): void {

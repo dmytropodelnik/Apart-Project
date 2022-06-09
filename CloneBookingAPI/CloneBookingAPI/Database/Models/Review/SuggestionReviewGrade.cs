@@ -19,7 +19,7 @@ namespace CloneBookingAPI.Database.Models.Review
         [ForeignKey("ReviewCategoryId")]
         public ReviewCategory ReviewCategory { get; set; }
 
-        public int ReviewId { get; set; }
+        public int? ReviewId { get; set; }
         [ForeignKey("ReviewId")]
         public CloneBookingAPI.Services.Database.Models.Review.Review Review { get; set; }
     }
