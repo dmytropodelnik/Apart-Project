@@ -95,6 +95,10 @@ export class StaySuggestionPageComponent implements OnInit {
 
   reviewCategoryGrades: number[] = [-1, -1, -1, -1, -1, -1];
 
+  title: string = '';
+  positiveSide: string = '';
+  negativeSide: string = '';
+
   constructor(
     private router: Router,
     private activatedRouter: ActivatedRoute,
@@ -544,7 +548,25 @@ export class StaySuggestionPageComponent implements OnInit {
   }
 
   submitReview(): void {
+    if (this.title.length < 6) {
+      alert('Review title must contain at least 6 characters!');
+      return;
+    }
+    if (this.positiveSide.length < 10) {
+      alert('Positive side of review must contain at least 10 characters!');
+      return;
+    }
+    if (this.negativeSide.length < 10) {
+      alert('Negative side of review must contain at least 10 characters!');
+      return;
+    }
 
+    for (let i = 0; i < this.reviewCategoryGrades.length; i++) {
+      if (this.reviewCategoryGrades[i] == -1) {
+        alert('Select review grade for each category!');
+        return;
+      }
+    }
   }
 
   ngOnInit(): void {

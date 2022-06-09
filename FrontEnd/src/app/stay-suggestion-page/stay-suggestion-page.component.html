@@ -553,15 +553,15 @@
       </div>
       <div class="write-review-item">
         <label for="title">Title</label>
-        <input type="text" name="title" />
+        <input type="text" name="title" [(ngModel)]="title" />
       </div>
       <div class="write-review-item">
         <label for="positiveSide">Positive side</label>
-        <textarea name="positiveSide" cols="30" rows="10"></textarea>
+        <textarea name="positiveSide" cols="30" rows="10" [(ngModel)]="positiveSide"></textarea>
       </div>
       <div class="write-review-item">
         <label for="negativeSide">Negative side</label>
-        <textarea name="negativeSide" cols="30" rows="10"></textarea>
+        <textarea name="negativeSide" cols="30" rows="10" [(ngModel)]="negativeSide"></textarea>
       </div>
     </div>
   </div>
