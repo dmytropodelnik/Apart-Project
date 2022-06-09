@@ -414,13 +414,15 @@
     <div class="write-review-container">
       <div class="write-review-item">
         <label for="booking-number">Booking number</label>
-        <input type="text" value="" id="booking-number" />
+        <input type="text" name="bookingNumber" [(ngModel)]="bookingNumber" />
       </div>
       <div class="write-review-item">
         <label for="pin">PIN</label>
-        <input type="text" value="" id="pin" />
+        <input type="text" name="bookingPin" [(ngModel)]="bookingPin"/>
       </div>
-      <div class="write-review-item"><button>Rate your stay</button></div>
+      <div class="write-review-item">
+        <button (click)="rateStay()">Rate your stay</button>
+      </div>
       <div class="write-review-item">
         Only a customer who booked through Booking.com and stayed at a specific
         property can write a review. This lets us know our reviews come from

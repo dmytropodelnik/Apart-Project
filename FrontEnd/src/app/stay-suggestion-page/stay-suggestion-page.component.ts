@@ -90,6 +90,9 @@ export class StaySuggestionPageComponent implements OnInit {
 
   diffDays: number = 0;
 
+  bookingNumber: string = '';
+  bookingPin: string = '';
+
   constructor(
     private router: Router,
     private activatedRouter: ActivatedRoute,
@@ -502,6 +505,38 @@ export class StaySuggestionPageComponent implements OnInit {
           this.isDateChosen = true;
         } else {
           alert(response.message + "123");
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  rateStay(): void {
+    if (this.bookingNumber.length != 7) {
+      alert('Enter a correct booking number!');
+      return;
+    }
+    if (this.bookingPin.length != 6) {
+      alert('Enter a correct booking PIN!');
+      return;
+    }
+
+    fetch(
+      `https://localhost:44381/api/staybookings/verifyowner?bookingNumber=${this.bookingNumber}&bookingPIN=${this.bookingPin}`,
+      {
+        method: 'GET',
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.reviews = response.reviews;
+          this.reviewGrades = response.reviewGrades;
+          this.reviewCategories = response.reviewCategories;
+          this.categoryGrades = response.categoryGrades;
+        } else {
+          alert('Suggestion reviews fetching error!');
         }
       })
       .catch((ex) => {

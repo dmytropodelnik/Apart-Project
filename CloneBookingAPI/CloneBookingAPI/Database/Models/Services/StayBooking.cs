@@ -49,11 +49,15 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(20, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string PromoCode { get; set; }
 
-        [Display(Name = "Booking number")]
         [Required]
         [DataType(DataType.Text)]
-        [StringLength(20, MinimumLength = 8, ErrorMessage = "Incorrect length")]
+        [StringLength(7, ErrorMessage = "Incorrect length")]
         public string UniqueNumber { get; set; }
+
+        [Required]
+        [DataType(DataType.Text)]
+        [StringLength(6, ErrorMessage = "Incorrect length")]
+        public string PIN { get; set; }
 
         public int? BookingStatusId { get; set; }
         [ForeignKey("BookingStatusId")]
