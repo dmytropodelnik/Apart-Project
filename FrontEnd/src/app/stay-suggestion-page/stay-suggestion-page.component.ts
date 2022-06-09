@@ -93,7 +93,7 @@ export class StaySuggestionPageComponent implements OnInit {
     private activatedRouter: ActivatedRoute,
     private modalService: NgbModal,
     private scroller: ViewportScroller,
-    private suggestionDetailsService: BookingDetailsService,
+    private bookingDetailsService: BookingDetailsService,
   ) {}
 
   routerOptions: ExtraOptions = {
@@ -274,20 +274,19 @@ export class StaySuggestionPageComponent implements OnInit {
       return;
     }
 
-    let date1 = new Date(`${this.monthIn}/${this.dayIn}/${this.yearIn}`);
-    let date2 = new Date(`${this.monthOut}/${this.dayOut}/${this.yearOut}`);
+    let dateIn = new Date(`${this.monthIn}/${this.dayIn}/${this.yearIn}`);
+    let dateOut = new Date(`${this.monthOut}/${this.dayOut}/${this.yearOut}`);
 
-    let diffDate = (date2 as any) - (date1 as any);
+    let diffDate = (dateOut as any) - (dateIn as any);
 
     let milliseconds = diffDate;
     let seconds = milliseconds / 1000;
     let minutes = seconds / 60;
     let hours = minutes / 60;
+
     this.diffDays = hours / 24;
-
-    alert(Math.ceil(this.diffDays));
-
-    this.suggestionDetailsService.setChosenApartmentsAndSuggestion(this.chosenFinalApartments, this.suggestion, this.grade);
+    this.bookingDetailsService.setChosenDates(dateIn, dateOut);
+    this.bookingDetailsService.setChosenApartmentsAndSuggestion(this.chosenFinalApartments, this.suggestion, this.grade, this.diffDays);
     this.router.navigate(['/fillinguserdetails']);
   }
 

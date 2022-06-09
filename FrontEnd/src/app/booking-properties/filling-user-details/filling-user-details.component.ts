@@ -23,7 +23,12 @@ export class FillingUserDetailsComponent implements OnInit {
     isSuite: string;
     isSmokingAllowed: boolean;
   }[] = [];
+
   grade: number = 0;
+  diffDays: number = 0;
+
+  checkIn: Date | null = null;
+  checkOut: Date | null = null;
 
   mathHelper: any = MathHelper;
 
@@ -39,6 +44,9 @@ export class FillingUserDetailsComponent implements OnInit {
     this.chosenApartments = this.bookingDetailsService.getChosenApartments();
     this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();
     this.grade = this.bookingDetailsService.getGrade();
+    this.diffDays = this.bookingDetailsService.getDiffDays();
+    this.checkIn = this.bookingDetailsService.getCheckInDate();
+    this.checkOut = this.bookingDetailsService.getCheckOutDate();
     // if (this.bookingDetailsService.getChosenApartments() != null) {
     //   this.chosenApartments = this.bookingDetailsService.getChosenApartments();
     //   this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();

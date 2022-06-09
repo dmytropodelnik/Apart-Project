@@ -14,13 +14,23 @@ export class BookingDetailsService {
   }[] | null = null;
 
   grade: number = 0;
+  diffDays: number = 0;
+
+  dateIn: Date | null = null;
+  dateOut: Date | null = null;
 
   constructor() {}
 
-  setChosenApartmentsAndSuggestion(chosenApartments: any, chosenSuggestion: any, grade: number) {
+  setChosenApartmentsAndSuggestion(chosenApartments: any, chosenSuggestion: any, grade: number, diffDays: number) {
     this.chosenApartments = chosenApartments;
     this.chosenSuggestion = chosenSuggestion;
     this.grade = grade;
+    this.diffDays = diffDays;
+  }
+
+  setChosenDates(dateIn: Date, dateOut: Date) {
+    this.dateIn = dateIn;
+    this.dateOut = dateOut;
   }
 
   getChosenApartments(): any {
@@ -33,6 +43,18 @@ export class BookingDetailsService {
 
   getGrade(): number {
     return this.grade;
+  }
+
+  getDiffDays(): number {
+    return this.diffDays;
+  }
+
+  getCheckInDate(): Date | null {
+    return this.dateIn;
+  }
+
+  getCheckOutDate(): Date | null {
+    return this.dateOut;
   }
 
   clearChosenApartmentsAndSuggestions(): void {
