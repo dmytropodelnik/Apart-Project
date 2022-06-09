@@ -23,6 +23,9 @@ export class FillingUserDetailsComponent implements OnInit {
     isSuite: string;
     isSmokingAllowed: boolean;
   }[] = [];
+  grade: number = 0;
+
+  mathHelper: any = MathHelper;
 
   constructor(
     private router: Router,
@@ -35,6 +38,7 @@ export class FillingUserDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.chosenApartments = this.bookingDetailsService.getChosenApartments();
     this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();
+    this.grade = this.bookingDetailsService.getGrade();
     // if (this.bookingDetailsService.getChosenApartments() != null) {
     //   this.chosenApartments = this.bookingDetailsService.getChosenApartments();
     //   this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();

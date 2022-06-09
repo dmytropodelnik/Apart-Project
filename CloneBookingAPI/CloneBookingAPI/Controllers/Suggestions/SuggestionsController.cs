@@ -117,6 +117,8 @@ namespace CloneBookingAPI.Controllers.Suggestions
                             s.UniqueCode,
                             s.Name,
                             s.Description,
+                            s.BookingCategory.Category,
+                            s.IsParkingAvailable,
                             Country = s.Address.Country.Title,
                             City = s.Address.City.Title,
                             Region = s.Address.Region.Title,

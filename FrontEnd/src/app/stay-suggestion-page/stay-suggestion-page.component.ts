@@ -86,6 +86,8 @@ export class StaySuggestionPageComponent implements OnInit {
   isDateChosen: boolean = false;
   isAuth: boolean = false;
 
+  diffDays: number = 0;
+
   constructor(
     private router: Router,
     private activatedRouter: ActivatedRoute,
@@ -272,7 +274,20 @@ export class StaySuggestionPageComponent implements OnInit {
       return;
     }
 
-    this.suggestionDetailsService.setChosenApartmentsAndSuggestion(this.chosenFinalApartments, this.suggestion);
+    let date1 = new Date(`${this.monthIn}/${this.dayIn}/${this.yearIn}`);
+    let date2 = new Date(`${this.monthOut}/${this.dayOut}/${this.yearOut}`);
+
+    let diffDate = (date2 as any) - (date1 as any);
+
+    let milliseconds = diffDate;
+    let seconds = milliseconds / 1000;
+    let minutes = seconds / 60;
+    let hours = minutes / 60;
+    this.diffDays = hours / 24;
+
+    alert(Math.ceil(this.diffDays));
+
+    this.suggestionDetailsService.setChosenApartmentsAndSuggestion(this.chosenFinalApartments, this.suggestion, this.grade);
     this.router.navigate(['/fillinguserdetails']);
   }
 
@@ -446,6 +461,13 @@ export class StaySuggestionPageComponent implements OnInit {
         this.filters.pdateOut!.month +
         '-' +
         this.filters.pdateOut!.day;
+
+        this.dayIn = this.filters.pdateIn!.day;
+        this.monthIn = this.filters.pdateIn!.month;
+        this.yearIn = this.filters.pdateIn!.year;
+        this.dayOut = this.filters.pdateOut!.day;
+        this.monthOut = this.filters.pdateOut!.month;
+        this.yearOut = this.filters.pdateOut!.year;
     } else {
       alert("Select the check in and check out date!");
       return;

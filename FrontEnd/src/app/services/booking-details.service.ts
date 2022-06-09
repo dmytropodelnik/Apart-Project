@@ -13,11 +13,14 @@ export class BookingDetailsService {
     isSmokingAllowed: string;
   }[] | null = null;
 
+  grade: number = 0;
+
   constructor() {}
 
-  setChosenApartmentsAndSuggestion(chosenApartments: any, chosenSuggestion: any) {
+  setChosenApartmentsAndSuggestion(chosenApartments: any, chosenSuggestion: any, grade: number) {
     this.chosenApartments = chosenApartments;
     this.chosenSuggestion = chosenSuggestion;
+    this.grade = grade;
   }
 
   getChosenApartments(): any {
@@ -26,6 +29,10 @@ export class BookingDetailsService {
 
   getChosenSuggestion(): any {
     return this.chosenSuggestion;
+  }
+
+  getGrade(): number {
+    return this.grade;
   }
 
   clearChosenApartmentsAndSuggestions(): void {
