@@ -30,8 +30,10 @@ namespace CloneBookingAPI.Controllers.Suggestions
         {
             try
             {
-                if (filters is null                   ||
-                    string.IsNullOrWhiteSpace(filters.DateIn) ||
+                if (filters is null                            ||
+                    filters.GuestsAmount < 1                   ||
+                    filters.SearchRoomsAmount < 1              ||
+                    string.IsNullOrWhiteSpace(filters.DateIn)  ||
                     string.IsNullOrWhiteSpace(filters.DateOut))
                 {
                     return Json(new { code = 400, message = "Input data is null." });
