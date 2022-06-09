@@ -103,7 +103,7 @@ import { LetterCreatorComponent } from './admin-panel/letter-creator/letter-crea
 import { UserBookingsComponent } from './user-bookings/user-bookings.component';
 import { FillingUserDetailsComponent } from './booking-properties/filling-user-details/filling-user-details.component';
 import { BookingFinalStepComponent } from './booking-properties/booking-final-step/booking-final-step.component';
-import { SuggestionDetailsService } from './services/suggestion-details.service';
+import { BookingDetailsService } from './services/booking-details.service';
 
 @NgModule({
   providers: [
@@ -111,7 +111,7 @@ import { SuggestionDetailsService } from './services/suggestion-details.service'
     MainDataService,
     ListNewPropertyService,
     AdminContentService,
-    SuggestionDetailsService,
+    BookingDetailsService,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

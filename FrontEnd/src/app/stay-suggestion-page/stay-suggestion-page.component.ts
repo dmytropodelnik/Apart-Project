@@ -18,7 +18,7 @@ import { FacilityType } from '../models/facilitytype.item';
 import { SuggestionRuleType } from '../models/Suggestions/suggestionruletype.item';
 import { Review } from '../models/Review/review.item';
 import { ReviewCategory } from '../models/Review/reviewcategory.item';
-import { SuggestionDetailsService } from '../services/suggestion-details.service';
+import { BookingDetailsService } from '../services/booking-details.service';
 
 @Component({
   selector: 'app-stay-suggestion-page',
@@ -91,7 +91,7 @@ export class StaySuggestionPageComponent implements OnInit {
     private activatedRouter: ActivatedRoute,
     private modalService: NgbModal,
     private scroller: ViewportScroller,
-    private suggestionDetailsService: SuggestionDetailsService,
+    private suggestionDetailsService: BookingDetailsService,
   ) {}
 
   routerOptions: ExtraOptions = {
@@ -272,7 +272,7 @@ export class StaySuggestionPageComponent implements OnInit {
       return;
     }
 
-    this.suggestionDetailsService.setChosenApartments(this.chosenFinalApartments);
+    this.suggestionDetailsService.setChosenApartmentsAndSuggestion(this.chosenFinalApartments, this.suggestion);
     this.router.navigate(['/fillinguserdetails']);
   }
 

@@ -1,4 +1,7 @@
-export class SuggestionDetailsService {
+import { Suggestion } from "../models/Suggestions/suggestion.item";
+
+export class BookingDetailsService {
+  chosenSuggestion: any;
   chosenApartments: {
     name: string;
     amount: number;
@@ -12,15 +15,21 @@ export class SuggestionDetailsService {
 
   constructor() {}
 
-  setChosenApartments(chosenApartments: any) {
+  setChosenApartmentsAndSuggestion(chosenApartments: any, chosenSuggestion: any) {
     this.chosenApartments = chosenApartments;
+    this.chosenSuggestion = chosenSuggestion;
   }
 
   getChosenApartments(): any {
     return this.chosenApartments;
   }
 
-  clearChosenApartments(): void {
+  getChosenSuggestion(): any {
+    return this.chosenSuggestion;
+  }
+
+  clearChosenApartmentsAndSuggestions(): void {
     this.chosenApartments = null;
+    this.chosenSuggestion = null;
   }
 }

@@ -55,7 +55,9 @@
         <div class="booking-details-card-container">
           <div class="booking-details-card-container-item">
             <span>Hotel</span>
-            <span><img src="../../../assets/images/Star 1.png" alt="" /></span>
+            <div *ngFor="let item of chosenSuggestion?.starsRating; let i = index">
+              <img src="../../../assets/images/Star 1.png" />
+            </div>
           </div>
           <div class="booking-details-card-container-item">
             <span>Room Mate Grace Boutique Hotel</span>

@@ -58,9 +58,9 @@
           <div>
             <div class="information-container">
               <div>
-                <span class="bold-title">{{ suggestion.name }}</span>
+                <span class="bold-title">{{ suggestion?.name }}</span>
                 <div class="information-container3">
-                  <div *ngFor="let item of suggestion.starsRating; let i = index">
+                  <div *ngFor="let item of suggestion?.starsRating; let i = index">
                     <img src="../../assets/images/Star 1.png" />
                   </div>
                 </div>
@@ -88,58 +88,42 @@
             </div>
             <div class="information-container2 subtitle">
               {{
-              suggestion.address +
+              suggestion?.address +
               ", " +
-              suggestion.region +
+              suggestion?.region +
               ", " +
-              suggestion.city +
+              suggestion?.city +
               ", " +
-              suggestion.country
+              suggestion?.country
               }}
             </div>
           </div>
           <div class="image-container">
             <div class="image-container-main">
               <div>
-                <img src="{{
-                    imageHelper.getImageDirectoryPath()
-                  }}suggestions/stays/{{ suggestion.images[1].name }}" />
-                <img src="{{
-                    imageHelper.getImageDirectoryPath()
-                  }}suggestions/stays/{{ suggestion.images[2].name }}" />
+                <img src="{{imageHelper.getImageDirectoryPath()}}suggestions/stays/{{ suggestion?.images[1].name }}" />
+                <img src="{{ imageHelper.getImageDirectoryPath()}}suggestions/stays/{{ suggestion?.images[2].name }}" />
               </div>
               <div>
-                <img src="{{
-                    imageHelper.getImageDirectoryPath()
-                  }}suggestions/stays/{{ suggestion.images[0].name }}" />
+                <img src="{{imageHelper.getImageDirectoryPath()}}suggestions/stays/{{ suggestion?.images[0].name }}" />
               </div>
             </div>
             <div class="">
               <div class="image-container-wrapper">
                 <div>
-                  <img src="{{
-                      imageHelper.getImageDirectoryPath()
-                    }}suggestions/stays/{{ suggestion.images[3].name }}" />
+                  <img src="{{imageHelper.getImageDirectoryPath()}}suggestions/stays/{{ suggestion?.images[3].name }}" />
                 </div>
                 <div>
-                  <img src="{{
-                      imageHelper.getImageDirectoryPath()
-                    }}suggestions/stays/{{ suggestion.images[4].name }}" />
+                  <img src="{{imageHelper.getImageDirectoryPath()}}suggestions/stays/{{ suggestion?.images[4].name }}" />
                 </div>
                 <div>
-                  <img src="{{
-                      imageHelper.getImageDirectoryPath()
-                    }}suggestions/stays/{{ suggestion.images[5].name }}" />
+                  <img src="{{imageHelper.getImageDirectoryPath()}}suggestions/stays/{{ suggestion?.images[5].name }}" />
                 </div>
                 <div>
-                  <img src="{{
-                      imageHelper.getImageDirectoryPath()
-                    }}suggestions/stays/{{ suggestion.images[6].name }}" />
+                  <img src="{{ imageHelper.getImageDirectoryPath()}}suggestions/stays/{{ suggestion?.images[6].name }}" />
                 </div>
                 <div>
-                  <img src="{{
-                      imageHelper.getImageDirectoryPath()
-                    }}suggestions/stays/{{ suggestion.images[7].name }}" />
+                  <img src="{{imageHelper.getImageDirectoryPath()}}suggestions/stays/{{ suggestion?.images[7].name }}" />
                 </div>
               </div>
             </div>
@@ -149,7 +133,7 @@
       <div>
         <span class="bold-title">Description</span>
         <p>
-          {{suggestion.description}}
+          {{suggestion?.description}}
         </p>
       </div>
 
@@ -175,7 +159,7 @@
       <div class="availability-main" id="targetAvailability">
         <h2>Availability</h2>
         <div class="availability-container">
-          <div *ngFor="let item of suggestion.apartments; let i = index" class="availability-item">
+          <div *ngFor="let item of suggestion?.apartments; let i = index" class="availability-item">
             <span class="availability-title click-component">{{item.name}}</span>
             <select *ngIf="isDateChosen" name="chosenApartments{{i}}.amount" [(ngModel)]="chosenApartments[i].amount">
               <option value="-1">Select amount</option>

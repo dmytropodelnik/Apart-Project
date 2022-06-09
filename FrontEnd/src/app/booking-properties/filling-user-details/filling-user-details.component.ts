@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { SuggestionDetailsService } from 'src/app/services/suggestion-details.service';
+import { BookingDetailsService } from 'src/app/services/booking-details.service';
 
 import AuthHelper from '../../utils/authHelper';
 import ImageHelper from '../../utils/imageHelper';
@@ -12,7 +12,7 @@ import MathHelper from '../../utils/mathHelper';
   styleUrls: ['./filling-user-details.component.css']
 })
 export class FillingUserDetailsComponent implements OnInit {
-
+  chosenSuggestion: any;
   chosenApartments: {
     name: string;
     amount: number;
@@ -27,19 +27,21 @@ export class FillingUserDetailsComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRouter: ActivatedRoute,
-    private suggestionDetailsService: SuggestionDetailsService,
+    private bookingDetailsService: BookingDetailsService,
     ) {
 
     }
 
   ngOnInit(): void {
-    if (this.suggestionDetailsService.getChosenApartments() != null) {
-      this.chosenApartments = this.suggestionDetailsService.getChosenApartments();
-      console.log(this.chosenApartments);
-    } else {
-      console.log(this.chosenApartments);
-      this.router.navigate(['']);
-    }
+    this.chosenApartments = this.bookingDetailsService.getChosenApartments();
+    this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();
+    // if (this.bookingDetailsService.getChosenApartments() != null) {
+    //   this.chosenApartments = this.bookingDetailsService.getChosenApartments();
+    //   this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();
+    //   console.log(this.chosenSuggestion);
+    // } else {
+    //   this.router.navigate(['']);
+    // }
   }
 
 }
