@@ -416,6 +416,60 @@ export class StaySuggestionPageComponent implements OnInit {
       });
   }
 
+  filterApartments(): void {
+    let dateIn, dateOut;
+
+    if (this.filters.pdateIn && this.filters.pdateOut) {
+      dateIn =
+        this.filters.pdateIn!.year +
+        '-' +
+        this.filters.pdateIn!.month +
+        '-' +
+        this.filters.pdateIn!.day;
+      dateOut =
+        this.filters.pdateOut!.year +
+        '-' +
+        this.filters.pdateOut!.month +
+        '-' +
+        this.filters.pdateOut!.day;
+    } else {
+      alert("Select the check in and check out date!");
+      return;
+    }
+
+    const filters = {
+      dateIn: dateIn,
+      dateOut: dateOut,
+      searchRoomsAmount: this.filters.searchRoomsAmount,
+      guestsAmount: this.filters.searchAdultsAmount + this.filters.searchChildrenAmount,
+      suggestionId: this.suggestion.id,
+    };
+
+    fetch(
+      `https://localhost:44381/api/apartments/filter`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(filters),
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+
+        } else {
+          alert(response.message + "123");
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
   ngOnInit(): void {
     this.activatedRouter.paramMap
       .pipe(switchMap((params) => params.getAll('id')))
