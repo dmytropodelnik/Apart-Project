@@ -247,8 +247,8 @@ namespace CloneBookingAPI.Controllers.Review
                     review.Grades is null        ||
                     review.OwnerId < 1           ||
                     review.SuggestionId < 1      ||
-                    //string.IsNullOrWhiteSpace(review.BookingNumber)              ||
-                    //string.IsNullOrWhiteSpace(review.BookingPIN)                 ||
+                    string.IsNullOrWhiteSpace(review.BookingNumber)              ||
+                    string.IsNullOrWhiteSpace(review.BookingPIN)                 ||
                     string.IsNullOrWhiteSpace(review.ReviewMessage.Title)        ||
                     string.IsNullOrWhiteSpace(review.ReviewMessage.PositiveText) ||
                     string.IsNullOrWhiteSpace(review.ReviewMessage.NegativeText))
@@ -262,14 +262,14 @@ namespace CloneBookingAPI.Controllers.Review
                     return Json(new { code = 400, message = "User is not found." });
                 }
 
-                //var resBooking = await _context.StayBookings
-                //    .FirstOrDefaultAsync(b => b.UserId == resUser.Id &&
-                //                              b.UniqueNumber.Equals(review.BookingNumber) &&
-                //                              b.PIN.Equals(review.BookingPIN));
-                //if (resBooking is null)
-                //{
-                //    return Json(new { code = 400, message = "You don't have access to write a review to this suggestion." });
-                //}
+                var resBooking = await _context.StayBookings
+                    .FirstOrDefaultAsync(b => b.UserId == resUser.Id &&
+                                              b.UniqueNumber.Equals(review.BookingNumber) &&
+                                              b.PIN.Equals(review.BookingPIN));
+                if (resBooking is null)
+                {
+                    return Json(new { code = 400, message = "You don't have access to write a review to this suggestion." });
+                }
 
                 CloneBookingAPI.Services.Database.Models.Review.Review newReview = new();
                 List<SuggestionReviewGrade> reviewGrades = new();

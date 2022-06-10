@@ -283,7 +283,7 @@
     <button class="btn btn-outline-primary btn-sm" (click)="openVerticallyCentered(content)" (click)="modal.dismiss()">
       Write review
     </button>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <button type="button" class="btn-close" aria-label="Close" (click)="resetReviewsData()" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
     <div class="categories-main">
@@ -439,7 +439,7 @@
         PIN
       </h6>
     </div>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <button type="button" class="btn-close" aria-label="Close" (click)="resetData()" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body" *ngIf="isOwnerVerified == true">
     <div class="write-review-container">

@@ -156,6 +156,14 @@ export class StaySuggestionPageComponent implements OnInit {
     }
   }
 
+  resetReviewsData(): void {
+    this.page = 1;
+  }
+
+  resetData(): void {
+    this.isOwnerVerified = false;
+  }
+
   getSuggestion(): void {
     fetch(
       'https://localhost:44381/api/suggestions/getsuggestion?code=' +
