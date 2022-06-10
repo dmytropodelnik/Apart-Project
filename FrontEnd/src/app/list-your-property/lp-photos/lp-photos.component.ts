@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ListNewPropertyService } from '../../services/list-new-property.service';
 
@@ -17,9 +17,8 @@ export class LpPhotosComponent implements OnInit {
   constructor(
     private listNewPropertyService: ListNewPropertyService,
     private router: Router,
-  ) {
-
-  }
+    private activatedRouter: ActivatedRoute
+  ) {}
 
   fileToUpload: any;
   imageUrl: any;
@@ -54,6 +53,7 @@ export class LpPhotosComponent implements OnInit {
   }
 
   addPropertyPhotos(): void {
+<<<<<<< HEAD
     if (this.uploadedFiles != null) {
       let fData = new FormData();
 
@@ -82,15 +82,62 @@ export class LpPhotosComponent implements OnInit {
           .catch((err) => {
             alert(err);
           });
+=======
+    if (this.uploadedFiles == null) {
+      alert('Upload files please!');
+      return;
+>>>>>>> backend
     }
+    if (this.uploadedFiles.length < 8) {
+      alert('You have to upload at least 8 images!');
+      return;
+    }
+
+    let fData = new FormData();
+
+    for (let i = 0; i < this.uploadedFiles.length; i++) {
+      fData.append('uploadedFiles', this.uploadedFiles[i]);
+    }
+    console.log(fData.getAll('uploadedFiles'));
+    fetch(
+      'https://apartmain.azurewebsites.net/api/listnewproperty/addphotos?suggestionId=' +
+        this.listNewPropertyService.getSavedPropertyId(),
+      {
+        method: 'POST',
+        headers: {
+          // 'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: fData,
+      }
+    )
+      .then((r) => r.json())
+      .then((r) => {
+        if (r.code === 200) {
+          console.log('Files have been successfully uploaded!');
+          this.router.navigate(['/lp/reviewandcomplete']);
+        } else {
+          alert('Uploading error!');
+        }
+      })
+      .catch((err) => {
+        alert(err);
+      });
   }
 
   ngOnInit(): void {
-    if (!AuthHelper.isLogged()) {
-      this.router.navigate(['']);
-    }
-    else if (!this.listNewPropertyService.getSavedPropertyId()) {
-      this.router.navigate(['']);
-    }
+    this.activatedRouter.queryParams.subscribe((params: any) => {
+      if (params['toSaveId'] == 'true') {
+        this.listNewPropertyService.setSavedPropertyId(
+          params['id']
+        );
+      }
+      if (!AuthHelper.isLogged()) {
+        this.router.navigate(['']);
+      } else if (!this.listNewPropertyService.getSavedPropertyId()) {
+        this.router.navigate(['']);
+      }
+    });
   }
 }

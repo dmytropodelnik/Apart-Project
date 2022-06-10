@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Apartment } from 'src/app/models/Suggestions/apartment.item';
 
 import { ListNewPropertyService } from '../../services/list-new-property.service';
@@ -21,7 +21,8 @@ export class LpApartmentsComponent implements OnInit {
 
   constructor(
     private listNewPropertyService: ListNewPropertyService,
-    private router: Router
+    private router: Router,
+    private activatedRouter: ActivatedRoute,
   ) {
 
   }
@@ -92,12 +93,19 @@ export class LpApartmentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!AuthHelper.isLogged()) {
-      this.router.navigate(['']);
-    }
-    else if (!this.listNewPropertyService.getSavedPropertyId()) {
-      this.router.navigate(['']);
-    }
+    this.activatedRouter.queryParams.subscribe((params: any) => {
+      if (params['toSaveId'] == 'true') {
+        this.listNewPropertyService.setSavedPropertyId(
+          params['id']
+        );
+      }
+      if (!AuthHelper.isLogged()) {
+        this.router.navigate(['']);
+      }
+      else if (!this.listNewPropertyService.getSavedPropertyId()) {
+        this.router.navigate(['']);
+      }
+    });
   }
 
 }

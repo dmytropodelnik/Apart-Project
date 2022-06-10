@@ -13,7 +13,7 @@
 }
 
 .signin {
-  background: url(../../assets/images/login.jpg); 
+  background: url(../../assets/images/login.jpg);
 }
 .wrapper .image1 {
   width: 100%;
@@ -127,7 +127,7 @@
 
 .auth-input:focus {
   outline: none;
-  border: 1px solid #ed6648;
+  border: 1px solid #9966ff;
 }
 
 .auth-input {
@@ -175,7 +175,7 @@
   margin-top: 7px;
   width: 200px;
   height: 50px;
-  background: #ed6648;
+  background: #9966ff;
   border-radius: 30px;
 }
 
@@ -201,8 +201,8 @@
 }
 .auth-btn:hover {
   background-color: #ffffff;
-  border-color: #ed6648;
-  color: #ed6648;
+  border-color: #9966ff;
+  color: #9966ff;
 }
 
 .verificationCode_text {

@@ -330,6 +330,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         '-' +
         this.searchViewModel.pdateOut!.day;
     } else {
+      alert("Select the check in and check out dates!");
       return;
     }
 

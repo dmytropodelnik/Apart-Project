@@ -508,23 +508,23 @@
           <div class="image_container">
             <img class="click-component" src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
                 item.images[0]?.name
-              }}" width="200px" height="200px" (click)="showSuggestion(item.uniqueCode)" />
+              }}" width="200px" height="200px" (click)="showSuggestion(item.uniqueCode, item.id)" />
             <div class="save_image_position">
               <div *ngIf="isSaved(item.id) == true">
-                <button class="save_image" (click)="removeSuggestion(item.id)">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
-                    viewBox="0 0 16 16">
+                <button class="information-container-like1" (click)="removeSuggestion(item.id)">
+                  <svg viewBox="0 0 128 128" width="26px" height="26px">
                     <path
-                      d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                      d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z"
+                    ></path>
                   </svg>
                 </button>
               </div>
               <div *ngIf="isSaved(item.id) == false">
-                <button class="save_image" (click)="addSuggestionToSaved(item.id)">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart"
-                    viewBox="0 0 16 16">
+                <button class="information-container-like" (click)="addSuggestionToSaved(item.id)">
+                  <svg viewBox="0 0 128 128" width="26px" height="26px">
                     <path
-                      d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                      d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z"
+                    ></path>
                   </svg>
                 </button>
               </div>
@@ -533,7 +533,7 @@
           <div>
             <div class="left_information">
               <div class="left_information_name">
-                <div class="left_information_title click-component" (click)="showSuggestion(item.uniqueCode)">{{
+                <div class="left_information_title click-component" (click)="showSuggestion(item.uniqueCode, item.id)">{{
                   item?.name }}</div>
                 <div *ngFor="let item of item.starsRating; let i = index">
                   <img src="../../assets/images/Star 1.png" />
@@ -605,7 +605,7 @@
                     }}</span>
                 </span>
               </div>
-              <button class="search_card_show_prices click-component" (click)="showSuggestion(item.uniqueCode)">Show
+              <button class="search_card_show_prices click-component" (click)="showSuggestion(item.uniqueCode, item.id)">Show
                 Prices</button>
             </div>
           </div>

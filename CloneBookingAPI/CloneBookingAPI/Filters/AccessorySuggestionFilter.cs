@@ -35,9 +35,11 @@ namespace CloneBookingAPI.Filters
                     return;
                 }
 
+                string idString = context.HttpContext.Request.QueryString.Value.ToString();
+
                 var res = await _context.Suggestions
                     .Include(s => s.User)
-                    .FirstOrDefaultAsync(s => s.User.Email.Equals(userData[0]) && context.HttpContext.Request.Query["id"] == s.Id);
+                    .FirstOrDefaultAsync(s => s.User.Email.Equals(userData[0]) && idString.Substring(idString.IndexOf("=") + 1) == s.Id.ToString());
                 if (res is null)
                 {
                     context.Result = new JsonResult(new { code = 403 });

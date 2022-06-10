@@ -64,7 +64,6 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public List<FileModel> Images { get; set; } = new();
         public List<SuggestionHighlight> Highlights { get; set; } = new();
         public List<Facility> Facilities { get; set; } = new();
-        public List<Bed> Beds { get; set; } = new();
         public List<Language> Languages { get; set; } = new();
         public List<SuggestionRule> SuggestionRules { get; set; } = new();
         public List<SurroundingObject> SurroundingObjects { get; set; } = new();
@@ -72,5 +71,7 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public List<Message> Messages { get; set; } = new();
 
         public List<SuggestionFileModel> SuggestionsFileModels { get; set; } = new();
+        public List<SuggestionFacility> SuggestionsFacilities { get; set; } = new();
+        public List<SuggestionSuggestionRule> SuggestionsSuggestionRules { get; set; } = new();
     }
 }

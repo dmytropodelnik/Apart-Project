@@ -22,7 +22,7 @@ namespace CloneBookingAPI.Controllers.Pages
 
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult> Search([FromBody] SearchViewModel searchObj)
+        public IActionResult Search([FromBody] SearchViewModel searchObj)
         {
             try
             {

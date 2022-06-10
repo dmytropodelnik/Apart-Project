@@ -17,13 +17,15 @@ namespace CloneBookingAPI.Services.Database.Configurations.Review
         [StringLength(100, MinimumLength = 6, ErrorMessage = "Incorrect length")]
         public string Title { get; set; }
 
-        [Display(Name = "Message")]
         [Required]
         [DataType(DataType.Text)]
-        [StringLength(1000, MinimumLength = 6, ErrorMessage = "Incorrect length")]
-        public string Text { get; set; }
+        public string PositiveText { get; set; }
 
-        public int ReviewId { get; set; }
+        [Required]
+        [DataType(DataType.Text)]
+        public string NegativeText { get; set; }
+
+        public int? ReviewId { get; set; }
         [ForeignKey("ReviewId")]
         public Models.Review.Review Review { get; set; }
     }

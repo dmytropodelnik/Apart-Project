@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Facility } from 'src/app/models/facility.item';
 import { SuggestionRule } from 'src/app/models/Suggestions/suggestionrule.item';
 
@@ -29,7 +29,8 @@ export class LpPropertySetupComponent implements OnInit {
     'Russian',
     'Spanish',
     'Italian',
-    'Arabic',];
+    'Arabic',
+  ];
 
   rules: SuggestionRule[] | null = null;
   includedRules: boolean[] = [];
@@ -39,9 +40,8 @@ export class LpPropertySetupComponent implements OnInit {
   constructor(
     private listNewPropertyService: ListNewPropertyService,
     private router: Router,
-  ) {
-
-  }
+    private activatedRouter: ActivatedRoute
+  ) {}
   choice: number = 1;
   bedTypesAmount = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -116,8 +116,13 @@ export class LpPropertySetupComponent implements OnInit {
           }
         }
       })
+<<<<<<< HEAD
       .then(r => {
         fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addbeds`, {
+=======
+      .then((r) => {
+        fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addbeds`, {
+>>>>>>> backend
           method: 'POST',
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
@@ -345,15 +350,36 @@ export class LpPropertySetupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!AuthHelper.isLogged()) {
-      this.router.navigate(['']);
-      return;
-    }
-    else if (!this.listNewPropertyService.getSavedPropertyId()) {
-      this.router.navigate(['']);
-      return;
-    }
-    this.getFacilities();
-    this.getRules();
+    this.activatedRouter.queryParams.subscribe((params: any) => {
+      if (params['toSaveId'] == 'true') {
+        this.listNewPropertyService.setSavedPropertyId(params['id']);
+        this.choice = params['choice'];
+        if (
+          this.choice == 1 ||
+          this.choice == 2 ||
+          this.choice == 3 ||
+          this.choice == 4 ||
+          this.choice == 5
+        ) {
+          let secondLine = document.getElementById('secondLine');
+          if (secondLine !== null) {
+            secondLine.classList.add('navstep__container--after');
+          }
+          let thirdLine = document.getElementById('thirdLine');
+          if (thirdLine !== null) {
+            thirdLine.classList.add('navstep__container--active');
+          }
+        }
+      }
+      if (!AuthHelper.isLogged()) {
+        this.router.navigate(['']);
+        return;
+      } else if (!this.listNewPropertyService.getSavedPropertyId()) {
+        this.router.navigate(['']);
+        return;
+      }
+      this.getFacilities();
+      this.getRules();
+    });
   }
 }

@@ -73,6 +73,14 @@ export class UserSavedComponent implements OnInit {
       });
   }
 
+  showSuggestion(uniqueCode: number): void {
+    this.router.navigate(['suggestion', uniqueCode], {
+      queryParams: {
+        isSaved: true,
+      },
+    });
+  }
+
   getUserFavorites(): void {
     let url = 'https://apartmain.azurewebsites.net/api/favorites/getuserfavorites?email=' +
                 AuthHelper.getLogin();

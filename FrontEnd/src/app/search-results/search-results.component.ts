@@ -270,6 +270,7 @@ export class SearchResultsComponent implements OnInit {
       });
   }
 
+<<<<<<< HEAD
   getTypes(): void {
     fetch('https://apartmain.azurewebsites.net/api/roomtypes/gettypes', {
       method: 'GET',
@@ -287,6 +288,8 @@ export class SearchResultsComponent implements OnInit {
       });
   }
 
+=======
+>>>>>>> backend
   getLangs(): void {
     fetch('https://apartmain.azurewebsites.net/api/languages/getlanguages', {
       method: 'GET',
@@ -304,6 +307,7 @@ export class SearchResultsComponent implements OnInit {
       });
   }
 
+<<<<<<< HEAD
   getBedTypes(): void {
     fetch('https://apartmain.azurewebsites.net/api/bedtypes/getbedtypes', {
       method: 'GET',
@@ -321,7 +325,14 @@ export class SearchResultsComponent implements OnInit {
       });
   }
 
+=======
+>>>>>>> backend
   addSuggestionToSaved(id: any): void {
+    if (!AuthHelper.isLogged()) {
+      this.router.navigate(['auth']);
+      return;
+    }
+
     const suggestion = {
       id: id,
       login: AuthHelper.getLogin(),
@@ -341,7 +352,7 @@ export class SearchResultsComponent implements OnInit {
         if (response.code === 200) {
           this.savedSuggestions.push(response.resSuggestion);
         } else {
-          alert('User favorites fetching error!');
+          alert('Adding suggestion to saved error!');
         }
       })
       .catch((ex) => {
@@ -350,6 +361,11 @@ export class SearchResultsComponent implements OnInit {
   }
 
   removeSuggestion(id: any): void {
+    if (!AuthHelper.isLogged()) {
+      this.router.navigate(['auth']);
+      return;
+    }
+
     const suggestion = {
       id: id,
       login: AuthHelper.getLogin(),
@@ -485,7 +501,7 @@ export class SearchResultsComponent implements OnInit {
     });
   }
 
-  showSuggestion(uniqueCode: number): void {
+  showSuggestion(uniqueCode: number, id: number): void {
     this.router.navigate(['suggestion', uniqueCode], {
       queryParams: {
         place: this.filters.place,
@@ -500,6 +516,7 @@ export class SearchResultsComponent implements OnInit {
         adults: this.filters.searchAdultsAmount,
         children: this.filters.searchChildrenAmount,
         rooms: this.filters.searchRoomsAmount,
+        isSaved: this.isSaved(id),
       },
     });
   }
@@ -514,9 +531,7 @@ export class SearchResultsComponent implements OnInit {
       this.getBookingCategories();
       this.getFacilities();
       this.getHighlights();
-      this.getTypes();
       this.getLangs();
-      this.getBedTypes();
       if (AuthHelper.getLogin() != '') {
         this.getUserFavorites();
       }

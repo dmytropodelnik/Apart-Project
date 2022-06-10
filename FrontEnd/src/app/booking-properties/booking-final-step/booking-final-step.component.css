@@ -1,0 +1,185 @@
+body {
+  min-width: 678px;
+}
+
+.basiclayout {
+  display: flex;
+  justify-content: center;
+}
+
+.right {
+  width: 870px;
+}
+
+.booking-details {
+  position: relative;
+}
+
+.booking-details-form {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  gap: 20px;
+  margin: 20px;
+  padding: 15px 25px;
+  background: #f9f9f9;
+  border: 0.5px solid rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.booking-details-form > * {
+  flex: 1;
+}
+
+.booking-details-header {
+}
+
+.booking-details-date {
+  display: flex;
+  display: flex;
+  gap: 30px;
+}
+
+.booking-details-date-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-details-stay {
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-details-room {
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-details-price {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  gap: 20px;
+  margin: 20px;
+  padding: 15px 25px;
+  background: #f9f9f9;
+  border: 0.5px solid rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
+.booking-details-price > * {
+  flex: 1;
+}
+
+.booking-details-price-item {
+  display: flex;
+  justify-content: space-between;
+}
+
+.booking-details-card {
+  display: flex;
+  grid-gap: 20px;
+  gap: 20px;
+  margin: 20px;
+  padding: 15px 25px;
+  background: #f9f9f9;
+  border: 0.5px solid rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  min-width: max-content;
+}
+
+.booking-details-card-image > img {
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+}
+
+.booking-details-card-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.booking-details-card-container-item {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.booking-details-fill-details {
+  display: flex;
+  grid-gap: 20px;
+  grid-gap: 20px;
+  gap: 20px;
+  margin: 20px;
+  padding: 15px 25px;
+  background: #f9f9f9;
+  border: 0.5px solid rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  flex-direction: column;
+}
+
+.booking-details-fill-name {
+  display: flex;
+  gap: 20px;
+}
+
+.booking-details-fill-name > div {
+  width: 50%;
+}
+
+.booking-details-fill-queenRoom {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.booking-details-fill-queenRoom-item {
+  display: flex;
+  gap: 5px;
+}
+
+.booking-details-fill-queenRoom-item > span {
+  border: 1px solid #198754;
+  background-color: #00ff2630;
+  color: #198754;
+  padding: 2px 4px;
+}
+
+.booking-details-fill-specialrequest {
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-details-fill-specialrequest-buttons {
+  display: flex;
+  padding-top: 15px;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.booking-details-fill-specialrequest-buttons > button {
+  border: 0px;
+}
+
+.bui-review-score__badge {
+  background: #9966ff;
+  color: #fff;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  vertical-align: baseline;
+  border-radius: 5.81818px 5.81818px 5.81818px 0;
+  height: 32px;
+  width: 32px;
+  min-width: 32px;
+  align-items: center;
+}
+
+@media screen and (max-width: 1068px) {
+  .left {
+    display: none;
+  }
+}

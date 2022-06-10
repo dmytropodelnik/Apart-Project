@@ -174,7 +174,7 @@ namespace CloneBookingAPI.Controllers.UserData
 
         [Route("getuserfavorites")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Favorite>>> GetUserFavorites(string email, bool isFacebookAuth = false)
+        public async Task<ActionResult<IEnumerable<Favorite>>> GetUserFavorites(string email)
         {
             try
             {
@@ -232,15 +232,16 @@ namespace CloneBookingAPI.Controllers.UserData
                     favorites = favorites.Suggestions.Select(s => new
                     {
                         s.Id,
+                        s.UniqueCode,
                         s.Name,
                         s.Description,
                         country = s.Address.Country.Title,
                         city = s.Address.City.Title,
                         address = s.Address.AddressText,
-                        s.StarsRating,
+                        starsRating = new short[s.StarsRating],
                         reviews = s.Reviews.Count,
                         images = s.Images.Select(i => new { i.Path, i.Name }),
-                }),
+                    }),
                     suggestionGrades,
                     reviewsCount,
                     suggestionStartsFrom,

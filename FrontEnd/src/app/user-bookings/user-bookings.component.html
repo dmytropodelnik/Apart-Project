@@ -1,0 +1,147 @@
+<!-- <p>
+  Это компонент, который показывает арендованные пользователем объекты.
+  Должен находится там же, где и My settings, Saved и т.д. Добавь там еще Bookings.
+  https://prnt.sc/tEpZlGXrAU_t - Вот пример как сделать.
+  https://prnt.sc/djiTpM3ym88g - А это пример того, как нужно сделать его.
+  Почти тоже самое, только убираем "Can't find a booking?".
+  При нажатии на объект должно показываться модальное окно такого типа:
+  https://prnt.sc/aws5iKfGlywG
+  Только вместо информации, которая не относится к этому заказу, нужно добавить информацию, которая касается именно этого заказа.
+  Т.е. ФИО пользователя (всех, кто будет проживать), который оформлял заказ, дату, информацию какую-то про объект, цена, confirmation code, PIN.
+  Что-то вроде этого: https://prnt.sc/nI59sxIEHi_L
+  Только все лишнее убрать, а оставить самое главное и сделать это в модальном окне.
+  При нажатии на 3 точки, чтобы можно было выбрать "Remove booking".
+  Открывается опять модальное окно с подтверждением для удаления.
+  Вот так: https://prnt.sc/RnZba3O3oUk8
+</p> -->
+
+<body>
+  <app-header></app-header>
+  <div class="user-bookings-container">
+    <div class="user-bookings-navbar">
+      <div class="user-bookings-navbar-buttons">
+        <button routerLink="">Search</button>
+        <button routerLink="/userbookings">Bookings</button>
+        <button routerLink="/mysettings">Reviews</button>
+        <button routerLink="/mysettings">Settings</button>
+        <button routerLink="/joinpartner">List your property</button>
+      </div>
+    </div>
+
+    <div class="mtr-empty-state--container mtr-empty-state--desktop">
+      <div class="EmptyState_root__+8mpG">
+        <div
+          class="Stack_root__TcYSy Stack_root--direction-column__j1Rmi Stack_root--gap-larger__RJaLY Stack_root--align-items-center__raP-r EmptyState_content__5Yu2x">
+          <div class="EmptyState_slot__+oK-i"><img width="256" height="256"
+              src="https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty.f6d1e091536ec081c442de892cdb505e.png"
+              srcset="https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty.f6d1e091536ec081c442de892cdb505e.png 256w, https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty@2x.bc139fe926ec8a47946e6c6e935e0e0c.png 512w, https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty@3x.5d8f4b54c45b037db50df2fb7b0e3bd4.png 768w"
+              sizes="256px" alt=""></div>
+          <div class="">
+            <p class="Text_root--variant-headline_2__Mbi-u EmptyState_title__A6vnu">Your trips live here</p>
+            <p class="Text_root--variant-body_1__lq2O8">This page shows all of your bookings.</p>
+          </div>
+          <div class="EmptyState_actions__WJrnJ"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="user-bookings-main-container" *ngIf="bookings.length != 0">
+      <h2>Bookings</h2>
+      <div *ngFor="let item of bookings; let i = index">
+        <div class="user-bookings-subheader">
+          <span>{{item.suggestion.address.city.title}}</span>
+          <span>{{item.checkIn}} - {{item.checkOut}}</span>
+        </div>
+        <div class="user-bookings-card">
+          <div class="user-bookings-card-left" (click)="openVerticallyCentered(revealContent)">
+            <img src="{{
+              imageHelper.getImageDirectoryPath()
+            }}suggestions/stays/{{ item.suggestion.images[0].name }}" alt="image" />
+            <div class="user-bookings-card-left-item">
+              <span>{{item.suggestion.name}}</span>
+              <span>{{item.checkIn}} - {{item.checkOut}}, {{item.suggestion.address.city.title}}</span>
+              <span>{{item.bookingStatus.status}}</span>
+            </div>
+          </div>
+          <div class="user-bookings-card-right">
+            <div class="user-bookings-card-right-item">
+              <span>{{item.price.currency.bankCode}} {{item.price.amount}}</span>
+              <div class="btn-group">
+                <button type="button" class="dropdown-button" data-bs-toggle="dropdown" aria-expanded="false">
+                  ...
+                </button>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-item">
+                    <button class="dropdown-button" (click)="openVerticallyCentered(revealContent)">
+                      Reveal information
+                    </button>
+                  </li>
+                  <li class="dropdown-item">
+                    <button class="dropdown-button" (click)="openVerticallyCentered(removeContent)">
+                      Remove object
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</body>
+
+<ng-template #removeContent let-modal>
+  <div class="modal-header">
+    <h2>Remove Booking</h2>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="user-bookings-card-left">
+      <img src="../../assets/images/12.jpg" alt="" />
+      <div class="user-bookings-card-left-item">
+        <span>Hostel</span>
+        <span>23 Aug 2019 - 24 Aug 2019</span>
+        <span>Cancelled</span>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="modal-footer-remove">
+      <span>You are about to permanently remove this booking from your bookings
+        list.</span>
+      <div>
+        <button type="button" class="btn btn-primary">Remove</button>
+        <button type="button" class="btn btn-primary">Keep</button>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #revealContent let-modal>
+  <div class="modal-header">
+    <h2>Remove Booking</h2>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="user-bookings-card-left">
+      <img src="../../assets/images/12.jpg" alt="" />
+      <div class="user-bookings-card-left-item">
+        <span>Hostel</span>
+        <span>23 Aug 2019 - 24 Aug 2019</span>
+        <span>Cancelled</span>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="modal-footer-remove">
+      <span>You are about to permanently remove this booking from your bookings
+        list.</span>
+      <div>
+        <button type="button" class="btn btn-primary">Remove</button>
+        <button type="button" class="btn btn-primary">Keep</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

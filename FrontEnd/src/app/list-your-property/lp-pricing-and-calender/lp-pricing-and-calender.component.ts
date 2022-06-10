@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { ListNewPropertyService } from '../../services/list-new-property.service';
 
@@ -17,6 +17,7 @@ export class LpPricingAndCalenderComponent implements OnInit {
   constructor(
     private listNewPropertyService: ListNewPropertyService,
     private router: Router,
+    private activatedRouter: ActivatedRoute,
   ) {
 
   }
@@ -49,12 +50,19 @@ export class LpPricingAndCalenderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!AuthHelper.isLogged()) {
-      this.router.navigate(['']);
-    }
-    else if (!this.listNewPropertyService.getSavedPropertyId()) {
-      this.router.navigate(['']);
-    }
+    this.activatedRouter.queryParams.subscribe((params: any) => {
+      if (params['toSaveId'] == 'true') {
+        this.listNewPropertyService.setSavedPropertyId(
+          params['id']
+        );
+      }
+      if (!AuthHelper.isLogged()) {
+        this.router.navigate(['']);
+      }
+      else if (!this.listNewPropertyService.getSavedPropertyId()) {
+        this.router.navigate(['']);
+      }
+    });
   }
 
 }

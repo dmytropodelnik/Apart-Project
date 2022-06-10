@@ -21,7 +21,7 @@ export class SearchViewModel {
   dateIn: string = '';
   dateOut: string = '';
 
-  searchAdultsAmount: number = 2;
+  searchAdultsAmount: number = 1;
   searchChildrenAmount: number = 0;
   searchRoomsAmount: number = 1;
 

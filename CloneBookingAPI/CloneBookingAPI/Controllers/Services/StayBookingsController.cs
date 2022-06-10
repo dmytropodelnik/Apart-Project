@@ -262,25 +262,78 @@ namespace CloneBookingAPI.Controllers.Services
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("verifyowner")]
+        [HttpGet]
+        public async Task<IActionResult> VerifyOwner(string bookingNumber, string bookingPIN)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(bookingNumber) ||
+                    string.IsNullOrWhiteSpace(bookingPIN))
+                {
+                    return Json(new { code = 400, message = "Input data is null." });
+                }
+
+                var res = await _context.StayBookings
+                    .FirstOrDefaultAsync(b => b.UniqueNumber.Equals(bookingNumber) &&
+                                b.PIN.Equals(bookingPIN));
+                if (res is null)
+                {
+                    return Json(new { code = 400, message = "Incorrect input data." });
+                }
+
+                return Json(new { 
+                    code = 200,
+                    bookingId = res.Id,
+                    ownerId = res.UserId,
+                    message = "Owner is verified.",
+                });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
             }
         }
     }

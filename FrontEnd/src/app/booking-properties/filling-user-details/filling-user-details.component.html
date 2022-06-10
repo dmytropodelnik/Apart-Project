@@ -1,0 +1,229 @@
+<!-- <p>
+  Этот компонент позволяет ввести информацию о людях, которые будут проживать в арендованном жилье.
+  Пример как это должно выглядеть: https://prnt.sc/rcwGp-vx-D9r
+  То, что я зачеркнул - делать не нужно.
+  Если у тебя есть идеи как это сделать лучше - делай, я только рад!)
+  Там, где цена - оставить только цену в $, и выдели ее.
+  Это то, что должно быть ниже того, что сверху. Просто не влезло в один скриншот: https://prnt.sc/eAT_i3L_R0Vz
+</p> -->
+
+<body>
+  <app-header></app-header>
+  <div class="basiclayout">
+    <div class="left">
+      <div class="booking-details">
+        <form class="booking-details-form">
+          <div class="booking-details-header">
+            <span class="textdecoration" id="basic-addon1"
+              >Your booking details</span
+            >
+          </div>
+          <div class="booking-details-date">
+            <div class="booking-details-date-item">
+              <span class="textdecoration">Check-in Date</span>
+              <span>{{checkIn!.toString().substring(0, checkIn!.toString().indexOf('00:00:00'))}}</span>
+            </div>
+            <div class="booking-details-date-item">
+              <span class="textdecoration">Check-out Date</span>
+              <span>{{checkOut!.toString().substring(0, checkOut!.toString().indexOf('00:00:00'))}}</span>
+            </div>
+          </div>
+          <div class="booking-details-stay">
+            <span class="textdecoration" id="basic-addon1"
+              >Total length of stay:</span
+            >
+            <span>{{diffDays}} night</span>
+          </div>
+          <div class="booking-details-room">
+            <span class="textdecoration" id="basic-addon1">You selected:</span>
+            <span *ngFor="let item of chosenApartments; let i = index">
+              {{item?.name}}
+            </span>
+          </div>
+        </form>
+      </div>
+      <div class="booking-details-price">
+        <div class="booking-details-price-item">
+          <span>Total price</span> <span>${{totalPrice}}</span>
+        </div>
+        <div><span>(For all quests)</span></div>
+      </div>
+    </div>
+    <div class="right">
+      <div class="booking-details-card">
+        <div class="booking-details-card-image">
+          <img src="../../../assets/images/12.jpg" alt="" />
+        </div>
+        <div class="booking-details-card-container">
+          <div class="booking-details-card-container-item">
+            <span>{{chosenSuggestion?.bookingCategory}}</span>
+            <div *ngFor="let star of chosenSuggestion?.starsRating; let j = index">
+              <img src="../../../assets/images/Star 1.png" />
+            </div>
+          </div>
+          <div class="booking-details-card-container-item">
+            <span>{{chosenSuggestion?.name}}</span>
+          </div>
+          <div class="booking-details-card-container-item">
+            <span>
+              {{
+                chosenSuggestion?.address +
+                ", " +
+                chosenSuggestion?.region +
+                ", " +
+                chosenSuggestion?.city +
+                ", " +
+                chosenSuggestion?.country
+                }}
+            </span>
+          </div>
+          <div class="booking-details-card-container-item">
+            <span class="bui-review-score__badge">{{ mathHelper.Round10(grade) }}</span>
+            <span></span>
+            <span *ngIf="mathHelper.Round10(grade) >= 9.7">Exceptional</span>
+            <span *ngIf="
+                mathHelper.Round10(grade) >= 9.0 &&
+                mathHelper.Round10(grade) < 9.7
+              ">Wonderful</span>
+            <span *ngIf="
+                mathHelper.Round10(grade) >= 8.7 &&
+                mathHelper.Round10(grade) < 9.0
+              ">Excellent</span>
+            <span *ngIf="
+                mathHelper.Round10(grade) >= 8.2 &&
+                mathHelper.Round10(grade) < 8.7
+              ">Very Good</span>
+            <span *ngIf="
+                mathHelper.Round10(grade) > 7.6 && mathHelper.Round10(grade) < 8.2
+              ">Good</span>
+            <span *ngIf="
+                mathHelper.Round10(grade) >= 7.0 &&
+                mathHelper.Round10(grade) < 7.7
+              ">Normal</span>
+            <span *ngIf="grade == 0"> Unrated </span>
+            <span>{{chosenSuggestion.reviews.length}} reviews</span>
+          </div>
+          <div *ngIf="chosenSuggestion?.IsParkingAvailable" class="booking-details-card-container-item">
+            <span>parking</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-details-fill-details">
+        <div><span>Enter your details</span></div>
+        <div>
+          <div class="form-check form-check-inline">
+            <span>Are you travelling for work?</span>
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault1"
+            />
+            <label class="form-check-label" for="flexRadioDefault1">Yes</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault2"
+              checked
+            />
+            <label class="form-check-label" for="flexRadioDefault2">No</label>
+          </div>
+        </div>
+        <div class="booking-details-fill-name">
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"
+              >First name</label
+            >
+            <input type="text" class="form-control" id="firstname" />
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"
+              >Last name</label
+            >
+            <input type="text" class="form-control" id="lastname" />
+          </div>
+        </div>
+        <div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"
+              >Email address</label
+            >
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+            />
+            <div id="emailHelp" class="form-text">
+              We'll never share your email with anyone else.
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label"
+              >Confirm email address</label
+            >
+            <input
+              type="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="booking-details-fill-details">
+        <div *ngFor="let item of chosenApartments; let i = index"
+             class="booking-details-fill-queenRoom">
+          <span>{{item.name}}</span>
+          <span><img width="28px" height="26px"
+            src="../../assets/images/smoking_icon.png" />{{item.isSmokingAllowed == true ? 'Smoking allowed' :
+          'No smoking'}}</span>
+          <div class="booking-details-fill-queenRoom-item">
+            <span><img width="28px" height="26px" src="../../assets/images/km2.png" />{{item.apartmentSize}} </span>
+            <span><img width="28px" height="26px" src="../../assets/images/room_icon.png" />{{item.roomsAmount == 1
+              ? item.roomsAmount + " room" : item.roomsAmount + ' rooms'}}</span>
+              <span><img width="28px" height="26px"
+                src="../../assets/images//bathroom_icon.png" />{{item.bathroomsAmount == 1 ? item.bathroomsAmount +
+              " bathroom" : item.bathroomsAmount + ' bathrooms'}}</span>
+              <span *ngIf="item.isSuite == 'true'"><img width="28px" height="26px"
+                src="../../assets/images/suite_icon.png" />Suite</span>
+          </div>
+          <div>
+            <span><img src="../../assets/images/Bed.png" />{{item.guestsLimit == 1 ? item.guestsLimit + " sleep" :
+              item.guestsLimit + ' sleeps'}}</span>
+          </div>
+          <div class="mb-3">
+            <label for="fullQuestName" class="form-label"
+              >Full guest name</label
+            >
+            <input type="text" class="form-control" id="fullQuestName" />
+          </div>
+        </div>
+      </div>
+      <div class="booking-details-fill-details">
+        <div class="booking-details-fill-specialrequest">
+          <span>Special requests</span>
+          <span
+            >Special requests cannot be guaranteed - but the property will do
+            its best to meet your needs. You can always make a special request
+            after your booking is complete!</span
+          >
+          <label for="specialrequest"></label>
+          <textarea name="" id="specialrequest" cols="30" rows="10"></textarea>
+          <div class="booking-details-fill-specialrequest-buttons">
+            <button type="button" class="btn btn-primary">
+              Next: Final details
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</body>

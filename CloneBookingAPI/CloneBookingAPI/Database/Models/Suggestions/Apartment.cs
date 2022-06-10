@@ -1,4 +1,5 @@
 ﻿using CloneBookingAPI.Database.Models.ViewModels;
+using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,9 +16,6 @@ namespace CloneBookingAPI.Database.Models.Suggestions
 
         // [Required]
         [DataType(DataType.Currency)]
-        public decimal? PriceInUserCurrency { get; set; }
-        // [Required]
-        [DataType(DataType.Currency)]
         public decimal PriceInUSD { get; set; }
         // [Required]
         public int RoomsAmount { get; set; }
@@ -25,6 +23,15 @@ namespace CloneBookingAPI.Database.Models.Suggestions
         public int GuestsLimit { get; set; }
         // [Required]
         public int BathroomsAmount { get; set; }
+
+        [Required]
+        public ushort ApartmentSize { get; set; }
+
+        [Required]
+        public bool IsSmokingAllowed { get; set; }
+
+        [Required]
+        public bool IsSuite { get; set; }
 
         // [Required]
         [DataType(DataType.Text)]
@@ -37,9 +44,10 @@ namespace CloneBookingAPI.Database.Models.Suggestions
         public int SuggestionId { get; set; }
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }
+
+        public List<Facility> Facilities { get; set; } = new();
         public List<BookedPeriod> BookedPeriods { get; set; } = new();
-        public List<RoomType> RoomTypes { get; set; } = new();
-        public List<ApartmentRoomType> ApartmentsRoomTypes { get; set; } = new();
         public List<ApartmentBookedPeriod> ApartmentsBookedPeriods { get; set; } = new();
+        public List<ApartmentFacility> ApartmentsFacilities { get; set; } = new();
     }
 }

@@ -34,14 +34,14 @@ namespace CloneBookingAPI.Controllers
                 {
                     facilities = await _context.Facilities
                         .Include(f => f.FacilityType)
-                        .Include(f => f.Image)
+                            .ThenInclude(t => t.Image)
                         .ToListAsync();
                 }
                 else
                 {
                     facilities = await _context.Facilities
                         .Include(f => f.FacilityType)
-                        .Include(f => f.Image)
+                            .ThenInclude(t => t.Image)
                         .Skip((page - 1) * pageSize)
                         .Take(pageSize)
                         .ToListAsync();
@@ -85,7 +85,7 @@ namespace CloneBookingAPI.Controllers
 
                 var facilities = await _context.Facilities
                     .Include(f => f.FacilityType)
-                    .Include(f => f.Image)
+                        .ThenInclude(t => t.Image)
                     .Where(f => f.Text.Contains(facility)               ||
                                 f.FacilityType.Type.Contains(facility))
                     .Skip((page - 1) * pageSize)

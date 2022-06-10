@@ -27,9 +27,5 @@ namespace CloneBookingAPI.Services.Database.Models.Suggestions
         public int SuggestionId { get; set; }
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }
-
-        public int? RoomId { get; set; }
-        [ForeignKey("RoomId")]
-        public Room Room { get; set; }
     }
 }

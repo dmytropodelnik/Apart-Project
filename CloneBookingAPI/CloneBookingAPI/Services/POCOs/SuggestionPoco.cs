@@ -30,7 +30,6 @@ namespace CloneBookingAPI.Services.POCOs
 
         public List<bool> Facilities { get; set; } = new();
         public List<string> Languages { get; set; } = new();
-        public List<Bed> Beds { get; set; } = new();
         public List<bool> SuggestionRules { get; set; } = new();
         public List<FileModel> Images { get; set; } = new();
         public List<ApartmentPoco> Apartments { get; set; } = new();

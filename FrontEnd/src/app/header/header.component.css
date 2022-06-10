@@ -253,7 +253,7 @@ a.a11y-skip-to-content {
   background-color: transparent;
 }
 .dropdown-menu {
-  border: 1px solid #ed6648 !important;
+  border: 1px solid #9966ff !important;
   margin-top: 5px;
   padding: 0px 0px 10px 0px !important;
 }
@@ -263,9 +263,9 @@ a.a11y-skip-to-content {
   margin-bottom: 5px;
 }
 .dropdown-item:hover {
-  border-top: 1px solid #ed6648;
-  border-bottom: 1px solid #ed6648;
-  color: #ed6648 !important;
+  border-top: 1px solid #9966ff;
+  border-bottom: 1px solid #9966ff;
+  color: #9966ff !important;
   background-color: #cfcfcf;
 }
 
@@ -278,7 +278,7 @@ a.a11y-skip-to-content {
   text-align: center;
   white-space: nowrap;
   color: white;
-  background-color: #ed6648;
+  background-color: #9966ff;
   border: 0;
 }
 .dropdown-itemproperty:hover {
@@ -324,7 +324,7 @@ a.a11y-skip-to-content {
 }
 .bui-button__text1 {
   position: relative;
-  color: #ed6648;
+  color: #9966ff;
 }
 .bui-button-USD {
   position: relative;
@@ -460,7 +460,7 @@ a.a11y-skip-to-content {
 }
 
 .activeRoute {
-  border-bottom: 2px solid #ed6648 !important;
+  border-bottom: 2px solid #9966ff !important;
 }
 
 .bui-tab--rounded .bui-tab__item:first-child {
@@ -700,7 +700,7 @@ a.a11y-skip-to-content {
   font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
     Arial, sans-serif;
   background: transparent;
-  background-color: #ed6648;
+  background-color: #9966ff;
   border: 0;
   border-radius: 5px;
 }
@@ -787,7 +787,7 @@ a.a11y-skip-to-content {
 
 @media (max-width: 767px) {
   .bui-group--inline {
-    flex-direction: column !important;
+    /* flex-direction: column !important; */
     align-items: center;
   }
 
