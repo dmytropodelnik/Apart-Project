@@ -270,26 +270,6 @@ export class SearchResultsComponent implements OnInit {
       });
   }
 
-<<<<<<< HEAD
-  getTypes(): void {
-    fetch('https://apartmain.azurewebsites.net/api/roomtypes/gettypes', {
-      method: 'GET',
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.code === 200) {
-          this.roomTypes = data.types;
-        } else {
-          alert('Room types fetching error!');
-        }
-      })
-      .catch((ex) => {
-        alert(ex);
-      });
-  }
-
-=======
->>>>>>> backend
   getLangs(): void {
     fetch('https://apartmain.azurewebsites.net/api/languages/getlanguages', {
       method: 'GET',
@@ -307,26 +287,6 @@ export class SearchResultsComponent implements OnInit {
       });
   }
 
-<<<<<<< HEAD
-  getBedTypes(): void {
-    fetch('https://apartmain.azurewebsites.net/api/bedtypes/getbedtypes', {
-      method: 'GET',
-    })
-      .then((r) => r.json())
-      .then((data) => {
-        if (data.code === 200) {
-          this.bedTypes = data.bedTypes;
-        } else {
-          alert('Bed types fetching error!');
-        }
-      })
-      .catch((ex) => {
-        alert(ex);
-      });
-  }
-
-=======
->>>>>>> backend
   addSuggestionToSaved(id: any): void {
     if (!AuthHelper.isLogged()) {
       this.router.navigate(['auth']);
