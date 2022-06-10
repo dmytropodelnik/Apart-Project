@@ -101,6 +101,8 @@ export class StaySuggestionPageComponent implements OnInit {
 
   ownerId: string = '';
 
+  page: number = 1;
+
   constructor(
     private router: Router,
     private activatedRouter: ActivatedRoute,
@@ -195,6 +197,7 @@ export class StaySuggestionPageComponent implements OnInit {
           for (let i = 0; i < response.reviews.length; i++) {
             this.reviews.push(response.reviews[i]);
           }
+          this.page++;
         } else {
           alert('Suggestion reviews fetching error!');
         }
