@@ -116,13 +116,8 @@ export class LpPropertySetupComponent implements OnInit {
           }
         }
       })
-<<<<<<< HEAD
-      .then(r => {
-        fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addbeds`, {
-=======
       .then((r) => {
         fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addbeds`, {
->>>>>>> backend
           method: 'POST',
           headers: {
             'Content-Type': 'application/json; charset=utf-8',
