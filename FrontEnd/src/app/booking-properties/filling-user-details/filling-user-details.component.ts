@@ -90,6 +90,13 @@ export class FillingUserDetailsComponent implements OnInit {
       alert('Enter an email!');
       return;
     }
+
+    this.router.navigate(['/bookingfinalstep'], {
+      queryParams: {
+        totalPrice: this.totalPrice,
+        isSaved: this.isSaved,
+      },
+    })
   }
 
   fillApartmentsArray(): void {

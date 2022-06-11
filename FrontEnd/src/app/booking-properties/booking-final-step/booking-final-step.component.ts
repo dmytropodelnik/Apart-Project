@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BookingDetailsService } from 'src/app/services/booking-details.service';
 
 import AuthHelper from '../../utils/authHelper';
@@ -11,6 +12,8 @@ import MathHelper from '../../utils/mathHelper';
   styleUrls: ['./booking-final-step.component.css']
 })
 export class BookingFinalStepComponent implements OnInit {
+  mathHelper: any = MathHelper;
+
   chosenSuggestion: any;
 
   grade: number = 0;
@@ -20,7 +23,7 @@ export class BookingFinalStepComponent implements OnInit {
   checkOut: Date | null = null;
 
   discount: number = 0;
-  price: number = 0;
+  totalPrice: number = 0;
   promoCode: string = '';
 
   address: string = '';
@@ -31,11 +34,20 @@ export class BookingFinalStepComponent implements OnInit {
 
   finalPrice: number = 0;
 
+  isSaved: boolean = false;
   isPromoCodeApplied: boolean = false;
+
+  constructor(
+    private router: Router,
+    private activatedRouter: ActivatedRoute,
+    private bookingDetailsService: BookingDetailsService,
+    ) {
+
+     }
 
   applyPromoCode(): void {
     fetch(
-      `https://localhost:44381/api/promocodes/confirmpromocode?promoCode=${this.promoCode}&price=${this.price}`,
+      `https://localhost:44381/api/promocodes/confirmpromocode?promoCode=${this.promoCode}&price=${this.totalPrice}`,
       {
         method: 'PUT',
         headers: {
@@ -59,11 +71,13 @@ export class BookingFinalStepComponent implements OnInit {
       });
   }
 
-  constructor(
-    private bookingDetailsService: BookingDetailsService,
-    ) {
-
-     }
+  showSuggestion(uniqueCode: number): void {
+    this.router.navigate(['suggestion', uniqueCode], {
+      queryParams: {
+        isSaved: this.isSaved,
+      },
+    });
+  }
 
   ngOnInit(): void {
     this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();
@@ -71,6 +85,15 @@ export class BookingFinalStepComponent implements OnInit {
     this.diffDays = this.bookingDetailsService.getDiffDays();
     this.checkIn = this.bookingDetailsService.getCheckInDate();
     this.checkOut = this.bookingDetailsService.getCheckOutDate();
+
+    this.activatedRouter.queryParams.subscribe((params: any) => {
+      if (params['totalPrice']) {
+        this.totalPrice = params['totalPrice'];
+      }
+      if (params['isSaved']) {
+        this.isSaved = params['isSaved'];
+      }
+    });
   }
 
 }

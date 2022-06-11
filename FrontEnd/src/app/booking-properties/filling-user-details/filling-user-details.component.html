@@ -28,7 +28,7 @@
           </div>
           <div class="booking-details-stay">
             <span class="textdecoration" id="basic-addon1">Total length of stay:</span>
-            <span>{{diffDays}} night</span>
+            <span>{{diffDays}} <span *ngIf="diffDays == 1">night</span><span *ngIf="diffDays > 1">nights</span></span>
           </div>
           <div class="booking-details-room">
             <span class="textdecoration" id="basic-addon1">You selected:</span>
