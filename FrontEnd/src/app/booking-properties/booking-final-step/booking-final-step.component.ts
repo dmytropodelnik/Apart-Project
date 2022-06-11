@@ -94,7 +94,19 @@ export class BookingFinalStepComponent implements OnInit {
       return;
     }
 
-    this.router.navigate(['/viewproperties']);
+    this.registerBooking();
+  }
+
+  registerBooking(): void {
+    if (AuthHelper.isLogged()) {
+      this.router.navigate(['/viewproperties']);
+    } else {
+      this.showSuccessBooking();
+    }
+  }
+
+  showSuccessBooking(): void {
+
   }
 
   showSuggestion(uniqueCode: number): void {
