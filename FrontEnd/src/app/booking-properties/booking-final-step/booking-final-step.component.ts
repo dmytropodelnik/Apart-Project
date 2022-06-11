@@ -46,6 +46,11 @@ export class BookingFinalStepComponent implements OnInit {
      }
 
   applyPromoCode(): void {
+    if (this.promoCode.length < 6) {
+      alert('Please enter a correct promo code!');
+      return;
+    }
+
     fetch(
       `https://localhost:44381/api/promocodes/confirmpromocode?promoCode=${this.promoCode}&price=${this.totalPrice}`,
       {
@@ -69,6 +74,27 @@ export class BookingFinalStepComponent implements OnInit {
       .catch((ex) => {
         alert(ex);
       });
+  }
+
+  completeBooking(): void {
+    if (this.address.length < 5) {
+      alert("Address must contain at least 5 characters!");
+      return;
+    }
+    if (this.city.length < 2) {
+      alert("City must contain at least 2 characters!");
+      return;
+    }
+    if (this.country.length < 2) {
+      alert("Country must contain at least 2 characters!");
+      return;
+    }
+    if (!this.phone.match('^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$')) {
+      alert("Enter a correct phone number!");
+      return;
+    }
+
+    this.router.navigate(['/viewproperties']);
   }
 
   showSuggestion(uniqueCode: number): void {

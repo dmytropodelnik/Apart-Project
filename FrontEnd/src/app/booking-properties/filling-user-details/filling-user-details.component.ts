@@ -73,7 +73,6 @@ export class FillingUserDetailsComponent implements OnInit {
   }
 
   continueBooking(): void {
-    alert(this.isForWork);
     if (this.mainEmail != this.confirmEmail) {
       alert("Emails are not equal!");
       return;
@@ -117,7 +116,6 @@ export class FillingUserDetailsComponent implements OnInit {
         .then((response) => {
           if (response.code === 200) {
             this.isSaved = response.result;
-            alert(this.isSaved);
           } else {
             alert(response.message);
           }

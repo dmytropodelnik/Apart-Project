@@ -127,11 +127,11 @@
         <div><span>Enter your adress</span></div>
         <div class="booking-details-fill-name">
           <div>
-            <label for="address" class="form-label">Address</label>
-            <input type="text" class="form-control" id="address" name="address" [(ngModel)]="address" />
+            <label for="address" class="form-label">Address*</label>
+            <input type="text" class="form-control" name="address" [(ngModel)]="address" />
           </div>
           <div>
-            <label for="city" class="form-label">City</label>
+            <label for="city" class="form-label">City*</label>
             <input type="text" class="form-control" id="city" name="city" [(ngModel)]="city" />
           </div>
         </div>
@@ -141,11 +141,11 @@
             <input type="text" class="form-control" id="zipCode" name="zipCode" [(ngModel)]="zipCode" />
           </div>
           <div>
-            <label for="telephone" class="form-label">Telephone</label>
+            <label for="telephone" class="form-label">Telephone*</label>
             <input type="text" class="form-control" id="telephone" name="phone" [(ngModel)]="phone" />
           </div>
           <div>
-            <label for="country" class="form-label">Country</label>
+            <label for="country" class="form-label">Country*</label>
             <input type="text" class="form-control" id="country" name="country" [(ngModel)]="country" />
           </div>
         </div>
@@ -154,7 +154,7 @@
             <button type="button" class="btn btn-primary">
               Check your booking
             </button>
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="btn btn-primary" (click)="completeBooking()">
               Complete booking
             </button>
           </div>
