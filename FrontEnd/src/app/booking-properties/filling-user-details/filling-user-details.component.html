@@ -51,7 +51,7 @@
     </div>
     <div class="right">
       <div class="booking-details-card">
-        <div class="booking-details-card-image">
+        <div class="booking-details-card-image click-component" (click)="showSuggestion(chosenSuggestion.uniqueCode)">
           <img src="../../../assets/images/12.jpg" alt="" />
         </div>
         <div class="booking-details-card-container">
@@ -61,7 +61,7 @@
               <img src="../../../assets/images/Star 1.png" />
             </div>
           </div>
-          <div class="booking-details-card-container-item">
+          <div class="booking-details-card-container-item click-component" (click)="showSuggestion(chosenSuggestion.uniqueCode)">
             <span>{{chosenSuggestion?.name}}</span>
           </div>
           <div class="booking-details-card-container-item">

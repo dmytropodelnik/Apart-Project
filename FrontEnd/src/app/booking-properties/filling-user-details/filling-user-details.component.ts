@@ -35,6 +35,8 @@ export class FillingUserDetailsComponent implements OnInit {
 
   mathHelper: any = MathHelper;
 
+  isSaved: boolean = false;
+
   constructor(
     private router: Router,
     private activatedRouter: ActivatedRoute,
@@ -49,6 +51,37 @@ export class FillingUserDetailsComponent implements OnInit {
     }
   }
 
+  showSuggestion(uniqueCode: number): void {
+    this.router.navigate(['suggestion', uniqueCode], {
+      queryParams: {
+        isSaved: this.isSaved,
+      },
+    });
+  }
+
+  getSuggestionCondition(): void {
+    if (AuthHelper.isLogged()) {
+      fetch(
+        `https://localhost:44381/api/favorites/issuggestionsaved?email=${AuthHelper.getLogin()}&id=${this.chosenSuggestion.id}`,
+        {
+          method: 'GET',
+        }
+      )
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.code === 200) {
+            this.isSaved = response.result;
+            alert(this.isSaved);
+          } else {
+            alert(response.message);
+          }
+        })
+        .catch((ex) => {
+          alert(ex);
+        });
+    }
+  }
+
   ngOnInit(): void {
     this.chosenApartments = this.bookingDetailsService.getChosenApartments();
     this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();
@@ -58,6 +91,7 @@ export class FillingUserDetailsComponent implements OnInit {
     this.checkOut = this.bookingDetailsService.getCheckOutDate();
 
     this.calculateTotalPrice();
+    this.getSuggestionCondition();
     // if (this.bookingDetailsService.getChosenApartments() != null) {
     //   this.chosenApartments = this.bookingDetailsService.getChosenApartments();
     //   this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();

@@ -17,7 +17,6 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.UserData
 {
-    [TypeFilter(typeof(AuthorizationFilter))]
     [Route("api/[controller]")]
     [ApiController]
     public class FavoritesController : Controller
@@ -29,6 +28,7 @@ namespace CloneBookingAPI.Controllers.UserData
             _context = context;
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("getfavorites")]
         [HttpGet]
@@ -76,6 +76,7 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("editfavorite")]
         [HttpPut]
         public async Task<IActionResult> EditFavorite([FromBody] Favorite favorite)
@@ -124,6 +125,7 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("filter")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Favorite>>> Filter(FavoriteSearchPoco items)
@@ -139,8 +141,8 @@ namespace CloneBookingAPI.Controllers.UserData
                                 .All(s => s.Apartments
                                     .All(a => a.RoomsAmount > items.RoomAmount &&
                                           s.StayBookings
-                                                .Any(b => (b.CheckIn  > Convert.ToDateTime(items.CheckIn) &&
-                                                           b.CheckIn  > Convert.ToDateTime(items.CheckOut)) ||
+                                                .Any(b => (b.CheckIn > Convert.ToDateTime(items.CheckIn) &&
+                                                           b.CheckIn > Convert.ToDateTime(items.CheckOut)) ||
                                                           (b.CheckOut < Convert.ToDateTime(items.CheckIn) &&
                                                            b.CheckOut < Convert.ToDateTime(items.CheckOut)
                                                           )))))
@@ -172,6 +174,7 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("getuserfavorites")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Favorite>>> GetUserFavorites(string email)
@@ -267,6 +270,7 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("addsuggestion")]
         [HttpPost]
         public async Task<IActionResult> AddSuggestion([FromBody] SuggestionPoco suggestion)
@@ -326,6 +330,7 @@ namespace CloneBookingAPI.Controllers.UserData
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("removesuggestion")]
         [HttpDelete]
         public async Task<IActionResult> RemoveSuggestion([FromBody] SuggestionPoco suggestion)
@@ -382,6 +387,59 @@ namespace CloneBookingAPI.Controllers.UserData
                 Debug.WriteLine(ex.Message);
 
                 return Json(new { code = 500 });
+            }
+        }
+
+        [Route("issuggestionsaved")]
+        [HttpGet]
+        public async Task<IActionResult> IsSuggestionSaved(string email, int id)
+        {
+            try
+            {
+                if (id < 1 || string.IsNullOrWhiteSpace(email))
+                {
+                    return Json(new { code = 400, message = "Input data is incorrect.", result = false, });
+                }
+
+                var res = await _context.Favorites
+                    .Include(f => f.User)
+                    .Include(f => f.Suggestions)
+                    .FirstOrDefaultAsync(f => f.User.Email.Equals(email) &&
+                                              f.Suggestions
+                                                .Any(s => s.Id == id));
+                if (res is null)
+                {
+                    return Json(new { code = 400, message = "Favorite is not found.", result = false, });
+                }
+
+                return Json(new { 
+                    code = 200,
+                    result = true,
+                });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500, result = false, });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500, result = false, });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500, result = false, });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500, result = false, });
             }
         }
     }
