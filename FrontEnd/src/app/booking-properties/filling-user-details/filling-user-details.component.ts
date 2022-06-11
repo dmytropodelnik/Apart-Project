@@ -90,6 +90,13 @@ export class FillingUserDetailsComponent implements OnInit {
       return;
     }
 
+    for (let i = 0; i < this.guestsData.length; i++) {
+      if (this.guestsData[i].length < 2) {
+        alert('Enter a full guests name');
+        return;
+      }
+    }
+
     this.router.navigate(['/bookingfinalstep'], {
       queryParams: {
         totalPrice: this.totalPrice,
