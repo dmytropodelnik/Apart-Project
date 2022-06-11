@@ -14,9 +14,7 @@
       <div class="booking-details">
         <form class="booking-details-form">
           <div class="booking-details-header">
-            <span class="textdecoration" id="basic-addon1"
-              >Your booking details</span
-            >
+            <span class="textdecoration" id="basic-addon1">Your booking details</span>
           </div>
           <div class="booking-details-date">
             <div class="booking-details-date-item">
@@ -29,9 +27,7 @@
             </div>
           </div>
           <div class="booking-details-stay">
-            <span class="textdecoration" id="basic-addon1"
-              >Total length of stay:</span
-            >
+            <span class="textdecoration" id="basic-addon1">Total length of stay:</span>
             <span>{{diffDays}} night</span>
           </div>
           <div class="booking-details-room">
@@ -46,7 +42,7 @@
         <div class="booking-details-price-item">
           <span>Total price</span> <span>${{totalPrice}}</span>
         </div>
-        <div><span>(For all quests)</span></div>
+        <div><span>(For all guests)</span></div>
       </div>
     </div>
     <div class="right">
@@ -61,20 +57,21 @@
               <img src="../../../assets/images/Star 1.png" />
             </div>
           </div>
-          <div class="booking-details-card-container-item click-component" (click)="showSuggestion(chosenSuggestion.uniqueCode)">
+          <div class="booking-details-card-container-item click-component"
+            (click)="showSuggestion(chosenSuggestion.uniqueCode)">
             <span>{{chosenSuggestion?.name}}</span>
           </div>
           <div class="booking-details-card-container-item">
             <span>
               {{
-                chosenSuggestion?.address +
-                ", " +
-                chosenSuggestion?.region +
-                ", " +
-                chosenSuggestion?.city +
-                ", " +
-                chosenSuggestion?.country
-                }}
+              chosenSuggestion?.address +
+              ", " +
+              chosenSuggestion?.region +
+              ", " +
+              chosenSuggestion?.city +
+              ", " +
+              chosenSuggestion?.country
+              }}
             </span>
           </div>
           <div class="booking-details-card-container-item">
@@ -114,50 +111,30 @@
         <div>
           <div class="form-check form-check-inline">
             <span>Are you travelling for work?</span>
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadioDefault1"
-            />
-            <label class="form-check-label" for="flexRadioDefault1">Yes</label>
           </div>
           <div class="form-check form-check-inline">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadioDefault2"
-              checked
-            />
-            <label class="form-check-label" for="flexRadioDefault2">No</label>
+            <input class="form-check-input" type="radio" name="forWork" id="forWork" (change)="changeIsForWork()" />
+            <label class="form-check-label" for="forWork">Yes</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="forWork" id="notForWork" (change)="changeIsForWork()" checked />
+            <label class="form-check-label" for="forWork">No</label>
           </div>
         </div>
         <div class="booking-details-fill-name">
           <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label"
-              >First name</label
-            >
-            <input type="text" class="form-control" id="firstname" />
+            <label for="password" class="form-label">First name</label>
+            <input type="text" class="form-control" id="password" name="mainFirstName" [(ngModel)]="mainFirstName" />
           </div>
           <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label"
-              >Last name</label
-            >
-            <input type="text" class="form-control" id="lastname" />
+            <label for="confirmPassword" class="form-label">Last name</label>
+            <input type="text" class="form-control" id="confirmPassword" name="mainLastName" [(ngModel)]="mainLastName" />
           </div>
         </div>
         <div>
           <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label"
-              >Email address</label
-            >
-            <input
-              type="email"
-              class="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-            />
+            <label for="email" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="mainEmail" [(ngModel)]="mainEmail" />
             <div id="emailHelp" class="form-text">
               We'll never share your email with anyone else.
             </div>
@@ -165,33 +142,25 @@
         </div>
         <div>
           <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label"
-              >Confirm email address</label
-            >
-            <input
-              type="email"
-              class="form-control"
-              id="exampleInputEmail1"
-              aria-describedby="emailHelp"
-            />
+            <label for="confirmEmail" class="form-label">Confirm email address</label>
+            <input type="email" class="form-control" id="confirmEmail" aria-describedby="emailHelp" name="confirmEmail" [(ngModel)]="confirmEmail" />
           </div>
         </div>
       </div>
       <div class="booking-details-fill-details">
-        <div *ngFor="let item of chosenApartments; let i = index"
-             class="booking-details-fill-queenRoom">
+        <div *ngFor="let item of chosenApartments; let i = index" class="booking-details-fill-queenRoom">
           <span>{{item.name}}</span>
-          <span><img width="28px" height="26px"
-            src="../../assets/images/smoking_icon.png" />{{item.isSmokingAllowed == true ? 'Smoking allowed' :
-          'No smoking'}}</span>
+          <span><img width="28px" height="26px" src="../../assets/images/smoking_icon.png" />{{item.isSmokingAllowed ==
+            true ? 'Smoking allowed' :
+            'No smoking'}}</span>
           <div class="booking-details-fill-queenRoom-item">
             <span><img width="28px" height="26px" src="../../assets/images/km2.png" />{{item.apartmentSize}} </span>
             <span><img width="28px" height="26px" src="../../assets/images/room_icon.png" />{{item.roomsAmount == 1
               ? item.roomsAmount + " room" : item.roomsAmount + ' rooms'}}</span>
-              <span><img width="28px" height="26px"
-                src="../../assets/images//bathroom_icon.png" />{{item.bathroomsAmount == 1 ? item.bathroomsAmount +
+            <span><img width="28px" height="26px" src="../../assets/images//bathroom_icon.png" />{{item.bathroomsAmount
+              == 1 ? item.bathroomsAmount +
               " bathroom" : item.bathroomsAmount + ' bathrooms'}}</span>
-              <span *ngIf="item.isSuite == 'true'"><img width="28px" height="26px"
+            <span *ngIf="item.isSuite == 'true'"><img width="28px" height="26px"
                 src="../../assets/images/suite_icon.png" />Suite</span>
           </div>
           <div>
@@ -199,25 +168,21 @@
               item.guestsLimit + ' sleeps'}}</span>
           </div>
           <div class="mb-3">
-            <label for="fullQuestName" class="form-label"
-              >Full guest name</label
-            >
-            <input type="text" class="form-control" id="fullQuestName" />
+            <label for="fullGuestName" class="form-label" [(ngModel)]="guestsData[i]">Full guest name</label>
+            <input type="text" class="form-control" id="fullGuestName" />
           </div>
         </div>
       </div>
       <div class="booking-details-fill-details">
         <div class="booking-details-fill-specialrequest">
           <span>Special requests</span>
-          <span
-            >Special requests cannot be guaranteed - but the property will do
+          <span>Special requests cannot be guaranteed - but the property will do
             its best to meet your needs. You can always make a special request
-            after your booking is complete!</span
-          >
+            after your booking is complete!</span>
           <label for="specialrequest"></label>
-          <textarea name="" id="specialrequest" cols="30" rows="10"></textarea>
+          <textarea name="specialRequests" id="specialRequests" cols="30" rows="10" [(ngModel)]="specialRequests" ></textarea>
           <div class="booking-details-fill-specialrequest-buttons">
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="btn btn-primary" (click)="continueBooking()">
               Next: Final details
             </button>
           </div>

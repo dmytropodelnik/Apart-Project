@@ -36,6 +36,15 @@ export class FillingUserDetailsComponent implements OnInit {
   mathHelper: any = MathHelper;
 
   isSaved: boolean = false;
+  isForWork: boolean = false;
+
+  mainFirstName: string = '';
+  mainLastName: string = '';
+  mainEmail: string = '';
+  confirmEmail: string = '';
+  specialRequests: string = '';
+
+  guestsData: string[] = [];
 
   constructor(
     private router: Router,
@@ -51,12 +60,42 @@ export class FillingUserDetailsComponent implements OnInit {
     }
   }
 
+  changeIsForWork(): void {
+    this.isForWork = !this.isForWork;
+  }
+
   showSuggestion(uniqueCode: number): void {
     this.router.navigate(['suggestion', uniqueCode], {
       queryParams: {
         isSaved: this.isSaved,
       },
     });
+  }
+
+  continueBooking(): void {
+    alert(this.isForWork);
+    if (this.mainEmail != this.confirmEmail) {
+      alert("Emails are not equal!");
+      return;
+    }
+    if (this.mainFirstName.length < 1) {
+      alert('Enter a first name!');
+      return;
+    }
+    if (this.mainLastName.length < 1) {
+      alert('Enter a last name!');
+      return;
+    }
+    if (this.mainEmail.length < 1) {
+      alert('Enter an email!');
+      return;
+    }
+  }
+
+  fillApartmentsArray(): void {
+    for (let i = 0; i < this.chosenApartments.length; i++) {
+      this.guestsData.push('');
+    }
   }
 
   getSuggestionCondition(): void {
@@ -92,6 +131,7 @@ export class FillingUserDetailsComponent implements OnInit {
 
     this.calculateTotalPrice();
     this.getSuggestionCondition();
+    this.fillApartmentsArray();
     // if (this.bookingDetailsService.getChosenApartments() != null) {
     //   this.chosenApartments = this.bookingDetailsService.getChosenApartments();
     //   this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();

@@ -7,9 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookingFinalStepComponent implements OnInit {
 
+
+  finalPrice: number | null = null;
+
+  applyPromoCode(): void {
+
+  }
+
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }
