@@ -242,7 +242,7 @@ namespace CloneBookingAPI.Controllers.Payment
         }
 
         [Route("confirmpromocode")]
-        [HttpGet]
+        [HttpPut]
         public async Task<IActionResult> ConfirmPromoCode(string promoCode, decimal price)
         {
             try
@@ -264,9 +264,16 @@ namespace CloneBookingAPI.Controllers.Payment
                     return Json(new { code = 400, message = "Error is happened while applying promocode." });
                 }
 
+                resPromoCode.IsActive = false;
+
+                _context.PromoCodes.Update(resPromoCode);
+                await _context.SaveChangesAsync();
+
                 return Json(new { 
                     code = 200,
-                    finalPrice,
+                    finalPrice = finalPrice.Value.Item1,
+                    discount = resPromoCode.PercentDiscount,
+                    difference = finalPrice.Value.Item2,
                 });
             }
             catch (ArgumentOutOfRangeException ex)

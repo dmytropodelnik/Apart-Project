@@ -4,16 +4,18 @@ namespace CloneBookingAPI.Services.PromoCodes
 {
     public class PromoCodesApplier : IApplier
     {
-        public decimal? Apply(decimal price, int discount)
+        public (decimal, decimal)? Apply(decimal price, int discount)
         {
             if (price <= 0 || discount <= 0)
             {
                 return null;
             }
 
-            price -= (price * discount) / 100;
 
-            return price;
+            decimal difference = (price * discount) / 100;
+            price -= difference;
+
+            return (price, difference);
         }
     }
 }

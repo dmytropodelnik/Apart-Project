@@ -2,6 +2,6 @@
 {
     public interface IApplier
     {
-        decimal? Apply(decimal price, int discount);
+        (decimal, decimal)? Apply(decimal price, int discount);
     }
 }
