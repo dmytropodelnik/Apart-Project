@@ -35,6 +35,17 @@ export class FillingUserDetailsComponent implements OnInit {
 
   mathHelper: any = MathHelper;
 
+  isSaved: boolean = false;
+  isForWork: boolean = false;
+
+  mainFirstName: string = '';
+  mainLastName: string = '';
+  mainEmail: string = '';
+  confirmEmail: string = '';
+  specialRequests: string = '';
+
+  guestsData: string[] = [];
+
   constructor(
     private router: Router,
     private activatedRouter: ActivatedRoute,
@@ -49,6 +60,79 @@ export class FillingUserDetailsComponent implements OnInit {
     }
   }
 
+  changeIsForWork(): void {
+    this.isForWork = !this.isForWork;
+  }
+
+  showSuggestion(uniqueCode: number): void {
+    this.router.navigate(['suggestion', uniqueCode], {
+      queryParams: {
+        isSaved: this.isSaved,
+      },
+    });
+  }
+
+  continueBooking(): void {
+    if (this.mainEmail != this.confirmEmail) {
+      alert("Emails are not equal!");
+      return;
+    }
+    if (this.mainFirstName.length < 1) {
+      alert('Enter a first name!');
+      return;
+    }
+    if (this.mainLastName.length < 1) {
+      alert('Enter a last name!');
+      return;
+    }
+    if (this.mainEmail.length < 1) {
+      alert('Enter an email!');
+      return;
+    }
+
+    for (let i = 0; i < this.guestsData.length; i++) {
+      if (this.guestsData[i].length < 2) {
+        alert('Enter a full guests name');
+        return;
+      }
+    }
+
+    this.router.navigate(['/bookingfinalstep'], {
+      queryParams: {
+        totalPrice: this.totalPrice,
+        isSaved: this.isSaved,
+      },
+    })
+  }
+
+  fillApartmentsArray(): void {
+    for (let i = 0; i < this.chosenApartments.length; i++) {
+      this.guestsData.push('');
+    }
+  }
+
+  getSuggestionCondition(): void {
+    if (AuthHelper.isLogged()) {
+      fetch(
+        `https://apartmain.azurewebsites.net/api/favorites/issuggestionsaved?email=${AuthHelper.getLogin()}&id=${this.chosenSuggestion.id}`,
+        {
+          method: 'GET',
+        }
+      )
+        .then((response) => response.json())
+        .then((response) => {
+          if (response.code === 200) {
+            this.isSaved = response.result;
+          } else {
+            alert(response.message);
+          }
+        })
+        .catch((ex) => {
+          alert(ex);
+        });
+    }
+  }
+
   ngOnInit(): void {
     this.chosenApartments = this.bookingDetailsService.getChosenApartments();
     this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();
@@ -58,6 +142,8 @@ export class FillingUserDetailsComponent implements OnInit {
     this.checkOut = this.bookingDetailsService.getCheckOutDate();
 
     this.calculateTotalPrice();
+    this.getSuggestionCondition();
+    this.fillApartmentsArray();
     // if (this.bookingDetailsService.getChosenApartments() != null) {
     //   this.chosenApartments = this.bookingDetailsService.getChosenApartments();
     //   this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();

@@ -107,7 +107,6 @@ export class SearchResultsComponent implements OnInit {
     $event.stopPropagation();
 
     this.filters.sortOrder = SortState.TopReviewed;
-    console.log(this.filters);
 
     let dateIn, dateOut;
 
@@ -186,8 +185,6 @@ export class SearchResultsComponent implements OnInit {
       Number(this.filters.searchAdultsAmount) +
       Number(this.filters.searchChildrenAmount);
 
-    console.log(this.filters.filters);
-
     fetch(`https://apartmain.azurewebsites.net/api/stayssearching/filtersearch`, {
       method: 'POST',
       headers: {
@@ -208,8 +205,6 @@ export class SearchResultsComponent implements OnInit {
           this.suggestionsAmount = data.suggestionsAmount;
           this.suggestionStartsFrom = data.suggestionStartsFrom;
           this.suggestionGrades = data.suggestionGrades;
-
-          console.log(this.resSuggestions);
         } else {
           alert('Suggestions sort fetching error!');
         }

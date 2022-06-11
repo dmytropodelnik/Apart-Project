@@ -14,70 +14,110 @@
       <div class="booking-details">
         <form class="booking-details-form">
           <div class="booking-details-header">
-            <span class="textdecoration" id="basic-addon1"
-              >Your booking details</span
-            >
+            <span class="textdecoration" id="basic-addon1">Your booking details</span>
           </div>
           <div class="booking-details-date">
             <div class="booking-details-date-item">
               <span class="textdecoration">Check-in Date</span>
-              <span>Thu 9 Jun 2022</span>
-              <span>From 15:00</span>
+              <span>{{checkIn!.toString().substring(0, checkIn!.toString().indexOf('00:00:00'))}}</span>
             </div>
             <div class="booking-details-date-item">
               <span class="textdecoration">Check-out Date</span>
-              <span>Fri 10 Jun 2022</span>
-              <span>Until 12:00</span>
+              <span>{{checkOut!.toString().substring(0, checkOut!.toString().indexOf('00:00:00'))}}</span>
             </div>
           </div>
           <div class="booking-details-stay">
-            <span class="textdecoration" id="basic-addon1"
-              >Total length of stay:</span
-            >
-            <span>1 night</span>
+            <span class="textdecoration" id="basic-addon1">Total length of stay:</span>
+            <span>{{diffDays}} <span *ngIf="diffDays == 1">night</span><span *ngIf="diffDays > 1">nights</span></span>
           </div>
         </form>
       </div>
       <div class="booking-details-price">
         <div class="booking-details-price-item">
-          <span>Price</span> <span>US$287.10</span>
+          <span>Price</span> <span>${{totalPrice}}</span>
+        </div>
+        <div *ngIf="isPromoCodeApplied" class="booking-details-price-item">
+          <div>
+            <span>Discount with promo code: </span><span>-{{discount}}%</span>
+          </div>
+          <div>
+            <span>Final price: </span><span>${{finalPrice}}</span>
+          </div>
         </div>
         <div><span>(For all quests)</span></div>
       </div>
       <div class="booking-details-price">
-        <div>
-          <span>Do you have a promo code?</span>
+        <div *ngIf="!isPromoCodeApplied">
+          <div>
+            <span>Do you have a promo code?</span>
+          </div>
+          <div>
+            <label for="promoCode" class="form-label">Promo code</label>
+            <input type="text" class="form-control" id="promoCode" name="promoCode" [(ngModel)]="promoCode" />
+          </div>
+          <div><button (click)="applyPromoCode()">Apply</button></div>
         </div>
-        <div>
-          <label for="exampleInputPassword1" class="form-label">Address</label>
-          <input type="text" class="form-control" id="firstname" />
+        <div *ngIf="isPromoCodeApplied">
+          <p>Promo code is applied!</p>
         </div>
-        <div><button>Apply</button></div>
       </div>
     </div>
     <div class="right">
       <div class="booking-details-card">
-        <div class="booking-details-card-image">
+        <div class="booking-details-card-image click-component" (click)="showSuggestion(chosenSuggestion.uniqueCode)">
           <img src="../../../assets/images/12.jpg" alt="" />
         </div>
         <div class="booking-details-card-container">
           <div class="booking-details-card-container-item">
-            <span>Hotel</span>
-            <span><img src="../../../assets/images/Star 1.png" alt="" /></span>
+            <span>{{chosenSuggestion?.bookingCategory}}</span>
+            <div *ngFor="let star of chosenSuggestion?.starsRating; let j = index">
+              <img src="../../../assets/images/Star 1.png" />
+            </div>
+          </div>
+          <div class="booking-details-card-container-item click-component"
+            (click)="showSuggestion(chosenSuggestion.uniqueCode)">
+            <span>{{chosenSuggestion?.name}}</span>
           </div>
           <div class="booking-details-card-container-item">
-            <span>Room Mate Grace Boutique Hotel</span>
+            <span>
+              {{
+              chosenSuggestion?.address +
+              ", " +
+              chosenSuggestion?.region +
+              ", " +
+              chosenSuggestion?.city +
+              ", " +
+              chosenSuggestion?.country
+              }}
+            </span>
           </div>
           <div class="booking-details-card-container-item">
-            <span>125 West 45th Street, New York, NY 10036, United States</span>
-          </div>
-          <div class="booking-details-card-container-item">
-            <span class="bui-review-score__badge">8.6</span>
+            <span class="bui-review-score__badge">{{ mathHelper.Round10(grade) }}</span>
             <span></span>
-            <span>Very good</span>
-            <span>2,056 reviews</span>
+            <span *ngIf="mathHelper.Round10(grade) >= 9.7">Exceptional</span>
+            <span *ngIf="
+                mathHelper.Round10(grade) >= 9.0 &&
+                mathHelper.Round10(grade) < 9.7
+              ">Wonderful</span>
+            <span *ngIf="
+                mathHelper.Round10(grade) >= 8.7 &&
+                mathHelper.Round10(grade) < 9.0
+              ">Excellent</span>
+            <span *ngIf="
+                mathHelper.Round10(grade) >= 8.2 &&
+                mathHelper.Round10(grade) < 8.7
+              ">Very Good</span>
+            <span *ngIf="
+                mathHelper.Round10(grade) > 7.6 && mathHelper.Round10(grade) < 8.2
+              ">Good</span>
+            <span *ngIf="
+                mathHelper.Round10(grade) >= 7.0 &&
+                mathHelper.Round10(grade) < 7.7
+              ">Normal</span>
+            <span *ngIf="grade == 0"> Unrated </span>
+            <span>{{chosenSuggestion.reviews.length}} reviews</span>
           </div>
-          <div class="booking-details-card-container-item">
+          <div *ngIf="chosenSuggestion?.IsParkingAvailable" class="booking-details-card-container-item">
             <span>parking</span>
           </div>
         </div>
@@ -87,39 +127,26 @@
         <div><span>Enter your adress</span></div>
         <div class="booking-details-fill-name">
           <div>
-            <label for="exampleInputPassword1" class="form-label"
-              >Address</label
-            >
-            <input type="text" class="form-control" id="firstname" />
+            <label for="address" class="form-label">Address*</label>
+            <input type="text" class="form-control" name="address" [(ngModel)]="address" />
           </div>
           <div>
-            <label for="exampleInputPassword1" class="form-label">City</label>
-            <input type="text" class="form-control" id="lastname" />
+            <label for="city" class="form-label">City*</label>
+            <input type="text" class="form-control" id="city" name="city" [(ngModel)]="city" />
           </div>
         </div>
         <div class="booking-details-fill-name">
           <div>
-            <label for="exampleInputPassword1" class="form-label"
-              >Zip/Post Code</label
-            >
-            <input type="text" class="form-control" id="lastname" />
+            <label for="zipCode" class="form-label">Zip/Post Code</label>
+            <input type="text" class="form-control" id="zipCode" name="zipCode" [(ngModel)]="zipCode" />
           </div>
           <div>
-            <label for="exampleInputPassword1" class="form-label"
-              >Telephone</label
-            >
-            <input type="text" class="form-control" id="lastname" />
+            <label for="telephone" class="form-label">Telephone*</label>
+            <input type="text" class="form-control" id="telephone" name="phone" [(ngModel)]="phone" />
           </div>
           <div>
-            <label for="exampleInputPassword1" class="form-label"
-              >Country/region</label
-            >
-            <select class="form-select" aria-label="Default select example">
-              <option selected>Open this select menu</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
+            <label for="country" class="form-label">Country*</label>
+            <input type="text" class="form-control" id="country" name="country" [(ngModel)]="country" />
           </div>
         </div>
         <div>
@@ -127,7 +154,7 @@
             <button type="button" class="btn btn-primary">
               Check your booking
             </button>
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="btn btn-primary" (click)="completeBooking()">
               Complete booking
             </button>
           </div>

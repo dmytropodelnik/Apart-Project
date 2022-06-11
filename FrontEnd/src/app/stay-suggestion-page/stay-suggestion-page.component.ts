@@ -101,6 +101,8 @@ export class StaySuggestionPageComponent implements OnInit {
 
   ownerId: string = '';
 
+  page: number = 1;
+
   constructor(
     private router: Router,
     private activatedRouter: ActivatedRoute,
@@ -154,6 +156,14 @@ export class StaySuggestionPageComponent implements OnInit {
     }
   }
 
+  resetReviewsData(): void {
+    this.page = 1;
+  }
+
+  resetData(): void {
+    this.isOwnerVerified = false;
+  }
+
   getSuggestion(): void {
     fetch(
       'https://apartmain.azurewebsites.net/api/suggestions/getsuggestion?code=' +
@@ -195,6 +205,7 @@ export class StaySuggestionPageComponent implements OnInit {
           for (let i = 0; i < response.reviews.length; i++) {
             this.reviews.push(response.reviews[i]);
           }
+          this.page++;
         } else {
           alert('Suggestion reviews fetching error!');
         }

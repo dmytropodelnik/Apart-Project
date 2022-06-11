@@ -4,6 +4,7 @@ using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Generators;
 using CloneBookingAPI.Services.Interfaces;
+using CloneBookingAPI.Services.PromoCodes;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -23,16 +24,19 @@ namespace CloneBookingAPI.Controllers.Payment
     {
         private readonly ApartProjectDbContext _context;
         private readonly IPromoGenerator _promoGenerator;
+        private readonly IApplier _promoCodesApplier;
 
         private const int _WIDTHRANGE = 4;
         private const int _AMOUNTRANGE = 4;
 
         public PromoCodesController(
             ApartProjectDbContext context,
-            PromoCodeGenerator promoGenerator)
+            PromoCodeGenerator promoGenerator,
+            PromoCodesApplier promoCodesApplier)
         {
             _context = context;
             _promoGenerator = promoGenerator;
+            _promoCodesApplier = promoCodesApplier;
         }
 
         [Route("getcodes")]
@@ -122,7 +126,7 @@ namespace CloneBookingAPI.Controllers.Payment
                 }
 
                 var codes = await _context.PromoCodes
-                    .Where(c => c.Code.Contains(code)   ||
+                    .Where(c => c.Code.Contains(code) ||
                                 c.PercentDiscount.ToString().Contains(code))
                     .ToListAsync();
 
@@ -184,7 +188,7 @@ namespace CloneBookingAPI.Controllers.Payment
 
                     DateTime expiresDate = Convert.ToDateTime(expirationDate);
                     expiresDate = expiresDate.AddDays(1);
-                    
+
                     newPromoCode.ExpirationDate = expiresDate.ToUniversalTime();
 
                     _context.PromoCodes.Add(newPromoCode);
@@ -193,9 +197,10 @@ namespace CloneBookingAPI.Controllers.Payment
 
                 await _context.SaveChangesAsync();
 
-                return Json(new { 
+                return Json(new
+                {
                     code = 200,
-                    promoCodes, 
+                    promoCodes,
                 });
             }
             catch (DbUpdateConcurrencyException ex)
@@ -209,6 +214,67 @@ namespace CloneBookingAPI.Controllers.Payment
                 Debug.WriteLine(ex.Message);
 
                 return Json(new { code = 500 });
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("confirmpromocode")]
+        [HttpPut]
+        public async Task<IActionResult> ConfirmPromoCode(string promoCode, decimal price)
+        {
+            try
+            {
+                if (price <= 0 || string.IsNullOrWhiteSpace(promoCode))
+                {
+                    return Json(new { code = 400, message = "Input data is incorrect." });
+                }
+
+                var resPromoCode = await _context.PromoCodes.FirstOrDefaultAsync(c => c.Code.Equals(promoCode) && c.IsActive);
+                if (resPromoCode is null)
+                {
+                    return Json(new { code = 400, message = "Promo code is not found or it is inactive." });
+                }
+
+                var finalPrice = _promoCodesApplier.Apply(price, resPromoCode.PercentDiscount);
+                if (finalPrice is null)
+                {
+                    return Json(new { code = 400, message = "Error is happened while applying promocode." });
+                }
+
+                resPromoCode.IsActive = false;
+
+                _context.PromoCodes.Update(resPromoCode);
+                await _context.SaveChangesAsync();
+
+                return Json(new { 
+                    code = 200,
+                    finalPrice = finalPrice.Value.Item1,
+                    discount = resPromoCode.PercentDiscount,
+                    difference = finalPrice.Value.Item2,
+                });
             }
             catch (ArgumentOutOfRangeException ex)
             {

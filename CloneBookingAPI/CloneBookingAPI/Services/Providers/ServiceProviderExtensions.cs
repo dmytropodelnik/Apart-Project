@@ -6,6 +6,7 @@ using CloneBookingAPI.Services.Cleaners;
 using CloneBookingAPI.Services.Files;
 using CloneBookingAPI.Services.Generators;
 using CloneBookingAPI.Services.Interfaces;
+using CloneBookingAPI.Services.PromoCodes;
 using CloneBookingAPI.Services.Repositories;
 using CloneBookingAPI.Services.Timers;
 using Microsoft.Extensions.DependencyInjection;
@@ -97,6 +98,10 @@ namespace CloneBookingAPI.Services.Providers
         public static void AddRegistrationCodeCleanerService(this IServiceCollection services)
         {
             services.AddTransient<RegistrationCodeCleaner>();
+        }
+        public static void AddPromoCodesApplierService(this IServiceCollection services)
+        {
+            services.AddTransient<PromoCodesApplier>();
         }
     }
 }
