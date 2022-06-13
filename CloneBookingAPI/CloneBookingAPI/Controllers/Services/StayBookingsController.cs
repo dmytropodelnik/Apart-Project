@@ -369,12 +369,10 @@ namespace CloneBookingAPI.Controllers.Services
                     booking.CheckIn < DateTime.UtcNow  ||
                     booking.CheckOut < DateTime.UtcNow ||
                     booking.CheckOut < booking.CheckIn ||
-                    string.IsNullOrWhiteSpace(booking.PIN)          ||
                     string.IsNullOrWhiteSpace(booking.City)         ||
                     string.IsNullOrWhiteSpace(booking.Country)      ||
                     string.IsNullOrWhiteSpace(booking.AddressText)  ||
                     string.IsNullOrWhiteSpace(booking.PhoneNumber)  ||
-                    string.IsNullOrWhiteSpace(booking.UniqueNumber) ||
                     string.IsNullOrWhiteSpace(booking.CustomerEmail))
                 {
                     return Json(new { code = 400, message = "Input data is incorrect or null." });
@@ -382,7 +380,8 @@ namespace CloneBookingAPI.Controllers.Services
 
                 CustomerInfo newCustomerInfo = new()
                 {
-                    
+                    FirstName = booking.FirstName,
+                    LastName = booking.LastName,
                     AddressText = booking.AddressText,
                     City = booking.City,
                     Country = booking.Country,

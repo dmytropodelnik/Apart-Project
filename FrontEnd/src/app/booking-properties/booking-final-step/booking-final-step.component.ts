@@ -26,6 +26,9 @@ export class BookingFinalStepComponent implements OnInit {
   totalPrice: number = 0;
   promoCode: string = '';
 
+  firstName: string = '';
+  lastName: string = '';
+
   email: string = '';
   specialRequests: string = '';
 
@@ -184,6 +187,18 @@ export class BookingFinalStepComponent implements OnInit {
       }
       if (params['isSaved']) {
         this.isSaved = params['isSaved'];
+      }
+      if (params['email']) {
+        this.email = params['email'];
+      }
+      if (params['isForWork']) {
+        this.isForWork = params['isForWork'];
+      }
+      if (params['firstName']) {
+        this.firstName = params['firstName'];
+      }
+      if (params['lastName']) {
+        this.lastName = params['lastName'];
       }
     });
   }

@@ -101,6 +101,10 @@ export class FillingUserDetailsComponent implements OnInit {
       queryParams: {
         totalPrice: this.totalPrice,
         isSaved: this.isSaved,
+        email: this.mainEmail,
+        isForWork: this.isForWork,
+        firstName: this.mainFirstName,
+        lastName: this.mainLastName,
       },
     })
   }

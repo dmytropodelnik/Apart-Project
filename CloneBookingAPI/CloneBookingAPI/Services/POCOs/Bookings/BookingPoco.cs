@@ -8,6 +8,9 @@ namespace CloneBookingAPI.Services.POCOs.Bookings
     {
         public int SuggestionId { get; set; }
 
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+
         public decimal Discount { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal FinalPrice { get; set; }
@@ -18,8 +21,6 @@ namespace CloneBookingAPI.Services.POCOs.Bookings
         public DateTime CheckIn { get; set; }
         public DateTime CheckOut { get; set; }
 
-        public string PIN { get; set; }
-        public string UniqueNumber { get; set; }
         public string SpecialRequests { get; set; }
         public string PromoCode { get; set; }
         public string CustomerEmail { get; set; }
