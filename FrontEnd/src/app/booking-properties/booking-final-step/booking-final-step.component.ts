@@ -26,6 +26,9 @@ export class BookingFinalStepComponent implements OnInit {
   totalPrice: number = 0;
   promoCode: string = '';
 
+  email: string = '';
+  specialRequests: string = '';
+
   address: string = '';
   city: string = '';
   country: string = '';
@@ -36,6 +39,7 @@ export class BookingFinalStepComponent implements OnInit {
   difference: number = 0;
 
   isSaved: boolean = false;
+  isForWork: boolean = false;
   isPromoCodeApplied: boolean = false;
 
   constructor(
@@ -101,15 +105,36 @@ export class BookingFinalStepComponent implements OnInit {
   }
 
   registerBooking(): void {
+    const booking = {
+      suggestionId: this.chosenSuggestion.id,
+      discount: this.discount,
+      totalPrice: this.totalPrice,
+      finalPrice: this.finalPrice,
+      difference: this.difference,
+      isForWork: this.isForWork,
+      checkIn: this.checkIn,
+      checkOut: this.checkOut,
+      specialRequests: this.specialRequests,
+      promoCode: this.promoCode,
+      customerEmail: this.email,
+      userEmail: AuthHelper.getLogin(),
+      addressText: this.address,
+      city: this.city,
+      country: this.country,
+      phoneNumber: this.phone,
+      zipCode: this.zipCode,
+    };
+
     fetch(
-      `https://localhost:44381/api/suggestion/confirmpromocode?promoCode=${this.promoCode}&price=${this.totalPrice}`,
+      `https://localhost:44381/api/staybookings/addstaybooking`,
       {
-        method: 'PUT',
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json; charset=utf-8',
           Accept: 'application/json',
           Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
         },
+        body: JSON.stringify(booking),
       }
     )
       .then((response) => response.json())
