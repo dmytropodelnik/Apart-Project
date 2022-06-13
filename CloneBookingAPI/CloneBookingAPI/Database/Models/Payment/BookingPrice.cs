@@ -11,22 +11,22 @@ namespace CloneBookingAPI.Services.Database.Models.Payment
         public int Id { get; set; }
 
         [Required]
-        [DataType(DataType.Currency)]
-        public decimal Amount { get; set; }
-
+        public decimal Discount { get; set; }
         [Required]
-        [DataType(DataType.Currency)]
+        public decimal TotalPrice { get; set; }
+        [Required]
+        public decimal FinalPrice { get; set; }
+        [Required]
+        public decimal Difference { get; set; }
+
         public decimal TAX { get; set; }
 
-        [Required]
         [DataType(DataType.Currency)]
         public decimal ResortFee { get; set; }
 
-        [Required]
         [DataType(DataType.Currency)]
         public decimal DamageDeposit { get; set; }
 
-        [Required]
         [DataType(DataType.Currency)]
         public decimal CancellationPrice { get; set; }
 

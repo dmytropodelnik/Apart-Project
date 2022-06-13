@@ -3,6 +3,9 @@ using CloneBookingAPI.Filters;
 using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Database.Models.Location;
+using CloneBookingAPI.Services.Database.Models.Payment;
+using CloneBookingAPI.Services.Database.Models.UserData;
+using CloneBookingAPI.Services.Generators;
 using CloneBookingAPI.Services.POCOs.Bookings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -20,10 +23,17 @@ namespace CloneBookingAPI.Controllers.Services
     public class StayBookingsController : Controller
     {
         private readonly ApartProjectDbContext _context;
+        private readonly BookingIdGenerator _bookingIdGenerator;
+        private readonly BookingPINGenerator _bookingPINGenerator;
 
-        public StayBookingsController(ApartProjectDbContext context)
+        public StayBookingsController(
+            ApartProjectDbContext context,
+            BookingIdGenerator bookingIdGenerator,
+            BookingPINGenerator bookingPINGenerator)
         {
             _context = context;
+            _bookingIdGenerator = bookingIdGenerator;
+            _bookingPINGenerator = bookingPINGenerator;
         }
 
         [TypeFilter(typeof(AuthorizationFilter))]
@@ -372,11 +382,21 @@ namespace CloneBookingAPI.Controllers.Services
 
                 CustomerInfo newCustomerInfo = new()
                 {
+                    
                     AddressText = booking.AddressText,
                     City = booking.City,
                     Country = booking.Country,
                     PhoneNumber = booking.PhoneNumber,
                     ZipCode = booking.ZipCode,
+                };
+
+                BookingPrice newPrice = new()
+                {
+                    Discount = booking.Discount,
+                    TotalPrice = booking.TotalPrice,
+                    FinalPrice = booking.FinalPrice,
+                    Difference = booking.Difference,
+                    CurrencyId = 1,
                 };
 
                 StayBooking newStayBooking = new()
@@ -386,8 +406,23 @@ namespace CloneBookingAPI.Controllers.Services
                     CheckIn = booking.CheckIn,
                     CheckOut = booking.CheckOut,
                     CustomerInfo = newCustomerInfo,
-                    
+                    BookingStatusId = 1,
+                    SpecialRequests = booking.SpecialRequests,
+                    PromoCode = booking.PromoCode,
+                    UniqueNumber = await _bookingIdGenerator.GenerateCodeAsync(),
+                    PIN = _bookingPINGenerator.GenerateCode(),
+                    Price = newPrice,
                 };
+
+                foreach (var item in booking.Guests)
+                {
+                    Guest newGuest = new()
+                    {
+                        FullName = item.FullName,
+                    };
+
+                    newStayBooking.Guests.Add(newGuest);
+                }
 
                 var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(booking.UserEmail));
                 if (user is not null)
@@ -395,11 +430,12 @@ namespace CloneBookingAPI.Controllers.Services
                     newStayBooking.UserId = user.Id;
                 }
 
-
+                _context.StayBookings.Add(newStayBooking);
+                await _context.SaveChangesAsync();
 
                 return Json(new { 
                     code = 200,
-                
+                    bookingId = newStayBooking.Id,
                 });
             }
             catch (DbUpdateConcurrencyException ex)

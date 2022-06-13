@@ -8,10 +8,10 @@ namespace CloneBookingAPI.Services.POCOs.Bookings
     {
         public int SuggestionId { get; set; }
 
-        public float Discount { get; set; }
-        public float TotalPrice { get; set; }
-        public float FinalPrice { get; set; }
-        public float Difference { get; set; }
+        public decimal Discount { get; set; }
+        public decimal TotalPrice { get; set; }
+        public decimal FinalPrice { get; set; }
+        public decimal Difference { get; set; }
 
         public bool IsForWork { get; set; }
 
@@ -30,8 +30,6 @@ namespace CloneBookingAPI.Services.POCOs.Bookings
         public string Country { get; set; }
         public string PhoneNumber { get; set; }
         public string ZipCode { get; set; }
-
-        public List<Guest> Guests { get; set; }
 
     }
 }

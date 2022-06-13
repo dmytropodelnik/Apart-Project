@@ -13,6 +13,12 @@ namespace CloneBookingAPI.Database.Models.UserData
         public int Id { get; set; }
 
         [Required]
+        public string FirstName { get; set; }
+        [Required]
+        public string LastName { get; set; }
+        [Required]
+        public string Email { get; set; }
+        [Required]
         public string AddressText { get; set; }
         [Required]
         public string City { get; set; }
