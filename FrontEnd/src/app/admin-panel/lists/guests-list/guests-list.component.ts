@@ -1,19 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { TempUser } from 'src/app/models/UserData/tempuser.item';
+import { Guest } from 'src/app/models/UserData/guest.item';
 import { AdminContentService } from 'src/app/services/admin-content.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
 
 @Component({
-  selector: 'app-temp-users-list',
-  templateUrl: './temp-users-list.component.html',
-  styleUrls: ['./temp-users-list.component.css']
+  selector: 'app-guests-list',
+  templateUrl: './guests-list.component.html',
+  styleUrls: ['./guests-list.component.css']
 })
-export class TempUsersListComponent implements OnInit {
+export class GuestsListComponent implements OnInit {
 
-  users: TempUser[] | null = null;
-  user: TempUser;
+  users: Guest[] | null = null;
+  user: Guest;
   searchUser: string = '';
   checkedUser: number | null = null;
 
@@ -23,11 +23,11 @@ export class TempUsersListComponent implements OnInit {
   constructor(
     private adminContentService: AdminContentService
   ) {
-    this.user = new TempUser();
+    this.user = new Guest();
   }
 
   search(): void {
-    fetch('https://localhost:44381/api/tempusers/search?user=' + this.searchUser, {
+    fetch('https://localhost:44381/api/guests/search?user=' + this.searchUser, {
       method: 'GET',
       headers: {
         Accept: 'application/json',
@@ -53,7 +53,7 @@ export class TempUsersListComponent implements OnInit {
       name: this.user,
     };
 
-    fetch('https://localhost:44381/api/tempusers/adduser', {
+    fetch('https://localhost:44381/api/guests/adduser', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -69,7 +69,7 @@ export class TempUsersListComponent implements OnInit {
         } else {
           alert('Adding error!');
         }
-        this.user = new TempUser();
+        this.user = new Guest();
       })
       .catch((ex) => {
         alert(ex);
@@ -82,7 +82,7 @@ export class TempUsersListComponent implements OnInit {
       name: this.user,
     };
 
-    fetch('https://localhost:44381/api/tempusers/edituser', {
+    fetch('https://localhost:44381/api/guests/edituser', {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -99,7 +99,7 @@ export class TempUsersListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.user = new TempUser();
+        this.user = new Guest();
       })
       .catch((ex) => {
         alert(ex);
@@ -117,7 +117,7 @@ export class TempUsersListComponent implements OnInit {
       name: this.user,
     };
 
-    fetch('https://localhost:44381/api/tempusers/deleteuser', {
+    fetch('https://localhost:44381/api/guests/deleteuser', {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -134,7 +134,7 @@ export class TempUsersListComponent implements OnInit {
         } else {
           alert('Editing error!');
         }
-        this.user = new TempUser();
+        this.user = new Guest();
       })
       .catch((ex) => {
         alert(ex);
@@ -142,7 +142,7 @@ export class TempUsersListComponent implements OnInit {
   }
 
   getUsers(): void {
-    fetch(`https://localhost:44381/api/tempusers/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/guests/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -163,7 +163,7 @@ export class TempUsersListComponent implements OnInit {
       });
   }
 
-  collectElements(users: TempUser[]): void {
+  collectElements(users: Guest[]): void {
     for (let item of users) {
       this.users?.push(item);
     }
@@ -172,7 +172,7 @@ export class TempUsersListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/tempusers/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
+    fetch(`https://localhost:44381/api/guests/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -193,7 +193,7 @@ export class TempUsersListComponent implements OnInit {
       });
   }
 
-  setUser(user: TempUser): void {
+  setUser(user: Guest): void {
     this.checkedUser = user.id;
     this.user = user;
 

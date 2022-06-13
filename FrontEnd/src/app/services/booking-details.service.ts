@@ -1,4 +1,5 @@
 import { Suggestion } from "../models/Suggestions/suggestion.item";
+import { Guest } from "../models/UserData/guest.item";
 
 export class BookingDetailsService {
   chosenSuggestion: any;
@@ -19,9 +20,11 @@ export class BookingDetailsService {
   dateIn: Date | null = null;
   dateOut: Date | null = null;
 
+  guestsData: Guest[] = [];
+
   constructor() {}
 
-  setChosenApartmentsAndSuggestion(chosenApartments: any, chosenSuggestion: any, grade: number, diffDays: number) {
+  setChosenApartmentsAndSuggestion(chosenApartments: any, chosenSuggestion: any, grade: number, diffDays: number): void {
     this.chosenApartments = chosenApartments;
     this.chosenSuggestion = chosenSuggestion;
     this.grade = grade;
@@ -31,6 +34,14 @@ export class BookingDetailsService {
   setChosenDates(dateIn: Date, dateOut: Date) {
     this.dateIn = dateIn;
     this.dateOut = dateOut;
+  }
+
+  setGuestsData(guestsData: Guest[]): void {
+    this.guestsData = guestsData;
+  }
+
+  getGuestsData(): Guest[] {
+    return this.guestsData;
   }
 
   getChosenApartments(): any {

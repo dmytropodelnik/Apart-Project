@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Guest } from 'src/app/models/UserData/guest.item';
 import { BookingDetailsService } from 'src/app/services/booking-details.service';
 
 import AuthHelper from '../../utils/authHelper';
@@ -44,7 +45,7 @@ export class FillingUserDetailsComponent implements OnInit {
   confirmEmail: string = '';
   specialRequests: string = '';
 
-  guestsData: string[] = [];
+  guestsData: Guest[] = [];
 
   constructor(
     private router: Router,
@@ -91,11 +92,13 @@ export class FillingUserDetailsComponent implements OnInit {
     }
 
     for (let i = 0; i < this.guestsData.length; i++) {
-      if (this.guestsData[i].length < 2) {
+      if (this.guestsData[i].fullName.length < 2) {
         alert('Enter a full guests name');
         return;
       }
     }
+
+    this.bookingDetailsService.setGuestsData(this.guestsData);
 
     this.router.navigate(['/bookingfinalstep'], {
       queryParams: {
@@ -111,7 +114,7 @@ export class FillingUserDetailsComponent implements OnInit {
 
   fillApartmentsArray(): void {
     for (let i = 0; i < this.chosenApartments.length; i++) {
-      this.guestsData.push('');
+      this.guestsData.push(new Guest());
     }
   }
 

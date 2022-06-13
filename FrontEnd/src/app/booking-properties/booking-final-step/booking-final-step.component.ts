@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Guest } from 'src/app/models/UserData/guest.item';
 import { BookingDetailsService } from 'src/app/services/booking-details.service';
 
 import AuthHelper from '../../utils/authHelper';
@@ -37,6 +38,8 @@ export class BookingFinalStepComponent implements OnInit {
   country: string = '';
   zipCode: string = '';
   phone: string = '';
+
+  guestsData: Guest[] = [];
 
   finalPrice: number = 0;
   difference: number = 0;
@@ -126,6 +129,7 @@ export class BookingFinalStepComponent implements OnInit {
       country: this.country,
       phoneNumber: this.phone,
       zipCode: this.zipCode,
+      guests: this.guestsData,
     };
 
     fetch(
@@ -180,6 +184,7 @@ export class BookingFinalStepComponent implements OnInit {
     this.diffDays = this.bookingDetailsService.getDiffDays();
     this.checkIn = this.bookingDetailsService.getCheckInDate();
     this.checkOut = this.bookingDetailsService.getCheckOutDate();
+    this.guestsData = this.bookingDetailsService.getGuestsData();
 
     this.activatedRouter.queryParams.subscribe((params: any) => {
       if (params['totalPrice']) {
