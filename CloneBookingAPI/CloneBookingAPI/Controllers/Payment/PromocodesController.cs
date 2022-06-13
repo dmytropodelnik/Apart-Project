@@ -16,8 +16,6 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Payment
 {
-    [TypeFilter(typeof(AuthorizationFilter))]
-    [TypeFilter(typeof(OnlyAdminFilter))]
     [Route("api/[controller]")]
     [ApiController]
     public class PromoCodesController : Controller
@@ -39,6 +37,8 @@ namespace CloneBookingAPI.Controllers.Payment
             _promoCodesApplier = promoCodesApplier;
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("getcodes")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PromoCode>>> GetPromoCodes(int page = -1, int pageSize = -1)
@@ -80,6 +80,8 @@ namespace CloneBookingAPI.Controllers.Payment
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("getlastcodes")]
         [HttpGet]
         public async Task<ActionResult> GetLastCodes()
@@ -112,6 +114,8 @@ namespace CloneBookingAPI.Controllers.Payment
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("isexists")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PromoCode>>> IsExists(string code)
@@ -152,6 +156,8 @@ namespace CloneBookingAPI.Controllers.Payment
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("generatecode")]
         [HttpPost]
         public async Task<IActionResult> GenerateCode(int discount, int count, string expirationDate)

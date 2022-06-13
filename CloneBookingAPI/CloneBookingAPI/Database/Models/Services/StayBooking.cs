@@ -1,5 +1,7 @@
 ﻿using CloneBookingAPI.Database.Models.Services;
 using CloneBookingAPI.Database.Models.Suggestions;
+using CloneBookingAPI.Database.Models.UserData;
+using CloneBookingAPI.Database.Models.ViewModels;
 using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Payment;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
@@ -67,11 +69,17 @@ namespace CloneBookingAPI.Services.Database.Models
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }
 
+        public int CustomerInfoId { get; set; }
+        [ForeignKey("CustomerInfoId")]
+        public CustomerInfo CustomerInfo { get; set; }
+
         public int? UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
 
-        public List<TempUser> Guests { get; set; } = new();
+        public List<Guest> Guests { get; set; } = new();
+
+        public List<StayBookingsGuests> StayBookingsGuests { get; set; } = new();
 
     }
 }

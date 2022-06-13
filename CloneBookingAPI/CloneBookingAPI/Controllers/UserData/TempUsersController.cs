@@ -14,11 +14,11 @@ namespace CloneBookingAPI.Controllers.UserData
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TempUsersController : Controller
+    public class GuestsController : Controller
     {
         private readonly ApartProjectDbContext _context;
 
-        public TempUsersController(ApartProjectDbContext context)
+        public GuestsController(ApartProjectDbContext context)
         {
             _context = context;
         }
@@ -27,18 +27,18 @@ namespace CloneBookingAPI.Controllers.UserData
         [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("getusers")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TempUser>>> GetUsers(int page = -1, int pageSize = -1)
+        public async Task<ActionResult<IEnumerable<Guest>>> GetUsers(int page = -1, int pageSize = -1)
         {
             try
             {
-                List<TempUser> users = new();
+                List<Guest> users = new();
                 if (page == -1 || pageSize == -1)
                 {
-                    users = await _context.TempUsers.ToListAsync();
+                    users = await _context.Guests.ToListAsync();
                 }
                 else
                 {
-                    users = await _context.TempUsers
+                    users = await _context.Guests
                         .Skip((page - 1) * pageSize)
                         .Take(pageSize)
                         .ToListAsync();
@@ -69,22 +69,19 @@ namespace CloneBookingAPI.Controllers.UserData
         [TypeFilter(typeof(AuthorizationFilter))]
         [Route("search")]
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<TempUser>>> Search(string user, int page = -1, int pageSize = -1)
+        public async Task<ActionResult<IEnumerable<Guest>>> Search(string user, int page = -1, int pageSize = -1)
         {
             try
             {
                 if (string.IsNullOrWhiteSpace(user) || page == -1 || pageSize == -1)
                 {
-                    var res = await _context.TempUsers.ToListAsync();
+                    var res = await _context.Guests.ToListAsync();
 
                     return Json(new { code = 200, users = res });
                 }
 
-                var users = await _context.TempUsers
-                    .Where(u => u.FirstName.Contains(user) ||
-                                u.LastName.Contains(user) ||
-                                u.Email.Contains(user) ||
-                                u.PhoneNumber.Contains(user))
+                var users = await _context.Guests
+                    .Where(u => u.FullName.Contains(user))
                     .Skip((page - 1) * pageSize)
                     .Take(pageSize)
                     .ToListAsync();
@@ -115,7 +112,7 @@ namespace CloneBookingAPI.Controllers.UserData
         [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("edituser")]
         [HttpPut]
-        public async Task<IActionResult> EditUser([FromBody] TempUser user)
+        public async Task<IActionResult> EditUser([FromBody] Guest user)
         {
             try
             {
@@ -124,13 +121,13 @@ namespace CloneBookingAPI.Controllers.UserData
                     return Json(new { code = 400 });
                 }
 
-                var resUser = await _context.TempUsers.FirstOrDefaultAsync(n => n.Id == user.Id);
+                var resUser = await _context.Guests.FirstOrDefaultAsync(n => n.Id == user.Id);
                 if (resUser is null)
                 {
                     return Json(new { code = 400 });
                 }
 
-                _context.TempUsers.Update(resUser);
+                _context.Guests.Update(resUser);
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });

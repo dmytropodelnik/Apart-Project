@@ -33,6 +33,7 @@ export class BookingFinalStepComponent implements OnInit {
   phone: string = '';
 
   finalPrice: number = 0;
+  difference: number = 0;
 
   isSaved: boolean = false;
   isPromoCodeApplied: boolean = false;
@@ -67,6 +68,8 @@ export class BookingFinalStepComponent implements OnInit {
         if (response.code === 200) {
           this.isPromoCodeApplied = true;
           this.finalPrice = response.finalPrice;
+          this.discount = response.discount;
+          this.difference = response.difference;
         } else {
           alert(response.message);
         }
@@ -98,6 +101,32 @@ export class BookingFinalStepComponent implements OnInit {
   }
 
   registerBooking(): void {
+    fetch(
+      `https://localhost:44381/api/suggestion/confirmpromocode?promoCode=${this.promoCode}&price=${this.totalPrice}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.isPromoCodeApplied = true;
+          this.finalPrice = response.finalPrice;
+          this.discount = response.discount;
+          this.difference = response.difference;
+        } else {
+          alert(response.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+
     if (AuthHelper.isLogged()) {
       this.router.navigate(['/viewproperties']);
     } else {

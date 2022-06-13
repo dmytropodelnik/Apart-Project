@@ -38,8 +38,8 @@
         </div>
         <div *ngIf="isPromoCodeApplied" class="booking-details-price-item">
           <div>
-            <span>Discount with promo code: </span><span>-{{discount}}%</span>
-          </div>
+            <span>Discount with promo code: </span><span>-{{discount}}%</span><span> (-${{difference}}) </span>
+          </div><br/>
           <div>
             <span>Final price: </span><span>${{finalPrice}}</span>
           </div>
@@ -124,7 +124,7 @@
       </div>
 
       <div class="booking-details-fill-details">
-        <div><span>Enter your adress</span></div>
+        <div><span>Enter your address</span></div>
         <div class="booking-details-fill-name">
           <div>
             <label for="address" class="form-label">Address*</label>

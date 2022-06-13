@@ -1,6 +1,9 @@
-﻿using CloneBookingAPI.Filters;
+﻿using CloneBookingAPI.Database.Models.UserData;
+using CloneBookingAPI.Filters;
 using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
+using CloneBookingAPI.Services.Database.Models.Location;
+using CloneBookingAPI.Services.POCOs.Bookings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,7 +15,6 @@ using System.Threading.Tasks;
 
 namespace CloneBookingAPI.Controllers.Services
 {
-    [TypeFilter(typeof(AuthorizationFilter))]
     [Route("api/[controller]")]
     [ApiController]
     public class StayBookingsController : Controller
@@ -24,6 +26,7 @@ namespace CloneBookingAPI.Controllers.Services
             _context = context;
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("getbookings")]
         [HttpGet]
@@ -55,6 +58,7 @@ namespace CloneBookingAPI.Controllers.Services
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("getuserbookings")]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<StayBooking>>> GetUserBookings(string email)
@@ -101,6 +105,7 @@ namespace CloneBookingAPI.Controllers.Services
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [TypeFilter(typeof(OnlyAdminFilter))]
         [Route("search")]
         [HttpGet]
@@ -141,6 +146,7 @@ namespace CloneBookingAPI.Controllers.Services
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("addbooking")]
         [HttpPost]
         public async Task<IActionResult> AddBooking([FromBody] StayBooking booking, IFormFile uploadedFile)
@@ -188,6 +194,7 @@ namespace CloneBookingAPI.Controllers.Services
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("editbooking")]
         [HttpPut]
         public async Task<IActionResult> EditBooking([FromBody] StayBooking booking)
@@ -236,6 +243,7 @@ namespace CloneBookingAPI.Controllers.Services
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("deletebooking")]
         [HttpDelete]
         public async Task<IActionResult> DeleteBooking([FromBody] StayBooking booking)
@@ -284,6 +292,7 @@ namespace CloneBookingAPI.Controllers.Services
             }
         }
 
+        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("verifyowner")]
         [HttpGet]
         public async Task<IActionResult> VerifyOwner(string bookingNumber, string bookingPIN)
@@ -309,6 +318,88 @@ namespace CloneBookingAPI.Controllers.Services
                     bookingId = res.Id,
                     ownerId = res.UserId,
                     message = "Owner is verified.",
+                });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("addstaybooking")]
+        [HttpPost]
+        public async Task<IActionResult> AddStayBooking([FromBody] StayBookingPoco booking)
+        {
+            try
+            {
+                if (booking is null ||
+                    booking.SuggestionId < 1 ||
+                    booking.FinalPrice < 0   ||
+                    booking.TotalPrice < 0   ||
+                    booking.CheckIn < DateTime.UtcNow  ||
+                    booking.CheckOut < DateTime.UtcNow ||
+                    booking.CheckOut < booking.CheckIn ||
+                    string.IsNullOrWhiteSpace(booking.PIN)          ||
+                    string.IsNullOrWhiteSpace(booking.City)         ||
+                    string.IsNullOrWhiteSpace(booking.Country)      ||
+                    string.IsNullOrWhiteSpace(booking.AddressText)  ||
+                    string.IsNullOrWhiteSpace(booking.PhoneNumber)  ||
+                    string.IsNullOrWhiteSpace(booking.UniqueNumber) ||
+                    string.IsNullOrWhiteSpace(booking.CustomerEmail))
+                {
+                    return Json(new { code = 400, message = "Input data is incorrect or null." });
+                }
+
+                CustomerInfo newCustomerInfo = new()
+                {
+                    AddressText = booking.AddressText,
+                    City = booking.City,
+                    Country = booking.Country,
+                    PhoneNumber = booking.PhoneNumber,
+                    ZipCode = booking.ZipCode,
+                };
+
+                StayBooking newStayBooking = new()
+                {
+                    SuggestionId = booking.SuggestionId,
+                    IsForWork = booking.IsForWork,
+                    CheckIn = booking.CheckIn,
+                    CheckOut = booking.CheckOut,
+                    CustomerInfo = newCustomerInfo,
+                    
+                };
+
+                var user = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(booking.UserEmail));
+                if (user is not null)
+                {
+                    newStayBooking.UserId = user.Id;
+                }
+
+
+
+                return Json(new { 
+                    code = 200,
+                
                 });
             }
             catch (DbUpdateConcurrencyException ex)
