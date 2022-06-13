@@ -5,6 +5,6 @@ namespace CloneBookingAPI.Services.POCOs.Bookings
 {
     public class StayBookingPoco : BookingPoco
     {
-        public List<Guest> Guests { get; set; }
+        public List<string> GuestsFullNames { get; set; }
     }
 }

@@ -39,7 +39,7 @@ export class BookingFinalStepComponent implements OnInit {
   zipCode: string = '';
   phone: string = '';
 
-  guestsData: Guest[] = [];
+  guestsData: string[] = [];
 
   finalPrice: number = 0;
   difference: number = 0;
@@ -129,7 +129,7 @@ export class BookingFinalStepComponent implements OnInit {
       country: this.country,
       phoneNumber: this.phone,
       zipCode: this.zipCode,
-      guests: this.guestsData,
+      GuestsFullNames: this.guestsData,
     };
 
     fetch(

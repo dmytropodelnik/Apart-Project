@@ -20,7 +20,7 @@ export class BookingDetailsService {
   dateIn: Date | null = null;
   dateOut: Date | null = null;
 
-  guestsData: Guest[] = [];
+  guestsData: string[] = [];
 
   constructor() {}
 
@@ -36,11 +36,11 @@ export class BookingDetailsService {
     this.dateOut = dateOut;
   }
 
-  setGuestsData(guestsData: Guest[]): void {
+  setGuestsData(guestsData: string[]): void {
     this.guestsData = guestsData;
   }
 
-  getGuestsData(): Guest[] {
+  getGuestsData(): string[] {
     return this.guestsData;
   }
 

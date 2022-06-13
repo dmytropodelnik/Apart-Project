@@ -45,7 +45,7 @@ export class FillingUserDetailsComponent implements OnInit {
   confirmEmail: string = '';
   specialRequests: string = '';
 
-  guestsData: Guest[] = [];
+  guestsData: string[] = [];
 
   constructor(
     private router: Router,
@@ -92,7 +92,7 @@ export class FillingUserDetailsComponent implements OnInit {
     }
 
     for (let i = 0; i < this.guestsData.length; i++) {
-      if (this.guestsData[i].fullName.length < 2) {
+      if (this.guestsData[i].length < 2) {
         alert('Enter a full guests name');
         return;
       }
@@ -114,7 +114,7 @@ export class FillingUserDetailsComponent implements OnInit {
 
   fillApartmentsArray(): void {
     for (let i = 0; i < this.chosenApartments.length; i++) {
-      this.guestsData.push(new Guest());
+      this.guestsData.push('');
     }
   }
 
