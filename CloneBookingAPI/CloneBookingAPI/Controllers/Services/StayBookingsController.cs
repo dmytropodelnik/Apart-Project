@@ -387,6 +387,7 @@ namespace CloneBookingAPI.Controllers.Services
                     Country = booking.Country,
                     PhoneNumber = booking.PhoneNumber,
                     ZipCode = booking.ZipCode,
+                    Email = booking.CustomerEmail,
                 };
 
                 BookingPrice newPrice = new()
@@ -413,11 +414,11 @@ namespace CloneBookingAPI.Controllers.Services
                     Price = newPrice,
                 };
 
-                foreach (var item in booking.Guests)
+                foreach (var item in booking.GuestsFullNames)
                 {
                     Guest newGuest = new()
                     {
-                        FullName = item.FullName,
+                        FullName = item,
                     };
 
                     newStayBooking.Guests.Add(newGuest);

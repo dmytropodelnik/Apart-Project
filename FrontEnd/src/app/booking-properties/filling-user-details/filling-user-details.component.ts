@@ -108,6 +108,7 @@ export class FillingUserDetailsComponent implements OnInit {
         isForWork: this.isForWork,
         firstName: this.mainFirstName,
         lastName: this.mainLastName,
+        specialRequests: this.specialRequests,
       },
     })
   }

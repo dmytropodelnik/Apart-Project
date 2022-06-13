@@ -48,6 +48,8 @@ export class BookingFinalStepComponent implements OnInit {
   isForWork: boolean = false;
   isPromoCodeApplied: boolean = false;
 
+  newBookingId: string = '';
+
   constructor(
     private router: Router,
     private activatedRouter: ActivatedRoute,
@@ -129,7 +131,9 @@ export class BookingFinalStepComponent implements OnInit {
       country: this.country,
       phoneNumber: this.phone,
       zipCode: this.zipCode,
-      GuestsFullNames: this.guestsData,
+      guestsFullNames: this.guestsData,
+      firstName: this.firstName,
+      lastName: this.lastName,
     };
 
     fetch(
@@ -147,10 +151,7 @@ export class BookingFinalStepComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.isPromoCodeApplied = true;
-          this.finalPrice = response.finalPrice;
-          this.discount = response.discount;
-          this.difference = response.difference;
+          this.newBookingId = response.bookingId;
         } else {
           alert(response.message);
         }
@@ -189,6 +190,7 @@ export class BookingFinalStepComponent implements OnInit {
     this.activatedRouter.queryParams.subscribe((params: any) => {
       if (params['totalPrice']) {
         this.totalPrice = params['totalPrice'];
+        this.finalPrice = this.totalPrice;
       }
       if (params['isSaved']) {
         this.isSaved = params['isSaved'];
@@ -204,6 +206,9 @@ export class BookingFinalStepComponent implements OnInit {
       }
       if (params['lastName']) {
         this.lastName = params['lastName'];
+      }
+      if (params['specialRequests']) {
+        this.specialRequests = params['specialRequests'];
       }
     });
   }

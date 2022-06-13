@@ -28,7 +28,7 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(1000, MinimumLength = 6, ErrorMessage = "Incorrect length")]
         public string SpecialRequests { get; set; }
 
-        public int PaymentId { get; set; }
+        public int? PaymentId { get; set; }
         [ForeignKey("PaymentId")]
         public Payment.Payment Payment { get; set; }
 
@@ -47,18 +47,12 @@ namespace CloneBookingAPI.Services.Database.Models
         public DateTime CheckOut { get; set; }
 
         [Display(Name = "Promo code")]
-        [DataType(DataType.Text)]
-        [StringLength(20, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string PromoCode { get; set; }
 
         [Required]
-        [DataType(DataType.Text)]
-        [StringLength(7, ErrorMessage = "Incorrect length")]
         public string UniqueNumber { get; set; }
 
         [Required]
-        [DataType(DataType.Text)]
-        [StringLength(6, ErrorMessage = "Incorrect length")]
         public string PIN { get; set; }
 
         public int? BookingStatusId { get; set; }
