@@ -262,21 +262,22 @@ namespace CloneBookingAPI.Controllers.Services
         }
 
         [TypeFilter(typeof(AuthorizationFilter))]
+        [TypeFilter(typeof(AccessoryStayBookingFilter))]
         [Route("deletebooking")]
         [HttpDelete]
-        public async Task<IActionResult> DeleteBooking([FromBody] StayBooking booking)
+        public async Task<IActionResult> DeleteBooking(int id)
         {
             try
             {
-                if (booking is null)
+                if (id < 1)
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Incorrect stay booking id." });
                 }
 
-                var resBooking = await _context.StayBookings.FirstOrDefaultAsync(b => b.Id == booking.Id);
+                var resBooking = await _context.StayBookings.FirstOrDefaultAsync(b => b.Id == id);
                 if (resBooking is null)
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Stay bookings is not found." });
                 }
 
                 _context.StayBookings.Remove(resBooking);

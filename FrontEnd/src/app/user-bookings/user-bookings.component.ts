@@ -53,6 +53,31 @@ export class UserBookingsComponent implements OnInit {
       });
   }
 
+  deleteBooking(id: number): void {
+    fetch(
+      `https://localhost:44381/api/staybookings/deletebooking?id=${id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.getUserBooking();
+        } else {
+          alert(response.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
   ngOnInit(): void {
     if (!AuthHelper.isLogged()) {
       this.router.navigate(['']);
