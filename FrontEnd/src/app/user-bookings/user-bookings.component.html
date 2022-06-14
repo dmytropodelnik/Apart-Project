@@ -154,6 +154,9 @@
         <span>Discount with promo code: </span><span>-{{bookings[selectedBooking - 1].price.discount}}%</span><span> (-${{bookings[selectedBooking - 1].price.difference}}) </span>
       </div>
       <span>Final price: </span><span>${{bookings[selectedBooking - 1].price.finalPrice}}</span>
+      <span>Customer: </span><span>{{bookings[selectedBooking - 1].customerInfo.firstName}} {{bookings[selectedBooking - 1].customerInfo.lastName}}</span>
+      <span>Customer email: </span><span>{{bookings[selectedBooking - 1].customerInfo.email}}</span>
+      <span>Customer phone number: </span><span>{{bookings[selectedBooking - 1].customerInfo.phoneNumber}}</span>
       <div>
         <button type="button" class="btn btn-primary" aria-label="Close" (click)="modal.dismiss('Cross click')">Close</button>
       </div>
