@@ -378,6 +378,7 @@ namespace CloneBookingAPI.Controllers.Services
                     UniqueNumber = await _bookingIdGenerator.GenerateCodeAsync(),
                     PIN = _bookingPINGenerator.GenerateCode(),
                     Price = newPrice,
+                    Nights = booking.Nights,
                 };
 
                 foreach (var item in booking.GuestsFullNames)

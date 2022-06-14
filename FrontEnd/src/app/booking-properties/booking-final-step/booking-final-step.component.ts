@@ -134,6 +134,7 @@ export class BookingFinalStepComponent implements OnInit {
       guestsFullNames: this.guestsData,
       firstName: this.firstName,
       lastName: this.lastName,
+      nights: this.diffDays,
     };
 
     fetch(

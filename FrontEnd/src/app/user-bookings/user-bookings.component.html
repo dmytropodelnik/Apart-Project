@@ -139,6 +139,7 @@
       <div class="user-bookings-card-left-item">
         <span>{{bookings[selectedBooking - 1]?.suggestion.bookingCategory.category}}</span>
         <span>{{bookings[selectedBooking - 1].checkIn!.toString().substring(0, bookings[selectedBooking - 1].checkIn!.toString().indexOf('T'))}} - {{bookings[selectedBooking - 1].checkOut!.toString().substring(0, bookings[selectedBooking - 1].checkOut!.toString().indexOf('T'))}}, {{bookings[selectedBooking - 1].suggestion.address.city.title}}</span>
+        <span>Nights: </span><span>{{bookings[selectedBooking - 1].nights}}</span>
         <span>{{bookings[selectedBooking - 1].bookingStatus.status}}</span>
         <span *ngIf="bookings[selectedBooking - 1].isPaid">Booking is paid</span>
         <span *ngIf="!bookings[selectedBooking - 1].isPaid">Booking is not paid</span>

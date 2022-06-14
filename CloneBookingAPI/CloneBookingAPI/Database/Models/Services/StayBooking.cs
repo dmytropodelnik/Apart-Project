@@ -51,6 +51,7 @@ namespace CloneBookingAPI.Services.Database.Models
         [Required]
         [DataType(DataType.Date)]
         public DateTime CheckOut { get; set; }
+        public int Nights { get; set; }
 
         [Display(Name = "Promo code")]
         public string PromoCode { get; set; }
