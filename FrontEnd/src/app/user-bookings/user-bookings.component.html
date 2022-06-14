@@ -103,8 +103,8 @@
     <div class="user-bookings-card-left">
       <img src="../../assets/images/12.jpg" alt="" />
       <div class="user-bookings-card-left-item">
-        <span>Hostel</span>
-        <span>23 Aug 2019 - 24 Aug 2019</span>
+        <span>{{bookings[selectedBooking - 1]?.suggestion.bookingCategory.category}}</span>
+        <span>{{bookings[selectedBooking - 1].checkIn!.toString().substring(0, bookings[selectedBooking - 1].checkIn!.toString().indexOf('T'))}} - {{bookings[selectedBooking - 1].checkOut!.toString().substring(0, bookings[selectedBooking - 1].checkOut!.toString().indexOf('T'))}}, {{bookings[selectedBooking - 1].suggestion.address.city.title}}</span>
         <span>{{bookings[selectedBooking - 1].bookingStatus.status}}</span>
       </div>
     </div>
@@ -130,9 +130,9 @@
     <div class="user-bookings-card-left">
       <img src="../../assets/images/12.jpg" alt="" />
       <div class="user-bookings-card-left-item">
-        <span>Hostel</span>
-        <span>23 Aug 2019 - 24 Aug 2019</span>
-        <span>Cancelled</span>
+        <span>{{bookings[selectedBooking - 1]?.suggestion.bookingCategory.category}}</span>
+        <span>{{bookings[selectedBooking - 1].checkIn!.toString().substring(0, bookings[selectedBooking - 1].checkIn!.toString().indexOf('T'))}} - {{bookings[selectedBooking - 1].checkOut!.toString().substring(0, bookings[selectedBooking - 1].checkOut!.toString().indexOf('T'))}}, {{bookings[selectedBooking - 1].suggestion.address.city.title}}</span>
+        <span>{{bookings[selectedBooking - 1].bookingStatus.status}}</span>
       </div>
     </div>
   </div>

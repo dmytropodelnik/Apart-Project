@@ -87,6 +87,7 @@ namespace CloneBookingAPI.Controllers.Services
                     .Include(b => b.Suggestion.Address)
                     .Include(b => b.Suggestion.Address.Country)
                     .Include(b => b.Suggestion.Address.City)
+                    .Include(b => b.Suggestion.BookingCategory)
                     .Include(b => b.BookingStatus)
                     .Include(b => b.Price)
                         .ThenInclude(p => p.Currency)
