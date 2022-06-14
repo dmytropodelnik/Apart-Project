@@ -103,7 +103,25 @@ namespace CloneBookingAPI.Controllers.Services
                 return Json(new
                 {
                     code = 200,
-                    stayBookings,
+                    stayBookings = stayBookings
+                        .Select(b => new
+                        {
+                            b.Id,
+                            b.IsPaid,
+                            b.IsRevealed,
+                            b.IsForWork,
+                            BookingStatus = b.BookingStatus.Status,
+                            b.CheckIn,
+                            b.CheckOut,
+                            b.CustomerInfo,
+                            Guests = b.Guests.Select(g => g.FullName),
+                            b.Nights,
+                            b.Price,
+                            b.PromoCode,
+                            b.SpecialRequests,
+                            b.Suggestion,
+                            b.UniqueNumber,
+                        }),
                 });
             }
             catch (ArgumentNullException ex)

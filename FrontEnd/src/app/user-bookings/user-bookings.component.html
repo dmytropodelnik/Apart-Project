@@ -168,7 +168,7 @@
         <span *ngIf="bookings[selectedBooking - 1].customerInfo?.zipCode">{{bookings[selectedBooking - 1].customerInfo?.zipCode}}</span>
         <span>Guests: </span>
         <span *ngFor="let guest of bookings[selectedBooking - 1].guests; let i = index">
-          {{guest.fullName}}
+          {{guest}}
         </span>
       <div>
         <button type="button" class="btn btn-primary" aria-label="Close" (click)="modal.dismiss('Cross click')">Close</button>

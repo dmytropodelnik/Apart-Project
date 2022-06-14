@@ -85,6 +85,7 @@ export class UserBookingsComponent implements OnInit {
       });
   }
 
+
   ngOnInit(): void {
     if (!AuthHelper.isLogged()) {
       this.router.navigate(['']);
