@@ -31,6 +31,10 @@ export class UserBookingsComponent implements OnInit {
     this.selectedBooking = id;
   }
 
+  payBooking(): void {
+
+  }
+
   getUserBooking(): void {
     fetch(
       `https://localhost:44381/api/staybookings/getuserbookings?email=${AuthHelper.getLogin()}`,

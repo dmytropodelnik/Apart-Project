@@ -63,6 +63,7 @@
               <span>{{item.bookingStatus.status}}</span>
               <span *ngIf="item.isPaid">Booking is paid</span>
               <span *ngIf="!item.isPaid">Booking is not paid</span>
+              <button *ngIf="!item.isPaid" type="button" class="btn btn-primary" (click)="payBooking()">Pay</button>
             </div>
           </div>
           <div class="user-bookings-card-right">
@@ -96,7 +97,7 @@
 
 <ng-template #removeContent let-modal>
   <div class="modal-header">
-    <h2>Booking Info</h2>
+    <h2>Remove Booking</h2>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
@@ -115,7 +116,7 @@
         list.</span>
       <div>
         <button type="button" class="btn btn-primary" (click)="deleteBooking()" aria-label="Close" (click)="modal.dismiss('Cross click')">Remove</button>
-        <button type="button" class="btn btn-outline-primary">Keep</button>
+        <button type="button" class="btn btn-outline-primary" aria-label="Close" (click)="modal.dismiss('Cross click')">Keep</button>
       </div>
     </div>
   </div>
@@ -123,7 +124,7 @@
 
 <ng-template #revealContent let-modal>
   <div class="modal-header">
-    <h2>Remove Booking</h2>
+    <h2>Booking Info</h2>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
@@ -138,8 +139,7 @@
   </div>
   <div class="modal-footer">
     <div class="modal-footer-remove">
-      <span>You are about to permanently remove this booking from your bookings
-        list.</span>
+      <span>Some info</span>
       <div>
         <button type="button" class="btn btn-primary" aria-label="Close" (click)="modal.dismiss('Cross click')">Close</button>
       </div>
