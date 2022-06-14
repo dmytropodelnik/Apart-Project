@@ -50,7 +50,7 @@
       <div *ngFor="let item of bookings; let i = index">
         <div class="user-bookings-subheader">
           <span>{{item.suggestion.address.city.title}}</span>
-          <span>{{item.checkIn}} - {{item.checkOut}}</span>
+          <span>{{item.checkIn!.toString().substring(0, item.checkIn!.toString().indexOf('T'))}} - {{item.checkOut!.toString().substring(0, item.checkOut!.toString().indexOf('T'))}}</span>
         </div>
         <div class="user-bookings-card">
           <div class="user-bookings-card-left" (click)="openVerticallyCentered(revealContent)">
@@ -59,13 +59,13 @@
             }}suggestions/stays/{{ item.suggestion.images[0].name }}" alt="image" />
             <div class="user-bookings-card-left-item">
               <span>{{item.suggestion.name}}</span>
-              <span>{{item.checkIn}} - {{item.checkOut}}, {{item.suggestion.address.city.title}}</span>
+              <span>{{item.checkIn!.toString().substring(0, item.checkIn!.toString().indexOf('T'))}} - {{item.checkOut!.toString().substring(0, item.checkOut!.toString().indexOf('T'))}}, {{item.suggestion.address.city.title}}</span>
               <span>{{item.bookingStatus.status}}</span>
             </div>
           </div>
           <div class="user-bookings-card-right">
             <div class="user-bookings-card-right-item">
-              <span>{{item.price.currency.bankCode}} {{item.price.amount}}</span>
+              <span>{{item.price.currency.bankCode}} {{item.price.finalPrice}}</span>
               <div class="btn-group">
                 <button type="button" class="dropdown-button" data-bs-toggle="dropdown" aria-expanded="false">
                   ...

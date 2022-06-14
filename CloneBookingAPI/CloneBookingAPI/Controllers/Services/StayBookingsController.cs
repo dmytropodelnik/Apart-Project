@@ -81,7 +81,15 @@ namespace CloneBookingAPI.Controllers.Services
                 }
 
                 var stayBookings = await _context.StayBookings
-                    .Include(r => r.User)
+                    .Include(b => b.User)
+                    .Include(b => b.Suggestion)
+                        .ThenInclude(s => s.Images)
+                    .Include(b => b.Suggestion.Address)
+                    .Include(b => b.Suggestion.Address.Country)
+                    .Include(b => b.Suggestion.Address.City)
+                    .Include(b => b.BookingStatus)
+                    .Include(b => b.Price)
+                        .ThenInclude(p => p.Currency)
                     .Where(r => r.User.Email.Equals(email))
                     .ToListAsync();
                 if (stayBookings is null)
