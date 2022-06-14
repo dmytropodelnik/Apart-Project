@@ -90,6 +90,7 @@ namespace CloneBookingAPI.Controllers.Services
                     .Include(b => b.Suggestion.BookingCategory)
                     .Include(b => b.BookingStatus)
                     .Include(b => b.CustomerInfo)
+                    .Include(b => b.Guests)
                     .Include(b => b.Price)
                         .ThenInclude(p => p.Currency)
                     .Where(b => b.User.Email.Equals(email) && b.IsRevealed)
