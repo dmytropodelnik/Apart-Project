@@ -88,7 +88,7 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
                         var tempList = filter.FilterItems(suggestions).Except(filtered);
                         List<Suggestion> newList = new();
 
-                        if (_appliedFilters.Count > 0)
+                        if (_appliedFilters.Any())
                         {
                             int counter = 1;
                             foreach (var item in _applyFilters)
@@ -102,7 +102,7 @@ namespace CloneBookingAPI.Controllers.Search.Filtering
                                     }
                                     else
                                     {
-                                        if (_applyFilters.Skip(counter).Count(f => f.Filter == item.Filter) > 0)
+                                        if (_applyFilters.Skip(counter).Any(f => f.Filter == item.Filter))
                                         {
                                             newList.AddRange(item.FilterItems(tempList));
                                             tempList = tempList.Except(newList);

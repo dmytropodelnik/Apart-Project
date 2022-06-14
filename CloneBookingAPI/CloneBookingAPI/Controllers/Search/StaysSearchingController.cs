@@ -121,7 +121,7 @@ namespace CloneBookingAPI.Controllers.Search
                 {
                     code = 200,
                     resSuggestions = resSuggestions
-                        .Select(s => new { s.Id, s.UniqueCode, s.Name, s.Description, country = s.Address.Country.Title, city = s.Address.City.Title, region = s.Address.Region.Title, address = s.Address.AddressText, starsRating = new short[s.StarsRating], 
+                        .Select(s => new { s.Id, s.UniqueCode, s.Name, s.Description, country = s.Address.Country.Title, city = s.Address.City.Title, region = s.Address.Region.Title, address = s.Address.AddressText, starsRating = new short[s.StarsRating], s.BookingCategory.Category,
                           reviews = s.Reviews.Count, images = s.Images.Select(i => new { i.Path, i.Name }) }),
                     suggestionsAmount,
                     suggestionStartsFrom,
