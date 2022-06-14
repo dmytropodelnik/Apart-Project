@@ -119,7 +119,7 @@ namespace CloneBookingAPI.Controllers.Services
                             b.Price,
                             b.PromoCode,
                             b.SpecialRequests,
-                            b.Suggestion,
+                            Suggestion = b.Suggestion,
                             b.UniqueNumber,
                         }),
                 });
