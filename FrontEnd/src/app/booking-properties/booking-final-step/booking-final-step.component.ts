@@ -152,6 +152,11 @@ export class BookingFinalStepComponent implements OnInit {
       .then((response) => {
         if (response.code === 200) {
           this.newBookingId = response.bookingId;
+          if (AuthHelper.isLogged()) {
+            this.router.navigate(['/userbookings']);
+          } else {
+            this.showSuccessBooking();
+          }
         } else {
           alert(response.message);
         }
@@ -159,12 +164,6 @@ export class BookingFinalStepComponent implements OnInit {
       .catch((ex) => {
         alert(ex);
       });
-
-    if (AuthHelper.isLogged()) {
-      this.router.navigate(['/viewproperties']);
-    } else {
-      this.showSuccessBooking();
-    }
   }
 
   showSuccessBooking(): void {

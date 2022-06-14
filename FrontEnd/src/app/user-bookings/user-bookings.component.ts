@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-
 import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
 import MathHelper from '../utils/mathHelper';
@@ -20,7 +19,8 @@ export class UserBookingsComponent implements OnInit {
   constructor(
     private modalService: NgbModal,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {}
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   openVerticallyCentered(content: any) {
     this.modalService.open(content, {
@@ -28,9 +28,35 @@ export class UserBookingsComponent implements OnInit {
     });
   }
 
+  getUserBooking(): void {
+    fetch(
+      `https://localhost:44381/api/staybookings/getuserbookings?email=${AuthHelper.getLogin()}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.bookings = response.stayBookings;
+        } else {
+          alert(response.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
   ngOnInit(): void {
     if (!AuthHelper.isLogged()) {
       this.router.navigate(['']);
     }
+    this.getUserBooking();
   }
 }
