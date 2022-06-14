@@ -415,12 +415,12 @@ namespace CloneBookingAPI.Controllers.Services
                     newStayBooking.UserId = user.Id;
                 }
 
-                _context.StayBookings.Add(newStayBooking);
+                var resStayBooking = _context.StayBookings.Add(newStayBooking);
                 await _context.SaveChangesAsync();
 
                 return Json(new { 
                     code = 200,
-                    bookingId = newStayBooking.Id,
+                    resStayBooking = resStayBooking.Entity,
                 });
             }
             catch (DbUpdateConcurrencyException ex)

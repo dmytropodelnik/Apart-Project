@@ -19,6 +19,42 @@ body {
   cursor: pointer;
 }
 
+.user-bookings-card-left {
+  display: flex;
+  gap: 20px;
+  cursor: pointer;
+}
+
+.user-bookings-card-left > img {
+  border-radius: 10px;
+  width: 100px;
+  height: 100px;
+}
+
+.user-bookings-card-left-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+}
+
+.user-bookings-card-right-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.modal-footer-remove {
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-footer-remove > div {
+  display: flex;
+  gap: 20px;
+  margin: 10px 0px;
+}
+
 .booking-details-form {
   display: flex;
   flex-direction: column;

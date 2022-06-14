@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Guest } from 'src/app/models/UserData/guest.item';
 import { BookingDetailsService } from 'src/app/services/booking-details.service';
 
@@ -14,6 +15,7 @@ import MathHelper from '../../utils/mathHelper';
 })
 export class BookingFinalStepComponent implements OnInit {
   mathHelper: any = MathHelper;
+  imageHelper: any = ImageHelper;
 
   chosenSuggestion: any;
 
@@ -48,15 +50,22 @@ export class BookingFinalStepComponent implements OnInit {
   isForWork: boolean = false;
   isPromoCodeApplied: boolean = false;
 
-  newBookingId: string = '';
+  newStayBooking: any;
 
   constructor(
     private router: Router,
+    private modalService: NgbModal,
     private activatedRouter: ActivatedRoute,
     private bookingDetailsService: BookingDetailsService,
     ) {
 
      }
+
+     openVerticallyCentered(content: any) {
+      this.modalService.open(content, {
+        centered: true,
+      });
+    }
 
   applyPromoCode(): void {
     if (this.promoCode.length < 6) {
@@ -91,7 +100,7 @@ export class BookingFinalStepComponent implements OnInit {
       });
   }
 
-  completeBooking(): void {
+  completeBooking(revealContent: any): void {
     if (this.address.length < 5) {
       alert("Address must contain at least 5 characters!");
       return;
@@ -109,10 +118,10 @@ export class BookingFinalStepComponent implements OnInit {
       return;
     }
 
-    this.registerBooking();
+    this.registerBooking(revealContent);
   }
 
-  registerBooking(): void {
+  registerBooking(revealContent: any): void {
     const booking = {
       suggestionId: this.chosenSuggestion.id,
       discount: this.discount,
@@ -152,11 +161,12 @@ export class BookingFinalStepComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.newBookingId = response.bookingId;
+          this.newStayBooking = response.resStayBooking;
           if (AuthHelper.isLogged()) {
             this.router.navigate(['/userbookings']);
           } else {
-            this.showSuccessBooking();
+            this.showSuccessBooking(revealContent);
+            this.router.navigate(['']);
           }
         } else {
           alert(response.message);
@@ -167,8 +177,8 @@ export class BookingFinalStepComponent implements OnInit {
       });
   }
 
-  showSuccessBooking(): void {
-
+  showSuccessBooking(revealContent: any): void {
+    this.openVerticallyCentered(revealContent);
   }
 
   showSuggestion(uniqueCode: number): void {
