@@ -16,16 +16,19 @@ export class UserBookingsComponent implements OnInit {
 
   imageHelper: any = ImageHelper;
 
+  selectedBooking: number = 0;
+
   constructor(
     private modalService: NgbModal,
     private router: Router,
     private activatedRoute: ActivatedRoute
   ) {}
 
-  openVerticallyCentered(content: any) {
+  openVerticallyCentered(content: any, id: number) {
     this.modalService.open(content, {
       centered: true,
     });
+    this.selectedBooking = id;
   }
 
   getUserBooking(): void {
@@ -53,9 +56,9 @@ export class UserBookingsComponent implements OnInit {
       });
   }
 
-  deleteBooking(id: number): void {
+  deleteBooking(): void {
     fetch(
-      `https://localhost:44381/api/staybookings/deletebooking?id=${id}`,
+      `https://localhost:44381/api/staybookings/deletebooking?id=${this.selectedBooking}`,
       {
         method: 'DELETE',
         headers: {

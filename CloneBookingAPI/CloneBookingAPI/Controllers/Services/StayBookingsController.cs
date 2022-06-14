@@ -90,7 +90,7 @@ namespace CloneBookingAPI.Controllers.Services
                     .Include(b => b.BookingStatus)
                     .Include(b => b.Price)
                         .ThenInclude(p => p.Currency)
-                    .Where(r => r.User.Email.Equals(email))
+                    .Where(b => b.User.Email.Equals(email) && b.IsRevealed)
                     .ToListAsync();
                 if (stayBookings is null)
                 {
@@ -145,54 +145,6 @@ namespace CloneBookingAPI.Controllers.Services
                 return Json(new { code = 200, bookings });
             }
             catch (ArgumentNullException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (OperationCanceledException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-        }
-
-        [TypeFilter(typeof(AuthorizationFilter))]
-        [Route("addbooking")]
-        [HttpPost]
-        public async Task<IActionResult> AddBooking([FromBody] StayBooking booking, IFormFile uploadedFile)
-        {
-            try
-            {
-                if (booking is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                var res = await _context.StayBookings.FirstOrDefaultAsync(b => b.Id == booking.Id);
-                if (res is null)
-                {
-                    _context.StayBookings.Add(booking);
-                    await _context.SaveChangesAsync();
-
-                    return Json(new { code = 200 });
-                }
-                return Json(new { code = 400 });
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 400 });
-            }
-            catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
@@ -280,7 +232,9 @@ namespace CloneBookingAPI.Controllers.Services
                     return Json(new { code = 400, message = "Stay bookings is not found." });
                 }
 
-                _context.StayBookings.Remove(resBooking);
+                resBooking.IsRevealed = false;
+
+                _context.StayBookings.Update(resBooking);
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });

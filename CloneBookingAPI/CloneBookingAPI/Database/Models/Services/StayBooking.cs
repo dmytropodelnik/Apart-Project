@@ -28,6 +28,12 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(1000, MinimumLength = 6, ErrorMessage = "Incorrect length")]
         public string SpecialRequests { get; set; }
 
+        [Required]
+        public bool IsPaid { get; set; }
+
+        [Required]
+        public bool IsRevealed { get; set; }
+
         public int? PaymentId { get; set; }
         [ForeignKey("PaymentId")]
         public Payment.Payment Payment { get; set; }
