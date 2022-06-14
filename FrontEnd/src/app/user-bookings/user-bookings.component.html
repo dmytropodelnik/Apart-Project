@@ -109,6 +109,8 @@
         <span>{{bookings[selectedBooking - 1]?.suggestion.bookingCategory.category}}</span>
         <span>{{bookings[selectedBooking - 1].checkIn!.toString().substring(0, bookings[selectedBooking - 1].checkIn!.toString().indexOf('T'))}} - {{bookings[selectedBooking - 1].checkOut!.toString().substring(0, bookings[selectedBooking - 1].checkOut!.toString().indexOf('T'))}}, {{bookings[selectedBooking - 1].suggestion.address.city.title}}</span>
         <span>{{bookings[selectedBooking - 1].bookingStatus.status}}</span>
+        <span *ngIf="bookings[selectedBooking - 1].isPaid">Booking is paid</span>
+        <span *ngIf="!bookings[selectedBooking - 1].isPaid">Booking is not paid</span>
       </div>
     </div>
   </div>
@@ -138,13 +140,20 @@
         <span>{{bookings[selectedBooking - 1]?.suggestion.bookingCategory.category}}</span>
         <span>{{bookings[selectedBooking - 1].checkIn!.toString().substring(0, bookings[selectedBooking - 1].checkIn!.toString().indexOf('T'))}} - {{bookings[selectedBooking - 1].checkOut!.toString().substring(0, bookings[selectedBooking - 1].checkOut!.toString().indexOf('T'))}}, {{bookings[selectedBooking - 1].suggestion.address.city.title}}</span>
         <span>{{bookings[selectedBooking - 1].bookingStatus.status}}</span>
+        <span *ngIf="bookings[selectedBooking - 1].isPaid">Booking is paid</span>
+        <span *ngIf="!bookings[selectedBooking - 1].isPaid">Booking is not paid</span>
       </div>
     </div>
   </div>
   <div class="modal-footer">
     <div class="modal-footer-remove">
-      <span>Some info</span>
-      <span></span>
+      <span>Is for work:</span><span *ngIf="bookings[selectedBooking - 1].isForWork">Yes</span><span *ngIf="!bookings[selectedBooking - 1].isForWork">No</span>
+      <span>Special requests:</span><span>{{bookings[selectedBooking - 1].specialRequests}}</span>
+      <span>Price</span> <span>${{bookings[selectedBooking - 1].price.totalPrice}}</span>
+      <div *ngIf="bookings[selectedBooking - 1].promoCode">
+        <span>Discount with promo code: </span><span>-{{bookings[selectedBooking - 1].price.discount}}%</span><span> (-${{bookings[selectedBooking - 1].price.difference}}) </span>
+      </div>
+      <span>Final price: </span><span>${{bookings[selectedBooking - 1].price.finalPrice}}</span>
       <div>
         <button type="button" class="btn btn-primary" aria-label="Close" (click)="modal.dismiss('Cross click')">Close</button>
       </div>
