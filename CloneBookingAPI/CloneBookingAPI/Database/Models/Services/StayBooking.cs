@@ -1,5 +1,7 @@
 ﻿using CloneBookingAPI.Database.Models.Services;
 using CloneBookingAPI.Database.Models.Suggestions;
+using CloneBookingAPI.Database.Models.UserData;
+using CloneBookingAPI.Database.Models.ViewModels;
 using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Payment;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
@@ -26,7 +28,13 @@ namespace CloneBookingAPI.Services.Database.Models
         [StringLength(1000, MinimumLength = 6, ErrorMessage = "Incorrect length")]
         public string SpecialRequests { get; set; }
 
-        public int PaymentId { get; set; }
+        [Required]
+        public bool IsPaid { get; set; }
+
+        [Required]
+        public bool IsRevealed { get; set; }
+
+        public int? PaymentId { get; set; }
         [ForeignKey("PaymentId")]
         public Payment.Payment Payment { get; set; }
 
@@ -43,20 +51,15 @@ namespace CloneBookingAPI.Services.Database.Models
         [Required]
         [DataType(DataType.Date)]
         public DateTime CheckOut { get; set; }
+        public int Nights { get; set; }
 
         [Display(Name = "Promo code")]
-        [DataType(DataType.Text)]
-        [StringLength(20, MinimumLength = 8, ErrorMessage = "Incorrect length")]
         public string PromoCode { get; set; }
 
         [Required]
-        [DataType(DataType.Text)]
-        [StringLength(7, ErrorMessage = "Incorrect length")]
         public string UniqueNumber { get; set; }
 
         [Required]
-        [DataType(DataType.Text)]
-        [StringLength(6, ErrorMessage = "Incorrect length")]
         public string PIN { get; set; }
 
         public int? BookingStatusId { get; set; }
@@ -67,11 +70,17 @@ namespace CloneBookingAPI.Services.Database.Models
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }
 
+        public int CustomerInfoId { get; set; }
+        [ForeignKey("CustomerInfoId")]
+        public CustomerInfo CustomerInfo { get; set; }
+
         public int? UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
 
-        public List<TempUser> Guests { get; set; } = new();
+        public List<Guest> Guests { get; set; } = new();
+
+        public List<StayBookingsGuests> StayBookingsGuests { get; set; } = new();
 
     }
 }

@@ -82,6 +82,8 @@ namespace CloneBookingAPI
             services.AddCodeGeneratorService();
             services.AddSaltGeneratorService();
             services.AddSuggestionIdGeneratorService();
+            services.AddBookingIdGeneratorService();
+            services.AddBookingPINGeneratorService();
             services.AddFileUploaderService();
             services.AddPromocodeGeneratorService();
             services.AddFilterService();

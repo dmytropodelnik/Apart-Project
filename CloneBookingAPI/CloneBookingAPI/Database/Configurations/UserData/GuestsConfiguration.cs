@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CloneBookingAPI.Services.Database.Configurations.UserData
 {
-    public class TempUsersConfiguration : IEntityTypeConfiguration<TempUser>
+    public class GuestsConfiguration : IEntityTypeConfiguration<Guest>
     {
-        public void Configure(EntityTypeBuilder<TempUser> builder)
+        public void Configure(EntityTypeBuilder<Guest> builder)
         {
             builder.HasData(
-              new TempUser[]
+              new Guest[]
               {
 
               });

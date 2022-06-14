@@ -258,7 +258,7 @@ namespace CloneBookingAPI.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "TempUsers",
+                name: "Guests",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -270,7 +270,7 @@ namespace CloneBookingAPI.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TempUsers", x => x.Id);
+                    table.PrimaryKey("PK_Guests", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -1377,9 +1377,9 @@ namespace CloneBookingAPI.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_StayBookingTempUser_TempUsers_GuestsId",
+                        name: "FK_StayBookingTempUser_Guests_GuestsId",
                         column: x => x.GuestsId,
-                        principalTable: "TempUsers",
+                        principalTable: "Guests",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -3408,7 +3408,7 @@ namespace CloneBookingAPI.Migrations
                 name: "ReviewMessages");
 
             migrationBuilder.DropTable(
-                name: "TempUsers");
+                name: "Guests");
 
             migrationBuilder.DropTable(
                 name: "Rooms");

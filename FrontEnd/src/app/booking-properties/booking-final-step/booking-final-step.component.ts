@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Guest } from 'src/app/models/UserData/guest.item';
 import { BookingDetailsService } from 'src/app/services/booking-details.service';
 
 import AuthHelper from '../../utils/authHelper';
@@ -13,6 +15,7 @@ import MathHelper from '../../utils/mathHelper';
 })
 export class BookingFinalStepComponent implements OnInit {
   mathHelper: any = MathHelper;
+  imageHelper: any = ImageHelper;
 
   chosenSuggestion: any;
 
@@ -26,24 +29,43 @@ export class BookingFinalStepComponent implements OnInit {
   totalPrice: number = 0;
   promoCode: string = '';
 
+  firstName: string = '';
+  lastName: string = '';
+
+  email: string = '';
+  specialRequests: string = '';
+
   address: string = '';
   city: string = '';
   country: string = '';
   zipCode: string = '';
   phone: string = '';
 
+  guestsData: string[] = [];
+
   finalPrice: number = 0;
+  difference: number = 0;
 
   isSaved: boolean = false;
+  isForWork: boolean = false;
   isPromoCodeApplied: boolean = false;
+
+  newStayBooking: any;
 
   constructor(
     private router: Router,
+    private modalService: NgbModal,
     private activatedRouter: ActivatedRoute,
     private bookingDetailsService: BookingDetailsService,
     ) {
 
      }
+
+     openVerticallyCentered(content: any) {
+      this.modalService.open(content, {
+        centered: true,
+      });
+    }
 
   applyPromoCode(): void {
     if (this.promoCode.length < 6) {
@@ -67,6 +89,8 @@ export class BookingFinalStepComponent implements OnInit {
         if (response.code === 200) {
           this.isPromoCodeApplied = true;
           this.finalPrice = response.finalPrice;
+          this.discount = response.discount;
+          this.difference = response.difference;
         } else {
           alert(response.message);
         }
@@ -76,7 +100,7 @@ export class BookingFinalStepComponent implements OnInit {
       });
   }
 
-  completeBooking(): void {
+  completeBooking(revealContent: any): void {
     if (this.address.length < 5) {
       alert("Address must contain at least 5 characters!");
       return;
@@ -94,19 +118,67 @@ export class BookingFinalStepComponent implements OnInit {
       return;
     }
 
-    this.registerBooking();
+    this.registerBooking(revealContent);
   }
 
-  registerBooking(): void {
-    if (AuthHelper.isLogged()) {
-      this.router.navigate(['/viewproperties']);
-    } else {
-      this.showSuccessBooking();
-    }
+  registerBooking(revealContent: any): void {
+    const booking = {
+      suggestionId: this.chosenSuggestion.id,
+      discount: this.discount,
+      totalPrice: this.totalPrice,
+      finalPrice: this.finalPrice,
+      difference: this.difference,
+      isForWork: this.isForWork,
+      checkIn: this.checkIn,
+      checkOut: this.checkOut,
+      specialRequests: this.specialRequests,
+      promoCode: this.promoCode,
+      customerEmail: this.email,
+      userEmail: AuthHelper.getLogin(),
+      addressText: this.address,
+      city: this.city,
+      country: this.country,
+      phoneNumber: this.phone,
+      zipCode: this.zipCode,
+      guestsFullNames: this.guestsData,
+      firstName: this.firstName,
+      lastName: this.lastName,
+      nights: this.diffDays,
+    };
+
+    fetch(
+      `https://apartmain.azurewebsites.net/api/staybookings/addstaybooking`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(booking),
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.newStayBooking = response.resStayBooking;
+          if (AuthHelper.isLogged()) {
+            this.router.navigate(['/userbookings']);
+          } else {
+            this.showSuccessBooking(revealContent);
+            this.router.navigate(['']);
+          }
+        } else {
+          alert(response.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
-  showSuccessBooking(): void {
-
+  showSuccessBooking(revealContent: any): void {
+    this.openVerticallyCentered(revealContent);
   }
 
   showSuggestion(uniqueCode: number): void {
@@ -123,13 +195,30 @@ export class BookingFinalStepComponent implements OnInit {
     this.diffDays = this.bookingDetailsService.getDiffDays();
     this.checkIn = this.bookingDetailsService.getCheckInDate();
     this.checkOut = this.bookingDetailsService.getCheckOutDate();
+    this.guestsData = this.bookingDetailsService.getGuestsData();
 
     this.activatedRouter.queryParams.subscribe((params: any) => {
       if (params['totalPrice']) {
         this.totalPrice = params['totalPrice'];
+        this.finalPrice = this.totalPrice;
       }
       if (params['isSaved']) {
         this.isSaved = params['isSaved'];
+      }
+      if (params['email']) {
+        this.email = params['email'];
+      }
+      if (params['isForWork']) {
+        this.isForWork = params['isForWork'];
+      }
+      if (params['firstName']) {
+        this.firstName = params['firstName'];
+      }
+      if (params['lastName']) {
+        this.lastName = params['lastName'];
+      }
+      if (params['specialRequests']) {
+        this.specialRequests = params['specialRequests'];
       }
     });
   }

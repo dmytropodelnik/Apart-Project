@@ -38,8 +38,8 @@
         </div>
         <div *ngIf="isPromoCodeApplied" class="booking-details-price-item">
           <div>
-            <span>Discount with promo code: </span><span>-{{discount}}%</span>
-          </div>
+            <span>Discount with promo code: </span><span>-{{discount}}%</span><span> (-${{difference}}) </span>
+          </div><br/>
           <div>
             <span>Final price: </span><span>${{finalPrice}}</span>
           </div>
@@ -124,7 +124,7 @@
       </div>
 
       <div class="booking-details-fill-details">
-        <div><span>Enter your adress</span></div>
+        <div><span>Enter your address</span></div>
         <div class="booking-details-fill-name">
           <div>
             <label for="address" class="form-label">Address*</label>
@@ -154,7 +154,7 @@
             <button type="button" class="btn btn-primary">
               Check your booking
             </button>
-            <button type="button" class="btn btn-primary" (click)="completeBooking()">
+            <button type="button" class="btn btn-primary" (click)="completeBooking(revealContent)">
               Complete booking
             </button>
           </div>
@@ -164,3 +164,52 @@
   </div>
   <app-footer></app-footer>
 </body>
+
+<ng-template #revealContent let-modal>
+  <div class="modal-header">
+    <h2>Booking Info</h2>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+  </div>
+  <div class="modal-body">
+    <div class="user-bookings-card-left">
+      <img src="../../../assets/images/12.jpg" alt="photo" />
+      <div class="user-bookings-card-left-item">
+        <span>{{chosenSuggestion?.bookingCategory}}</span>
+        <span>{{newStayBooking.checkIn!.toString().substring(0, newStayBooking.checkIn!.toString().indexOf('T'))}} - {{newStayBooking.checkOut!.toString().substring(0, newStayBooking.checkOut!.toString().indexOf('T'))}}, {{newStayBooking?.suggestion?.address?.city.title}}</span>
+        <span>Nights: </span><span>{{newStayBooking.nights}}</span>
+        <span>Booking status: Reserved</span>
+        <span *ngIf="newStayBooking.isPaid">Booking is paid</span>
+        <span *ngIf="!newStayBooking.isPaid">Booking is not paid</span>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="modal-footer-remove">
+      <span>Is for work:</span><span *ngIf="newStayBooking.isForWork">Yes</span><span *ngIf="!newStayBooking.isForWork">No</span>
+      <span>Special requests:</span><span>{{newStayBooking.specialRequests}}</span>
+      <span>Price</span> <span>${{newStayBooking.price?.totalPrice}}</span>
+      <div *ngIf="newStayBooking.promoCode">
+        <span>Discount with promo code: </span><span>-{{newStayBooking.price?.discount}}%</span><span> (-${{newStayBooking.price?.difference}}) </span>
+      </div>
+      <span>Final price: </span><span>${{newStayBooking.price?.finalPrice}}</span>
+      <span>Customer: </span><span>{{newStayBooking.customerInfo?.firstName}} {{newStayBooking.customerInfo?.lastName}}</span>
+      <span>Customer email: </span><span>{{newStayBooking.customerInfo?.email}}</span>
+      <span>Customer phone number: </span><span>{{newStayBooking.customerInfo?.phoneNumber}}</span>
+      <span>Customer address: </span><span>              {{
+        newStayBooking.customerInfo?.addressText +
+        ", " +
+        newStayBooking.customerInfo?.city +
+        ", " +
+        newStayBooking.customerInfo?.country
+        }}</span>
+        <span *ngIf="newStayBooking.customerInfo?.zipCode">{{newStayBooking.customerInfo?.zipCode}}</span>
+        <span>Guests: </span>
+        <span *ngFor="let guest of newStayBooking.stayBookingsGuests; let i = index">
+          {{guest.guest.fullName}}
+        </span>
+      <div>
+        <button type="button" class="btn btn-primary" aria-label="Close" (click)="modal.dismiss('Cross click')">Close</button>
+      </div>
+    </div>
+  </div>
+</ng-template>

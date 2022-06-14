@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Guest } from 'src/app/models/UserData/guest.item';
 import { BookingDetailsService } from 'src/app/services/booking-details.service';
 
 import AuthHelper from '../../utils/authHelper';
@@ -97,10 +98,17 @@ export class FillingUserDetailsComponent implements OnInit {
       }
     }
 
+    this.bookingDetailsService.setGuestsData(this.guestsData);
+
     this.router.navigate(['/bookingfinalstep'], {
       queryParams: {
         totalPrice: this.totalPrice,
         isSaved: this.isSaved,
+        email: this.mainEmail,
+        isForWork: this.isForWork,
+        firstName: this.mainFirstName,
+        lastName: this.mainLastName,
+        specialRequests: this.specialRequests,
       },
     })
   }

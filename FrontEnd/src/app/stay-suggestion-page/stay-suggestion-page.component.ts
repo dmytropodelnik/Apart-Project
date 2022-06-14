@@ -545,7 +545,7 @@ export class StaySuggestionPageComponent implements OnInit {
   }
 
   rateStay(): void {
-    if (this.bookingNumber.length != 7) {
+    if (this.bookingNumber.length != 8) {
       alert('Enter a correct booking number!');
       return;
     }

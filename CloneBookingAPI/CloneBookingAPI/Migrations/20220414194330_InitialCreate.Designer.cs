@@ -9507,7 +9507,7 @@ namespace CloneBookingAPI.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TempUsers");
+                    b.ToTable("Guests");
                 });
 
             modelBuilder.Entity("CloneBookingAPI.Services.Database.Models.UserProfile.Favorite", b =>

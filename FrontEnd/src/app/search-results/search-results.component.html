@@ -533,6 +533,7 @@
           <div>
             <div class="left_information">
               <div class="left_information_name">
+                <div>{{item?.category}}</div>
                 <div class="left_information_title click-component" (click)="showSuggestion(item.uniqueCode, item.id)">{{
                   item?.name }}</div>
                 <div *ngFor="let item of item.starsRating; let i = index">

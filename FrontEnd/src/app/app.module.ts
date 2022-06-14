@@ -38,7 +38,7 @@ import { SuggestionReviewGradesListComponent } from './admin-panel/lists/suggest
 import { SurroundingObjectsListComponent } from './admin-panel/lists/surrounding-objects-list/surrounding-objects-list.component';
 import { SurroundingObjectTypesListComponent } from './admin-panel/lists/surrounding-object-types-list/surrounding-object-types-list.component';
 import { FavoritesListComponent } from './admin-panel/lists/favorites-list/favorites-list.component';
-import { TempUsersListComponent } from './admin-panel/lists/temp-users-list/temp-users-list.component';
+import { GuestsListComponent } from './admin-panel/lists/guests-list/guests-list.component';
 import { FacilitiesListComponent } from './admin-panel/lists/facilities-list/facilities-list.component';
 import { FacilityTypesListComponent } from './admin-panel/lists/facility-types-list/facility-types-list.component';
 import { FileModelsListComponent } from './admin-panel/lists/file-models-list/file-models-list.component';
@@ -157,7 +157,7 @@ import { BookingDetailsService } from './services/booking-details.service';
     SurroundingObjectsListComponent,
     SurroundingObjectTypesListComponent,
     FavoritesListComponent,
-    TempUsersListComponent,
+    GuestsListComponent,
     FacilitiesListComponent,
     FacilityTypesListComponent,
     FileModelsListComponent,

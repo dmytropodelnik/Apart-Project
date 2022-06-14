@@ -22,7 +22,7 @@ namespace CloneBookingAPI.Database.Models.Review
 
         public int? TempUserId { get; set; }
         [ForeignKey("TempUserId")]
-        public TempUser TempUser { get; set; }
+        public Guest TempUser { get; set; }
 
         public int? ReviewId { get; set; }
         [ForeignKey("ReviewId")]

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-
 import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
 import MathHelper from '../utils/mathHelper';
@@ -17,20 +16,80 @@ export class UserBookingsComponent implements OnInit {
 
   imageHelper: any = ImageHelper;
 
+  selectedBooking: number = 0;
+
   constructor(
     private modalService: NgbModal,
     private router: Router,
-    private activatedRoute: ActivatedRoute) {}
+    private activatedRoute: ActivatedRoute
+  ) {}
 
-  openVerticallyCentered(content: any) {
+  openVerticallyCentered(content: any, id: number) {
     this.modalService.open(content, {
       centered: true,
     });
+    this.selectedBooking = id;
   }
+
+  payBooking(): void {
+
+  }
+
+  getUserBooking(): void {
+    fetch(
+      `https://apartmain.azurewebsites.net/api/staybookings/getuserbookings?email=${AuthHelper.getLogin()}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.bookings = response.stayBookings;
+        } else {
+          alert(response.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  deleteBooking(): void {
+    fetch(
+      `https://apartmain.azurewebsites.net/api/staybookings/deletebooking?id=${this.selectedBooking}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.getUserBooking();
+        } else {
+          alert(response.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
 
   ngOnInit(): void {
     if (!AuthHelper.isLogged()) {
       this.router.navigate(['']);
     }
+    this.getUserBooking();
   }
 }

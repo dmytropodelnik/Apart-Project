@@ -35,6 +35,14 @@ namespace CloneBookingAPI.Services.Providers
         {
             services.AddScoped<SuggestionIdGenerator>();
         }
+        public static void AddBookingIdGeneratorService(this IServiceCollection services)
+        {
+            services.AddScoped<BookingIdGenerator>();
+        }
+        public static void AddBookingPINGeneratorService(this IServiceCollection services)
+        {
+            services.AddScoped<BookingPINGenerator>();
+        }
         public static void AddFileUploaderService(this IServiceCollection services)
         {
             services.AddTransient<FileUploader>();

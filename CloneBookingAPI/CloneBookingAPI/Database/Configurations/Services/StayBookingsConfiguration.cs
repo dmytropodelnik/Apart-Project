@@ -9,6 +9,8 @@ namespace CloneBookingAPI.Services.Database.Configurations
         public void Configure(EntityTypeBuilder<StayBooking> builder)
         {
             builder.Property(b => b.IsForWork).HasDefaultValue(false);
+            builder.Property(b => b.IsRevealed).HasDefaultValue(true);
+            builder.Property(b => b.IsPaid).HasDefaultValue(false);
 
             builder.HasData(
               new StayBooking[]
