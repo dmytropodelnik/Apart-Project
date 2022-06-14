@@ -157,6 +157,14 @@
       <span>Customer: </span><span>{{bookings[selectedBooking - 1].customerInfo.firstName}} {{bookings[selectedBooking - 1].customerInfo.lastName}}</span>
       <span>Customer email: </span><span>{{bookings[selectedBooking - 1].customerInfo.email}}</span>
       <span>Customer phone number: </span><span>{{bookings[selectedBooking - 1].customerInfo.phoneNumber}}</span>
+      <span>Customer address: </span><span>              {{
+        bookings[selectedBooking - 1].customerInfo?.addressText +
+        ", " +
+        bookings[selectedBooking - 1].customerInfo?.city +
+        ", " +
+        bookings[selectedBooking - 1].customerInfo?.country
+        }}</span>
+        <span *ngIf="bookings[selectedBooking - 1].customerInfo?.zipCode">{{bookings[selectedBooking - 1].customerInfo?.zipCode}}</span>
       <div>
         <button type="button" class="btn btn-primary" aria-label="Close" (click)="modal.dismiss('Cross click')">Close</button>
       </div>
