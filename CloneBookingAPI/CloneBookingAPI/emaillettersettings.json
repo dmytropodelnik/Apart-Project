@@ -1,4 +1,5 @@
 {
+  "SenderInfo": "Administration of Apartstep.fun",
   "EmailLetterTemplates": {
     "RegistrationLetterTemplate": {
       "Template": ""
