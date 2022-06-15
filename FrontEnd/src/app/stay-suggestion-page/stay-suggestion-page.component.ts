@@ -39,6 +39,8 @@ export class StaySuggestionPageComponent implements OnInit {
   facilityTypes: FacilityType[] = [];
   ruleTypes: SuggestionRuleType[] = [];
 
+  booking: any;
+
   chosenApartments: {
     name: string;
     amount: number;
@@ -86,7 +88,7 @@ export class StaySuggestionPageComponent implements OnInit {
   isSaved: string = 'false';
 
   isDateChosen: boolean = false;
-  isOwnerVerified: boolean = true;
+  isOwnerVerified: boolean = false;
 
   diffDays: number = 0;
 
@@ -99,7 +101,7 @@ export class StaySuggestionPageComponent implements OnInit {
   positiveSide: string = '';
   negativeSide: string = '';
 
-  ownerId: string = '';
+  owner: string = '';
 
   page: number = 1;
 
@@ -549,7 +551,7 @@ export class StaySuggestionPageComponent implements OnInit {
       alert('Enter a correct booking number!');
       return;
     }
-    if (this.bookingPin.length != 6) {
+    if (this.bookingPin.length < 6 && this.bookingPin.length > 8) {
       alert('Enter a correct booking PIN!');
       return;
     }
@@ -564,7 +566,8 @@ export class StaySuggestionPageComponent implements OnInit {
       .then((response) => {
         if (response.code === 200) {
           this.isOwnerVerified = true;
-          this.ownerId = response.ownerId;
+          this.owner = response.owner;
+          this.booking = response.booking;
         } else {
           alert(response.message);
         }
@@ -599,7 +602,13 @@ export class StaySuggestionPageComponent implements OnInit {
       bookingNumber: this.bookingNumber,
       bookingPIN: this.bookingPin,
       suggestionId: this.suggestion.id,
-      ownerId: 1, // this.ownerId,
+      owner: this.owner,
+      ownerFirstName: this.booking.customerInfo.firstName,
+      ownerLastName: this.booking.customerInfo.lastName,
+      addressText: this.booking.customerInfo.addressText,
+      city: this.booking.customerInfo.city,
+      country: this.booking.customerInfo.country,
+      ownerPhoneNumber: this.booking.customerInfo.phoneNumber,
       reviewMessage: {
         title: this.title,
         positiveText: this.positiveSide,
@@ -646,6 +655,7 @@ export class StaySuggestionPageComponent implements OnInit {
       .then((response) => {
         if (response.code === 200) {
           this.reviews.push(response.newReview);
+          this.reviewsAmount++;
           this.isOwnerVerified = false;
         } else {
           alert(response.message);

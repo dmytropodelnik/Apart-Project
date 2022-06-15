@@ -286,7 +286,6 @@ namespace CloneBookingAPI.Controllers.Services
             }
         }
 
-        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("verifyowner")]
         [HttpGet]
         public async Task<IActionResult> VerifyOwner(string bookingNumber, string bookingPIN)
@@ -299,18 +298,29 @@ namespace CloneBookingAPI.Controllers.Services
                     return Json(new { code = 400, message = "Input data is null." });
                 }
 
-                var res = await _context.StayBookings
+                var booking = await _context.StayBookings
+                    .Include(b => b.CustomerInfo)
                     .FirstOrDefaultAsync(b => b.UniqueNumber.Equals(bookingNumber) &&
                                 b.PIN.Equals(bookingPIN));
-                if (res is null)
+                if (booking is null)
                 {
                     return Json(new { code = 400, message = "Incorrect input data." });
                 }
 
+                string owner = null;
+                if (booking.UserId is not null)
+                {
+                    owner = booking.UserId.ToString();
+                }
+                else
+                {
+                    owner = booking.CustomerInfo.Email;
+                }
+
                 return Json(new { 
                     code = 200,
-                    bookingId = res.Id,
-                    ownerId = res.UserId,
+                    owner,
+                    booking,
                     message = "Owner is verified.",
                 });
             }

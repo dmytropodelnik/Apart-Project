@@ -211,6 +211,13 @@ export class BookingFinalStepComponent implements OnInit {
       this.letterMessage += this.newStayBooking.stayBookingsGuests[i].guest.fullName;
       this.letterMessage += ', ';
     }
+
+    this.letterMessage += `\n\n
+    Your booking unique number: ${this.newStayBooking.uniqueNumber}. \n
+    Your booking PIN: ${this.newStayBooking.pin}. \n
+    Save it in order to you have an opportunity to have an access to your booking!
+    `;
+    console.log(this.newStayBooking);
   }
 
   sendInfoLetter(): void {

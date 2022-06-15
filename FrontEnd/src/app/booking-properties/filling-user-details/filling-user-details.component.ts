@@ -132,7 +132,7 @@ export class FillingUserDetailsComponent implements OnInit {
           if (response.code === 200) {
             this.isSaved = response.result;
           } else {
-            alert(response.message);
+
           }
         })
         .catch((ex) => {

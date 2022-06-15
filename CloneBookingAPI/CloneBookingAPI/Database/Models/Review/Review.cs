@@ -1,4 +1,5 @@
 ﻿using CloneBookingAPI.Database.Models.Review;
+using CloneBookingAPI.Database.Models.UserData;
 using CloneBookingAPI.Services.Database.Configurations.Review;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using System;
@@ -15,6 +16,9 @@ namespace CloneBookingAPI.Services.Database.Models.Review
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
+        public int? CustomerInfoId { get; set; }
+        [ForeignKey("CustomerInfoId")]
+        public CustomerInfo CustomerInfo { get; set; }
         public int? UserId { get; set; }
         [ForeignKey("UserId")]
         public User User { get; set; }
