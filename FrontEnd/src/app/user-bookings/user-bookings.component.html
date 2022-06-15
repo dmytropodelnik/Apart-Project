@@ -53,7 +53,7 @@
           <span>{{item.checkIn!.toString().substring(0, item.checkIn!.toString().indexOf('T'))}} - {{item.checkOut!.toString().substring(0, item.checkOut!.toString().indexOf('T'))}}</span>
         </div>
         <div class="user-bookings-card">
-          <div class="user-bookings-card-left" (click)="openVerticallyCentered(revealContent, item.id)">
+          <div class="user-bookings-card-left" (click)="openVerticallyCentered(revealContent, i)">
             <img src="{{
               imageHelper.getImageDirectoryPath()
             }}suggestions/stays/{{ item.suggestion?.images[0].name }}" alt="image" />
@@ -75,12 +75,12 @@
                 </button>
                 <ul class="dropdown-menu">
                   <li class="dropdown-item">
-                    <button class="dropdown-button" (click)="openVerticallyCentered(revealContent, item.id)">
+                    <button class="dropdown-button" (click)="openVerticallyCentered(revealContent, i)">
                       Reveal information
                     </button>
                   </li>
                   <li class="dropdown-item">
-                    <button class="dropdown-button" (click)="openVerticallyCentered(removeContent, item.id)">
+                    <button class="dropdown-button" (click)="openVerticallyCentered(removeContent, i)">
                       Remove object
                     </button>
                   </li>
@@ -104,13 +104,13 @@
     <div class="user-bookings-card-left">
       <img src="{{
         imageHelper.getImageDirectoryPath()
-      }}suggestions/stays/{{ bookings[selectedBooking - 1].suggestion?.images[0].name }}" alt="photo" />
+      }}suggestions/stays/{{ bookings[selectedBooking]?.suggestion?.images[0].name }}" alt="photo" />
       <div class="user-bookings-card-left-item">
-        <span>{{bookings[selectedBooking - 1].suggestion?.bookingCategory?.category}}</span>
-        <span>{{bookings[selectedBooking - 1].checkIn!.toString().substring(0, bookings[selectedBooking - 1].checkIn!.toString().indexOf('T'))}} - {{bookings[selectedBooking - 1].checkOut!.toString().substring(0, bookings[selectedBooking - 1].checkOut!.toString().indexOf('T'))}}, {{bookings[selectedBooking - 1].suggestion?.address?.city?.title}}</span>
-        <span>Booking status: {{bookings[selectedBooking - 1].bookingStatus?.status}}</span>
-        <span *ngIf="bookings[selectedBooking - 1].isPaid">Booking is paid</span>
-        <span *ngIf="!bookings[selectedBooking - 1].isPaid">Booking is not paid</span>
+        <span>{{bookings[selectedBooking]?.suggestion?.bookingCategory?.category}}</span>
+        <span>{{bookings[selectedBooking]?.checkIn?.toString().substring(0, bookings[selectedBooking]?.checkIn?.toString().indexOf('T'))}} - {{bookings[selectedBooking]?.checkOut?.toString().substring(0, bookings[selectedBooking]?.checkOut?.toString().indexOf('T'))}}, {{bookings[selectedBooking]?.suggestion?.address?.city?.title}}</span>
+        <span>Booking status: {{bookings[selectedBooking]?.bookingStatus?.status}}</span>
+        <span *ngIf="bookings[selectedBooking]?.isPaid">Booking is paid</span>
+        <span *ngIf="!bookings[selectedBooking]?.isPaid">Booking is not paid</span>
       </div>
     </div>
   </div>
@@ -135,39 +135,39 @@
     <div class="user-bookings-card-left">
       <img src="{{
         imageHelper.getImageDirectoryPath()
-      }}suggestions/stays/{{ bookings[selectedBooking - 1].suggestion?.images[0].name }}" alt="photo" />
+      }}suggestions/stays/{{ bookings[selectedBooking]?.suggestion?.images[0].name }}" alt="photo" />
       <div class="user-bookings-card-left-item">
-        <span>{{bookings[selectedBooking - 1].suggestion?.bookingCategory?.category}}</span>
-        <span>{{bookings[selectedBooking - 1].checkIn!.toString().substring(0, bookings[selectedBooking - 1].checkIn!.toString().indexOf('T'))}} - {{bookings[selectedBooking - 1].checkOut!.toString().substring(0, bookings[selectedBooking - 1].checkOut!.toString().indexOf('T'))}}, {{bookings[selectedBooking - 1].suggestion?.address.city.title}}</span>
-        <span>Nights: </span><span>{{bookings[selectedBooking - 1].nights}}</span>
-        <span>Booking status: {{bookings[selectedBooking - 1].bookingStatus}}</span>
-        <span *ngIf="bookings[selectedBooking - 1].isPaid">Booking is paid</span>
-        <span *ngIf="!bookings[selectedBooking - 1].isPaid">Booking is not paid</span>
+        <span>{{bookings[selectedBooking]?.suggestion?.bookingCategory?.category}}</span>
+        <span>{{bookings[selectedBooking]?.checkIn?.toString().substring(0, bookings[selectedBooking]?.checkIn?.toString().indexOf('T'))}} - {{bookings[selectedBooking]?.checkOut?.toString().substring(0, bookings[selectedBooking]?.checkOut?.toString().indexOf('T'))}}, {{bookings[selectedBooking]?.suggestion?.address?.city?.title}}</span>
+        <span>Nights: </span><span>{{bookings[selectedBooking]?.nights}}</span>
+        <span>Booking status: {{bookings[selectedBooking]?.bookingStatus}}</span>
+        <span *ngIf="bookings[selectedBooking]?.isPaid">Booking is paid</span>
+        <span *ngIf="!bookings[selectedBooking]?.isPaid">Booking is not paid</span>
       </div>
     </div>
   </div>
   <div class="modal-footer">
     <div class="modal-footer-remove">
-      <span>Is for work:</span><span *ngIf="bookings[selectedBooking - 1].isForWork">Yes</span><span *ngIf="!bookings[selectedBooking - 1].isForWork">No</span>
-      <span>Special requests:</span><span>{{bookings[selectedBooking - 1].specialRequests}}</span>
-      <span>Price</span> <span>${{bookings[selectedBooking - 1].price?.totalPrice}}</span>
-      <div *ngIf="bookings[selectedBooking - 1].promoCode">
-        <span>Discount with promo code: </span><span>-{{bookings[selectedBooking - 1].price?.discount}}%</span><span> (-${{bookings[selectedBooking - 1].price?.difference}}) </span>
+      <span>Is for work:</span><span *ngIf="bookings[selectedBooking]?.isForWork">Yes</span><span *ngIf="!bookings[selectedBooking]?.isForWork">No</span>
+      <span>Special requests:</span><span>{{bookings[selectedBooking]?.specialRequests}}</span>
+      <span>Price</span> <span>${{bookings[selectedBooking]?.price?.totalPrice}}</span>
+      <div *ngIf="bookings[selectedBooking]?.promoCode">
+        <span>Discount with promo code: </span><span>-{{bookings[selectedBooking - 1]?.price?.discount}}%</span><span> (-${{bookings[selectedBooking]?.price?.difference}}) </span>
       </div>
-      <span>Final price: </span><span>${{bookings[selectedBooking - 1].price?.finalPrice}}</span>
-      <span>Customer: </span><span>{{bookings[selectedBooking - 1].customerInfo?.firstName}} {{bookings[selectedBooking - 1].customerInfo?.lastName}}</span>
-      <span>Customer email: </span><span>{{bookings[selectedBooking - 1].customerInfo?.email}}</span>
-      <span>Customer phone number: </span><span>{{bookings[selectedBooking - 1].customerInfo?.phoneNumber}}</span>
+      <span>Final price: </span><span>${{bookings[selectedBooking]?.price?.finalPrice}}</span>
+      <span>Customer: </span><span>{{bookings[selectedBooking]?.customerInfo?.firstName}} {{bookings[selectedBooking]?.customerInfo?.lastName}}</span>
+      <span>Customer email: </span><span>{{bookings[selectedBooking]?.customerInfo?.email}}</span>
+      <span>Customer phone number: </span><span>{{bookings[selectedBooking]?.customerInfo?.phoneNumber}}</span>
       <span>Customer address: </span><span>              {{
-        bookings[selectedBooking - 1].customerInfo?.addressText +
+        bookings[selectedBooking]?.customerInfo?.addressText +
         ", " +
-        bookings[selectedBooking - 1].customerInfo?.city +
+        bookings[selectedBooking]?.customerInfo?.city +
         ", " +
-        bookings[selectedBooking - 1].customerInfo?.country
+        bookings[selectedBooking]?.customerInfo?.country
         }}</span>
-        <span *ngIf="bookings[selectedBooking - 1].customerInfo?.zipCode">{{bookings[selectedBooking - 1].customerInfo?.zipCode}}</span>
+        <span *ngIf="bookings[selectedBooking]?.customerInfo?.zipCode">{{bookings[selectedBooking]?.customerInfo?.zipCode}}</span>
         <span>Guests: </span>
-        <span *ngFor="let guest of bookings[selectedBooking - 1].guests; let i = index">
+        <span *ngFor="let guest of bookings[selectedBooking]?.guests; let i = index">
           {{guest}}
         </span>
       <div>
