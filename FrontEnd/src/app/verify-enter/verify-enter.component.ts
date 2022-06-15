@@ -14,11 +14,15 @@ export class VerifyEnterComponent implements OnInit {
   email: string = '';
   oldEmail: string = '';
   code: string = '';
+  letterMessage: string= '';
+
   isToResetPassword: boolean = false;
   isToChangeEmail: boolean = false;
   isToDeleteCode: boolean = false;
   isToDeleteUser: boolean = false;
   isToSubscribeUser: boolean = false;
+  letterAction: boolean = false;
+
 
   repositoryEnum: RepositoryEnum = RepositoryEnum.Enter;
 
@@ -48,6 +52,25 @@ export class VerifyEnterComponent implements OnInit {
       .catch((ex) => {
         alert(ex);
         this.router.navigate(['']);
+      });
+  }
+
+  sendInfoLetter(): void {
+    fetch(
+      `https://localhost:44381/api/notifications/sendnotification?email=${this.email}&message=${this.letterMessage}&action=${this.letterAction}`,
+      {
+        method: 'GET',
+      }
+    )
+      .then((r) => r.json())
+      .then(async (data) => {
+        if (data.code === 200) {
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
       });
   }
 
@@ -81,6 +104,9 @@ export class VerifyEnterComponent implements OnInit {
             alert('Redirecting to reseting page!');
             this.router.navigate(['/resetpassword']);
           } else {
+            this.letterMessage = `You have successfully entered on Apartstep.fun with ${this.email}!`;
+            this.letterAction = true;
+            this.sendInfoLetter();
             this.router.navigate(['']);
           }
         } else {
@@ -135,6 +161,9 @@ export class VerifyEnterComponent implements OnInit {
         if (response.code === 200) {
           this.email = response.resUser.email;
           alert('You have successfully changed your email!');
+          this.letterMessage = `You have successfully changed your email on Apartstep.fun to ${this.email}!`;
+          this.letterAction = false;
+          this.sendInfoLetter();
         } else {
           alert('Save email error!');
         }
@@ -160,6 +189,9 @@ export class VerifyEnterComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           alert("Your account has been successfully deleted!");
+          this.letterMessage = `You have successfully deleted your account on Apartstep.fun with ${this.email}!`;
+          this.letterAction = true;
+          this.sendInfoLetter();
         } else {
           alert('Delete user error!');
         }
@@ -252,6 +284,9 @@ export class VerifyEnterComponent implements OnInit {
       .then((r) => {
         if (r.code === 200) {
           alert('You have successfully subscribed to our new deals!');
+          this.letterMessage = `You have successfully subscribed to Apartstep.fun new deals!`;
+          this.letterAction = true;
+          this.sendInfoLetter();
         } else {
           alert('Add deals subscriber error!');
         }

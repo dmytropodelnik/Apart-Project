@@ -15,7 +15,10 @@ export class PreferencesListComponent implements OnInit {
   isEditing: boolean[] = [];
   isDisabled: boolean[] = [];
 
+  letterAction: boolean = false;
+
   tempValue: string = '';
+  letterMessage: string= '';
 
   user: UserData = new UserData();
 
@@ -23,6 +26,25 @@ export class PreferencesListComponent implements OnInit {
 
   setCondition(id: number): void {
     this.isEditing[id] = !this.isEditing[id];
+  }
+
+  sendInfoLetter(): void {
+    fetch(
+      `https://localhost:44381/api/notifications/sendnotification?email=${AuthHelper.getLogin()}&message=${this.letterMessage}&action=${this.letterAction}`,
+      {
+        method: 'GET',
+      }
+    )
+      .then((r) => r.json())
+      .then(async (data) => {
+        if (data.code === 200) {
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   toggleUserMailings(value: boolean): void {
@@ -135,6 +157,10 @@ export class PreferencesListComponent implements OnInit {
           this.user.currency = response.resProfile.currency.abbreviation;
           this.setCondition(id);
           this.setConditionEditButtons(id, false);
+
+          this.letterMessage = `Your profile currency was successfully changed!`;
+          this.letterAction = false;
+          this.sendInfoLetter();
         } else {
           alert('Save currency error!');
         }
@@ -170,6 +196,10 @@ export class PreferencesListComponent implements OnInit {
           this.user.language = response.resProfile.language.title;
           this.setCondition(id);
           this.setConditionEditButtons(id, false);
+
+          this.letterMessage = `Your profile language was successfully changed!`;
+          this.letterAction = false;
+          this.sendInfoLetter();
         } else {
           alert('Save language error!');
         }

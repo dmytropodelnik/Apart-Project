@@ -327,11 +327,11 @@ namespace CloneBookingAPI.Controllers
                     }
                 }
 
-                bool resSending = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, $"You have successfully registered on Apartstep.fun with {email}!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
+                //bool resSending = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, $"You have successfully registered on Apartstep.fun with {email}!");
+                //if (res is false)
+                //{
+                //    return Json(new { code = 400, message = "Something wrong with email sending." });
+                //}
 
                 return Json(new { code = 200 });
             }
@@ -379,11 +379,11 @@ namespace CloneBookingAPI.Controllers
                     }
                 }
 
-                bool resSending = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, $"You have successfully entered on Apartstep.fun with {email}!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
+                //bool resSending = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, $"You have successfully entered on Apartstep.fun with {email}!");
+                //if (res is false)
+                //{
+                //    return Json(new { code = 400, message = "Something wrong with email sending." });
+                //}
 
                 return Json(new { code = 200 });
             }
@@ -431,11 +431,11 @@ namespace CloneBookingAPI.Controllers
                     }
                 }
 
-                bool resSending = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, $"You have successfully subscribed to Apartstep.fun new deals!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
+                //bool resSending = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, $"You have successfully subscribed to Apartstep.fun new deals!");
+                //if (res is false)
+                //{
+                //    return Json(new { code = 400, message = "Something wrong with email sending." });
+                //}
 
                 return Json(new { code = 200 });
             }
@@ -483,11 +483,11 @@ namespace CloneBookingAPI.Controllers
                     }
                 }
 
-                bool resSending = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, $"You have successfully deleted your account on Apartstep.fun with {email}!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
+                //bool resSending = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, $"You have successfully deleted your account on Apartstep.fun with {email}!");
+                //if (res is false)
+                //{
+                //    return Json(new { code = 400, message = "Something wrong with email sending." });
+                //}
 
                 return Json(new { code = 200 });
             }
@@ -535,11 +535,11 @@ namespace CloneBookingAPI.Controllers
                     }
                 }
 
-                bool resSending = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, $"You have successfully changed your email on Apartstep.fun to {email}!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
+                //bool resSending = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, $"You have successfully changed your email on Apartstep.fun to {email}!");
+                //if (res is false)
+                //{
+                //    return Json(new { code = 400, message = "Something wrong with email sending." });
+                //}
 
                 return Json(new { code = 200 });
             }
@@ -587,11 +587,11 @@ namespace CloneBookingAPI.Controllers
                     }
                 }
 
-                bool resSending = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, $"You have successfully reset your password on Apartstep.fun with {email}!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
+                //bool resSending = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, $"You have successfully reset your password on Apartstep.fun with {email}!");
+                //if (res is false)
+                //{
+                //    return Json(new { code = 400, message = "Something wrong with email sending." });
+                //}
 
                 return Json(new { code = 200 });
             }

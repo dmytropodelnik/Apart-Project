@@ -219,11 +219,11 @@ namespace CloneBookingAPI.Controllers
                     _jwtRepository.Repository.Add(resUser.Email, new List<string> { encodedJwt });
                 }
 
-                bool res = await _emailSender.SendEmailAsync(resUser.Email, _subjectProfileActionLetterTemplate, $"You have successfully entered on Apartstep.fun via social network with {resUser.Email}!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
+                //bool res = await _emailSender.SendEmailAsync(resUser.Email, _subjectProfileActionLetterTemplate, $"You have successfully entered on Apartstep.fun via social network with {resUser.Email}!");
+                //if (res is false)
+                //{
+                //    return Json(new { code = 400, message = "Something wrong with email sending." });
+                //}
 
                 // new JwtCodeCleanTimer(_jwtRepository, _configuration).SetTimer((key: user.Email, code: encodedJwt));
 

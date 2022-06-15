@@ -59,12 +59,6 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
 
-                bool res = await _emailSender.SendEmailAsync(resUser.Email, _subjectProfileChangingLetterTemplate, $"Your profile title was successfully changed to [{resUser.Title}]!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
-
                 return Json(new { 
                     code = 200,
                     resUser,
@@ -122,12 +116,6 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
 
-                bool res = await _emailSender.SendEmailAsync(resUser.Email, _subjectProfileChangingLetterTemplate, $"Your profile name was successfully changed to [{resUser.FirstName} {resUser.LastName}]!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
-
                 return Json(new { 
                     code = 200,
                     resUser,
@@ -182,12 +170,6 @@ namespace CloneBookingAPI.Controllers.UserData
 
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
-
-                bool res = await _emailSender.SendEmailAsync(resUser.Email, _subjectProfileChangingLetterTemplate, $"Your profile display name was successfully changed to [{resUser.DisplayName}]!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
 
                 return Json(new { 
                     code = 200,
@@ -244,12 +226,6 @@ namespace CloneBookingAPI.Controllers.UserData
 
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
-
-                bool res = await _emailSender.SendEmailAsync(user.Email, _subjectProfileChangingLetterTemplate, $"Your profile email was successfully changed to [{resUser.Email}]!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
 
                 return Json(new { 
                     code = 200,
@@ -315,12 +291,6 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
 
-                bool res = await _emailSender.SendEmailAsync(user.Email, _subjectProfileChangingLetterTemplate, $"Your profile password was successfully changed!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
-
                 return Json(new { 
                     code = 200,
                     resUser,
@@ -383,12 +353,6 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.Users.Update(resUser);
                 await _context.SaveChangesAsync();
 
-                bool res = await _emailSender.SendEmailAsync(user.Email, _subjectProfileChangingLetterTemplate, $"Your profile phone number was successfully changed to [{resUser.PhoneNumber}]!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
-
                 return Json(new { 
                     code = 200,
                     resUser,
@@ -447,12 +411,6 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.UserProfiles.Update(resProfile);
                 await _context.SaveChangesAsync();
 
-                bool res = await _emailSender.SendEmailAsync(user.Email, _subjectProfileChangingLetterTemplate, $"Your profile birth date was successfully changed to [{resProfile.BirthDate}]!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
-
                 return Json(new { 
                     code = 200,
                     resProfile,
@@ -510,12 +468,6 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.UserProfiles.Update(resProfile);
                 await _context.SaveChangesAsync();
 
-                bool res = await _emailSender.SendEmailAsync(user.Email, _subjectProfileChangingLetterTemplate, $"Your profile nationality was successfully changed to [{resProfile.Nationality}]!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
-
                 return Json(new { 
                     code = 200,
                     resProfile,
@@ -572,12 +524,6 @@ namespace CloneBookingAPI.Controllers.UserData
 
                 _context.UserProfiles.Update(resProfile);
                 await _context.SaveChangesAsync();
-
-                bool res = await _emailSender.SendEmailAsync(user.Email, _subjectProfileChangingLetterTemplate, $"Your profile gender was successfully changed!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
 
                 return Json(new { 
                     code = 200,
@@ -689,12 +635,6 @@ namespace CloneBookingAPI.Controllers.UserData
                 }
                 await _context.SaveChangesAsync();
 
-                bool res = await _emailSender.SendEmailAsync(user.Email, _subjectProfileChangingLetterTemplate, $"Your profile address was successfully changed!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
-
                 return Json(new { 
                     code = 200,
                     resAddress,
@@ -758,12 +698,6 @@ namespace CloneBookingAPI.Controllers.UserData
                 _context.UserProfiles.Update(resProfile);
                 await _context.SaveChangesAsync();
 
-                bool res = await _emailSender.SendEmailAsync(user.Email, _subjectProfileChangingLetterTemplate, $"Your profile language was successfully changed!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
-
                 return Json(new { 
                     code = 200,
                     resProfile,
@@ -826,12 +760,6 @@ namespace CloneBookingAPI.Controllers.UserData
 
                 _context.UserProfiles.Update(resProfile);
                 await _context.SaveChangesAsync();
-
-                bool res = await _emailSender.SendEmailAsync(user.Email, _subjectProfileChangingLetterTemplate, $"Your profile currency was successfully changed!");
-                if (res is false)
-                {
-                    return Json(new { code = 400, message = "Something wrong with email sending." });
-                }
 
                 return Json(new { 
                     code = 200,

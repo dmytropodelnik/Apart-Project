@@ -24,8 +24,10 @@ export class PersonalDetailsListComponent implements OnInit {
   imageHelper: any = ImageHelper;
 
   isEmailSent: boolean = false;
+  letterAction: boolean = false;
 
   errorMessage: string = '';
+  letterMessage: string= '';
 
   tempValue: string = '';
   tempLastName: string = '';
@@ -77,6 +79,25 @@ export class PersonalDetailsListComponent implements OnInit {
   saveButtonClick(id: number): void {
     this.setCondition(id);
     this.setConditionEditButtons(id, false);
+  }
+
+  sendInfoLetter(): void {
+    fetch(
+      `https://localhost:44381/api/notifications/sendnotification?email=${AuthHelper.getLogin()}&message=${this.letterMessage}&action=${this.letterAction}`,
+      {
+        method: 'GET',
+      }
+    )
+      .then((r) => r.json())
+      .then(async (data) => {
+        if (data.code === 200) {
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   cancelButtonClick(id: number): void {
@@ -191,6 +212,10 @@ export class PersonalDetailsListComponent implements OnInit {
           this.user.title = response.resUser.title;
           this.setCondition(id);
           this.setConditionEditButtons(id, false);
+
+          this.letterMessage = `Your profile title was successfully changed to [${this.user.title}]!`;
+          this.letterAction = false;
+          this.sendInfoLetter();
         } else {
           alert('Save title error!');
         }
@@ -241,6 +266,10 @@ export class PersonalDetailsListComponent implements OnInit {
           this.user.lastName = response.resUser.lastName;
           this.setCondition(id);
           this.setConditionEditButtons(id, false);
+
+          this.letterMessage = `Your profile name was successfully changed to [${this.user.firstName} ${this.user.lastName}]!`;
+          this.letterAction = false;
+          this.sendInfoLetter();
         } else {
           alert('Save name error!');
         }
@@ -280,6 +309,10 @@ export class PersonalDetailsListComponent implements OnInit {
           this.user.displayName = response.resUser.displayName;
           this.setCondition(id);
           this.setConditionEditButtons(id, false);
+
+          this.letterMessage = `Your profile display name was successfully changed to [${this.user.displayName}]!`;
+          this.letterAction = false;
+          this.sendInfoLetter();
         } else {
           alert('Save display name error!');
         }
@@ -382,6 +415,10 @@ export class PersonalDetailsListComponent implements OnInit {
           this.user.phoneNumber = response.resUser.phoneNumber;
           this.setCondition(id);
           this.setConditionEditButtons(id, false);
+
+          this.letterMessage = `Your profile phone number was successfully changed to [${this.user.phoneNumber}]!`;
+          this.letterAction = false;
+          this.sendInfoLetter();
         } else {
           alert('Save phone number error!');
         }
@@ -423,6 +460,10 @@ export class PersonalDetailsListComponent implements OnInit {
             );
             this.setCondition(id);
             this.setConditionEditButtons(id, false);
+
+            this.letterMessage = `Your profile birth date was successfully changed to [${this.user.pBirthDate}]!`;
+            this.letterAction = false;
+            this.sendInfoLetter();
           } else {
             alert('Save birth date error!');
           }
@@ -461,6 +502,10 @@ export class PersonalDetailsListComponent implements OnInit {
           this.user.nationality = response.resProfile.nationality;
           this.setCondition(id);
           this.setConditionEditButtons(id, false);
+
+          this.letterMessage = `Your profile nationality was successfully changed to [${this.user.nationality}]!`;
+          this.letterAction = false;
+          this.sendInfoLetter();
         } else {
           alert('Save nationality error!');
         }
@@ -496,6 +541,10 @@ export class PersonalDetailsListComponent implements OnInit {
           this.user.genderId = response.resProfile.genderId;
           this.setCondition(id);
           this.setConditionEditButtons(id, false);
+
+          this.letterMessage = `Your profile gender was successfully changed!`;
+          this.letterAction = false;
+          this.sendInfoLetter();
         } else {
           alert('Save gender error!');
         }
@@ -552,6 +601,10 @@ export class PersonalDetailsListComponent implements OnInit {
           this.user.city.title = response.resAddress.city.title;
           this.setCondition(id);
           this.setConditionEditButtons(id, false);
+
+          this.letterMessage = `Your profile address was successfully changed!`;
+          this.letterAction = false;
+          this.sendInfoLetter();
         } else {
           alert('Save address error!');
         }
