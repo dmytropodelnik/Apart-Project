@@ -50,6 +50,9 @@
     },
     "ProfileActionLetterSubject": {
       "Template": "New profile action"
+    },
+    "NewBookingLetterSubject": {
+      "Template": "Your booking has been successfully reserved!"
     }
   }
 }

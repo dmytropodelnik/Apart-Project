@@ -41,6 +41,8 @@ export class BookingFinalStepComponent implements OnInit {
   zipCode: string = '';
   phone: string = '';
 
+  letterMessage: string= '';
+
   guestsData: string[] = [];
 
   finalPrice: number = 0;
@@ -162,6 +164,8 @@ export class BookingFinalStepComponent implements OnInit {
       .then((response) => {
         if (response.code === 200) {
           this.newStayBooking = response.resStayBooking;
+          this.formLetter();
+          this.sendInfoLetter();
           if (AuthHelper.isLogged()) {
             this.router.navigate(['/userbookings']);
           } else {
@@ -170,6 +174,35 @@ export class BookingFinalStepComponent implements OnInit {
           }
         } else {
           alert(response.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  formLetter(): void {
+    this.letterMessage = `
+    Your booking has been successfully reserved!
+    Booking details:
+    Category: ${this.chosenSuggestion?.bookingCategory}
+    Check-in: ${this.newStayBooking.checkIn!.toString().substring(0, this.newStayBooking.checkIn!.toString().indexOf('T'))}
+    Check-out: ${this.newStayBooking.checkOut!.toString().substring(0, this.newStayBooking.checkOut!.toString().indexOf('T'))}
+    `;
+  }
+
+  sendInfoLetter(): void {
+    fetch(
+      `https://localhost:44381/api/notifications/sendsuccessbookingmail?email=${this.email}&message=${this.letterMessage}`,
+      {
+        method: 'GET',
+      }
+    )
+      .then((r) => r.json())
+      .then(async (data) => {
+        if (data.code === 200) {
+        } else {
+          alert(data.message);
         }
       })
       .catch((ex) => {

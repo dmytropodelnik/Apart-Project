@@ -23,6 +23,7 @@ namespace CloneBookingAPI.Controllers
 
         private readonly string _subjectProfileActionLetterTemplate = default;
         private readonly string _subjectProfileChangingLetterTemplate = default;
+        private readonly string _subjectNewBookingLetterTemplate = default;
 
         public NotificationsController(
             ApartProjectDbContext context,
@@ -35,6 +36,7 @@ namespace CloneBookingAPI.Controllers
 
             _subjectProfileChangingLetterTemplate = configuration["EmailLetterSubjectTemplates:ProfileChaningLetterSubject:Template"];
             _subjectProfileActionLetterTemplate = configuration["EmailLetterSubjectTemplates:ProfileActionLetterSubject:Template"];
+            _subjectNewBookingLetterTemplate = configuration["EmailLetterSubjectTemplates:NewBookingLetterSubject:Template"];
         }
 
         [TypeFilter(typeof(AuthorizationFilter))]
@@ -197,6 +199,46 @@ namespace CloneBookingAPI.Controllers
                 {
                     res = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, message);
                 }
+                if (res is false)
+                {
+                    return Json(new { code = 400, message = "Something wrong with email sending." });
+                }
+
+                return Json(new { code = 200 });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500, message = ex.Message });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500, message = ex.Message });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500, message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500, message = ex.Message });
+            }
+        }
+
+        [Route("sendsuccessbookingmail")]
+        [HttpGet]
+        public async Task<IActionResult> SendSuccessBookingMail(string email, string message)
+        {
+            try
+            {
+                bool res = await _emailSender.SendEmailAsync(email, _subjectNewBookingLetterTemplate, message);
                 if (res is false)
                 {
                     return Json(new { code = 400, message = "Something wrong with email sending." });
