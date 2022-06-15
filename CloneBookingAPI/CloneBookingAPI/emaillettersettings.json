@@ -44,6 +44,12 @@
     },
     "SubscriptionLetterSubject": {
       "Template": "Verify email to subscribe to our news!"
+    },
+    "ProfileChaningLetterSubject": {
+      "Template": "Profile info changing"
+    },
+    "ProfileActionLetterSubject": {
+      "Template": "New profile action"
     }
   }
 }
