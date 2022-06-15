@@ -183,12 +183,34 @@ export class BookingFinalStepComponent implements OnInit {
 
   formLetter(): void {
     this.letterMessage = `
-    Your booking has been successfully reserved!
-    Booking details:
-    Category: ${this.chosenSuggestion?.bookingCategory}
-    Check-in: ${this.newStayBooking.checkIn!.toString().substring(0, this.newStayBooking.checkIn!.toString().indexOf('T'))}
-    Check-out: ${this.newStayBooking.checkOut!.toString().substring(0, this.newStayBooking.checkOut!.toString().indexOf('T'))}
+    Your booking has been successfully reserved! \n
+    Booking details: \n
+    Category: ${this.chosenSuggestion?.bookingCategory} \n
+    Check-in: ${this.newStayBooking.checkIn!.toString().substring(0, this.newStayBooking.checkIn!.toString().indexOf('T'))} \n
+    Check-out: ${this.newStayBooking.checkOut!.toString().substring(0, this.newStayBooking.checkOut!.toString().indexOf('T'))} \n
+    Nights: ${this.newStayBooking.nights} \n
+    Is for work: ${this.newStayBooking.isForWork} \n
+    Special requests: ${this.newStayBooking.specialRequests} \n
+    Total price: ${this.newStayBooking.price?.totalPrice} \n
+    Used promocode: ${this.newStayBooking.promoCode} \n
+    Discount with promo code: ${this.newStayBooking.price?.discount}% (-$${this.newStayBooking.price?.difference}) \n
+    Final price: ${this.newStayBooking.price?.finalPrice} \n
+    Customer: ${this.newStayBooking.customerInfo?.firstName} ${this.newStayBooking.customerInfo?.lastName} \n
+    Customer email: ${this.newStayBooking.customerInfo?.email} \n
+    Customer phone number: ${this.newStayBooking.customerInfo?.phoneNumber} \n
+    Customer address: ${this.newStayBooking.customerInfo?.addressText +
+      ", " +
+      this.newStayBooking.customerInfo?.city +
+      ", " +
+      this.newStayBooking.customerInfo?.country + ' ' + this.newStayBooking.customerInfo?.zipCode} \n\n
+
+    Guests: \n
     `;
+
+    for (let i = 0; i < this.newStayBooking.stayBookingsGuests.length; i++) {
+      this.letterMessage += this.newStayBooking.stayBookingsGuests[i].guest.fullName;
+      this.letterMessage += ', ';
+    }
   }
 
   sendInfoLetter(): void {
