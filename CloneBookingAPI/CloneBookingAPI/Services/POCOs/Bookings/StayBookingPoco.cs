@@ -7,5 +7,6 @@ namespace CloneBookingAPI.Services.POCOs.Bookings
     {
         public int Nights { get; set; }
         public List<string> GuestsFullNames { get; set; }
+        public List<int> ApartmentsIds { get; set; }
     }
 }

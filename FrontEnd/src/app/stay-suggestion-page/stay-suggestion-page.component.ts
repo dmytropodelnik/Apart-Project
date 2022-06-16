@@ -42,6 +42,7 @@ export class StaySuggestionPageComponent implements OnInit {
   booking: any;
 
   chosenApartments: {
+    id: number;
     name: string;
     amount: number;
     roomsAmount: number;
@@ -145,6 +146,7 @@ export class StaySuggestionPageComponent implements OnInit {
   fillApartmentsArray(): void {
     for (let i = 0; i < this.suggestion.apartments.length; i++) {
       this.chosenApartments.push({
+        id: this.suggestion.apartments[i].id,
         name: this.suggestion.apartments[i].name,
         amount: -1,
         roomsAmount: this.suggestion.apartments[i].roomsAmount,

@@ -144,6 +144,7 @@ namespace CloneBookingAPI.Controllers.Review
                     .Include(r => r.ReviewMessage)
                     .Include(r => r.Reactions)
                     .Include(r => r.StayBooking)
+                        .ThenInclude(b => b.Apartments)
                     .Include(r => r.CustomerInfo)
                     .Include(r => r.Grades)
                         .ThenInclude(g => g.ReviewCategory)
@@ -165,6 +166,13 @@ namespace CloneBookingAPI.Controllers.Review
                         r.StayBooking.Nights,
                         CheckIn = r.StayBooking.CheckIn.ToShortDateString(),
                         CheckOut = r.StayBooking.CheckOut.ToShortDateString(),
+                        Apartments = r.StayBooking.Apartments
+                            .Select(a => new
+                            {
+                                a.Id,
+                                a.Name,
+                                a.GuestsLimit,
+                            }),
                     })
                     .ToListAsync();
                 if (reviews is null)

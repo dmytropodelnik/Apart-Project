@@ -18,6 +18,20 @@ export class BookingFinalStepComponent implements OnInit {
   imageHelper: any = ImageHelper;
 
   chosenSuggestion: any;
+  chosenApartments: {
+    id: number;
+    name: string;
+    amount: number;
+    roomsAmount: number;
+    guestsLimit: number;
+    bathroomsAmount: number;
+    apartmentSize: number;
+    priceInUSD: number;
+    isSuite: string;
+    isSmokingAllowed: boolean;
+  }[] = [];
+
+  apartmentsIds: number[] = [];
 
   grade: number = 0;
   diffDays: number = 0;
@@ -124,7 +138,11 @@ export class BookingFinalStepComponent implements OnInit {
   }
 
   registerBooking(revealContent: any): void {
-    const booking = {
+    for (let i = 0; i < this.chosenApartments.length; i++) {
+      this.apartmentsIds.push(this.chosenApartments[i].id);
+    }
+
+    let booking = {
       suggestionId: this.chosenSuggestion.id,
       discount: this.discount,
       totalPrice: this.totalPrice,
@@ -146,6 +164,7 @@ export class BookingFinalStepComponent implements OnInit {
       firstName: this.firstName,
       lastName: this.lastName,
       nights: this.diffDays,
+      ApartmentsIds: this.apartmentsIds,
     };
 
     fetch(
@@ -252,6 +271,7 @@ export class BookingFinalStepComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.chosenApartments = this.bookingDetailsService.getChosenApartments();
     this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();
     this.grade = this.bookingDetailsService.getGrade();
     this.diffDays = this.bookingDetailsService.getDiffDays();

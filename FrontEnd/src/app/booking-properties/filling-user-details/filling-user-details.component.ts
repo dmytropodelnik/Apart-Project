@@ -15,6 +15,7 @@ import MathHelper from '../../utils/mathHelper';
 export class FillingUserDetailsComponent implements OnInit {
   chosenSuggestion: any;
   chosenApartments: {
+    id: number;
     name: string;
     amount: number;
     roomsAmount: number;
