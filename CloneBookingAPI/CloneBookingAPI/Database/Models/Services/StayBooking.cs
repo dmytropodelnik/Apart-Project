@@ -79,8 +79,11 @@ namespace CloneBookingAPI.Services.Database.Models
         public User User { get; set; }
 
         public List<Guest> Guests { get; set; } = new();
+        public List<Models.Review.Review> Reviews { get; set; } = new();
+        public List<Apartment> Apartments { get; set; } = new();
 
-        public List<StayBookingsGuests> StayBookingsGuests { get; set; } = new();
+        public List<StayBookingGuest> StayBookingsGuests { get; set; } = new();
+        public List<StayBookingApartment> StayBookingsApartments { get; set; } = new();
 
     }
 }

@@ -27,9 +27,9 @@ namespace CloneBookingAPI.Services.Database.Models.Review
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }
 
-        //public int? StayBookingId { get; set; }
-        //[ForeignKey("StayBookingId")]
-        //public StayBooking StayBooking { get; set; }
+        public int? StayBookingId { get; set; }
+        [ForeignKey("StayBookingId")]
+        public StayBooking StayBooking { get; set; }
 
         [Required]
         public DateTime ReviewedDate { get; set; }

@@ -4,12 +4,12 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CloneBookingAPI.Database.Configurations.ViewModels
 {
-    public class StayBookingsGuestsConfiguration : IEntityTypeConfiguration<StayBookingGuest>
+    public class StayBookingsApartmentsConfiguration : IEntityTypeConfiguration<StayBookingApartment>
     {
-        public void Configure(EntityTypeBuilder<StayBookingGuest> builder)
+        public void Configure(EntityTypeBuilder<StayBookingApartment> builder)
         {
             builder.HasData(
-              new StayBookingGuest[]
+              new StayBookingApartment[]
               {
 
               });

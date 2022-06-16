@@ -143,6 +143,8 @@ namespace CloneBookingAPI.Controllers.Review
                     .Include(r => r.User.Profile.Image)
                     .Include(r => r.ReviewMessage)
                     .Include(r => r.Reactions)
+                    .Include(r => r.StayBooking)
+                    .Include(r => r.CustomerInfo)
                     .Include(r => r.Grades)
                         .ThenInclude(g => g.ReviewCategory)
                     .Where(r => r.SuggestionId == id)
@@ -160,6 +162,9 @@ namespace CloneBookingAPI.Controllers.Review
                         r.Grades,
                         Likes = r.Reactions.Where(r => r.IsLiked).Count(),
                         Dislikes = r.Reactions.Where(r => r.IsDisliked).Count(),
+                        r.StayBooking.Nights,
+                        CheckIn = r.StayBooking.CheckIn.ToShortDateString(),
+                        CheckOut = r.StayBooking.CheckOut.ToShortDateString(),
                     })
                     .ToListAsync();
                 if (reviews is null)

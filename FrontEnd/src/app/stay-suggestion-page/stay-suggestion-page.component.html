@@ -306,7 +306,7 @@
         <div>
           <div class="review-card-left-avatar-block">
             <div class="review-card-avatar">
-              <img src="{{ imageHelper.getRootDirectoryPath() }}{{
+              <img *ngIf="review.authorImage" src="{{ imageHelper.getRootDirectoryPath() }}{{
                   review.authorImage.path
                 }}" />
             </div>
@@ -314,9 +314,11 @@
               <span class="font-weight-bold">{{ review.author }}</span>
               <span class="text-block-subtitles">
                 <span class="avatar-block-flag">
-                  <img src="{{ imageHelper.getRootDirectoryPath() }}{{
+                  <img *ngIf="review.countryImage" src="{{ imageHelper.getRootDirectoryPath() }}{{
                       review.countryImage.path
-                    }}" /></span>
+                    }}" />
+
+                  </span>
                 <span>{{ review.country }}</span>
               </span>
             </div>
