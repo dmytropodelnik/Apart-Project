@@ -94,6 +94,57 @@ namespace CloneBookingAPI.Controllers.Services
                     .Include(b => b.Price)
                         .ThenInclude(p => p.Currency)
                     .Where(b => b.User.Email.Equals(email) && b.IsRevealed)
+                    .Select(b => new
+                    {
+                        b.Id,
+                        b.IsPaid,
+                        b.IsRevealed,
+                        b.IsForWork,
+                        BookingStatus = b.BookingStatus.Status,
+                        b.CheckIn,
+                        b.CheckOut,
+                        CustomerInfo = new
+                        {
+                            b.CustomerInfo.FirstName,
+                            b.CustomerInfo.LastName,
+                            b.CustomerInfo.Email,
+                            b.CustomerInfo.AddressText,
+                            b.CustomerInfo.City,
+                            b.CustomerInfo.Country,
+                            b.CustomerInfo.PhoneNumber,
+                            b.CustomerInfo.ZipCode,
+                        },
+                        Guests = b.Guests.Select(g => g.FullName),
+                        b.Nights,
+                        Price = new 
+                        { 
+                            b.Price.FinalPrice,
+                            b.Price.TotalPrice,
+                            b.Price.Difference,
+                            b.Price.Discount,
+                            Currency = new
+                            {
+                                b.Price.Currency.BankCode,
+                                b.Price.Currency.Value,
+                                b.Price.Currency.Abbreviation,
+                            },
+                        },
+                        b.PromoCode,
+                        b.SpecialRequests,
+                        Suggestion = new
+                        {
+                            b.Suggestion.Name,
+                            b.Suggestion.Address.City.Title,
+                            b.Suggestion.BookingCategory.Category,
+                            Images = b.Suggestion.Images
+                                    .Select(i => new
+                                    {
+                                        i.Path,
+                                        i.Name,
+                                    }),
+                        },
+                        b.UniqueNumber,
+                    })
                     .ToListAsync();
                 if (stayBookings is null)
                 {
@@ -103,25 +154,7 @@ namespace CloneBookingAPI.Controllers.Services
                 return Json(new
                 {
                     code = 200,
-                    stayBookings = stayBookings
-                        .Select(b => new
-                        {
-                            b.Id,
-                            b.IsPaid,
-                            b.IsRevealed,
-                            b.IsForWork,
-                            BookingStatus = b.BookingStatus.Status,
-                            b.CheckIn,
-                            b.CheckOut,
-                            b.CustomerInfo,
-                            Guests = b.Guests.Select(g => g.FullName),
-                            b.Nights,
-                            b.Price,
-                            b.PromoCode,
-                            b.SpecialRequests,
-                            Suggestion = b.Suggestion,
-                            b.UniqueNumber,
-                        }),
+                    stayBookings,
                 });
             }
             catch (ArgumentNullException ex)
