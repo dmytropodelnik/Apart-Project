@@ -325,10 +325,11 @@
           </div>
         </div>
         <div>
-          <span> Superior Double Room</span>
+          <span>{{review.apartments[0].name}}</span>
         </div>
         <div>
-          <span>5 nights · April 2022</span>
+          <span *ngIf="review.nights == 1">{{review.nights}} night </span><span *ngIf="review.nights > 1">{{review.nights}} nights </span>
+          <span>· {{review.checkIn}} </span><span>- {{review.checkOut}} </span>
         </div>
         <div>
           <span>Couple</span>
