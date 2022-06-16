@@ -332,7 +332,7 @@
           <span>· {{review.checkIn}} </span><span>- {{review.checkOut}} </span>
         </div>
         <div>
-          <span>Couple</span>
+          <span>{{review.guestsAmount}} </span><span *ngIf="review.guestsAmount == 1">guest</span><span *ngIf="review.guestsAmount > 1">guests</span>
         </div>
       </div>
       <div class="review-card-right">

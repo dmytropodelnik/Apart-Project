@@ -656,7 +656,7 @@ export class StaySuggestionPageComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.reviews.push(response.newReview);
+          this.getSuggestionReviews();
           this.reviewsAmount++;
           this.isOwnerVerified = false;
         } else {

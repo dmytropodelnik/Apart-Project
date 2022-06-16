@@ -166,6 +166,7 @@ namespace CloneBookingAPI.Controllers.Review
                         CheckIn = r.StayBooking.CheckIn.ToShortDateString(),
                         CheckOut = r.StayBooking.CheckOut.ToShortDateString(),
                         r.StayBooking.Nights,
+                        GuestsAmount = r.StayBooking.Guests.Count,
                         Apartments = r.StayBooking.Apartments
                             .Select(a => new
                             {
