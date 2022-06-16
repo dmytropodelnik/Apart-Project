@@ -21,6 +21,7 @@ namespace CloneBookingAPI.Services.Email
         private readonly string _emailPassword  = default;
         private readonly string _smtpHost       = default;
         private readonly string _smtpPort       = default;
+        private readonly string _senderInfo     = default;
 
         private readonly ApartProjectDbContext _context;
 
@@ -44,6 +45,7 @@ namespace CloneBookingAPI.Services.Email
             _emailPassword  = configuration["EmitterData:EmmiterPass"];
             _smtpHost       = configuration["EmitterData:SmtpData:Gmail:Host"];
             _smtpPort       = configuration["EmitterData:SmtpData:Gmail:Port"];
+            _senderInfo     = configuration["SenderInfo"];
 
             _context = context;
             _sendEmails += SendEmail;
@@ -73,7 +75,7 @@ namespace CloneBookingAPI.Services.Email
                         {
                             var emailMessage = new MimeMessage();
 
-                            emailMessage.From.Add(new MailboxAddress("Apartstep.com", _emailSender));
+                            emailMessage.From.Add(new MailboxAddress(_senderInfo, _emailSender));
                             emailMessage.To.Add(new MailboxAddress("", receiver.Receiver));
                             emailMessage.Subject = letter.Title;
                             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)

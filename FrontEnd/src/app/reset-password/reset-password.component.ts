@@ -25,6 +25,9 @@ export class ResetPasswordComponent implements OnInit {
   email: string = '';
   code: string = '';
 
+  letterMessage: string= '';
+  letterAction: boolean = false;
+
   constructor(
     private authService: AuthorizationService,
     private router: Router,
@@ -46,6 +49,26 @@ export class ResetPasswordComponent implements OnInit {
     return this.passwordForm.controls;
   }
 
+  sendInfoLetter(): void {
+    fetch(
+      `https://apartmain.azurewebsites.net/api/notifications/sendnotification?email=${this.email}&message=${this.letterMessage}&action=${this.letterAction}`,
+      {
+        method: 'GET',
+      }
+    )
+      .then((r) => r.json())
+      .then(async (data) => {
+        if (data.code === 200) {
+
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
   resetPassword(): void {
     let user = {
       email: AuthHelper.getLogin(),
@@ -65,6 +88,8 @@ export class ResetPasswordComponent implements OnInit {
       .then((response) => {
         if (response.code === 200) {
           alert('You have successfully reset your password!');
+          this.letterMessage = `You have successfully reset your password on Apartstep.fun with ${this.email}!`;
+          this.sendInfoLetter();
           this.router.navigate(['']);
         } else {
           alert(response.message);

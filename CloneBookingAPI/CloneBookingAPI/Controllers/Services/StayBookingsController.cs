@@ -94,6 +94,57 @@ namespace CloneBookingAPI.Controllers.Services
                     .Include(b => b.Price)
                         .ThenInclude(p => p.Currency)
                     .Where(b => b.User.Email.Equals(email) && b.IsRevealed)
+                    .Select(b => new
+                    {
+                        b.Id,
+                        b.IsPaid,
+                        b.IsRevealed,
+                        b.IsForWork,
+                        BookingStatus = b.BookingStatus.Status,
+                        b.CheckIn,
+                        b.CheckOut,
+                        CustomerInfo = new
+                        {
+                            b.CustomerInfo.FirstName,
+                            b.CustomerInfo.LastName,
+                            b.CustomerInfo.Email,
+                            b.CustomerInfo.AddressText,
+                            b.CustomerInfo.City,
+                            b.CustomerInfo.Country,
+                            b.CustomerInfo.PhoneNumber,
+                            b.CustomerInfo.ZipCode,
+                        },
+                        Guests = b.Guests.Select(g => g.FullName),
+                        b.Nights,
+                        Price = new 
+                        { 
+                            b.Price.FinalPrice,
+                            b.Price.TotalPrice,
+                            b.Price.Difference,
+                            b.Price.Discount,
+                            Currency = new
+                            {
+                                b.Price.Currency.BankCode,
+                                b.Price.Currency.Value,
+                                b.Price.Currency.Abbreviation,
+                            },
+                        },
+                        b.PromoCode,
+                        b.SpecialRequests,
+                        Suggestion = new
+                        {
+                            b.Suggestion.Name,
+                            b.Suggestion.Address.City.Title,
+                            b.Suggestion.BookingCategory.Category,
+                            Images = b.Suggestion.Images
+                                    .Select(i => new
+                                    {
+                                        i.Path,
+                                        i.Name,
+                                    }),
+                        },
+                        b.UniqueNumber,
+                    })
                     .ToListAsync();
                 if (stayBookings is null)
                 {
@@ -103,25 +154,7 @@ namespace CloneBookingAPI.Controllers.Services
                 return Json(new
                 {
                     code = 200,
-                    stayBookings = stayBookings
-                        .Select(b => new
-                        {
-                            b.Id,
-                            b.IsPaid,
-                            b.IsRevealed,
-                            b.IsForWork,
-                            BookingStatus = b.BookingStatus.Status,
-                            b.CheckIn,
-                            b.CheckOut,
-                            b.CustomerInfo,
-                            Guests = b.Guests.Select(g => g.FullName),
-                            b.Nights,
-                            b.Price,
-                            b.PromoCode,
-                            b.SpecialRequests,
-                            b.Suggestion,
-                            b.UniqueNumber,
-                        }),
+                    stayBookings,
                 });
             }
             catch (ArgumentNullException ex)
@@ -286,7 +319,6 @@ namespace CloneBookingAPI.Controllers.Services
             }
         }
 
-        [TypeFilter(typeof(AuthorizationFilter))]
         [Route("verifyowner")]
         [HttpGet]
         public async Task<IActionResult> VerifyOwner(string bookingNumber, string bookingPIN)
@@ -299,18 +331,29 @@ namespace CloneBookingAPI.Controllers.Services
                     return Json(new { code = 400, message = "Input data is null." });
                 }
 
-                var res = await _context.StayBookings
+                var booking = await _context.StayBookings
+                    .Include(b => b.CustomerInfo)
                     .FirstOrDefaultAsync(b => b.UniqueNumber.Equals(bookingNumber) &&
                                 b.PIN.Equals(bookingPIN));
-                if (res is null)
+                if (booking is null)
                 {
                     return Json(new { code = 400, message = "Incorrect input data." });
                 }
 
+                string owner = null;
+                if (booking.UserId is not null)
+                {
+                    owner = booking.UserId.ToString();
+                }
+                else
+                {
+                    owner = booking.CustomerInfo.Email;
+                }
+
                 return Json(new { 
                     code = 200,
-                    bookingId = res.Id,
-                    ownerId = res.UserId,
+                    owner,
+                    booking,
                     message = "Owner is verified.",
                 });
             }
@@ -353,10 +396,11 @@ namespace CloneBookingAPI.Controllers.Services
                     booking.CheckIn < DateTime.UtcNow  ||
                     booking.CheckOut < DateTime.UtcNow ||
                     booking.CheckOut < booking.CheckIn ||
-                    string.IsNullOrWhiteSpace(booking.City)         ||
-                    string.IsNullOrWhiteSpace(booking.Country)      ||
-                    string.IsNullOrWhiteSpace(booking.AddressText)  ||
-                    string.IsNullOrWhiteSpace(booking.PhoneNumber)  ||
+                    !booking.ApartmentsIds.Any()       ||
+                    string.IsNullOrWhiteSpace(booking.City)          ||
+                    string.IsNullOrWhiteSpace(booking.Country)       ||
+                    string.IsNullOrWhiteSpace(booking.AddressText)   ||
+                    string.IsNullOrWhiteSpace(booking.PhoneNumber)   ||
                     string.IsNullOrWhiteSpace(booking.CustomerEmail))
                 {
                     return Json(new { code = 400, message = "Input data is incorrect or null." });
@@ -398,6 +442,12 @@ namespace CloneBookingAPI.Controllers.Services
                     Price = newPrice,
                     Nights = booking.Nights,
                 };
+
+                var resApartments = await _context.Apartments
+                    .Where(a => booking.ApartmentsIds.Any(i => i == a.Id))
+                    .ToListAsync();
+
+                newStayBooking.Apartments.AddRange(resApartments);
 
                 foreach (var item in booking.GuestsFullNames)
                 {

@@ -25,19 +25,22 @@ export class AuthComponent implements OnInit {
   password: string = '';
   confirmPassword: string = '';
   verificationCode: string = '';
-  isExistUser = false;
-  isAccountExists = false;
-  isPasswordEqual = false;
+  isExistUser: boolean = false;
+  isAccountExists: boolean = false;
+  isPasswordEqual: boolean = false;
   passwordForm: FormGroup;
   codeForm: FormGroup;
   emailForm: FormGroup;
-  submitted = false;
-  isPasswordsEqual = false;
+  submitted: boolean = false;
+  isPasswordsEqual: boolean = false;
+  letterAction: boolean = false;
 
   userFirstName: string = '';
   userLastName: string = '';
   image: string = '';
   facebookId: string = '';
+
+  letterMessage: string = '';
 
   public user: SocialUser = new SocialUser;
 
@@ -81,6 +84,26 @@ export class AuthComponent implements OnInit {
 
   get f2() {
     return this.codeForm.controls;
+  }
+
+  sendInfoLetter(): void {
+    fetch(
+      `https://apartmain.azurewebsites.net/api/notifications/sendnotification?email=${this.email}&message=${this.letterMessage}&action=${this.letterAction}`,
+      {
+        method: 'GET',
+      }
+    )
+      .then((r) => r.json())
+      .then(async (data) => {
+        if (data.code === 200) {
+          document.location.href="https://www.apartstep.fun";
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
   }
 
   userCheck(): void {
@@ -130,6 +153,7 @@ export class AuthComponent implements OnInit {
           AuthHelper.saveAuth(user.email, response.encodedJwt);
           this.authService.setLogCondition(true);
           alert('You have successfully authenticated!');
+
           this.router.navigate(['']);
         } else {
           alert('Token fetching error!');
@@ -154,13 +178,15 @@ export class AuthComponent implements OnInit {
       body: JSON.stringify(user),
     })
       .then((response) => response.json())
-      .then((response) => {
+      .then(response => {
         if (response.code !== 400) {
           this.authService.setTokenKey(response.encodedJwt);
           AuthHelper.saveAuth(this.email, response.encodedJwt);
           this.authService.setLogCondition(true);
           alert('You have successfully authenticated!');
-          document.location.href="https://www.apartstep.fun";
+          this.letterMessage = `You have successfully entered on Apartstep.fun via social network with ${this.email}!`;
+          this.letterAction = true;
+          this.sendInfoLetter();
         } else {
           alert('Token fetching error!');
           if (AuthHelper.isFacebookLogin()) {

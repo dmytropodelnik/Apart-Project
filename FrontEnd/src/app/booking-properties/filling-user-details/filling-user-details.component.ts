@@ -15,6 +15,7 @@ import MathHelper from '../../utils/mathHelper';
 export class FillingUserDetailsComponent implements OnInit {
   chosenSuggestion: any;
   chosenApartments: {
+    id: number;
     name: string;
     amount: number;
     roomsAmount: number;
@@ -132,7 +133,7 @@ export class FillingUserDetailsComponent implements OnInit {
           if (response.code === 200) {
             this.isSaved = response.result;
           } else {
-            alert(response.message);
+
           }
         })
         .catch((ex) => {

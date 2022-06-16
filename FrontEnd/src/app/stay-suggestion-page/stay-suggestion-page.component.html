@@ -306,7 +306,7 @@
         <div>
           <div class="review-card-left-avatar-block">
             <div class="review-card-avatar">
-              <img src="{{ imageHelper.getRootDirectoryPath() }}{{
+              <img *ngIf="review.authorImage" src="{{ imageHelper.getRootDirectoryPath() }}{{
                   review.authorImage.path
                 }}" />
             </div>
@@ -314,22 +314,25 @@
               <span class="font-weight-bold">{{ review.author }}</span>
               <span class="text-block-subtitles">
                 <span class="avatar-block-flag">
-                  <img src="{{ imageHelper.getRootDirectoryPath() }}{{
+                  <img *ngIf="review.countryImage" src="{{ imageHelper.getRootDirectoryPath() }}{{
                       review.countryImage.path
-                    }}" /></span>
+                    }}" />
+
+                  </span>
                 <span>{{ review.country }}</span>
               </span>
             </div>
           </div>
         </div>
         <div>
-          <span> Superior Double Room</span>
+          <span>{{review.apartments[0].name}}</span>
         </div>
         <div>
-          <span>5 nights · April 2022</span>
+          <span *ngIf="review.nights == 1">{{review.nights}} night </span><span *ngIf="review.nights > 1">{{review.nights}} nights </span>
+          <span>· {{review.checkIn}} </span><span>- {{review.checkOut}} </span>
         </div>
         <div>
-          <span>Couple</span>
+          <span>{{review.guestsAmount}} </span><span *ngIf="review.guestsAmount == 1">guest</span><span *ngIf="review.guestsAmount > 1">guests</span>
         </div>
       </div>
       <div class="review-card-right">

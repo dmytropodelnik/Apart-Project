@@ -1,21 +1,20 @@
-﻿using CloneBookingAPI.Database.Models.ViewModels;
-using System.Collections.Generic;
+﻿using CloneBookingAPI.Database.Models.Suggestions;
+using CloneBookingAPI.Services.Database.Models;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CloneBookingAPI.Services.Database.Models.UserData
+namespace CloneBookingAPI.Database.Models.ViewModels
 {
-    [Table("Guests")]
-    public class Guest
+    [Table("StayBookingsApartments")]
+    public class StayBookingApartment
     {
         [Column("Id")]  // Можно было не указывать потому, что так было бы по умолчанию, благодаря соглашению о наименованиях EF
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        public string FullName { get; set; }
-
-        public List<StayBooking> StayBookings { get; set; } = new();
-
-        public List<StayBookingGuest> StayBookingsGuests { get; set; } = new();
+        public int StayBookingId { get; set; }
+        public StayBooking StayBooking { get; set; }
+        public int ApartmentId { get; set; }
+        public Apartment Apartment { get; set; }
     }
 }

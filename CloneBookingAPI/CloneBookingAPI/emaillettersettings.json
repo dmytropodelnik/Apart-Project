@@ -1,4 +1,5 @@
 {
+  "SenderInfo": "Administration of Apartstep.fun",
   "EmailLetterTemplates": {
     "RegistrationLetterTemplate": {
       "Template": ""
@@ -43,6 +44,15 @@
     },
     "SubscriptionLetterSubject": {
       "Template": "Verify email to subscribe to our news!"
+    },
+    "ProfileChaningLetterSubject": {
+      "Template": "Profile info changing"
+    },
+    "ProfileActionLetterSubject": {
+      "Template": "New profile action"
+    },
+    "NewBookingLetterSubject": {
+      "Template": "Your booking has been successfully reserved!"
     }
   }
 }

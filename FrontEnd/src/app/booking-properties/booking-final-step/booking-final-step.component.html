@@ -207,6 +207,7 @@
         <span *ngFor="let guest of newStayBooking.stayBookingsGuests; let i = index">
           {{guest.guest.fullName}}
         </span>
+        <span>We sent a booking confirmation letter to your email!</span>
       <div>
         <button type="button" class="btn btn-primary" aria-label="Close" (click)="modal.dismiss('Cross click')">Close</button>
       </div>

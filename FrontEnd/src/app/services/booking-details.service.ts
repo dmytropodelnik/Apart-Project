@@ -4,6 +4,7 @@ import { Guest } from "../models/UserData/guest.item";
 export class BookingDetailsService {
   chosenSuggestion: any;
   chosenApartments: {
+    id: number;
     name: string;
     amount: number;
     roomsAmount: number;

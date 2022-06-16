@@ -1,11 +1,11 @@
 ﻿using CloneBookingAPI.Filters;
 using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models.Location;
+using CloneBookingAPI.Services.Email;
 using CloneBookingAPI.Services.Generators;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -18,15 +18,21 @@ namespace CloneBookingAPI.Controllers.UserData
     public class UserDataEditorController : Controller
     {
         private readonly ApartProjectDbContext _context;
-
+        private readonly InfoEmailSender _emailSender;
         private readonly SaltGenerator _saltGenerator;
+
+        private readonly string _subjectProfileChangingLetterTemplate = default;
 
         public UserDataEditorController(
             ApartProjectDbContext context,
-            SaltGenerator saltGenerator)
+            SaltGenerator saltGenerator,
+            IConfiguration configuration)
         {
             _context = context;
             _saltGenerator = saltGenerator;
+            _emailSender = new InfoEmailSender(configuration);
+
+            _subjectProfileChangingLetterTemplate = configuration["EmailLetterSubjectTemplates:ProfileChaningLetterSubject:Template"];
         }
 
         [Route("edittitle")]
@@ -230,25 +236,25 @@ namespace CloneBookingAPI.Controllers.UserData
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -294,25 +300,25 @@ namespace CloneBookingAPI.Controllers.UserData
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -356,25 +362,25 @@ namespace CloneBookingAPI.Controllers.UserData
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -414,25 +420,25 @@ namespace CloneBookingAPI.Controllers.UserData
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 
@@ -508,7 +514,6 @@ namespace CloneBookingAPI.Controllers.UserData
 
                 var resProfile = await _context.UserProfiles
                                     .Include(p => p.User)
-                                    //.Include(p => p.Gender)
                                     .FirstOrDefaultAsync(p => p.User.Email.Equals(user.Email));
                 if (resProfile is null)
                 {
@@ -639,25 +644,25 @@ namespace CloneBookingAPI.Controllers.UserData
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500 });
             }
         }
 

@@ -41,13 +41,15 @@ namespace CloneBookingAPI.Database.Models.Suggestions
         [DataType(DataType.MultilineText)]
         public string Description { get; set; }
 
-        public int SuggestionId { get; set; }
+        public int? SuggestionId { get; set; }
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }
 
         public List<Facility> Facilities { get; set; } = new();
         public List<BookedPeriod> BookedPeriods { get; set; } = new();
+        public List<StayBooking> StayBookings { get; set; } = new();
         public List<ApartmentBookedPeriod> ApartmentsBookedPeriods { get; set; } = new();
         public List<ApartmentFacility> ApartmentsFacilities { get; set; } = new();
+        public List<StayBookingApartment> StayBookingsApartments { get; set; } = new();
     }
 }

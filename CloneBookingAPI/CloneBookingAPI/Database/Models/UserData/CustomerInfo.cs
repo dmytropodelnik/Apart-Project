@@ -29,5 +29,6 @@ namespace CloneBookingAPI.Database.Models.UserData
         public string ZipCode { get; set; }
 
         public List<StayBooking> StayBookings { get; set; } = new();
+        public List<CloneBookingAPI.Services.Database.Models.Review.Review> Reviews { get; set; } = new();
     }
 }

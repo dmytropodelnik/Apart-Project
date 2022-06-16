@@ -51,6 +51,8 @@ export class UserBookingsComponent implements OnInit {
       .then((response) => {
         if (response.code === 200) {
           this.bookings = response.stayBookings;
+          console.log(this.bookings);
+          console.log(this.selectedBooking);
         } else {
           alert(response.message);
         }

@@ -1,7 +1,9 @@
 ﻿using CloneBookingAPI.Database.Models.Review;
+using CloneBookingAPI.Database.Models.UserData;
 using CloneBookingAPI.Filters;
 using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Configurations.Review;
+using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.POCOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -141,6 +143,9 @@ namespace CloneBookingAPI.Controllers.Review
                     .Include(r => r.User.Profile.Image)
                     .Include(r => r.ReviewMessage)
                     .Include(r => r.Reactions)
+                    .Include(r => r.StayBooking)
+                        .ThenInclude(b => b.Apartments)
+                    .Include(r => r.CustomerInfo)
                     .Include(r => r.Grades)
                         .ThenInclude(g => g.ReviewCategory)
                     .Where(r => r.SuggestionId == id)
@@ -158,6 +163,17 @@ namespace CloneBookingAPI.Controllers.Review
                         r.Grades,
                         Likes = r.Reactions.Where(r => r.IsLiked).Count(),
                         Dislikes = r.Reactions.Where(r => r.IsDisliked).Count(),
+                        CheckIn = r.StayBooking.CheckIn.ToShortDateString(),
+                        CheckOut = r.StayBooking.CheckOut.ToShortDateString(),
+                        r.StayBooking.Nights,
+                        GuestsAmount = r.StayBooking.Guests.Count,
+                        Apartments = r.StayBooking.Apartments
+                            .Select(a => new
+                            {
+                                a.Id,
+                                a.Name,
+                                a.GuestsLimit,
+                            }),
                     })
                     .ToListAsync();
                 if (reviews is null)
@@ -245,8 +261,8 @@ namespace CloneBookingAPI.Controllers.Review
                 if (review is null               ||
                     review.ReviewMessage is null ||
                     review.Grades is null        ||
-                    review.OwnerId < 1           ||
                     review.SuggestionId < 1      ||
+                    string.IsNullOrWhiteSpace(review.Owner)                      ||
                     string.IsNullOrWhiteSpace(review.BookingNumber)              ||
                     string.IsNullOrWhiteSpace(review.BookingPIN)                 ||
                     string.IsNullOrWhiteSpace(review.ReviewMessage.Title)        ||
@@ -256,22 +272,41 @@ namespace CloneBookingAPI.Controllers.Review
                     return Json(new { code = 400, message = "Review data is null." });
                 }
 
-                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == review.OwnerId);
-                if (resUser is null)
-                {
-                    return Json(new { code = 400, message = "User is not found." });
-                }
-
-                var resBooking = await _context.StayBookings
-                    .FirstOrDefaultAsync(b => b.UserId == resUser.Id &&
-                                              b.UniqueNumber.Equals(review.BookingNumber) &&
-                                              b.PIN.Equals(review.BookingPIN));
-                if (resBooking is null)
-                {
-                    return Json(new { code = 400, message = "You don't have access to write a review to this suggestion." });
-                }
-
                 CloneBookingAPI.Services.Database.Models.Review.Review newReview = new();
+                User resUser = new();
+
+                if (int.TryParse(review.Owner, out int resOwner))
+                {
+                    resUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == resOwner);
+                    if (resUser is null)
+                    {
+                        return Json(new { code = 400, message = "User is not found." });
+                    }
+
+                    var resBooking = await _context.StayBookings
+                        .FirstOrDefaultAsync(b => b.UserId == resUser.Id &&
+                              b.UniqueNumber.Equals(review.BookingNumber) &&
+                              b.PIN.Equals(review.BookingPIN));
+                    if (resBooking is null)
+                    {
+                        return Json(new { code = 400, message = "You don't have access to write a review to this suggestion." });
+                    }
+                    newReview.StayBooking = resBooking;
+                }
+                else
+                {
+                    var resBooking = await _context.StayBookings
+                        .Include(b => b.CustomerInfo)
+                        .FirstOrDefaultAsync(b => b.CustomerInfo.Email.Equals(review.Owner) &&
+                            b.UniqueNumber.Equals(review.BookingNumber) &&
+                            b.PIN.Equals(review.BookingPIN));
+                    if (resBooking is null)
+                    {
+                        return Json(new { code = 400, message = "You don't have access to write a review to this suggestion." });
+                    }
+                    newReview.StayBooking = resBooking;
+                }
+
                 List<SuggestionReviewGrade> reviewGrades = new();
 
                 for (int i = 0; i < review.Grades.Count; i++)
@@ -293,9 +328,28 @@ namespace CloneBookingAPI.Controllers.Review
                 };
 
                 newReview.ReviewMessage = newReviewMessage;
-                newReview.UserId = resUser.Id;
                 newReview.ReviewedDate = DateTime.UtcNow;
                 newReview.SuggestionId = review.SuggestionId;
+
+                if (resOwner != 0)
+                {
+                    newReview.UserId = resUser.Id;
+                }
+                else
+                {
+                    CustomerInfo newCustomerInfo = new()
+                    {
+                        FirstName = review.OwnerFirstName,
+                        LastName = review.OwnerLastName,
+                        PhoneNumber = review.OwnerPhoneNumber,
+                        AddressText = review.AddressText,
+                        City = review.City,
+                        Country = review.Country,
+                        Email = review.Owner,
+                    };
+
+                    newReview.CustomerInfo = newCustomerInfo;
+                }
 
                 _context.Reviews.Add(newReview);
                 await _context.SaveChangesAsync();

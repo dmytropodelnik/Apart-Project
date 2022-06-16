@@ -6,9 +6,9 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
-namespace CloneBookingAPI.Services
+namespace CloneBookingAPI.Services.Email
 {
-    public class AuthEmailSender : IEmailSenderAsync
+    public class BookingsEmailSender : IEmailSenderAsync
     {
         private readonly string _emailSender    = default;
         private readonly string _emailPassword  = default;
@@ -16,7 +16,7 @@ namespace CloneBookingAPI.Services
         private readonly string _smtpPort       = default;
         private readonly string _senderInfo     = default;
 
-        public AuthEmailSender(IConfiguration configuration)
+        public BookingsEmailSender(IConfiguration configuration)
         {
             _emailSender    = configuration["EmitterData:EmmiterEmail"];
             _emailPassword  = configuration["EmitterData:EmmiterPass"];

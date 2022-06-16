@@ -202,7 +202,7 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.Entity<StayBooking>()
                 .HasMany(b => b.Guests)
                 .WithMany(g => g.StayBookings)
-                .UsingEntity<StayBookingsGuests>(
+                .UsingEntity<StayBookingGuest>(
                     j => j
                         .HasOne(b => b.Guest)
                         .WithMany(g => g.StayBookingsGuests)
@@ -214,6 +214,23 @@ namespace CloneBookingAPI.Services.Database
                     j =>
                     {
                         j.HasKey(t => new { t.StayBookingId, t.GuestId });
+                    });
+
+            modelBuilder.Entity<StayBooking>()
+                .HasMany(b => b.Apartments)
+                .WithMany(g => g.StayBookings)
+                .UsingEntity<StayBookingApartment>(
+                    j => j
+                        .HasOne(b => b.Apartment)
+                        .WithMany(g => g.StayBookingsApartments)
+                        .HasForeignKey(bg => bg.ApartmentId),
+                    j => j
+                        .HasOne(g => g.StayBooking)
+                        .WithMany(b => b.StayBookingsApartments)
+                        .HasForeignKey(bg => bg.StayBookingId),
+                    j =>
+                    {
+                        j.HasKey(t => new { t.StayBookingId, t.ApartmentId });
                     });
 
             modelBuilder.ApplyConfiguration(new FlightClassTypesConfiguration());
@@ -277,6 +294,7 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new BookingStatusesConfiguration());
             modelBuilder.ApplyConfiguration(new CustomerInfosConfiguration());
             modelBuilder.ApplyConfiguration(new StayBookingsGuestsConfiguration());
+            modelBuilder.ApplyConfiguration(new StayBookingsApartmentsConfiguration());
         }
     }
 }

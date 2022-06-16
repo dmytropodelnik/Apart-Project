@@ -18,6 +18,20 @@ export class BookingFinalStepComponent implements OnInit {
   imageHelper: any = ImageHelper;
 
   chosenSuggestion: any;
+  chosenApartments: {
+    id: number;
+    name: string;
+    amount: number;
+    roomsAmount: number;
+    guestsLimit: number;
+    bathroomsAmount: number;
+    apartmentSize: number;
+    priceInUSD: number;
+    isSuite: string;
+    isSmokingAllowed: boolean;
+  }[] = [];
+
+  apartmentsIds: number[] = [];
 
   grade: number = 0;
   diffDays: number = 0;
@@ -40,6 +54,8 @@ export class BookingFinalStepComponent implements OnInit {
   country: string = '';
   zipCode: string = '';
   phone: string = '';
+
+  letterMessage: string= '';
 
   guestsData: string[] = [];
 
@@ -122,7 +138,11 @@ export class BookingFinalStepComponent implements OnInit {
   }
 
   registerBooking(revealContent: any): void {
-    const booking = {
+    for (let i = 0; i < this.chosenApartments.length; i++) {
+      this.apartmentsIds.push(this.chosenApartments[i].id);
+    }
+
+    let booking = {
       suggestionId: this.chosenSuggestion.id,
       discount: this.discount,
       totalPrice: this.totalPrice,
@@ -144,6 +164,7 @@ export class BookingFinalStepComponent implements OnInit {
       firstName: this.firstName,
       lastName: this.lastName,
       nights: this.diffDays,
+      ApartmentsIds: this.apartmentsIds,
     };
 
     fetch(
@@ -162,6 +183,8 @@ export class BookingFinalStepComponent implements OnInit {
       .then((response) => {
         if (response.code === 200) {
           this.newStayBooking = response.resStayBooking;
+          this.formLetter();
+          this.sendInfoLetter();
           if (AuthHelper.isLogged()) {
             this.router.navigate(['/userbookings']);
           } else {
@@ -170,6 +193,64 @@ export class BookingFinalStepComponent implements OnInit {
           }
         } else {
           alert(response.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  formLetter(): void {
+    this.letterMessage = `
+    Your booking has been successfully reserved! \n
+    Booking details: \n
+    Category: ${this.chosenSuggestion?.bookingCategory} \n
+    Check-in: ${this.newStayBooking.checkIn!.toString().substring(0, this.newStayBooking.checkIn!.toString().indexOf('T'))} \n
+    Check-out: ${this.newStayBooking.checkOut!.toString().substring(0, this.newStayBooking.checkOut!.toString().indexOf('T'))} \n
+    Nights: ${this.newStayBooking.nights} \n
+    Is for work: ${this.newStayBooking.isForWork} \n
+    Special requests: ${this.newStayBooking.specialRequests} \n
+    Total price: ${this.newStayBooking.price?.totalPrice} \n
+    Used promocode: ${this.newStayBooking.promoCode} \n
+    Discount with promo code: ${this.newStayBooking.price?.discount}% (-$${this.newStayBooking.price?.difference}) \n
+    Final price: ${this.newStayBooking.price?.finalPrice} \n
+    Customer: ${this.newStayBooking.customerInfo?.firstName} ${this.newStayBooking.customerInfo?.lastName} \n
+    Customer email: ${this.newStayBooking.customerInfo?.email} \n
+    Customer phone number: ${this.newStayBooking.customerInfo?.phoneNumber} \n
+    Customer address: ${this.newStayBooking.customerInfo?.addressText +
+      ", " +
+      this.newStayBooking.customerInfo?.city +
+      ", " +
+      this.newStayBooking.customerInfo?.country + ' ' + this.newStayBooking.customerInfo?.zipCode} \n\n
+
+    Guests: \n
+    `;
+
+    for (let i = 0; i < this.newStayBooking.stayBookingsGuests.length; i++) {
+      this.letterMessage += this.newStayBooking.stayBookingsGuests[i].guest.fullName;
+      this.letterMessage += ', ';
+    }
+
+    this.letterMessage += `\n\n
+    Your booking unique number: ${this.newStayBooking.uniqueNumber}. \n
+    Your booking PIN: ${this.newStayBooking.pin}. \n
+    Save it in order to you have an opportunity to have an access to your booking!
+    `;
+    console.log(this.newStayBooking);
+  }
+
+  sendInfoLetter(): void {
+    fetch(
+      `https://apartmain.azurewebsites.net/api/notifications/sendsuccessbookingmail?email=${this.email}&message=${this.letterMessage}`,
+      {
+        method: 'GET',
+      }
+    )
+      .then((r) => r.json())
+      .then(async (data) => {
+        if (data.code === 200) {
+        } else {
+          alert(data.message);
         }
       })
       .catch((ex) => {
@@ -190,6 +271,7 @@ export class BookingFinalStepComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.chosenApartments = this.bookingDetailsService.getChosenApartments();
     this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();
     this.grade = this.bookingDetailsService.getGrade();
     this.diffDays = this.bookingDetailsService.getDiffDays();

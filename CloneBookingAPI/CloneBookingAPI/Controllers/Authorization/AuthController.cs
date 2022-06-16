@@ -29,13 +29,13 @@ namespace CloneBookingAPI.Controllers
         private readonly string _subjectResetPasswordLetterTemplate = default;
         private readonly string _subjectChangeEmailLetterTemplate   = default;
         private readonly string _subjectDeleteUserLetterTemplate    = default;
-        private readonly string _subjectSubscriptionLetterTemplate = default;
+        private readonly string _subjectSubscriptionLetterTemplate  = default;
 
         private readonly string _enterLinkTemplate          = default;
         private readonly string _resetPasswordLinkTemplate  = default;
         private readonly string _changeEmailLinkTemplate    = default;
         private readonly string _deleteUserLinkTemplate     = default;
-        private readonly string _subscriptionLinkTemplate = default;
+        private readonly string _subscriptionLinkTemplate   = default;
 
         public AuthController(ApartProjectDbContext context, IConfiguration configuration)
         {
@@ -104,7 +104,7 @@ namespace CloneBookingAPI.Controllers
                 bool res = await _emailSender.SendEmailAsync(correctEmail, _subjectRegistrationLetterTemplate, code);
                 if (res is false)
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Something wrong with email sending." });
                 }
 
                 return Json(new { code = 200 });
@@ -113,7 +113,7 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message });
             }
         }
 
@@ -125,7 +125,7 @@ namespace CloneBookingAPI.Controllers
             {
                 if (string.IsNullOrWhiteSpace(emailTrim) || string.IsNullOrWhiteSpace(code))
                 {
-                    return Json(new { code = 415 });
+                    return Json(new { code = 400 });
                 }
 
                 string correctEmail = emailTrim.Trim();
@@ -139,7 +139,7 @@ namespace CloneBookingAPI.Controllers
                     linkTemplate);
                 if (res is false)
                 {
-                    return Json(new { code = 416 });
+                    return Json(new { code = 400, message = "Something wrong with email sending." });
                 }
 
                 return Json(new { code = 200 });
@@ -148,19 +148,19 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message });
             }
             catch (ArgumentException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = ex.Message });
+                return Json(new { code = 500, message = ex.Message });
             }
         }
 
@@ -173,7 +173,7 @@ namespace CloneBookingAPI.Controllers
             {
                 if (string.IsNullOrWhiteSpace(emailTrim) || string.IsNullOrWhiteSpace(code))
                 {
-                    return Json(new { code = 415 });
+                    return Json(new { code = 400, message = "Input data is null." });
                 }
 
                 string correctEmail = emailTrim.Trim();
@@ -187,7 +187,7 @@ namespace CloneBookingAPI.Controllers
                     linkTemplate);
                 if (res is false)
                 {
-                    return Json(new { code = 416 });
+                    return Json(new { code = 400, message = "Something wrong with email sending." });
                 }
 
                 return Json(new { code = 200 });
@@ -196,19 +196,19 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message });
             }
             catch (ArgumentException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = ex.Message });
+                return Json(new { code = 500, message = ex.Message });
             }
         }
 
@@ -221,7 +221,7 @@ namespace CloneBookingAPI.Controllers
             {
                 if (string.IsNullOrWhiteSpace(emailTrim) || string.IsNullOrWhiteSpace(code))
                 {
-                    return Json(new { code = 415 });
+                    return Json(new { code = 400 });
                 }
 
                 string correctEmail = emailTrim.Trim();
@@ -238,7 +238,7 @@ namespace CloneBookingAPI.Controllers
                     linkTemplate);
                 if (res is false)
                 {
-                    return Json(new { code = 416 });
+                    return Json(new { code = 400, message = "Something wrong with email sending." });
                 }
 
                 return Json(new { code = 200 });
@@ -247,19 +247,19 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message });
             }
             catch (ArgumentException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = ex.Message });
+                return Json(new { code = 500, message = ex.Message });
             }
         }
 
@@ -272,7 +272,7 @@ namespace CloneBookingAPI.Controllers
             {
                 if (string.IsNullOrWhiteSpace(emailTrim) || string.IsNullOrWhiteSpace(code))
                 {
-                    return Json(new { code = 415 });
+                    return Json(new { code = 400, message = "Input data is null." });
                 }
 
                 string correctEmail = emailTrim.Trim();
@@ -287,7 +287,7 @@ namespace CloneBookingAPI.Controllers
                     linkTemplate);
                 if (res is false)
                 {
-                    return Json(new { code = 416 });
+                    return Json(new { code = 400, message = "Something wrong with email sending." });
                 }
 
                 return Json(new { code = 200 });
@@ -296,19 +296,19 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message });
             }
             catch (ArgumentException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = ex.Message });
+                return Json(new { code = 500, message = ex.Message });
             }
         }
 
@@ -320,7 +320,7 @@ namespace CloneBookingAPI.Controllers
             {
                 if (string.IsNullOrWhiteSpace(emailTrim) || string.IsNullOrWhiteSpace(code))
                 {
-                    return Json(new { code = 415 });
+                    return Json(new { code = 400 });
                 }
 
                 string correctEmail = emailTrim.Trim();
@@ -335,7 +335,7 @@ namespace CloneBookingAPI.Controllers
                     linkTemplate);
                 if (res is false)
                 {
-                    return Json(new { code = 416 });
+                    return Json(new { code = 400, message = "Something wrong with email sending." });
                 }
 
                 return Json(new { code = 200 });
@@ -344,19 +344,19 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message });
             }
             catch (ArgumentException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = ex.Message });
+                return Json(new { code = 500, message = ex.Message });
             }
         }
     }

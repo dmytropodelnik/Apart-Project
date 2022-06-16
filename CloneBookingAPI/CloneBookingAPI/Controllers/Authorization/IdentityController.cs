@@ -1,6 +1,7 @@
 ﻿using CloneBookingAPI.Interfaces;
 using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
+using CloneBookingAPI.Services.Email;
 using CloneBookingAPI.Services.Generators;
 using CloneBookingAPI.Services.Helpers;
 using CloneBookingAPI.Services.POCOs;
@@ -35,6 +36,9 @@ namespace CloneBookingAPI.Controllers
         private readonly DeleteUserCodesRepository _deleteUserRepository;
         private readonly JwtCodeCleaner _jwtCodeCleaner;
         private readonly IConfiguration _configuration;
+        private readonly InfoEmailSender _emailSender;
+
+        private readonly string _subjectProfileActionLetterTemplate = default;
 
         private BaseRepository _repository = null;
 
@@ -60,11 +64,15 @@ namespace CloneBookingAPI.Controllers
             _deleteUserRepository = deleteUserRepository;
             _jwtCodeCleaner = jwtCodeCleaner;
             _configuration = configuration;
+
+            _emailSender = new InfoEmailSender(configuration);
+
+            _subjectProfileActionLetterTemplate = configuration["EmailLetterSubjectTemplates:ProfileActionLetterSubject:Template"];
         }
 
         [Route("token")]
         [HttpPost]
-        public async Task<IActionResult> Token([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
+        public async Task<IActionResult> Token([FromBody] PocoData user)
         {
             try
             {
@@ -164,7 +172,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("tokenforsocial")]
         [HttpPost]
-        public async Task<IActionResult> TokenForSocial([FromBody] CloneBookingAPI.Services.POCOs.PocoData user)
+        public async Task<IActionResult> TokenForSocial([FromBody] PocoData user)
         {
             try
             {
