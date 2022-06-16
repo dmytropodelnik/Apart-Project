@@ -12,7 +12,7 @@ namespace CloneBookingAPI.Database.Configurations.Suggestions
               new Apartment[]
               {
                   new Apartment { Id = 1, SuggestionId = 1, Description = "Test apartment description 1", RoomsAmount = 1,
-                                  GuestsLimit = 1, PriceInUSD = 25, BathroomsAmount = 1,
+                                  GuestsLimit = 1, PriceInUSD = 25, BathroomsAmount = 1, 
                                   ApartmentSize = 52, IsSmokingAllowed = false, IsSuite = false, Name = "Single Apartment",
                                   },
                   new Apartment { Id = 2, SuggestionId = 15, Description = "Test apartment description 2", RoomsAmount = 1,

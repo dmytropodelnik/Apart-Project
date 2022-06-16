@@ -23,11 +23,11 @@ namespace CloneBookingAPI.Services.Database.Models.Review
         [ForeignKey("UserId")]
         public User User { get; set; }
 
-        public int SuggestionId { get; set; }
+        public int? SuggestionId { get; set; }
         [ForeignKey("SuggestionId")]
         public Suggestion Suggestion { get; set; }
 
-        public int? StayBookingId { get; set; }
+        public int StayBookingId { get; set; }
         [ForeignKey("StayBookingId")]
         public StayBooking StayBooking { get; set; }
 

@@ -163,9 +163,9 @@ namespace CloneBookingAPI.Controllers.Review
                         r.Grades,
                         Likes = r.Reactions.Where(r => r.IsLiked).Count(),
                         Dislikes = r.Reactions.Where(r => r.IsDisliked).Count(),
-                        r.StayBooking.Nights,
                         CheckIn = r.StayBooking.CheckIn.ToShortDateString(),
                         CheckOut = r.StayBooking.CheckOut.ToShortDateString(),
+                        r.StayBooking.Nights,
                         Apartments = r.StayBooking.Apartments
                             .Select(a => new
                             {
@@ -271,6 +271,7 @@ namespace CloneBookingAPI.Controllers.Review
                     return Json(new { code = 400, message = "Review data is null." });
                 }
 
+                CloneBookingAPI.Services.Database.Models.Review.Review newReview = new();
                 User resUser = new();
 
                 if (int.TryParse(review.Owner, out int resOwner))
@@ -289,6 +290,7 @@ namespace CloneBookingAPI.Controllers.Review
                     {
                         return Json(new { code = 400, message = "You don't have access to write a review to this suggestion." });
                     }
+                    newReview.StayBooking = resBooking;
                 }
                 else
                 {
@@ -301,9 +303,9 @@ namespace CloneBookingAPI.Controllers.Review
                     {
                         return Json(new { code = 400, message = "You don't have access to write a review to this suggestion." });
                     }
+                    newReview.StayBooking = resBooking;
                 }
 
-                CloneBookingAPI.Services.Database.Models.Review.Review newReview = new();
                 List<SuggestionReviewGrade> reviewGrades = new();
 
                 for (int i = 0; i < review.Grades.Count; i++)
