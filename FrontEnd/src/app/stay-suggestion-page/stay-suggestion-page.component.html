@@ -571,7 +571,7 @@
           <span>{{ review.negativeMessage }}</span>
         </div>
         <div class="like-reviews" *ngIf="authHelper.isLogged()">
-          <a class="button-cursor" (click)="likeComment(review.id)">
+          <a class="button-cursor" (click)="likeComment(review.id, i)">
             <svg
               class="bk-icon -iconset-thumbs_up"
               fill="#0071C2"
@@ -588,7 +588,7 @@
             </svg>
             Helpful {{ review.likes }}</a
           >
-          <a class="button-cursor" (click)="dislikeComment(review.id)">
+          <a class="button-cursor" (click)="dislikeComment(review.id, i)">
             <svg
               class="bk-icon -iconset-thumbs_down"
               fill="#0071C2"

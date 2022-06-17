@@ -403,7 +403,7 @@ export class StaySuggestionPageComponent implements OnInit {
     });
   }
 
-  likeComment(id: number): void {
+  likeComment(id: number, index: number): void {
     fetch(
       `https://localhost:44381/api/reviews/likereview?id=${id}&email=${AuthHelper.getLogin()}`,
       {
@@ -418,8 +418,8 @@ export class StaySuggestionPageComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          this.reviews[id - 1].likes = data.reviewData.likes;
-          this.reviews[id - 1].dislikes = data.reviewData.dislikes;
+          this.reviews[index].likes = data.reviewData.likes;
+          this.reviews[index].dislikes = data.reviewData.dislikes;
           alert('Liked successfully!');
         } else {
           alert(data.message);
@@ -430,7 +430,7 @@ export class StaySuggestionPageComponent implements OnInit {
       });
   }
 
-  dislikeComment(id: number): void {
+  dislikeComment(id: number, index: number): void {
     fetch(
       `https://localhost:44381/api/reviews/dislikereview?id=${id}&email=${AuthHelper.getLogin()}`,
       {
@@ -445,8 +445,8 @@ export class StaySuggestionPageComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          this.reviews[id - 1].likes = data.reviewData.likes;
-          this.reviews[id - 1].dislikes = data.reviewData.dislikes;
+          this.reviews[index].likes = data.reviewData.likes;
+          this.reviews[index].dislikes = data.reviewData.dislikes;
           alert('Disliked successfully!');
         } else {
           alert(data.message);
