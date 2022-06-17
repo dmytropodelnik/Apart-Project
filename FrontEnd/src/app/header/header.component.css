@@ -63,9 +63,7 @@ a.a11y-skip-to-content {
   color: #000000;
 }
 .bui-header {
-  background-size: cover;
-  background-position: center;
-  background-image: url("../../assets/images/HeaderImage.png");
+  background-color: #9966ff;
 }
 
 .bui-header--rounded-tabs .bui-header__bar {
@@ -459,8 +457,16 @@ a.a11y-skip-to-content {
   justify-content: center;
 }
 
+.bui-tab__nav > * {
+  opacity: 50%;
+}
+
+.bui-tab__nav > :nth-child(1) {
+  opacity: 100%;
+}
+
 .activeRoute {
-  border-bottom: 2px solid #9966ff !important;
+  border-bottom: 2px solid white !important;
 }
 
 .bui-tab--rounded .bui-tab__item:first-child {
@@ -496,6 +502,7 @@ a.a11y-skip-to-content {
 }
 
 .bui-tab__link {
+  cursor: default;
   font-size: 14px;
   font-weight: 500;
   line-height: 20px;
@@ -514,6 +521,44 @@ a.a11y-skip-to-content {
   box-sizing: border-box;
   font-family: inherit;
 }
+
+.bui-tab--rounded .bui-tab__link1 {
+  padding: 11px 15px;
+  border: 1px solid transparent;
+}
+
+.bui-tab__link1:link {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, sans-serif;
+  text-decoration: none;
+}
+
+
+.bui-tab__link1 {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, sans-serif;
+  display: block;
+  border: 0;
+  color: white;
+  padding: 16px;
+  text-decoration: none;
+  max-width: none;
+  position: relative;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+
+
 
 .bui-tab__icon {
   display: inline-block;
@@ -691,7 +736,7 @@ a.a11y-skip-to-content {
   box-sizing: border-box;
   vertical-align: middle;
   position: relative;
-  color: #fff;
+  color: #9966ff;
   min-height: 15px;
   min-width: 15px;
   font-size: 14px;
@@ -700,9 +745,16 @@ a.a11y-skip-to-content {
   font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
     Arial, sans-serif;
   background: transparent;
-  background-color: #9966ff;
-  border: 0;
+  background-color: white;
+
+  border: 1px solid #9966ff;
   border-radius: 5px;
+}
+
+.bui-button1:hover {
+  background-color: #9966ff;
+  color: white;
+  border: 1px solid white;
 }
 
 .bui-button--light:before {
