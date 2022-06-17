@@ -341,6 +341,7 @@
 
 .availability-item {
   display: flex;
+  flex: 1;
   flex-direction: column;
 }
 
@@ -382,6 +383,7 @@
   flex-wrap: wrap;
   gap: 15px;
   margin: 20px 10px;
+  height: 125px;
 }
 
 .availability-description-item1 > span {

@@ -28,17 +28,37 @@
       </div>
     </div>
 
-    <div class="mtr-empty-state--container mtr-empty-state--desktop" *ngIf="bookings.length == 0">
+    <div
+      class="mtr-empty-state--container mtr-empty-state--desktop"
+      *ngIf="bookings.length == 0"
+    >
       <div class="EmptyState_root__+8mpG">
         <div
-          class="Stack_root__TcYSy Stack_root--direction-column__j1Rmi Stack_root--gap-larger__RJaLY Stack_root--align-items-center__raP-r EmptyState_content__5Yu2x">
-          <div class="EmptyState_slot__+oK-i"><img width="256" height="256"
+          class="Stack_root__TcYSy Stack_root--direction-column__j1Rmi Stack_root--gap-larger__RJaLY Stack_root--align-items-center__raP-r EmptyState_content__5Yu2x"
+        >
+          <div class="EmptyState_slot__+oK-i">
+            <img
+              width="256"
+              height="256"
               src="https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty.f6d1e091536ec081c442de892cdb505e.png"
-              srcset="https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty.f6d1e091536ec081c442de892cdb505e.png 256w, https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty@2x.bc139fe926ec8a47946e6c6e935e0e0c.png 512w, https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty@3x.5d8f4b54c45b037db50df2fb7b0e3bd4.png 768w"
-              sizes="256px" alt=""></div>
+              srcset="
+                https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty.f6d1e091536ec081c442de892cdb505e.png    256w,
+                https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty@2x.bc139fe926ec8a47946e6c6e935e0e0c.png 512w,
+                https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty@3x.5d8f4b54c45b037db50df2fb7b0e3bd4.png 768w
+              "
+              sizes="256px"
+              alt=""
+            />
+          </div>
           <div class="">
-            <p class="Text_root--variant-headline_2__Mbi-u EmptyState_title__A6vnu">Your trips live here</p>
-            <p class="Text_root--variant-body_1__lq2O8">This page shows all of your bookings.</p>
+            <p
+              class="Text_root--variant-headline_2__Mbi-u EmptyState_title__A6vnu"
+            >
+              Your trips live here
+            </p>
+            <p class="Text_root--variant-body_1__lq2O8">
+              This page shows all of your bookings.
+            </p>
           </div>
           <div class="EmptyState_actions__WJrnJ"></div>
         </div>
@@ -49,38 +69,89 @@
       <h2>Bookings</h2>
       <div *ngFor="let item of bookings; let i = index">
         <div class="user-bookings-subheader">
-          <span>{{item.suggestion?.title}}</span>
-          <span>{{item.checkIn!.toString().substring(0, item.checkIn!.toString().indexOf('T'))}} - {{item.checkOut!.toString().substring(0, item.checkOut!.toString().indexOf('T'))}}</span>
+          <span>{{ item.suggestion?.title }}</span>
+          <span
+            >{{
+              item
+                .checkIn!.toString()
+                .substring(0, item.checkIn!.toString().indexOf("T"))
+            }}
+            -
+            {{
+              item
+                .checkOut!.toString()
+                .substring(0, item.checkOut!.toString().indexOf("T"))
+            }}</span
+          >
         </div>
         <div class="user-bookings-card">
-          <div class="user-bookings-card-left" (click)="openVerticallyCentered(revealContent, i)">
-            <img src="{{
-              imageHelper.getImageDirectoryPath()
-            }}suggestions/stays/{{ item.suggestion?.images[0].name }}" alt="image" />
+          <div
+            class="user-bookings-card-left"
+            (click)="openVerticallyCentered(revealContent, i)"
+          >
+            <img
+              src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
+                item.suggestion?.images[0].name
+              }}"
+              alt="image"
+            />
             <div class="user-bookings-card-left-item">
-              <span>{{item.suggestion?.name}}</span>
-              <span>{{item.checkIn!.toString().substring(0, item.checkIn!.toString().indexOf('T'))}} - {{item.checkOut!.toString().substring(0, item.checkOut!.toString().indexOf('T'))}}, {{item.suggestion?.address?.city?.title}}</span>
-              <span>Booking status: {{item.bookingStatus}}</span>
+              <span>{{ item.suggestion?.name }}</span>
+              <span
+                >{{
+                  item
+                    .checkIn!.toString()
+                    .substring(0, item.checkIn!.toString().indexOf("T"))
+                }}
+                -
+                {{
+                  item
+                    .checkOut!.toString()
+                    .substring(0, item.checkOut!.toString().indexOf("T"))
+                }}, {{ item.suggestion?.address?.city?.title }}</span
+              >
+              <span>Booking status: {{ item.bookingStatus }}</span>
               <span *ngIf="item.isPaid">Booking is paid</span>
               <span *ngIf="!item.isPaid">Booking is not paid</span>
-              <button *ngIf="!item.isPaid" type="button" class="btn btn-primary" (click)="payBooking()">Pay</button>
+              <button
+                *ngIf="!item.isPaid"
+                type="button"
+                class="btn btn-primary"
+                (click)="payBooking()"
+              >
+                Pay
+              </button>
             </div>
           </div>
           <div class="user-bookings-card-right">
             <div class="user-bookings-card-right-item">
-              <span>{{item.price.currency.bankCode}} {{item.price.finalPrice}}</span>
+              <span
+                >{{ item.price.currency.bankCode }}
+                {{ item.price.finalPrice }}</span
+              >
               <div class="btn-group">
-                <button type="button" class="dropdown-button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button
+                  type="button"
+                  class="dropdown-button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
                   ...
                 </button>
                 <ul class="dropdown-menu">
                   <li class="dropdown-item">
-                    <button class="dropdown-button" (click)="openVerticallyCentered(revealContent, i)">
+                    <button
+                      class="dropdown-button"
+                      (click)="openVerticallyCentered(revealContent, i)"
+                    >
                       Reveal information
                     </button>
                   </li>
                   <li class="dropdown-item">
-                    <button class="dropdown-button" (click)="openVerticallyCentered(removeContent, i)">
+                    <button
+                      class="dropdown-button"
+                      (click)="openVerticallyCentered(removeContent, i)"
+                    >
                       Remove object
                     </button>
                   </li>
@@ -98,29 +169,80 @@
 <ng-template #removeContent let-modal>
   <div class="modal-header">
     <h2>Remove Booking</h2>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
   </div>
   <div class="modal-body">
     <div class="user-bookings-card-left">
-      <img src="{{
-        imageHelper.getImageDirectoryPath()
-      }}suggestions/stays/{{ bookings[selectedBooking]?.suggestion?.images[0].name }}" alt="photo" />
+      <img
+        src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
+          bookings[selectedBooking]?.suggestion?.images[0].name
+        }}"
+        alt="photo"
+      />
       <div class="user-bookings-card-left-item">
-        <span>{{bookings[selectedBooking]?.suggestion?.category}}</span>
-        <span>{{bookings[selectedBooking]?.checkIn?.toString().substring(0, bookings[selectedBooking]?.checkIn?.toString().indexOf('T'))}} - {{bookings[selectedBooking]?.checkOut?.toString().substring(0, bookings[selectedBooking]?.checkOut?.toString().indexOf('T'))}}, {{bookings[selectedBooking]?.suggestion?.address?.city?.title}}</span>
-        <span>Booking status: {{bookings[selectedBooking]?.bookingStatus?.status}}</span>
+        <span>{{ bookings[selectedBooking]?.suggestion?.category }}</span>
+        <span
+          >{{
+            bookings[selectedBooking]?.checkIn
+              ?.toString()
+              .substring(
+                0,
+                bookings[selectedBooking]?.checkIn?.toString().indexOf("T")
+              )
+          }}
+          -
+          {{
+            bookings[selectedBooking]?.checkOut
+              ?.toString()
+              .substring(
+                0,
+                bookings[selectedBooking]?.checkOut?.toString().indexOf("T")
+              )
+          }},
+          {{
+            bookings[selectedBooking]?.suggestion?.address?.city?.title
+          }}</span
+        >
+        <span
+          >Booking status:
+          {{ bookings[selectedBooking]?.bookingStatus?.status }}</span
+        >
         <span *ngIf="bookings[selectedBooking]?.isPaid">Booking is paid</span>
-        <span *ngIf="!bookings[selectedBooking]?.isPaid">Booking is not paid</span>
+        <span *ngIf="!bookings[selectedBooking]?.isPaid"
+          >Booking is not paid</span
+        >
       </div>
     </div>
   </div>
   <div class="modal-footer">
     <div class="modal-footer-remove">
-      <span>You are about to permanently remove this booking from your bookings
-        list.</span>
+      <span
+        >You are about to permanently remove this booking from your bookings
+        list.</span
+      >
       <div>
-        <button type="button" class="btn btn-primary" (click)="deleteBooking()" aria-label="Close" (click)="modal.dismiss('Cross click')">Remove</button>
-        <button type="button" class="btn btn-outline-primary" aria-label="Close" (click)="modal.dismiss('Cross click')">Keep</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="deleteBooking()"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          Remove
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-primary"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          Keep
+        </button>
       </div>
     </div>
   </div>
@@ -129,49 +251,127 @@
 <ng-template #revealContent let-modal>
   <div class="modal-header">
     <h2>Booking Info</h2>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
   </div>
   <div class="modal-body">
     <div class="user-bookings-card-left">
-      <img src="{{
-        imageHelper.getImageDirectoryPath()
-      }}suggestions/stays/{{ bookings[selectedBooking]?.suggestion?.images[0].name }}" alt="photo" />
+      <img
+        src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
+          bookings[selectedBooking]?.suggestion?.images[0].name
+        }}"
+        alt="photo"
+      />
       <div class="user-bookings-card-left-item">
-        <span>{{bookings[selectedBooking]?.suggestion?.category}}</span>
-        <span>{{bookings[selectedBooking]?.checkIn?.toString().substring(0, bookings[selectedBooking]?.checkIn?.toString().indexOf('T'))}} - {{bookings[selectedBooking]?.checkOut?.toString().substring(0, bookings[selectedBooking]?.checkOut?.toString().indexOf('T'))}}, {{bookings[selectedBooking]?.suggestion?.address?.city?.title}}</span>
-        <span>Nights: </span><span>{{bookings[selectedBooking]?.nights}}</span>
-        <span>Booking status: {{bookings[selectedBooking]?.bookingStatus}}</span>
+        <span>{{ bookings[selectedBooking]?.suggestion?.category }}</span>
+        <span
+          >{{
+            bookings[selectedBooking]?.checkIn
+              ?.toString()
+              .substring(
+                0,
+                bookings[selectedBooking]?.checkIn?.toString().indexOf("T")
+              )
+          }}
+          -
+          {{
+            bookings[selectedBooking]?.checkOut
+              ?.toString()
+              .substring(
+                0,
+                bookings[selectedBooking]?.checkOut?.toString().indexOf("T")
+              )
+          }},
+          {{
+            bookings[selectedBooking]?.suggestion?.address?.city?.title
+          }}</span
+        >
+        <span>Nights: {{ bookings[selectedBooking]?.nights }}</span>
+        <span
+          >Booking status: {{ bookings[selectedBooking]?.bookingStatus }}</span
+        >
         <span *ngIf="bookings[selectedBooking]?.isPaid">Booking is paid</span>
-        <span *ngIf="!bookings[selectedBooking]?.isPaid">Booking is not paid</span>
+        <span *ngIf="!bookings[selectedBooking]?.isPaid"
+          >Booking is not paid</span
+        >
       </div>
     </div>
   </div>
   <div class="modal-footer">
     <div class="modal-footer-remove">
-      <span>Is for work:</span><span *ngIf="bookings[selectedBooking]?.isForWork">Yes</span><span *ngIf="!bookings[selectedBooking]?.isForWork">No</span>
-      <span>Special requests:</span><span>{{bookings[selectedBooking]?.specialRequests}}</span>
-      <span>Price</span> <span>${{bookings[selectedBooking]?.price?.totalPrice}}</span>
-      <div *ngIf="bookings[selectedBooking]?.promoCode">
-        <span>Discount with promo code: </span><span>-{{bookings[selectedBooking - 1]?.price?.discount}}%</span><span> (-${{bookings[selectedBooking]?.price?.difference}}) </span>
-      </div>
-      <span>Final price: </span><span>${{bookings[selectedBooking]?.price?.finalPrice}}</span>
-      <span>Customer: </span><span>{{bookings[selectedBooking]?.customerInfo?.firstName}} {{bookings[selectedBooking]?.customerInfo?.lastName}}</span>
-      <span>Customer email: </span><span>{{bookings[selectedBooking]?.customerInfo?.email}}</span>
-      <span>Customer phone number: </span><span>{{bookings[selectedBooking]?.customerInfo?.phoneNumber}}</span>
-      <span>Customer address: </span><span>              {{
-        bookings[selectedBooking]?.customerInfo?.addressText +
-        ", " +
-        bookings[selectedBooking]?.customerInfo?.city +
-        ", " +
-        bookings[selectedBooking]?.customerInfo?.country
-        }}</span>
-        <span *ngIf="bookings[selectedBooking]?.customerInfo?.zipCode">{{bookings[selectedBooking]?.customerInfo?.zipCode}}</span>
-        <span>Guests: </span>
-        <span *ngFor="let guest of bookings[selectedBooking]?.guests; let i = index">
-          {{guest}}
-        </span>
       <div>
-        <button type="button" class="btn btn-primary" aria-label="Close" (click)="modal.dismiss('Cross click')">Close</button>
+        <span>Is for work:</span
+        ><span *ngIf="bookings[selectedBooking]?.isForWork">Yes</span
+        ><span *ngIf="!bookings[selectedBooking]?.isForWork">No</span>
+      </div>
+      <div>
+        <span>Special requests:</span
+        ><span>{{ bookings[selectedBooking]?.specialRequests }}</span>
+      </div>
+      <div>
+        <span>Price:</span>
+        <span>${{ bookings[selectedBooking]?.price?.totalPrice }}</span>
+      </div>
+      <div *ngIf="bookings[selectedBooking]?.promoCode">
+        <span>Discount with promo code: </span
+        ><span>-{{ bookings[selectedBooking - 1]?.price?.discount }}%</span
+        ><span> (-${{ bookings[selectedBooking]?.price?.difference }}) </span>
+      </div>
+      <div>
+        <span>Final price:</span
+        ><span>${{ bookings[selectedBooking]?.price?.finalPrice }}</span>
+      </div>
+      <div>
+        <span>Customer:</span
+        ><span
+          >{{ bookings[selectedBooking]?.customerInfo?.firstName }}
+          {{ bookings[selectedBooking]?.customerInfo?.lastName }}</span
+        >
+      </div>
+      <div>
+        <span>Customer email:</span
+        ><span>{{ bookings[selectedBooking]?.customerInfo?.email }}</span>
+      </div>
+      <div>
+        <span>Customer phone number: </span
+        ><span>{{ bookings[selectedBooking]?.customerInfo?.phoneNumber }}</span>
+      </div>
+      <div>
+        <span>Customer address:</span
+        ><span>
+          {{
+            bookings[selectedBooking]?.customerInfo?.addressText +
+              ", " +
+              bookings[selectedBooking]?.customerInfo?.city +
+              ", " +
+              bookings[selectedBooking]?.customerInfo?.country
+          }}</span
+        >
+        <span *ngIf="bookings[selectedBooking]?.customerInfo?.zipCode">{{
+          bookings[selectedBooking]?.customerInfo?.zipCode
+        }}</span>
+      </div>
+      <div>
+        <span>Guests: </span>
+        <span
+          *ngFor="let guest of bookings[selectedBooking]?.guests; let i = index"
+        >
+          {{ guest }}
+        </span>
+      </div>
+      <div>
+        <button
+          type="button"
+          class="btn btn-primary"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          Close
+        </button>
       </div>
     </div>
   </div>
