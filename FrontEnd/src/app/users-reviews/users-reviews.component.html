@@ -1,1 +1,437 @@
-<p>users-reviews works!</p>
+<body>
+  <app-header></app-header>
+  <div class="user-bookings-container">
+    <div class="user-bookings-navbar">
+      <div class="user-bookings-navbar-buttons">
+        <button routerLink="">Search</button>
+        <button routerLink="/userbookings">Bookings</button>
+        <button routerLink="/usersreviews">Reviews</button>
+        <button routerLink="/mysettings">Settings</button>
+        <button routerLink="/joinpartner">List your property</button>
+      </div>
+    </div>
+
+    <div class="emptyBookings" *ngIf="bookings.length != 0">
+      <div>
+        <img
+          width="256"
+          height="256"
+          src="https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty.f6d1e091536ec081c442de892cdb505e.png"
+          srcset="
+            https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty.f6d1e091536ec081c442de892cdb505e.png    256w,
+            https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty@2x.bc139fe926ec8a47946e6c6e935e0e0c.png 512w,
+            https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty@3x.5d8f4b54c45b037db50df2fb7b0e3bd4.png 768w
+          "
+          sizes="256px"
+          alt=""
+        />
+      </div>
+
+      <p class="Text_root--variant-headline_2__Mbi-u EmptyState_title__A6vnu">
+        Your trips live here
+      </p>
+      <p class="Text_root--variant-body_1__lq2O8">
+        This page shows all of your bookings.
+      </p>
+    </div>
+
+    <div class="user-reviews-container">
+      <div class="review-information">
+        <div class="review-information-item">
+          <div>
+            <div class="review-card-left-avatar-block">
+              <div class="review-information-avatar">
+                <img src="../../assets/images/11.png" />
+              </div>
+              <div class="review-card-avatar-block-text">
+                <span class="font-weight-bold">Heider Alkateb</span>
+                <span class="profile_link">
+                  <a>Edit your profile</a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="review-information-item"><span>All reviews</span></div>
+        <div class="review-information-item"><span>Property reviews</span></div>
+      </div>
+      <div class="user-reviews-card">
+        <div class="review-card">
+          <div class="review-card-left">
+            <div>
+              <div class="review-card-left-avatar-block">
+                <div class="review-card-avatar">
+                  <img src="../../assets/images/11.png" />
+                </div>
+                <div class="review-card-avatar-block-text">
+                  <span class="font-weight-bold">Heider</span>
+                  <span class="text-block-subtitles">
+                    <span class="avatar-block-flag">
+                      <img src="../../assets/flag/flag-10.png" />
+                    </span>
+                    <span>Germany</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card-right">
+            <div>
+              <div class="review-card-right-main-item">
+                <div class="review-card-right-main-item-info">
+                  <span>Reviewed: 25.06.2022</span>
+                  <span class="font-weight-bold"> </span>
+                </div>
+                <div class="bui-review-score__badge">9</div>
+              </div>
+            </div>
+            <div>
+              <span>Title</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-card-left">
+            <div>
+              <div class="review-card-left-avatar-block">
+                <div class="review-card-avatar">
+                  <img src="../../assets/images/11.png" />
+                </div>
+                <div class="review-card-avatar-block-text">
+                  <span class="font-weight-bold">Heider</span>
+                  <span class="text-block-subtitles">
+                    <span class="avatar-block-flag">
+                      <img src="../../assets/flag/flag-10.png" />
+                    </span>
+                    <span>Germany</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card-right">
+            <div>
+              <div class="review-card-right-main-item">
+                <div class="review-card-right-main-item-info">
+                  <span>Reviewed: 25.06.2022</span>
+                  <span class="font-weight-bold"> </span>
+                </div>
+                <div class="bui-review-score__badge">9</div>
+              </div>
+            </div>
+            <div>
+              <span>Title</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-card-left">
+            <div>
+              <div class="review-card-left-avatar-block">
+                <div class="review-card-avatar">
+                  <img src="../../assets/images/11.png" />
+                </div>
+                <div class="review-card-avatar-block-text">
+                  <span class="font-weight-bold">Heider</span>
+                  <span class="text-block-subtitles">
+                    <span class="avatar-block-flag">
+                      <img src="../../assets/flag/flag-10.png" />
+                    </span>
+                    <span>Germany</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card-right">
+            <div>
+              <div class="review-card-right-main-item">
+                <div class="review-card-right-main-item-info">
+                  <span>Reviewed: 25.06.2022</span>
+                  <span class="font-weight-bold"> </span>
+                </div>
+                <div class="bui-review-score__badge">9</div>
+              </div>
+            </div>
+            <div>
+              <span>Title</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-card-left">
+            <div>
+              <div class="review-card-left-avatar-block">
+                <div class="review-card-avatar">
+                  <img src="../../assets/images/11.png" />
+                </div>
+                <div class="review-card-avatar-block-text">
+                  <span class="font-weight-bold">Heider</span>
+                  <span class="text-block-subtitles">
+                    <span class="avatar-block-flag">
+                      <img src="../../assets/flag/flag-10.png" />
+                    </span>
+                    <span>Germany</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card-right">
+            <div>
+              <div class="review-card-right-main-item">
+                <div class="review-card-right-main-item-info">
+                  <span>Reviewed: 25.06.2022</span>
+                  <span class="font-weight-bold"> </span>
+                </div>
+                <div class="bui-review-score__badge">9</div>
+              </div>
+            </div>
+            <div>
+              <span>Title</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-card-left">
+            <div>
+              <div class="review-card-left-avatar-block">
+                <div class="review-card-avatar">
+                  <img src="../../assets/images/11.png" />
+                </div>
+                <div class="review-card-avatar-block-text">
+                  <span class="font-weight-bold">Heider</span>
+                  <span class="text-block-subtitles">
+                    <span class="avatar-block-flag">
+                      <img src="../../assets/flag/flag-10.png" />
+                    </span>
+                    <span>Germany</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card-right">
+            <div>
+              <div class="review-card-right-main-item">
+                <div class="review-card-right-main-item-info">
+                  <span>Reviewed: 25.06.2022</span>
+                  <span class="font-weight-bold"> </span>
+                </div>
+                <div class="bui-review-score__badge">9</div>
+              </div>
+            </div>
+            <div>
+              <span>Title</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-card-left">
+            <div>
+              <div class="review-card-left-avatar-block">
+                <div class="review-card-avatar">
+                  <img src="../../assets/images/11.png" />
+                </div>
+                <div class="review-card-avatar-block-text">
+                  <span class="font-weight-bold">Heider</span>
+                  <span class="text-block-subtitles">
+                    <span class="avatar-block-flag">
+                      <img src="../../assets/flag/flag-10.png" />
+                    </span>
+                    <span>Germany</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card-right">
+            <div>
+              <div class="review-card-right-main-item">
+                <div class="review-card-right-main-item-info">
+                  <span>Reviewed: 25.06.2022</span>
+                  <span class="font-weight-bold"> </span>
+                </div>
+                <div class="bui-review-score__badge">9</div>
+              </div>
+            </div>
+            <div>
+              <span>Title</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-card-left">
+            <div>
+              <div class="review-card-left-avatar-block">
+                <div class="review-card-avatar">
+                  <img src="../../assets/images/11.png" />
+                </div>
+                <div class="review-card-avatar-block-text">
+                  <span class="font-weight-bold">Heider</span>
+                  <span class="text-block-subtitles">
+                    <span class="avatar-block-flag">
+                      <img src="../../assets/flag/flag-10.png" />
+                    </span>
+                    <span>Germany</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card-right">
+            <div>
+              <div class="review-card-right-main-item">
+                <div class="review-card-right-main-item-info">
+                  <span>Reviewed: 25.06.2022</span>
+                  <span class="font-weight-bold"> </span>
+                </div>
+                <div class="bui-review-score__badge">9</div>
+              </div>
+            </div>
+            <div>
+              <span>Title</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-card-left">
+            <div>
+              <div class="review-card-left-avatar-block">
+                <div class="review-card-avatar">
+                  <img src="../../assets/images/11.png" />
+                </div>
+                <div class="review-card-avatar-block-text">
+                  <span class="font-weight-bold">Heider</span>
+                  <span class="text-block-subtitles">
+                    <span class="avatar-block-flag">
+                      <img src="../../assets/flag/flag-10.png" />
+                    </span>
+                    <span>Germany</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card-right">
+            <div>
+              <div class="review-card-right-main-item">
+                <div class="review-card-right-main-item-info">
+                  <span>Reviewed: 25.06.2022</span>
+                  <span class="font-weight-bold"> </span>
+                </div>
+                <div class="bui-review-score__badge">9</div>
+              </div>
+            </div>
+            <div>
+              <span>Title</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-card-left">
+            <div>
+              <div class="review-card-left-avatar-block">
+                <div class="review-card-avatar">
+                  <img src="../../assets/images/11.png" />
+                </div>
+                <div class="review-card-avatar-block-text">
+                  <span class="font-weight-bold">Heider</span>
+                  <span class="text-block-subtitles">
+                    <span class="avatar-block-flag">
+                      <img src="../../assets/flag/flag-10.png" />
+                    </span>
+                    <span>Germany</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card-right">
+            <div>
+              <div class="review-card-right-main-item">
+                <div class="review-card-right-main-item-info">
+                  <span>Reviewed: 25.06.2022</span>
+                  <span class="font-weight-bold"> </span>
+                </div>
+                <div class="bui-review-score__badge">9</div>
+              </div>
+            </div>
+            <div>
+              <span>Title</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-card-left">
+            <div>
+              <div class="review-card-left-avatar-block">
+                <div class="review-card-avatar">
+                  <img src="../../assets/images/11.png" />
+                </div>
+                <div class="review-card-avatar-block-text">
+                  <span class="font-weight-bold">Heider</span>
+                  <span class="text-block-subtitles">
+                    <span class="avatar-block-flag">
+                      <img src="../../assets/flag/flag-10.png" />
+                    </span>
+                    <span>Germany</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card-right">
+            <div>
+              <div class="review-card-right-main-item">
+                <div class="review-card-right-main-item-info">
+                  <span>Reviewed: 25.06.2022</span>
+                  <span class="font-weight-bold"> </span>
+                </div>
+                <div class="bui-review-score__badge">9</div>
+              </div>
+            </div>
+            <div>
+              <span>Title</span>
+            </div>
+          </div>
+        </div>
+        <div class="review-card">
+          <div class="review-card-left">
+            <div>
+              <div class="review-card-left-avatar-block">
+                <div class="review-card-avatar">
+                  <img src="../../assets/images/11.png" />
+                </div>
+                <div class="review-card-avatar-block-text">
+                  <span class="font-weight-bold">Heider</span>
+                  <span class="text-block-subtitles">
+                    <span class="avatar-block-flag">
+                      <img src="../../assets/flag/flag-10.png" />
+                    </span>
+                    <span>Germany</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card-right">
+            <div>
+              <div class="review-card-right-main-item">
+                <div class="review-card-right-main-item-info">
+                  <span>Reviewed: 25.06.2022</span>
+                  <span class="font-weight-bold"> </span>
+                </div>
+                <div class="bui-review-score__badge">9</div>
+              </div>
+            </div>
+            <div>
+              <span>Title</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-footer></app-footer>
+</body>

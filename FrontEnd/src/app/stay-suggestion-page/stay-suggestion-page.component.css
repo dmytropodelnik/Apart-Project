@@ -227,6 +227,7 @@
 .searchbox_country > input {
   width: 100%;
 }
+
 .searchbox_date {
   position: relative;
   display: flex;
@@ -635,6 +636,48 @@ body {
 .btn-close {
   padding: 0.5rem 0.5rem;
   margin: -0.5rem -0.5rem -0.5rem;
+}
+
+.check_availability {
+  display: flex;
+  flex-direction: column;
+  background-color: #9966ff;
+  gap: 10px;
+  padding: 20px;
+  margin: 20px 0px;
+}
+
+.check_availability_item {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+}
+
+.check_availability_button {
+  display: flex;
+  width: 20%;
+  align-items: flex-end;
+}
+
+.check_availability_button > button {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  border: 1px solid white;
+  align-items: center;
+  color: #9966ff;
+  background-color: white;
+  justify-content: center;
+  height: 60%;
+}
+
+.check_availability_date {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: stretch;
+  width: 40%;
 }
 
 .write-review-header {

@@ -27,6 +27,7 @@ import { ViewPropertiesGuard } from './view-properties/view-properties.guard';
 import { UserBookingsComponent } from './user-bookings/user-bookings.component';
 import { FillingUserDetailsComponent } from './booking-properties/filling-user-details/filling-user-details.component';
 import { BookingFinalStepComponent } from './booking-properties/booking-final-step/booking-final-step.component';
+import { UsersReviewsComponent } from './users-reviews/users-reviews.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'stays', pathMatch: 'full' },
@@ -100,6 +101,11 @@ const routes: Routes = [
   {
     path: 'bookingfinalstep',
     component: BookingFinalStepComponent,
+    pathMatch: 'full',
+  },
+  {
+    path: 'usersreviews',
+    component: UsersReviewsComponent,
     pathMatch: 'full',
   },
   { path: '**', redirectTo: 'stays', pathMatch: 'full' },

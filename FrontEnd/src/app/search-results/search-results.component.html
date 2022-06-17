@@ -13,12 +13,12 @@
           <div class="searchbox_date">
             <span class="textdecoration">Check-in Date</span>
             <input class="inputfield" placeholder="yyyy-mm-dd" name="filters.pdateIn" [(ngModel)]="filters.pdateIn"
-              ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" readonly />
+              ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" [minDate]="minDate" readonly />
           </div>
           <div class="searchbox_date">
             <span class="textdecoration">Check-out Date</span>
             <input class="inputfield" placeholder="yyyy-mm-dd" name="filters.pdateOut" [(ngModel)]="filters.pdateOut"
-              ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()" readonly />
+              ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()" [minDate]="minDate" readonly />
           </div>
           <div class="searchbox_country" data-toggle="dropdown">
             <span class="textdecoration" id="basic-addon1">How many people?</span>
@@ -533,7 +533,7 @@
           <div>
             <div class="left_information">
               <div class="left_information_name">
-                <div>{{item?.category}}</div>
+                <div class="left_information_name_category">{{item?.category}}</div>
                 <div class="left_information_title click-component" (click)="showSuggestion(item.uniqueCode, item.id)">{{
                   item?.name }}</div>
                 <div *ngFor="let item of item.starsRating; let i = index">
