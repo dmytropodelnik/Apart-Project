@@ -75,7 +75,7 @@ namespace CloneBookingAPI.Controllers.Review
         [TypeFilter(typeof(AuthorizationFilter))]
         [Route("getuserreviews")]
         [HttpGet]
-        public async Task<IActionResult> GetUserReviews(string email)
+        public async Task<IActionResult> GetUserReviews(string email, int page)
         {
             try
             {
@@ -86,22 +86,48 @@ namespace CloneBookingAPI.Controllers.Review
 
                 var reviews = await _context.Reviews
                     .Include(r => r.User)
+                        .ThenInclude(u => u.Profile)
+                            .ThenInclude(p => p.Address)
+                                .ThenInclude(a => a.Country)
+                    .Include(r => r.User.Profile.Image)
+                    .Include(r => r.ReviewMessage)
                     .Include(r => r.Grades)
                         .ThenInclude(g => g.ReviewCategory)
-                    .Include(r => r.ReviewMessage)
-                    .Include(r => r.Reactions)
-                    .Include(r => r.Suggestion)
                     .Where(r => r.User.Email.Equals(email))
+                    .Select(r => new
+                    {
+                        r.Id,
+                        Author = r.User.FirstName,
+                        Country = r.User.Profile.Address.Country.Title,
+                        CountryImage = r.User.Profile.Address.Country.Image,
+                        AuthorImage = r.User.Profile.Image,
+                        ReviewDate = r.ReviewedDate.ToShortDateString(),
+                        r.ReviewMessage.Title,
+                        r.Grades,
+                    })
                     .ToListAsync();
                 if (reviews is null)
                 {
                     return Json(new { code = 400, message = "Reviews are not found." });
                 }
 
+                List<double> reviewGrades = new();
+                for (int i = 0; i < reviews.Count; i++)
+                {
+                    reviewGrades.Add(reviews[i].Grades.Average(g => g.Value));
+                }
+
+                // PAGINATION
+                reviews = reviews
+                    .Skip((page - 1) * 10)
+                    .Take(10)
+                    .ToList();
+
                 return Json(new
                 {
                     code = 200,
                     reviews,
+                    reviewGrades,
                 });
             }
             catch (ArgumentNullException ex)
