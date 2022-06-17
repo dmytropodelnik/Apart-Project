@@ -30,6 +30,7 @@
                 ngbDatepicker
                 #d="ngbDatepicker"
                 (click)="d.toggle()"
+                [minDate]="minDate"
                 readonly
               />
             </div>
@@ -43,6 +44,7 @@
                 ngbDatepicker
                 #d1="ngbDatepicker"
                 (click)="d1.toggle()"
+                [minDate]="minDate"
                 readonly
               />
             </div>
@@ -209,48 +211,57 @@
         </p>
       </div>
 
-      <div>
-        <div class="searchbox_date">
-          <span class="textdecoration">Check-in Date</span>
-          <input
-            class="inputfield"
-            placeholder="yyyy-mm-dd"
-            name="filters.pdateIn"
-            [(ngModel)]="filters.pdateIn"
-            ngbDatepicker
-            #d="ngbDatepicker"
-            (click)="d.toggle()"
-            readonly
-          />
-        </div>
-        <div class="searchbox_date">
-          <span class="textdecoration">Check-out Date</span>
-          <input
-            class="inputfield"
-            placeholder="yyyy-mm-dd"
-            name="filters.pdateOut"
-            [(ngModel)]="filters.pdateOut"
-            ngbDatepicker
-            #d1="ngbDatepicker"
-            (click)="d1.toggle()"
-            readonly
-          />
-        </div>
-
-        <button class="btn btn-primary" (click)="filterApartments()">
-          Check availability
-        </button>
-      </div>
-
-      <div *ngIf="!isDateChosen">
-        <p>
-          You need to select the check in and check out date to see the
-          available apartments.
-        </p>
-      </div>
-
       <div class="availability-main" id="targetAvailability">
         <h2>Availability</h2>
+        <div class="check_availability">
+          <div class="check_availability_item">
+            <div class="check_availability_date">
+              <span class="textdecoration">Check-in Date</span>
+              <input
+                class="inputfield"
+                placeholder="yyyy-mm-dd"
+                name="filters.pdateIn"
+                [(ngModel)]="filters.pdateIn"
+                ngbDatepicker
+                #d3="ngbDatepicker"
+                (click)="d3.toggle()"
+                [minDate]="minDate"
+                readonly
+              />
+            </div>
+            <div class="check_availability_date">
+              <span class="textdecoration">Check-out Date</span>
+              <input
+                class="inputfield"
+                placeholder="yyyy-mm-dd"
+                name="filters.pdateOut"
+                [(ngModel)]="filters.pdateOut"
+                ngbDatepicker
+                #d4="ngbDatepicker"
+                (click)="d4.toggle()"
+                [minDate]="minDate"
+                readonly
+              />
+            </div>
+            <div class="check_availability_button">
+              <button (click)="filterApartments()">Check availability</button>
+            </div>
+          </div>
+
+          <div *ngIf="!isDateChosen">
+            <p>
+              You need to select the check in and check out date to see the
+              available apartments.
+            </p>
+          </div>
+          <button
+            *ngIf="isDateChosen"
+            class="btn btn-primary"
+            (click)="chooseApartments()"
+          >
+            Reserve
+          </button>
+        </div>
         <div class="availability-container">
           <div
             *ngFor="let item of suggestion?.apartments; let i = index"
@@ -356,16 +367,14 @@
             </div>
           </div>
         </div>
+        <button
+          *ngIf="isDateChosen"
+          class="btn btn-primary"
+          (click)="chooseApartments()"
+        >
+          Reserve
+        </button>
       </div>
-
-      <button
-        *ngIf="isDateChosen"
-        class="btn btn-primary"
-        (click)="chooseApartments()"
-      >
-        Reserve
-      </button>
-
       <div class="facilities-main" id="targetFacilities">
         <h2 *ngIf="facilityTypes.length != 0">Facilities</h2>
         <div class="facilities-container">

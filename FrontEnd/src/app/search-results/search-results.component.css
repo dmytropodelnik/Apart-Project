@@ -114,6 +114,13 @@
   align-items: center;
 }
 
+.left_information_name_category {
+  padding: 3px;
+  background-color: #9966ff;
+  color: white;
+  margin-right: 5px;
+}
+
 .bui-review-score__badge_unrated {
   background: #9966ff;
   color: #fff;

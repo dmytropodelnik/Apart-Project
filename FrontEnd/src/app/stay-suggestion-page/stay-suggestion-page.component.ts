@@ -105,6 +105,12 @@ export class StaySuggestionPageComponent implements OnInit {
   owner: string = '';
 
   page: number = 1;
+  current = new Date();
+  minDate = {
+    year: this.current.getFullYear(),
+    month: this.current.getMonth() + 1,
+    day: this.current.getDate(),
+  };
 
   constructor(
     private router: Router,

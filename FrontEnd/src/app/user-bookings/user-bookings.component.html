@@ -22,47 +22,34 @@
       <div class="user-bookings-navbar-buttons">
         <button routerLink="">Search</button>
         <button routerLink="/userbookings">Bookings</button>
-        <button routerLink="/mysettings">Reviews</button>
+        <button routerLink="/usersreviews">Reviews</button>
         <button routerLink="/mysettings">Settings</button>
         <button routerLink="/joinpartner">List your property</button>
       </div>
     </div>
 
-    <div
-      class="mtr-empty-state--container mtr-empty-state--desktop"
-      *ngIf="bookings.length == 0"
-    >
-      <div class="EmptyState_root__+8mpG">
-        <div
-          class="Stack_root__TcYSy Stack_root--direction-column__j1Rmi Stack_root--gap-larger__RJaLY Stack_root--align-items-center__raP-r EmptyState_content__5Yu2x"
-        >
-          <div class="EmptyState_slot__+oK-i">
-            <img
-              width="256"
-              height="256"
-              src="https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty.f6d1e091536ec081c442de892cdb505e.png"
-              srcset="
-                https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty.f6d1e091536ec081c442de892cdb505e.png    256w,
-                https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty@2x.bc139fe926ec8a47946e6c6e935e0e0c.png 512w,
-                https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty@3x.5d8f4b54c45b037db50df2fb7b0e3bd4.png 768w
-              "
-              sizes="256px"
-              alt=""
-            />
-          </div>
-          <div class="">
-            <p
-              class="Text_root--variant-headline_2__Mbi-u EmptyState_title__A6vnu"
-            >
-              Your trips live here
-            </p>
-            <p class="Text_root--variant-body_1__lq2O8">
-              This page shows all of your bookings.
-            </p>
-          </div>
-          <div class="EmptyState_actions__WJrnJ"></div>
-        </div>
+    <div class="emptyBookings" *ngIf="bookings.length == 0">
+      <div>
+        <img
+          width="256"
+          height="256"
+          src="https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty.f6d1e091536ec081c442de892cdb505e.png"
+          srcset="
+            https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty.f6d1e091536ec081c442de892cdb505e.png    256w,
+            https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty@2x.bc139fe926ec8a47946e6c6e935e0e0c.png 512w,
+            https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty@3x.5d8f4b54c45b037db50df2fb7b0e3bd4.png 768w
+          "
+          sizes="256px"
+          alt=""
+        />
       </div>
+
+      <p class="Text_root--variant-headline_2__Mbi-u EmptyState_title__A6vnu">
+        Your trips live here
+      </p>
+      <p class="Text_root--variant-body_1__lq2O8">
+        This page shows all of your bookings.
+      </p>
     </div>
 
     <div class="user-bookings-main-container" *ngIf="bookings.length != 0">
@@ -85,10 +72,16 @@
           >
         </div>
         <div class="user-bookings-card">
-          <div class="user-bookings-card-left" (click)="openVerticallyCentered(revealContent, item.id)">
-            <img src="{{
-              imageHelper.getImageDirectoryPath()
-            }}suggestions/stays/{{ item.suggestion?.images[0].name }}" alt="image" />
+          <div
+            class="user-bookings-card-left"
+            (click)="openVerticallyCentered(revealContent, item.id)"
+          >
+            <img
+              src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
+                item.suggestion?.images[0].name
+              }}"
+              alt="image"
+            />
             <div class="user-bookings-card-left-item">
               <span>{{ item.suggestion?.name }}</span>
               <span
@@ -134,12 +127,18 @@
                 </button>
                 <ul class="dropdown-menu">
                   <li class="dropdown-item">
-                    <button class="dropdown-button" (click)="openVerticallyCentered(revealContent, item.id)">
+                    <button
+                      class="dropdown-button"
+                      (click)="openVerticallyCentered(revealContent, item.id)"
+                    >
                       Reveal information
                     </button>
                   </li>
                   <li class="dropdown-item">
-                    <button class="dropdown-button" (click)="openVerticallyCentered(removeContent, item.id)">
+                    <button
+                      class="dropdown-button"
+                      (click)="openVerticallyCentered(removeContent, item.id)"
+                    >
                       Remove object
                     </button>
                   </li>
