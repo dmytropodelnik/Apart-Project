@@ -104,6 +104,7 @@ import { UserBookingsComponent } from './user-bookings/user-bookings.component';
 import { FillingUserDetailsComponent } from './booking-properties/filling-user-details/filling-user-details.component';
 import { BookingFinalStepComponent } from './booking-properties/booking-final-step/booking-final-step.component';
 import { BookingDetailsService } from './services/booking-details.service';
+import { UsersReviewsComponent } from './users-reviews/users-reviews.component';
 
 @NgModule({
   providers: [
@@ -212,6 +213,7 @@ import { BookingDetailsService } from './services/booking-details.service';
     UserBookingsComponent,
     FillingUserDetailsComponent,
     BookingFinalStepComponent,
+    UsersReviewsComponent,
   ],
   imports: [
     BrowserModule,
