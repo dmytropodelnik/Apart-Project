@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import AuthHelper from '../utils/authHelper';
+import BookingHelper from '../utils/bookingHelper';
 import ImageHelper from '../utils/imageHelper';
 import MathHelper from '../utils/mathHelper';
 
@@ -327,6 +328,7 @@ export class StaySuggestionPageComponent implements OnInit {
       this.grade,
       this.diffDays
     );
+    BookingHelper.saveBookingData(this.suggestion, this.chosenFinalApartments, this.grade, this.diffDays, dateIn, dateOut);
     this.router.navigate(['/fillinguserdetails']);
   }
 

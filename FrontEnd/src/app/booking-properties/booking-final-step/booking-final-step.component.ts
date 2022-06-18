@@ -5,13 +5,14 @@ import { Guest } from 'src/app/models/UserData/guest.item';
 import { BookingDetailsService } from 'src/app/services/booking-details.service';
 
 import AuthHelper from '../../utils/authHelper';
+import BookingHelper from '../../utils/bookingHelper';
 import ImageHelper from '../../utils/imageHelper';
 import MathHelper from '../../utils/mathHelper';
 
 @Component({
   selector: 'app-booking-final-step',
   templateUrl: './booking-final-step.component.html',
-  styleUrls: ['./booking-final-step.component.css']
+  styleUrls: ['./booking-final-step.component.css'],
 })
 export class BookingFinalStepComponent implements OnInit {
   mathHelper: any = MathHelper;
@@ -55,7 +56,7 @@ export class BookingFinalStepComponent implements OnInit {
   zipCode: string = '';
   phone: string = '';
 
-  letterMessage: string= '';
+  letterMessage: string = '';
 
   guestsData: string[] = [];
 
@@ -72,16 +73,14 @@ export class BookingFinalStepComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private activatedRouter: ActivatedRoute,
-    private bookingDetailsService: BookingDetailsService,
-    ) {
+    private bookingDetailsService: BookingDetailsService
+  ) {}
 
-     }
-
-     openVerticallyCentered(content: any) {
-      this.modalService.open(content, {
-        centered: true,
-      });
-    }
+  openVerticallyCentered(content: any) {
+    this.modalService.open(content, {
+      centered: true,
+    });
+  }
 
   applyPromoCode(): void {
     if (this.promoCode.length < 6) {
@@ -118,19 +117,21 @@ export class BookingFinalStepComponent implements OnInit {
 
   completeBooking(revealContent: any): void {
     if (this.address.length < 5) {
-      alert("Address must contain at least 5 characters!");
+      alert('Address must contain at least 5 characters!');
       return;
     }
     if (this.city.length < 2) {
-      alert("City must contain at least 2 characters!");
+      alert('City must contain at least 2 characters!');
       return;
     }
     if (this.country.length < 2) {
-      alert("Country must contain at least 2 characters!");
+      alert('Country must contain at least 2 characters!');
       return;
     }
-    if (!this.phone.match('^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$')) {
-      alert("Enter a correct phone number!");
+    if (
+      !this.phone.match('^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$')
+    ) {
+      alert('Enter a correct phone number!');
       return;
     }
 
@@ -167,18 +168,15 @@ export class BookingFinalStepComponent implements OnInit {
       ApartmentsIds: this.apartmentsIds,
     };
 
-    fetch(
-      `https://localhost:44381/api/staybookings/addstaybooking`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Accept: 'application/json',
-          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-        },
-        body: JSON.stringify(booking),
-      }
-    )
+    fetch(`https://localhost:44381/api/staybookings/addstaybooking`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
+      body: JSON.stringify(booking),
+    })
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
@@ -191,6 +189,7 @@ export class BookingFinalStepComponent implements OnInit {
             this.showSuccessBooking(revealContent);
             this.router.navigate(['']);
           }
+          BookingHelper.clearBookingData();
         } else {
           alert(response.message);
         }
@@ -205,29 +204,42 @@ export class BookingFinalStepComponent implements OnInit {
     Your booking has been successfully reserved! \n
     Booking details: \n
     Category: ${this.chosenSuggestion?.bookingCategory} \n
-    Check-in: ${this.newStayBooking.checkIn!.toString().substring(0, this.newStayBooking.checkIn!.toString().indexOf('T'))} \n
-    Check-out: ${this.newStayBooking.checkOut!.toString().substring(0, this.newStayBooking.checkOut!.toString().indexOf('T'))} \n
+    Check-in: ${this.newStayBooking
+      .checkIn!.toString()
+      .substring(0, this.newStayBooking.checkIn!.toString().indexOf('T'))} \n
+    Check-out: ${this.newStayBooking
+      .checkOut!.toString()
+      .substring(0, this.newStayBooking.checkOut!.toString().indexOf('T'))} \n
     Nights: ${this.newStayBooking.nights} \n
     Is for work: ${this.newStayBooking.isForWork} \n
     Special requests: ${this.newStayBooking.specialRequests} \n
     Total price: ${this.newStayBooking.price?.totalPrice} \n
     Used promocode: ${this.newStayBooking.promoCode} \n
-    Discount with promo code: ${this.newStayBooking.price?.discount}% (-$${this.newStayBooking.price?.difference}) \n
+    Discount with promo code: ${this.newStayBooking.price?.discount}% (-$${
+      this.newStayBooking.price?.difference
+    }) \n
     Final price: ${this.newStayBooking.price?.finalPrice} \n
-    Customer: ${this.newStayBooking.customerInfo?.firstName} ${this.newStayBooking.customerInfo?.lastName} \n
+    Customer: ${this.newStayBooking.customerInfo?.firstName} ${
+      this.newStayBooking.customerInfo?.lastName
+    } \n
     Customer email: ${this.newStayBooking.customerInfo?.email} \n
     Customer phone number: ${this.newStayBooking.customerInfo?.phoneNumber} \n
-    Customer address: ${this.newStayBooking.customerInfo?.addressText +
-      ", " +
+    Customer address: ${
+      this.newStayBooking.customerInfo?.addressText +
+      ', ' +
       this.newStayBooking.customerInfo?.city +
-      ", " +
-      this.newStayBooking.customerInfo?.country + ' ' + this.newStayBooking.customerInfo?.zipCode} \n\n
+      ', ' +
+      this.newStayBooking.customerInfo?.country +
+      ' ' +
+      this.newStayBooking.customerInfo?.zipCode
+    } \n\n
 
     Guests: \n
     `;
 
     for (let i = 0; i < this.newStayBooking.stayBookingsGuests.length; i++) {
-      this.letterMessage += this.newStayBooking.stayBookingsGuests[i].guest.fullName;
+      this.letterMessage +=
+        this.newStayBooking.stayBookingsGuests[i].guest.fullName;
       this.letterMessage += ', ';
     }
 
@@ -271,38 +283,41 @@ export class BookingFinalStepComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chosenApartments = this.bookingDetailsService.getChosenApartments();
-    this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();
-    this.grade = this.bookingDetailsService.getGrade();
-    this.diffDays = this.bookingDetailsService.getDiffDays();
-    this.checkIn = this.bookingDetailsService.getCheckInDate();
-    this.checkOut = this.bookingDetailsService.getCheckOutDate();
-    this.guestsData = this.bookingDetailsService.getGuestsData();
+    if (BookingHelper.getBookingData()) {
+      this.chosenApartments = this.bookingDetailsService.getChosenApartments();
+      this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();
+      this.grade = this.bookingDetailsService.getGrade();
+      this.diffDays = this.bookingDetailsService.getDiffDays();
+      this.checkIn = this.bookingDetailsService.getCheckInDate();
+      this.checkOut = this.bookingDetailsService.getCheckOutDate();
+      this.guestsData = this.bookingDetailsService.getGuestsData();
 
-    this.activatedRouter.queryParams.subscribe((params: any) => {
-      if (params['totalPrice']) {
-        this.totalPrice = params['totalPrice'];
-        this.finalPrice = this.totalPrice;
-      }
-      if (params['isSaved']) {
-        this.isSaved = params['isSaved'];
-      }
-      if (params['email']) {
-        this.email = params['email'];
-      }
-      if (params['isForWork']) {
-        this.isForWork = params['isForWork'];
-      }
-      if (params['firstName']) {
-        this.firstName = params['firstName'];
-      }
-      if (params['lastName']) {
-        this.lastName = params['lastName'];
-      }
-      if (params['specialRequests']) {
-        this.specialRequests = params['specialRequests'];
-      }
-    });
+      this.activatedRouter.queryParams.subscribe((params: any) => {
+        if (params['totalPrice']) {
+          this.totalPrice = params['totalPrice'];
+          this.finalPrice = this.totalPrice;
+        }
+        if (params['isSaved']) {
+          this.isSaved = params['isSaved'];
+        }
+        if (params['email']) {
+          this.email = params['email'];
+        }
+        if (params['isForWork']) {
+          this.isForWork = params['isForWork'];
+        }
+        if (params['firstName']) {
+          this.firstName = params['firstName'];
+        }
+        if (params['lastName']) {
+          this.lastName = params['lastName'];
+        }
+        if (params['specialRequests']) {
+          this.specialRequests = params['specialRequests'];
+        }
+      });
+    } else {
+      this.router.navigate(['']);
+    }
   }
-
 }
