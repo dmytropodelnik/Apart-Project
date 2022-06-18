@@ -16,6 +16,10 @@
   gap: 2rem;
 }
 
+.click-control {
+  cursor: pointer;
+}
+
 .user-bookings-navbar-buttons > button {
   border: 1px solid white;
   padding: 10px;

@@ -49,7 +49,7 @@ namespace CloneBookingAPI.Controllers
             {
                 if (string.IsNullOrWhiteSpace(email))
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Input data is null." });
                 }
 
                 var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
@@ -65,25 +65,25 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
         }
 
@@ -119,25 +119,25 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
         }
 
@@ -173,19 +173,19 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
         }
 
@@ -225,19 +225,19 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
         }
 
@@ -250,7 +250,7 @@ namespace CloneBookingAPI.Controllers
             {
                 if (string.IsNullOrWhiteSpace(email))
                 {
-                    return NotFound();
+                    return Json(new { code = 400, message = "Input data is null.", });
                 }
 
                 var user = await _context.Users
@@ -276,19 +276,19 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
         }
 
@@ -301,7 +301,7 @@ namespace CloneBookingAPI.Controllers
             {
                 if (string.IsNullOrWhiteSpace(email))
                 {
-                    return NotFound();
+                    return Json(new { code = 400, message = "Input data is null.", });
                 }
 
                 var suggestions = await _context.Suggestions
@@ -319,19 +319,19 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 500 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 500 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 500 });
+                return Json(new { code = 500, message = ex.Message, });
             }
         }
 
@@ -348,13 +348,13 @@ namespace CloneBookingAPI.Controllers
                     string.IsNullOrWhiteSpace(user.PasswordHash) ||
                     user.RoleId < 1)
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Input data is null." });
                 }
 
                 var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == user.Email);
                 if (resUser is not null)
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "User is not found." });
                 }
 
                 string hashedPassword = _saltGenerator.GenerateKeyCode(user.PasswordHash.Trim());
@@ -384,44 +384,44 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
         }
 
         [Route("registerviasocial")]
         [HttpPost]
-        public async Task<IActionResult> RegisterViaSocial([FromBody] CloneBookingAPI.Services.POCOs.PocoData person)
+        public async Task<IActionResult> RegisterViaSocial([FromBody] PocoData person)
         {
             try
             {
                 if (person is null ||
                     string.IsNullOrWhiteSpace(person.Email))
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Input data is null." });
                 }
 
                 var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email.Equals(person.Email));
                 if (resUser is not null)
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "User is not found." });
                 }
 
                 User newUser = new();
@@ -467,25 +467,25 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
         }
 
@@ -500,13 +500,13 @@ namespace CloneBookingAPI.Controllers
                     string.IsNullOrWhiteSpace(person.Password) ||
                     string.IsNullOrWhiteSpace(person.VerificationCode))
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Input data is null." });
                 }
 
                 bool res = _registrationRepository.IsValueCorrect(person.Email.Trim(), person.VerificationCode.Trim());
                 if (res is false)
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Code is not correct." });
                 }
 
                 if (_registrationRepository.Repository.ContainsKey(person.Email.Trim()))
@@ -552,25 +552,25 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
         }
 
@@ -585,13 +585,13 @@ namespace CloneBookingAPI.Controllers
                     string.IsNullOrWhiteSpace(model.Username) ||
                     string.IsNullOrWhiteSpace(model.AccessToken))
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Input data is null." });
                 }
 
                 bool res = _jwtRepository.IsValueCorrect(model.Username, model.AccessToken);
                 if (res is false)
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Code is not correct." });
                 }
 
                 if (_registrationRepository.Repository.ContainsKey(model.Username))
@@ -610,25 +610,25 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
         }
 
@@ -641,19 +641,19 @@ namespace CloneBookingAPI.Controllers
             {
                 if (string.IsNullOrWhiteSpace(email))
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Input data is null." });
                 }
 
                 var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
                 if (resUser is null)
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "User is not found." });
                 }
 
                 var resFavorite = await _context.Favorites.FirstOrDefaultAsync(u => u.UserId == resUser.Id);
                 if (resFavorite is null)
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Favorite is not found." });
                 }
 
                 _context.Favorites.Remove(resFavorite);
@@ -667,25 +667,25 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
         }
 
@@ -699,19 +699,19 @@ namespace CloneBookingAPI.Controllers
             {
                 if (id < 1)
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Incorrect id." });
                 }
 
                 var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
                 if (resUser is null)
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "User is not found." });
                 }
 
                 var resFavorite = await _context.Favorites.FirstOrDefaultAsync(u => u.UserId == resUser.Id);
                 if (resFavorite is null)
                 {
-                    return Json(new { code = 400 });
+                    return Json(new { code = 400, message = "Favorite is not found." });
                 }
 
                 _context.Favorites.Remove(resFavorite);
@@ -725,25 +725,25 @@ namespace CloneBookingAPI.Controllers
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (DbUpdateException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (OperationCanceledException ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
             catch (Exception ex)
             {
                 Debug.WriteLine(ex.Message);
 
-                return Json(new { code = 400 });
+                return Json(new { code = 500, message = ex.Message, });
             }
         }
     }

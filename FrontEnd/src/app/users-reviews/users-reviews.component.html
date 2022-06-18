@@ -11,7 +11,7 @@
       </div>
     </div>
 
-    <div class="emptyBookings" *ngIf="bookings.length != 0">
+    <div class="emptyBookings" *ngIf="(usersReviews.length == 0 && condition == 1) || (usersPropertiesReviews.length == 0 && condition == 2)">
       <div>
         <img
           width="256"
@@ -35,41 +35,93 @@
       </p>
     </div>
 
-    <div class="user-reviews-container">
+    <div *ngIf="condition == 1" class="user-reviews-container">
       <div class="review-information">
         <div class="review-information-item">
           <div>
             <div class="review-card-left-avatar-block">
               <div class="review-information-avatar">
-                <img src="../../assets/images/11.png" />
+                <img
+                  *ngIf="
+                    authService.getUserImage() &&
+                    authService.getUserImage().indexOf('https://') !== -1
+                  "
+                  class="bui-avatar__image"
+                  src="{{ authService.getUserImage() }}"
+                  alt="user image"
+                />
+                <img
+                  *ngIf="
+                    authService.getUserImage() &&
+                    authService.getUserImage().indexOf('https://') === -1
+                  "
+                  class="bui-avatar__image"
+                  src="{{ imageHelper.getRootDirectoryPath() }}{{
+                    authService.getUserImage()
+                  }}"
+                  alt="user image"
+                />
+                <img
+                  *ngIf="!authService.getUserImage()"
+                  class="bui-avatar__image"
+                  src="../../assets/images/User1.png"
+                  alt="user image"
+                />
               </div>
               <div class="review-card-avatar-block-text">
-                <span class="font-weight-bold">Heider Alkateb</span>
+                <span class="font-weight-bold">{{userFirstName}} {{userLastName}}</span>
                 <span class="profile_link">
-                  <a>Edit your profile</a>
+                  <a routerLink="/mysettings">Edit your profile</a>
                 </span>
               </div>
             </div>
           </div>
         </div>
-        <div class="review-information-item"><span>All reviews</span></div>
-        <div class="review-information-item"><span>Property reviews</span></div>
+        <div class="review-information-item click-control" (click)="getUsersReviews(true)"><span>My reviews</span></div>
+        <div class="review-information-item click-control" (click)="getUserPropertiesReviews(true)"><span>Property reviews</span></div>
       </div>
       <div class="user-reviews-card">
-        <div class="review-card">
+        <div *ngFor="let review of usersReviews; let i = index" class="review-card">
           <div class="review-card-left">
             <div>
               <div class="review-card-left-avatar-block">
                 <div class="review-card-avatar">
-                  <img src="../../assets/images/11.png" />
+                  <img
+                  *ngIf="
+                    authService.getUserImage() &&
+                    authService.getUserImage().indexOf('https://') !== -1
+                  "
+                  class="bui-avatar__image"
+                  src="{{ authService.getUserImage() }}"
+                  alt="user image"
+                />
+                <img
+                  *ngIf="
+                    authService.getUserImage() &&
+                    authService.getUserImage().indexOf('https://') === -1
+                  "
+                  class="bui-avatar__image"
+                  src="{{ imageHelper.getRootDirectoryPath() }}{{
+                    authService.getUserImage()
+                  }}"
+                  alt="user image"
+                />
+                <img
+                  *ngIf="!authService.getUserImage()"
+                  class="bui-avatar__image"
+                  src="../../assets/images/User1.png"
+                  alt="user image"
+                />
                 </div>
                 <div class="review-card-avatar-block-text">
-                  <span class="font-weight-bold">Heider</span>
+                  <span class="font-weight-bold">{{review.firstName}}</span>
                   <span class="text-block-subtitles">
                     <span class="avatar-block-flag">
-                      <img src="../../assets/flag/flag-10.png" />
+                      <img src="{{ imageHelper.getImageDirectoryPath() }}{{
+                        review.countryImage.name
+                      }}" />
                     </span>
-                    <span>Germany</span>
+                    <span>{{review.country}}</span>
                   </span>
                 </div>
               </div>
@@ -79,359 +131,136 @@
             <div>
               <div class="review-card-right-main-item">
                 <div class="review-card-right-main-item-info">
-                  <span>Reviewed: 25.06.2022</span>
+                  <span>Reviewed: {{review.reviewDate}}</span>
                   <span class="font-weight-bold"> </span>
                 </div>
-                <div class="bui-review-score__badge">9</div>
+                <div class="bui-review-score__badge"> {{ mathHelper.Round10(userReviewsGrades[i]) }}</div>
               </div>
             </div>
             <div>
-              <span>Title</span>
+              <span class="fw-bold">{{review.title}}</span>
             </div>
           </div>
         </div>
-        <div class="review-card">
-          <div class="review-card-left">
-            <div>
-              <div class="review-card-left-avatar-block">
-                <div class="review-card-avatar">
-                  <img src="../../assets/images/11.png" />
-                </div>
-                <div class="review-card-avatar-block-text">
-                  <span class="font-weight-bold">Heider</span>
-                  <span class="text-block-subtitles">
-                    <span class="avatar-block-flag">
-                      <img src="../../assets/flag/flag-10.png" />
-                    </span>
-                    <span>Germany</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="review-card-right">
-            <div>
-              <div class="review-card-right-main-item">
-                <div class="review-card-right-main-item-info">
-                  <span>Reviewed: 25.06.2022</span>
-                  <span class="font-weight-bold"> </span>
-                </div>
-                <div class="bui-review-score__badge">9</div>
-              </div>
-            </div>
-            <div>
-              <span>Title</span>
-            </div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-card-left">
-            <div>
-              <div class="review-card-left-avatar-block">
-                <div class="review-card-avatar">
-                  <img src="../../assets/images/11.png" />
-                </div>
-                <div class="review-card-avatar-block-text">
-                  <span class="font-weight-bold">Heider</span>
-                  <span class="text-block-subtitles">
-                    <span class="avatar-block-flag">
-                      <img src="../../assets/flag/flag-10.png" />
-                    </span>
-                    <span>Germany</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="review-card-right">
-            <div>
-              <div class="review-card-right-main-item">
-                <div class="review-card-right-main-item-info">
-                  <span>Reviewed: 25.06.2022</span>
-                  <span class="font-weight-bold"> </span>
-                </div>
-                <div class="bui-review-score__badge">9</div>
-              </div>
-            </div>
-            <div>
-              <span>Title</span>
-            </div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-card-left">
-            <div>
-              <div class="review-card-left-avatar-block">
-                <div class="review-card-avatar">
-                  <img src="../../assets/images/11.png" />
-                </div>
-                <div class="review-card-avatar-block-text">
-                  <span class="font-weight-bold">Heider</span>
-                  <span class="text-block-subtitles">
-                    <span class="avatar-block-flag">
-                      <img src="../../assets/flag/flag-10.png" />
-                    </span>
-                    <span>Germany</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="review-card-right">
-            <div>
-              <div class="review-card-right-main-item">
-                <div class="review-card-right-main-item-info">
-                  <span>Reviewed: 25.06.2022</span>
-                  <span class="font-weight-bold"> </span>
-                </div>
-                <div class="bui-review-score__badge">9</div>
-              </div>
-            </div>
-            <div>
-              <span>Title</span>
-            </div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-card-left">
-            <div>
-              <div class="review-card-left-avatar-block">
-                <div class="review-card-avatar">
-                  <img src="../../assets/images/11.png" />
-                </div>
-                <div class="review-card-avatar-block-text">
-                  <span class="font-weight-bold">Heider</span>
-                  <span class="text-block-subtitles">
-                    <span class="avatar-block-flag">
-                      <img src="../../assets/flag/flag-10.png" />
-                    </span>
-                    <span>Germany</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="review-card-right">
-            <div>
-              <div class="review-card-right-main-item">
-                <div class="review-card-right-main-item-info">
-                  <span>Reviewed: 25.06.2022</span>
-                  <span class="font-weight-bold"> </span>
-                </div>
-                <div class="bui-review-score__badge">9</div>
-              </div>
-            </div>
-            <div>
-              <span>Title</span>
-            </div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-card-left">
-            <div>
-              <div class="review-card-left-avatar-block">
-                <div class="review-card-avatar">
-                  <img src="../../assets/images/11.png" />
-                </div>
-                <div class="review-card-avatar-block-text">
-                  <span class="font-weight-bold">Heider</span>
-                  <span class="text-block-subtitles">
-                    <span class="avatar-block-flag">
-                      <img src="../../assets/flag/flag-10.png" />
-                    </span>
-                    <span>Germany</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="review-card-right">
-            <div>
-              <div class="review-card-right-main-item">
-                <div class="review-card-right-main-item-info">
-                  <span>Reviewed: 25.06.2022</span>
-                  <span class="font-weight-bold"> </span>
-                </div>
-                <div class="bui-review-score__badge">9</div>
-              </div>
-            </div>
-            <div>
-              <span>Title</span>
-            </div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-card-left">
-            <div>
-              <div class="review-card-left-avatar-block">
-                <div class="review-card-avatar">
-                  <img src="../../assets/images/11.png" />
-                </div>
-                <div class="review-card-avatar-block-text">
-                  <span class="font-weight-bold">Heider</span>
-                  <span class="text-block-subtitles">
-                    <span class="avatar-block-flag">
-                      <img src="../../assets/flag/flag-10.png" />
-                    </span>
-                    <span>Germany</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="review-card-right">
-            <div>
-              <div class="review-card-right-main-item">
-                <div class="review-card-right-main-item-info">
-                  <span>Reviewed: 25.06.2022</span>
-                  <span class="font-weight-bold"> </span>
-                </div>
-                <div class="bui-review-score__badge">9</div>
-              </div>
-            </div>
-            <div>
-              <span>Title</span>
-            </div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-card-left">
-            <div>
-              <div class="review-card-left-avatar-block">
-                <div class="review-card-avatar">
-                  <img src="../../assets/images/11.png" />
-                </div>
-                <div class="review-card-avatar-block-text">
-                  <span class="font-weight-bold">Heider</span>
-                  <span class="text-block-subtitles">
-                    <span class="avatar-block-flag">
-                      <img src="../../assets/flag/flag-10.png" />
-                    </span>
-                    <span>Germany</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="review-card-right">
-            <div>
-              <div class="review-card-right-main-item">
-                <div class="review-card-right-main-item-info">
-                  <span>Reviewed: 25.06.2022</span>
-                  <span class="font-weight-bold"> </span>
-                </div>
-                <div class="bui-review-score__badge">9</div>
-              </div>
-            </div>
-            <div>
-              <span>Title</span>
-            </div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-card-left">
-            <div>
-              <div class="review-card-left-avatar-block">
-                <div class="review-card-avatar">
-                  <img src="../../assets/images/11.png" />
-                </div>
-                <div class="review-card-avatar-block-text">
-                  <span class="font-weight-bold">Heider</span>
-                  <span class="text-block-subtitles">
-                    <span class="avatar-block-flag">
-                      <img src="../../assets/flag/flag-10.png" />
-                    </span>
-                    <span>Germany</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="review-card-right">
-            <div>
-              <div class="review-card-right-main-item">
-                <div class="review-card-right-main-item-info">
-                  <span>Reviewed: 25.06.2022</span>
-                  <span class="font-weight-bold"> </span>
-                </div>
-                <div class="bui-review-score__badge">9</div>
-              </div>
-            </div>
-            <div>
-              <span>Title</span>
-            </div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-card-left">
-            <div>
-              <div class="review-card-left-avatar-block">
-                <div class="review-card-avatar">
-                  <img src="../../assets/images/11.png" />
-                </div>
-                <div class="review-card-avatar-block-text">
-                  <span class="font-weight-bold">Heider</span>
-                  <span class="text-block-subtitles">
-                    <span class="avatar-block-flag">
-                      <img src="../../assets/flag/flag-10.png" />
-                    </span>
-                    <span>Germany</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="review-card-right">
-            <div>
-              <div class="review-card-right-main-item">
-                <div class="review-card-right-main-item-info">
-                  <span>Reviewed: 25.06.2022</span>
-                  <span class="font-weight-bold"> </span>
-                </div>
-                <div class="bui-review-score__badge">9</div>
-              </div>
-            </div>
-            <div>
-              <span>Title</span>
-            </div>
-          </div>
-        </div>
-        <div class="review-card">
-          <div class="review-card-left">
-            <div>
-              <div class="review-card-left-avatar-block">
-                <div class="review-card-avatar">
-                  <img src="../../assets/images/11.png" />
-                </div>
-                <div class="review-card-avatar-block-text">
-                  <span class="font-weight-bold">Heider</span>
-                  <span class="text-block-subtitles">
-                    <span class="avatar-block-flag">
-                      <img src="../../assets/flag/flag-10.png" />
-                    </span>
-                    <span>Germany</span>
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="review-card-right">
-            <div>
-              <div class="review-card-right-main-item">
-                <div class="review-card-right-main-item-info">
-                  <span>Reviewed: 25.06.2022</span>
-                  <span class="font-weight-bold"> </span>
-                </div>
-                <div class="bui-review-score__badge">9</div>
-              </div>
-            </div>
-            <div>
-              <span>Title</span>
-            </div>
-          </div>
-        </div>
+        <button *ngIf="usersReviews.length / page > 10" class="btn btn-primary"
+          (click)="getUsersReviews(false)"
+          >Load more</button>
       </div>
     </div>
+
+    <div *ngIf="condition == 2" class="user-reviews-container">
+      <div class="review-information">
+        <div class="review-information-item">
+          <div>
+            <div class="review-card-left-avatar-block">
+              <div class="review-information-avatar">
+                <img
+                  *ngIf="
+                    authService.getUserImage() &&
+                    authService.getUserImage().indexOf('https://') !== -1
+                  "
+                  class="bui-avatar__image"
+                  src="{{ authService.getUserImage() }}"
+                  alt="user image"
+                />
+                <img
+                  *ngIf="
+                    authService.getUserImage() &&
+                    authService.getUserImage().indexOf('https://') === -1
+                  "
+                  class="bui-avatar__image"
+                  src="{{ imageHelper.getRootDirectoryPath() }}{{
+                    authService.getUserImage()
+                  }}"
+                  alt="user image"
+                />
+                <img
+                  *ngIf="!authService.getUserImage()"
+                  class="bui-avatar__image"
+                  src="../../assets/images/User1.png"
+                  alt="user image"
+                />
+              </div>
+              <div class="review-card-avatar-block-text">
+                <span class="font-weight-bold">{{userFirstName}} {{userLastName}}</span>
+                <span class="profile_link">
+                  <a routerLink="/mysettings">Edit your profile</a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="review-information-item click-control" (click)="getUsersReviews(true)"><span>My reviews</span></div>
+        <div class="review-information-item click-control" (click)="getUserPropertiesReviews(true)"><span>Property reviews</span></div>
+      </div>
+      <div class="user-reviews-card">
+        <div *ngFor="let review of usersPropertiesReviews; let i = index" class="review-card">
+          <div class="review-card-left">
+            <div>
+              <div class="review-card-left-avatar-block">
+                <div class="review-card-avatar">
+                  <img
+                  *ngIf="
+                    authService.getUserImage() &&
+                    authService.getUserImage().indexOf('https://') !== -1
+                  "
+                  class="bui-avatar__image"
+                  src="{{ authService.getUserImage() }}"
+                  alt="user image"
+                />
+                <img
+                  *ngIf="
+                    authService.getUserImage() &&
+                    authService.getUserImage().indexOf('https://') === -1
+                  "
+                  class="bui-avatar__image"
+                  src="{{ imageHelper.getRootDirectoryPath() }}{{
+                    authService.getUserImage()
+                  }}"
+                  alt="user image"
+                />
+                <img
+                  *ngIf="!authService.getUserImage()"
+                  class="bui-avatar__image"
+                  src="../../assets/images/User1.png"
+                  alt="user image"
+                />
+                </div>
+                <div class="review-card-avatar-block-text">
+                  <span class="font-weight-bold">{{review.firstName}}</span>
+                  <span class="text-block-subtitles">
+                    <span class="avatar-block-flag">
+                      <img src="{{ imageHelper.getImageDirectoryPath() }}{{
+                        review.countryImage.name
+                      }}" />
+                    </span>
+                    <span>{{review.country}}</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card-right">
+            <div>
+              <div class="review-card-right-main-item">
+                <div class="review-card-right-main-item-info">
+                  <span>Reviewed: {{review.reviewDate}}</span>
+                  <span class="font-weight-bold"> </span>
+                </div>
+                <div class="bui-review-score__badge"> {{ mathHelper.Round10(userReviewsGrades[i]) }}</div>
+              </div>
+            </div>
+            <div>
+              <span class="fw-bold">{{review.title}}</span>
+            </div>
+          </div>
+        </div>
+        <button *ngIf="usersPropertiesReviews.length / page > 10" class="btn btn-primary"
+          (click)="getUserPropertiesReviews(false)"
+          >Load more</button>
+      </div>
+    </div>
+
   </div>
   <app-footer></app-footer>
 </body>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AuthorizationService } from '../services/authorization.service';
 
 import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
@@ -12,23 +13,123 @@ import MathHelper from '../utils/mathHelper';
   styleUrls: ['./users-reviews.component.css'],
 })
 export class UsersReviewsComponent implements OnInit {
-  bookings: any[] = [];
+  usersReviews: any[] = [];
+  usersPropertiesReviews: any[] = [];
 
   imageHelper: any = ImageHelper;
+  mathHelper: any = MathHelper;
 
-  selectedBooking: number = 0;
+  userCountryImage: string = '';
+  userFirstName: string = '';
+  userLastName: string = '';
+
+  userReviewsGrades: number[] = [];
+  userPropertiesReviewsGrades: number[] = [];
+
+  condition: number = 1;
+
+  page: number = 1;
 
   constructor(
     private modalService: NgbModal,
     private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) {}
+    private activatedRoute: ActivatedRoute,
+    public authService: AuthorizationService,
+  ) {
 
-  
+  }
+
+  getUsersReviews(value: boolean): void {
+    this.condition = 1;
+
+    if (value) {
+      this.page = 1;
+      this.usersReviews = [];
+      this.userReviewsGrades = [];
+    }
+
+    fetch(
+      `https://localhost:44381/api/reviews/getusersreviews?email=${AuthHelper.getLogin()}&page=${this.page}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.userCountryImage = response.reviews[0].countryImage.name;
+          this.userFirstName = response.reviews[0].firstName;
+          this.userLastName = response.reviews[0].lastName;
+
+          for (let i = 0; i < response.reviews.length; i++) {
+            this.usersReviews.push(response.reviews[i]);
+          }
+          for (let i = 0; i < response.reviewGrades.length; i++) {
+            this.userReviewsGrades.push(response.reviewGrades[i]);
+          }
+          this.page++;
+        } else {
+          alert(response.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
+
+  getUserPropertiesReviews(value: boolean): void {
+    this.condition = 2;
+
+    if (value) {
+      this.page = 1;
+      this.usersPropertiesReviews = [];
+      this.userPropertiesReviewsGrades = [];
+    }
+
+    fetch(
+      `https://localhost:44381/api/reviews/getuserpropertiesreviews?email=${AuthHelper.getLogin()}&page=${this.page}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.userCountryImage = response.reviews[0].countryImage.name;
+          this.userFirstName = response.reviews[0].firstName;
+          this.userLastName = response.reviews[0].lastName;
+
+          for (let i = 0; i < response.reviews.length; i++) {
+            this.usersPropertiesReviews.push(response.reviews[i]);
+          }
+          for (let i = 0; i < response.reviewGrades.length; i++) {
+            this.userPropertiesReviewsGrades.push(response.reviewGrades[i]);
+          }
+          this.page++;
+        } else {
+          alert(response.message);
+        }
+      })
+      .catch((ex) => {
+        alert(ex);
+      });
+  }
 
   ngOnInit(): void {
     if (!AuthHelper.isLogged()) {
       this.router.navigate(['']);
     }
+
+    this.getUsersReviews(false);
   }
 }
