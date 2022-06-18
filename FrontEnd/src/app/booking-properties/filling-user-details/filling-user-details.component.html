@@ -19,11 +19,11 @@
           <div class="booking-details-date">
             <div class="booking-details-date-item">
               <span class="textdecoration">Check-in Date</span>
-              <span>{{checkIn!.toString().substring(0, checkIn!.toString().indexOf('00:00:00'))}}</span>
+              <span>{{checkIn.substring(0, checkIn.indexOf('T'))}}</span>
             </div>
             <div class="booking-details-date-item">
               <span class="textdecoration">Check-out Date</span>
-              <span>{{checkOut!.toString().substring(0, checkOut!.toString().indexOf('00:00:00'))}}</span>
+              <span>{{checkOut.substring(0, checkOut.indexOf('T'))}}</span>
             </div>
           </div>
           <div class="booking-details-stay">
@@ -97,7 +97,7 @@
                 mathHelper.Round10(grade) >= 7.0 &&
                 mathHelper.Round10(grade) < 7.7
               ">Normal</span>
-            <span *ngIf="grade == 0"> Unrated </span>
+            <span *ngIf="grade"> Unrated </span>
             <span>{{chosenSuggestion.reviews.length}} reviews</span>
           </div>
           <div *ngIf="chosenSuggestion?.IsParkingAvailable" class="booking-details-card-container-item">

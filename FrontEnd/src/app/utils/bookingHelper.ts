@@ -1,12 +1,16 @@
 //eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  saveBookingData: (chosenSuggestion: any, chosenApartments: any, grade: number, diffDays: number, checkIn: Date, checkOut: Date) => {
+  saveBookingData: (chosenSuggestion: any, chosenApartments: any, bookingGrade: number, bookingDiffDays: number, checkIn: Date, checkOut: Date) => {
     sessionStorage.setItem('chosenSuggestion', JSON.stringify({ chosenSuggestion }));
     sessionStorage.setItem('chosenApartments', JSON.stringify({ chosenApartments }));
-    sessionStorage.setItem('bookingGrade', JSON.stringify({ grade }));
-    sessionStorage.setItem('bookingDiffDays', JSON.stringify({ diffDays }));
+    sessionStorage.setItem('bookingGrade', JSON.stringify({ bookingGrade }));
+    sessionStorage.setItem('bookingDiffDays', JSON.stringify({ bookingDiffDays }));
     sessionStorage.setItem('checkIn', JSON.stringify({ checkIn }));
     sessionStorage.setItem('checkOut', JSON.stringify({ checkOut }));
+  },
+
+  saveGuestsData: (guestsData: any) => {
+    sessionStorage.setItem('guestsData', JSON.stringify({ guestsData }));
   },
 
   getBookingData: () => {
@@ -18,11 +22,11 @@ export default {
     let item6 = sessionStorage.getItem('checkOut');
     let chosenSuggestion = '';
     let chosenApartments = '';
-    let bookingGrade = '';
-    let bookingDiffDays = '';
-    let checkIn;
-    let checkOut;
-    if (item1 && item2 && item3 && item4) {
+    let bookingGrade: number = -1;
+    let bookingDiffDays: number = -1;
+    let checkIn: any;
+    let checkOut: any;
+    if (item1 && item2 && item3 && item4 && item5 && item6) {
       chosenSuggestion = JSON.parse(item1).chosenSuggestion;
       chosenApartments = JSON.parse(item2).chosenApartments;
       bookingGrade = JSON.parse(item3).bookingGrade;
@@ -33,10 +37,21 @@ export default {
     return { chosenSuggestion, chosenApartments, bookingGrade, bookingDiffDays, checkIn, checkOut, };
   },
 
+  getGuestsData: () => {
+    let item = sessionStorage.getItem('guestsData');
+    let guestsData = '';
+
+    if (item) {
+      guestsData = JSON.parse(item as string).guestsData;
+    }
+    return guestsData;
+  },
+
   clearBookingData: () => {
     sessionStorage.removeItem('chosenSuggestion');
     sessionStorage.removeItem('chosenApartments');
     sessionStorage.removeItem('bookingGrade');
     sessionStorage.removeItem('bookingDiffDays');
+    sessionStorage.removeItem('guestsData');
   },
 }

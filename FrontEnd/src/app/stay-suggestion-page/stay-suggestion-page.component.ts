@@ -321,7 +321,7 @@ export class StaySuggestionPageComponent implements OnInit {
     let hours = minutes / 60;
 
     this.diffDays = hours / 24;
-    this.bookingDetailsService.setChosenDates(dateIn, dateOut);
+    this.bookingDetailsService.setChosenDates(dateIn.toDateString(), dateOut.toDateString());
     this.bookingDetailsService.setChosenApartmentsAndSuggestion(
       this.chosenFinalApartments,
       this.suggestion,

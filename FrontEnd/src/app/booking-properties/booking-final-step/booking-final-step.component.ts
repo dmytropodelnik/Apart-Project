@@ -37,8 +37,8 @@ export class BookingFinalStepComponent implements OnInit {
   grade: number = 0;
   diffDays: number = 0;
 
-  checkIn: Date | null = null;
-  checkOut: Date | null = null;
+  checkIn: string = '';
+  checkOut: string = '';
 
   discount: number = 0;
   totalPrice: number = 0;
@@ -291,6 +291,17 @@ export class BookingFinalStepComponent implements OnInit {
       this.checkIn = this.bookingDetailsService.getCheckInDate();
       this.checkOut = this.bookingDetailsService.getCheckOutDate();
       this.guestsData = this.bookingDetailsService.getGuestsData();
+
+      let bookingData = BookingHelper.getBookingData();
+      this.chosenApartments = bookingData.chosenApartments as any;
+      this.chosenSuggestion = bookingData.chosenSuggestion;
+      this.grade = +bookingData.bookingGrade;
+      this.diffDays = +bookingData.bookingDiffDays;
+      this.checkIn = bookingData.checkIn;
+      this.checkOut = bookingData.checkOut;
+      this.guestsData = BookingHelper.getGuestsData() as any;
+
+      console.log(this.guestsData);
 
       this.activatedRouter.queryParams.subscribe((params: any) => {
         if (params['totalPrice']) {

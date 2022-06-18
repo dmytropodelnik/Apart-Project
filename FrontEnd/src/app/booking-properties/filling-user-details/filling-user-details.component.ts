@@ -32,8 +32,8 @@ export class FillingUserDetailsComponent implements OnInit {
   grade: number = 0;
   diffDays: number = 0;
 
-  checkIn: Date | null = null;
-  checkOut: Date | null = null;
+  checkIn: string = '';
+  checkOut: string = '';
 
   totalPrice: number = 0;
 
@@ -100,6 +100,7 @@ export class FillingUserDetailsComponent implements OnInit {
     }
 
     this.bookingDetailsService.setGuestsData(this.guestsData);
+    BookingHelper.saveGuestsData(this.guestsData);
 
     this.router.navigate(['/bookingfinalstep'], {
       queryParams: {
@@ -145,15 +146,16 @@ export class FillingUserDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     if (BookingHelper.getBookingData()) {
-      // this.chosenApartments = this.bookingDetailsService.getChosenApartments();
-      // this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();
-      // this.grade = this.bookingDetailsService.getGrade();
-      // this.diffDays = this.bookingDetailsService.getDiffDays();
-      // this.checkIn = this.bookingDetailsService.getCheckInDate();
-      // this.checkOut = this.bookingDetailsService.getCheckOutDate();
       let bookingData = BookingHelper.getBookingData();
-      console.log(bookingData);
-      //this.chosenApartments = bookingData.chosenApartments;
+      this.chosenApartments = bookingData.chosenApartments as any;
+      this.chosenSuggestion = bookingData.chosenSuggestion;
+      this.grade = bookingData.bookingGrade;
+      this.diffDays = +bookingData.bookingDiffDays;
+      this.checkIn = bookingData.checkIn;
+      this.checkOut = bookingData.checkOut;
+
+      console.log(this.grade);
+      console.log(bookingData.bookingGrade);
 
       this.calculateTotalPrice();
       this.getSuggestionCondition();
