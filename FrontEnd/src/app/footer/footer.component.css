@@ -43,7 +43,7 @@
   font-size: 30px;
   line-height: 35px;
 
-  color: #9966ff;
+  color: #0c9496;
 }
 .subscriptionValidator {
   position: flex;
@@ -71,7 +71,7 @@
 
 .emk_footer_update_space {
   padding: 50px 0;
-  background-color: #9966ff;
+  background-color: #005556;
   color: #fff;
 }
 
@@ -94,7 +94,7 @@
 }
 
 .footer-top-partners {
-  border-bottom: 1px solid #9966ff;
+  border-bottom: 1px solid #0c9496;
 }
 
 .emk_footer_centered .emk_footer_subbanner_block {
@@ -154,9 +154,9 @@ body.zh .emk_footer_form_layout {
   line-height: 28px;
   font-weight: 300;
   height: 48px;
-  color: white;
-  background-color: #9966ff;
-  border: 1px solid white;
+  color: 005556;
+  background-color: white;
+  border: 1px solid 005556;
   -webkit-box-shadow: none;
   box-shadow: none;
   -webkit-box-flex: 1;
@@ -167,8 +167,8 @@ body.zh .emk_footer_form_layout {
 }
 
 .emk_footer_form_layout button#newsletter_button_footer:hover {
-  color: #9966ff;
-  background-color: white;
+  color: white;
+  background-color: #005556;
   border: 1px solid white;
 }
 
@@ -340,8 +340,8 @@ a.footer__priceline__title {
 .footer-top-button {
   border-radius: 3px;
   color: white;
-  background-color: #9966ff;
-  border: 1px solid #9966ff;
+  background-color: #f69e21;
+  border: 1px solid #f69e21;
   display: inline-block;
   font-weight: normal;
   padding: 5px 15px;
@@ -351,8 +351,8 @@ a.footer__priceline__title {
 
 .footer-top-button:hover {
   background-color: white !important;
-  color: #9966ff !important;
-  border: 1px solid #9966ff !important;
+  color: #f69e21 !important;
+  border: 1px solid #f69e21 !important;
 }
 
 .footer-top-partner-buttons a {
@@ -385,7 +385,7 @@ a.footer__priceline__title {
 .footer-top-link a,
 .footer-top-link input,
 .footer-top-link span {
-  color: #9966ff;
+  color: #0c9496;
   font-weight: bold;
   text-decoration: underline;
   padding: 15px 10px;
@@ -461,7 +461,7 @@ a.footer__priceline__title {
 }
 
 a:hover {
-  color: #9966ff !important;
+  color: #0c9496 !important;
 }
 
 a:active {

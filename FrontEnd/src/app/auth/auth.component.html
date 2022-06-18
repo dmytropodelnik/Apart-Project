@@ -12,7 +12,7 @@
           <ng-template #thenBlock>
             <form [formGroup]="emailForm">
               <div class="form-group align_formGroup" *ngIf="!authService.getLogCondition()">
-                <h1 class="bui_font_display_two">
+                <h1 class="font_SignIn">
                   Sign in or create an account
                 </h1>
                 <div class="alteritive_wrapper">
@@ -21,7 +21,7 @@
                     Google
                   </button>
                   <button class="alteritive_signin" (click)="verifyFacebookEnter()">
-                    <img src="../../assets/images/FB icon.png" />
+                    <img src="../../assets/images/Facebook.png" />
                     Sign in with Facebook
                   </button>
                 </div>
