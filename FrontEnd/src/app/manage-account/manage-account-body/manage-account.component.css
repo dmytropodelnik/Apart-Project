@@ -258,6 +258,10 @@ body {
   max-width: 450px;
 }
 
+.click-component {
+  cursor: pointer;
+}
+
 .Input-name-and-location {
   display: flex;
   flex-direction: column;
