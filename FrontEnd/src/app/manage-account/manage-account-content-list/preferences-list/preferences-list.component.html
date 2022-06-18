@@ -85,11 +85,11 @@
             <p *ngIf="!user.hasMailing">Subscribe and we'll send the best deals to you</p>
             <p *ngIf="user.hasMailing">If you don't want us to send you mails, you can unsubscribe from this</p>
         </div>
-        <div *ngIf="!isEditing[0]" class="colTest">
-          <button *ngIf="!user.hasMailing" class="buttonTest" (click)="toggleUserMailings(true)" [disabled]="isDisabled[3]">
+        <div *ngIf="!isEditing[2]" class="colTest">
+          <button *ngIf="!user.hasMailing" class="buttonTest" (click)="toggleUserMailings(true)" [disabled]="isDisabled[2]">
             Subscribe
           </button>
-          <button *ngIf="user.hasMailing" class="buttonTest" (click)="toggleUserMailings(false)" [disabled]="isDisabled[3]">
+          <button *ngIf="user.hasMailing" class="buttonTest" (click)="toggleUserMailings(false)" [disabled]="isDisabled[2]">
             Unsubscribe
           </button>
         </div>
