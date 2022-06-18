@@ -73,6 +73,12 @@ export class SearchResultsComponent implements OnInit {
   yearOut: number | null = null;
   monthOut: number | null = null;
   dayOut: number | null = null;
+  current = new Date();
+  minDate = {
+    year: this.current.getFullYear(),
+    month: this.current.getMonth() + 1,
+    day: this.current.getDate(),
+  };
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     this.suggestionsAmountWithFilters.fill(0);

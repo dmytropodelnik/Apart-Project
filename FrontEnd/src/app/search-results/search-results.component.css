@@ -16,19 +16,19 @@
 .search_results_top_buttons > button {
   height: 30px;
   color: #ffffff;
-  background: #9966ff;
+  background: #f69e21;
   border: 1px solid transparent;
 }
 
 .search_results_top_buttons > button:hover {
-  color: #9966ff;
+  color: #f69e21;
   background: #ffffff;
-  border: 1px solid #9966ff;
+  border: 1px solid #f69e21;
 }
 
 .dropdown_button {
   color: #ffffff;
-  background: #9966ff;
+  background: #f69e21;
   border: 1px solid transparent;
   text-align: center;
 }
@@ -38,9 +38,9 @@
 }
 
 .dropdown_button:hover {
-  color: #9966ff;
+  color: #f69e21;
   background: #ffffff;
-  border: 1px solid #9966ff;
+  border: 1px solid #f69e21;
 }
 
 .search_results_top_buttons > * {
@@ -99,7 +99,7 @@
 }
 
 .bui-review-score__badge {
-  background: #9966ff;
+  background: #f69e21;
   color: #fff;
   display: flex;
   -webkit-box-pack: center;
@@ -114,8 +114,15 @@
   align-items: center;
 }
 
+.left_information_name_category {
+  padding: 3px;
+  background-color: #f69e21;
+  color: white;
+  margin-right: 5px;
+}
+
 .bui-review-score__badge_unrated {
-  background: #9966ff;
+  background: #f69e21;
   color: #fff;
   display: flex;
   -webkit-box-pack: center;
@@ -225,11 +232,11 @@
   width: 40px;
   height: 40px;
   border: 0;
-  background: #ed6649;
+  background: #f69e21;
 }
 
 .information-container-like > svg {
-  fill: #ed6649;
+  fill: #f69e21;
   stroke: white;
   stroke-width: 10px;
 }
@@ -239,7 +246,7 @@
 }
 
 .information-container-like1 > svg:hover {
-  fill: #9966ff;
+  fill: #f69e21;
 }
 
 .information-container-like1 {
@@ -247,7 +254,7 @@
   width: 40px;
   height: 40px;
   border: 0;
-  background: #ed6649;
+  background: #f69e21;
 }
 
 .information-container-like1 > svg {
@@ -275,12 +282,12 @@
 
 .search_card_show_prices {
   display: flex;
-  background: #9966ff;
+  background: #f69e21;
   color: #ffffff;
   width: 159px;
   height: 37px;
   border-radius: 10px;
-  border: 1px solid #9966ff;
+  border: 1px solid #f69e21;
   justify-content: center;
   align-items: center;
   margin-top: auto;
@@ -353,7 +360,7 @@
 
   /* Basic */
 
-  background: #9966ff;
+  background: #f69e21;
   border-radius: 10px;
   border: 0px;
 
@@ -447,8 +454,8 @@
 }
 
 .page-item.active .page-link {
-  background-color: #9966ff !important;
-  border: 1px solid #9966ff !important;
+  background-color: #f69e21 !important;
+  border: 1px solid #f69e21 !important;
 }
 
 .pagination {

@@ -18,8 +18,8 @@ export class BookingDetailsService {
   grade: number = 0;
   diffDays: number = 0;
 
-  dateIn: Date | null = null;
-  dateOut: Date | null = null;
+  dateIn: string = '';
+  dateOut: string = '';
 
   guestsData: string[] = [];
 
@@ -32,7 +32,7 @@ export class BookingDetailsService {
     this.diffDays = diffDays;
   }
 
-  setChosenDates(dateIn: Date, dateOut: Date) {
+  setChosenDates(dateIn: string, dateOut: string) {
     this.dateIn = dateIn;
     this.dateOut = dateOut;
   }
@@ -61,11 +61,11 @@ export class BookingDetailsService {
     return this.diffDays;
   }
 
-  getCheckInDate(): Date | null {
+  getCheckInDate(): string {
     return this.dateIn;
   }
 
-  getCheckOutDate(): Date | null {
+  getCheckOutDate(): string {
     return this.dateOut;
   }
 

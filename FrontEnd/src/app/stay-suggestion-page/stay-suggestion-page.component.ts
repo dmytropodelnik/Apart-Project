@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import AuthHelper from '../utils/authHelper';
+import BookingHelper from '../utils/bookingHelper';
 import ImageHelper from '../utils/imageHelper';
 import MathHelper from '../utils/mathHelper';
 
@@ -105,6 +106,12 @@ export class StaySuggestionPageComponent implements OnInit {
   owner: string = '';
 
   page: number = 1;
+  current = new Date();
+  minDate = {
+    year: this.current.getFullYear(),
+    month: this.current.getMonth() + 1,
+    day: this.current.getDate(),
+  };
 
   constructor(
     private router: Router,
@@ -314,13 +321,14 @@ export class StaySuggestionPageComponent implements OnInit {
     let hours = minutes / 60;
 
     this.diffDays = hours / 24;
-    this.bookingDetailsService.setChosenDates(dateIn, dateOut);
+    this.bookingDetailsService.setChosenDates(dateIn.toDateString(), dateOut.toDateString());
     this.bookingDetailsService.setChosenApartmentsAndSuggestion(
       this.chosenFinalApartments,
       this.suggestion,
       this.grade,
       this.diffDays
     );
+    BookingHelper.saveBookingData(this.suggestion, this.chosenFinalApartments, this.grade, this.diffDays, dateIn, dateOut);
     this.router.navigate(['/fillinguserdetails']);
   }
 
@@ -403,7 +411,7 @@ export class StaySuggestionPageComponent implements OnInit {
     });
   }
 
-  likeComment(id: number): void {
+  likeComment(id: number, index: number): void {
     fetch(
       `https://apartmain.azurewebsites.net/api/reviews/likereview?id=${id}&email=${AuthHelper.getLogin()}`,
       {
@@ -418,8 +426,8 @@ export class StaySuggestionPageComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          this.reviews[id - 1].likes = data.reviewData.likes;
-          this.reviews[id - 1].dislikes = data.reviewData.dislikes;
+          this.reviews[index].likes = data.reviewData.likes;
+          this.reviews[index].dislikes = data.reviewData.dislikes;
           alert('Liked successfully!');
         } else {
           alert(data.message);
@@ -430,7 +438,7 @@ export class StaySuggestionPageComponent implements OnInit {
       });
   }
 
-  dislikeComment(id: number): void {
+  dislikeComment(id: number, index: number): void {
     fetch(
       `https://apartmain.azurewebsites.net/api/reviews/dislikereview?id=${id}&email=${AuthHelper.getLogin()}`,
       {
@@ -445,8 +453,8 @@ export class StaySuggestionPageComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          this.reviews[id - 1].likes = data.reviewData.likes;
-          this.reviews[id - 1].dislikes = data.reviewData.dislikes;
+          this.reviews[index].likes = data.reviewData.likes;
+          this.reviews[index].dislikes = data.reviewData.dislikes;
           alert('Disliked successfully!');
         } else {
           alert(data.message);

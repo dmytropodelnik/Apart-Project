@@ -1,16 +1,18 @@
+import { ConsoleLogger } from '@angular/compiler-cli/private/localize';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Guest } from 'src/app/models/UserData/guest.item';
 import { BookingDetailsService } from 'src/app/services/booking-details.service';
 
 import AuthHelper from '../../utils/authHelper';
+import BookingHelper from '../../utils/bookingHelper';
 import ImageHelper from '../../utils/imageHelper';
 import MathHelper from '../../utils/mathHelper';
 
 @Component({
   selector: 'app-filling-user-details',
   templateUrl: './filling-user-details.component.html',
-  styleUrls: ['./filling-user-details.component.css']
+  styleUrls: ['./filling-user-details.component.css'],
 })
 export class FillingUserDetailsComponent implements OnInit {
   chosenSuggestion: any;
@@ -30,8 +32,8 @@ export class FillingUserDetailsComponent implements OnInit {
   grade: number = 0;
   diffDays: number = 0;
 
-  checkIn: Date | null = null;
-  checkOut: Date | null = null;
+  checkIn: string = '';
+  checkOut: string = '';
 
   totalPrice: number = 0;
 
@@ -51,10 +53,8 @@ export class FillingUserDetailsComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRouter: ActivatedRoute,
-    private bookingDetailsService: BookingDetailsService,
-    ) {
-
-    }
+    private bookingDetailsService: BookingDetailsService
+  ) {}
 
   calculateTotalPrice(): void {
     for (let i = 0; i < this.chosenApartments.length; i++) {
@@ -76,7 +76,7 @@ export class FillingUserDetailsComponent implements OnInit {
 
   continueBooking(): void {
     if (this.mainEmail != this.confirmEmail) {
-      alert("Emails are not equal!");
+      alert('Emails are not equal!');
       return;
     }
     if (this.mainFirstName.length < 1) {
@@ -100,6 +100,7 @@ export class FillingUserDetailsComponent implements OnInit {
     }
 
     this.bookingDetailsService.setGuestsData(this.guestsData);
+    BookingHelper.saveGuestsData(this.guestsData);
 
     this.router.navigate(['/bookingfinalstep'], {
       queryParams: {
@@ -111,7 +112,7 @@ export class FillingUserDetailsComponent implements OnInit {
         lastName: this.mainLastName,
         specialRequests: this.specialRequests,
       },
-    })
+    });
   }
 
   fillApartmentsArray(): void {
@@ -123,7 +124,9 @@ export class FillingUserDetailsComponent implements OnInit {
   getSuggestionCondition(): void {
     if (AuthHelper.isLogged()) {
       fetch(
-        `https://apartmain.azurewebsites.net/api/favorites/issuggestionsaved?email=${AuthHelper.getLogin()}&id=${this.chosenSuggestion.id}`,
+        `https://apartmain.azurewebsites.net/api/favorites/issuggestionsaved?email=${AuthHelper.getLogin()}&id=${
+          this.chosenSuggestion.id
+        }`,
         {
           method: 'GET',
         }
@@ -133,7 +136,6 @@ export class FillingUserDetailsComponent implements OnInit {
           if (response.code === 200) {
             this.isSaved = response.result;
           } else {
-
           }
         })
         .catch((ex) => {
@@ -143,23 +145,23 @@ export class FillingUserDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.chosenApartments = this.bookingDetailsService.getChosenApartments();
-    this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();
-    this.grade = this.bookingDetailsService.getGrade();
-    this.diffDays = this.bookingDetailsService.getDiffDays();
-    this.checkIn = this.bookingDetailsService.getCheckInDate();
-    this.checkOut = this.bookingDetailsService.getCheckOutDate();
+    if (BookingHelper.getBookingData()) {
+      let bookingData = BookingHelper.getBookingData();
+      this.chosenApartments = bookingData.chosenApartments as any;
+      this.chosenSuggestion = bookingData.chosenSuggestion;
+      this.grade = bookingData.bookingGrade;
+      this.diffDays = +bookingData.bookingDiffDays;
+      this.checkIn = bookingData.checkIn;
+      this.checkOut = bookingData.checkOut;
 
-    this.calculateTotalPrice();
-    this.getSuggestionCondition();
-    this.fillApartmentsArray();
-    // if (this.bookingDetailsService.getChosenApartments() != null) {
-    //   this.chosenApartments = this.bookingDetailsService.getChosenApartments();
-    //   this.chosenSuggestion = this.bookingDetailsService.getChosenSuggestion();
-    //   console.log(this.chosenSuggestion);
-    // } else {
-    //   this.router.navigate(['']);
-    // }
+      console.log(this.grade);
+      console.log(bookingData.bookingGrade);
+
+      this.calculateTotalPrice();
+      this.getSuggestionCondition();
+      this.fillApartmentsArray();
+    } else {
+      this.router.navigate(['']);
+    }
   }
-
 }

@@ -56,7 +56,7 @@ a.a11y-skip-to-content {
   color: #000000;
 }
 .bui-header {
-  background: #9966ff;
+  background: #0c9496;
 }
 
 .bui-header__bar:not(:last-child) {
@@ -238,7 +238,7 @@ a.a11y-skip-to-content {
   background-color: transparent;
 }
 .dropdown-menu {
-  border: 1px solid #9966ff !important;
+  border: 1px solid #0c9496 !important;
   margin-top: 5px;
   padding: 0px 0px 10px 0px !important;
 }
@@ -248,9 +248,9 @@ a.a11y-skip-to-content {
   margin-bottom: 5px;
 }
 .dropdown-item:hover {
-  border-top: 1px solid #9966ff;
-  border-bottom: 1px solid #9966ff;
-  color: #9966ff !important;
+  border-top: 1px solid #0c9496;
+  border-bottom: 1px solid #0c9496;
+  color: #0c9496 !important;
   background-color: #cfcfcf;
 }
 
@@ -263,7 +263,7 @@ a.a11y-skip-to-content {
   text-align: center;
   white-space: nowrap;
   color: white;
-  background-color: #9966ff;
+  background-color: #0c9496;
   border: 0;
 }
 .dropdown-itemproperty:hover {
@@ -308,7 +308,7 @@ a.a11y-skip-to-content {
 }
 .bui-button__text {
   position: relative;
-  color: #9966ff;
+  color: #0c9496;
 }
 .bui-button-USD {
   position: relative;
@@ -482,7 +482,7 @@ a:link {
     Arial, sans-serif;
   display: block;
   border: 0;
-  background: #9966ff;
+  background: #0c9496;
   color: #262626;
   padding: 16px;
   text-decoration: none;
@@ -526,7 +526,7 @@ a:link {
 .bui-icon1 {
   display: inline-block;
   fill: currentColor;
-  color: #9966ff;
+  color: #0c9496;
 }
 
 .bui-icon svg {
@@ -650,7 +650,7 @@ a:link {
   font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
     Arial, sans-serif;
   background: transparent;
-  border: 0px solid #9966ff;
+  border: 0px solid #0c9496;
   border-radius: 5px;
 }
 .bui-button1 {
@@ -685,7 +685,7 @@ a:link {
   font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
     Arial, sans-serif;
   background: transparent;
-  border: 1px solid #9966ff;
+  border: 1px solid #0c9496;
   border-radius: 5px;
 }
 
@@ -704,8 +704,8 @@ a:link {
 
 .bui-tab--light .bui-tab__link:hover {
   background-color: white;
-  color: #9966ff;
-  border: 1px solid #9966ff;
+  color: #0c9496;
+  border: 1px solid #0c9496;
 }
 
 .flag {
@@ -828,7 +828,7 @@ a:link {
 }
 
 .add-propties-item-button {
-  background-color: #9966ff;
+  background-color: #0c9496;
   color: white;
   width: 100%;
   padding: 4px 16px;
@@ -864,7 +864,7 @@ li::marker {
   padding: 15px;
 }
 .add-apartments-item-button {
-  background-color: #9966ff;
+  background-color: #0c9496;
   color: white;
   max-width: 100%;
   min-width: 350px;
@@ -955,7 +955,7 @@ li::marker {
   width: 160px;
   height: 37px;
   color: #ffffff;
-  background: #9966ff;
+  background: #0c9496;
   border: 0;
   border-radius: 7px;
 }
@@ -968,9 +968,9 @@ li::marker {
   display: block;
   width: 65px;
   height: 37px;
-  color: #9966ff;
+  color: #0c9496;
   background: #ffffff;
-  border: 0.5px solid #9966ff;
+  border: 0.5px solid #0c9496;
   border-radius: 7px;
   margin-right: 10px;
 }

@@ -8,6 +8,7 @@
 .user-bookings-navbar {
   display: flex;
   margin: 10px 0px;
+  justify-content: center;
 }
 
 .user-bookings-navbar-buttons {
@@ -18,7 +19,7 @@
 .user-bookings-navbar-buttons > button {
   border: 1px solid white;
   padding: 10px;
-  color: #50a5f1;
+  color: #0c9496;
   background: white;
 }
 
@@ -28,14 +29,14 @@
   width: 120px;
   height: 40px;
   border-radius: 10px;
-  background-color: #9966ff;
+  background-color: #0c9496;
 }
 
 .user-bookings-navbar-buttons > button:hover {
   padding: 10px;
-  color: #000000;
+  color: #f69e21;
   background: white;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #f69e21;
 }
 
 .user-bookings-main-container {
@@ -73,7 +74,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 20px;
+  gap: 10px;
 }
 
 .user-bookings-card-right {
@@ -93,10 +94,17 @@
 .modal-footer-remove {
   display: flex;
   flex-direction: column;
+  margin-right: auto;
 }
 
 .modal-footer-remove > div {
   display: flex;
-  gap: 20px;
+  gap: 10px;
   margin: 10px 0px;
+}
+
+.emptyBookings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }

@@ -13,7 +13,7 @@
 }
 
 .signin {
-  background: url(../../assets/images/login.jpg);
+  background: url(../../assets/images/sign_in_image2.png);
 }
 .wrapper .image1 {
   width: 100%;
@@ -127,7 +127,7 @@
 
 .auth-input:focus {
   outline: none;
-  border: 1px solid #9966ff;
+  border: 1px solid #f69e21;
 }
 
 .auth-input {
@@ -157,9 +157,13 @@
   width: fit-content;
   height: 30px;
   background: #ffffff;
-  box-shadow: 3px 6px 7px rgba(0, 0, 0, 0.02);
+  box-shadow: 3px 6px 7px rgb(0 0 0 / 2%);
   border-radius: 10px;
   border: none;
+  gap: 10px;
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
 }
 
 .auth-btn {
@@ -175,7 +179,7 @@
   margin-top: 7px;
   width: 200px;
   height: 50px;
-  background: #9966ff;
+  background: #f69e21;
   border-radius: 30px;
 }
 
@@ -201,8 +205,9 @@
 }
 .auth-btn:hover {
   background-color: #ffffff;
-  border-color: #9966ff;
-  color: #9966ff;
+  border-color: #f69e21;
+  color: #f69e21;
+  cursor: pointer;
 }
 
 .verificationCode_text {
@@ -293,4 +298,15 @@ body .bui_font_caption {
 .footer-block {
   padding: 16px 0;
   border-top: 1px solid #e6e6e6;
+}
+
+.font_SignIn {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 35px;
+  letter-spacing: 0.02em;
+
+  color: #000000;
 }
