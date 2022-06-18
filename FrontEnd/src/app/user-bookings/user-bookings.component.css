@@ -19,7 +19,7 @@
 .user-bookings-navbar-buttons > button {
   border: 1px solid white;
   padding: 10px;
-  color: #50a5f1;
+  color: #0c9496;
   background: white;
 }
 
@@ -29,14 +29,14 @@
   width: 120px;
   height: 40px;
   border-radius: 10px;
-  background-color: #9966ff;
+  background-color: #0c9496;
 }
 
 .user-bookings-navbar-buttons > button:hover {
   padding: 10px;
-  color: #000000;
+  color: #f69e21;
   background: white;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #f69e21;
 }
 
 .user-bookings-main-container {

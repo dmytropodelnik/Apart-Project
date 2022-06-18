@@ -1,5 +1,5 @@
 .bui-header {
-  background: #9966ff;
+  background: #0c9496;
 }
 
 .bui-header__bar:not(:last-child) {
@@ -76,7 +76,7 @@
 
 .bui-button__text {
   position: relative;
-  color: #9966ff;
+  color: #0c9496;
 }
 
 .bui-avatar--button-auth {
@@ -266,7 +266,7 @@ li::marker {
 }
 
 .bui-button {
-  border: 1px solid #9966ff;
+  border: 1px solid #0c9496;
   width: 30px;
   height: 30px;
 }

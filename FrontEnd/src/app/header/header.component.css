@@ -33,15 +33,16 @@ a.a11y-skip-to-content {
   transition: all 0.1s ease;
 }
 .header_text {
-  width: 124px;
-  height: 60px;
-  font-family: Bahnschrift;
+  width: 198px;
+  height: 45px;
+  font-family: "Comfortaa";
   font-style: normal;
-  font-weight: 600;
-  font-size: 50px;
-  line-height: 60px;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 45px;
   /* identical to box height */
-  color: #fff;
+
+  color: #ffffff;
 }
 
 /* header */
@@ -63,7 +64,7 @@ a.a11y-skip-to-content {
   color: #000000;
 }
 .bui-header {
-  background-color: #9966ff;
+  background-color: #0c9496;
 }
 
 .bui-header--rounded-tabs .bui-header__bar {
@@ -251,7 +252,7 @@ a.a11y-skip-to-content {
   background-color: transparent;
 }
 .dropdown-menu {
-  border: 1px solid #9966ff !important;
+  border: 1px solid #0c9496 !important;
   margin-top: 5px;
   padding: 0px 0px 10px 0px !important;
 }
@@ -261,10 +262,11 @@ a.a11y-skip-to-content {
   margin-bottom: 5px;
 }
 .dropdown-item:hover {
-  border-top: 1px solid #9966ff;
-  border-bottom: 1px solid #9966ff;
-  color: #9966ff !important;
-  background-color: #cfcfcf;
+  border-top: 1px solid #f69e21;
+  border-bottom: 1px solid #f69e21;
+  color: #f69e21 !important;
+  background-color: #dddcdcb4;
+  cursor: pointer;
 }
 
 .dropdown-itemproperty {
@@ -276,7 +278,7 @@ a.a11y-skip-to-content {
   text-align: center;
   white-space: nowrap;
   color: white;
-  background-color: #9966ff;
+  background-color: #0c9496;
   border: 0;
 }
 .dropdown-itemproperty:hover {
@@ -322,7 +324,7 @@ a.a11y-skip-to-content {
 }
 .bui-button__text1 {
   position: relative;
-  color: #9966ff;
+  color: white;
 }
 .bui-button-USD {
   position: relative;
@@ -536,7 +538,6 @@ a.a11y-skip-to-content {
   text-decoration: none;
 }
 
-
 .bui-tab__link1 {
   font-size: 14px;
   font-weight: 500;
@@ -556,9 +557,6 @@ a.a11y-skip-to-content {
   box-sizing: border-box;
   font-family: inherit;
 }
-
-
-
 
 .bui-tab__icon {
   display: inline-block;
@@ -668,7 +666,7 @@ a.a11y-skip-to-content {
 }
 
 .bui-button:hover {
-  background-color: #802f0093 !important;
+  background-color: #f69e21 !important;
 }
 
 .bui-button--light {
@@ -736,7 +734,7 @@ a.a11y-skip-to-content {
   box-sizing: border-box;
   vertical-align: middle;
   position: relative;
-  color: #9966ff;
+  color: #0c9496;
   min-height: 15px;
   min-width: 15px;
   font-size: 14px;
@@ -747,12 +745,12 @@ a.a11y-skip-to-content {
   background: transparent;
   background-color: white;
 
-  border: 1px solid #9966ff;
+  border: 1px solid #0c9496;
   border-radius: 5px;
 }
 
 .bui-button1:hover {
-  background-color: #9966ff;
+  background-color: #0c9496;
   color: white;
   border: 1px solid white;
 }
@@ -768,6 +766,43 @@ a.a11y-skip-to-content {
   background-color: #e9620869;
   position: absolute;
   overflow: hidden;
+}
+
+.login-button {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  text-align: left;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  vertical-align: middle;
+  position: relative;
+  color: #fff;
+  min-height: 15px;
+  min-width: 15px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, sans-serif;
+  background: transparent;
+  background-color: #f69e21;
+  border: 0;
+  border-radius: 5px;
 }
 
 .flag {

@@ -21,7 +21,7 @@
 
 .ngbDatepicker .ngb-dp-today {
   color: #ffffff !important;
-  background-color: #9966ff !important;
+  background-color: #0c9496 !important;
 }
 
 .xpi__searchbox {
@@ -124,7 +124,7 @@ form {
   color: #333;
   border: 0;
   display: table;
-  background-color: #9966ff;
+  background-color: #f69e21;
   padding: 4px;
   border-radius: 4px;
   margin: 24px 0 16px;
@@ -553,7 +553,7 @@ div[data-component="search/dates/dates-errors"] {
 }
 
 .header-input:hover {
-  box-shadow: 0 0 0 1px #ff0000 inset;
+  box-shadow: 0 0 0 1px #0c9496 inset;
 }
 
 .unified-postcard__content:hover {
@@ -643,8 +643,8 @@ div#basiclayout {
 }
 
 .coronavirus-banner__icon {
-  fill: #9966ff;
-  color: #9966ff;
+  fill: #0c9496;
+  color: #0c9496;
   background: #fff;
   height: 40px;
   width: 40px;
@@ -980,7 +980,7 @@ a:link {
 a.coronavirus-banner__link {
   font-weight: 400;
   text-decoration: none;
-  color: #9966ff;
+  color: #0c9496;
 }
 
 .bui-f-font-display_two,
@@ -1457,7 +1457,7 @@ a.coronavirus-banner__link {
 }
 
 .bui-review-score__badge {
-  background: #9966ff;
+  background: #0c9496;
   color: #fff;
   display: flex;
   -webkit-box-pack: center;
@@ -1708,8 +1708,8 @@ a.bui-card:link {
 
 /* tabs style */
 .nav-tabs .nav-link:hover {
-  color: #9966ff;
-  border-color: #9966ff;
+  color: #0c9496;
+  border-color: #0c9496;
   border: 1px solid;
 }
 .nav-tabs {
@@ -1717,11 +1717,11 @@ a.bui-card:link {
 }
 .nav-tabs .nav-link.active:hover {
   background: #ffffff;
-  color: #9966ff;
+  color: #0c9496;
 }
 
 .nav-tabs .nav-link.active {
-  background: #9966ff;
+  background: #0c9496;
   color: white;
 }
 
@@ -1734,7 +1734,7 @@ a.bui-card:link {
   border-radius: 999px;
   padding: 11px 15px;
   border: 1px solid transparent;
-  color: #9966ff;
+  color: #0c9496;
   font-weight: 500;
   font-size: 14px;
 }
@@ -1768,7 +1768,7 @@ a.bui-card:link {
 }
 
 .inner-tabs-links a:hover {
-  color: #9966ff;
+  color: #0c9496;
 }
 
 .inner-tabs-links li {
@@ -1919,7 +1919,7 @@ a.bui-card:link {
   border: 1px solid white;
   border-radius: 2px;
   color: #fff !important;
-  background-color: #9966ff;
+  background-color: #f69e21;
   height: 52px;
   min-width: 100% !important;
   margin: 0;

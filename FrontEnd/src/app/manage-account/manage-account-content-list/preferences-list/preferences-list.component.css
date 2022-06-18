@@ -21,10 +21,11 @@
 }
 
 .buttonTest {
+  min-width: fit-content;
   width: 80px;
   height: 40px;
-  background: #9966ff;
-  border: 1px solid #9966ff;
+  background: #f69e21;
+  border: 1px solid #f69e21;
   border-radius: 7px;
   font-family: "Calibri";
   font-style: normal;
@@ -38,9 +39,9 @@
 }
 
 .buttonTest:hover {
-  color: #9966ff;
+  color: #f69e21;
   background: #ffffff;
-  border: 1px solid #9966ff;
+  border: 1px solid #f69e21;
 }
 
 .buttonTest[disabled] {
@@ -61,15 +62,15 @@
   line-height: 24px;
   padding: 0px 10px;
   margin: 5px;
-  color: #9966ff;
+  color: #f69e21;
   background: #ffffff;
-  border: 1px solid #9966ff;
+  border: 1px solid #f69e21;
 }
 
 .buttonTest1:hover {
   color: #ffffff;
-  background: #9966ff;
-  border: 1px solid #9966ff;
+  background: #f69e21;
+  border: 1px solid #f69e21;
 }
 
 @media screen and (max-width: 495px) {

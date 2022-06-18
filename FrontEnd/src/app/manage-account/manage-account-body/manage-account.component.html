@@ -1,19 +1,11 @@
-<header class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs">
+<header
+  class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs"
+>
   <nav class="bui-header__bar">
     <div class="bui-header__main">
       <div class="bui-header__logo">
         <span>
           <label class="robotoregular click-component" routerLink="">Apart.com</label>
-        </span>
-      </div>
-    </div>
-
-    <div>
-      <div class="bui-group__item">
-        <span class="bui-button__text">
-          <div class="bui-avatar bui-avatar--small" aria-hidden="true">
-            <img class="bui-avatar__image" src="assets/images/us-flag.png" alt="" />
-          </div>
         </span>
       </div>
     </div>
@@ -25,35 +17,37 @@
     <!-- ========== Left Sidebar Start ========== -->
     <div class="">
       <!--- Sidemenu -->
-        <!-- Left Menu Start -->
-        <ul class="side_menu">
-              <li class="side_menu_content click-component">
-                <a  (click)="setContent('personal-details')">
-                  <i class="mdi mdi-account-circle"></i>
-                  <span>Personal details</span>
-                </a>
-              </li>
+      <!-- Left Menu Start -->
+      <ul class="side_menu">
+        <li class="side_menu_content">
+          <i><span class="account-personal"></span></i>
+          <a (click)="setContent('personal-details')">
+            <span class="side_menu_content_text">Personal details</span>
+          </a>
+        </li>
 
-              <li class="side_menu_content click-component">
-                <a (click)="setContent('preferences')">
-                  <i class="mdi mdi-account-box"></i>
-                  <span>Preferences</span>
-                </a>
-              </li>
+        <li class="side_menu_content">
+          <i><span class="account-preference"></span></i>
+          <a (click)="setContent('preferences')">
+            <span class="side_menu_content_text">Preferences</span>
+          </a>
+        </li>
 
-              <li class="side_menu_content click-component">
-                <a (click)="setContent('security')">
-                  <i class="mdi mdi-account-box-outline"></i>
-                  <span class="side_menu_content_text">Security</span>
-                </a>
-              </li>
-        </ul>
+        <li class="side_menu_content">
+          <i><span class="account-security"></span></i>
+          <a (click)="setContent('security')">
+            <span class="side_menu_content_text">Security</span>
+          </a>
+        </li>
+      </ul>
       <!-- Sidebar -->
     </div>
     <!-- Left Sidebar End -->
 
     <div class="right_content">
-      <app-manage-account-content [content]="content"></app-manage-account-content>
+      <app-manage-account-content
+        [content]="content"
+      ></app-manage-account-content>
     </div>
   </div>
 
