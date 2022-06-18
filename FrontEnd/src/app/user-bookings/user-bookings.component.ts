@@ -16,7 +16,8 @@ export class UserBookingsComponent implements OnInit {
 
   imageHelper: any = ImageHelper;
 
-  selectedBooking: number = 0;
+  selectedBooking: number = 1;
+  numberBooking: number = 0;
 
   constructor(
     private modalService: NgbModal,
@@ -24,11 +25,12 @@ export class UserBookingsComponent implements OnInit {
     private activatedRoute: ActivatedRoute
   ) {}
 
-  openVerticallyCentered(content: any, id: number) {
+  openVerticallyCentered(content: any, id: number, number: number) {
     this.modalService.open(content, {
       centered: true,
     });
     this.selectedBooking = id;
+    this.numberBooking = number;
   }
 
   payBooking(): void {
@@ -51,8 +53,6 @@ export class UserBookingsComponent implements OnInit {
       .then((response) => {
         if (response.code === 200) {
           this.bookings = response.stayBookings;
-          console.log(this.bookings);
-          console.log(this.selectedBooking);
         } else {
           alert(response.message);
         }
