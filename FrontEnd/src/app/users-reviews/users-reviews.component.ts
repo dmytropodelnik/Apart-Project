@@ -49,7 +49,7 @@ export class UsersReviewsComponent implements OnInit {
     }
 
     fetch(
-      `https://localhost:44381/api/reviews/getusersreviews?email=${AuthHelper.getLogin()}&page=${this.page}`,
+      `https://apartmain.azurewebsites.net/api/reviews/getusersreviews?email=${AuthHelper.getLogin()}&page=${this.page}`,
       {
         method: 'GET',
         headers: {
@@ -92,7 +92,7 @@ export class UsersReviewsComponent implements OnInit {
     }
 
     fetch(
-      `https://localhost:44381/api/reviews/getuserpropertiesreviews?email=${AuthHelper.getLogin()}&page=${this.page}`,
+      `https://apartmain.azurewebsites.net/api/reviews/getuserpropertiesreviews?email=${AuthHelper.getLogin()}&page=${this.page}`,
       {
         method: 'GET',
         headers: {
