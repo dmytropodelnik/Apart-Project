@@ -9,7 +9,7 @@
         name="inProgressFilter"
         [(ngModel)]="inProgressFilter"
       />
-      <button class="btn btn-primary" (click)="filterInProgressSuggestions()">
+      <button class="filter-button" (click)="filterInProgressSuggestions()">
         Filter
       </button>
     </div>
@@ -79,8 +79,13 @@
   <div class="active-properties-main">
     <h2>Active properties [{{ activeSuggestionsAmount }}]</h2>
     <div>
-      <input type="text" name="activeFilter" [(ngModel)]="activeFilter" />
-      <button class="btn btn-primary" (click)="filterActiveSuggestions()">
+      <input
+        class="inputfield"
+        type="text"
+        name="activeFilter"
+        [(ngModel)]="activeFilter"
+      />
+      <button class="filter-button" (click)="filterActiveSuggestions()">
         Filter
       </button>
     </div>

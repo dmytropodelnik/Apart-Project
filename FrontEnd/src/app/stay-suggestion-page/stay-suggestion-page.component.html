@@ -256,7 +256,7 @@
           </div>
           <button
             *ngIf="isDateChosen"
-            class="btn btn-primary"
+            class="button-yellow"
             (click)="chooseApartments()"
           >
             Reserve
@@ -274,6 +274,7 @@
               *ngIf="isDateChosen"
               name="chosenApartments{{ i }}.amount"
               [(ngModel)]="chosenApartments[i].amount"
+              class="select-availability"
             >
               <option value="-1">Select amount</option>
               <option value="1">1</option>
@@ -382,23 +383,25 @@
             *ngFor="let type of facilityTypes; let i = index"
             class="facilities-item"
           >
-            <span class="font-weight-bold">{{ type.type }}</span>
-            <span *ngFor="let facility of type.facilities; let j = index">
-              <svg
-                class="bk-icon -streamline-checkmark facilities-margin"
-                height="14"
-                width="14"
-                viewBox="0 0 128 128"
-                role="presentation"
-                aria-hidden="true"
-                focusable="false"
-              >
-                <path
-                  d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"
-                ></path>
-              </svg>
-              <span>{{ facility.text }}</span>
-            </span>
+            <div class="facilities-item-content">
+              <span class="font-weight-bold">{{ type.type }}</span>
+              <span *ngFor="let facility of type.facilities; let j = index">
+                <svg
+                  class="bk-icon -streamline-checkmark facilities-margin"
+                  height="14"
+                  width="14"
+                  viewBox="0 0 128 128"
+                  role="presentation"
+                  aria-hidden="true"
+                  focusable="false"
+                >
+                  <path
+                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"
+                  ></path>
+                </svg>
+                <span>{{ facility.text }}</span>
+              </span>
+            </div>
           </div>
         </div>
       </div>
@@ -478,7 +481,7 @@
       </div>
     </div>
     <button
-      class="btn btn-outline-primary btn-sm"
+      class="button-yellow"
       (click)="openVerticallyCentered(content)"
       (click)="modal.dismiss()"
     >
@@ -687,14 +690,26 @@
     <div class="write-review-container">
       <div class="write-review-item">
         <label for="booking-number">Booking number</label>
-        <input type="text" name="bookingNumber" [(ngModel)]="bookingNumber" />
+        <input
+          class="select-write-review"
+          type="text"
+          name="bookingNumber"
+          [(ngModel)]="bookingNumber"
+        />
       </div>
       <div class="write-review-item">
         <label for="pin">PIN</label>
-        <input type="text" name="bookingPin" [(ngModel)]="bookingPin" />
+        <input
+          class="select-write-review"
+          type="text"
+          name="bookingPin"
+          [(ngModel)]="bookingPin"
+        />
       </div>
       <div class="write-review-item">
-        <button (click)="rateStay()">Rate your stay</button>
+        <button class="button-yellow1" (click)="rateStay()">
+          Rate your stay
+        </button>
       </div>
       <div class="write-review-item">
         Only a customer who booked through Booking.com and stayed at a specific
@@ -724,7 +739,12 @@
     <div class="write-review-container">
       <div class="write-review-item">
         <label for="staff">Staff rating</label>
-        <select name="staff" id="staff" [(ngModel)]="reviewCategoryGrades[0]">
+        <select
+          class="select-write-review"
+          name="staff"
+          id="staff"
+          [(ngModel)]="reviewCategoryGrades[0]"
+        >
           <option value="-1" disabled selected>
             Please select your rating value from 1 - 10
           </option>
@@ -746,6 +766,7 @@
           name="facilities"
           id="facilities"
           [(ngModel)]="reviewCategoryGrades[1]"
+          class="select-write-review"
         >
           <option value="-1" disabled selected>
             Please select your rating value from 1 - 10
@@ -768,6 +789,7 @@
           name="cleanliness"
           id="cleanliness"
           [(ngModel)]="reviewCategoryGrades[2]"
+          class="select-write-review"
         >
           <option value="-1" disabled selected>
             Please select your rating value from 1 - 10
@@ -790,6 +812,7 @@
           name="comfort"
           id="comfort"
           [(ngModel)]="reviewCategoryGrades[3]"
+          class="select-write-review"
         >
           <option value="-1" disabled selected>
             Please select your rating value from 1 - 10
@@ -812,6 +835,7 @@
           name="location"
           id="location"
           [(ngModel)]="reviewCategoryGrades[4]"
+          class="select-write-review"
         >
           <option value="-1" disabled selected>
             Please select your rating value from 1 - 10
@@ -834,6 +858,7 @@
           name="cityview"
           id="cityview"
           [(ngModel)]="reviewCategoryGrades[5]"
+          class="select-write-review"
         >
           <option value="-1" disabled selected>
             Please select your rating value from 1 - 10
@@ -852,7 +877,12 @@
       </div>
       <div class="write-review-item">
         <label for="title">Title</label>
-        <input type="text" name="title" [(ngModel)]="title" />
+        <input
+          class="select-write-review"
+          type="text"
+          name="title"
+          [(ngModel)]="title"
+        />
       </div>
       <div class="write-review-item">
         <label for="positiveSide">Positive side</label>
@@ -861,6 +891,7 @@
           cols="30"
           rows="10"
           [(ngModel)]="positiveSide"
+          class="select-write-review"
         ></textarea>
       </div>
       <div class="write-review-item">
@@ -870,13 +901,14 @@
           cols="30"
           rows="10"
           [(ngModel)]="negativeSide"
+          class="select-write-review"
         ></textarea>
       </div>
     </div>
   </div>
   <div class="modal-footer" *ngIf="isOwnerVerified == true">
     <div class="write-review-item" (click)="submitReview()">
-      <button>Submit review</button>
+      <button class="button-yellow1">Submit review</button>
     </div>
   </div>
 </ng-template>

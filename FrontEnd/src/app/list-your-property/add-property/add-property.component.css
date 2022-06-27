@@ -795,7 +795,7 @@ a:link {
 }
 
 .add-propties-item:hover {
-  border: 1px solid #c24b30;
+  border: 1px solid #f29e21;
 }
 
 .add-propties-item > img {
@@ -955,13 +955,19 @@ li::marker {
   width: 160px;
   height: 37px;
   color: #ffffff;
-  background: #0c9496;
+  background: #f29e21;
   border: 0;
   border-radius: 7px;
 }
 
+.name-and-location-button:hover{
+  color: #f29e21;
+  border: 1px solid #f29e21;
+  background-color: #ffffff;
+}
+
 .name-and-location-button:disabled {
-  background: #ccaca6;
+  background: #ccc9a6;
 }
 
 .name-and-location-button-back {

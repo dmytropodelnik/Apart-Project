@@ -81,7 +81,7 @@
   margin: 16px 0;
   width: 100%;
   height: 277px;
-  min-width: 800px;
+  min-width: 1050px;
   background: #f9f9f9;
   border: 0.5px solid rgba(0, 0, 0, 0.3);
   box-sizing: border-box;
@@ -376,6 +376,12 @@
   /* Hover */
 
   color: #ffffff;
+}
+
+.searchbox_button:hover {
+  border: 1px solid #f29e21;
+  color: #f29e21;
+  background-color: #ffffff;
 }
 
 .textdecoration {

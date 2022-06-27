@@ -69,10 +69,10 @@
   gap: 10px;
   width: 35px;
   height: 34px;
-  background: #ffffff;
+  background: #f29e21;
+  color: #ffffff;
   /* Basic */
-
-  border: 1px solid rgba(238, 100, 69, 0.9);
+  border: 1px solid #f29e21;
   border-radius: 5px 5px 0px 5px;
 }
 

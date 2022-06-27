@@ -263,20 +263,37 @@
   width: 160px;
   height: 37px;
   color: #ffffff;
-  background: #0c9496;
+  background: #f29e21;
   border: 0;
   border-radius: 7px;
+}
+
+.name-and-location-button:hover {
+  color: #f29e21;
+  border: 1px solid #f29e21;
+  background-color: #ffffff;
 }
 
 .name-and-location-button-back {
   display: block;
   width: 65px;
   height: 37px;
-  color: #0c9496;
+  color: #f29e21;
   background: #ffffff;
-  border: 0.5px solid #0c9496;
+  border: 0.5px solid #f29e21;
   border-radius: 7px;
   margin-right: 10px;
+}
+
+.name-and-location-button-back:hover{
+  color: #ffffff;
+  background-color: #f29e21;
+}
+
+.name-and-location-button:disabled {
+  background: #ccc6a6;
+  border: 0;
+  color: #ffffff;
 }
 
 .info_text {
@@ -326,9 +343,7 @@ li::marker {
   color: #fff;
 }
 
-.name-and-location-button:disabled {
-  background: #ccaca6;
-}
+
 
 @media (min-width: 992px) {
   .bui-header__bar:not(:last-child) {

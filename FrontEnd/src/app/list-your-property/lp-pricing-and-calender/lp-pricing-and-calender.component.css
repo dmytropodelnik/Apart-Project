@@ -237,13 +237,42 @@
 
 .name-and-location-button {
   display: block;
-  width: 300px;
-  margin: 30px;
-  padding: 20px;
-  background: aquamarine;
-  color: plum;
-  border: 1px solid plum;
+  width: 160px;
+  height: 37px;
+  color: #ffffff;
+  background: #f29e21;
+  border: 0;
+  border-radius: 7px;
 }
+
+.name-and-location-button:hover {
+  color: #f29e21;
+  border: 1px solid #f29e21;
+  background-color: #ffffff;
+}
+
+.name-and-location-button-back {
+  display: block;
+  width: 65px;
+  height: 37px;
+  color: #f29e21;
+  background: #ffffff;
+  border: 0.5px solid #f29e21;
+  border-radius: 7px;
+  margin-right: 10px;
+}
+
+.name-and-location-button-back:hover {
+  color: #ffffff;
+  background-color: #f29e21;
+}
+
+.name-and-location-button:disabled {
+  background: #ccc6a6;
+  border: 0;
+  color: #ffffff;
+}
+
 li::marker {
   color: #fff;
 }

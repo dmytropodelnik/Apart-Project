@@ -64,9 +64,11 @@
         <div class="saved-description">
           <div class="saved-name">
             <span>{{ item.name }}</span>
-            <span *ngFor="let star of item.starsRating; let i = index"
-              ><img src="../../assets/images/Star 1.png"
-            /></span>
+            <div>
+              <span *ngFor="let star of item.starsRating; let i = index"
+                ><img src="../../assets/images/Star 1.png"
+              /></span>
+            </div>
           </div>
           <div class="saved-location">
             <img

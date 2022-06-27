@@ -52,11 +52,11 @@ a.a11y-skip-to-content {
   color: #000000;
 }
 .bui-header {
-  background: white;
+  background: #0c9496;
 }
 
 .bui-header--rounded-tabs .bui-header__bar {
-  padding: 12px 32px 0;
+  padding: 12px 32px;
 }
 
 .bui-header__bar:not(:last-child) {
@@ -75,7 +75,6 @@ a.a11y-skip-to-content {
   align-items: center;
   max-width: 1140px;
   margin: 0 auto;
-  margin-bottom: 50px;
 }
 
 .bui-header__main {
@@ -239,7 +238,7 @@ a.a11y-skip-to-content {
   background-color: transparent;
 }
 .dropdown-menu {
-  border: 1px solid #0c9496 !important;
+  border: 1px solid #f69e21 !important;
   margin-top: 5px;
   padding: 5px 0px 5px 0px !important;
 }
@@ -247,11 +246,13 @@ a.a11y-skip-to-content {
 .dropdown-item {
   margin-top: 5px;
   margin-bottom: 5px;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
 }
 .dropdown-item:hover {
-  border-top: 1px solid #0c9496;
-  border-bottom: 1px solid #0c9496;
-  color: #0c9496 !important;
+  border-top: 1px solid #f69e21;
+  border-bottom: 1px solid #f69e21;
+  color: #f69e21 !important;
   background-color: #cfcfcf;
 }
 
@@ -298,15 +299,19 @@ a.a11y-skip-to-content {
   margin-left: 5px;
 }
 .robotoregular {
-  font-family: Roboto;
+  font-family: "Comfortaa";
   font-style: normal;
-  font-weight: normal;
-  font-size: 30px;
-  color: #000000;
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 45px;
+  /* identical to box height */
+
+  color: #ffffff;
 }
 .bui-button__text {
   position: relative;
-  color: #0c9496;
+  font-size: 15px;
+  padding: 2px;
 }
 .bui-button-USD {
   position: relative;
@@ -524,7 +529,6 @@ a:link {
 .bui-icon1 {
   display: inline-block;
   fill: currentColor;
-  color: #0c9496;
 }
 
 .bui-icon svg {
@@ -607,7 +611,7 @@ a:link {
 }
 
 .bui-button:hover {
-  background-color: #802f0093 !important;
+  background-color: #0c9496 !important;
 }
 
 .bui-button--light {
@@ -639,7 +643,7 @@ a:link {
   box-sizing: border-box;
   vertical-align: middle;
   position: relative;
-  color: #fff;
+  color: #0c9496;
   min-height: 50px;
   min-width: 50px;
   font-size: 14px;
@@ -648,7 +652,7 @@ a:link {
   font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
     Arial, sans-serif;
   background: transparent;
-  border: 0px solid #0c9496;
+  border: 1px solid #0c9496;
   border-radius: 5px;
 }
 
@@ -679,6 +683,47 @@ a:link {
   box-sizing: border-box;
   vertical-align: middle;
   position: relative;
+  color: #0c9496;
+  min-height: 15px;
+  min-width: 15px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
+    Arial, sans-serif;
+  background: #fff;
+  border: 1px solid #ffffff;
+  border-radius: 5px;
+}
+
+.bui-button1:hover {
+  background-color: #0c9496;
+  color: white;
+}
+
+.bui-button2 {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: -webkit-inline-flex;
+  display: inline-flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  text-align: left;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  vertical-align: middle;
+  position: relative;
   color: #fff;
   min-height: 15px;
   min-width: 15px;
@@ -687,8 +732,8 @@ a:link {
   line-height: 20px;
   font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
     Arial, sans-serif;
-  background: transparent;
-  border: 1px solid #0c9496;
+  background: #f69e21;
+  border: 1px solid #f69e21;
   border-radius: 5px;
 }
 
@@ -807,7 +852,7 @@ a:link {
   display: flex;
   flex-flow: row wrap;
   overflow: hidden;
-  background: #0c9496;
+  background: #fff;
   padding: 46px 0px;
   justify-content: center;
 }
@@ -818,6 +863,6 @@ a:link {
 }
 
 .joinpartnerText {
-  color: white;
+  color: #0c9496;
   font-size: 30px;
 }
