@@ -1,4 +1,5 @@
 ﻿using CloneBookingAPI.Database.Models.Suggestions;
+using CloneBookingAPI.Enums;
 using CloneBookingAPI.Filters;
 using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
@@ -731,7 +732,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     return Json(new { code = 400 });
                 }
 
-                bool res = await _fileUploader.UploadSuggestionPhotoAsync(uploadedFiles, resSuggestion);
+                bool res = await _fileUploader.UploadSuggestionPhotoAsync(uploadedFiles, resSuggestion, PathsEnum.StaySuggestions);
                 if (!res)
                 {
                     return Json(new { code = 400 });
