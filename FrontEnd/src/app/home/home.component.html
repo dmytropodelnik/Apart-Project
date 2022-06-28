@@ -17,11 +17,7 @@
   <div class="xpi__content__container">
     <div class="xpi__searchbox js-ds-layout-events-search-form">
       <div class="sb-searchbox__outer">
-        <form
-          id="frm"
-          role="search"
-          class="sb-searchbox sb-searchbox--painted sb-searchbox--xp js--sb-searchbox"
-        >
+        <form id="frm" role="search" class="sb-searchbox sb-searchbox--painted sb-searchbox--xp js--sb-searchbox">
           <div class="xp__fieldset js--sb-fieldset accommodation">
             <div class="row m-0 p-0">
               <div class="col-md-10 p-0">
@@ -29,19 +25,11 @@
                   <div class="col-md-4 px-6">
                     <div class="input-with-icon">
                       <img src="assets/images/9.svg" alt="" />
-                      <input
-                        type="text"
-                        class="header-input pl-50"
-                        placeholder="Where are you going?"
-                        name="searchViewModel.place"
-                        [(ngModel)]="searchViewModel.place"
-                      />
-                      <div
-                        class="invalid_feedback"
-                        *ngIf="
+                      <input type="text" class="header-input pl-50" placeholder="Where are you going?"
+                        name="searchViewModel.place" [(ngModel)]="searchViewModel.place" />
+                      <div class="invalid_feedback" *ngIf="
                           searchViewModel.place.replaceAll(reg, '').length == 0
-                        "
-                      >
+                        ">
                         Enter destination to search
                       </div>
                     </div>
@@ -49,79 +37,37 @@
                   <div class="col-md-2 my-md-0 px-6">
                     <div class="input-with-icon">
                       <span class="input-icon">
-                        <svg
-                          aria-hidden="true"
-                          class="bk-icon -experiments-calendar sb-date-picker_icon-svg"
-                          fill="#BDBDBD"
-                          focusable="false"
-                          height="20"
-                          role="presentation"
-                          width="20"
-                          viewBox="0 0 128 128"
-                        >
+                        <svg aria-hidden="true" class="bk-icon -experiments-calendar sb-date-picker_icon-svg"
+                          fill="#BDBDBD" focusable="false" height="20" role="presentation" width="20"
+                          viewBox="0 0 128 128">
                           <path
                             d="m112 16h-16v-8h-8v8h-48v-8h-8v8h-16c-4.4 0-8 3.9-8 8.7v86.6c0 4.8 3.6 8.7 8 8.7h96c4.4 0 8-3.9 8-8.7v-86.6c0-4.8-3.6-8.7-8-8.7zm0 95.3a1.1 1.1 0 0 1 -.2.7h-95.6a1.1 1.1 0 0 1 -.2-.7v-71.3h96zm-68-43.3h-12v-12h12zm0 28h-12v-12h12zm26-28h-12v-12h12zm0 28h-12v-12h12zm26 0h-12v-12h12zm0-28h-12v-12h12z"
-                            fill-rule="evenodd"
-                          ></path>
-                        </svg> </span
-                      ><!-- name="searchViewModel.dateIn" [(ngModel)]="searchViewModel.dateIn" -->
-                      <input
-                        (click)="d.toggle()"
-                        class="header-input pl-50"
-                        placeholder="Check-in"
-                        name="searchViewModel.dateIn"
-                        [(ngModel)]="searchViewModel.pdateIn"
-                        [displayMonths]="displayMonths"
-                        [navigation]="navigation"
-                        [outsideDays]="outsideDays"
-                        [showWeekNumbers]="showWeekNumbers"
-                        [minDate]="minDate"
-                        ngbDatepicker
-                        #d="ngbDatepicker"
-                      />
+                            fill-rule="evenodd"></path>
+                        </svg> </span><!-- name="searchViewModel.dateIn" [(ngModel)]="searchViewModel.dateIn" -->
+                      <input (click)="d.toggle()" class="header-input pl-50" placeholder="Check-in"
+                        name="searchViewModel.dateIn" [(ngModel)]="searchViewModel.pdateIn"
+                        [displayMonths]="displayMonths" [navigation]="navigation" [outsideDays]="outsideDays"
+                        [showWeekNumbers]="showWeekNumbers" [minDate]="minDate" ngbDatepicker #d="ngbDatepicker" />
                     </div>
                   </div>
                   <div class="col-md-2 my-md-0 px-6">
                     <div class="input-with-icon">
                       <span class="input-icon">
-                        <svg
-                          aria-hidden="true"
-                          class="bk-icon -experiments-calendar sb-date-picker_icon-svg"
-                          fill="#BDBDBD"
-                          focusable="false"
-                          height="20"
-                          role="presentation"
-                          width="20"
-                          viewBox="0 0 128 128"
-                        >
+                        <svg aria-hidden="true" class="bk-icon -experiments-calendar sb-date-picker_icon-svg"
+                          fill="#BDBDBD" focusable="false" height="20" role="presentation" width="20"
+                          viewBox="0 0 128 128">
                           <path
                             d="m112 16h-16v-8h-8v8h-48v-8h-8v8h-16c-4.4 0-8 3.9-8 8.7v86.6c0 4.8 3.6 8.7 8 8.7h96c4.4 0 8-3.9 8-8.7v-86.6c0-4.8-3.6-8.7-8-8.7zm0 95.3a1.1 1.1 0 0 1 -.2.7h-95.6a1.1 1.1 0 0 1 -.2-.7v-71.3h96zm-68-43.3h-12v-12h12zm0 28h-12v-12h12zm26-28h-12v-12h12zm0 28h-12v-12h12zm26 0h-12v-12h12zm0-28h-12v-12h12z"
-                            fill-rule="evenodd"
-                          ></path>
-                        </svg> </span
-                      ><!-- name="searchViewModel.dateOut" [(ngModel)]="searchViewModel.dateOut" -->
-                      <input
-                        (click)="t.toggle()"
-                        class="header-input pl-50"
-                        placeholder="Check-out"
-                        name="searchViewModel.dateOut"
-                        [(ngModel)]="searchViewModel.pdateOut"
-                        [displayMonths]="displayMonths"
-                        [navigation]="navigation"
-                        [outsideDays]="outsideDays"
-                        [showWeekNumbers]="showWeekNumbers"
-                        [minDate]="minDate"
-                        ngbDatepicker
-                        #t="ngbDatepicker"
-                      />
+                            fill-rule="evenodd"></path>
+                        </svg> </span><!-- name="searchViewModel.dateOut" [(ngModel)]="searchViewModel.dateOut" -->
+                      <input (click)="t.toggle()" class="header-input pl-50" placeholder="Check-out"
+                        name="searchViewModel.dateOut" [(ngModel)]="searchViewModel.pdateOut"
+                        [displayMonths]="displayMonths" [navigation]="navigation" [outsideDays]="outsideDays"
+                        [showWeekNumbers]="showWeekNumbers" [minDate]="minDate" ngbDatepicker #t="ngbDatepicker" />
                     </div>
                   </div>
                   <div class="col-md-4 px-6">
-                    <div
-                      class="input-with-icon icon-2"
-                      type="button"
-                      data-toggle="dropdown"
-                    >
+                    <div class="input-with-icon icon-2" type="button" data-toggle="dropdown">
                       <img src="assets/images/39.svg" alt="" />
                       <button type="text" class="header-input px-40">
                         {{ searchViewModel.searchAdultsAmount }} adults .
@@ -138,19 +84,13 @@
                               <span class="dropdownSubSectionText">Adults</span>
                             </div>
                             <div class="dropdownSubSectionButtons">
-                              <button
-                                class="bui-button bui-button--secondary"
-                                (click)="setAdults(-1)"
-                              >
+                              <button class="bui-button bui-button--secondary" (click)="setAdults(-1)">
                                 <span class="bui-button__text">-</span>
                               </button>
                               <span class="dropdownSubSectionText">{{
                                 searchViewModel.searchAdultsAmount
-                              }}</span>
-                              <button
-                                class="bui-button bui-button--secondary"
-                                (click)="setAdults(1)"
-                              >
+                                }}</span>
+                              <button class="bui-button bui-button--secondary" (click)="setAdults(1)">
                                 <span class="bui-button__text">+</span>
                               </button>
                             </div>
@@ -159,24 +99,16 @@
                         <div class="form-group">
                           <div class="dropdownSubSection">
                             <div>
-                              <span class="dropdownSubSectionText"
-                                >Children</span
-                              >
+                              <span class="dropdownSubSectionText">Children</span>
                             </div>
                             <div class="dropdownSubSectionButtons">
-                              <button
-                                class="bui-button bui-button--secondary"
-                                (click)="setChildren(-1)"
-                              >
+                              <button class="bui-button bui-button--secondary" (click)="setChildren(-1)">
                                 <span class="bui-button__text">-</span>
                               </button>
                               <span class="dropdownSubSectionText">{{
                                 searchViewModel.searchChildrenAmount
-                              }}</span>
-                              <button
-                                class="bui-button bui-button--secondary"
-                                (click)="setChildren(1)"
-                              >
+                                }}</span>
+                              <button class="bui-button bui-button--secondary" (click)="setChildren(1)">
                                 <span class="bui-button__text">+</span>
                               </button>
                             </div>
@@ -188,19 +120,13 @@
                               <span class="dropdownSubSectionText">Rooms</span>
                             </div>
                             <div class="dropdownSubSectionButtons">
-                              <button
-                                class="bui-button bui-button--secondary"
-                                (click)="setRooms(-1)"
-                              >
+                              <button class="bui-button bui-button--secondary" (click)="setRooms(-1)">
                                 <span class="bui-button__text">-</span>
                               </button>
                               <span class="dropdownSubSectionText">{{
                                 searchViewModel.searchRoomsAmount
-                              }}</span>
-                              <button
-                                class="bui-button bui-button--secondary"
-                                (click)="setRooms(1)"
-                              >
+                                }}</span>
+                              <button class="bui-button bui-button--secondary" (click)="setRooms(1)">
                                 <span class="bui-button__text">+</span>
                               </button>
                             </div>
@@ -212,10 +138,7 @@
                 </div>
               </div>
               <div class="col-md-2 mt-1 mt-md-0 px-6">
-                <button
-                  class="btn btn-blue"
-                  (click)="searchSuggestions($event)"
-                >
+                <button class="btn btn-blue" (click)="searchSuggestions($event)">
                   Search
                 </button>
               </div>
@@ -235,35 +158,18 @@
         <div></div>
         <div class="bui-spacer--largest popular-destinations-carousel-block">
           <div class="bui-title bui-title--headline_3 bui-spacer--large p-2">
-            <span class="bui-title__text"
-              >Explore {{ mainDataService.getCurrentCountry() }}</span
-            >
-            <span class="bui-title__subtitle"
-              >These popular destinations have a lot to offer</span
-            >
+            <span class="bui-title__text">Explore {{ mainDataService.getCurrentCountry() }}</span>
+            <span class="bui-title__subtitle">These popular destinations have a lot to offer</span>
           </div>
           <div class="container-fluid px-0">
             <div class="slick-wrapper">
-              <ngx-slick-carousel
-                class="carousel"
-                #slickModal="slick-carousel"
-                [config]="slideConfig"
-              >
-                <div
-                  ngxSlickItem
-                  *ngFor="let city of cities; let i = index"
-                  class="slide button-class"
-                >
+              <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                <div ngxSlickItem *ngFor="let city of cities; let i = index" class="slide button-class">
                   <div (click)="searchSuggestionsByPlace($event, city.title)">
-                    <img
-                      src="{{
+                    <img src="{{
                         imageHelper.getImageDirectoryPath()
-                      }}/location/cities/{{ city.image?.name }}"
-                      class="w-100"
-                      alt="city"
-                      width="162px"
-                      height="162px"
-                    />
+                      }}/location/cities/{{ city.image?.name }}" class="w-100" alt="city" width="162px"
+                      height="162px" />
                     <div class="bui-card__content">
                       <div class="bui-card__title">{{ city.title }}</div>
                       <div class="bui-title__subtitle">
@@ -276,52 +182,30 @@
             </div>
           </div>
         </div>
-        <div
-          class="d-index__section bui-spacer--largest js-ds-layout-events-bh_promotions"
-        >
-          <h2
-            class="bui-f-font-display_two bui-spacer--large d-index__header-section"
-            id="bh-promotion-accommodation-types"
-          >
+        <div class="d-index__section bui-spacer--largest js-ds-layout-events-bh_promotions">
+          <h2 class="bui-f-font-display_two bui-spacer--large d-index__header-section"
+            id="bh-promotion-accommodation-types">
             Browse by property type
           </h2>
           <div class="container-fluid px-0">
             <div class="slick-wrapper">
-              <ngx-slick-carousel
-                class="carousel"
-                #slickModal="slick-carousel"
-                [config]="slideConfig"
-              >
-                <div
-                  ngxSlickItem
-                  *ngFor="let category of bookingCategories; let i = index"
-                  class="slide button-class"
-                >
-                  <div
-                    (click)="
+              <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig">
+                <div ngxSlickItem *ngFor="let category of bookingCategories; let i = index" class="slide button-class">
+                  <div (click)="
                       searchSuggestionsByCategory($event, category.category)
-                    "
-                  >
-                    <img
-                      src="{{
+                    ">
+                    <img src="{{
                         imageHelper.getImageDirectoryPath()
                       }}/categories/booking-categories/{{
-                        category.image?.name
-                      }}"
-                      class="w-100"
-                      alt="category"
-                      width="162px"
-                      height="162px"
-                    />
+                        category.name
+                      }}" class="w-100" alt="category" width="162px" height="162px" />
                   </div>
                   <div class="bui-card__content">
                     <div class="bui-title bui-title--strong_1 bui-card__title">
                       <span class="bui-card__title">{{
                         category.category
-                      }}</span>
-                      <span class="bui-title__subtitle"
-                        >{{ suggestions[i] ?? "0" }} properties</span
-                      >
+                        }}</span>
+                      <span class="bui-title__subtitle">{{ suggestions[i] ?? "0" }} properties</span>
                     </div>
                   </div>
                 </div>
@@ -329,62 +213,41 @@
             </div>
           </div>
         </div>
-        <svg
-          class="bk-icon -iconset-heart"
-          height="128"
-          style="display: none"
-          width="128"
-          viewBox="0 0 128 128"
-          role="presentation"
-          aria-hidden="true"
-          focusable="false"
-        >
+        <svg class="bk-icon -iconset-heart" height="128" style="display: none" width="128" viewBox="0 0 128 128"
+          role="presentation" aria-hidden="true" focusable="false">
           <path
-            d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z"
-          ></path>
+            d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z">
+          </path>
         </svg>
         <h2 class="screen_reader_heading">Recommended destinations</h2>
         <div class="d-index__section bui-spacer--large">
-          <div
-            class="promotion-postcards__row js-ds-layout-events-postcards u-clearfix"
-          >
+          <div class="promotion-postcards__row js-ds-layout-events-postcards u-clearfix">
             <div class="promotion-postcard__large mb-lg-3">
               <div>
                 <div
-                  class="unified-postcard unified-postcard--no-description-padding unified-postcard__pe unified-postcard__idr unified-postcard--padding"
-                >
-                  <div
-                    class="unified-postcard__content js-lazy-image unified-postcard__content_pe"
-                    style="
+                  class="unified-postcard unified-postcard--no-description-padding unified-postcard__pe unified-postcard__idr unified-postcard--padding">
+                  <div class="unified-postcard__content js-lazy-image unified-postcard__content_pe" style="
                       background-position: center center;
                       background-repeat: no-repeat;
                       background-size: cover;
                       background-image: url('{{
                       imageHelper.getImageDirectoryPath()
                     }}/location/cities/{{
-                      recommendedCities[0]?.image.name
-                    }}');"
-                    (click)="
+                      recommendedCities[0].imageName
+                    }}');" (click)="
                       searchSuggestionsByPlace(
                         $event,
                         recommendedCities[0]?.title
                       )
-                    "
-                  >
+                    ">
                     <div class="unified-postcard__overlay">
                       <div class="unified-postcard__header">
                         <h3>
                           <a>
                             {{ recommendedCities[0]?.title }}
-                            <img
-                              src="{{ imageHelper.getImageDirectoryPath() }}{{
-                                recommendedCities[0]?.country.image.name
-                              }}"
-                              alt="Country image"
-                              valign="middle"
-                              width="23px"
-                              height="17px"
-                            />
+                            <img src="{{ imageHelper.getImageDirectoryPath() }}{{
+                                recommendedCities[0].countryImageName
+                              }}" alt="Country image" valign="middle" width="23px" height="17px" />
                           </a>
                         </h3>
                         <p>
@@ -399,39 +262,28 @@
             <div class="promotion-postcard__large mb-lg-3">
               <div>
                 <div
-                  class="unified-postcard unified-postcard--no-description-padding unified-postcard__pe unified-postcard__idr unified-postcard--padding"
-                >
-                  <div
-                    class="unified-postcard__content js-lazy-image unified-postcard__content_pe"
-                    style="
+                  class="unified-postcard unified-postcard--no-description-padding unified-postcard__pe unified-postcard__idr unified-postcard--padding">
+                  <div class="unified-postcard__content js-lazy-image unified-postcard__content_pe" style="
                       background-position: center center;
                       background-repeat: no-repeat;
                       background-size: cover;
                       background-image: url('{{
                       imageHelper.getImageDirectoryPath()
-                    }}/location/cities/{{ recommendedCities[1]?.image.name }}');
-                    "
-                    (click)="
+                    }}/location/cities/{{ recommendedCities[1].imageName }}');
+                    " (click)="
                       searchSuggestionsByPlace(
                         $event,
                         recommendedCities[1]?.title
                       )
-                    "
-                  >
+                    ">
                     <div class="unified-postcard__overlay">
                       <div class="unified-postcard__header">
                         <h3>
                           <a>
                             {{ recommendedCities[1]?.title }}
-                            <img
-                              src="{{ imageHelper.getImageDirectoryPath() }}{{
-                                recommendedCities[1]?.country.image.name
-                              }}"
-                              alt="Country image"
-                              valign="middle"
-                              width="23px"
-                              height="17px"
-                            />
+                            <img src="{{ imageHelper.getImageDirectoryPath() }}{{
+                                recommendedCities[1].countryImageName
+                              }}" alt="Country image" valign="middle" width="23px" height="17px" />
                           </a>
                         </h3>
                         <p>
@@ -444,46 +296,33 @@
               </div>
             </div>
           </div>
-          <div
-            class="promotion-postcards__row js-ds-layout-events-postcards u-clearfix"
-          >
+          <div class="promotion-postcards__row js-ds-layout-events-postcards u-clearfix">
             <div class="promotion-postcard__small">
               <div>
                 <div
                   class="unified-postcard unified-postcard--no-description-padding unified-postcard__pe unified-postcard__idr unified-postcard--padding"
-                  data-idr-ufi="20016087"
-                >
-                  <div
-                    class="unified-postcard__content js-lazy-image unified-postcard__content_pe"
-                    style="
+                  data-idr-ufi="20016087">
+                  <div class="unified-postcard__content js-lazy-image unified-postcard__content_pe" style="
                       background-position: center center;
                       background-repeat: no-repeat;
                       background-size: cover;
                       background-image: url('{{
                       imageHelper.getImageDirectoryPath()
-                    }}/location/cities/{{ recommendedCities[2]?.image.name }}');
-                    "
-                    (click)="
+                    }}/location/cities/{{ recommendedCities[2].imageName }}');
+                    " (click)="
                       searchSuggestionsByPlace(
                         $event,
                         recommendedCities[2]?.title
                       )
-                    "
-                  >
+                    ">
                     <div class="unified-postcard__overlay">
                       <div class="unified-postcard__header">
                         <h3>
                           <a>
                             {{ recommendedCities[2]?.title }}
-                            <img
-                              src="{{ imageHelper.getImageDirectoryPath() }}{{
-                                recommendedCities[2]?.country.image.name
-                              }}"
-                              alt="Country image"
-                              valign="middle"
-                              width="23px"
-                              height="17px"
-                            />
+                            <img src="{{ imageHelper.getImageDirectoryPath() }}{{
+                                recommendedCities[2].countryImageName
+                              }}" alt="Country image" valign="middle" width="23px" height="17px" />
                           </a>
                         </h3>
                         <p>
@@ -499,39 +338,28 @@
               <div>
                 <div
                   class="unified-postcard unified-postcard--no-description-padding with_airport_tooltip unified-postcard__pe unified-postcard__idr unified-postcard--padding"
-                  data-idr-ufi="20126394"
-                >
-                  <div
-                    class="unified-postcard__content js-lazy-image unified-postcard__content_pe"
-                    style="
+                  data-idr-ufi="20126394">
+                  <div class="unified-postcard__content js-lazy-image unified-postcard__content_pe" style="
                       background-position: center center;
                       background-repeat: no-repeat;
                       background-size: cover;
                       background-image: url('{{
                       imageHelper.getImageDirectoryPath()
-                    }}/location/cities/{{ recommendedCities[3]?.image.name }}');
-                    "
-                    (click)="
+                    }}/location/cities/{{ recommendedCities[3].imageName }}');
+                    " (click)="
                       searchSuggestionsByPlace(
                         $event,
                         recommendedCities[3]?.title
                       )
-                    "
-                  >
+                    ">
                     <div class="unified-postcard__overlay">
                       <div class="unified-postcard__header">
                         <h3>
                           <a>
                             {{ recommendedCities[3]?.title }}
-                            <img
-                              src="{{ imageHelper.getImageDirectoryPath() }}{{
-                                recommendedCities[3]?.country.image.name
-                              }}"
-                              alt="Country image"
-                              valign="middle"
-                              width="23px"
-                              height="17px"
-                            />
+                            <img src="{{ imageHelper.getImageDirectoryPath() }}{{
+                                recommendedCities[3].countryImageName
+                              }}" alt="Country image" valign="middle" width="23px" height="17px" />
                           </a>
                         </h3>
                         <p>
@@ -547,39 +375,28 @@
               <div>
                 <div
                   class="unified-postcard unified-postcard--no-description-padding with_airport_tooltip unified-postcard__pe unified-postcard__idr unified-postcard--padding"
-                  data-idr-ufi="20079268"
-                >
-                  <div
-                    class="unified-postcard__content js-lazy-image unified-postcard__content_pe"
-                    style="
+                  data-idr-ufi="20079268">
+                  <div class="unified-postcard__content js-lazy-image unified-postcard__content_pe" style="
                       background-position: center center;
                       background-repeat: no-repeat;
                       background-size: cover;
                       background-image: url('{{
                       imageHelper.getImageDirectoryPath()
-                    }}/location/cities/{{ recommendedCities[4]?.image.name }}');
-                    "
-                    (click)="
+                    }}/location/cities/{{ recommendedCities[4].imageName }}');
+                    " (click)="
                       searchSuggestionsByPlace(
                         $event,
                         recommendedCities[4]?.title
                       )
-                    "
-                  >
+                    ">
                     <div class="unified-postcard__overlay">
                       <div class="unified-postcard__header">
                         <h3>
                           <a>
                             {{ recommendedCities[4]?.title }}
-                            <img
-                              src="{{ imageHelper.getImageDirectoryPath() }}{{
-                                recommendedCities[4]?.country.image.name
-                              }}"
-                              alt="Country image"
-                              valign="middle"
-                              width="23px"
-                              height="17px"
-                            />
+                            <img src="{{ imageHelper.getImageDirectoryPath() }}{{
+                                recommendedCities[4].countryImageName
+                              }}" alt="Country image" valign="middle" width="23px" height="17px" />
                           </a>
                         </h3>
                         <p>
@@ -670,50 +487,28 @@
             </div>
           </div>
         </div> -->
-        <svg
-          class="bk-icon -iconset-square_rating"
-          height="128"
-          style="display: none"
-          width="128"
-          viewBox="0 0 128 128"
-          role="presentation"
-          aria-hidden="true"
-          focusable="false"
-        >
+        <svg class="bk-icon -iconset-square_rating" height="128" style="display: none" width="128" viewBox="0 0 128 128"
+          role="presentation" aria-hidden="true" focusable="false">
           <path
-            d="M104 8H24A16 16 0 0 0 8 24v96h96a16 16 0 0 0 16-16V24a16 16 0 0 0-16-16zM64 88a24 24 0 1 1 24-24 24 24 0 0 1-24 24z"
-          ></path>
+            d="M104 8H24A16 16 0 0 0 8 24v96h96a16 16 0 0 0 16-16V24a16 16 0 0 0-16-16zM64 88a24 24 0 1 1 24-24 24 24 0 0 1-24 24z">
+          </path>
         </svg>
         <div
-          class="d-index__section bui-spacer--largest bh-carousel--new js-ds-layout-events-bh_carousel js-bh-carousel-async-wrapper"
-        >
-          <h2
-            class="bui-f-font-display_two bui-spacer--large d-index__header-section"
-          >
+          class="d-index__section bui-spacer--largest bh-carousel--new js-ds-layout-events-bh_carousel js-bh-carousel-async-wrapper">
+          <h2 class="bui-f-font-display_two bui-spacer--large d-index__header-section">
             Homes guests love
           </h2>
           <div class="container-fluid px-0">
             <div class="slick-wrapper">
-              <ngx-slick-carousel
-                class="carousel"
-                #slickModal="slick-carousel"
-                [config]="slideConfig1"
-              >
-                <div
-                  ngxSlickItem
-                  *ngFor="let item of homeGuestsSuggestions; let i = index"
-                  class="slide slide-h button-class"
-                >
+              <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig1">
+                <div ngxSlickItem *ngFor="let item of homeGuestsSuggestions; let i = index"
+                  class="slide slide-h button-class">
                   <div class="slide-img">
-                    <img
-                      src="{{
+                    <img src="{{
                         imageHelper.getImageDirectoryPath()
                       }}/categories/booking-categories/{{
                         item.images[0]?.name
-                      }}"
-                      class="w-100"
-                      alt=""
-                    />
+                      }}" class="w-100" alt="" />
                   </div>
                   <div class="bui-card__content bh-carousel--new__content">
                     <h3 class="bui-card__title bh-carousel--new__title">
@@ -721,80 +516,57 @@
                     </h3>
                     <p class="bui-card__subtitle">
                       {{
-                        item?.address?.city?.title +
-                          ", " +
-                          item?.address?.country?.title
+                      item?.address?.city?.title +
+                      ", " +
+                      item?.address?.country?.title
                       }}
                     </p>
                     <p class="bh-carousel--new__price bui_color_black">
                       Starting from USD {{ suggestionStartsFrom[i] ?? "0" }}
                     </p>
                     <div style="margin-top: 4px">
-                      <div
-                        class="bui-review-score c-score bui-review-score--inline bui-review-score--small"
-                      >
-                        <div
-                          class="bui-review-score__badge"
-                          aria-label="Scored 0 "
-                          *ngIf="suggestionGrades[i] != 0"
-                        >
+                      <div class="bui-review-score c-score bui-review-score--inline bui-review-score--small">
+                        <div class="bui-review-score__badge" aria-label="Scored 0 " *ngIf="suggestionGrades[i] != 0">
                           {{ mathHelper.Round10(suggestionGrades[i] ?? "") }}
                         </div>
                         <div class="bui-review-score__content">
-                          <div
-                            *ngIf="
+                          <div *ngIf="
                               mathHelper.Round10(suggestionGrades[i]) >= 9.7;
                               then exceptionalBlock
-                            "
-                          ></div>
-                          <ng-template #exceptionalBlock
-                            >Exceptional</ng-template
-                          >
-                          <div
-                            *ngIf="
+                            "></div>
+                          <ng-template #exceptionalBlock>Exceptional</ng-template>
+                          <div *ngIf="
                               mathHelper.Round10(suggestionGrades[i]) >= 9.0 &&
                                 mathHelper.Round10(suggestionGrades[i]) < 9.7;
                               then wonderfulBlock
-                            "
-                          ></div>
+                            "></div>
                           <ng-template #wonderfulBlock>Wonderful</ng-template>
-                          <div
-                            *ngIf="
+                          <div *ngIf="
                               mathHelper.Round10(suggestionGrades[i]) >= 8.7 &&
                                 mathHelper.Round10(suggestionGrades[i]) < 9.0;
                               then excellentBlock
-                            "
-                          ></div>
+                            "></div>
                           <ng-template #excellentBlock>Excellent</ng-template>
-                          <div
-                            *ngIf="
+                          <div *ngIf="
                               mathHelper.Round10(suggestionGrades[i]) >= 8.2 &&
                                 mathHelper.Round10(suggestionGrades[i]) < 8.7;
                               then veryGoodBlock
-                            "
-                          ></div>
+                            "></div>
                           <ng-template #veryGoodBlock>Very Good</ng-template>
-                          <div
-                            *ngIf="
+                          <div *ngIf="
                               mathHelper.Round10(suggestionGrades[i]) > 7.6 &&
                                 mathHelper.Round10(suggestionGrades[i]) < 8.2;
                               then goodBlock
-                            "
-                          ></div>
+                            "></div>
                           <ng-template #goodBlock>Good</ng-template>
-                          <div
-                            *ngIf="
+                          <div *ngIf="
                               mathHelper.Round10(suggestionGrades[i]) >= 7.0 &&
                                 mathHelper.Round10(suggestionGrades[i]) < 7.7;
                               then pleasantBlock
-                            "
-                          ></div>
+                            "></div>
                           <ng-template #pleasantBlock>Normal</ng-template>
-                          <div
-                            class="bui-review-score__badge_unrated"
-                            aria-label="Scored 0"
-                            *ngIf="suggestionGrades[i] == 0"
-                          >
+                          <div class="bui-review-score__badge_unrated" aria-label="Scored 0"
+                            *ngIf="suggestionGrades[i] == 0">
                             Unrated
                           </div>
                           <div class="bui-review-score__text">
@@ -811,11 +583,8 @@
         </div>
         <div style="clear: both"></div>
         <div
-          class="desktop-communities-recommendations js-ds-layout-events-travel-communities desktop-communities-recommendations--desktop"
-        >
-          <h2
-            class="bui-f-font-display_two bui-spacer--large d-index__header-section my-4"
-          >
+          class="desktop-communities-recommendations js-ds-layout-events-travel-communities desktop-communities-recommendations--desktop">
+          <h2 class="bui-f-font-display_two bui-spacer--large d-index__header-section my-4">
             Destinations we love
           </h2>
           <ul ngbNav #nav="ngbNav" class="nav-tabs">
@@ -825,11 +594,9 @@
                 <div class="tabs-flex">
                   <ul class="inner-tabs-links">
                     <div *ngFor="let region of regions; let i = index">
-                      <li
-                        (click)="
+                      <li (click)="
                           searchSuggestionsByPlace($event, region?.title)
-                        "
-                      >
+                        ">
                         <a class="button-class">{{ region?.title }}</a>
                         <div class="wcu-seo-regions-poi ia_hotelnum">
                           {{ regionsSuggestions[i] ?? "0" }} properties

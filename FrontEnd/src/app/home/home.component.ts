@@ -13,7 +13,12 @@ import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
 import MathHelper from '../utils/mathHelper';
 import { SortState } from '../enums/sortstate.item';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -39,7 +44,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   citySuggestionsLength: number[] = [];
 
-  bookingCategories: BookingCategory[] = [];
+  bookingCategories: any = [];
   imagePath: string = '123';
   cities: City[] = [];
   citySuggestions: any;
@@ -142,8 +147,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.searchViewModel.searchRoomsAmount += value;
   }
 
-   getRecommendedDestData(): void {
-     fetch(`https://localhost:44381/api/stayspage/getrecommendeddestdata`, {
+  getRecommendedDestData(): void {
+    fetch(`https://localhost:44381/api/stayspage/getrecommendeddestdata`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -160,10 +165,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-   getCategoriesData(): void {
-     fetch('https://localhost:44381/api/stayspage/getcategoriesdata?country=' + this.mainDataService.getCurrentCountry(), {
-      method: 'GET',
-    })
+  getCategoriesData(): void {
+    fetch(
+      'https://localhost:44381/api/stayspage/getcategoriesdata?country=' +
+        this.mainDataService.getCurrentCountry(),
+      {
+        method: 'GET',
+      }
+    )
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
@@ -179,8 +188,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-   getRegionsData(): void {
-     fetch('https://localhost:44381/api/stayspage/getregionsdata', {
+  getRegionsData(): void {
+    fetch('https://localhost:44381/api/stayspage/getregionsdata', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -198,8 +207,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-   getCountriesData(): void {
-     fetch('https://localhost:44381/api/stayspage/getinterestplacesdata', {
+  getCountriesData(): void {
+    fetch('https://localhost:44381/api/stayspage/getinterestplacesdata', {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -217,10 +226,14 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-   getCitiesData(): void {
-     fetch('https://localhost:44381/api/stayspage/getcitiesdata?country=' + this.mainDataService.getCurrentCountry(), {
-      method: 'GET',
-    })
+  getCitiesData(): void {
+    fetch(
+      'https://localhost:44381/api/stayspage/getcitiesdata?country=' +
+        this.mainDataService.getCurrentCountry(),
+      {
+        method: 'GET',
+      }
+    )
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
@@ -237,8 +250,8 @@ export class HomeComponent implements OnInit, OnDestroy {
       });
   }
 
-   getGuestsLoveData(): void {
-     fetch(`https://localhost:44381/api/stayspage/getguestslovedata`, {
+  getGuestsLoveData(): void {
+    fetch(`https://localhost:44381/api/stayspage/getguestslovedata`, {
       method: 'GET',
     })
       .then((r) => r.json())
@@ -308,7 +321,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         '-' +
         this.searchViewModel.pdateOut!.day;
     } else {
-      alert("Select the check in and check out dates!");
+      alert('Select the check in and check out dates!');
       return;
     }
 
@@ -330,7 +343,7 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
   }
 
-   getData(): void {
+  getData(): void {
     this.getCategoriesData();
     this.getRegionsData();
     this.getCountriesData();
@@ -339,8 +352,8 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.getGuestsLoveData();
   }
 
-   ngOnInit(): void {
-     this.getData();
+  ngOnInit(): void {
+    this.getData();
   }
 
   ngOnDestroy() {}
