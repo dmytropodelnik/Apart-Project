@@ -200,6 +200,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
                 City newCity = new();
                 Region newRegion = new();
+                Address newAddress = new();
 
                 var region = await _context.Regions.FirstOrDefaultAsync(r => r.Title.Equals(suggestion.Address.Region.Title));
                 if (region is null)
@@ -209,6 +210,18 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     newRegion.ImageId = resCountry.ImageId;
                 }
 
+                if (region is null)
+                {
+                    newAddress.Region = newRegion;
+                }
+                else
+                {
+                    newAddress.RegionId = region.Id;
+                }
+
+                newAddress.CountryId = suggestion.Address.CountryId;
+                newAddress.AddressText = suggestion.Address.AddressText;
+
                 var city = await _context.Cities.FirstOrDefaultAsync(c => c.Title.Equals(suggestion.Address.City.Title) &&
                                                                           c.CountryId == suggestion.Address.CountryId);
                 if (city is null)
@@ -217,29 +230,13 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     newCity.CountryId = suggestion.Address.CountryId;
                     newCity.ImageId = resCountry.ImageId;  // ???
 
-                    Address newAddress = new();
                     newAddress.City = newCity;
-                    newAddress.CountryId = suggestion.Address.CountryId;
-                    newAddress.AddressText = suggestion.Address.AddressText;
-
-                    if (region is null)
-                    {
-                        newAddress.Region = newRegion;
-                    }
-
-                    resSuggestion.Address = newAddress;
                 }
                 else
                 {
-                    if (region is null)
-                    {
-                        suggestion.Address.Region.Title = suggestion.Address.Region.Title;
-                        suggestion.Address.Region.City = newCity;
-                        suggestion.Address.Region.ImageId = resCountry.ImageId;
-                    }
-                    resSuggestion.Address = suggestion.Address;
-                    resSuggestion.Address.CityId = city.Id;
+                    newAddress.CityId = city.Id;
                 }
+                resSuggestion.Address = newAddress;
                 resSuggestion.Progress = 15;
 
                 _context.Suggestions.Update(resSuggestion);
@@ -378,63 +375,6 @@ namespace CloneBookingAPI.Controllers.Suggestions
 
                 resSuggestion.Facilities = resFacilities;
                 resSuggestion.Progress = 30;
-
-                _context.Suggestions.Update(resSuggestion);
-                await _context.SaveChangesAsync();
-
-                return Json(new
-                {
-                    code = 200,
-                    savedSuggestionId = resSuggestion.Id,
-                });
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 500 });
-            }
-            catch (DbUpdateException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 500 });
-            }
-            catch (OperationCanceledException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 500 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 500 });
-            }
-        }
-
-        [Route("addstarsrating")]
-        [HttpPost]
-        public async Task<IActionResult> AddStarsRating([FromBody] SuggestionPoco suggestion)
-        {
-            try
-            {
-                if (suggestion is null         ||
-                    suggestion.StarsRating < 0 ||
-                    suggestion.StarsRating > 5)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
-                if (resSuggestion is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                resSuggestion.StarsRating = suggestion.StarsRating;
-                resSuggestion.Progress = 35;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -618,6 +558,119 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     .ToListAsync();
 
                 resSuggestion.SuggestionRules = resRules;
+                resSuggestion.Progress = 35;
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                    savedSuggestionId = resSuggestion.Id,
+                });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("adddescription")]
+        [HttpPost]
+        public async Task<IActionResult> AddDescription([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null ||
+                    suggestion.Description.Length < 50)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                resSuggestion.Description = suggestion.Description;
+                resSuggestion.Progress = 75;
+
+                _context.Suggestions.Update(resSuggestion);
+                await _context.SaveChangesAsync();
+
+                return Json(new
+                {
+                    code = 200,
+                    savedSuggestionId = resSuggestion.Id,
+                });
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (DbUpdateException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (OperationCanceledException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500 });
+            }
+        }
+
+        [Route("addstarsrating")]
+        [HttpPost]
+        public async Task<IActionResult> AddStarsRating([FromBody] SuggestionPoco suggestion)
+        {
+            try
+            {
+                if (suggestion is null ||
+                    suggestion.StarsRating < 0 ||
+                    suggestion.StarsRating > 5)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
+                if (resSuggestion is null)
+                {
+                    return Json(new { code = 400 });
+                }
+
+                resSuggestion.StarsRating = suggestion.StarsRating;
                 resSuggestion.Progress = 50;
 
                 _context.Suggestions.Update(resSuggestion);
@@ -690,62 +743,6 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 await _context.SaveChangesAsync();
 
                 return Json(new { code = 200 });
-            }
-            catch (DbUpdateConcurrencyException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 500 });
-            }
-            catch (DbUpdateException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 500 });
-            }
-            catch (OperationCanceledException ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 500 });
-            }
-            catch (Exception ex)
-            {
-                Debug.WriteLine(ex.Message);
-
-                return Json(new { code = 500 });
-            }
-        }
-
-        [Route("adddescription")]
-        [HttpPost]
-        public async Task<IActionResult> AddDescription([FromBody] SuggestionPoco suggestion)
-        {
-            try
-            {
-                if (suggestion is null ||
-                    suggestion.Description.Length < 50)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                var resSuggestion = await _context.Suggestions.FirstOrDefaultAsync(s => s.Id == suggestion.Id);
-                if (resSuggestion is null)
-                {
-                    return Json(new { code = 400 });
-                }
-
-                resSuggestion.Description = suggestion.Description;
-                resSuggestion.Progress = 75;
-
-                _context.Suggestions.Update(resSuggestion);
-                await _context.SaveChangesAsync();
-
-                return Json(new
-                {
-                    code = 200,
-                    savedSuggestionId = resSuggestion.Id,
-                });
             }
             catch (DbUpdateConcurrencyException ex)
             {

@@ -129,14 +129,14 @@ export class ViewPropertyComponent implements OnInit {
           toSaveId: true,
         },
       });
-    } else if (suggestion.progress == 65) {
+    } else if (suggestion.progress == 50) {
       this.router.navigate(['lp/photos'], {
         queryParams: {
           id: suggestion.id,
           toSaveId: true,
         },
       });
-    } else if (suggestion.progress == 75) {
+    } else if (suggestion.progress == 65) {
       this.router.navigate(['lp/reviewandcomplete'], {
         queryParams: {
           id: suggestion.id,

@@ -28,7 +28,7 @@ export class LpNameAndLocationComponent implements OnInit {
   constructor(
     private listNewPropertyService: ListNewPropertyService,
     private router: Router,
-    private activatedRouter: ActivatedRoute,
+    private activatedRouter: ActivatedRoute
   ) {}
   choice: number = 0;
 
@@ -118,7 +118,7 @@ export class LpNameAndLocationComponent implements OnInit {
 
   addPropertyAddress(): void {
     if (this.sCountry == '-1' || !this.sCountry.match(/\d/)) {
-      alert("Select your country!");
+      alert('Select your country!');
       return;
     }
 
@@ -161,9 +161,7 @@ export class LpNameAndLocationComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRouter.queryParams.subscribe((params: any) => {
       if (params['toSaveId'] == 'true') {
-        this.listNewPropertyService.setSavedPropertyId(
-          params['id']
-        );
+        this.listNewPropertyService.setSavedPropertyId(params['id']);
         this.choice = params['choice'];
         if (this.choice == 0) {
           let firstLine = document.getElementById('firstLine');
@@ -179,10 +177,10 @@ export class LpNameAndLocationComponent implements OnInit {
       }
       if (!AuthHelper.isLogged()) {
         this.router.navigate(['']);
-      }
-      else if (!this.listNewPropertyService.getSavedPropertyId()) {
+      } else if (!this.listNewPropertyService.getSavedPropertyId()) {
         this.router.navigate(['']);
       }
+      this.getCountries();
     });
   }
 }
