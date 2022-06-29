@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { MainDataService } from '../services/main-data.service';
 
 @Component({
   selector: 'app-loader',
@@ -7,13 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./loader.component.css'],
 })
 export class LoaderComponent implements OnInit {
-  constructor(private modalService: NgbModal) {}
-
-  openVerticallyCentered(loader: any) {
-    this.modalService.open(loader, {
-      centered: true,
-    });
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 }

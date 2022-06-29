@@ -1,5 +1,8 @@
 <body>
   <app-header></app-header>
+  <ng-template #loader let-modal>
+    <app-loader *ngIf="!isGotData"></app-loader>
+  </ng-template>
   <div class="basiclayout">
     <div class="left">
       <div class="searchbox">
@@ -86,7 +89,7 @@
             </form>
           </div>
           <div class="searchbox_search">
-            <button class="searchbox_button" (click)="searchSuggestions($event)">
+            <button class="searchbox_button" (click)="searchSuggestions($event)" (click)="openVerticallyCentered(loader)">
               Search
             </button>
           </div>
@@ -107,7 +110,7 @@
                 filterCheckBoxes[
                   15 + bookingCategories.length + facilities.length
                 ]
-              " />
+              " (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="price1">
               USD 0 – USD 50
             </label>
@@ -126,7 +129,7 @@
                 filterCheckBoxes[
                   16 + bookingCategories.length + facilities.length
                 ]
-              " />
+              " (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="price2">
               USD 50 – USD 150
             </label>
@@ -145,7 +148,7 @@
                 filterCheckBoxes[
                   17 + bookingCategories.length + facilities.length
                 ]
-              " />
+              " (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="price3">
               USD 150 – USD 250
             </label>
@@ -164,7 +167,7 @@
                 filterCheckBoxes[
                   18 + bookingCategories.length + facilities.length
                 ]
-              " />
+              " (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="price4">
               USD 250 – USD 350
             </label>
@@ -183,7 +186,7 @@
                 filterCheckBoxes[
                   19 + bookingCategories.length + facilities.length
                 ]
-              " />
+              " (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="price5"> USD 350 + </label>
             <span>{{suggestionsAmountWithFilters[
               19 + bookingCategories.length + facilities.length
@@ -194,7 +197,7 @@
           <span class="filters_box_title">Stars and other ratings</span>
           <div>
             <input class="" type="checkbox" value="" id="1 star/other ratings" (change)="addFilterCheck('stars', 1, 1)"
-              [(ngModel)]="filterCheckBoxes[1]" />
+              [(ngModel)]="filterCheckBoxes[1]" (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="1 star/other ratings">
               1 star/other ratings
             </label>
@@ -202,7 +205,7 @@
           </div>
           <div>
             <input class="" type="checkbox" value="" id="2 star/other ratings" (change)="addFilterCheck('stars', 2, 2)"
-              [(ngModel)]="filterCheckBoxes[2]" />
+              [(ngModel)]="filterCheckBoxes[2]" (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="2 star/other ratings">
               2 star/other ratings
             </label>
@@ -210,7 +213,7 @@
           </div>
           <div>
             <input class="" type="checkbox" value="" id="3 star/other ratings" (change)="addFilterCheck('stars', 3, 3)"
-              [(ngModel)]="filterCheckBoxes[3]" />
+              [(ngModel)]="filterCheckBoxes[3]" (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="3 star/other ratings">
               3 star/other ratings
             </label>
@@ -218,7 +221,7 @@
           </div>
           <div>
             <input class="" type="checkbox" value="" id="4 star/other ratings" (change)="addFilterCheck('stars', 4, 4)"
-              [(ngModel)]="filterCheckBoxes[4]" />
+              [(ngModel)]="filterCheckBoxes[4]" (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="4 star/other ratings">
               4 star/other ratings
             </label>
@@ -226,7 +229,7 @@
           </div>
           <div>
             <input class="" type="checkbox" value="" id="5 star/other ratings" (change)="addFilterCheck('stars', 5, 5)"
-              [(ngModel)]="filterCheckBoxes[5]" />
+              [(ngModel)]="filterCheckBoxes[5]" (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="5 star/other ratings">
               5 star/other ratings
             </label>
@@ -234,7 +237,7 @@
           </div>
           <div>
             <input class="" type="checkbox" value="" id="Untrated" (change)="addFilterCheck('stars', 0, 0)"
-              [(ngModel)]="filterCheckBoxes[0]" />
+              [(ngModel)]="filterCheckBoxes[0]" (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="Untrated"> Unrated </label>
             <span>{{suggestionsAmountWithFilters[0]}}</span>
           </div>
@@ -244,7 +247,7 @@
           <div>
             <input class="" type="checkbox" value="" id="Superb: 9+" (change)="
                 addFilterCheck('reviewScores', 9, 11 + bookingCategories.length)
-              " [(ngModel)]="filterCheckBoxes[11 + bookingCategories.length]" />
+              " [(ngModel)]="filterCheckBoxes[11 + bookingCategories.length]" (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="Superb: 9+">
               Superb: 9+
             </label>
@@ -253,7 +256,7 @@
           <div>
             <input class="" type="checkbox" value="" id="Very good: 8+" (change)="
                 addFilterCheck('reviewScores', 8, 12 + bookingCategories.length)
-              " [(ngModel)]="filterCheckBoxes[12 + bookingCategories.length]" />
+              " [(ngModel)]="filterCheckBoxes[12 + bookingCategories.length]" (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="Very good: 8+">
               Very good: 8+
             </label>
@@ -262,14 +265,14 @@
           <div>
             <input class="" type="checkbox" value="" id="Good: 7+" (change)="
                 addFilterCheck('reviewScores', 7, 13 + bookingCategories.length)
-              " [(ngModel)]="filterCheckBoxes[13 + bookingCategories.length]" />
+              " [(ngModel)]="filterCheckBoxes[13 + bookingCategories.length]" (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="Good: 7+"> Good: 7+ </label>
             <span>{{suggestionsAmountWithFilters[13 + bookingCategories.length]}}</span>
           </div>
           <div>
             <input class="" type="checkbox" value="" id="Pleasant: 6+" (change)="
                 addFilterCheck('reviewScores', 6, 14 + bookingCategories.length)
-              " [(ngModel)]="filterCheckBoxes[14 + bookingCategories.length]" />
+              " [(ngModel)]="filterCheckBoxes[14 + bookingCategories.length]" (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="Pleasant: 6+">
               Pleasant: 6+
             </label>
@@ -282,7 +285,7 @@
             <div>
               <input class="" type="checkbox" value="" id="{{ item.category }}" (change)="
                   addFilterCheck('bookingCategories', item.category, 11 + i)
-                " [(ngModel)]="filterCheckBoxes[11 + i]" />
+                " [(ngModel)]="filterCheckBoxes[11 + i]" (click)="openVerticallyCentered(loader)" />
               <label class="filters_check_label" for="{{ item.category }}">
                 {{ item.category }}
               </label>
@@ -304,7 +307,7 @@
                   filterCheckBoxes[
                     20 + bookingCategories.length + facilities.length + i
                   ]
-                " />
+                " (click)="openVerticallyCentered(loader)" />
               <label class="filters_check_label" for="{{ item.title }}">
                 {{ item.title }}
               </label>
@@ -334,7 +337,7 @@
                       highlights.length +
                       i
                   ]
-                " />
+                " (click)="openVerticallyCentered(loader)" />
               <label class="filters_check_label" for="{{ item.title }}">
                 {{ item.title }}
               </label>
@@ -372,7 +375,7 @@
                       staffLanguages.length +
                       i
                   ]
-                " />
+                " (click)="openVerticallyCentered(loader)" />
               <label class="filters_check_label" for="{{ item.title }}">
                 {{ item.title }}
               </label>
@@ -410,7 +413,7 @@
                       roomTypes.length +
                       i
                   ]
-                " />
+                " (click)="openVerticallyCentered(loader)" />
               <label class="filters_check_label" for="{{ item.title }}">
                 {{ item.title }}
               </label>
@@ -435,7 +438,7 @@
                   )
                 " [(ngModel)]="
                   filterCheckBoxes[15 + bookingCategories.length + i]
-                " />
+                " (click)="openVerticallyCentered(loader)" />
               <label class="filters_check_label" for="{{ item.text }}">
                 {{ item.text }}
               </label>
@@ -451,16 +454,16 @@
           {{ searchPlace }}: {{ suggestionsAmount }} properties found
         </div>
         <div class="search_results_top_buttons">
-          <button (click)="sortItems(sortState.TopReviewed)">
+          <button (click)="sortItems(sortState.TopReviewed)" (click)="openVerticallyCentered(loader)">
             Our top picks
           </button>
-          <button (click)="sortItems(sortState.HomeAndApartmentsFirst)">
+          <button (click)="sortItems(sortState.HomeAndApartmentsFirst)" (click)="openVerticallyCentered(loader)">
             Homes & apartments first
           </button>
-          <button (click)="sortItems(sortState.StarsDesc)">
+          <button (click)="sortItems(sortState.StarsDesc)" (click)="openVerticallyCentered(loader)">
             Stars (highest first)
           </button>
-          <button (click)="sortItems(sortState.StarsAsc)">
+          <button (click)="sortItems(sortState.StarsAsc)" (click)="openVerticallyCentered(loader)">
             Stars (lowest first)
           </button>
           <div class="btn-group">
@@ -470,32 +473,32 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-lg-end">
               <li>
-                <button class="dropdown-item" (click)="sortItems(sortState.PriceAsc)">
+                <button class="dropdown-item" (click)="sortItems(sortState.PriceAsc)" (click)="openVerticallyCentered(loader)">
                   Price (lowest first)
                 </button>
               </li>
               <li>
-                <button class="dropdown-item" (click)="sortItems(sortState.PriceDesc)">
+                <button class="dropdown-item" (click)="sortItems(sortState.PriceDesc)" (click)="openVerticallyCentered(loader)">
                   Price (highest first)
                 </button>
               </li>
               <li>
-                <button class="dropdown-item" (click)="sortItems(sortState.BestReviewed)">
+                <button class="dropdown-item" (click)="sortItems(sortState.BestReviewed)" (click)="openVerticallyCentered(loader)">
                   Best reviewed
                 </button>
               </li>
               <li>
-                <button class="dropdown-item" (click)="sortItems(sortState.WorstReviewed)">
+                <button class="dropdown-item" (click)="sortItems(sortState.WorstReviewed)" (click)="openVerticallyCentered(loader)">
                   Worst reviewed
                 </button>
               </li>
               <li>
-                <button class="dropdown-item" (click)="sortItems(sortState.BestReviewedAndLowerPrice)">
+                <button class="dropdown-item" (click)="sortItems(sortState.BestReviewedAndLowerPrice)" (click)="openVerticallyCentered(loader)">
                   Best reviewed (lower price)
                 </button>
               </li>
               <li>
-                <button class="dropdown-item" (click)="sortItems(sortState.StarRatingAndLowerPrice)">
+                <button class="dropdown-item" (click)="sortItems(sortState.StarRatingAndLowerPrice)" (click)="openVerticallyCentered(loader)">
                   Stars highest (lower price first)
                 </button>
               </li>

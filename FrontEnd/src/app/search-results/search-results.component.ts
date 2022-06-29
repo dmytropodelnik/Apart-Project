@@ -21,7 +21,8 @@ import { Language } from '../models/language.item';
 import { BedType } from '../models/Suggestions/bedtype.item';
 import { Favorite } from '../models/UserData/favorite.item';
 import { Subscription } from 'rxjs';
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MainDataService } from '../services/main-data.service';
 
 @Component({
   selector: 'app-search-results',
@@ -80,12 +81,25 @@ export class SearchResultsComponent implements OnInit {
     day: this.current.getDate(),
   };
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+  isGotData: boolean = true;
+
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {
     this.suggestionsAmountWithFilters.fill(0);
   }
 
   model: any;
   model1: any;
+
+  openVerticallyCentered(content: any) {
+    this.modalService.open(content, {
+      centered: true,
+    });
+  }
 
   setChildren(value: number): void {
     if (this.filters.searchChildrenAmount + value < 0) {
@@ -183,8 +197,8 @@ export class SearchResultsComponent implements OnInit {
   }
 
   sortItems(value: SortState = this.sortState.TopReviewed): void {
+    this.isGotData = false;
     this.filters.sortOrder = value;
-    // this.filters.suggestions = this.resSuggestions;
     this.filters.pageSize = 25;
     this.filters.filters = this.filterChecks;
     this.filters.guestsAmount =
@@ -211,6 +225,8 @@ export class SearchResultsComponent implements OnInit {
           this.suggestionsAmount = data.suggestionsAmount;
           this.suggestionStartsFrom = data.suggestionStartsFrom;
           this.suggestionGrades = data.suggestionGrades;
+          this.isGotData = true;
+          this.modalService.dismissAll();
         } else {
           alert('Suggestions sort fetching error!');
         }
