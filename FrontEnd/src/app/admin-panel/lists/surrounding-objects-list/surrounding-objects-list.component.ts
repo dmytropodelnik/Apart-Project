@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SurroundingObject } from 'src/app/models/Suggestions/surroundingobject.item';
 import { AdminContentService } from 'src/app/services/admin-content.service';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -8,10 +10,9 @@ import ListHelper from '../../../utils/listHelper';
 @Component({
   selector: 'app-surrounding-objects-list',
   templateUrl: './surrounding-objects-list.component.html',
-  styleUrls: ['./surrounding-objects-list.component.css']
+  styleUrls: ['./surrounding-objects-list.component.css'],
 })
 export class SurroundingObjectsListComponent implements OnInit {
-
   objects: SurroundingObject[] | null = null;
   object: string | null = null;
   checkedObject: number | null = null;
@@ -19,11 +20,13 @@ export class SurroundingObjectsListComponent implements OnInit {
   page: number = 1;
   pageSize: number = 15;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
-    private adminContentService: AdminContentService
-  ) {
-
-  }
+    private adminContentService: AdminContentService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   addObject(): void {
     let object = {
@@ -49,7 +52,8 @@ export class SurroundingObjectsListComponent implements OnInit {
         this.object = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -79,7 +83,8 @@ export class SurroundingObjectsListComponent implements OnInit {
         this.object = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -109,19 +114,23 @@ export class SurroundingObjectsListComponent implements OnInit {
         this.object = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
   getObjects(): void {
-    fetch(`https://localhost:44381/api/surroundingobjects/getobjects?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://localhost:44381/api/surroundingobjects/getobjects?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -131,7 +140,8 @@ export class SurroundingObjectsListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -144,14 +154,17 @@ export class SurroundingObjectsListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/surroundingobjects/getobjects?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://localhost:44381/api/surroundingobjects/getobjects?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -161,7 +174,8 @@ export class SurroundingObjectsListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 

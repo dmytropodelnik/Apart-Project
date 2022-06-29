@@ -1,5 +1,7 @@
-import { Component, OnInit,} from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import { AuthorizationService } from '../../services/authorization.service';
 
@@ -14,16 +16,18 @@ export class ManageAccountComponent implements OnInit {
   currentYear: number = new Date().getFullYear();
   content: string = 'personal-details';
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private router: Router,
-    private authService: AuthorizationService
+    private authService: AuthorizationService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {}
 
   setContent(newContent: string) {
     this.content = newContent;
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 }

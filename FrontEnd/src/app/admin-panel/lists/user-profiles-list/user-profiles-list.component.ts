@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { UserProfile } from 'src/app/models/UserData/useprofile.item';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
 import ImageHelper from '../../../utils/imageHelper';
 import { AdminContentService } from 'src/app/services/admin-content.service';
+import { MainDataService } from 'src/app/services/main-data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-user-profiles-list',
   templateUrl: './user-profiles-list.component.html',
-  styleUrls: ['./user-profiles-list.component.css']
+  styleUrls: ['./user-profiles-list.component.css'],
 })
 export class UserProfilesListComponent implements OnInit {
-
   profiles: UserProfile[] | null = null;
   birthDate: string | null = null;
   searchProfile: string = '';
@@ -22,20 +23,26 @@ export class UserProfilesListComponent implements OnInit {
   page: number = 1;
   pageSize: number = 10;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
-    private adminContentService: AdminContentService
-  ) {
-
-  }
+    private adminContentService: AdminContentService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   search(): void {
-    fetch('https://localhost:44381/api/userprofiles/search?profile=' + this.searchProfile, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      'https://localhost:44381/api/userprofiles/search?profile=' +
+        this.searchProfile,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -46,7 +53,8 @@ export class UserProfilesListComponent implements OnInit {
         this.searchProfile = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -75,7 +83,8 @@ export class UserProfilesListComponent implements OnInit {
         this.birthDate = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -105,13 +114,16 @@ export class UserProfilesListComponent implements OnInit {
         this.birthDate = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
   disableButtons(): void {
     document.getElementById('editButton')?.setAttribute('disabled', 'disabled');
-    document.getElementById('deleteButton')?.setAttribute('disabled', 'disabled');
+    document
+      .getElementById('deleteButton')
+      ?.setAttribute('disabled', 'disabled');
   }
 
   deleteProfile(): void {
@@ -140,19 +152,23 @@ export class UserProfilesListComponent implements OnInit {
         this.birthDate = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
   getProfiles(): void {
-    fetch(`https://localhost:44381/api/userprofiles/getprofiles?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://localhost:44381/api/userprofiles/getprofiles?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -162,7 +178,8 @@ export class UserProfilesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -175,14 +192,17 @@ export class UserProfilesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/userprofiles/getprofiles?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://localhost:44381/api/userprofiles/getprofiles?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -192,7 +212,8 @@ export class UserProfilesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 

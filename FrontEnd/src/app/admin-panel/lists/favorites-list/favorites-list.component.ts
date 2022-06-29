@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Favorite } from 'src/app/models/UserData/favorite.item';
 import { AdminContentService } from 'src/app/services/admin-content.service';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -8,10 +10,9 @@ import ListHelper from '../../../utils/listHelper';
 @Component({
   selector: 'app-favorites-list',
   templateUrl: './favorites-list.component.html',
-  styleUrls: ['./favorites-list.component.css']
+  styleUrls: ['./favorites-list.component.css'],
 })
 export class FavoritesListComponent implements OnInit {
-
   favorites: Favorite[] | null = null;
   favorite: Favorite | null = null;
   searchFavorite: string = '';
@@ -20,20 +21,26 @@ export class FavoritesListComponent implements OnInit {
   page: number = 1;
   pageSize: number = 10;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
-    private adminContentService: AdminContentService
-  ) {
-
-  }
+    private adminContentService: AdminContentService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   search(): void {
-    fetch('https://localhost:44381/api/favorites/search?favorite=' + this.searchFavorite, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      'https://localhost:44381/api/favorites/search?favorite=' +
+        this.searchFavorite,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -44,7 +51,8 @@ export class FavoritesListComponent implements OnInit {
         this.searchFavorite = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -72,7 +80,8 @@ export class FavoritesListComponent implements OnInit {
         this.favorite = null;
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -101,7 +110,8 @@ export class FavoritesListComponent implements OnInit {
         this.favorite = null;
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -131,19 +141,23 @@ export class FavoritesListComponent implements OnInit {
         this.favorite = null;
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
   getFavorites(): void {
-    fetch(`https://localhost:44381/api/favorites/getfavorites?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://localhost:44381/api/favorites/getfavorites?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -153,7 +167,8 @@ export class FavoritesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -166,14 +181,17 @@ export class FavoritesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/favorites/getfavorites?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://localhost:44381/api/favorites/getfavorites?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -183,7 +201,8 @@ export class FavoritesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -198,5 +217,4 @@ export class FavoritesListComponent implements OnInit {
   ngOnInit(): void {
     this.getFavorites();
   }
-
 }

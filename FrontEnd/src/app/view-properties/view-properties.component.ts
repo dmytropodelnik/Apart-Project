@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Suggestion } from '../models/Suggestions/suggestion.item';
 
 import { Router } from '@angular/router';
@@ -7,6 +7,8 @@ import { ActivatedRoute } from '@angular/router';
 import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
 import MathHelper from '../utils/mathHelper';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MainDataService } from '../services/main-data.service';
 
 @Component({
   selector: 'app-view-property',
@@ -25,7 +27,14 @@ export class ViewPropertyComponent implements OnInit {
   activeFilter: string = '';
   inProgressFilter: string = '';
 
-  constructor(private router: Router, private activatedRouter: ActivatedRoute) {}
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
+  constructor(
+    private router: Router,
+    private activatedRouter: ActivatedRoute,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   getProperties(): void {
     fetch(
@@ -53,7 +62,8 @@ export class ViewPropertyComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -148,7 +158,9 @@ export class ViewPropertyComponent implements OnInit {
 
   filterActiveSuggestions(): void {
     fetch(
-      `https://localhost:44381/api/suggestions/getusersuggestions?email=${AuthHelper.getLogin()}&filter=${this.activeFilter}`,
+      `https://localhost:44381/api/suggestions/getusersuggestions?email=${AuthHelper.getLogin()}&filter=${
+        this.activeFilter
+      }`,
       {
         method: 'GET',
         headers: {
@@ -168,13 +180,16 @@ export class ViewPropertyComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
   filterInProgressSuggestions(): void {
     fetch(
-      `https://localhost:44381/api/suggestions/getusersuggestions?email=${AuthHelper.getLogin()}&filter=${this.inProgressFilter}`,
+      `https://localhost:44381/api/suggestions/getusersuggestions?email=${AuthHelper.getLogin()}&filter=${
+        this.inProgressFilter
+      }`,
       {
         method: 'GET',
         headers: {
@@ -195,7 +210,8 @@ export class ViewPropertyComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -215,14 +231,15 @@ export class ViewPropertyComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          alert("Suggestion was deleted successfully!");
+          alert('Suggestion was deleted successfully!');
           this.getProperties();
         } else {
           alert(data.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 

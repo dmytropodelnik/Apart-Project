@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Apartment } from 'src/app/models/Suggestions/apartment.item';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import { ListNewPropertyService } from '../../services/list-new-property.service';
 
@@ -10,22 +12,23 @@ import AuthHelper from '../../utils/authHelper';
 @Component({
   selector: 'app-lp-apartments',
   templateUrl: './lp-apartments.component.html',
-  styleUrls: ['./lp-apartments.component.css']
+  styleUrls: ['./lp-apartments.component.css'],
 })
 export class LpApartmentsComponent implements OnInit {
-
   apartments: Apartment[] = [new Apartment()];
   apartmentsAmount: boolean[] = [true];
 
   validationErrors: boolean[] = [];
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private listNewPropertyService: ListNewPropertyService,
     private router: Router,
     private activatedRouter: ActivatedRoute,
-  ) {
-
-  }
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   addApartmentSetting(): void {
     this.apartmentsAmount.push(true);
@@ -40,28 +43,30 @@ export class LpApartmentsComponent implements OnInit {
 
   addApartments(): void {
     if (this.validationErrors.length > 0) {
-      alert("Fill all fields!")
+      alert('Fill all fields!');
       return;
     }
 
     for (let i = 0; i < this.apartments.length; i++) {
       if (this.apartments[i].name.length < 3) {
-        alert("Apartment name must have at least 3 characters!");
+        alert('Apartment name must have at least 3 characters!');
         return;
       } else if (this.apartments[i].description.length < 10) {
-        alert("Apartment description must have at least 10 characters!");
+        alert('Apartment description must have at least 10 characters!');
         return;
       } else if (!this.apartments[i].priceInUSD?.toString().match(/\d+/)) {
-        alert("Apartment price must have at least 1 character!");
+        alert('Apartment price must have at least 1 character!');
         return;
       } else if (!this.apartments[i].roomsAmount?.toString().match(/\d+/)) {
-        alert("Apartment rooms amount must have at least 1 character!");
+        alert('Apartment rooms amount must have at least 1 character!');
         return;
       } else if (!this.apartments[i].guestsLimit?.toString().match(/\d+/)) {
-        alert("Apartment guests limit must have at least 1 character!");
+        alert('Apartment guests limit must have at least 1 character!');
         return;
       } else if (!this.apartments[i].bathroomsAmount?.toString().match(/\d+/)) {
-        alert("Apartment bathrooms amount limit must have at least 1 character!");
+        alert(
+          'Apartment bathrooms amount limit must have at least 1 character!'
+        );
         return;
       }
     }
@@ -88,24 +93,21 @@ export class LpApartmentsComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
   ngOnInit(): void {
     this.activatedRouter.queryParams.subscribe((params: any) => {
       if (params['toSaveId'] == 'true') {
-        this.listNewPropertyService.setSavedPropertyId(
-          params['id']
-        );
+        this.listNewPropertyService.setSavedPropertyId(params['id']);
       }
       if (!AuthHelper.isLogged()) {
         this.router.navigate(['']);
-      }
-      else if (!this.listNewPropertyService.getSavedPropertyId()) {
+      } else if (!this.listNewPropertyService.getSavedPropertyId()) {
         this.router.navigate(['']);
       }
     });
   }
-
 }

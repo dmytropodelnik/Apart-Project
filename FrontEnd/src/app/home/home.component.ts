@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { BookingCategory } from '../models/bookingcategory.item';
 import { City } from '../models/Location/city.item';
 import { Suggestion } from '../models/Suggestions/suggestion.item';
@@ -19,7 +25,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -121,8 +127,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     ],
   };
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     public mainDataService: MainDataService,
+    private modalService: NgbModal,
     private router: Router
   ) {}
 
@@ -161,7 +170,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -264,7 +274,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 

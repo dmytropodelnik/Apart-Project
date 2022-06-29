@@ -1,6 +1,5 @@
 import { BookingCategory } from '../models/bookingcategory.item';
 import { City } from '../models/Location/city.item';
-import { Country } from '../models/Location/country.item';
 import { Region } from '../models/Location/region.item';
 
 export class MainDataService {
@@ -10,6 +9,8 @@ export class MainDataService {
   private searchingCountries: string[] = [];
   private searchingRegions: Region[] = [];
   private isGotData: boolean = true;
+
+  public alertContent: string = 'Example';
 
   constructor() {}
 

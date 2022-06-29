@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Facility } from 'src/app/models/facility.item';
 import { SuggestionRule } from 'src/app/models/Suggestions/suggestionrule.item';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import { ListNewPropertyService } from '../../services/list-new-property.service';
 
@@ -37,10 +39,14 @@ export class LpPropertySetupComponent implements OnInit {
 
   description: string = '';
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private listNewPropertyService: ListNewPropertyService,
     private router: Router,
-    private activatedRouter: ActivatedRoute
+    private activatedRouter: ActivatedRoute,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {}
   choice: number = 1;
   bedTypesAmount = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -133,11 +139,13 @@ export class LpPropertySetupComponent implements OnInit {
             }
           })
           .catch((ex) => {
-            alert(ex);
+            this.mainDataService.alertContent = ex;
+            this.modalService.open(this.alert);
           });
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -163,7 +171,8 @@ export class LpPropertySetupComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -191,7 +200,8 @@ export class LpPropertySetupComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -218,7 +228,8 @@ export class LpPropertySetupComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -244,7 +255,8 @@ export class LpPropertySetupComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -266,7 +278,8 @@ export class LpPropertySetupComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -288,7 +301,8 @@ export class LpPropertySetupComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -314,7 +328,8 @@ export class LpPropertySetupComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -340,7 +355,8 @@ export class LpPropertySetupComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 

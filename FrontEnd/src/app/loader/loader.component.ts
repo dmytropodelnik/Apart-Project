@@ -1,4 +1,5 @@
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MainDataService } from '../services/main-data.service';
 
 @Component({
@@ -7,7 +8,12 @@ import { MainDataService } from '../services/main-data.service';
   styleUrls: ['./loader.component.css'],
 })
 export class LoaderComponent implements OnInit {
-  constructor() {}
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
+  constructor(
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {}
 }

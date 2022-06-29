@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MailLetter } from 'src/app/models/mailletter.item';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import AuthHelper from '../../utils/authHelper';
 
@@ -24,7 +26,12 @@ export class LetterCreatorComponent implements OnInit {
 
   lettersAmount: number = 0;
 
-  constructor() {}
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
+  constructor(
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   setChoice(): void {
     this.choice = !this.choice;
@@ -37,13 +44,17 @@ export class LetterCreatorComponent implements OnInit {
   }
 
   sendLetterAgain(value: number): void {
-    fetch('https://localhost:44381/api/deals/sendbestdealsletteragain?letterId=' + value, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      'https://localhost:44381/api/deals/sendbestdealsletteragain?letterId=' +
+        value,
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
@@ -61,11 +72,11 @@ export class LetterCreatorComponent implements OnInit {
 
   async createLetter(): Promise<void> {
     if (this.newLetter.title.length < 3) {
-      alert("Title must have at least 3 characters");
+      alert('Title must have at least 3 characters');
       return;
     }
     if (this.newLetter.text.length < 10 && !this.choice) {
-      alert("Text must have at least 10 characters");
+      alert('Text must have at least 10 characters');
       return;
     }
 

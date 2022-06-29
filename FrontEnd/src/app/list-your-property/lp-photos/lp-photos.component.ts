@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import { ListNewPropertyService } from '../../services/list-new-property.service';
 
@@ -14,10 +16,14 @@ export class LpPhotosComponent implements OnInit {
   savedPropertyId: string = '';
   uploadedFiles: File[] = [];
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private listNewPropertyService: ListNewPropertyService,
     private router: Router,
-    private activatedRouter: ActivatedRoute
+    private activatedRouter: ActivatedRoute,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {}
 
   fileToUpload: any;
@@ -27,8 +33,6 @@ export class LpPhotosComponent implements OnInit {
 
   selectFiles(event: any): void {
     this.selectedFiles = event.target.files;
-
-    //this.previews = [];
 
     if (this.selectedFiles && this.selectedFiles[0]) {
       const numberOfFiles = this.selectedFiles.length;
@@ -98,9 +102,7 @@ export class LpPhotosComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRouter.queryParams.subscribe((params: any) => {
       if (params['toSaveId'] == 'true') {
-        this.listNewPropertyService.setSavedPropertyId(
-          params['id']
-        );
+        this.listNewPropertyService.setSavedPropertyId(params['id']);
       }
       if (!AuthHelper.isLogged()) {
         this.router.navigate(['']);

@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StayBooking } from 'src/app/models/Services/staybooking.item';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -7,15 +9,19 @@ import ListHelper from '../../../utils/listHelper';
 @Component({
   selector: 'app-stay-bookings-list',
   templateUrl: './stay-bookings-list.component.html',
-  styleUrls: ['./stay-bookings-list.component.css']
+  styleUrls: ['./stay-bookings-list.component.css'],
 })
 export class StayBookingsListComponent implements OnInit {
-
   bookings: StayBooking[] | null = null;
   booking: string | null = null;
   checkedBooking: number | null = null;
 
-  constructor() {}
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
+  constructor(
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   addRole(): void {
     let booking = {
@@ -41,7 +47,8 @@ export class StayBookingsListComponent implements OnInit {
         this.booking = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -71,7 +78,8 @@ export class StayBookingsListComponent implements OnInit {
         this.booking = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -101,7 +109,8 @@ export class StayBookingsListComponent implements OnInit {
         this.booking = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -123,7 +132,8 @@ export class StayBookingsListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 

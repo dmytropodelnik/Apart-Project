@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FileModel } from 'src/app/models/filemodel.item';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
 import ImageHelper from '../../../utils/imageHelper';
 import { AdminContentService } from 'src/app/services/admin-content.service';
+import { MainDataService } from 'src/app/services/main-data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-file-models-list',
   templateUrl: './file-models-list.component.html',
-  styleUrls: ['./file-models-list.component.css']
+  styleUrls: ['./file-models-list.component.css'],
 })
 export class FileModelsListComponent implements OnInit {
-
   files: FileModel[] | null = null;
   name: string | null = null;
   path: string | null = null;
@@ -24,11 +25,13 @@ export class FileModelsListComponent implements OnInit {
   page: number = 1;
   pageSize: number = 10;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
-    private adminContentService: AdminContentService
-  ) {
-
-  }
+    private adminContentService: AdminContentService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   search(): void {
     fetch('https://localhost:44381/api/files/search?file=' + this.searchFile, {
@@ -48,7 +51,8 @@ export class FileModelsListComponent implements OnInit {
         this.searchFile = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -78,7 +82,8 @@ export class FileModelsListComponent implements OnInit {
         this.path = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -110,19 +115,23 @@ export class FileModelsListComponent implements OnInit {
         this.path = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
   getFiles(): void {
-    fetch(`https://localhost:44381/api/files/getimages?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://localhost:44381/api/files/getimages?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -132,7 +141,8 @@ export class FileModelsListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -142,24 +152,24 @@ export class FileModelsListComponent implements OnInit {
       fData.append('uploadedFile', this.uploadedFile);
     }
 
-      fetch('https://localhost:44381/api/fileuploader/uploadfile', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-        },
-        body: fData,
-      })
-      .then(r => r.json())
-      .then(r => {
+    fetch('https://localhost:44381/api/fileuploader/uploadfile', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
+      body: fData,
+    })
+      .then((r) => r.json())
+      .then((r) => {
         if (r.code === 200) {
-          alert("File has been successfully uploaded!");
+          alert('File has been successfully uploaded!');
           this.getFiles();
         } else {
-          alert("Uploading error!");
+          alert('Uploading error!');
         }
       })
-      .catch(err => {
+      .catch((err) => {
         alert(err);
       });
   }
@@ -179,14 +189,17 @@ export class FileModelsListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/files/getimages?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://localhost:44381/api/files/getimages?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -196,7 +209,8 @@ export class FileModelsListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -211,5 +225,4 @@ export class FileModelsListComponent implements OnInit {
   ngOnInit(): void {
     this.getFiles();
   }
-
 }

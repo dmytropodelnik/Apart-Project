@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CardType } from 'src/app/models/Payment/cardtype.item';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -7,15 +9,19 @@ import ListHelper from '../../../utils/listHelper';
 @Component({
   selector: 'app-card-types-list',
   templateUrl: './card-types-list.component.html',
-  styleUrls: ['./card-types-list.component.css']
+  styleUrls: ['./card-types-list.component.css'],
 })
 export class CardTypesListComponent implements OnInit {
-
   cardTypes: CardType[] | null = null;
   type: string | null = null;
   checkedType: number | null = null;
 
-  constructor() {}
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
+  constructor(
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   addType(): void {
     let type = {
@@ -41,7 +47,8 @@ export class CardTypesListComponent implements OnInit {
         this.type = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -71,7 +78,8 @@ export class CardTypesListComponent implements OnInit {
         this.type = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -101,7 +109,8 @@ export class CardTypesListComponent implements OnInit {
         this.type = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -123,7 +132,8 @@ export class CardTypesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -138,5 +148,4 @@ export class CardTypesListComponent implements OnInit {
   ngOnInit(): void {
     this.getTypes();
   }
-
 }

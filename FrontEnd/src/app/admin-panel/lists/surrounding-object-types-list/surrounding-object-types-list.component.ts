@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { SurroundingObjectType } from 'src/app/models/Suggestions/surroundingobjecttype.item';
 import { AdminContentService } from 'src/app/services/admin-content.service';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -8,10 +10,9 @@ import ListHelper from '../../../utils/listHelper';
 @Component({
   selector: 'app-surrounding-object-types-list',
   templateUrl: './surrounding-object-types-list.component.html',
-  styleUrls: ['./surrounding-object-types-list.component.css']
+  styleUrls: ['./surrounding-object-types-list.component.css'],
 })
 export class SurroundingObjectTypesListComponent implements OnInit {
-
   types: SurroundingObjectType[] | null = null;
   type: string | null = null;
   searchType: string = '';
@@ -20,20 +21,26 @@ export class SurroundingObjectTypesListComponent implements OnInit {
   page: number = 1;
   pageSize: number = 15;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
-    private adminContentService: AdminContentService
-  ) {
-
-  }
+    private adminContentService: AdminContentService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   search(): void {
-    fetch('https://localhost:44381/api/surroundingobjecttypes/search?type=' + this.searchType, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      'https://localhost:44381/api/surroundingobjecttypes/search?type=' +
+        this.searchType,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -44,7 +51,8 @@ export class SurroundingObjectTypesListComponent implements OnInit {
         this.searchType = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -72,7 +80,8 @@ export class SurroundingObjectTypesListComponent implements OnInit {
         this.type = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -102,7 +111,8 @@ export class SurroundingObjectTypesListComponent implements OnInit {
         this.type = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -132,19 +142,23 @@ export class SurroundingObjectTypesListComponent implements OnInit {
         this.type = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
   getTypes(): void {
-    fetch(`https://localhost:44381/api/surroundingobjecttypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://localhost:44381/api/surroundingobjecttypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -154,7 +168,8 @@ export class SurroundingObjectTypesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -167,14 +182,17 @@ export class SurroundingObjectTypesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/surroundingobjecttypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://localhost:44381/api/surroundingobjecttypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -184,7 +202,8 @@ export class SurroundingObjectTypesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -199,5 +218,4 @@ export class SurroundingObjectTypesListComponent implements OnInit {
   ngOnInit(): void {
     this.getTypes();
   }
-
 }

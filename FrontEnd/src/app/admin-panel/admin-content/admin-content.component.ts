@@ -1,24 +1,34 @@
 import { ThisReceiver } from '@angular/compiler';
-import { Input, Component, OnInit } from '@angular/core';
+import {
+  Input,
+  Component,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 @Component({
   selector: 'app-admin-content',
   templateUrl: './admin-content.component.html',
-  styleUrls: ['./admin-content.component.css']
+  styleUrls: ['./admin-content.component.css'],
 })
 export class AdminContentComponent implements OnInit {
-
   @Input() content: string | undefined;
 
-  constructor() {
-    this.content = "users";
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
+  constructor(
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {
+    this.content = 'users';
   }
 
   setContent(newContent: string) {
     this.content = newContent;
   }
 
-  ngOnInit(): void {
-  }
-
+  ngOnInit(): void {}
 }

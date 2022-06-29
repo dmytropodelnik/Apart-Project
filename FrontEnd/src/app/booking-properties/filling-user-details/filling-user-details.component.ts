@@ -1,8 +1,10 @@
 import { ConsoleLogger } from '@angular/compiler-cli/private/localize';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Guest } from 'src/app/models/UserData/guest.item';
 import { BookingDetailsService } from 'src/app/services/booking-details.service';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import AuthHelper from '../../utils/authHelper';
 import BookingHelper from '../../utils/bookingHelper';
@@ -50,10 +52,14 @@ export class FillingUserDetailsComponent implements OnInit {
 
   guestsData: string[] = [];
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private router: Router,
     private activatedRouter: ActivatedRoute,
-    private bookingDetailsService: BookingDetailsService
+    private bookingDetailsService: BookingDetailsService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {}
 
   calculateTotalPrice(): void {
@@ -139,7 +145,8 @@ export class FillingUserDetailsComponent implements OnInit {
           }
         })
         .catch((ex) => {
-          alert(ex);
+          this.mainDataService.alertContent = ex;
+          this.modalService.open(this.alert);
         });
     }
   }

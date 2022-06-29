@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Currency } from 'src/app/models/Payment/currency.item';
 import { AdminContentService } from 'src/app/services/admin-content.service';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -8,10 +10,9 @@ import ListHelper from '../../../utils/listHelper';
 @Component({
   selector: 'app-currencies-list',
   templateUrl: './currencies-list.component.html',
-  styleUrls: ['./currencies-list.component.css']
+  styleUrls: ['./currencies-list.component.css'],
 })
 export class CurrenciesListComponent implements OnInit {
-
   currencies: Currency[] | null = null;
   currency: Currency;
   searchCurrency: string = '';
@@ -20,20 +21,28 @@ export class CurrenciesListComponent implements OnInit {
   page: number = 1;
   pageSize: number = 15;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
-    private adminContentService: AdminContentService
+    private adminContentService: AdminContentService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {
     this.currency = new Currency();
   }
 
   search(): void {
-    fetch('https://localhost:44381/api/currencies/search?currency=' + this.searchCurrency, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      'https://localhost:44381/api/currencies/search?currency=' +
+        this.searchCurrency,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -44,15 +53,16 @@ export class CurrenciesListComponent implements OnInit {
         this.searchCurrency = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
   addCurrency(): void {
     let currency = {
-      value:        this.currency.value,
+      value: this.currency.value,
       abbreviation: this.currency.abbreviation,
-      bankCode:     this.currency.bankCode,
+      bankCode: this.currency.bankCode,
     };
 
     console.log(currency);
@@ -78,16 +88,17 @@ export class CurrenciesListComponent implements OnInit {
         this.currency.bankCode = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
   editCurrency(): void {
     let currency = {
       id: this.checkedCurrency,
-      value:        this.currency.value,
+      value: this.currency.value,
       abbreviation: this.currency.abbreviation,
-      bankCode:     this.currency.bankCode,
+      bankCode: this.currency.bankCode,
     };
 
     fetch('https://localhost:44381/api/currencies/editcurrency', {
@@ -112,16 +123,17 @@ export class CurrenciesListComponent implements OnInit {
         this.currency.bankCode = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
   deleteCurrency(): void {
     let currency = {
       id: this.checkedCurrency,
-      value:        this.currency.value,
+      value: this.currency.value,
       abbreviation: this.currency.abbreviation,
-      bankCode:     this.currency.bankCode,
+      bankCode: this.currency.bankCode,
     };
 
     fetch('https://localhost:44381/api/currencies/deletecurrency', {
@@ -146,19 +158,23 @@ export class CurrenciesListComponent implements OnInit {
         this.currency.bankCode = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
   getCurrencies(): void {
-    fetch(`https://localhost:44381/api/currencies/getcurrencies?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://localhost:44381/api/currencies/getcurrencies?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -168,7 +184,8 @@ export class CurrenciesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -181,14 +198,17 @@ export class CurrenciesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://localhost:44381/api/currencies/getcurrencies?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://localhost:44381/api/currencies/getcurrencies?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -198,7 +218,8 @@ export class CurrenciesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -216,5 +237,4 @@ export class CurrenciesListComponent implements OnInit {
   ngOnInit(): void {
     this.getCurrencies();
   }
-
 }

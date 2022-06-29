@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthorizationService } from '../services/authorization.service';
+import { MainDataService } from '../services/main-data.service';
 
 import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
@@ -30,14 +31,15 @@ export class UsersReviewsComponent implements OnInit {
 
   page: number = 1;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
-    private modalService: NgbModal,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public authService: AuthorizationService,
-  ) {
-
-  }
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   getUsersReviews(value: boolean): void {
     this.condition = 1;
@@ -49,7 +51,9 @@ export class UsersReviewsComponent implements OnInit {
     }
 
     fetch(
-      `https://localhost:44381/api/reviews/getusersreviews?email=${AuthHelper.getLogin()}&page=${this.page}`,
+      `https://localhost:44381/api/reviews/getusersreviews?email=${AuthHelper.getLogin()}&page=${
+        this.page
+      }`,
       {
         method: 'GET',
         headers: {
@@ -78,7 +82,8 @@ export class UsersReviewsComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -92,7 +97,9 @@ export class UsersReviewsComponent implements OnInit {
     }
 
     fetch(
-      `https://localhost:44381/api/reviews/getuserpropertiesreviews?email=${AuthHelper.getLogin()}&page=${this.page}`,
+      `https://localhost:44381/api/reviews/getuserpropertiesreviews?email=${AuthHelper.getLogin()}&page=${
+        this.page
+      }`,
       {
         method: 'GET',
         headers: {
@@ -121,7 +128,8 @@ export class UsersReviewsComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 

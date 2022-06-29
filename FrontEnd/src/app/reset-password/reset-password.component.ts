@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import AuthHelper from '../utils/authHelper';
 import { AuthorizationService } from '../services/authorization.service';
@@ -10,6 +10,8 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
+import { MainDataService } from '../services/main-data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-reset-password',
@@ -25,14 +27,18 @@ export class ResetPasswordComponent implements OnInit {
   email: string = '';
   code: string = '';
 
-  letterMessage: string= '';
+  letterMessage: string = '';
   letterAction: boolean = false;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private authService: AuthorizationService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {
     this.passwordForm = this.formBuilder.group(
       {
@@ -59,13 +65,13 @@ export class ResetPasswordComponent implements OnInit {
       .then((r) => r.json())
       .then(async (data) => {
         if (data.code === 200) {
-
         } else {
           alert(data.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -97,7 +103,8 @@ export class ResetPasswordComponent implements OnInit {
         this.authService.setResetPasswordCondition(false);
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -121,7 +128,10 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!AuthHelper.isLogged() || !this.authService.getResetPasswordCondition()) {
+    if (
+      !AuthHelper.isLogged() ||
+      !this.authService.getResetPasswordCondition()
+    ) {
       this.router.navigate(['']);
       return;
     }

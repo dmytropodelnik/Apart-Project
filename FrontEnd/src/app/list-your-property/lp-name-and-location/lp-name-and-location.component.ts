@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Address } from 'src/app/models/Location/address.item';
 import { Country } from 'src/app/models/Location/country.item';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ListNewPropertyService } from '../../services/list-new-property.service';
 
 import AuthHelper from '../../utils/authHelper';
+import { MainDataService } from 'src/app/services/main-data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-lp-name-and-location',
@@ -25,10 +27,14 @@ export class LpNameAndLocationComponent implements OnInit {
 
   reg = /[!"#$%&'()*+,-.\/:;<=>?@[\]^_`{|}~]/gi;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private listNewPropertyService: ListNewPropertyService,
     private router: Router,
-    private activatedRouter: ActivatedRoute
+    private activatedRouter: ActivatedRoute,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {}
   choice: number = 0;
 
@@ -88,7 +94,8 @@ export class LpNameAndLocationComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -112,7 +119,8 @@ export class LpNameAndLocationComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -154,7 +162,8 @@ export class LpNameAndLocationComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 

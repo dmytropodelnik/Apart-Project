@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import AuthHelper from '../utils/authHelper';
 import BookingHelper from '../utils/bookingHelper';
@@ -20,6 +20,7 @@ import { SuggestionRuleType } from '../models/Suggestions/suggestionruletype.ite
 import { Review } from '../models/Review/review.item';
 import { ReviewCategory } from '../models/Review/reviewcategory.item';
 import { BookingDetailsService } from '../services/booking-details.service';
+import { MainDataService } from '../services/main-data.service';
 
 @Component({
   selector: 'app-stay-suggestion-page',
@@ -113,12 +114,15 @@ export class StaySuggestionPageComponent implements OnInit {
     day: this.current.getDate(),
   };
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private router: Router,
     private activatedRouter: ActivatedRoute,
-    private modalService: NgbModal,
     private scroller: ViewportScroller,
-    private bookingDetailsService: BookingDetailsService
+    private bookingDetailsService: BookingDetailsService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {}
 
   routerOptions: ExtraOptions = {
@@ -198,7 +202,8 @@ export class StaySuggestionPageComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -222,7 +227,8 @@ export class StaySuggestionPageComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -255,7 +261,8 @@ export class StaySuggestionPageComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -288,7 +295,8 @@ export class StaySuggestionPageComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -444,7 +452,8 @@ export class StaySuggestionPageComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -471,7 +480,8 @@ export class StaySuggestionPageComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -495,7 +505,8 @@ export class StaySuggestionPageComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -562,7 +573,8 @@ export class StaySuggestionPageComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -593,7 +605,8 @@ export class StaySuggestionPageComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -682,7 +695,8 @@ export class StaySuggestionPageComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 

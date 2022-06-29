@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -21,7 +27,7 @@ import { Language } from '../models/language.item';
 import { BedType } from '../models/Suggestions/bedtype.item';
 import { Favorite } from '../models/UserData/favorite.item';
 import { Subscription } from 'rxjs';
-import { NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { MainDataService } from '../services/main-data.service';
 
 @Component({
@@ -81,12 +87,12 @@ export class SearchResultsComponent implements OnInit {
     day: this.current.getDate(),
   };
 
-  isGotData: boolean = true;
-
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private mainDataService: MainDataService,
+    public mainDataService: MainDataService,
     private modalService: NgbModal
   ) {
     this.suggestionsAmountWithFilters.fill(0);
@@ -197,7 +203,6 @@ export class SearchResultsComponent implements OnInit {
   }
 
   sortItems(value: SortState = this.sortState.TopReviewed): void {
-    this.isGotData = false;
     this.filters.sortOrder = value;
     this.filters.pageSize = 25;
     this.filters.filters = this.filterChecks;
@@ -225,14 +230,16 @@ export class SearchResultsComponent implements OnInit {
           this.suggestionsAmount = data.suggestionsAmount;
           this.suggestionStartsFrom = data.suggestionStartsFrom;
           this.suggestionGrades = data.suggestionGrades;
-          this.isGotData = true;
           this.modalService.dismissAll();
         } else {
-          alert('Suggestions sort fetching error!');
+          this.mainDataService.alertContent =
+            'Suggestions sort fetching error!';
+          this.modalService.open(this.alert);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -245,11 +252,14 @@ export class SearchResultsComponent implements OnInit {
         if (data.code === 200) {
           this.bookingCategories = data.categories;
         } else {
-          alert('Booking categories fetching error!');
+          this.mainDataService.alertContent =
+            'Booking categories fetching error!';
+          this.modalService.open(this.alert);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -266,7 +276,8 @@ export class SearchResultsComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -283,7 +294,8 @@ export class SearchResultsComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -300,7 +312,8 @@ export class SearchResultsComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -333,7 +346,8 @@ export class SearchResultsComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -372,7 +386,8 @@ export class SearchResultsComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -398,7 +413,8 @@ export class SearchResultsComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 

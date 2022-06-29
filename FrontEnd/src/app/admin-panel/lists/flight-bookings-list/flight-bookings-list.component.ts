@@ -1,21 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { FlightBooking } from 'src/app/models/Services/flightbooking.item';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FlightBooking } from '../../../models/Services/flightbooking.item';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
 
+import { MainDataService } from 'src/app/services/main-data.service';
+
 @Component({
   selector: 'app-flight-bookings-list',
   templateUrl: './flight-bookings-list.component.html',
-  styleUrls: ['./flight-bookings-list.component.css']
+  styleUrls: ['./flight-bookings-list.component.css'],
 })
 export class FlightBookingsListComponent implements OnInit {
-
   bookings: FlightBooking[] | null = null;
   booking: string | null = null;
   checkedBooking: number | null = null;
 
-  constructor() {}
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
+  constructor(
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   addBooking(): void {
     let booking = {
@@ -41,7 +48,8 @@ export class FlightBookingsListComponent implements OnInit {
         this.booking = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -71,7 +79,8 @@ export class FlightBookingsListComponent implements OnInit {
         this.booking = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -101,7 +110,8 @@ export class FlightBookingsListComponent implements OnInit {
         this.booking = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -123,7 +133,8 @@ export class FlightBookingsListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 

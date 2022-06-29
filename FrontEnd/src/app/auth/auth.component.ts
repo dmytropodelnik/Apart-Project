@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import AuthHelper from '../utils/authHelper';
 import { AuthorizationService } from '../services/authorization.service';
@@ -11,9 +11,11 @@ import {
 } from '@angular/forms';
 import { RepositoryEnum } from '../enums/repositoryenum.item';
 
-import { SocialAuthService } from "angularx-social-login";
-import { SocialUser } from "angularx-social-login";
-import { GoogleLoginProvider } from "angularx-social-login";
+import { SocialAuthService } from 'angularx-social-login';
+import { SocialUser } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
+import { MainDataService } from '../services/main-data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-auth',
@@ -42,13 +44,17 @@ export class AuthComponent implements OnInit {
 
   letterMessage: string = '';
 
-  public user: SocialUser = new SocialUser;
+  public user: SocialUser = new SocialUser();
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     public authService: AuthorizationService,
     private router: Router,
     private formBuilder: FormBuilder,
     private authSocialService: SocialAuthService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {
     this.passwordForm = this.formBuilder.group(
       {
@@ -96,13 +102,14 @@ export class AuthComponent implements OnInit {
       .then((r) => r.json())
       .then(async (data) => {
         if (data.code === 200) {
-          document.location.href="https://localhost:4200";
+          document.location.href = 'https://localhost:4200';
         } else {
           alert(data.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -111,15 +118,12 @@ export class AuthComponent implements OnInit {
       email: this.email,
       password: this.password,
     };
-    fetch(
-      `https://localhost:44381/api/users/userexists?email=${user.email}`,
-      {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-        },
-      }
-    )
+    fetch(`https://localhost:44381/api/users/userexists?email=${user.email}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+    })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -128,7 +132,8 @@ export class AuthComponent implements OnInit {
         this.isExistUser = true;
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -160,7 +165,8 @@ export class AuthComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -178,7 +184,7 @@ export class AuthComponent implements OnInit {
       body: JSON.stringify(user),
     })
       .then((response) => response.json())
-      .then(response => {
+      .then((response) => {
         if (response.code !== 400) {
           this.authService.setTokenKey(response.encodedJwt);
           AuthHelper.saveAuth(this.email, response.encodedJwt);
@@ -197,7 +203,8 @@ export class AuthComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -219,7 +226,8 @@ export class AuthComponent implements OnInit {
         console.log(data);
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -266,13 +274,14 @@ export class AuthComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
   async verifyGoogleEnter(): Promise<void> {
     await this.authSocialService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    this.authSocialService.authState.subscribe(user => {
+    this.authSocialService.authState.subscribe((user) => {
       this.user = user;
       this.email = user.email;
       console.log(this.user);
@@ -297,7 +306,7 @@ export class AuthComponent implements OnInit {
                 userName.length
               );
               this.email = (response as any).email;
-              this.image =(response as any).picture.data.url;
+              this.image = (response as any).picture.data.url;
               this.authService.setUserImage(this.image);
 
               console.log(response);
@@ -341,27 +350,25 @@ export class AuthComponent implements OnInit {
                         }
                       })
                       .catch((ex) => {
-                        alert(ex);
+                        this.mainDataService.alertContent = ex;
+                        this.modalService.open(this.alert);
                       });
                   }
                 })
                 .catch((ex) => {
-                  alert(ex);
+                  this.mainDataService.alertContent = ex;
+                  this.modalService.open(this.alert);
                 });
             } else {
               alert('Login via facebook error!');
             }
-          },
-          );
+          });
         } else {
           // The person is not logged into your webpage or we are unable to tell.
           alert('Login via facebook error!');
         }
       },
-      { scope: 'email, public_profile,',
-        return_scopes: true,
-      },
-
+      { scope: 'email, public_profile,', return_scopes: true }
     );
   }
 
@@ -386,11 +393,13 @@ export class AuthComponent implements OnInit {
           this.authService.setLogCondition(false);
           AuthHelper.clearAuth();
 
-          FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
-            if (response.status === 'connected') {  // Returns the login status.
-              FB.logout(function(response) {
+          FB.getLoginStatus(function (response) {
+            // Called after the JS SDK has been initialized.
+            if (response.status === 'connected') {
+              // Returns the login status.
+              FB.logout(function (response) {
                 // Person is now logged out
-             });
+              });
             }
           });
 
@@ -406,7 +415,8 @@ export class AuthComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -430,16 +440,13 @@ export class AuthComponent implements OnInit {
             image: this.user.photoUrl,
           };
 
-          fetch(
-            'https://localhost:44381/api/users/registerviasocial',
-            {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json; charset=utf-8',
-              },
-              body: JSON.stringify(person),
-            }
-          )
+          fetch('https://localhost:44381/api/users/registerviasocial', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json; charset=utf-8',
+            },
+            body: JSON.stringify(person),
+          })
             .then((r) => r.json())
             .then((response) => {
               if (response.code === 200) {
@@ -450,12 +457,14 @@ export class AuthComponent implements OnInit {
               }
             })
             .catch((ex) => {
-              alert(ex);
+              this.mainDataService.alertContent = ex;
+              this.modalService.open(this.alert);
             });
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 

@@ -99,7 +99,7 @@ export class AuthorizationService {
             this.userImage = response.user.profile.image?.path;
             this.isGotData = true;
           } else {
-            alert("Refresh auth error!");
+            alert('Refresh auth error!');
           }
         })
         .catch((ex) => {

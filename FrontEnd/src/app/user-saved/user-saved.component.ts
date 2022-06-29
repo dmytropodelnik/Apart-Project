@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Favorite } from '../models/UserData/favorite.item';
 
 import AuthHelper from '../utils/authHelper';
@@ -8,6 +8,7 @@ import MathHelper from '../utils/mathHelper';
 import { AuthorizationService } from '../services/authorization.service';
 import { Router } from '@angular/router';
 import { MainDataService } from '../services/main-data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-user-saved',
@@ -29,10 +30,13 @@ export class UserSavedComponent implements OnInit {
 
   userId: number | null = null;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private authService: AuthorizationService,
     public mainDataService: MainDataService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -58,7 +62,7 @@ export class UserSavedComponent implements OnInit {
       .then((response) => {
         if (response.code === 200) {
           this.suggestions = this.suggestions.filter((s) => {
-            if (s.id === response.resSuggestion.id ) {
+            if (s.id === response.resSuggestion.id) {
               return false;
             } else {
               return true;
@@ -69,7 +73,8 @@ export class UserSavedComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -82,21 +87,21 @@ export class UserSavedComponent implements OnInit {
   }
 
   getUserFavorites(): void {
-    let url = 'https://localhost:44381/api/favorites/getuserfavorites?email=' +
-                AuthHelper.getLogin();
+    let url =
+      'https://localhost:44381/api/favorites/getuserfavorites?email=' +
+      AuthHelper.getLogin();
     if (AuthHelper.isFacebookLogin()) {
       url += '&isFacebookAuth=true';
     }
 
     fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Accept: 'application/json',
-          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-        },
-      }
-    )
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
+    })
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
@@ -109,7 +114,8 @@ export class UserSavedComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 }

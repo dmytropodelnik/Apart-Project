@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import AuthHelper from '../../../utils/authHelper';
 import ImageHelper from '../../../utils/imageHelper';
 
 import { AuthorizationService } from '../../../services/authorization.service';
 import { UserData } from 'src/app/view-models/userdata.item';
+import { MainDataService } from 'src/app/services/main-data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-preferences-list',
@@ -18,11 +20,17 @@ export class PreferencesListComponent implements OnInit {
   letterAction: boolean = false;
 
   tempValue: string = '';
-  letterMessage: string= '';
+  letterMessage: string = '';
 
   user: UserData = new UserData();
 
-  constructor(private authService: AuthorizationService) {}
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
+  constructor(
+    private authService: AuthorizationService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   setCondition(id: number): void {
     this.isEditing[id] = !this.isEditing[id];
@@ -30,7 +38,9 @@ export class PreferencesListComponent implements OnInit {
 
   sendInfoLetter(): void {
     fetch(
-      `https://localhost:44381/api/notifications/sendnotification?email=${AuthHelper.getLogin()}&message=${this.letterMessage}&action=${this.letterAction}`,
+      `https://localhost:44381/api/notifications/sendnotification?email=${AuthHelper.getLogin()}&message=${
+        this.letterMessage
+      }&action=${this.letterAction}`,
       {
         method: 'GET',
       }
@@ -43,7 +53,8 @@ export class PreferencesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -70,7 +81,8 @@ export class PreferencesListComponent implements OnInit {
           }
         })
         .catch((ex) => {
-          alert(ex);
+          this.mainDataService.alertContent = ex;
+          this.modalService.open(this.alert);
         });
     } else {
       fetch(
@@ -94,7 +106,8 @@ export class PreferencesListComponent implements OnInit {
           }
         })
         .catch((ex) => {
-          alert(ex);
+          this.mainDataService.alertContent = ex;
+          this.modalService.open(this.alert);
         });
     }
   }
@@ -133,7 +146,7 @@ export class PreferencesListComponent implements OnInit {
 
   saveCurrency(id: number): void {
     if (!this.user.currency) {
-      alert("Select your currency!");
+      alert('Select your currency!');
       return;
     }
 
@@ -166,13 +179,14 @@ export class PreferencesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
   saveLanguage(id: number): void {
     if (this.user.language == '-1' || !this.user.language.match(/\d/)) {
-      alert("Select your language!");
+      alert('Select your language!');
       return;
     }
 
@@ -205,7 +219,8 @@ export class PreferencesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -238,7 +253,8 @@ export class PreferencesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -266,7 +282,8 @@ export class PreferencesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -290,7 +307,8 @@ export class PreferencesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/UserData/user.item';
 import { UserData } from 'src/app/view-models/userdata.item';
 
@@ -6,11 +6,12 @@ import AuthHelper from '../../../utils/authHelper';
 import ImageHelper from '../../../utils/imageHelper';
 
 import { AuthorizationService } from '../../../services/authorization.service';
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Country } from 'src/app/models/Location/country.item';
 import { City } from 'src/app/models/Location/city.item';
 import { ThrowStmt } from '@angular/compiler';
 import { FormControl, Validators } from '@angular/forms';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 @Component({
   selector: 'app-personal-details-list',
@@ -27,7 +28,7 @@ export class PersonalDetailsListComponent implements OnInit {
   letterAction: boolean = false;
 
   errorMessage: string = '';
-  letterMessage: string= '';
+  letterMessage: string = '';
 
   tempValue: string = '';
   tempLastName: string = '';
@@ -44,7 +45,13 @@ export class PersonalDetailsListComponent implements OnInit {
 
   check: boolean = false;
 
-  constructor(public authService: AuthorizationService) {}
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
+  constructor(
+    public authService: AuthorizationService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   setCondition(id: number): void {
     this.isEditing[id] = !this.isEditing[id];
@@ -62,7 +69,7 @@ export class PersonalDetailsListComponent implements OnInit {
       this.tempBirthDate = value;
     } else if (id == 6) {
       this.tempNationalityCheck = this.user.nationality;
-      this.user.nationality = "-1";
+      this.user.nationality = '-1';
     } else if (id == 8) {
       this.zipCode = this.user.zipCode;
       this.addressText = this.user.addressText;
@@ -83,7 +90,9 @@ export class PersonalDetailsListComponent implements OnInit {
 
   sendInfoLetter(): void {
     fetch(
-      `https://localhost:44381/api/notifications/sendnotification?email=${AuthHelper.getLogin()}&message=${this.letterMessage}&action=${this.letterAction}`,
+      `https://localhost:44381/api/notifications/sendnotification?email=${AuthHelper.getLogin()}&message=${
+        this.letterMessage
+      }&action=${this.letterAction}`,
       {
         method: 'GET',
       }
@@ -96,7 +105,8 @@ export class PersonalDetailsListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -221,7 +231,8 @@ export class PersonalDetailsListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -275,7 +286,8 @@ export class PersonalDetailsListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -318,7 +330,8 @@ export class PersonalDetailsListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -370,14 +383,16 @@ export class PersonalDetailsListComponent implements OnInit {
               }
             })
             .catch((ex) => {
-              alert(ex);
+              this.mainDataService.alertContent = ex;
+              this.modalService.open(this.alert);
             });
         } else {
           alert(data.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -424,7 +439,8 @@ export class PersonalDetailsListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -469,7 +485,8 @@ export class PersonalDetailsListComponent implements OnInit {
           }
         })
         .catch((ex) => {
-          alert(ex);
+          this.mainDataService.alertContent = ex;
+          this.modalService.open(this.alert);
         });
     } else {
       alert('Choose a date');
@@ -478,7 +495,7 @@ export class PersonalDetailsListComponent implements OnInit {
 
   saveNationality(id: number): void {
     if (this.user.nationality == '-1') {
-      alert("Select your nationality!");
+      alert('Select your nationality!');
       return;
     }
 
@@ -511,13 +528,14 @@ export class PersonalDetailsListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
   saveGender(id: number): void {
     if (this.user.genderId != 1 && this.user.genderId != 2) {
-      alert("Select your gender!");
+      alert('Select your gender!');
       return;
     }
 
@@ -550,7 +568,8 @@ export class PersonalDetailsListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -610,7 +629,8 @@ export class PersonalDetailsListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -666,7 +686,8 @@ export class PersonalDetailsListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -698,7 +719,8 @@ export class PersonalDetailsListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 

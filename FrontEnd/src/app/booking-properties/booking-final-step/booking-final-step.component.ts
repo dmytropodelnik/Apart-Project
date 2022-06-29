@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Guest } from 'src/app/models/UserData/guest.item';
 import { BookingDetailsService } from 'src/app/services/booking-details.service';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import AuthHelper from '../../utils/authHelper';
 import BookingHelper from '../../utils/bookingHelper';
@@ -69,11 +70,14 @@ export class BookingFinalStepComponent implements OnInit {
 
   newStayBooking: any;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private router: Router,
     private modalService: NgbModal,
     private activatedRouter: ActivatedRoute,
-    private bookingDetailsService: BookingDetailsService
+    private bookingDetailsService: BookingDetailsService,
+    public mainDataService: MainDataService
   ) {}
 
   openVerticallyCentered(content: any) {
@@ -111,7 +115,8 @@ export class BookingFinalStepComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -195,7 +200,8 @@ export class BookingFinalStepComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -266,7 +272,8 @@ export class BookingFinalStepComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 

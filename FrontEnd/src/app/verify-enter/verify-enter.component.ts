@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RepositoryEnum } from '../enums/repositoryenum.item';
 import { AuthorizationService } from '../services/authorization.service';
+import { MainDataService } from '../services/main-data.service';
 
 import AuthHelper from '../utils/authHelper';
 
@@ -14,7 +16,7 @@ export class VerifyEnterComponent implements OnInit {
   email: string = '';
   oldEmail: string = '';
   code: string = '';
-  letterMessage: string= '';
+  letterMessage: string = '';
 
   isToResetPassword: boolean = false;
   isToChangeEmail: boolean = false;
@@ -23,13 +25,16 @@ export class VerifyEnterComponent implements OnInit {
   isToSubscribeUser: boolean = false;
   letterAction: boolean = false;
 
-
   repositoryEnum: RepositoryEnum = RepositoryEnum.Enter;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private authService: AuthorizationService
+    private authService: AuthorizationService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {}
 
   async verifyEnterUser(): Promise<void> {
@@ -50,7 +55,8 @@ export class VerifyEnterComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
         this.router.navigate(['']);
       });
   }
@@ -70,7 +76,8 @@ export class VerifyEnterComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -115,12 +122,15 @@ export class VerifyEnterComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
   resetPassword(): void {
-    fetch(`https://localhost:44381/api/codes/verifypasswordreset?email=${this.email}&code=${this.code}&confidant=true`, {
+    fetch(
+      `https://localhost:44381/api/codes/verifypasswordreset?email=${this.email}&code=${this.code}&confidant=true`,
+      {
         method: 'GET',
       }
     )
@@ -136,7 +146,8 @@ export class VerifyEnterComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
         this.router.navigate(['']);
       });
   }
@@ -170,25 +181,25 @@ export class VerifyEnterComponent implements OnInit {
         this.router.navigate(['']);
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
         this.router.navigate(['']);
       });
   }
 
   deleteUserEventually(): void {
     fetch(`https://localhost:44381/api/users/deleteuser?email=${this.email}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Accept: 'application/json',
-          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-        },
-      }
-    )
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
+    })
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          alert("Your account has been successfully deleted!");
+          alert('Your account has been successfully deleted!');
           this.letterMessage = `You have successfully deleted your account on Apartstep.fun with ${this.email}!`;
           this.letterAction = true;
           this.sendInfoLetter();
@@ -198,13 +209,16 @@ export class VerifyEnterComponent implements OnInit {
         this.router.navigate(['']);
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
         this.router.navigate(['']);
       });
   }
 
   deleteUser(): void {
-    fetch(`https://localhost:44381/api/codes/verifyuserdeletion?email=${this.email}&code=${this.code}`, {
+    fetch(
+      `https://localhost:44381/api/codes/verifyuserdeletion?email=${this.email}&code=${this.code}`,
+      {
         method: 'GET',
       }
     )
@@ -218,14 +232,16 @@ export class VerifyEnterComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
         this.router.navigate(['']);
       });
   }
 
   changeEmail(): void {
     fetch(
-      `https://localhost:44381/api/codes/verifyemailchanging?email=${this.email}&code=${this.code}&confidant=true`, {
+      `https://localhost:44381/api/codes/verifyemailchanging?email=${this.email}&code=${this.code}&confidant=true`,
+      {
         method: 'GET',
       }
     )
@@ -241,14 +257,16 @@ export class VerifyEnterComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
         this.router.navigate(['']);
       });
   }
 
   subscribeUser(): void {
     fetch(
-      `https://localhost:44381/api/codes/verifyusersubscription?email=${this.email}&code=${this.code}`, {
+      `https://localhost:44381/api/codes/verifyusersubscription?email=${this.email}&code=${this.code}`,
+      {
         method: 'GET',
       }
     )
@@ -262,15 +280,15 @@ export class VerifyEnterComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
         this.router.navigate(['']);
       });
   }
 
   addUserSubscription(): void {
     fetch(
-      'https://localhost:44381/api/deals/addsubscriber?email=' +
-        this.email,
+      'https://localhost:44381/api/deals/addsubscriber?email=' + this.email,
       {
         method: 'POST',
         headers: {

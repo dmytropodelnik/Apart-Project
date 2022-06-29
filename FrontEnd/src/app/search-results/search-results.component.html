@@ -1,7 +1,10 @@
 <body>
+  <ng-template #alert let-modal>
+    <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+  </ng-template>
   <app-header></app-header>
   <ng-template #loader let-modal>
-    <app-loader *ngIf="!isGotData"></app-loader>
+    <app-loader></app-loader>
   </ng-template>
   <div class="basiclayout">
     <div class="left">
@@ -89,7 +92,8 @@
             </form>
           </div>
           <div class="searchbox_search">
-            <button class="searchbox_button" (click)="searchSuggestions($event)" (click)="openVerticallyCentered(loader)">
+            <button class="searchbox_button" (click)="searchSuggestions($event)"
+              (click)="openVerticallyCentered(loader)">
               Search
             </button>
           </div>
@@ -247,7 +251,8 @@
           <div>
             <input class="" type="checkbox" value="" id="Superb: 9+" (change)="
                 addFilterCheck('reviewScores', 9, 11 + bookingCategories.length)
-              " [(ngModel)]="filterCheckBoxes[11 + bookingCategories.length]" (click)="openVerticallyCentered(loader)" />
+              " [(ngModel)]="filterCheckBoxes[11 + bookingCategories.length]"
+              (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="Superb: 9+">
               Superb: 9+
             </label>
@@ -256,7 +261,8 @@
           <div>
             <input class="" type="checkbox" value="" id="Very good: 8+" (change)="
                 addFilterCheck('reviewScores', 8, 12 + bookingCategories.length)
-              " [(ngModel)]="filterCheckBoxes[12 + bookingCategories.length]" (click)="openVerticallyCentered(loader)" />
+              " [(ngModel)]="filterCheckBoxes[12 + bookingCategories.length]"
+              (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="Very good: 8+">
               Very good: 8+
             </label>
@@ -265,14 +271,16 @@
           <div>
             <input class="" type="checkbox" value="" id="Good: 7+" (change)="
                 addFilterCheck('reviewScores', 7, 13 + bookingCategories.length)
-              " [(ngModel)]="filterCheckBoxes[13 + bookingCategories.length]" (click)="openVerticallyCentered(loader)" />
+              " [(ngModel)]="filterCheckBoxes[13 + bookingCategories.length]"
+              (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="Good: 7+"> Good: 7+ </label>
             <span>{{suggestionsAmountWithFilters[13 + bookingCategories.length]}}</span>
           </div>
           <div>
             <input class="" type="checkbox" value="" id="Pleasant: 6+" (change)="
                 addFilterCheck('reviewScores', 6, 14 + bookingCategories.length)
-              " [(ngModel)]="filterCheckBoxes[14 + bookingCategories.length]" (click)="openVerticallyCentered(loader)" />
+              " [(ngModel)]="filterCheckBoxes[14 + bookingCategories.length]"
+              (click)="openVerticallyCentered(loader)" />
             <label class="filters_check_label" for="Pleasant: 6+">
               Pleasant: 6+
             </label>
@@ -473,32 +481,38 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-lg-end">
               <li>
-                <button class="dropdown-item" (click)="sortItems(sortState.PriceAsc)" (click)="openVerticallyCentered(loader)">
+                <button class="dropdown-item" (click)="sortItems(sortState.PriceAsc)"
+                  (click)="openVerticallyCentered(loader)">
                   Price (lowest first)
                 </button>
               </li>
               <li>
-                <button class="dropdown-item" (click)="sortItems(sortState.PriceDesc)" (click)="openVerticallyCentered(loader)">
+                <button class="dropdown-item" (click)="sortItems(sortState.PriceDesc)"
+                  (click)="openVerticallyCentered(loader)">
                   Price (highest first)
                 </button>
               </li>
               <li>
-                <button class="dropdown-item" (click)="sortItems(sortState.BestReviewed)" (click)="openVerticallyCentered(loader)">
+                <button class="dropdown-item" (click)="sortItems(sortState.BestReviewed)"
+                  (click)="openVerticallyCentered(loader)">
                   Best reviewed
                 </button>
               </li>
               <li>
-                <button class="dropdown-item" (click)="sortItems(sortState.WorstReviewed)" (click)="openVerticallyCentered(loader)">
+                <button class="dropdown-item" (click)="sortItems(sortState.WorstReviewed)"
+                  (click)="openVerticallyCentered(loader)">
                   Worst reviewed
                 </button>
               </li>
               <li>
-                <button class="dropdown-item" (click)="sortItems(sortState.BestReviewedAndLowerPrice)" (click)="openVerticallyCentered(loader)">
+                <button class="dropdown-item" (click)="sortItems(sortState.BestReviewedAndLowerPrice)"
+                  (click)="openVerticallyCentered(loader)">
                   Best reviewed (lower price)
                 </button>
               </li>
               <li>
-                <button class="dropdown-item" (click)="sortItems(sortState.StarRatingAndLowerPrice)" (click)="openVerticallyCentered(loader)">
+                <button class="dropdown-item" (click)="sortItems(sortState.StarRatingAndLowerPrice)"
+                  (click)="openVerticallyCentered(loader)">
                   Stars highest (lower price first)
                 </button>
               </li>
@@ -517,8 +531,8 @@
                 <button class="information-container-like1" (click)="removeSuggestion(item.id)">
                   <svg viewBox="0 0 128 128" width="26px" height="26px">
                     <path
-                      d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z"
-                    ></path>
+                      d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z">
+                    </path>
                   </svg>
                 </button>
               </div>
@@ -526,8 +540,8 @@
                 <button class="information-container-like" (click)="addSuggestionToSaved(item.id)">
                   <svg viewBox="0 0 128 128" width="26px" height="26px">
                     <path
-                      d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z"
-                    ></path>
+                      d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z">
+                    </path>
                   </svg>
                 </button>
               </div>
@@ -537,7 +551,8 @@
             <div class="left_information">
               <div class="left_information_name">
                 <div class="left_information_name_category">{{item?.category}}</div>
-                <div class="left_information_title click-component" (click)="showSuggestion(item.uniqueCode, item.id)">{{
+                <div class="left_information_title click-component" (click)="showSuggestion(item.uniqueCode, item.id)">
+                  {{
                   item?.name }}</div>
                 <div *ngFor="let item of item.starsRating; let i = index">
                   <img src="../../assets/images/Star 1.png" />
@@ -609,7 +624,8 @@
                     }}</span>
                 </span>
               </div>
-              <button class="search_card_show_prices click-component" (click)="showSuggestion(item.uniqueCode, item.id)">Show
+              <button class="search_card_show_prices click-component"
+                (click)="showSuggestion(item.uniqueCode, item.id)">Show
                 Prices</button>
             </div>
           </div>

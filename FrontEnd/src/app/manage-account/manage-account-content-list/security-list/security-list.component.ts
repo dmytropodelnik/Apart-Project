@@ -1,22 +1,30 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 
 import AuthHelper from '../../../utils/authHelper';
 import ImageHelper from '../../../utils/imageHelper';
 
-
 import { AuthorizationService } from '../../../services/authorization.service';
 import { UserData } from 'src/app/view-models/userdata.item';
+import { MainDataService } from 'src/app/services/main-data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-security-list',
   templateUrl: './security-list.component.html',
-  styleUrls: ['./security-list.component.css']
+  styleUrls: ['./security-list.component.css'],
 })
 export class SecurityListComponent implements OnInit {
   @Output() onChanged = new EventEmitter<string>();
   changeEmail(setting: string) {
-      this.onChanged.emit(setting);
+    this.onChanged.emit(setting);
   }
 
   isEditing: boolean[] = [];
@@ -31,11 +39,14 @@ export class SecurityListComponent implements OnInit {
 
   user: UserData = new UserData();
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     public authService: AuthorizationService,
-    private router: Router) {
-
-  }
+    private router: Router,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   setDeleteReason(value: number) {
     this.deleteReason = value;
@@ -70,54 +81,63 @@ export class SecurityListComponent implements OnInit {
   }
 
   sendResetPasswordEmail(id: number): void {
-    fetch(`https://localhost:44381/api/codes/generateresetcode?email=` + AuthHelper.getLogin(), {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://localhost:44381/api/codes/generateresetcode?email=` +
+        AuthHelper.getLogin(),
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.isEmailSent = true;
         } else {
-          alert("Error generating reset link");
+          alert('Error generating reset link');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
   unsubscribeMails(id: number): void {
-
     this.cancelButtonClick(id);
 
-    alert("You have successfully unsubscribed from mail letters!");
+    alert('You have successfully unsubscribed from mail letters!');
   }
 
   deleteAccount(id: number): void {
-    fetch(`https://localhost:44381/api/codes/generatedeleteusercode?email=` + AuthHelper.getLogin(), {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://localhost:44381/api/codes/generatedeleteusercode?email=` +
+        AuthHelper.getLogin(),
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.isDeleteRequested = true;
           this.cancelButtonClick(id);
         } else {
-          alert("Error generating delete user code");
+          alert('Error generating delete user code');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -130,5 +150,4 @@ export class SecurityListComponent implements OnInit {
   ngOnInit(): void {
     this.initializeBoolArray();
   }
-
 }

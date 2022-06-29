@@ -8,7 +8,7 @@ import ImageHelper from '../utils/imageHelper';
 
 import { AuthorizationService } from '../services/authorization.service';
 import { SocialAuthService } from 'angularx-social-login';
-
+import { MainDataService } from '../services/main-data.service';
 
 @Component({
   selector: 'app-header',
@@ -29,12 +29,15 @@ export class HeaderComponent implements OnInit {
   @ViewChild('content') content!: TemplateRef<any>;
   @ViewChild('content1') content1!: TemplateRef<any>;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     config: NgbModalConfig,
     private router: Router,
-    private modalService: NgbModal,
     public authService: AuthorizationService,
     private authSocialService: SocialAuthService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {}
 
   getToken(): string {
@@ -62,11 +65,13 @@ export class HeaderComponent implements OnInit {
           this.authService.setLogCondition(false);
           AuthHelper.clearAuth();
 
-          FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
-            if (response.status === 'connected') {  // Returns the login status.
-              FB.logout(function(response) {
+          FB.getLoginStatus(function (response) {
+            // Called after the JS SDK has been initialized.
+            if (response.status === 'connected') {
+              // Returns the login status.
+              FB.logout(function (response) {
                 // Person is now logged out
-             });
+              });
             }
           });
 
@@ -84,7 +89,8 @@ export class HeaderComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.mainDataService.alertContent = ex;
+        this.modalService.open(this.alert);
       });
   }
 
