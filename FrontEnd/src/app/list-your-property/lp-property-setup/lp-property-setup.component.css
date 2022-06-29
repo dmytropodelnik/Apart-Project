@@ -221,24 +221,38 @@
 }
 
 .Input-name-and-location {
-  display: flex;
-  flex-direction: column;
-  width: 360px;
-  gap: 15px;
+  max-width: max-content;
+  min-width: fit-content;
   height: fit-content;
   padding: 25px;
   background: #e5e5e5;
   border-radius: 10px;
+  column-count: 3;
+  column-gap: 40px;
 }
+
+.Input-name-and-location1 {
+  max-width: max-content;
+  min-width: fit-content;
+  height: fit-content;
+  padding: 25px;
+  background: #e5e5e5;
+  border-radius: 10px;
+  column-count: 1;
+  column-gap: 40px;
+}
+
+
 .name-and-location-container {
   display: flex;
   flex-direction: column;
+  grid-gap: 20px;
   gap: 20px;
-  margin: 30px;
-  width: fit-content;
+  width: 100%;
   height: fit-content;
   align-content: center;
   justify-content: center;
+  align-items: center;
 }
 
 .name-and-location-text {
@@ -365,6 +379,18 @@ li::marker {
   border: 1px solid #0c9496;
   width: 30px;
   height: 30px;
+}
+
+.robotoregular {
+  font-family: "Bahnschrift";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 50px;
+  line-height: 60px;
+  /* identical to box height */
+
+  color: #ffffff;
+  cursor: pointer;
 }
 
 @media (min-width: 992px) {

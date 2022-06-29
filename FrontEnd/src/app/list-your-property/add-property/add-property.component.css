@@ -305,6 +305,7 @@ a.a11y-skip-to-content {
   /* identical to box height */
 
   color: #ffffff;
+  cursor: pointer;
 }
 .bui-button__text {
   position: relative;

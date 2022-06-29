@@ -104,6 +104,7 @@ export class SearchResultsComponent implements OnInit {
   openVerticallyCentered(content: any) {
     this.modalService.open(content, {
       centered: true,
+      size: 'sm',
     });
   }
 

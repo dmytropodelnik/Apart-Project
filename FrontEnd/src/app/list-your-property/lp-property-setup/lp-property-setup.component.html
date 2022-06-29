@@ -1,9 +1,11 @@
-<header class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs">
+<header
+  class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs"
+>
   <nav class="bui-header__bar">
     <div class="bui-header__main">
       <div class="bui-header__logo">
         <span>
-          <label class="robotoregular" routerLink="">Apart.com</label>
+          <label class="robotoregular" routerLink="">Apart.fun</label>
         </span>
       </div>
     </div>
@@ -12,7 +14,11 @@
       <div class="bui-group__item">
         <span class="bui-button__text">
           <div class="bui-avatar bui-avatar--small" aria-hidden="true">
-            <img class="bui-avatar__image" src="assets/images/us-flag.png" alt="" />
+            <img
+              class="bui-avatar__image"
+              src="assets/images/us-flag.png"
+              alt=""
+            />
           </div>
         </span>
       </div>
@@ -21,8 +27,8 @@
 </header>
 
 <body>
-  <ul [ngSwitch]="choice">
-    <li *ngSwitchDefault>
+  <div [ngSwitch]="choice">
+    <div *ngSwitchDefault>
       <div class="name-and-location-container">
         <div class="header-name-and-location">
           What's the name of your place?
@@ -31,8 +37,12 @@
         <div class="dropdownSubSection">
           <span class="dropdownSubSectionText">How many guests can stay?</span>
           <div class="dropdownSubSectionButtons">
-            <button [disabled]="bedTypesAmount[0] === 0" class="bui-button" id="button1"
-              (click)="decreaseBedTypeCount(0)">
+            <button
+              [disabled]="bedTypesAmount[0] === 0"
+              class="bui-button"
+              id="button1"
+              (click)="decreaseBedTypeCount(0)"
+            >
               <span class="bui-button__text">-</span>
             </button>
             <span>{{ bedTypesAmount[0] }}</span>
@@ -44,8 +54,12 @@
         <div class="dropdownSubSection">
           <span class="dropdownSubSectionText">How many guests can stay?</span>
           <div class="dropdownSubSectionButtons">
-            <button [disabled]="bedTypesAmount[1] === 0" class="bui-button" id="button1"
-              (click)="decreaseBedTypeCount(1)">
+            <button
+              [disabled]="bedTypesAmount[1] === 0"
+              class="bui-button"
+              id="button1"
+              (click)="decreaseBedTypeCount(1)"
+            >
               <span class="bui-button__text">-</span>
             </button>
             <span>{{ bedTypesAmount[1] }}</span>
@@ -57,8 +71,12 @@
         <div class="dropdownSubSection">
           <span class="dropdownSubSectionText">How many guests can stay?</span>
           <div class="dropdownSubSectionButtons">
-            <button [disabled]="bedTypesAmount[2] === 0" class="bui-button" id="button1"
-              (click)="decreaseBedTypeCount(2)">
+            <button
+              [disabled]="bedTypesAmount[2] === 0"
+              class="bui-button"
+              id="button1"
+              (click)="decreaseBedTypeCount(2)"
+            >
               <span class="bui-button__text">-</span>
             </button>
             <span>{{ bedTypesAmount[2] }}</span>
@@ -70,8 +88,12 @@
         <div class="dropdownSubSection">
           <span class="dropdownSubSectionText">How many guests can stay?</span>
           <div class="dropdownSubSectionButtons">
-            <button [disabled]="bedTypesAmount[3] === 0" class="bui-button" id="button1"
-              (click)="decreaseBedTypeCount(3)">
+            <button
+              [disabled]="bedTypesAmount[3] === 0"
+              class="bui-button"
+              id="button1"
+              (click)="decreaseBedTypeCount(3)"
+            >
               <span class="bui-button__text">-</span>
             </button>
             <span>{{ bedTypesAmount[3] }}</span>
@@ -83,8 +105,12 @@
         <div class="dropdownSubSection">
           <span class="dropdownSubSectionText">How many guests can stay?</span>
           <div class="dropdownSubSectionButtons">
-            <button [disabled]="bedTypesAmount[4] === 0" class="bui-button" id="button1"
-              (click)="decreaseBedTypeCount(4)">
+            <button
+              [disabled]="bedTypesAmount[4] === 0"
+              class="bui-button"
+              id="button1"
+              (click)="decreaseBedTypeCount(4)"
+            >
               <span class="bui-button__text">-</span>
             </button>
             <span>{{ bedTypesAmount[4] }}</span>
@@ -96,8 +122,12 @@
         <div class="dropdownSubSection">
           <span class="dropdownSubSectionText">How many guests can stay?</span>
           <div class="dropdownSubSectionButtons">
-            <button [disabled]="bedTypesAmount[5] === 0" class="bui-button" id="button1"
-              (click)="decreaseBedTypeCount(5)">
+            <button
+              [disabled]="bedTypesAmount[5] === 0"
+              class="bui-button"
+              id="button1"
+              (click)="decreaseBedTypeCount(5)"
+            >
               <span class="bui-button__text">-</span>
             </button>
             <span>{{ bedTypesAmount[5] }}</span>
@@ -107,10 +137,16 @@
           </div>
         </div>
         <div class="dropdownSubSection">
-          <span class="dropdownSubSectionText">How many bathrooms are there?</span>
+          <span class="dropdownSubSectionText"
+            >How many bathrooms are there?</span
+          >
           <div class="dropdownSubSectionButtons">
-            <button [disabled]="bedTypesAmount[6] === 0" class="bui-button" id="button1"
-              (click)="decreaseBedTypeCount(6)">
+            <button
+              [disabled]="bedTypesAmount[6] === 0"
+              class="bui-button"
+              id="button1"
+              (click)="decreaseBedTypeCount(6)"
+            >
               <span class="bui-button__text">-</span>
             </button>
             <span>{{ bedTypesAmount[6] }}</span>
@@ -120,10 +156,16 @@
           </div>
         </div>
         <div class="dropdownSubSection">
-          <span class="dropdownSubSectionText">How many bathrooms are there?</span>
+          <span class="dropdownSubSectionText"
+            >How many bathrooms are there?</span
+          >
           <div class="dropdownSubSectionButtons">
-            <button [disabled]="bedTypesAmount[7] === 0" class="bui-button" id="button1"
-              (click)="decreaseBedTypeCount(7)">
+            <button
+              [disabled]="bedTypesAmount[7] === 0"
+              class="bui-button"
+              id="button1"
+              (click)="decreaseBedTypeCount(7)"
+            >
               <span class="bui-button__text">-</span>
             </button>
             <span>{{ bedTypesAmount[7] }}</span>
@@ -133,10 +175,16 @@
           </div>
         </div>
         <div class="dropdownSubSection">
-          <span class="dropdownSubSectionText">How many bathrooms are there?</span>
+          <span class="dropdownSubSectionText"
+            >How many bathrooms are there?</span
+          >
           <div class="dropdownSubSectionButtons">
-            <button [disabled]="bedTypesAmount[8] === 0" class="bui-button" id="button1"
-              (click)="decreaseBedTypeCount(8)">
+            <button
+              [disabled]="bedTypesAmount[8] === 0"
+              class="bui-button"
+              id="button1"
+              (click)="decreaseBedTypeCount(8)"
+            >
               <span class="bui-button__text">-</span>
             </button>
             <span>{{ bedTypesAmount[8] }}</span>
@@ -149,9 +197,8 @@
           Continue
         </button>
       </div>
-
-    </li>
-    <li *ngSwitchCase="1">
+    </div>
+    <div *ngSwitchCase="1">
       <div class="name-and-location-container">
         <div class="header-name-and-location">
           What can guests use at your place?
@@ -159,9 +206,16 @@
         <div class="Input-name-and-location">
           <div *ngFor="let item of facilities; let i = index">
             <div class="form-check">
-              <input class="form-check-input" id={{item.text}} type="checkbox" value="{{i}}"
-                [(ngModel)]="includedFacilities[i]" />
-              <label class="form-check-label" for={{item.text}}>{{item.text}}</label>
+              <input
+                class="form-check-input"
+                id="{{ item.text }}"
+                type="checkbox"
+                value="{{ i }}"
+                [(ngModel)]="includedFacilities[i]"
+              />
+              <label class="form-check-label" for="{{ item.text }}">{{
+                item.text
+              }}</label>
             </div>
           </div>
         </div>
@@ -172,96 +226,169 @@
           >
             Go back
           </button>
-          <button class="name-and-location-button" (click)="addPropertyFacilities()">
+          <button
+            class="name-and-location-button"
+            (click)="addPropertyFacilities()"
+          >
             Continue
           </button>
         </div>
       </div>
-    </li>
-    <li *ngSwitchCase="2">
+    </div>
+    <div *ngSwitchCase="2">
       <div class="name-and-location-container">
-        <div class="header-name-and-location">
-          Is parking available?
-        </div>
+        <div class="header-name-and-location">Is parking available?</div>
 
         <div class="Input-name-and-location">
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="parking" id="parkingYes" (click)="setParking(true)" />
+            <input
+              class="form-check-input"
+              type="radio"
+              name="parking"
+              id="parkingYes"
+              (click)="setParking(true)"
+            />
             <label class="form-check-label" for="Yes, free">Yes</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="parking" id="parkingNo" (click)="setParking(false)" checked />
+            <input
+              class="form-check-input"
+              type="radio"
+              name="parking"
+              id="parkingNo"
+              (click)="setParking(false)"
+              checked
+            />
             <label class="form-check-label" for="No">No</label>
           </div>
         </div>
-        <button class="name-and-location-button" (click)="addPropertyIsParkingAvailable()">
+        <button
+          class="name-and-location-button"
+          (click)="addPropertyIsParkingAvailable()"
+        >
           Continue
         </button>
       </div>
-    </li>
-    <li *ngSwitchCase="3">
+    </div>
+    <div *ngSwitchCase="3">
       <div class="name-and-location-container">
-        <div class="header-name-and-location">
-          Select languages for staff
-        </div>
+        <div class="header-name-and-location">Select languages for staff</div>
 
         <div class="Input-name-and-location">
           <div class="form-check">
-            <input class="form-check-input" id="English" type="checkbox" name="languages[0]" value="English"
-              [(ngModel)]="languages[0]" />
+            <input
+              class="form-check-input"
+              id="English"
+              type="checkbox"
+              name="languages[0]"
+              value="English"
+              [(ngModel)]="languages[0]"
+            />
             <label class="form-check-label" for="English">English</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" id="Russian" type="checkbox" name="languages[1]" value="Ukrainian"
-              [(ngModel)]="languages[1]" />
+            <input
+              class="form-check-input"
+              id="Russian"
+              type="checkbox"
+              name="languages[1]"
+              value="Ukrainian"
+              [(ngModel)]="languages[1]"
+            />
             <label class="form-check-label" for="Russian">Ukrainian</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" id="German" type="checkbox" name="languages[2]" value="German"
-              [(ngModel)]="languages[2]" />
+            <input
+              class="form-check-input"
+              id="German"
+              type="checkbox"
+              name="languages[2]"
+              value="German"
+              [(ngModel)]="languages[2]"
+            />
             <label class="form-check-label" for="German">German</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" id="French" type="checkbox" name="languages[3]" value="French"
-              [(ngModel)]="languages[3]" />
+            <input
+              class="form-check-input"
+              id="French"
+              type="checkbox"
+              name="languages[3]"
+              value="French"
+              [(ngModel)]="languages[3]"
+            />
             <label class="form-check-label" for="French">French</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" id="Russian" type="checkbox" name="languages[4]" value="Russian"
-              [(ngModel)]="languages[4]" />
+            <input
+              class="form-check-input"
+              id="Russian"
+              type="checkbox"
+              name="languages[4]"
+              value="Russian"
+              [(ngModel)]="languages[4]"
+            />
             <label class="form-check-label" for="Russian">Russian</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" id="Spanish" type="checkbox" name="languages[5]" value="Spanish"
-              [(ngModel)]="languages[5]" />
+            <input
+              class="form-check-input"
+              id="Spanish"
+              type="checkbox"
+              name="languages[5]"
+              value="Spanish"
+              [(ngModel)]="languages[5]"
+            />
             <label class="form-check-label" for="Spanish">Spanish</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" id="Spanish" type="checkbox" name="languages[6]" value="Italian"
-              [(ngModel)]="languages[6]" />
+            <input
+              class="form-check-input"
+              id="Spanish"
+              type="checkbox"
+              name="languages[6]"
+              value="Italian"
+              [(ngModel)]="languages[6]"
+            />
             <label class="form-check-label" for="Spanish">Italian</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" id="Spanish" type="checkbox" name="languages[7]" value="Arabic"
-              [(ngModel)]="languages[7]" />
+            <input
+              class="form-check-input"
+              id="Spanish"
+              type="checkbox"
+              name="languages[7]"
+              value="Arabic"
+              [(ngModel)]="languages[7]"
+            />
             <label class="form-check-label" for="Spanish">Arabic</label>
           </div>
         </div>
-        <button class="name-and-location-button" (click)="addPropertyLanguages()">
+        <button
+          class="name-and-location-button"
+          (click)="addPropertyLanguages()"
+        >
           Continue
         </button>
       </div>
-    </li>
-    <li *ngSwitchCase="4">
+    </div>
+    <div *ngSwitchCase="4">
       <div class="name-and-location-container">
         <div class="header-name-and-location">House rules</div>
 
-        <div class="Input-name-and-location">
+        <div class="Input-name-and-location1">
           <div *ngFor="let item of rules; let i = index">
             <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" id="rule{{i}}" value="{{i}}"
-              [(ngModel)]="includedRules[i]"/>
-              <label class="form-check-label" for="rule{{i}}">{{item.text}}</label>
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="rule{{ i }}"
+                value="{{ i }}"
+                [(ngModel)]="includedRules[i]"
+              />
+              <label class="form-check-label" for="rule{{ i }}">{{
+                item.text
+              }}</label>
             </div>
           </div>
         </div>
@@ -269,25 +396,37 @@
           Continue
         </button>
       </div>
-    </li>
-    <li *ngSwitchCase="5">
+    </div>
+    <div *ngSwitchCase="5">
       <div class="name-and-location-container">
         <div class="header-name-and-location">Please describe your object.</div>
 
-        <div class="Input-name-and-location">
-          <textarea name="description" [(ngModel)]="description" rows="5" cols="33"></textarea>
+        <div class="Input-name-and-location1">
+          <textarea
+            name="description"
+            [(ngModel)]="description"
+            rows="5"
+            cols="33"
+          ></textarea>
         </div>
-        <button class="name-and-location-button" (click)="addDescription()">Continue</button>
+        <button class="name-and-location-button" (click)="addDescription()">
+          Continue
+        </button>
       </div>
-    </li>
-    <li *ngSwitchCase="6">
+    </div>
+    <div *ngSwitchCase="6">
       <div class="name-and-location-container">
         <div class="header-name-and-location">
           Please select star rating for your object.
         </div>
-        <div class="Input-name-and-location">
-          <select class="form-select" aria-label="Default select example" id="starsRatingSelect"
-                  name="starsRating" [(ngModel)]="starsRating">
+        <div class="Input-name-and-location1">
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            id="starsRatingSelect"
+            name="starsRating"
+            [(ngModel)]="starsRating"
+          >
             <option value="0" selected>Unrated</option>
             <option value="1">1 star</option>
             <option value="2">2 stars</option>
@@ -300,6 +439,6 @@
           Continue
         </button>
       </div>
-    </li>
-  </ul>
+    </div>
+  </div>
 </body>
