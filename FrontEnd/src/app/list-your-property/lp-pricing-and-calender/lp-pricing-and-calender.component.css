@@ -300,6 +300,19 @@ li::marker {
   height: 30px;
 }
 
+
+.robotoregular {
+  font-family: "Bahnschrift";
+  font-style: normal;
+  font-weight: 600;
+  font-size: 50px;
+  line-height: 60px;
+  /* identical to box height */
+
+  color: #ffffff;
+  cursor: pointer;
+}
+
 @media (min-width: 992px) {
   .bui-header__bar:not(:last-child) {
     padding-bottom: 8px;

@@ -5,7 +5,7 @@
     <div class="bui-header__main">
       <div class="bui-header__logo">
         <span>
-          <label class="robotoregular" routerLink="">Apart.com</label>
+          <label class="robotoregular" routerLink="">Apart.fun</label>
         </span>
       </div>
     </div>
@@ -27,7 +27,7 @@
 </header>
 
 <body>
-  <main class="name-and-location-container">
+  <div class="name-and-location-container">
     <div *ngFor="let apartment of apartmentsAmount; let i = index">
       <div class="header-name-and-location">What's the name of your place?</div>
       <div class="Input-name-and-location">
@@ -110,9 +110,6 @@
         </button>
       </div>
     </div>
-  </main>
-
-  <footer class="name-and-location-container">
     <div style="display: flex">
       <button
         class="name-and-location-button-back"
@@ -120,9 +117,12 @@
       >
         Go back
       </button>
-      <button class="name-and-location-button" (click)="addApartments()">
+      <button
+        class="name-and-location-button"
+        (click)="addApartments()"
+      >
         Continue
       </button>
     </div>
-  </footer>
+  </div>
 </body>

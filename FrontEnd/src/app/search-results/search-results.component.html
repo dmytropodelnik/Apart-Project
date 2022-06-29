@@ -1,7 +1,7 @@
 <body>
   <app-header></app-header>
   <ng-template #loader let-modal>
-    <app-loader *ngIf="!isGotData"></app-loader>
+    <div class="modal-body"><app-loader></app-loader></div>
   </ng-template>
   <div class="basiclayout">
     <div class="left">
@@ -9,26 +9,60 @@
         <form class="searchbox_form">
           <span class="searchbox_check_label">Search</span>
           <div class="searchbox_country">
-            <span class="textdecoration" id="basic-addon1">Destination/property name:</span>
-            <input type="text" class="inputfield" placeholder="City/Country" aria-label="Username"
-              aria-describedby="basic-addon1" name="filters.place" [(ngModel)]="filters.place" />
+            <span class="textdecoration" id="basic-addon1"
+              >Destination/property name:</span
+            >
+            <input
+              type="text"
+              class="inputfield"
+              placeholder="City/Country"
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+              name="filters.place"
+              [(ngModel)]="filters.place"
+            />
           </div>
           <div class="searchbox_date">
             <span class="textdecoration">Check-in Date</span>
-            <input class="inputfield" placeholder="yyyy-mm-dd" name="filters.pdateIn" [(ngModel)]="filters.pdateIn"
-              ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" [minDate]="minDate" readonly />
+            <input
+              class="inputfield"
+              placeholder="yyyy-mm-dd"
+              name="filters.pdateIn"
+              [(ngModel)]="filters.pdateIn"
+              ngbDatepicker
+              #d="ngbDatepicker"
+              (click)="d.toggle()"
+              [minDate]="minDate"
+              readonly
+            />
           </div>
           <div class="searchbox_date">
             <span class="textdecoration">Check-out Date</span>
-            <input class="inputfield" placeholder="yyyy-mm-dd" name="filters.pdateOut" [(ngModel)]="filters.pdateOut"
-              ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()" [minDate]="minDate" readonly />
+            <input
+              class="inputfield"
+              placeholder="yyyy-mm-dd"
+              name="filters.pdateOut"
+              [(ngModel)]="filters.pdateOut"
+              ngbDatepicker
+              #d1="ngbDatepicker"
+              (click)="d1.toggle()"
+              [minDate]="minDate"
+              readonly
+            />
           </div>
           <div class="searchbox_country" data-toggle="dropdown">
-            <span class="textdecoration" id="basic-addon1">How many people?</span>
-            <input type="text" class="inputfield" placeholder="{{ filters.searchAdultsAmount }} adult {{
+            <span class="textdecoration" id="basic-addon1"
+              >How many people?</span
+            >
+            <input
+              type="text"
+              class="inputfield"
+              placeholder="{{ filters.searchAdultsAmount }} adult {{
                 filters.searchChildrenAmount
-              }} children {{ filters.searchRoomsAmount }} room" aria-label="Username"
-              aria-describedby="basic-addon1" />
+              }} children {{ filters.searchRoomsAmount }} room"
+              aria-label="Username"
+              aria-describedby="basic-addon1"
+            />
           </div>
           <div class="dropdown-menu">
             <form class="dropdownFormReservation">
@@ -38,13 +72,19 @@
                     <span class="dropdownSubSectionText">Adults</span>
                   </div>
                   <div class="dropdownSubSectionButtons">
-                    <button class="bui-button bui-button--secondary" (click)="setAdults(-1)">
+                    <button
+                      class="bui-button bui-button--secondary"
+                      (click)="setAdults(-1)"
+                    >
                       <span class="bui-button__text">-</span>
                     </button>
                     <span class="dropdownSubSectionText">{{
                       filters.searchAdultsAmount
-                      }}</span>
-                    <button class="bui-button bui-button--secondary" (click)="setAdults(1)">
+                    }}</span>
+                    <button
+                      class="bui-button bui-button--secondary"
+                      (click)="setAdults(1)"
+                    >
                       <span class="bui-button__text">+</span>
                     </button>
                   </div>
@@ -56,13 +96,19 @@
                     <span class="dropdownSubSectionText">Children</span>
                   </div>
                   <div class="dropdownSubSectionButtons">
-                    <button class="bui-button bui-button--secondary" (click)="setChildren(-1)">
+                    <button
+                      class="bui-button bui-button--secondary"
+                      (click)="setChildren(-1)"
+                    >
                       <span class="bui-button__text">-</span>
                     </button>
                     <span class="dropdownSubSectionText">{{
                       filters.searchChildrenAmount
-                      }}</span>
-                    <button class="bui-button bui-button--secondary" (click)="setChildren(1)">
+                    }}</span>
+                    <button
+                      class="bui-button bui-button--secondary"
+                      (click)="setChildren(1)"
+                    >
                       <span class="bui-button__text">+</span>
                     </button>
                   </div>
@@ -74,13 +120,19 @@
                     <span class="dropdownSubSectionText">Rooms</span>
                   </div>
                   <div class="dropdownSubSectionButtons">
-                    <button class="bui-button bui-button--secondary" (click)="setRooms(-1)">
+                    <button
+                      class="bui-button bui-button--secondary"
+                      (click)="setRooms(-1)"
+                    >
                       <span class="bui-button__text">-</span>
                     </button>
                     <span class="dropdownSubSectionText">{{
                       filters.searchRoomsAmount
-                      }}</span>
-                    <button class="bui-button bui-button--secondary" (click)="setRooms(1)">
+                    }}</span>
+                    <button
+                      class="bui-button bui-button--secondary"
+                      (click)="setRooms(1)"
+                    >
                       <span class="bui-button__text">+</span>
                     </button>
                   </div>
@@ -89,7 +141,11 @@
             </form>
           </div>
           <div class="searchbox_search">
-            <button class="searchbox_button" (click)="searchSuggestions($event)" (click)="openVerticallyCentered(loader)">
+            <button
+              class="searchbox_button"
+              (click)="searchSuggestions($event)"
+              (click)="openVerticallyCentered(loader)"
+            >
               Search
             </button>
           </div>
@@ -100,196 +156,336 @@
         <div class="filters_box">
           <span class="filters_box_title">Your Budget (per night)</span>
           <div>
-            <input class="" type="checkbox" value="" id="price1" (change)="
+            <input
+              class=""
+              type="checkbox"
+              value=""
+              id="price1"
+              (change)="
                 addFilterCheck(
                   'prices',
                   '0-50',
                   15 + bookingCategories.length + facilities.length
                 )
-              " [(ngModel)]="
+              "
+              [(ngModel)]="
                 filterCheckBoxes[
                   15 + bookingCategories.length + facilities.length
                 ]
-              " (click)="openVerticallyCentered(loader)" />
+              "
+              (click)="openVerticallyCentered(loader)"
+            />
             <label class="filters_check_label" for="price1">
               USD 0 – USD 50
             </label>
-            <span>{{suggestionsAmountWithFilters[
-              15 + bookingCategories.length + facilities.length
-              ]}}</span>
+            <span>{{
+              suggestionsAmountWithFilters[
+                15 + bookingCategories.length + facilities.length
+              ]
+            }}</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="price2" (change)="
+            <input
+              class=""
+              type="checkbox"
+              value=""
+              id="price2"
+              (change)="
                 addFilterCheck(
                   'prices',
                   '50-150',
                   16 + bookingCategories.length + facilities.length
                 )
-              " [(ngModel)]="
+              "
+              [(ngModel)]="
                 filterCheckBoxes[
                   16 + bookingCategories.length + facilities.length
                 ]
-              " (click)="openVerticallyCentered(loader)" />
+              "
+              (click)="openVerticallyCentered(loader)"
+            />
             <label class="filters_check_label" for="price2">
               USD 50 – USD 150
             </label>
-            <span>{{suggestionsAmountWithFilters[
-              16 + bookingCategories.length + facilities.length
-              ]}}</span>
+            <span>{{
+              suggestionsAmountWithFilters[
+                16 + bookingCategories.length + facilities.length
+              ]
+            }}</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="price3" (change)="
+            <input
+              class=""
+              type="checkbox"
+              value=""
+              id="price3"
+              (change)="
                 addFilterCheck(
                   'prices',
                   '150-250',
                   17 + bookingCategories.length + facilities.length
                 )
-              " [(ngModel)]="
+              "
+              [(ngModel)]="
                 filterCheckBoxes[
                   17 + bookingCategories.length + facilities.length
                 ]
-              " (click)="openVerticallyCentered(loader)" />
+              "
+              (click)="openVerticallyCentered(loader)"
+            />
             <label class="filters_check_label" for="price3">
               USD 150 – USD 250
             </label>
-            <span>{{suggestionsAmountWithFilters[
-              17 + bookingCategories.length + facilities.length
-              ]}}</span>
+            <span>{{
+              suggestionsAmountWithFilters[
+                17 + bookingCategories.length + facilities.length
+              ]
+            }}</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="price4" (change)="
+            <input
+              class=""
+              type="checkbox"
+              value=""
+              id="price4"
+              (change)="
                 addFilterCheck(
                   'prices',
                   '250-350',
                   18 + bookingCategories.length + facilities.length
                 )
-              " [(ngModel)]="
+              "
+              [(ngModel)]="
                 filterCheckBoxes[
                   18 + bookingCategories.length + facilities.length
                 ]
-              " (click)="openVerticallyCentered(loader)" />
+              "
+              (click)="openVerticallyCentered(loader)"
+            />
             <label class="filters_check_label" for="price4">
               USD 250 – USD 350
             </label>
-            <span>{{suggestionsAmountWithFilters[
-              18 + bookingCategories.length + facilities.length
-              ]}}</span>
+            <span>{{
+              suggestionsAmountWithFilters[
+                18 + bookingCategories.length + facilities.length
+              ]
+            }}</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="price5" (change)="
+            <input
+              class=""
+              type="checkbox"
+              value=""
+              id="price5"
+              (change)="
                 addFilterCheck(
                   'prices',
                   '350-',
                   19 + bookingCategories.length + facilities.length
                 )
-              " [(ngModel)]="
+              "
+              [(ngModel)]="
                 filterCheckBoxes[
                   19 + bookingCategories.length + facilities.length
                 ]
-              " (click)="openVerticallyCentered(loader)" />
+              "
+              (click)="openVerticallyCentered(loader)"
+            />
             <label class="filters_check_label" for="price5"> USD 350 + </label>
-            <span>{{suggestionsAmountWithFilters[
-              19 + bookingCategories.length + facilities.length
-              ]}}</span>
+            <span>{{
+              suggestionsAmountWithFilters[
+                19 + bookingCategories.length + facilities.length
+              ]
+            }}</span>
           </div>
         </div>
         <div class="filters_box">
           <span class="filters_box_title">Stars and other ratings</span>
           <div>
-            <input class="" type="checkbox" value="" id="1 star/other ratings" (change)="addFilterCheck('stars', 1, 1)"
-              [(ngModel)]="filterCheckBoxes[1]" (click)="openVerticallyCentered(loader)" />
+            <input
+              class=""
+              type="checkbox"
+              value=""
+              id="1 star/other ratings"
+              (change)="addFilterCheck('stars', 1, 1)"
+              [(ngModel)]="filterCheckBoxes[1]"
+              (click)="openVerticallyCentered(loader)"
+            />
             <label class="filters_check_label" for="1 star/other ratings">
               1 star/other ratings
             </label>
-            <span>{{suggestionsAmountWithFilters[1]}}</span>
+            <span>{{ suggestionsAmountWithFilters[1] }}</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="2 star/other ratings" (change)="addFilterCheck('stars', 2, 2)"
-              [(ngModel)]="filterCheckBoxes[2]" (click)="openVerticallyCentered(loader)" />
+            <input
+              class=""
+              type="checkbox"
+              value=""
+              id="2 star/other ratings"
+              (change)="addFilterCheck('stars', 2, 2)"
+              [(ngModel)]="filterCheckBoxes[2]"
+              (click)="openVerticallyCentered(loader)"
+            />
             <label class="filters_check_label" for="2 star/other ratings">
               2 star/other ratings
             </label>
-            <span>{{suggestionsAmountWithFilters[2]}}</span>
+            <span>{{ suggestionsAmountWithFilters[2] }}</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="3 star/other ratings" (change)="addFilterCheck('stars', 3, 3)"
-              [(ngModel)]="filterCheckBoxes[3]" (click)="openVerticallyCentered(loader)" />
+            <input
+              class=""
+              type="checkbox"
+              value=""
+              id="3 star/other ratings"
+              (change)="addFilterCheck('stars', 3, 3)"
+              [(ngModel)]="filterCheckBoxes[3]"
+              (click)="openVerticallyCentered(loader)"
+            />
             <label class="filters_check_label" for="3 star/other ratings">
               3 star/other ratings
             </label>
-            <span>{{suggestionsAmountWithFilters[3]}}</span>
+            <span>{{ suggestionsAmountWithFilters[3] }}</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="4 star/other ratings" (change)="addFilterCheck('stars', 4, 4)"
-              [(ngModel)]="filterCheckBoxes[4]" (click)="openVerticallyCentered(loader)" />
+            <input
+              class=""
+              type="checkbox"
+              value=""
+              id="4 star/other ratings"
+              (change)="addFilterCheck('stars', 4, 4)"
+              [(ngModel)]="filterCheckBoxes[4]"
+              (click)="openVerticallyCentered(loader)"
+            />
             <label class="filters_check_label" for="4 star/other ratings">
               4 star/other ratings
             </label>
-            <span>{{suggestionsAmountWithFilters[4]}}</span>
+            <span>{{ suggestionsAmountWithFilters[4] }}</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="5 star/other ratings" (change)="addFilterCheck('stars', 5, 5)"
-              [(ngModel)]="filterCheckBoxes[5]" (click)="openVerticallyCentered(loader)" />
+            <input
+              class=""
+              type="checkbox"
+              value=""
+              id="5 star/other ratings"
+              (change)="addFilterCheck('stars', 5, 5)"
+              [(ngModel)]="filterCheckBoxes[5]"
+              (click)="openVerticallyCentered(loader)"
+            />
             <label class="filters_check_label" for="5 star/other ratings">
               5 star/other ratings
             </label>
-            <span>{{suggestionsAmountWithFilters[5]}}</span>
+            <span>{{ suggestionsAmountWithFilters[5] }}</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="Untrated" (change)="addFilterCheck('stars', 0, 0)"
-              [(ngModel)]="filterCheckBoxes[0]" (click)="openVerticallyCentered(loader)" />
+            <input
+              class=""
+              type="checkbox"
+              value=""
+              id="Untrated"
+              (change)="addFilterCheck('stars', 0, 0)"
+              [(ngModel)]="filterCheckBoxes[0]"
+              (click)="openVerticallyCentered(loader)"
+            />
             <label class="filters_check_label" for="Untrated"> Unrated </label>
-            <span>{{suggestionsAmountWithFilters[0]}}</span>
+            <span>{{ suggestionsAmountWithFilters[0] }}</span>
           </div>
         </div>
         <div class="filters_box">
           <span class="filters_box_title">Review score</span>
           <div>
-            <input class="" type="checkbox" value="" id="Superb: 9+" (change)="
+            <input
+              class=""
+              type="checkbox"
+              value=""
+              id="Superb: 9+"
+              (change)="
                 addFilterCheck('reviewScores', 9, 11 + bookingCategories.length)
-              " [(ngModel)]="filterCheckBoxes[11 + bookingCategories.length]" (click)="openVerticallyCentered(loader)" />
+              "
+              [(ngModel)]="filterCheckBoxes[11 + bookingCategories.length]"
+              (click)="openVerticallyCentered(loader)"
+            />
             <label class="filters_check_label" for="Superb: 9+">
               Superb: 9+
             </label>
-            <span>{{suggestionsAmountWithFilters[11 + bookingCategories.length]}}</span>
+            <span>{{
+              suggestionsAmountWithFilters[11 + bookingCategories.length]
+            }}</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="Very good: 8+" (change)="
+            <input
+              class=""
+              type="checkbox"
+              value=""
+              id="Very good: 8+"
+              (change)="
                 addFilterCheck('reviewScores', 8, 12 + bookingCategories.length)
-              " [(ngModel)]="filterCheckBoxes[12 + bookingCategories.length]" (click)="openVerticallyCentered(loader)" />
+              "
+              [(ngModel)]="filterCheckBoxes[12 + bookingCategories.length]"
+              (click)="openVerticallyCentered(loader)"
+            />
             <label class="filters_check_label" for="Very good: 8+">
               Very good: 8+
             </label>
-            <span>{{suggestionsAmountWithFilters[12 + bookingCategories.length]}}</span>
+            <span>{{
+              suggestionsAmountWithFilters[12 + bookingCategories.length]
+            }}</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="Good: 7+" (change)="
+            <input
+              class=""
+              type="checkbox"
+              value=""
+              id="Good: 7+"
+              (change)="
                 addFilterCheck('reviewScores', 7, 13 + bookingCategories.length)
-              " [(ngModel)]="filterCheckBoxes[13 + bookingCategories.length]" (click)="openVerticallyCentered(loader)" />
+              "
+              [(ngModel)]="filterCheckBoxes[13 + bookingCategories.length]"
+              (click)="openVerticallyCentered(loader)"
+            />
             <label class="filters_check_label" for="Good: 7+"> Good: 7+ </label>
-            <span>{{suggestionsAmountWithFilters[13 + bookingCategories.length]}}</span>
+            <span>{{
+              suggestionsAmountWithFilters[13 + bookingCategories.length]
+            }}</span>
           </div>
           <div>
-            <input class="" type="checkbox" value="" id="Pleasant: 6+" (change)="
+            <input
+              class=""
+              type="checkbox"
+              value=""
+              id="Pleasant: 6+"
+              (change)="
                 addFilterCheck('reviewScores', 6, 14 + bookingCategories.length)
-              " [(ngModel)]="filterCheckBoxes[14 + bookingCategories.length]" (click)="openVerticallyCentered(loader)" />
+              "
+              [(ngModel)]="filterCheckBoxes[14 + bookingCategories.length]"
+              (click)="openVerticallyCentered(loader)"
+            />
             <label class="filters_check_label" for="Pleasant: 6+">
               Pleasant: 6+
             </label>
-            <span>{{suggestionsAmountWithFilters[14 + bookingCategories.length]}}</span>
+            <span>{{
+              suggestionsAmountWithFilters[14 + bookingCategories.length]
+            }}</span>
           </div>
         </div>
         <div class="filters_box" *ngIf="bookingCategories.length != 0">
           <span class="filters_box_title">Property type</span>
           <div *ngFor="let item of bookingCategories; let i = index">
             <div>
-              <input class="" type="checkbox" value="" id="{{ item.category }}" (change)="
+              <input
+                class=""
+                type="checkbox"
+                value=""
+                id="{{ item.category }}"
+                (change)="
                   addFilterCheck('bookingCategories', item.category, 11 + i)
-                " [(ngModel)]="filterCheckBoxes[11 + i]" (click)="openVerticallyCentered(loader)" />
+                "
+                [(ngModel)]="filterCheckBoxes[11 + i]"
+                (click)="openVerticallyCentered(loader)"
+              />
               <label class="filters_check_label" for="{{ item.category }}">
                 {{ item.category }}
               </label>
-              <span>{{suggestionsAmountWithFilters[11 + i]}}</span>
+              <span>{{ suggestionsAmountWithFilters[11 + i] }}</span>
             </div>
           </div>
         </div>
@@ -297,21 +493,33 @@
           <span class="filters_box_title">Highlights</span>
           <div *ngFor="let item of highlights; let i = index">
             <div>
-              <input class="" type="checkbox" value="" id="{{ item.title }}" (change)="
+              <input
+                class=""
+                type="checkbox"
+                value=""
+                id="{{ item.title }}"
+                (change)="
                   addFilterCheck(
                     'highlights',
                     item.title,
                     20 + bookingCategories.length + facilities.length + i
                   )
-                " [(ngModel)]="
+                "
+                [(ngModel)]="
                   filterCheckBoxes[
                     20 + bookingCategories.length + facilities.length + i
                   ]
-                " (click)="openVerticallyCentered(loader)" />
+                "
+                (click)="openVerticallyCentered(loader)"
+              />
               <label class="filters_check_label" for="{{ item.title }}">
                 {{ item.title }}
               </label>
-              <span>{{suggestionsAmountWithFilters[20 + bookingCategories.length + facilities.length + i]}}</span>
+              <span>{{
+                suggestionsAmountWithFilters[
+                  20 + bookingCategories.length + facilities.length + i
+                ]
+              }}</span>
             </div>
           </div>
         </div>
@@ -319,7 +527,12 @@
           <span class="filters_box_title">Room types</span>
           <div *ngFor="let item of roomTypes; let i = index">
             <div>
-              <input class="" type="checkbox" value="" id="{{ item.title }}" (change)="
+              <input
+                class=""
+                type="checkbox"
+                value=""
+                id="{{ item.title }}"
+                (change)="
                   addFilterCheck(
                     'roomTypes',
                     item.title,
@@ -329,7 +542,8 @@
                       highlights.length +
                       i
                   )
-                " [(ngModel)]="
+                "
+                [(ngModel)]="
                   filterCheckBoxes[
                     21 +
                       bookingCategories.length +
@@ -337,15 +551,21 @@
                       highlights.length +
                       i
                   ]
-                " (click)="openVerticallyCentered(loader)" />
+                "
+                (click)="openVerticallyCentered(loader)"
+              />
               <label class="filters_check_label" for="{{ item.title }}">
                 {{ item.title }}
               </label>
-              <span>{{suggestionsAmountWithFilters[ 21 +
-                bookingCategories.length +
-                facilities.length +
-                highlights.length +
-                i]}}</span>
+              <span>{{
+                suggestionsAmountWithFilters[
+                  21 +
+                    bookingCategories.length +
+                    facilities.length +
+                    highlights.length +
+                    i
+                ]
+              }}</span>
             </div>
           </div>
         </div>
@@ -353,7 +573,12 @@
           <span class="filters_box_title">Bed types</span>
           <div *ngFor="let item of bedTypes; let i = index">
             <div>
-              <input class="" type="checkbox" value="" id="{{ item.title }}" (change)="
+              <input
+                class=""
+                type="checkbox"
+                value=""
+                id="{{ item.title }}"
+                (change)="
                   addFilterCheck(
                     'bedTypes',
                     item.title,
@@ -365,7 +590,8 @@
                       staffLanguages.length +
                       i
                   )
-                " [(ngModel)]="
+                "
+                [(ngModel)]="
                   filterCheckBoxes[
                     23 +
                       bookingCategories.length +
@@ -375,17 +601,23 @@
                       staffLanguages.length +
                       i
                   ]
-                " (click)="openVerticallyCentered(loader)" />
+                "
+                (click)="openVerticallyCentered(loader)"
+              />
               <label class="filters_check_label" for="{{ item.title }}">
                 {{ item.title }}
               </label>
-              <span>{{suggestionsAmountWithFilters[23 +
-                bookingCategories.length +
-                facilities.length +
-                highlights.length +
-                roomTypes.length +
-                staffLanguages.length +
-                i]}}</span>
+              <span>{{
+                suggestionsAmountWithFilters[
+                  23 +
+                    bookingCategories.length +
+                    facilities.length +
+                    highlights.length +
+                    roomTypes.length +
+                    staffLanguages.length +
+                    i
+                ]
+              }}</span>
             </div>
           </div>
         </div>
@@ -393,7 +625,12 @@
           <span class="filters_box_title">Staff speaking</span>
           <div *ngFor="let item of staffLanguages; let i = index">
             <div>
-              <input class="" type="checkbox" value="" id="{{ item.title }}" (change)="
+              <input
+                class=""
+                type="checkbox"
+                value=""
+                id="{{ item.title }}"
+                (change)="
                   addFilterCheck(
                     'languages',
                     item.title,
@@ -404,7 +641,8 @@
                       roomTypes.length +
                       i
                   )
-                " [(ngModel)]="
+                "
+                [(ngModel)]="
                   filterCheckBoxes[
                     22 +
                       bookingCategories.length +
@@ -413,16 +651,22 @@
                       roomTypes.length +
                       i
                   ]
-                " (click)="openVerticallyCentered(loader)" />
+                "
+                (click)="openVerticallyCentered(loader)"
+              />
               <label class="filters_check_label" for="{{ item.title }}">
                 {{ item.title }}
               </label>
-              <span>{{suggestionsAmountWithFilters[22 +
-                bookingCategories.length +
-                facilities.length +
-                highlights.length +
-                roomTypes.length +
-                i]}}</span>
+              <span>{{
+                suggestionsAmountWithFilters[
+                  22 +
+                    bookingCategories.length +
+                    facilities.length +
+                    highlights.length +
+                    roomTypes.length +
+                    i
+                ]
+              }}</span>
             </div>
           </div>
         </div>
@@ -430,19 +674,29 @@
           <span class="filters_box_title">Facilities</span>
           <div *ngFor="let item of facilities; let i = index">
             <div>
-              <input class="" type="checkbox" value="" id="{{ item.text }}" (change)="
+              <input
+                class=""
+                type="checkbox"
+                value=""
+                id="{{ item.text }}"
+                (change)="
                   addFilterCheck(
                     'facilities',
                     item.text,
                     15 + bookingCategories.length + i
                   )
-                " [(ngModel)]="
+                "
+                [(ngModel)]="
                   filterCheckBoxes[15 + bookingCategories.length + i]
-                " (click)="openVerticallyCentered(loader)" />
+                "
+                (click)="openVerticallyCentered(loader)"
+              />
               <label class="filters_check_label" for="{{ item.text }}">
                 {{ item.text }}
               </label>
-              <span>{{suggestionsAmountWithFilters[15 + bookingCategories.length + i]}}</span>
+              <span>{{
+                suggestionsAmountWithFilters[15 + bookingCategories.length + i]
+              }}</span>
             </div>
           </div>
         </div>
@@ -454,51 +708,92 @@
           {{ searchPlace }}: {{ suggestionsAmount }} properties found
         </div>
         <div class="search_results_top_buttons">
-          <button (click)="sortItems(sortState.TopReviewed)" (click)="openVerticallyCentered(loader)">
+          <button
+            (click)="sortItems(sortState.TopReviewed)"
+            (click)="openVerticallyCentered(loader)"
+          >
             Our top picks
           </button>
-          <button (click)="sortItems(sortState.HomeAndApartmentsFirst)" (click)="openVerticallyCentered(loader)">
+          <button
+            (click)="sortItems(sortState.HomeAndApartmentsFirst)"
+            (click)="openVerticallyCentered(loader)"
+          >
             Homes & apartments first
           </button>
-          <button (click)="sortItems(sortState.StarsDesc)" (click)="openVerticallyCentered(loader)">
+          <button
+            (click)="sortItems(sortState.StarsDesc)"
+            (click)="openVerticallyCentered(loader)"
+          >
             Stars (highest first)
           </button>
-          <button (click)="sortItems(sortState.StarsAsc)" (click)="openVerticallyCentered(loader)">
+          <button
+            (click)="sortItems(sortState.StarsAsc)"
+            (click)="openVerticallyCentered(loader)"
+          >
             Stars (lowest first)
           </button>
           <div class="btn-group">
-            <button type="button" class="dropdown_button" data-bs-toggle="dropdown" data-bs-display="static"
-              aria-expanded="false">
+            <button
+              type="button"
+              class="dropdown_button"
+              data-bs-toggle="dropdown"
+              data-bs-display="static"
+              aria-expanded="false"
+            >
               ...
             </button>
             <ul class="dropdown-menu dropdown-menu-lg-end">
               <li>
-                <button class="dropdown-item" (click)="sortItems(sortState.PriceAsc)" (click)="openVerticallyCentered(loader)">
+                <button
+                  class="dropdown-item"
+                  (click)="sortItems(sortState.PriceAsc)"
+                  (click)="openVerticallyCentered(loader)"
+                >
                   Price (lowest first)
                 </button>
               </li>
               <li>
-                <button class="dropdown-item" (click)="sortItems(sortState.PriceDesc)" (click)="openVerticallyCentered(loader)">
+                <button
+                  class="dropdown-item"
+                  (click)="sortItems(sortState.PriceDesc)"
+                  (click)="openVerticallyCentered(loader)"
+                >
                   Price (highest first)
                 </button>
               </li>
               <li>
-                <button class="dropdown-item" (click)="sortItems(sortState.BestReviewed)" (click)="openVerticallyCentered(loader)">
+                <button
+                  class="dropdown-item"
+                  (click)="sortItems(sortState.BestReviewed)"
+                  (click)="openVerticallyCentered(loader)"
+                >
                   Best reviewed
                 </button>
               </li>
               <li>
-                <button class="dropdown-item" (click)="sortItems(sortState.WorstReviewed)" (click)="openVerticallyCentered(loader)">
+                <button
+                  class="dropdown-item"
+                  (click)="sortItems(sortState.WorstReviewed)"
+                  (click)="openVerticallyCentered(loader)"
+                >
                   Worst reviewed
                 </button>
               </li>
               <li>
-                <button class="dropdown-item" (click)="sortItems(sortState.BestReviewedAndLowerPrice)" (click)="openVerticallyCentered(loader)">
+                <button
+                  class="dropdown-item"
+                  (click)="sortItems(sortState.BestReviewedAndLowerPrice)"
+                  (click)="openVerticallyCentered(loader)"
+                >
                   Best reviewed (lower price)
                 </button>
               </li>
               <li>
-                <button class="dropdown-item" (click)="sortItems(sortState.StarRatingAndLowerPrice)" (click)="openVerticallyCentered(loader)">
+                <button
+                  class="dropdown-item"
+                  (click)="sortItems(sortState.StarRatingAndLowerPrice)"
+                  (click)="openVerticallyCentered(loader)"
+                >
                   Stars highest (lower price first)
                 </button>
               </li>
@@ -509,12 +804,21 @@
       <div *ngFor="let item of resSuggestions; let i = index">
         <div class="search_card">
           <div class="image_container">
-            <img class="click-component" src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
+            <img
+              class="click-component"
+              src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{
                 item.images[0]?.name
-              }}" width="200px" height="200px" (click)="showSuggestion(item.uniqueCode, item.id)" />
+              }}"
+              width="200px"
+              height="200px"
+              (click)="showSuggestion(item.uniqueCode, item.id)"
+            />
             <div class="save_image_position">
               <div *ngIf="isSaved(item.id) == true">
-                <button class="information-container-like1" (click)="removeSuggestion(item.id)">
+                <button
+                  class="information-container-like1"
+                  (click)="removeSuggestion(item.id)"
+                >
                   <svg viewBox="0 0 128 128" width="26px" height="26px">
                     <path
                       d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z"
@@ -523,7 +827,10 @@
                 </button>
               </div>
               <div *ngIf="isSaved(item.id) == false">
-                <button class="information-container-like" (click)="addSuggestionToSaved(item.id)">
+                <button
+                  class="information-container-like"
+                  (click)="addSuggestionToSaved(item.id)"
+                >
                   <svg viewBox="0 0 128 128" width="26px" height="26px">
                     <path
                       d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z"
@@ -536,15 +843,29 @@
           <div>
             <div class="left_information">
               <div class="left_information_name">
-                <div class="left_information_name_category">{{item?.category}}</div>
-                <div class="left_information_title click-component" (click)="showSuggestion(item.uniqueCode, item.id)">{{
-                  item?.name }}</div>
+                <div class="left_information_name_category">
+                  {{ item?.category }}
+                </div>
+                <div
+                  class="left_information_title click-component"
+                  (click)="showSuggestion(item.uniqueCode, item.id)"
+                >
+                  {{ item?.name }}
+                </div>
                 <div *ngFor="let item of item.starsRating; let i = index">
                   <img src="../../assets/images/Star 1.png" />
                 </div>
               </div>
               <div class="left_information_location">
-                {{ item.address + ", " + item.region + ", " + item.city + ", " + item.country }}
+                {{
+                  item.address +
+                    ", " +
+                    item.region +
+                    ", " +
+                    item.city +
+                    ", " +
+                    item.country
+                }}
               </div>
               <div class="left_information_description">
                 {{ item.description }}
@@ -555,49 +876,72 @@
             <div class="right_information">
               <div class="search_card_score">
                 <div class="bui-review-score__content">
-                  <div *ngIf="
+                  <div
+                    *ngIf="
                       mathHelper.Round10(suggestionGrades[i]) >= 9.7;
                       then exceptionalBlock
-                    "></div>
+                    "
+                  ></div>
                   <ng-template #exceptionalBlock>Exceptional</ng-template>
-                  <div *ngIf="
+                  <div
+                    *ngIf="
                       mathHelper.Round10(suggestionGrades[i]) >= 9.0 &&
                         mathHelper.Round10(suggestionGrades[i]) < 9.7;
                       then wonderfulBlock
-                    "></div>
+                    "
+                  ></div>
                   <ng-template #wonderfulBlock>Wonderful</ng-template>
-                  <div *ngIf="
+                  <div
+                    *ngIf="
                       mathHelper.Round10(suggestionGrades[i]) >= 8.7 &&
                         mathHelper.Round10(suggestionGrades[i]) < 9.0;
                       then excellentBlock
-                    "></div>
+                    "
+                  ></div>
                   <ng-template #excellentBlock>Excellent</ng-template>
-                  <div *ngIf="
+                  <div
+                    *ngIf="
                       mathHelper.Round10(suggestionGrades[i]) >= 8.2 &&
                         mathHelper.Round10(suggestionGrades[i]) < 8.7;
                       then veryGoodBlock
-                    "></div>
+                    "
+                  ></div>
                   <ng-template #veryGoodBlock>Very Good</ng-template>
-                  <div *ngIf="
+                  <div
+                    *ngIf="
                       mathHelper.Round10(suggestionGrades[i]) > 7.6 &&
                         mathHelper.Round10(suggestionGrades[i]) < 8.2;
                       then goodBlock
-                    "></div>
+                    "
+                  ></div>
                   <ng-template #goodBlock>Good</ng-template>
-                  <div *ngIf="
+                  <div
+                    *ngIf="
                       mathHelper.Round10(suggestionGrades[i]) >= 7.0 &&
                         mathHelper.Round10(suggestionGrades[i]) < 7.7;
                       then pleasantBlock
-                    "></div>
+                    "
+                  ></div>
                   <ng-template #pleasantBlock>Normal</ng-template>
-                  <div class="bui-review-score__badge_unrated" aria-label="Scored 0" *ngIf="suggestionGrades[i] == 0">
+                  <div
+                    class="bui-review-score__badge_unrated"
+                    aria-label="Scored 0"
+                    *ngIf="suggestionGrades[i] == 0"
+                  >
                     Unrated
                   </div>
-                  <div class="right_information_text" *ngIf="suggestionGrades[i] != 0">
+                  <div
+                    class="right_information_text"
+                    *ngIf="suggestionGrades[i] != 0"
+                  >
                     {{ item.reviews }} reviews
                   </div>
                 </div>
-                <div class="bui-review-score__badge" aria-label="Scored 0" *ngIf="suggestionGrades[i] != 0">
+                <div
+                  class="bui-review-score__badge"
+                  aria-label="Scored 0"
+                  *ngIf="suggestionGrades[i] != 0"
+                >
                   {{ mathHelper.Round10(suggestionGrades[i] ?? "") }}
                 </div>
               </div>
@@ -606,11 +950,15 @@
                   Starting from USD
                   <span class="fw-bold">{{
                     suggestionStartsFrom[i] ?? "0"
-                    }}</span>
+                  }}</span>
                 </span>
               </div>
-              <button class="search_card_show_prices click-component" (click)="showSuggestion(item.uniqueCode, item.id)">Show
-                Prices</button>
+              <button
+                class="search_card_show_prices click-component"
+                (click)="showSuggestion(item.uniqueCode, item.id)"
+              >
+                Show Prices
+              </button>
             </div>
           </div>
         </div>
@@ -618,23 +966,33 @@
       <nav aria-label="...">
         <ul class="pagination">
           <li [ngClass]="{ 'page-item disabled': currentPage == 1 }">
-            <a class="page-link" (click)="setCurrentPage(currentPage - 1)">Previous</a>
+            <a class="page-link" (click)="setCurrentPage(currentPage - 1)"
+              >Previous</a
+            >
           </li>
           <li class="page-item" *ngIf="currentPage > 1">
             <a class="page-link" (click)="setCurrentPage(currentPage - 1)">
-              {{ currentPage - 1 }}</a>
+              {{ currentPage - 1 }}</a
+            >
           </li>
           <li class="page-item active">
             <a class="page-link">
               {{ currentPage }}
-              <span class="visually-hidden">(current)</span></a>
+              <span class="visually-hidden">(current)</span></a
+            >
           </li>
           <li class="page-item" *ngIf="totalPages / currentPage != 1">
             <a class="page-link" (click)="setCurrentPage(currentPage + 1)">
-              {{ currentPage + 1 }}</a>
+              {{ currentPage + 1 }}</a
+            >
           </li>
-          <li class="page-item" [ngClass]="{ 'page-item disabled': totalPages / currentPage == 1 }">
-            <a class="page-link" (click)="setCurrentPage(currentPage + 1)">Next</a>
+          <li
+            class="page-item"
+            [ngClass]="{ 'page-item disabled': totalPages / currentPage == 1 }"
+          >
+            <a class="page-link" (click)="setCurrentPage(currentPage + 1)"
+              >Next</a
+            >
           </li>
         </ul>
       </nav>

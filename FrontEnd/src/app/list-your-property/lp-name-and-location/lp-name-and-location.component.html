@@ -5,7 +5,7 @@
     <div class="bui-header__main">
       <div class="bui-header__logo">
         <span>
-          <label class="robotoregular" routerLink="">Apart.com</label>
+          <label class="robotoregular" routerLink="">Apart.fun</label>
         </span>
       </div>
     </div>
@@ -27,8 +27,8 @@
 </header>
 
 <body>
-  <ul [ngSwitch]="choice">
-    <li *ngSwitchDefault>
+  <div [ngSwitch]="choice">
+    <div *ngSwitchDefault>
       <div class="name-and-location-container">
         <div class="header-name-and-location">
           What's the name of your place?
@@ -88,8 +88,8 @@
           </button>
         </div>
       </div>
-    </li>
-    <li *ngSwitchCase="1">
+    </div>
+    <div *ngSwitchCase="1">
       <div class="name-and-location-container">
         <div class="header-name-and-location">
           Where is the property you're listing?
@@ -202,6 +202,6 @@
           </button>
         </div>
       </div>
-    </li>
-  </ul>
+    </div>
+  </div>
 </body>

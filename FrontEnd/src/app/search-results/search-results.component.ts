@@ -81,8 +81,6 @@ export class SearchResultsComponent implements OnInit {
     day: this.current.getDate(),
   };
 
-  isGotData: boolean = true;
-
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -98,6 +96,7 @@ export class SearchResultsComponent implements OnInit {
   openVerticallyCentered(content: any) {
     this.modalService.open(content, {
       centered: true,
+      size: 'sm',
     });
   }
 
@@ -197,7 +196,6 @@ export class SearchResultsComponent implements OnInit {
   }
 
   sortItems(value: SortState = this.sortState.TopReviewed): void {
-    this.isGotData = false;
     this.filters.sortOrder = value;
     this.filters.pageSize = 25;
     this.filters.filters = this.filterChecks;
@@ -225,7 +223,7 @@ export class SearchResultsComponent implements OnInit {
           this.suggestionsAmount = data.suggestionsAmount;
           this.suggestionStartsFrom = data.suggestionStartsFrom;
           this.suggestionGrades = data.suggestionGrades;
-          this.isGotData = true;
+
           this.modalService.dismissAll();
         } else {
           alert('Suggestions sort fetching error!');

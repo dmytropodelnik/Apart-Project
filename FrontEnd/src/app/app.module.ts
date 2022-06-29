@@ -106,6 +106,7 @@ import { BookingFinalStepComponent } from './booking-properties/booking-final-st
 import { BookingDetailsService } from './services/booking-details.service';
 import { UsersReviewsComponent } from './users-reviews/users-reviews.component';
 import { LoaderComponent } from './loader/loader.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   providers: [
@@ -216,6 +217,7 @@ import { LoaderComponent } from './loader/loader.component';
     BookingFinalStepComponent,
     UsersReviewsComponent,
     LoaderComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,
