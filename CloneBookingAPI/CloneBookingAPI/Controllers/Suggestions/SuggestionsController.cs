@@ -138,6 +138,8 @@ namespace CloneBookingAPI.Controllers.Suggestions
                                     a.BathroomsAmount,
                                     a.Description,
                                     a.IsSuite,
+                                    ImagePath = a.Image.Path,
+                                    ImageName = a.Image.Name,
                                     Facilities = a.Facilities
                                         .Select(f => new
                                         {

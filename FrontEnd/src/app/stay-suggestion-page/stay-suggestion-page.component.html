@@ -7,60 +7,26 @@
           <form class="searchbox_form">
             <span class="searchbox_check_label">Search</span>
             <div class="searchbox_country">
-              <span class="textdecoration" id="basic-addon1"
-                >Destination/property name:</span
-              >
-              <input
-                type="text"
-                class="inputfield"
-                placeholder="City/Country"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-                name="filters.place"
-                [(ngModel)]="filters.place"
-              />
+              <span class="textdecoration" id="basic-addon1">Destination/property name:</span>
+              <input type="text" class="inputfield" placeholder="City/Country" aria-label="Username"
+                aria-describedby="basic-addon1" name="filters.place" [(ngModel)]="filters.place" />
             </div>
             <div class="searchbox_date">
               <span class="textdecoration">Check-in Date</span>
-              <input
-                class="inputfield"
-                placeholder="yyyy-mm-dd"
-                name="filters.pdateIn"
-                [(ngModel)]="filters.pdateIn"
-                ngbDatepicker
-                #d="ngbDatepicker"
-                (click)="d.toggle()"
-                [minDate]="minDate"
-                readonly
-              />
+              <input class="inputfield" placeholder="yyyy-mm-dd" name="filters.pdateIn" [(ngModel)]="filters.pdateIn"
+                ngbDatepicker #d="ngbDatepicker" (click)="d.toggle()" [minDate]="minDate" readonly />
             </div>
             <div class="searchbox_date">
               <span class="textdecoration">Check-out Date</span>
-              <input
-                class="inputfield"
-                placeholder="yyyy-mm-dd"
-                name="filters.pdateOut"
-                [(ngModel)]="filters.pdateOut"
-                ngbDatepicker
-                #d1="ngbDatepicker"
-                (click)="d1.toggle()"
-                [minDate]="minDate"
-                readonly
-              />
+              <input class="inputfield" placeholder="yyyy-mm-dd" name="filters.pdateOut" [(ngModel)]="filters.pdateOut"
+                ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()" [minDate]="minDate" readonly />
             </div>
             <div class="searchbox_country" data-toggle="dropdown">
-              <span class="textdecoration" id="basic-addon1"
-                >How many people?</span
-              >
-              <input
-                type="text"
-                class="inputfield"
-                placeholder="{{ filters.searchAdultsAmount }} adult {{
+              <span class="textdecoration" id="basic-addon1">How many people?</span>
+              <input type="text" class="inputfield" placeholder="{{ filters.searchAdultsAmount }} adult {{
                   filters.searchChildrenAmount
-                }} children {{ filters.searchRoomsAmount }} room"
-                aria-label="Username"
-                aria-describedby="basic-addon1"
-              />
+                }} children {{ filters.searchRoomsAmount }} room" aria-label="Username"
+                aria-describedby="basic-addon1" />
             </div>
             <div class="dropdown-menu">
               <form class="dropdownFormReservation">
@@ -94,35 +60,27 @@
               <div>
                 <span class="bold-title">{{ suggestion?.name }}</span>
                 <div class="information-container3">
-                  <div
-                    *ngFor="let item of suggestion?.starsRating; let i = index"
-                  >
+                  <div *ngFor="let item of suggestion?.starsRating; let i = index">
                     <img src="../../assets/images/Star 1.png" />
                   </div>
                 </div>
               </div>
               <div>
                 <div *ngIf="isSaved === 'true'">
-                  <button
-                    class="information-container-like"
-                    (click)="removeSuggestion(suggestion.id)"
-                  >
+                  <button class="information-container-like" (click)="removeSuggestion(suggestion.id)">
                     <svg viewBox="0 0 128 128" width="26px" height="26px">
                       <path
-                        d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z"
-                      ></path>
+                        d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z">
+                      </path>
                     </svg>
                   </button>
                 </div>
                 <div *ngIf="isSaved === 'false'">
-                  <button
-                    class="information-container-like1"
-                    (click)="addSuggestionToSaved(suggestion.id)"
-                  >
+                  <button class="information-container-like1" (click)="addSuggestionToSaved(suggestion.id)">
                     <svg viewBox="0 0 128 128" width="26px" height="26px">
                       <path
-                        d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z"
-                      ></path>
+                        d="M64 112a3.6 3.6 0 0 1-2-.5 138.8 138.8 0 0 1-44.2-38c-10-14.4-10.6-26-9.4-33.2a29 29 0 0 1 22.9-23.7c11.9-2.4 24 2.5 32.7 13a33.7 33.7 0 0 1 32.7-13 29 29 0 0 1 22.8 23.7c1.3 7.2.6 18.8-9.3 33.3-9.1 13.1-24 25.9-44.2 37.9a3.6 3.6 0 0 1-2 .5z">
+                      </path>
                     </svg>
                   </button>
                 </div>
@@ -130,74 +88,58 @@
             </div>
             <div class="information-container2 subtitle">
               {{
-                suggestion?.address +
-                  ", " +
-                  suggestion?.region +
-                  ", " +
-                  suggestion?.city +
-                  ", " +
-                  suggestion?.country
+              suggestion?.address +
+              ", " +
+              suggestion?.region +
+              ", " +
+              suggestion?.city +
+              ", " +
+              suggestion?.country
               }}
             </div>
           </div>
           <div class="image-container">
             <div class="image-container-main">
               <div>
-                <img
-                  src="{{
+                <img src="{{
                     imageHelper.getImageDirectoryPath()
-                  }}suggestions/stays/{{ suggestion?.images[1].name }}"
-                />
-                <img
-                  src="{{
+                  }}suggestions/stays/{{ suggestion?.images[1].name }}" />
+                <img src="{{
                     imageHelper.getImageDirectoryPath()
-                  }}suggestions/stays/{{ suggestion?.images[2].name }}"
-                />
+                  }}suggestions/stays/{{ suggestion?.images[2].name }}" />
               </div>
               <div>
-                <img
-                  src="{{
+                <img src="{{
                     imageHelper.getImageDirectoryPath()
-                  }}suggestions/stays/{{ suggestion?.images[0].name }}"
-                />
+                  }}suggestions/stays/{{ suggestion?.images[0].name }}" />
               </div>
             </div>
             <div class="">
               <div class="image-container-wrapper">
                 <div>
-                  <img
-                    src="{{
+                  <img src="{{
                       imageHelper.getImageDirectoryPath()
-                    }}suggestions/stays/{{ suggestion?.images[3].name }}"
-                  />
+                    }}suggestions/stays/{{ suggestion?.images[3].name }}" />
                 </div>
                 <div>
-                  <img
-                    src="{{
+                  <img src="{{
                       imageHelper.getImageDirectoryPath()
-                    }}suggestions/stays/{{ suggestion?.images[4].name }}"
-                  />
+                    }}suggestions/stays/{{ suggestion?.images[4].name }}" />
                 </div>
                 <div>
-                  <img
-                    src="{{
+                  <img src="{{
                       imageHelper.getImageDirectoryPath()
-                    }}suggestions/stays/{{ suggestion?.images[5].name }}"
-                  />
+                    }}suggestions/stays/{{ suggestion?.images[5].name }}" />
                 </div>
                 <div>
-                  <img
-                    src="{{
+                  <img src="{{
                       imageHelper.getImageDirectoryPath()
-                    }}suggestions/stays/{{ suggestion?.images[6].name }}"
-                  />
+                    }}suggestions/stays/{{ suggestion?.images[6].name }}" />
                 </div>
                 <div>
-                  <img
-                    src="{{
+                  <img src="{{
                       imageHelper.getImageDirectoryPath()
-                    }}suggestions/stays/{{ suggestion?.images[7].name }}"
-                  />
+                    }}suggestions/stays/{{ suggestion?.images[7].name }}" />
                 </div>
               </div>
             </div>
@@ -217,31 +159,13 @@
           <div class="check_availability_item">
             <div class="check_availability_date">
               <span class="textdecoration">Check-in Date</span>
-              <input
-                class="inputfield"
-                placeholder="yyyy-mm-dd"
-                name="filters.pdateIn"
-                [(ngModel)]="filters.pdateIn"
-                ngbDatepicker
-                #d3="ngbDatepicker"
-                (click)="d3.toggle()"
-                [minDate]="minDate"
-                readonly
-              />
+              <input class="inputfield" placeholder="yyyy-mm-dd" name="filters.pdateIn" [(ngModel)]="filters.pdateIn"
+                ngbDatepicker #d3="ngbDatepicker" (click)="d3.toggle()" [minDate]="minDate" readonly />
             </div>
             <div class="check_availability_date">
               <span class="textdecoration">Check-out Date</span>
-              <input
-                class="inputfield"
-                placeholder="yyyy-mm-dd"
-                name="filters.pdateOut"
-                [(ngModel)]="filters.pdateOut"
-                ngbDatepicker
-                #d4="ngbDatepicker"
-                (click)="d4.toggle()"
-                [minDate]="minDate"
-                readonly
-              />
+              <input class="inputfield" placeholder="yyyy-mm-dd" name="filters.pdateOut" [(ngModel)]="filters.pdateOut"
+                ngbDatepicker #d4="ngbDatepicker" (click)="d4.toggle()" [minDate]="minDate" readonly />
             </div>
             <div class="check_availability_button">
               <button (click)="filterApartments()">Check availability</button>
@@ -254,28 +178,17 @@
               available apartments.
             </p>
           </div>
-          <button
-            *ngIf="isDateChosen"
-            class="button-yellow"
-            (click)="chooseApartments()"
-          >
+          <button *ngIf="isDateChosen" class="button-yellow" (click)="chooseApartments()">
             Reserve
           </button>
         </div>
         <div class="availability-container">
-          <div
-            *ngFor="let item of suggestion?.apartments; let i = index"
-            class="availability-item"
-          >
+          <div *ngFor="let item of suggestion?.apartments; let i = index" class="availability-item">
             <span class="availability-title click-component">{{
               item.name
-            }}</span>
-            <select
-              *ngIf="isDateChosen"
-              name="chosenApartments{{ i }}.amount"
-              [(ngModel)]="chosenApartments[i].amount"
-              class="select-availability"
-            >
+              }}</span>
+            <select *ngIf="isDateChosen" name="chosenApartments{{ i }}.amount" [(ngModel)]="chosenApartments[i].amount"
+              class="select-availability">
               <option value="-1">Select amount</option>
               <option value="1">1</option>
               <option value="2">2</option>
@@ -289,115 +202,69 @@
               <option value="10">10</option>
             </select>
             <div class="availability-img click-component">
-              <img src="../../assets/images/27.jpg" />
+              <img *ngIf="item.imageName" class="bui-avatar__image"
+                src="{{ imageHelper.getImageDirectoryPath() }}suggestions/stays/{{item.imageName}}" alt="user image" />
+              <img *ngIf="!item.imageName" src="../../assets/images/27.jpg" />
             </div>
             <div class="availability-description">
               <div class="availability-description-item">
-                <span
-                  ><img
-                    width="28px"
-                    height="26px"
-                    src="../../assets/images/room_icon.png"
-                  />{{
-                    item.roomsAmount == 1
-                      ? item.roomsAmount + " room"
-                      : item.roomsAmount + " rooms"
-                  }}</span
-                >
-                <span
-                  ><img src="../../assets/images/Bed.png" />{{
-                    item.guestsLimit == 1
-                      ? item.guestsLimit + " sleep"
-                      : item.guestsLimit + " sleeps"
-                  }}</span
-                >
-                <span
-                  ><img
-                    width="28px"
-                    height="26px"
-                    src="../../assets/images/km2.png"
-                  />{{ item.apartmentSize }}
+                <span><img width="28px" height="26px" src="../../assets/images/room_icon.png" />{{
+                  item.roomsAmount == 1
+                  ? item.roomsAmount + " room"
+                  : item.roomsAmount + " rooms"
+                  }}</span>
+                <span><img src="../../assets/images/Bed.png" />{{
+                  item.guestsLimit == 1
+                  ? item.guestsLimit + " sleep"
+                  : item.guestsLimit + " sleeps"
+                  }}</span>
+                <span><img width="28px" height="26px" src="../../assets/images/km2.png" />{{ item.apartmentSize }}
                 </span>
-                <span
-                  ><img
-                    width="28px"
-                    height="26px"
-                    src="../../assets/images//bathroom_icon.png"
-                  />{{
-                    item.bathroomsAmount == 1
-                      ? item.bathroomsAmount + " bathroom"
-                      : item.bathroomsAmount + " bathrooms"
-                  }}</span
-                >
-                <span *ngIf="item.isSuite == 'true'"
-                  ><img
-                    width="28px"
-                    height="26px"
-                    src="../../assets/images/suite_icon.png"
-                  />Suite</span
-                >
-                <span
-                  ><img
-                    width="28px"
-                    height="26px"
-                    src="../../assets/images/smoking_icon.png"
-                  />{{
-                    item.isSmokingAllowed == true
-                      ? "Smoking allowed"
-                      : "No smoking"
-                  }}</span
-                >
+                <span><img width="28px" height="26px" src="../../assets/images//bathroom_icon.png" />{{
+                  item.bathroomsAmount == 1
+                  ? item.bathroomsAmount + " bathroom"
+                  : item.bathroomsAmount + " bathrooms"
+                  }}</span>
+                <span *ngIf="item.isSuite == 'true'"><img width="28px" height="26px"
+                    src="../../assets/images/suite_icon.png" />Suite</span>
+                <span><img width="28px" height="26px" src="../../assets/images/smoking_icon.png" />{{
+                  item.isSmokingAllowed == true
+                  ? "Smoking allowed"
+                  : "No smoking"
+                  }}</span>
               </div>
             </div>
             <div class="availability-description">
               <div class="availability-description-item1">
-                <span *ngFor="let facility of item.facilities; let j = index"
-                  ><img src="../../assets/images/Vector.png" />{{
-                    facility.text
-                  }}</span
-                >
+                <span *ngFor="let facility of item.facilities; let j = index"><img
+                    src="../../assets/images/Vector.png" />{{
+                  facility.text
+                  }}</span>
               </div>
             </div>
 
             <div>
-              <span class="availability-subtitle"
-                ><span class="availability-subtitle-price"
-                  >${{ item.priceInUSD }}</span
-                >/night</span
-              >
+              <span class="availability-subtitle"><span class="availability-subtitle-price">${{ item.priceInUSD
+                  }}</span>/night</span>
             </div>
           </div>
         </div>
-        <button
-          *ngIf="isDateChosen"
-          class="btn btn-primary"
-          (click)="chooseApartments()"
-        >
+        <button *ngIf="isDateChosen" class="btn btn-primary" (click)="chooseApartments()">
           Reserve
         </button>
       </div>
       <div class="facilities-main" id="targetFacilities">
         <h2 *ngIf="facilityTypes.length != 0">Facilities</h2>
         <div class="facilities-container">
-          <div
-            *ngFor="let type of facilityTypes; let i = index"
-            class="facilities-item"
-          >
+          <div *ngFor="let type of facilityTypes; let i = index" class="facilities-item">
             <div class="facilities-item-content">
               <span class="font-weight-bold">{{ type.type }}</span>
               <span *ngFor="let facility of type.facilities; let j = index">
-                <svg
-                  class="bk-icon -streamline-checkmark facilities-margin"
-                  height="14"
-                  width="14"
-                  viewBox="0 0 128 128"
-                  role="presentation"
-                  aria-hidden="true"
-                  focusable="false"
-                >
+                <svg class="bk-icon -streamline-checkmark facilities-margin" height="14" width="14"
+                  viewBox="0 0 128 128" role="presentation" aria-hidden="true" focusable="false">
                   <path
-                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z"
-                  ></path>
+                    d="M56.33 100a4 4 0 0 1-2.82-1.16L20.68 66.12a4 4 0 1 1 5.64-5.65l29.57 29.46 45.42-60.33a4 4 0 1 1 6.38 4.8l-48.17 64a4 4 0 0 1-2.91 1.6z">
+                  </path>
                 </svg>
                 <span>{{ facility.text }}</span>
               </span>
@@ -405,17 +272,10 @@
           </div>
         </div>
       </div>
-      <div
-        *ngIf="ruleTypes.length != 0"
-        class="housingRules-main"
-        id="targetHouserules"
-      >
+      <div *ngIf="ruleTypes.length != 0" class="housingRules-main" id="targetHouserules">
         <h2>House rules</h2>
         <div class="housingRules-container">
-          <div
-            *ngFor="let type of ruleTypes; let i = index"
-            class="housingRules-item"
-          >
+          <div *ngFor="let type of ruleTypes; let i = index" class="housingRules-item">
             <span class="font-weight-bold">{{ type.type }}</span>
             <span *ngFor="let rule of type.suggestionRules; let j = index">
               <span>{{ rule.text }}</span>
@@ -439,40 +299,25 @@
         </div>
         <div class="review-card-avatar-block-text">
           <span *ngIf="mathHelper.Round10(grade) >= 9.7">Exceptional</span>
-          <span
-            *ngIf="
+          <span *ngIf="
               mathHelper.Round10(grade) >= 9.0 &&
               mathHelper.Round10(grade) < 9.7
-            "
-            >Wonderful</span
-          >
-          <span
-            *ngIf="
+            ">Wonderful</span>
+          <span *ngIf="
               mathHelper.Round10(grade) >= 8.7 &&
               mathHelper.Round10(grade) < 9.0
-            "
-            >Excellent</span
-          >
-          <span
-            *ngIf="
+            ">Excellent</span>
+          <span *ngIf="
               mathHelper.Round10(grade) >= 8.2 &&
               mathHelper.Round10(grade) < 8.7
-            "
-            >Very Good</span
-          >
-          <span
-            *ngIf="
+            ">Very Good</span>
+          <span *ngIf="
               mathHelper.Round10(grade) > 7.6 && mathHelper.Round10(grade) < 8.2
-            "
-            >Good</span
-          >
-          <span
-            *ngIf="
+            ">Good</span>
+          <span *ngIf="
               mathHelper.Round10(grade) >= 7.0 &&
               mathHelper.Round10(grade) < 7.7
-            "
-            >Normal</span
-          >
+            ">Normal</span>
           <span *ngIf="grade == 0"> Unrated </span>
           <span class="text-block-subtitles">
             <span>{{ reviewsAmount }} reviews</span>
@@ -480,39 +325,22 @@
         </div>
       </div>
     </div>
-    <button
-      class="button-yellow"
-      (click)="openVerticallyCentered(content)"
-      (click)="modal.dismiss()"
-    >
+    <button class="button-yellow" (click)="openVerticallyCentered(content)" (click)="modal.dismiss()">
       Write review
     </button>
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close"
-      (click)="resetReviewsData()"
-      (click)="modal.dismiss('Cross click')"
-    ></button>
+    <button type="button" class="btn-close" aria-label="Close" (click)="resetReviewsData()"
+      (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body">
     <div class="categories-main">
       <h5>Categories:</h5>
       <div class="categories-container">
-        <div
-          *ngFor="let category of reviewCategories; let i = index"
-          class="categories-item"
-        >
+        <div *ngFor="let category of reviewCategories; let i = index" class="categories-item">
           <span>{{ category.category }}</span>
           <div class="progress">
-            <div
-              class="progress-bar"
-              role="progressbar"
-              style="width: {{ mathHelper.Round10(categoryGrades[i]) * 10 }}%"
-              aria-valuenow="50"
-              aria-valuemin="0"
-              aria-valuemax="100"
-            >
+            <div class="progress-bar" role="progressbar"
+              style="width: {{ mathHelper.Round10(categoryGrades[i]) * 10 }}%" aria-valuenow="50" aria-valuemin="0"
+              aria-valuemax="100">
               {{ mathHelper.Round10(categoryGrades[i]) }}
             </div>
           </div>
@@ -524,23 +352,17 @@
         <div>
           <div class="review-card-left-avatar-block">
             <div class="review-card-avatar">
-              <img
-                *ngIf="review.authorImage"
-                src="{{ imageHelper.getRootDirectoryPath() }}{{
+              <img *ngIf="review.authorImage" src="{{ imageHelper.getRootDirectoryPath() }}{{
                   review.authorImage.path
-                }}"
-              />
+                }}" />
             </div>
             <div class="review-card-avatar-block-text">
               <span class="font-weight-bold">{{ review.author }}</span>
               <span class="text-block-subtitles">
                 <span class="avatar-block-flag">
-                  <img
-                    *ngIf="review.countryImage"
-                    src="{{ imageHelper.getRootDirectoryPath() }}{{
+                  <img *ngIf="review.countryImage" src="{{ imageHelper.getRootDirectoryPath() }}{{
                       review.countryImage.path
-                    }}"
-                  />
+                    }}" />
                 </span>
                 <span>{{ review.country }}</span>
               </span>
@@ -551,15 +373,13 @@
           <span>{{ review.apartments[0].name }}</span>
         </div>
         <div>
-          <span *ngIf="review.nights == 1">{{ review.nights }} night </span
-          ><span *ngIf="review.nights > 1">{{ review.nights }} nights </span>
-          <span>· {{ review.checkIn }} </span
-          ><span>- {{ review.checkOut }} </span>
+          <span *ngIf="review.nights == 1">{{ review.nights }} night </span><span *ngIf="review.nights > 1">{{
+            review.nights }} nights </span>
+          <span>· {{ review.checkIn }} </span><span>- {{ review.checkOut }} </span>
         </div>
         <div>
-          <span>{{ review.guestsAmount }} </span
-          ><span *ngIf="review.guestsAmount == 1">guest</span
-          ><span *ngIf="review.guestsAmount > 1">guests</span>
+          <span>{{ review.guestsAmount }} </span><span *ngIf="review.guestsAmount == 1">guest</span><span
+            *ngIf="review.guestsAmount > 1">guests</span>
         </div>
       </div>
       <div class="review-card-right">
@@ -584,85 +404,44 @@
         </div>
         <div class="like-reviews" *ngIf="authHelper.isLogged()">
           <a class="button-cursor" (click)="likeComment(review.id, i)">
-            <svg
-              class="bk-icon -iconset-thumbs_up"
-              fill="#0071C2"
-              height="14"
-              width="14"
-              viewBox="0 0 128 128"
-              role="presentation"
-              aria-hidden="true"
-              focusable="false"
-            >
+            <svg class="bk-icon -iconset-thumbs_up" fill="#0071C2" height="14" width="14" viewBox="0 0 128 128"
+              role="presentation" aria-hidden="true" focusable="false">
               <path
-                d="M8 76a12 12 0 0 1 3.6-8.6A12 12 0 0 1 21 48h35.9L49 28a15.2 15.2 0 0 1-1-4 8 8 0 0 1 15-4l17 36v56H30a12 12 0 0 1-12-10.7 12 12 0 0 1-6.6-17A12 12 0 0 1 8 76zm112-20H88v56h32z"
-              ></path>
+                d="M8 76a12 12 0 0 1 3.6-8.6A12 12 0 0 1 21 48h35.9L49 28a15.2 15.2 0 0 1-1-4 8 8 0 0 1 15-4l17 36v56H30a12 12 0 0 1-12-10.7 12 12 0 0 1-6.6-17A12 12 0 0 1 8 76zm112-20H88v56h32z">
+              </path>
             </svg>
-            Helpful {{ review.likes }}</a
-          >
+            Helpful {{ review.likes }}</a>
           <a class="button-cursor" (click)="dislikeComment(review.id, i)">
-            <svg
-              class="bk-icon -iconset-thumbs_down"
-              fill="#0071C2"
-              height="14"
-              width="14"
-              viewBox="0 0 128 128"
-              role="presentation"
-              aria-hidden="true"
-              focusable="false"
-            >
+            <svg class="bk-icon -iconset-thumbs_down" fill="#0071C2" height="14" width="14" viewBox="0 0 128 128"
+              role="presentation" aria-hidden="true" focusable="false">
               <path
-                d="M11.4 43.6a12 12 0 0 1 6.7-17A12 12 0 0 1 30 16h50v56l-17 36a8 8 0 0 1-15-4 15.2 15.2 0 0 1 1-4l7.9-20H21a12 12 0 0 1-9.4-19.4 12 12 0 0 1-.2-17zM120 16H88v56h32z"
-              ></path>
+                d="M11.4 43.6a12 12 0 0 1 6.7-17A12 12 0 0 1 30 16h50v56l-17 36a8 8 0 0 1-15-4 15.2 15.2 0 0 1 1-4l7.9-20H21a12 12 0 0 1-9.4-19.4 12 12 0 0 1-.2-17zM120 16H88v56h32z">
+              </path>
             </svg>
-            Not helpful {{ review.dislikes }}</a
-          >
+            Not helpful {{ review.dislikes }}</a>
         </div>
         <div class="like-reviews" *ngIf="!authHelper.isLogged()">
-          <span
-            ><svg
-              class="bk-icon -iconset-thumbs_up"
-              fill="#0071C2"
-              height="14"
-              width="14"
-              viewBox="0 0 128 128"
-              role="presentation"
-              aria-hidden="true"
-              focusable="false"
-            >
+          <span><svg class="bk-icon -iconset-thumbs_up" fill="#0071C2" height="14" width="14" viewBox="0 0 128 128"
+              role="presentation" aria-hidden="true" focusable="false">
               <path
-                d="M8 76a12 12 0 0 1 3.6-8.6A12 12 0 0 1 21 48h35.9L49 28a15.2 15.2 0 0 1-1-4 8 8 0 0 1 15-4l17 36v56H30a12 12 0 0 1-12-10.7 12 12 0 0 1-6.6-17A12 12 0 0 1 8 76zm112-20H88v56h32z"
-              ></path>
+                d="M8 76a12 12 0 0 1 3.6-8.6A12 12 0 0 1 21 48h35.9L49 28a15.2 15.2 0 0 1-1-4 8 8 0 0 1 15-4l17 36v56H30a12 12 0 0 1-12-10.7 12 12 0 0 1-6.6-17A12 12 0 0 1 8 76zm112-20H88v56h32z">
+              </path>
             </svg>
-            {{ review.likes }}</span
-          >
+            {{ review.likes }}</span>
           <span>
-            <svg
-              class="bk-icon -iconset-thumbs_down"
-              fill="#0071C2"
-              height="14"
-              width="14"
-              viewBox="0 0 128 128"
-              role="presentation"
-              aria-hidden="true"
-              focusable="false"
-            >
+            <svg class="bk-icon -iconset-thumbs_down" fill="#0071C2" height="14" width="14" viewBox="0 0 128 128"
+              role="presentation" aria-hidden="true" focusable="false">
               <path
-                d="M11.4 43.6a12 12 0 0 1 6.7-17A12 12 0 0 1 30 16h50v56l-17 36a8 8 0 0 1-15-4 15.2 15.2 0 0 1 1-4l7.9-20H21a12 12 0 0 1-9.4-19.4 12 12 0 0 1-.2-17zM120 16H88v56h32z"
-              ></path>
+                d="M11.4 43.6a12 12 0 0 1 6.7-17A12 12 0 0 1 30 16h50v56l-17 36a8 8 0 0 1-15-4 15.2 15.2 0 0 1 1-4l7.9-20H21a12 12 0 0 1-9.4-19.4 12 12 0 0 1-.2-17zM120 16H88v56h32z">
+              </path>
             </svg>
-            {{ review.dislikes }}</span
-          >
+            {{ review.dislikes }}</span>
         </div>
       </div>
     </div>
     <div *ngIf="reviewsAmount > 10 * page" class="load-more-review-cards">
       <div class="d-grid gap-2 col-6 mx-auto">
-        <button
-          class="btn btn-outline-primary"
-          type="button"
-          (click)="loadMoreReviews()"
-        >
+        <button class="btn btn-outline-primary" type="button" (click)="loadMoreReviews()">
           Load more
         </button>
       </div>
@@ -679,32 +458,17 @@
         PIN
       </h6>
     </div>
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close"
-      (click)="modal.dismiss('Cross click')"
-    ></button>
+    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body" *ngIf="isOwnerVerified == false">
     <div class="write-review-container">
       <div class="write-review-item">
         <label for="booking-number">Booking number</label>
-        <input
-          class="select-write-review"
-          type="text"
-          name="bookingNumber"
-          [(ngModel)]="bookingNumber"
-        />
+        <input class="select-write-review" type="text" name="bookingNumber" [(ngModel)]="bookingNumber" />
       </div>
       <div class="write-review-item">
         <label for="pin">PIN</label>
-        <input
-          class="select-write-review"
-          type="text"
-          name="bookingPin"
-          [(ngModel)]="bookingPin"
-        />
+        <input class="select-write-review" type="text" name="bookingPin" [(ngModel)]="bookingPin" />
       </div>
       <div class="write-review-item">
         <button class="button-yellow1" (click)="rateStay()">
@@ -727,24 +491,14 @@
         PIN
       </h6>
     </div>
-    <button
-      type="button"
-      class="btn-close"
-      aria-label="Close"
-      (click)="resetData()"
-      (click)="modal.dismiss('Cross click')"
-    ></button>
+    <button type="button" class="btn-close" aria-label="Close" (click)="resetData()"
+      (click)="modal.dismiss('Cross click')"></button>
   </div>
   <div class="modal-body" *ngIf="isOwnerVerified == true">
     <div class="write-review-container">
       <div class="write-review-item">
         <label for="staff">Staff rating</label>
-        <select
-          class="select-write-review"
-          name="staff"
-          id="staff"
-          [(ngModel)]="reviewCategoryGrades[0]"
-        >
+        <select class="select-write-review" name="staff" id="staff" [(ngModel)]="reviewCategoryGrades[0]">
           <option value="-1" disabled selected>
             Please select your rating value from 1 - 10
           </option>
@@ -762,12 +516,7 @@
       </div>
       <div class="write-review-item">
         <label for="facilities">Facilities rating</label>
-        <select
-          name="facilities"
-          id="facilities"
-          [(ngModel)]="reviewCategoryGrades[1]"
-          class="select-write-review"
-        >
+        <select name="facilities" id="facilities" [(ngModel)]="reviewCategoryGrades[1]" class="select-write-review">
           <option value="-1" disabled selected>
             Please select your rating value from 1 - 10
           </option>
@@ -785,12 +534,7 @@
       </div>
       <div class="write-review-item">
         <label for="cleanliness">Cleanliness</label>
-        <select
-          name="cleanliness"
-          id="cleanliness"
-          [(ngModel)]="reviewCategoryGrades[2]"
-          class="select-write-review"
-        >
+        <select name="cleanliness" id="cleanliness" [(ngModel)]="reviewCategoryGrades[2]" class="select-write-review">
           <option value="-1" disabled selected>
             Please select your rating value from 1 - 10
           </option>
@@ -808,12 +552,7 @@
       </div>
       <div class="write-review-item">
         <label for="comfort">Comfort rating</label>
-        <select
-          name="comfort"
-          id="comfort"
-          [(ngModel)]="reviewCategoryGrades[3]"
-          class="select-write-review"
-        >
+        <select name="comfort" id="comfort" [(ngModel)]="reviewCategoryGrades[3]" class="select-write-review">
           <option value="-1" disabled selected>
             Please select your rating value from 1 - 10
           </option>
@@ -831,12 +570,7 @@
       </div>
       <div class="write-review-item">
         <label for="location">Location rating</label>
-        <select
-          name="location"
-          id="location"
-          [(ngModel)]="reviewCategoryGrades[4]"
-          class="select-write-review"
-        >
+        <select name="location" id="location" [(ngModel)]="reviewCategoryGrades[4]" class="select-write-review">
           <option value="-1" disabled selected>
             Please select your rating value from 1 - 10
           </option>
@@ -854,12 +588,7 @@
       </div>
       <div class="write-review-item">
         <label for="cityview">City view rating</label>
-        <select
-          name="cityview"
-          id="cityview"
-          [(ngModel)]="reviewCategoryGrades[5]"
-          class="select-write-review"
-        >
+        <select name="cityview" id="cityview" [(ngModel)]="reviewCategoryGrades[5]" class="select-write-review">
           <option value="-1" disabled selected>
             Please select your rating value from 1 - 10
           </option>
@@ -877,32 +606,17 @@
       </div>
       <div class="write-review-item">
         <label for="title">Title</label>
-        <input
-          class="select-write-review"
-          type="text"
-          name="title"
-          [(ngModel)]="title"
-        />
+        <input class="select-write-review" type="text" name="title" [(ngModel)]="title" />
       </div>
       <div class="write-review-item">
         <label for="positiveSide">Positive side</label>
-        <textarea
-          name="positiveSide"
-          cols="30"
-          rows="10"
-          [(ngModel)]="positiveSide"
-          class="select-write-review"
-        ></textarea>
+        <textarea name="positiveSide" cols="30" rows="10" [(ngModel)]="positiveSide"
+          class="select-write-review"></textarea>
       </div>
       <div class="write-review-item">
         <label for="negativeSide">Negative side</label>
-        <textarea
-          name="negativeSide"
-          cols="30"
-          rows="10"
-          [(ngModel)]="negativeSide"
-          class="select-write-review"
-        ></textarea>
+        <textarea name="negativeSide" cols="30" rows="10" [(ngModel)]="negativeSide"
+          class="select-write-review"></textarea>
       </div>
     </div>
   </div>

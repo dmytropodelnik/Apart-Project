@@ -321,14 +321,24 @@ export class StaySuggestionPageComponent implements OnInit {
     let hours = minutes / 60;
 
     this.diffDays = hours / 24;
-    this.bookingDetailsService.setChosenDates(dateIn.toDateString(), dateOut.toDateString());
+    this.bookingDetailsService.setChosenDates(
+      dateIn.toDateString(),
+      dateOut.toDateString()
+    );
     this.bookingDetailsService.setChosenApartmentsAndSuggestion(
       this.chosenFinalApartments,
       this.suggestion,
       this.grade,
       this.diffDays
     );
-    BookingHelper.saveBookingData(this.suggestion, this.chosenFinalApartments, this.grade, this.diffDays, dateIn, dateOut);
+    BookingHelper.saveBookingData(
+      this.suggestion,
+      this.chosenFinalApartments,
+      this.grade,
+      this.diffDays,
+      dateIn,
+      dateOut
+    );
     this.router.navigate(['/fillinguserdetails']);
   }
 
