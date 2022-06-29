@@ -1,3 +1,6 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <app-header></app-header>
 <div class="xpi__content__wrapper xpi__content__wrappergray">
   <div class="xpi__content__container">

@@ -1,3 +1,6 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <!-- <p>
   Этот компонент позволяет ввести информацию о людях, которые будут проживать в арендованном жилье.
   Пример как это должно выглядеть: https://prnt.sc/rcwGp-vx-D9r

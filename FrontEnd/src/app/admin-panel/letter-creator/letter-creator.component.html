@@ -1,3 +1,6 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <h4 class="mb-3 text-center mt-3">Mailing creator</h4>
 
 <div class="form-check">

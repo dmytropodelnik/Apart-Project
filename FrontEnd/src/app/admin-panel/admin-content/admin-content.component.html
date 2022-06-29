@@ -1,3 +1,6 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <div class="page-content">
   <div class="container-fluid">
 

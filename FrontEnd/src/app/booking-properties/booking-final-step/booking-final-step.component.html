@@ -1,3 +1,6 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <!-- <p>
   Этот компонент позволяет ввести последние данные о пользователе и его заказе.
   Этот компонент идет после filling-user-details компонента.

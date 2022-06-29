@@ -1,4 +1,7 @@
 <body data-topbar="dark">
+  <ng-template #alert let-modal>
+    <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+  </ng-template>
   <!-- Begin page -->
   <div id="layout-wrapper">
     <header id="page-topbar">

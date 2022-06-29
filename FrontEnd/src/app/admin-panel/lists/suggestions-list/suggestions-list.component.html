@@ -1,5 +1,9 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <div class="input-group">
-  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+    aria-describedby="search-addon" />
   <button type="button" class="btn btn-dark">search</button>
 </div>
 
@@ -7,11 +11,13 @@
   <div class="btn-group" role="group" aria-label="Basic example">
     <!-- <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#add">Add</button> -->
     <!-- <button type="button" id="editButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit" disabled>Edit</button> -->
-    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete" disabled>Delete</button>
+    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete"
+      disabled>Delete</button>
   </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
+<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="addLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -29,7 +35,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="editLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -47,7 +54,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
+<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="deleteLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -58,7 +66,8 @@
         ...
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteSuggestion()">Delete</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+          (click)="deleteSuggestion()">Delete</button>
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Cancel</button>
       </div>
     </div>
@@ -91,8 +100,8 @@
     <tr *ngFor="let suggestion of suggestions">
       <th scope="row">
         <div class="form-check">
-          <input class="form-check-input" type="radio" name="suggestionRadio" id="suggestionRadio" value={{suggestion.id}}
-          (click)="setSuggestion(suggestion)" >
+          <input class="form-check-input" type="radio" name="suggestionRadio" id="suggestionRadio"
+            value={{suggestion.id}} (click)="setSuggestion(suggestion)">
         </div>
       </th>
       <td>{{suggestion.id}}</td>
@@ -106,7 +115,8 @@
       <td>{{suggestion.priceInUserCurrency}}</td>
       <td>{{suggestion.priceInUSD}}</td>
       <td>{{suggestion.isParkingAvailable}}</td>
-      <td>{{suggestion.contactDetails?.firstName + ' '+ suggestion.contactDetails?.lastName + ', ' + suggestion.contactDetails?.phoneNumber + ', ' + suggestion.contactDetails?.email}}</td>
+      <td>{{suggestion.contactDetails?.firstName + ' '+ suggestion.contactDetails?.lastName + ', ' +
+        suggestion.contactDetails?.phoneNumber + ', ' + suggestion.contactDetails?.email}}</td>
       <td>{{suggestion.address?.city?.title + ", " + suggestion.address?.country?.title}}</td>
       <td>{{suggestion.user?.email}}</td>
       <td>{{suggestion.serviceCategory?.category}}</td>
@@ -115,4 +125,3 @@
   </tbody>
 </table>
 <button class="btn btn-dark" (click)="loadMore()">Load more</button>
-

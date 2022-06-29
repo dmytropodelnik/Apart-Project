@@ -1,14 +1,19 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <div class="input-group">
-  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"
-         [(ngModel)]="searchGender" />
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+    aria-describedby="search-addon" [(ngModel)]="searchGender" />
   <button type="button" class="btn btn-dark" (click)="search()">search</button>
 </div>
 
 <div class="row">
   <div class="btn-group" role="group" aria-label="Basic example">
     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#add">Add</button>
-    <button type="button" id="editButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit" disabled>Edit</button>
-    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete" disabled>Delete</button>
+    <button type="button" id="editButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit"
+      disabled>Edit</button>
+    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete"
+      disabled>Delete</button>
   </div>
 </div>
 <script>
@@ -16,7 +21,8 @@
 </script>
 
 <!-- Modal -->
-<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
+<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="addLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -27,7 +33,8 @@
         <form>
           <div class="mb-3">
             <label for="newRole" class="form-label">New gender</label>
-            <input type="text" class="form-control" id="newLang" aria-describedby="emailHelp" name="gender" [(ngModel)]="gender">
+            <input type="text" class="form-control" id="newLang" aria-describedby="emailHelp" name="gender"
+              [(ngModel)]="gender">
           </div>
         </form>
       </div>
@@ -39,7 +46,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="editLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -50,7 +58,8 @@
         <form>
           <div class="mb-3">
             <label for="editRole" class="form-label">Gender</label>
-            <input type="text" class="form-control" id="editGender" aria-describedby="emailHelp" name="role" [(ngModel)]="gender">
+            <input type="text" class="form-control" id="editGender" aria-describedby="emailHelp" name="role"
+              [(ngModel)]="gender">
           </div>
         </form>
       </div>
@@ -62,7 +71,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
+<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="deleteLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -73,8 +83,8 @@
         <form>
           <div class="mb-3">
             <label for="deleteRole" class="form-label">Gender</label>
-            <input type="text" class="form-control" id="deleteGender" aria-describedby="emailHelp" name="gender" [(ngModel)]="gender"
-                   readonly />
+            <input type="text" class="form-control" id="deleteGender" aria-describedby="emailHelp" name="gender"
+              [(ngModel)]="gender" readonly />
           </div>
         </form>
       </div>
@@ -99,7 +109,7 @@
       <th scope="row">
         <div class="form-check">
           <input class="form-check-input" type="radio" name="langRadio" id="langRadio" value={{gender.id}}
-                 (click)="setGender(gender.id, gender.title)" >
+            (click)="setGender(gender.id, gender.title)">
         </div>
       </th>
       <td>{{gender.id}}</td>
@@ -107,4 +117,3 @@
     </tr>
   </tbody>
 </table>
-

@@ -1,4 +1,7 @@
 <body>
+  <ng-template #alert let-modal>
+    <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+  </ng-template>
   <app-header></app-header>
   <div class="basiclayout">
     <div class="right">

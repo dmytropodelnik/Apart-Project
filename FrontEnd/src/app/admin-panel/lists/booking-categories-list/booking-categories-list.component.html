@@ -1,19 +1,25 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <div class="input-group">
-  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"
-         [(ngModel)]="searchCategory" />
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+    aria-describedby="search-addon" [(ngModel)]="searchCategory" />
   <button type="button" class="btn btn-dark" (click)="search()">search</button>
 </div>
 
 <div class="row">
   <div class="btn-group" role="group" aria-label="Basic example">
     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#add">Add</button>
-    <button type="button" id="editButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit" disabled>Edit</button>
-    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete" disabled>Delete</button>
+    <button type="button" id="editButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit"
+      disabled>Edit</button>
+    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete"
+      disabled>Delete</button>
   </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
+<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="addLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -24,8 +30,8 @@
         <form>
           <div class="mb-3">
             <label for="addCategory" class="form-label"></label>
-            <input type="text" class="form-control" id="addCategory" name="category.category" [(ngModel)]="category.category"
-                   />
+            <input type="text" class="form-control" id="addCategory" name="category.category"
+              [(ngModel)]="category.category" />
           </div>
         </form>
       </div>
@@ -37,7 +43,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="editLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -48,8 +55,8 @@
         <form>
           <div class="mb-3">
             <label for="editCategory" class="form-label"></label>
-            <input type="text" class="form-control" id="editCategory" name="category.category" [(ngModel)]="category.category"
-                  />
+            <input type="text" class="form-control" id="editCategory" name="category.category"
+              [(ngModel)]="category.category" />
           </div>
         </form>
       </div>
@@ -61,7 +68,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
+<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="deleteLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -72,8 +80,8 @@
         <form>
           <div class="mb-3">
             <label for="deleteCategory" class="form-label"></label>
-            <input type="text" class="form-control" id="deleteCategory" name="category.category" [(ngModel)]="category.category"
-                   readonly />
+            <input type="text" class="form-control" id="deleteCategory" name="category.category"
+              [(ngModel)]="category.category" readonly />
           </div>
         </form>
       </div>
@@ -97,7 +105,7 @@
       <th scope="row">
         <div class="form-check">
           <input class="form-check-input" type="radio" name="categoryRadio" id="categoryRadio" value={{category.id}}
-                 (click)="setCategory(category)" >
+            (click)="setCategory(category)">
         </div>
       </th>
       <td>{{category.id}}</td>

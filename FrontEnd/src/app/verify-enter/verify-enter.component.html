@@ -1,1 +1,3 @@
-<p>Your have been successfully entered.</p>
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>

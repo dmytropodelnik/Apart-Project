@@ -1,3 +1,6 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <div class="emk_footer_update emk_footer_centered emk_footer_update_space">
   <div class="footerconstraint-inner">
     <div class="emk_footer_banner_block">

@@ -12,7 +12,9 @@
     </div>
   </div>
 </div> -->
-
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <div class="xpi__content__wrapper xpi__content__wrappergray">
   <div class="xpi__content__container">
     <div class="xpi__searchbox js-ds-layout-events-search-form">
