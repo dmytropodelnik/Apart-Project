@@ -312,8 +312,6 @@ export class AuthComponent implements OnInit {
               this.image = (response as any).picture.data.url;
               this.authService.setUserImage(this.image);
 
-              console.log(response);
-
               fetch(
                 'https://localhost:44381/api/users/userexistsbysocial?email=' +
                   this.email,
