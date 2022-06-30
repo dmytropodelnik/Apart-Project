@@ -1,19 +1,25 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <div class="input-group">
-  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"
-         [(ngModel)]="searchUser" />
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+    aria-describedby="search-addon" [(ngModel)]="searchUser" />
   <button type="button" class="btn btn-dark" (click)="search()">search</button>
 </div>
 
 <div class="row">
   <div class="btn-group" role="group" aria-label="Basic example">
     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#add">Add</button>
-    <button type="button" id="editButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit" disabled>Edit</button>
-    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete" disabled>Delete</button>
+    <button type="button" id="editButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit"
+      disabled>Edit</button>
+    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete"
+      disabled>Delete</button>
   </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
+<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="addLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -27,10 +33,12 @@
             <input type="email" class="form-control" id="newEmail" name="user.email" [(ngModel)]="user.email">
 
             <label for="newPass" class="form-label">Password</label>
-            <input type="password" class="form-control" id="newPass" name="user.passwordHash" [(ngModel)]="user.passwordHash">
+            <input type="password" class="form-control" id="newPass" name="user.passwordHash"
+              [(ngModel)]="user.passwordHash">
 
             <label for="newConfirmPass" class="form-label">Confirm password</label>
-            <input type="password" class="form-control" id="newConfirmPass" name="confirmPass" [(ngModel)]="confirmPass">
+            <input type="password" class="form-control" id="newConfirmPass" name="confirmPass"
+              [(ngModel)]="confirmPass">
 
             <label for="newRole" class="form-label">Role</label>
             <select id="newRole" class="form-select userRoles" name="user.role.id" [(ngModel)]="user.role.id"></select>
@@ -46,7 +54,8 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="editLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -79,7 +88,8 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
+<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="deleteLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -90,13 +100,15 @@
         <form>
           <div class="mb-3">
             <label for="deleteFirstName" class="form-label">First name</label>
-            <input class="form-control" id="deleteFirstName" name="user.firstName" [(ngModel)]="user.firstName" readonly />
+            <input class="form-control" id="deleteFirstName" name="user.firstName" [(ngModel)]="user.firstName"
+              readonly />
 
             <label for="deleteLastName" class="form-label">Last name</label>
             <input class="form-control" id="deleteLastName" name="user.lastName" [(ngModel)]="user.lastName" readonly />
 
             <label for="deleteDisplayName" class="form-label">Display name</label>
-            <input class="form-control" id="deleteDisplayName" name="user.displayName" [(ngModel)]="user.displayName" readonly />
+            <input class="form-control" id="deleteDisplayName" name="user.displayName" [(ngModel)]="user.displayName"
+              readonly />
 
             <label for="deleteRole" class="form-label">Role</label>
             <input class="form-control" id="deleteRole" name="user.role.id" [(ngModel)]="user.role.id" readonly />
@@ -131,7 +143,7 @@
       <th scope="row">
         <div class="form-check">
           <input class="form-check-input" type="radio" name="userRadio" id="userRadio" value={{user.id}}
-          (click)="setUser(user)" >
+            (click)="setUser(user)">
         </div>
       </th>
       <td>{{user.id}}</td>

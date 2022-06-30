@@ -1,4 +1,5 @@
-﻿using CloneBookingAPI.Services.Database;
+﻿using CloneBookingAPI.Enums;
+using CloneBookingAPI.Services.Database;
 using CloneBookingAPI.Services.Database.Models;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using Microsoft.AspNetCore.Hosting;
@@ -17,9 +18,10 @@ namespace CloneBookingAPI.Services.Files
     {
         private readonly ApartProjectDbContext _context;
         private readonly IWebHostEnvironment _appEnvironment;
+        private readonly IConfiguration _configuration;
         private readonly SHA256 sha256 = SHA256.Create();
 
-        private readonly string _storagePath = default;
+        private string _storagePath = default;
 
         public FileUploader(
             ApartProjectDbContext context, 
@@ -28,11 +30,10 @@ namespace CloneBookingAPI.Services.Files
         {
             _context = context;
             _appEnvironment = appEnvironment;
-
-            _storagePath = configuration["StoragePaths:RootFiles"];
+            _configuration = configuration;
         }
 
-        public async Task<bool> UploadSuggestionPhotoAsync(IFormFile[] uploadedFiles, Suggestion suggestion)
+        public async Task<bool> UploadSuggestionPhotoAsync(IFormFile[] uploadedFiles, Suggestion suggestion, PathsEnum storePath)
         {
             try
             {
@@ -41,6 +42,8 @@ namespace CloneBookingAPI.Services.Files
                 {
                     return false;
                 }
+
+                ChooseCorrectPath(storePath);
 
                 foreach (var item in uploadedFiles)
                 {
@@ -95,5 +98,21 @@ namespace CloneBookingAPI.Services.Files
                 return false;
             }
         }
+
+        private string ChooseCorrectPath(PathsEnum path) => path switch
+        {
+            PathsEnum.WwwRoot => _storagePath = _configuration["StoragePaths:WwwRoot"],
+            PathsEnum.RootFiles => _storagePath = _configuration["StoragePaths:RootFiles"],
+            PathsEnum.Cities => _storagePath = _configuration["StoragePaths:Location:Cities"],
+            PathsEnum.Countries => _storagePath = _configuration["StoragePaths:Location:Countries"],
+            PathsEnum.Regions => _storagePath = _configuration["StoragePaths:Location:Regions"],
+            PathsEnum.BookingCategories => _storagePath = _configuration["StoragePaths:Categories:BookingCategories"],
+            PathsEnum.StaySuggestions => _storagePath = _configuration["StoragePaths:Suggestions:StaySuggestions"],
+            PathsEnum.FlightSuggestions => _storagePath = _configuration["StoragePaths:Suggestions:FlightSuggestions"],
+            PathsEnum.CarRentalSuggestions => _storagePath = _configuration["StoragePaths:Suggestions:CarRentalSuggestions"],
+            PathsEnum.AttractionSuggestions => _storagePath = _configuration["StoragePaths:Suggestions:AttractionSuggestions"],
+            PathsEnum.AirportTaxiSuggestions => _storagePath = _configuration["StoragePaths:Suggestions:AirportTaxiSuggestions"],
+            _ => _storagePath = _configuration["StoragePaths:RootFiles"],
+        };
     }
 }

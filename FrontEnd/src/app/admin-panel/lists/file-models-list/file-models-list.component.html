@@ -1,18 +1,23 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <div class="input-group">
-  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"
-         [(ngModel)]="searchFile" />
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+    aria-describedby="search-addon" [(ngModel)]="searchFile" />
   <button type="button" class="btn btn-dark" (click)="search()">search</button>
 </div>
 
 <div class="row">
   <div class="btn-group" role="group" aria-label="Basic example">
     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#add">Add</button>
-    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete" disabled>Delete</button>
+    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete"
+      disabled>Delete</button>
   </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
+<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="addLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -21,8 +26,8 @@
       </div>
       <div class="modal-body">
         <label for="formFile" class="form-label">New file</label>
-        <input class="form-control form-control-sm" id="formFileSm" type="file"
-               name="uploadedFile" (change)="handleFileInput($any($event).target.files)"  />
+        <input class="form-control form-control-sm" id="formFileSm" type="file" name="uploadedFile"
+          (change)="handleFileInput($any($event).target.files)" />
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-dark" data-bs-dismiss="modal" (click)="uploadFile()">Save</button>
@@ -32,7 +37,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
+<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="deleteLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -43,11 +49,11 @@
         <form>
           <div class="mb-3">
             <label for="fileName" class="form-label">File name</label>
-            <input type="text" class="form-control" id="fileName" aria-describedby="emailHelp" name="role" [(ngModel)]="name"
-                   readonly />
+            <input type="text" class="form-control" id="fileName" aria-describedby="emailHelp" name="role"
+              [(ngModel)]="name" readonly />
             <label for="filePath" class="form-label">File path</label>
-            <input type="text" class="form-control" id="filePath" aria-describedby="emailHelp" name="path" [(ngModel)]="path"
-                   readonly />
+            <input type="text" class="form-control" id="filePath" aria-describedby="emailHelp" name="path"
+              [(ngModel)]="path" readonly />
           </div>
         </form>
       </div>
@@ -74,13 +80,14 @@
       <th scope="row">
         <div class="form-check">
           <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{file.id}}
-          (click)="setFile(file.id, file.name, file.path)" >
+            (click)="setFile(file.id, file.name, file.path)">
         </div>
       </th>
       <td>{{file.id}}</td>
       <td>{{file.name}}</td>
       <td>{{file.path}}</td>
-      <td class="text-center"><img width="70px" height="70px" src="{{imageHelper.getRootDirectoryPath()}}{{file.path}}" /></td>
+      <td class="text-center"><img width="70px" height="70px"
+          src="{{imageHelper.getRootDirectoryPath()}}{{file.path}}" /></td>
     </tr>
   </tbody>
 </table>

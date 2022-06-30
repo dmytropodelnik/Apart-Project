@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MainDataService } from '../services/main-data.service';
 
 import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
@@ -19,10 +20,13 @@ export class UserBookingsComponent implements OnInit {
   selectedBooking: number = 1;
   numberBooking: number = 0;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
-    private modalService: NgbModal,
     private router: Router,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {}
 
   openVerticallyCentered(content: any, id: number, number: number) {
@@ -33,8 +37,11 @@ export class UserBookingsComponent implements OnInit {
     this.numberBooking = number;
   }
 
-  payBooking(): void {
+  payBooking(): void {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   getUserBooking(): void {
@@ -54,11 +61,11 @@ export class UserBookingsComponent implements OnInit {
         if (response.code === 200) {
           this.bookings = response.stayBookings;
         } else {
-          alert(response.message);
+          this.showAlert(response.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -79,14 +86,13 @@ export class UserBookingsComponent implements OnInit {
         if (response.code === 200) {
           this.getUserBooking();
         } else {
-          alert(response.message);
+          this.showAlert(response.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
-
 
   ngOnInit(): void {
     if (!AuthHelper.isLogged()) {

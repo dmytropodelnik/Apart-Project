@@ -1,4 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -21,7 +27,8 @@ import { Language } from '../models/language.item';
 import { BedType } from '../models/Suggestions/bedtype.item';
 import { Favorite } from '../models/UserData/favorite.item';
 import { Subscription } from 'rxjs';
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
+import { MainDataService } from '../services/main-data.service';
 
 @Component({
   selector: 'app-search-results',
@@ -80,12 +87,26 @@ export class SearchResultsComponent implements OnInit {
     day: this.current.getDate(),
   };
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {
     this.suggestionsAmountWithFilters.fill(0);
   }
 
   model: any;
   model1: any;
+
+  openVerticallyCentered(content: any) {
+    this.modalService.open(content, {
+      centered: true,
+      size: 'sm',
+    });
+  }
 
   setChildren(value: number): void {
     if (this.filters.searchChildrenAmount + value < 0) {
@@ -93,6 +114,11 @@ export class SearchResultsComponent implements OnInit {
     }
     this.filters.searchChildrenAmount =
       +this.filters.searchChildrenAmount + +value;
+  }
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   setAdults(value: number): void {
@@ -184,7 +210,6 @@ export class SearchResultsComponent implements OnInit {
 
   sortItems(value: SortState = this.sortState.TopReviewed): void {
     this.filters.sortOrder = value;
-    // this.filters.suggestions = this.resSuggestions;
     this.filters.pageSize = 25;
     this.filters.filters = this.filterChecks;
     this.filters.guestsAmount =
@@ -211,12 +236,15 @@ export class SearchResultsComponent implements OnInit {
           this.suggestionsAmount = data.suggestionsAmount;
           this.suggestionStartsFrom = data.suggestionStartsFrom;
           this.suggestionGrades = data.suggestionGrades;
+          this.modalService.dismissAll();
         } else {
-          alert('Suggestions sort fetching error!');
+          this.mainDataService.alertContent =
+            'Suggestions sort fetching error!';
+          this.modalService.open(this.alert);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -229,11 +257,13 @@ export class SearchResultsComponent implements OnInit {
         if (data.code === 200) {
           this.bookingCategories = data.categories;
         } else {
-          alert('Booking categories fetching error!');
+          this.mainDataService.alertContent =
+            'Booking categories fetching error!';
+          this.modalService.open(this.alert);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -246,11 +276,11 @@ export class SearchResultsComponent implements OnInit {
         if (data.code === 200) {
           this.facilities = data.facilities;
         } else {
-          alert('Facilities fetching error!');
+          this.showAlert('Facilities fetching error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -263,11 +293,11 @@ export class SearchResultsComponent implements OnInit {
         if (data.code === 200) {
           this.highlights = data.highlights;
         } else {
-          alert('Highlights fetching error!');
+          this.showAlert('Highlights fetching error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -280,11 +310,11 @@ export class SearchResultsComponent implements OnInit {
         if (data.code === 200) {
           this.staffLanguages = data.languages;
         } else {
-          alert('Staff languages fetching error!');
+          this.showAlert('Staff languages fetching error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -313,11 +343,11 @@ export class SearchResultsComponent implements OnInit {
         if (response.code === 200) {
           this.savedSuggestions.push(response.resSuggestion);
         } else {
-          alert('Adding suggestion to saved error!');
+          this.showAlert('Adding suggestion to saved error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -352,11 +382,11 @@ export class SearchResultsComponent implements OnInit {
             }
           });
         } else {
-          alert('User favorites fetching error!');
+          this.showAlert('User favorites fetching error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -378,11 +408,11 @@ export class SearchResultsComponent implements OnInit {
         if (response.code === 200) {
           this.savedSuggestions = response.favorites;
         } else {
-          alert('User favorites fetching error!');
+          this.showAlert('User favorites fetching error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 

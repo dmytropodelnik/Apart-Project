@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import AuthHelper from '../../../utils/authHelper';
 import ImageHelper from '../../../utils/imageHelper';
 
 import { AuthorizationService } from '../../../services/authorization.service';
 import { UserData } from 'src/app/view-models/userdata.item';
+import { MainDataService } from 'src/app/services/main-data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-preferences-list',
@@ -18,19 +20,36 @@ export class PreferencesListComponent implements OnInit {
   letterAction: boolean = false;
 
   tempValue: string = '';
-  letterMessage: string= '';
+  letterMessage: string = '';
 
   user: UserData = new UserData();
 
-  constructor(private authService: AuthorizationService) {}
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
+  constructor(
+    private authService: AuthorizationService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   setCondition(id: number): void {
     this.isEditing[id] = !this.isEditing[id];
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   sendInfoLetter(): void {
     fetch(
+<<<<<<< HEAD
       `https://apartmain.azurewebsites.net/api/notifications/sendnotification?email=${AuthHelper.getLogin()}&message=${this.letterMessage}&action=${this.letterAction}`,
+=======
+      `https://localhost:44381/api/notifications/sendnotification?email=${AuthHelper.getLogin()}&message=${
+        this.letterMessage
+      }&action=${this.letterAction}`,
+>>>>>>> backend
       {
         method: 'GET',
       }
@@ -39,11 +58,11 @@ export class PreferencesListComponent implements OnInit {
       .then(async (data) => {
         if (data.code === 200) {
         } else {
-          alert(data.message);
+          this.showAlert(data.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -66,11 +85,12 @@ export class PreferencesListComponent implements OnInit {
           if (response.code === 200) {
             this.user.hasMailing = true;
           } else {
-            alert('Add subscriber error!');
+            this.showAlert('Add subscriber error!');
           }
         })
         .catch((ex) => {
-          alert(ex);
+          this.mainDataService.alertContent = ex;
+          this.modalService.open(this.alert);
         });
     } else {
       fetch(
@@ -90,11 +110,12 @@ export class PreferencesListComponent implements OnInit {
           if (response.code === 200) {
             this.user.hasMailing = false;
           } else {
-            alert('Remove subscriber error!');
+            this.showAlert('Remove subscriber error!');
           }
         })
         .catch((ex) => {
-          alert(ex);
+          this.mainDataService.alertContent = ex;
+          this.modalService.open(this.alert);
         });
     }
   }
@@ -133,7 +154,7 @@ export class PreferencesListComponent implements OnInit {
 
   saveCurrency(id: number): void {
     if (!this.user.currency) {
-      alert("Select your currency!");
+      this.showAlert('Select your currency!');
       return;
     }
 
@@ -162,17 +183,17 @@ export class PreferencesListComponent implements OnInit {
           this.letterAction = false;
           this.sendInfoLetter();
         } else {
-          alert('Save currency error!');
+          this.showAlert('Save currency error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
   saveLanguage(id: number): void {
     if (this.user.language == '-1' || !this.user.language.match(/\d/)) {
-      alert("Select your language!");
+      this.showAlert('Select your language!');
       return;
     }
 
@@ -201,11 +222,11 @@ export class PreferencesListComponent implements OnInit {
           this.letterAction = false;
           this.sendInfoLetter();
         } else {
-          alert('Save language error!');
+          this.showAlert('Save language error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -234,11 +255,11 @@ export class PreferencesListComponent implements OnInit {
           this.user.currency = response.user?.profile?.currency.abbreviation;
           this.user.language = response.user?.profile?.language?.title;
         } else {
-          alert('Get current user error!');
+          this.showAlert('Get current user error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -262,11 +283,11 @@ export class PreferencesListComponent implements OnInit {
             currenciesSelect?.append(newOption);
           }
         } else {
-          alert('Get currencies error!');
+          this.showAlert('Get currencies error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -286,11 +307,11 @@ export class PreferencesListComponent implements OnInit {
             counter++;
           }
         } else {
-          alert('Get languages error!');
+          this.showAlert('Get languages error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 

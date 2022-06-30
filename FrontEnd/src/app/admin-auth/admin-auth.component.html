@@ -1,15 +1,12 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <div class="form-center">
   <form [formGroup]="loginForm" class="">
     <div class="form-group mb-3">
       <label class="form-label">Login</label>
-      <input
-        type="email"
-        formControlName="login"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': f.login.errors }"
-        name="login"
-        [(ngModel)]="login"
-      />
+      <input type="email" formControlName="login" class="form-control" [ngClass]="{ 'is-invalid': f.login.errors }"
+        name="login" [(ngModel)]="login" />
       <div *ngIf="f.login.errors" class="invalid-feedback">
         <div *ngIf="f.login.errors.required">Login is required</div>
         <div *ngIf="f.login.errors.minlength">
@@ -19,14 +16,8 @@
     </div>
     <div class="form-group mb-3">
       <label for="password" class="form-label">Password</label>
-      <input
-        type="password"
-        formControlName="password"
-        class="form-control"
-        [ngClass]="{ 'is-invalid': f.password.errors }"
-        name="password"
-        [(ngModel)]="password"
-      />
+      <input type="password" formControlName="password" class="form-control"
+        [ngClass]="{ 'is-invalid': f.password.errors }" name="password" [(ngModel)]="password" />
       <div *ngIf="f.password.errors" class="invalid-feedback">
         <div *ngIf="f.password.errors.required">Password is required</div>
         <div *ngIf="f.password.errors.minlength">
@@ -35,12 +26,7 @@
       </div>
     </div>
     <div>
-      <button
-        [disabled]="loginForm.invalid"
-        type="submit"
-        class="adminLogin"
-        (click)="loginAdmin()"
-      >
+      <button [disabled]="loginForm.invalid" type="submit" class="adminLogin" (click)="loginAdmin()">
         Submit
       </button>
     </div>

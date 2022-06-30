@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { User } from 'src/app/models/UserData/user.item';
 import { UserData } from 'src/app/view-models/userdata.item';
 
@@ -6,11 +6,12 @@ import AuthHelper from '../../../utils/authHelper';
 import ImageHelper from '../../../utils/imageHelper';
 
 import { AuthorizationService } from '../../../services/authorization.service';
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Country } from 'src/app/models/Location/country.item';
 import { City } from 'src/app/models/Location/city.item';
 import { ThrowStmt } from '@angular/compiler';
 import { FormControl, Validators } from '@angular/forms';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 @Component({
   selector: 'app-personal-details-list',
@@ -27,7 +28,7 @@ export class PersonalDetailsListComponent implements OnInit {
   letterAction: boolean = false;
 
   errorMessage: string = '';
-  letterMessage: string= '';
+  letterMessage: string = '';
 
   tempValue: string = '';
   tempLastName: string = '';
@@ -44,10 +45,21 @@ export class PersonalDetailsListComponent implements OnInit {
 
   check: boolean = false;
 
-  constructor(public authService: AuthorizationService) {}
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
+  constructor(
+    public authService: AuthorizationService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   setCondition(id: number): void {
     this.isEditing[id] = !this.isEditing[id];
+  }
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   editButtonClick(id: number, value: any): void {
@@ -62,7 +74,7 @@ export class PersonalDetailsListComponent implements OnInit {
       this.tempBirthDate = value;
     } else if (id == 6) {
       this.tempNationalityCheck = this.user.nationality;
-      this.user.nationality = "-1";
+      this.user.nationality = '-1';
     } else if (id == 8) {
       this.zipCode = this.user.zipCode;
       this.addressText = this.user.addressText;
@@ -83,7 +95,13 @@ export class PersonalDetailsListComponent implements OnInit {
 
   sendInfoLetter(): void {
     fetch(
+<<<<<<< HEAD
       `https://apartmain.azurewebsites.net/api/notifications/sendnotification?email=${AuthHelper.getLogin()}&message=${this.letterMessage}&action=${this.letterAction}`,
+=======
+      `https://localhost:44381/api/notifications/sendnotification?email=${AuthHelper.getLogin()}&message=${
+        this.letterMessage
+      }&action=${this.letterAction}`,
+>>>>>>> backend
       {
         method: 'GET',
       }
@@ -92,11 +110,11 @@ export class PersonalDetailsListComponent implements OnInit {
       .then(async (data) => {
         if (data.code === 200) {
         } else {
-          alert(data.message);
+          this.showAlert(data.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -217,11 +235,11 @@ export class PersonalDetailsListComponent implements OnInit {
           this.letterAction = false;
           this.sendInfoLetter();
         } else {
-          alert('Save title error!');
+          this.showAlert('Save title error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -271,11 +289,11 @@ export class PersonalDetailsListComponent implements OnInit {
           this.letterAction = false;
           this.sendInfoLetter();
         } else {
-          alert('Save name error!');
+          this.showAlert('Save name error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -314,11 +332,11 @@ export class PersonalDetailsListComponent implements OnInit {
           this.letterAction = false;
           this.sendInfoLetter();
         } else {
-          alert('Save display name error!');
+          this.showAlert('Save display name error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -366,18 +384,19 @@ export class PersonalDetailsListComponent implements OnInit {
                 this.saveButtonClick(id);
                 this.isEmailSent = true;
               } else {
-                alert('Error generating reset link');
+                this.showAlert('Error generating reset link');
               }
             })
             .catch((ex) => {
-              alert(ex);
+              this.mainDataService.alertContent = ex;
+              this.modalService.open(this.alert);
             });
         } else {
-          alert(data.message);
+          this.showAlert(data.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -420,11 +439,11 @@ export class PersonalDetailsListComponent implements OnInit {
           this.letterAction = false;
           this.sendInfoLetter();
         } else {
-          alert('Save phone number error!');
+          this.showAlert('Save phone number error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -465,20 +484,21 @@ export class PersonalDetailsListComponent implements OnInit {
             this.letterAction = false;
             this.sendInfoLetter();
           } else {
-            alert('Save birth date error!');
+            this.showAlert('Save birth date error!');
           }
         })
         .catch((ex) => {
-          alert(ex);
+          this.mainDataService.alertContent = ex;
+          this.modalService.open(this.alert);
         });
     } else {
-      alert('Choose a date');
+      this.showAlert('Choose a date');
     }
   }
 
   saveNationality(id: number): void {
     if (this.user.nationality == '-1') {
-      alert("Select your nationality!");
+      this.showAlert('Select your nationality!');
       return;
     }
 
@@ -507,17 +527,17 @@ export class PersonalDetailsListComponent implements OnInit {
           this.letterAction = false;
           this.sendInfoLetter();
         } else {
-          alert('Save nationality error!');
+          this.showAlert('Save nationality error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
   saveGender(id: number): void {
     if (this.user.genderId != 1 && this.user.genderId != 2) {
-      alert("Select your gender!");
+      this.showAlert('Select your gender!');
       return;
     }
 
@@ -546,11 +566,11 @@ export class PersonalDetailsListComponent implements OnInit {
           this.letterAction = false;
           this.sendInfoLetter();
         } else {
-          alert('Save gender error!');
+          this.showAlert('Save gender error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -606,11 +626,11 @@ export class PersonalDetailsListComponent implements OnInit {
           this.letterAction = false;
           this.sendInfoLetter();
         } else {
-          alert('Save address error!');
+          this.showAlert('Save address error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -662,11 +682,11 @@ export class PersonalDetailsListComponent implements OnInit {
           this.user.nationality = response.user.profile.nationality;
           this.user.genderId = response.user.profile.genderId;
         } else {
-          alert('Get current user error!');
+          this.showAlert('Get current user error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -694,11 +714,11 @@ export class PersonalDetailsListComponent implements OnInit {
             }
           }
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 

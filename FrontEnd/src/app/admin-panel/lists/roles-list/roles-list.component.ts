@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Role } from 'src/app/models/UserData/role.item';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -15,7 +17,17 @@ export class RolesListComponent implements OnInit {
   searchRole: string = '';
   checkedRole: number | null = null;
 
-  constructor() {}
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
+  constructor(
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
 
   search(): void {
     fetch('https://apartmain.azurewebsites.net/api/roles/search?role=' + this.searchRole, {
@@ -30,12 +42,12 @@ export class RolesListComponent implements OnInit {
         if (data.code === 200) {
           this.roles = data.roles;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchRole = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -58,12 +70,12 @@ export class RolesListComponent implements OnInit {
         if (data.code === 200) {
           this.getRoles();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.role = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -88,13 +100,12 @@ export class RolesListComponent implements OnInit {
           this.getRoles();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
-        console.log(data);
         this.role = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -119,13 +130,12 @@ export class RolesListComponent implements OnInit {
           this.getRoles();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
-        console.log(role);
         this.role = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -143,11 +153,11 @@ export class RolesListComponent implements OnInit {
         if (data.code === 200) {
           this.roles = data.roles;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 

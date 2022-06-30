@@ -1,5 +1,14 @@
-import { Component, OnInit, OnDestroy, HostListener } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  HostListener,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import { AuthorizationService } from '../../services/authorization.service';
 
@@ -8,18 +17,20 @@ import AuthHelper from '../../utils/authHelper';
 @Component({
   selector: 'app-admin-panel',
   templateUrl: './admin-panel.component.html',
-  styleUrls: ['./admin-panel.component.css']
+  styleUrls: ['./admin-panel.component.css'],
 })
 export class AdminPanelComponent implements OnInit, OnDestroy {
   currentYear: number = new Date().getFullYear();
   content: string | undefined;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private router: Router,
     private authService: AuthorizationService,
-  ) {
-
-  }
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   setContent(newContent: string) {
     this.content = newContent;
@@ -47,15 +58,20 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
           this.authService.setIsAdmin(false);
           AuthHelper.clearAuth();
 
-          alert("Success logout!");
-          document.location.href="https://www.apartstep.fun";
+          this.showAlert('Success logout');
+          document.location.href = 'https://www.apartstep.fun';
         } else {
-          alert("Logout error!");
+          this.showAlert('Logout error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
+  }
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   ngOnInit(): void {
@@ -69,5 +85,4 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
   async ngOnDestroy() {
     this.userSignOut();
   }
-
 }

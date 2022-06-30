@@ -1,11 +1,12 @@
-<header
-  class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs"
->
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
+<header class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs">
   <nav class="bui-header__bar">
     <div class="bui-header__main">
       <div class="bui-header__logo">
         <span>
-          <label class="robotoregular" routerLink="">Apart.com</label>
+          <label class="robotoregular" routerLink="">Apart.fun</label>
         </span>
       </div>
     </div>
@@ -14,11 +15,7 @@
       <div class="bui-group__item">
         <span class="bui-button__text">
           <div class="bui-avatar bui-avatar--small" aria-hidden="true">
-            <img
-              class="bui-avatar__image"
-              src="assets/images/us-flag.png"
-              alt=""
-            />
+            <img class="bui-avatar__image" src="assets/images/us-flag.png" alt="" />
           </div>
         </span>
       </div>
@@ -27,102 +24,60 @@
 </header>
 
 <body>
-  <main class="name-and-location-container">
+  <div class="name-and-location-container">
     <div *ngFor="let apartment of apartmentsAmount; let i = index">
       <div class="header-name-and-location">What's the name of your place?</div>
       <div class="Input-name-and-location">
         <div>
-          <span class="name-and-location-text">Apartment name</span>
-          <input
-            required
-            class="inputfield"
-            type="text"
-            name="{{ apartments[i].name }}"
-            [(ngModel)]="apartments[i].name"
-          />
+          <span class="name-and-location-text">Apartment name (3+ characters)</span>
+          <input required class="inputfield" type="text" name="{{ apartments[i].name }}"
+            [(ngModel)]="apartments[i].name" />
         </div>
         <div>
-          <span class="name-and-location-text">Apartment description</span>
-          <input
-            required
-            class="inputfield"
-            type="text"
-            name="{{ apartments[i].description }}"
-            [(ngModel)]="apartments[i].description"
-          />
+          <span class="name-and-location-text">Apartment description (10+ characters)</span>
+          <input required class="inputfield" type="text" name="{{ apartments[i].description }}"
+            [(ngModel)]="apartments[i].description" />
         </div>
         <div>
           <span class="name-and-location-text">Price in USD</span>
-          <input
-            required
-            class="inputfield"
-            type="text"
-            name="{{ apartments[i].priceInUSD }}"
-            [(ngModel)]="apartments[i].priceInUSD"
-          />
+          <input required class="inputfield" type="text" name="{{ apartments[i].priceInUSD }}"
+            [(ngModel)]="apartments[i].priceInUSD" />
         </div>
         <div>
           <span class="name-and-location-text">Rooms amount</span>
-          <input
-            required
-            class="inputfield"
-            type="text"
-            name="{{ apartments[i].roomsAmount }}"
-            [(ngModel)]="apartments[i].roomsAmount"
-          />
+          <input required class="inputfield" type="text" name="{{ apartments[i].roomsAmount }}"
+            [(ngModel)]="apartments[i].roomsAmount" />
         </div>
         <div>
           <span class="name-and-location-text">Guests limit</span>
-          <input
-            required
-            class="inputfield"
-            type="text"
-            name="{{ apartments[i].guestsLimit }}"
-            [(ngModel)]="apartments[i].guestsLimit"
-          />
+          <input required class="inputfield" type="text" name="{{ apartments[i].guestsLimit }}"
+            [(ngModel)]="apartments[i].guestsLimit" />
         </div>
         <div>
           <span class="name-and-location-text">Bathrooms amount</span>
-          <input
-            required
-            class="inputfield"
-            type="text"
-            name="{{ apartments[i].bathroomsAmount }}"
-            [(ngModel)]="apartments[i].bathroomsAmount"
-          />
+          <input required class="inputfield" type="text" name="{{ apartments[i].bathroomsAmount }}"
+            [(ngModel)]="apartments[i].bathroomsAmount" />
         </div>
       </div>
     </div>
     <div>
       <div style="display: flex; justify-content: space-between">
-        <button
-          class="name-and-location-button"
-          (click)="addApartmentSetting()"
-        >
+        <button class="name-and-location-button" (click)="addApartmentSetting()">
           Add apartment
         </button>
-        <button
-          *ngIf="this.apartmentsAmount.length > 1"
-          class="name-and-location-button"
-          (click)="removeApartmentSetting()"
-        >
+        <button *ngIf="this.apartmentsAmount.length > 1" class="name-and-location-button"
+          (click)="removeApartmentSetting()">
           Remove apartment
         </button>
       </div>
     </div>
-  </main>
-
-  <footer class="name-and-location-container">
     <div style="display: flex">
-      <button
-        class="name-and-location-button-back"
-        routerLink="/lp/nameandlocation"
-      >
+      <button class="name-and-location-button-back" routerLink="/lp/nameandlocation">
         Go back
       </button>
       <button class="name-and-location-button" (click)="addApartments()">
         Continue
       </button>
     </div>
-  </footer>
+  </div>
 </body>

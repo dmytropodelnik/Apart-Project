@@ -1,3 +1,6 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <select class="form-select" aria-label="Default select example" name="discount" [(ngModel)]="discount">
   <option value="0" selected>Select discount</option>
   <option value="5">5%</option>

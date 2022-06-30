@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import AuthHelper from '../utils/authHelper';
 import { AuthorizationService } from '../services/authorization.service';
@@ -10,6 +10,8 @@ import {
   Validators,
   AbstractControl,
 } from '@angular/forms';
+import { MainDataService } from '../services/main-data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-reset-password',
@@ -25,14 +27,18 @@ export class ResetPasswordComponent implements OnInit {
   email: string = '';
   code: string = '';
 
-  letterMessage: string= '';
+  letterMessage: string = '';
   letterAction: boolean = false;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private authService: AuthorizationService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {
     this.passwordForm = this.formBuilder.group(
       {
@@ -49,6 +55,11 @@ export class ResetPasswordComponent implements OnInit {
     return this.passwordForm.controls;
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   sendInfoLetter(): void {
     fetch(
       `https://apartmain.azurewebsites.net/api/notifications/sendnotification?email=${this.email}&message=${this.letterMessage}&action=${this.letterAction}`,
@@ -59,13 +70,12 @@ export class ResetPasswordComponent implements OnInit {
       .then((r) => r.json())
       .then(async (data) => {
         if (data.code === 200) {
-
         } else {
-          alert(data.message);
+          this.showAlert(data.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -87,17 +97,17 @@ export class ResetPasswordComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          alert('You have successfully reset your password!');
+          this.showAlert('You have successfully reset your password!');
           this.letterMessage = `You have successfully reset your password on Apartstep.fun with ${this.email}!`;
           this.sendInfoLetter();
           this.router.navigate(['']);
         } else {
-          alert(response.message);
+          this.showAlert(response.message);
         }
         this.authService.setResetPasswordCondition(false);
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -121,7 +131,10 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (!AuthHelper.isLogged() || !this.authService.getResetPasswordCondition()) {
+    if (
+      !AuthHelper.isLogged() ||
+      !this.authService.getResetPasswordCondition()
+    ) {
       this.router.navigate(['']);
       return;
     }

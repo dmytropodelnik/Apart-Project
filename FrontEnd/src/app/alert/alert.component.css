@@ -1,0 +1,11 @@
+.alert {
+  margin-bottom: 0px !important;
+}
+
+.alert-warning {
+  color: #ffffff;
+  background-color: #0c9496;
+  border-color: #0c9496;
+  font-size: 16px;
+  padding: 18px;
+}

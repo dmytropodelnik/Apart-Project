@@ -1,3 +1,6 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <div class="page-content">
   <div class="container-fluid">
 
@@ -31,22 +34,6 @@
 
           <ng-template ngSwitchCase="stay-bookings">
             <app-stay-bookings-list></app-stay-bookings-list>
-          </ng-template>
-
-          <ng-template ngSwitchCase="flight-bookings">
-            <app-flight-bookings-list></app-flight-bookings-list>
-          </ng-template>
-
-          <ng-template ngSwitchCase="car-rental-bookings">
-            <app-car-rental-bookings-list></app-car-rental-bookings-list>
-          </ng-template>
-
-          <ng-template ngSwitchCase="attraction-bookings">
-            <app-attraction-bookings-list></app-attraction-bookings-list>
-          </ng-template>
-
-          <ng-template ngSwitchCase="airport-taxi-bookings">
-            <app-airport-taxi-bookings-list></app-airport-taxi-bookings-list>
           </ng-template>
 
           <ng-template ngSwitchCase="addresses">
@@ -147,10 +134,6 @@
 
           <ng-template ngSwitchCase="booking-prices">
             <app-booking-prices-list></app-booking-prices-list>
-          </ng-template>
-
-          <ng-template ngSwitchCase="flight-class-types">
-            <app-flight-class-types-list></app-flight-class-types-list>
           </ng-template>
 
           <ng-template ngSwitchCase="booking-categories">

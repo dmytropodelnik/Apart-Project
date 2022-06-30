@@ -1,7 +1,6 @@
 import AuthHelper from '../utils/authHelper';
 
 export class ListNewPropertyService {
-
   private currentCountry: string = 'Ukraine';
   private savedPropertyId: string = '';
 
@@ -15,17 +14,17 @@ export class ListNewPropertyService {
     //       if (response.code === 200) {
     //         this.savedPropertyId = response.userId;
     //       } else {
-    //         alert("Refresh getting userId error!");
+    //        alert("Refresh getting userId error!");
     //       }
     //     })
     //     .catch((ex) => {
-    //       alert(ex);
+    //              alert(ex);
     //     });
     // }
   }
 
   getCurrentCountry(): string {
-      return this.currentCountry;
+    return this.currentCountry;
   }
 
   setCurrentCountry(newCurrentCountry: string): void {
@@ -34,9 +33,9 @@ export class ListNewPropertyService {
 
   getSavedPropertyId(): string {
     return this.savedPropertyId;
-}
+  }
 
   setSavedPropertyId(value: string): void {
-  this.savedPropertyId = value;
-}
+    this.savedPropertyId = value;
+  }
 }

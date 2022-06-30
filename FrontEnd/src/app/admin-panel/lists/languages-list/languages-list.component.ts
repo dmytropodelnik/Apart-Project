@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Language } from 'src/app/models/language.item';
 import { AdminContentService } from 'src/app/services/admin-content.service';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -19,13 +21,21 @@ export class LanguagesListComponent implements OnInit {
   page: number = 1;
   pageSize: number = 15;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
-    private adminContentService: AdminContentService
-  ) {
+    private adminContentService: AdminContentService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   search(): void {
+<<<<<<< HEAD
     fetch('https://apartmain.azurewebsites.net/api/languages/search?lang=' + this.searchLang, {
       method: 'GET',
       headers: {
@@ -33,17 +43,29 @@ export class LanguagesListComponent implements OnInit {
         Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
+=======
+    fetch(
+      'https://localhost:44381/api/languages/search?lang=' + this.searchLang,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+>>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.languages = data.languages;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchLang = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -66,12 +88,12 @@ export class LanguagesListComponent implements OnInit {
         if (data.code === 200) {
           this.getLangs();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.lang = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -96,13 +118,12 @@ export class LanguagesListComponent implements OnInit {
           this.getLangs();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
-        console.log(data);
         this.lang = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -127,12 +148,12 @@ export class LanguagesListComponent implements OnInit {
           this.getLangs();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.lang = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -145,6 +166,7 @@ export class LanguagesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
+<<<<<<< HEAD
     fetch(`https://apartmain.azurewebsites.net/api/languages/getlanguages?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
       headers: {
@@ -153,16 +175,29 @@ export class LanguagesListComponent implements OnInit {
         Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
+=======
+    fetch(
+      `https://localhost:44381/api/languages/getlanguages?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+>>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.collectElements(data.languages);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -175,6 +210,7 @@ export class LanguagesListComponent implements OnInit {
   }
 
   getLangs(): void {
+<<<<<<< HEAD
     fetch(`https://apartmain.azurewebsites.net/api/languages/getlanguages?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
       headers: {
@@ -183,16 +219,29 @@ export class LanguagesListComponent implements OnInit {
         Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
+=======
+    fetch(
+      `https://localhost:44381/api/languages/getlanguages?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+>>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.languages = data.languages;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Address } from 'src/app/models/Location/address.item';
 import { Country } from 'src/app/models/Location/country.item';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -6,6 +6,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ListNewPropertyService } from '../../services/list-new-property.service';
 
 import AuthHelper from '../../utils/authHelper';
+import { MainDataService } from 'src/app/services/main-data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-lp-name-and-location',
@@ -25,10 +27,14 @@ export class LpNameAndLocationComponent implements OnInit {
 
   reg = /[!"#$%&'()*+,-.\/:;<=>?@[\]^_`{|}~]/gi;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private listNewPropertyService: ListNewPropertyService,
     private router: Router,
     private activatedRouter: ActivatedRoute,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {}
   choice: number = 0;
 
@@ -44,6 +50,11 @@ export class LpNameAndLocationComponent implements OnInit {
       secondLine.classList.add('navstep__container--active');
     }
     ++this.choice;
+  }
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   incrementChoice1() {
@@ -88,7 +99,7 @@ export class LpNameAndLocationComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -108,17 +119,17 @@ export class LpNameAndLocationComponent implements OnInit {
             counter++;
           }
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
   addPropertyAddress(): void {
     if (this.sCountry == '-1' || !this.sCountry.match(/\d/)) {
-      alert("Select your country!");
+      this.showAlert('Select your country!');
       return;
     }
 
@@ -154,16 +165,14 @@ export class LpNameAndLocationComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
   ngOnInit(): void {
     this.activatedRouter.queryParams.subscribe((params: any) => {
       if (params['toSaveId'] == 'true') {
-        this.listNewPropertyService.setSavedPropertyId(
-          params['id']
-        );
+        this.listNewPropertyService.setSavedPropertyId(params['id']);
         this.choice = params['choice'];
         if (this.choice == 0) {
           let firstLine = document.getElementById('firstLine');
@@ -179,10 +188,10 @@ export class LpNameAndLocationComponent implements OnInit {
       }
       if (!AuthHelper.isLogged()) {
         this.router.navigate(['']);
-      }
-      else if (!this.listNewPropertyService.getSavedPropertyId()) {
+      } else if (!this.listNewPropertyService.getSavedPropertyId()) {
         this.router.navigate(['']);
       }
+      this.getCountries();
     });
   }
 }

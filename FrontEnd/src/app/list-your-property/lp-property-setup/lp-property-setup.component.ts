@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Facility } from 'src/app/models/facility.item';
 import { SuggestionRule } from 'src/app/models/Suggestions/suggestionrule.item';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import { ListNewPropertyService } from '../../services/list-new-property.service';
 
@@ -37,10 +39,14 @@ export class LpPropertySetupComponent implements OnInit {
 
   description: string = '';
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private listNewPropertyService: ListNewPropertyService,
     private router: Router,
-    private activatedRouter: ActivatedRoute
+    private activatedRouter: ActivatedRoute,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {}
   choice: number = 1;
   bedTypesAmount = [0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -51,6 +57,11 @@ export class LpPropertySetupComponent implements OnInit {
 
   increaseBedTypeCount(value: number) {
     ++this.bedTypesAmount[value];
+  }
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   incrementChoice() {
@@ -133,11 +144,12 @@ export class LpPropertySetupComponent implements OnInit {
             }
           })
           .catch((ex) => {
-            alert(ex);
+            this.mainDataService.alertContent = ex;
+            this.modalService.open(this.alert);
           });
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -163,7 +175,7 @@ export class LpPropertySetupComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -191,7 +203,7 @@ export class LpPropertySetupComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -218,7 +230,7 @@ export class LpPropertySetupComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -244,7 +256,7 @@ export class LpPropertySetupComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -261,12 +273,12 @@ export class LpPropertySetupComponent implements OnInit {
               this.includedFacilities.push(false);
             }
           } else {
-            alert('Facilities fetching error!');
+            this.showAlert('Facilities fetching error!');
           }
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -283,16 +295,21 @@ export class LpPropertySetupComponent implements OnInit {
               this.includedRules.push(false);
             }
           } else {
-            alert('Rules fetching error!');
+            this.showAlert('Rules fetching error!');
           }
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
   addDescription(): void {
+    if (this.description.length < 50) {
+      this.showAlert('Description length must have at least 50 characters');
+      return;
+    }
+
     let suggestion = {
       id: this.listNewPropertyService.getSavedPropertyId(),
       description: this.description,
@@ -314,7 +331,7 @@ export class LpPropertySetupComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -340,7 +357,7 @@ export class LpPropertySetupComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 

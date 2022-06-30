@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Review } from 'src/app/models/Review/review.item';
 import { Gender } from 'src/app/models/UserData/gender.item';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -8,10 +10,9 @@ import ListHelper from '../../../utils/listHelper';
 @Component({
   selector: 'app-genders-list',
   templateUrl: './genders-list.component.html',
-  styleUrls: ['./genders-list.component.css']
+  styleUrls: ['./genders-list.component.css'],
 })
 export class GendersListComponent implements OnInit {
-
   genders: Gender[] | null = null;
   gender: string | null = null;
   searchGender: string = '';
@@ -20,9 +21,20 @@ export class GendersListComponent implements OnInit {
   isEditEnabled: boolean = true;
   isDeleteEnabled: boolean = true;
 
-  constructor() {}
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
+  constructor(
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
 
   search(): void {
+<<<<<<< HEAD
     fetch('https://apartmain.azurewebsites.net/api/genders/search?gender=' + this.searchGender, {
       method: 'GET',
       headers: {
@@ -30,17 +42,29 @@ export class GendersListComponent implements OnInit {
         Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
+=======
+    fetch(
+      'https://localhost:44381/api/genders/search?gender=' + this.searchGender,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+>>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.genders = data.genders;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchGender = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -63,12 +87,12 @@ export class GendersListComponent implements OnInit {
         if (data.code === 200) {
           this.getGenders();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.gender = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -93,12 +117,12 @@ export class GendersListComponent implements OnInit {
           this.getGenders();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.gender = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -123,12 +147,12 @@ export class GendersListComponent implements OnInit {
           this.getGenders();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.gender = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -146,11 +170,11 @@ export class GendersListComponent implements OnInit {
         if (data.code === 200) {
           this.genders = data.genders;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -165,5 +189,4 @@ export class GendersListComponent implements OnInit {
   ngOnInit(): void {
     this.getGenders();
   }
-
 }

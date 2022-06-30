@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Guest } from 'src/app/models/UserData/guest.item';
 import { BookingDetailsService } from 'src/app/services/booking-details.service';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import AuthHelper from '../../utils/authHelper';
 import BookingHelper from '../../utils/bookingHelper';
@@ -69,11 +70,14 @@ export class BookingFinalStepComponent implements OnInit {
 
   newStayBooking: any;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private router: Router,
     private modalService: NgbModal,
     private activatedRouter: ActivatedRoute,
-    private bookingDetailsService: BookingDetailsService
+    private bookingDetailsService: BookingDetailsService,
+    public mainDataService: MainDataService
   ) {}
 
   openVerticallyCentered(content: any) {
@@ -82,9 +86,14 @@ export class BookingFinalStepComponent implements OnInit {
     });
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   applyPromoCode(): void {
     if (this.promoCode.length < 6) {
-      alert('Please enter a correct promo code!');
+      this.showAlert('Please enter a correct promo code!');
       return;
     }
 
@@ -107,31 +116,31 @@ export class BookingFinalStepComponent implements OnInit {
           this.discount = response.discount;
           this.difference = response.difference;
         } else {
-          alert(response.message);
+          this.showAlert(response.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
   completeBooking(revealContent: any): void {
     if (this.address.length < 5) {
-      alert('Address must contain at least 5 characters!');
+      this.showAlert('Address must contain at least 5 characters!');
       return;
     }
     if (this.city.length < 2) {
-      alert('City must contain at least 2 characters!');
+      this.showAlert('City must contain at least 2 characters!');
       return;
     }
     if (this.country.length < 2) {
-      alert('Country must contain at least 2 characters!');
+      this.showAlert('Country must contain at least 2 characters!');
       return;
     }
     if (
       !this.phone.match('^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$')
     ) {
-      alert('Enter a correct phone number!');
+      this.showAlert('Enter a correct phone number!');
       return;
     }
 
@@ -191,11 +200,11 @@ export class BookingFinalStepComponent implements OnInit {
           }
           BookingHelper.clearBookingData();
         } else {
-          alert(response.message);
+          this.showAlert(response.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -248,7 +257,6 @@ export class BookingFinalStepComponent implements OnInit {
     Your booking PIN: ${this.newStayBooking.pin}. \n
     Save it in order to you have an opportunity to have an access to your booking!
     `;
-    console.log(this.newStayBooking);
   }
 
   sendInfoLetter(): void {
@@ -262,11 +270,11 @@ export class BookingFinalStepComponent implements OnInit {
       .then(async (data) => {
         if (data.code === 200) {
         } else {
-          alert(data.message);
+          this.showAlert(data.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -300,8 +308,6 @@ export class BookingFinalStepComponent implements OnInit {
       this.checkIn = bookingData.checkIn;
       this.checkOut = bookingData.checkOut;
       this.guestsData = BookingHelper.getGuestsData() as any;
-
-      console.log(this.guestsData);
 
       this.activatedRouter.queryParams.subscribe((params: any) => {
         if (params['totalPrice']) {

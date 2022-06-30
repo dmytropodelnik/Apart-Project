@@ -55,7 +55,14 @@ namespace CloneBookingAPI.Controllers.Pages
                 return Json(new
                 {
                     code = 200,
-                    categories,
+                    categories = categories
+                        .Select(c => new
+                        {
+                            c.Id,
+                            c.Category,
+                            c.Image.Path,
+                            c.Image.Name,
+                        }),
                     suggestions,
                 });
             }
@@ -110,7 +117,12 @@ namespace CloneBookingAPI.Controllers.Pages
                 return Json(new
                 {
                     code = 200,
-                    regions,
+                    regions = regions
+                        .Select(r => new
+                        {
+                            r.Id,
+                            r.Title,
+                        }),
                     regionsSuggestions,
                 });
             }
@@ -286,7 +298,16 @@ namespace CloneBookingAPI.Controllers.Pages
                 return Json(new
                 {
                     code = 200,
-                    citiesList,
+                    citiesList = citiesList
+                        .Select(c => new
+                        {
+                            c.Id,
+                            c.Title,
+                            ImagePath = c.Image.Path,
+                            ImageName = c.Image.Name,
+                            CountryImagePath = c.Country.Image.Path,
+                            CountryImageName = c.Country.Image.Name,
+                        }),
                     suggestionsCount,
                 });
             }

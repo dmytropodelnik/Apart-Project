@@ -1,22 +1,30 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 
 import AuthHelper from '../../../utils/authHelper';
 import ImageHelper from '../../../utils/imageHelper';
 
-
 import { AuthorizationService } from '../../../services/authorization.service';
 import { UserData } from 'src/app/view-models/userdata.item';
+import { MainDataService } from 'src/app/services/main-data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-security-list',
   templateUrl: './security-list.component.html',
-  styleUrls: ['./security-list.component.css']
+  styleUrls: ['./security-list.component.css'],
 })
 export class SecurityListComponent implements OnInit {
   @Output() onChanged = new EventEmitter<string>();
   changeEmail(setting: string) {
-      this.onChanged.emit(setting);
+    this.onChanged.emit(setting);
   }
 
   isEditing: boolean[] = [];
@@ -31,10 +39,18 @@ export class SecurityListComponent implements OnInit {
 
   user: UserData = new UserData();
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     public authService: AuthorizationService,
-    private router: Router) {
+    private router: Router,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   setDeleteReason(value: number) {
@@ -70,6 +86,7 @@ export class SecurityListComponent implements OnInit {
   }
 
   sendResetPasswordEmail(id: number): void {
+<<<<<<< HEAD
     fetch(`https://apartmain.azurewebsites.net/api/codes/generateresetcode?email=` + AuthHelper.getLogin(), {
       method: 'GET',
       headers: {
@@ -78,27 +95,41 @@ export class SecurityListComponent implements OnInit {
         Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
+=======
+    fetch(
+      `https://localhost:44381/api/codes/generateresetcode?email=` +
+        AuthHelper.getLogin(),
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+>>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.isEmailSent = true;
         } else {
-          alert("Error generating reset link");
+          this.showAlert('Error generating reset link');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
   unsubscribeMails(id: number): void {
-
     this.cancelButtonClick(id);
 
-    alert("You have successfully unsubscribed from mail letters!");
+    this.showAlert('You have successfully unsubscribed from mail letters!');
   }
 
   deleteAccount(id: number): void {
+<<<<<<< HEAD
     fetch(`https://apartmain.azurewebsites.net/api/codes/generatedeleteusercode?email=` + AuthHelper.getLogin(), {
       method: 'GET',
       headers: {
@@ -107,17 +138,31 @@ export class SecurityListComponent implements OnInit {
         Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
+=======
+    fetch(
+      `https://localhost:44381/api/codes/generatedeleteusercode?email=` +
+        AuthHelper.getLogin(),
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+>>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.isDeleteRequested = true;
           this.cancelButtonClick(id);
         } else {
-          alert("Error generating delete user code");
+          this.showAlert('Error generating delete user code');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -130,5 +175,4 @@ export class SecurityListComponent implements OnInit {
   ngOnInit(): void {
     this.initializeBoolArray();
   }
-
 }

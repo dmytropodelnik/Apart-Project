@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PromoCode } from 'src/app/models/Payment/promocode.item';
 import { AdminContentService } from 'src/app/services/admin-content.service';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -8,10 +10,9 @@ import ListHelper from '../../../utils/listHelper';
 @Component({
   selector: 'app-promo-codes-list',
   templateUrl: './promo-codes-list.component.html',
-  styleUrls: ['./promo-codes-list.component.css']
+  styleUrls: ['./promo-codes-list.component.css'],
 })
 export class PromoCodesListComponent implements OnInit {
-
   codes: PromoCode[] | null = null;
   code: PromoCode | null = null;
   searchCode: string = '';
@@ -20,13 +21,21 @@ export class PromoCodesListComponent implements OnInit {
   page: number = 1;
   pageSize: number = 20;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
-    private adminContentService: AdminContentService
-  ) {
+    private adminContentService: AdminContentService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   search(): void {
+<<<<<<< HEAD
     fetch('https://apartmain.azurewebsites.net/api/promocodes/search?code=' + this.searchCode, {
       method: 'GET',
       headers: {
@@ -34,17 +43,29 @@ export class PromoCodesListComponent implements OnInit {
         Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
+=======
+    fetch(
+      'https://localhost:44381/api/promocodes/search?code=' + this.searchCode,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+>>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.codes = data.codes;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchCode = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -67,12 +88,12 @@ export class PromoCodesListComponent implements OnInit {
         if (data.code === 200) {
           this.getCodes();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.code = null;
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -97,12 +118,12 @@ export class PromoCodesListComponent implements OnInit {
           this.getCodes();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.code = null;
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -127,16 +148,17 @@ export class PromoCodesListComponent implements OnInit {
           this.getCodes();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.code = null;
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
   getCodes(): void {
+<<<<<<< HEAD
     fetch(`https://apartmain.azurewebsites.net/api/promocodes/getcodes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
       headers: {
@@ -145,16 +167,29 @@ export class PromoCodesListComponent implements OnInit {
         Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
+=======
+    fetch(
+      `https://localhost:44381/api/promocodes/getcodes?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+>>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.codes = data.codes;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -167,6 +202,7 @@ export class PromoCodesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
+<<<<<<< HEAD
     fetch(`https://apartmain.azurewebsites.net/api/promocodes/getcodes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
       headers: {
@@ -175,16 +211,29 @@ export class PromoCodesListComponent implements OnInit {
         Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
+=======
+    fetch(
+      `https://localhost:44381/api/promocodes/getcodes?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+>>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.collectElements(data.codes);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -199,5 +248,4 @@ export class PromoCodesListComponent implements OnInit {
   ngOnInit(): void {
     this.getCodes();
   }
-
 }

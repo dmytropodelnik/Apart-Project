@@ -1,19 +1,25 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <div class="input-group">
-  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"
-         [(ngModel)]="searchCurrency" />
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+    aria-describedby="search-addon" [(ngModel)]="searchCurrency" />
   <button type="button" class="btn btn-dark" (click)="search()">search</button>
 </div>
 
 <div class="row">
   <div class="btn-group" role="group" aria-label="Basic example">
     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#add">Add</button>
-    <button type="button" id="editButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit" disabled>Edit</button>
-    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete" disabled>Delete</button>
+    <button type="button" id="editButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit"
+      disabled>Edit</button>
+    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete"
+      disabled>Delete</button>
   </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
+<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="addLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -24,14 +30,14 @@
         <form>
           <div class="mb-3">
             <label for="addValueCurrency" class="form-label"></label>
-            <input type="text" class="form-control" id="addValueCurrency" name="currency.value" [(ngModel)]="currency.value"
-                    />
+            <input type="text" class="form-control" id="addValueCurrency" name="currency.value"
+              [(ngModel)]="currency.value" />
             <label for="addAbbrCurrency" class="form-label"></label>
-            <input type="text" class="form-control" id="addAbbrCurrency" name="currency.abbreviation" [(ngModel)]="currency.abbreviation"
-                    />
+            <input type="text" class="form-control" id="addAbbrCurrency" name="currency.abbreviation"
+              [(ngModel)]="currency.abbreviation" />
             <label for="addBankCodeCurrency" class="form-label"></label>
-            <input type="text" class="form-control" id="addBankCodeCurrency" name="currency.bankCode" [(ngModel)]="currency.bankCode"
-                    />
+            <input type="text" class="form-control" id="addBankCodeCurrency" name="currency.bankCode"
+              [(ngModel)]="currency.bankCode" />
           </div>
         </form>
       </div>
@@ -43,7 +49,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="editLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -54,14 +61,14 @@
         <form>
           <div class="mb-3">
             <label for="editValueCurrency" class="form-label"></label>
-            <input type="text" class="form-control" id="editValueCurrency" name="currency.value" [(ngModel)]="currency.value"
-                    />
+            <input type="text" class="form-control" id="editValueCurrency" name="currency.value"
+              [(ngModel)]="currency.value" />
             <label for="editAbbrCurrency" class="form-label"></label>
-            <input type="text" class="form-control" id="editAbbrCurrency" name="currency.abbreviation" [(ngModel)]="currency.abbreviation"
-                    />
+            <input type="text" class="form-control" id="editAbbrCurrency" name="currency.abbreviation"
+              [(ngModel)]="currency.abbreviation" />
             <label for="editBankCodeCurrency" class="form-label"></label>
-            <input type="text" class="form-control" id="editBankCodeCurrency" name="currency.bankCode" [(ngModel)]="currency.bankCode"
-                    />
+            <input type="text" class="form-control" id="editBankCodeCurrency" name="currency.bankCode"
+              [(ngModel)]="currency.bankCode" />
           </div>
         </form>
       </div>
@@ -73,7 +80,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
+<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="deleteLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -84,14 +92,14 @@
         <form>
           <div class="mb-3">
             <label for="deleteValueCurrency" class="form-label"></label>
-            <input type="text" class="form-control" id="deleteValueCurrency" name="currency.value" [(ngModel)]="currency.value"
-                    readonly />
+            <input type="text" class="form-control" id="deleteValueCurrency" name="currency.value"
+              [(ngModel)]="currency.value" readonly />
             <label for="deleteAbbrCurrency" class="form-label"></label>
-            <input type="text" class="form-control" id="deleteAbbrCurrency" name="currency.abbreviation" [(ngModel)]="currency.abbreviation"
-                    readonly />
+            <input type="text" class="form-control" id="deleteAbbrCurrency" name="currency.abbreviation"
+              [(ngModel)]="currency.abbreviation" readonly />
             <label for="deleteBankCodeCurrency" class="form-label"></label>
-            <input type="text" class="form-control" id="deleteBankCodeCurrency" name="currency.bankCode" [(ngModel)]="currency.bankCode"
-                    readonly />
+            <input type="text" class="form-control" id="deleteBankCodeCurrency" name="currency.bankCode"
+              [(ngModel)]="currency.bankCode" readonly />
           </div>
         </form>
       </div>
@@ -118,7 +126,7 @@
       <th scope="row">
         <div class="form-check">
           <input class="form-check-input" type="radio" name="currencyRadio" id="currencyRadio" value={{item.id}}
-                 (click)="setCurrency(item)" >
+            (click)="setCurrency(item)">
         </div>
       </th>
       <td>{{item.id}}</td>

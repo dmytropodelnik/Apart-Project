@@ -1,22 +1,21 @@
-import { BookingCategory } from "../models/bookingcategory.item";
-import { City } from "../models/Location/city.item";
-import { Country } from "../models/Location/country.item";
-import { Region } from "../models/Location/region.item";
+import { BookingCategory } from '../models/bookingcategory.item';
+import { City } from '../models/Location/city.item';
+import { Region } from '../models/Location/region.item';
 
 export class MainDataService {
-
   private currentCountry: string = 'Ukraine';
   private bookingCategories: BookingCategory[] = [];
   private searchingCities: City[] = [];
   private searchingCountries: string[] = [];
   private searchingRegions: Region[] = [];
+  private isGotData: boolean = true;
 
-  constructor() {
+  public alertContent: string = 'Example';
 
-  }
+  constructor() {}
 
   getCurrentCountry(): string {
-      return this.currentCountry;
+    return this.currentCountry;
   }
 
   setCurrentCountry(newCurrentCountry: string): void {
@@ -53,5 +52,13 @@ export class MainDataService {
 
   setSearchingRegions(regions: Region[]): void {
     this.searchingRegions = regions;
+  }
+
+  getIsGotData(): boolean {
+    return this.isGotData;
+  }
+
+  setIsGotData(value: boolean): void {
+    this.isGotData = value;
   }
 }

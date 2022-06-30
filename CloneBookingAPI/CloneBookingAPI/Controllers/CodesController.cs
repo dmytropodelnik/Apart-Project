@@ -299,7 +299,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("verifyuserregistration")]
         [HttpGet]
-        public async Task<IActionResult> VerifyUserRegistration(string email, string code, bool confidant = false)
+        public IActionResult VerifyUserRegistration(string email, string code, bool confidant = false)
         {
             try
             {
@@ -327,12 +327,6 @@ namespace CloneBookingAPI.Controllers
                     }
                 }
 
-                //bool resSending = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, $"You have successfully registered on Apartstep.fun with {email}!");
-                //if (res is false)
-                //{
-                //    return Json(new { code = 400, message = "Something wrong with email sending." });
-                //}
-
                 return Json(new { code = 200 });
             }
             catch (OperationCanceledException ex)
@@ -351,7 +345,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("verifyenteruser")]
         [HttpGet]
-        public async Task<IActionResult> VerifyEnterUser(string email, string code, bool confidant = false)
+        public IActionResult VerifyEnterUser(string email, string code, bool confidant = false)
         {
             try
             {
@@ -379,12 +373,6 @@ namespace CloneBookingAPI.Controllers
                     }
                 }
 
-                //bool resSending = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, $"You have successfully entered on Apartstep.fun with {email}!");
-                //if (res is false)
-                //{
-                //    return Json(new { code = 400, message = "Something wrong with email sending." });
-                //}
-
                 return Json(new { code = 200 });
             }
             catch (OperationCanceledException ex)
@@ -403,7 +391,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("verifyusersubscription")]
         [HttpGet]
-        public async Task<IActionResult> VerifyUserSubscription(string email, string code, bool confidant = false)
+        public IActionResult VerifyUserSubscription(string email, string code, bool confidant = false)
         {
             try
             {
@@ -431,12 +419,6 @@ namespace CloneBookingAPI.Controllers
                     }
                 }
 
-                //bool resSending = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, $"You have successfully subscribed to Apartstep.fun new deals!");
-                //if (res is false)
-                //{
-                //    return Json(new { code = 400, message = "Something wrong with email sending." });
-                //}
-
                 return Json(new { code = 200 });
             }
             catch (OperationCanceledException ex)
@@ -455,7 +437,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("verifyuserdeletion")]
         [HttpGet]
-        public async Task<IActionResult> VerifyUserDeletion(string email, string code, bool confidant = false)
+        public IActionResult VerifyUserDeletion(string email, string code, bool confidant = false)
         {
             try
             {
@@ -483,12 +465,6 @@ namespace CloneBookingAPI.Controllers
                     }
                 }
 
-                //bool resSending = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, $"You have successfully deleted your account on Apartstep.fun with {email}!");
-                //if (res is false)
-                //{
-                //    return Json(new { code = 400, message = "Something wrong with email sending." });
-                //}
-
                 return Json(new { code = 200 });
             }
             catch (OperationCanceledException ex)
@@ -507,7 +483,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("verifyemailchanging")]
         [HttpGet]
-        public async Task<IActionResult> VerifyEmailChanging(string email, string code, bool confidant = false)
+        public IActionResult VerifyEmailChanging(string email, string code, bool confidant = false)
         {
             try
             {
@@ -535,12 +511,6 @@ namespace CloneBookingAPI.Controllers
                     }
                 }
 
-                //bool resSending = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, $"You have successfully changed your email on Apartstep.fun to {email}!");
-                //if (res is false)
-                //{
-                //    return Json(new { code = 400, message = "Something wrong with email sending." });
-                //}
-
                 return Json(new { code = 200 });
             }
             catch (OperationCanceledException ex)
@@ -559,7 +529,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("verifypasswordreset")]
         [HttpGet]
-        public async Task<IActionResult> VerifyPasswordReset(string email, string code, bool confidant = false)
+        public IActionResult VerifyPasswordReset(string email, string code, bool confidant = false)
         {
             try
             {
@@ -586,12 +556,6 @@ namespace CloneBookingAPI.Controllers
                         }
                     }
                 }
-
-                //bool resSending = await _emailSender.SendEmailAsync(email, _subjectProfileChangingLetterTemplate, $"You have successfully reset your password on Apartstep.fun with {email}!");
-                //if (res is false)
-                //{
-                //    return Json(new { code = 400, message = "Something wrong with email sending." });
-                //}
 
                 return Json(new { code = 200 });
             }

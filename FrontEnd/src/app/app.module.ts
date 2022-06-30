@@ -24,7 +24,6 @@ import { DistrictsListComponent } from './admin-panel/lists/districts-list/distr
 import { AdminAuthComponent } from './admin-auth/admin-auth.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { VerifyEnterComponent } from './verify-enter/verify-enter.component';
-import { FlightsComponent } from './flights/flights.component';
 import { JoinAsPartnerComponent } from './join-as-partner/join-as-partner.component';
 import { RolesListComponent } from './admin-panel/lists/roles-list/roles-list.component';
 import { GendersListComponent } from './admin-panel/lists/genders-list/genders-list.component';
@@ -55,12 +54,7 @@ import { RegionsListComponent } from './admin-panel/lists/regions-list/regions-l
 import { AirportsListComponent } from './admin-panel/lists/airports-list/airports-list.component';
 import { AddressesListComponent } from './admin-panel/lists/addresses-list/addresses-list.component';
 import { BookingPricesListComponent } from './admin-panel/lists/booking-prices-list/booking-prices-list.component';
-import { FlightClassTypesListComponent } from './admin-panel/lists/flight-class-types-list/flight-class-types-list.component';
 import { StayBookingsListComponent } from './admin-panel/lists/stay-bookings-list/stay-bookings-list.component';
-import { FlightBookingsListComponent } from './admin-panel/lists/flight-bookings-list/flight-bookings-list.component';
-import { CarRentalBookingsListComponent } from './admin-panel/lists/car-rental-bookings-list/car-rental-bookings-list.component';
-import { AttractionBookingsListComponent } from './admin-panel/lists/attraction-bookings-list/attraction-bookings-list.component';
-import { AirportTaxiBookingsListComponent } from './admin-panel/lists/airport-taxi-bookings-list/airport-taxi-bookings-list.component';
 import { ReviewsListComponent } from './admin-panel/lists/reviews-list/reviews-list.component';
 import { ReviewCategoriesListComponent } from './admin-panel/lists/review-categories-list/review-categories-list.component';
 import { ReviewMessagesListComponent } from './admin-panel/lists/review-messages-list/review-messages-list.component';
@@ -90,8 +84,6 @@ import { UserSavedComponent } from './user-saved/user-saved.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { LpApartmentsComponent } from './list-your-property/lp-apartments/lp-apartments.component';
 import { StaySuggestionPageComponent } from './stay-suggestion-page/stay-suggestion-page.component';
-import { appInitializer } from './utils/appInitializer';
-import { AppInitializerComponent } from './app-initializer/app-initializer.component';
 import { Router } from '@angular/router';
 
 import {
@@ -105,6 +97,8 @@ import { FillingUserDetailsComponent } from './booking-properties/filling-user-d
 import { BookingFinalStepComponent } from './booking-properties/booking-final-step/booking-final-step.component';
 import { BookingDetailsService } from './services/booking-details.service';
 import { UsersReviewsComponent } from './users-reviews/users-reviews.component';
+import { LoaderComponent } from './loader/loader.component';
+import { AlertComponent } from './alert/alert.component';
 
 @NgModule({
   providers: [
@@ -144,7 +138,6 @@ import { UsersReviewsComponent } from './users-reviews/users-reviews.component';
     AdminAuthComponent,
     FileUploadComponent,
     VerifyEnterComponent,
-    FlightsComponent,
     JoinAsPartnerComponent,
     RolesListComponent,
     GendersListComponent,
@@ -175,13 +168,8 @@ import { UsersReviewsComponent } from './users-reviews/users-reviews.component';
     AirportsListComponent,
     AddressesListComponent,
     BookingPricesListComponent,
-    FlightClassTypesListComponent,
     UserProfilesListComponent,
     StayBookingsListComponent,
-    FlightBookingsListComponent,
-    CarRentalBookingsListComponent,
-    AttractionBookingsListComponent,
-    AirportTaxiBookingsListComponent,
     ReviewsListComponent,
     ReviewCategoriesListComponent,
     ReviewMessagesListComponent,
@@ -208,12 +196,13 @@ import { UsersReviewsComponent } from './users-reviews/users-reviews.component';
     ResetPasswordComponent,
     LpApartmentsComponent,
     StaySuggestionPageComponent,
-    AppInitializerComponent,
     LetterCreatorComponent,
     UserBookingsComponent,
     FillingUserDetailsComponent,
     BookingFinalStepComponent,
     UsersReviewsComponent,
+    LoaderComponent,
+    AlertComponent,
   ],
   imports: [
     BrowserModule,

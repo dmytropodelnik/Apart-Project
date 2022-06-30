@@ -1,6 +1,9 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <div class="input-group">
-  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"
-         [(ngModel)]="searchProfile" />
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+    aria-describedby="search-addon" [(ngModel)]="searchProfile" />
   <button type="button" class="btn btn-dark" (click)="search()">search</button>
 </div>
 
@@ -13,7 +16,8 @@
 </div> -->
 
 <!-- Modal -->
-<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
+<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="addLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -31,7 +35,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="editLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -49,7 +54,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
+<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="deleteLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -87,7 +93,7 @@
       <th scope="row">
         <div class="form-check">
           <input class="form-check-input" type="radio" name="profileRadio" id="profileRadio" value={{profile.id}}
-          (click)="setProfile(profile)" >
+            (click)="setProfile(profile)">
         </div>
       </th>
       <td>{{profile.id}}</td>
@@ -98,7 +104,8 @@
       <td>{{profile.currency?.abbreviation}}</td>
       <td>{{profile.language?.title}}</td>
       <td>{{profile.user?.email}}</td>
-      <td class="text-center"><img width="70px" height="70px" src="{{imageHelper.getImageDirectoryPath()}}{{profile.image?.name}}" /></td>
+      <td class="text-center"><img width="70px" height="70px"
+          src="{{imageHelper.getImageDirectoryPath()}}{{profile.image?.name}}" /></td>
     </tr>
   </tbody>
 </table>

@@ -1,9 +1,12 @@
 import { Router } from '@angular/router';
 import { AuthorizationService } from '../services/authorization.service';
 
-export function appInitializer(authService: AuthorizationService, router: Router) {
+export function appInitializer(
+  authService: AuthorizationService,
+  router: Router
+) {
   return () =>
-    new Promise<void> ((resolve) => {
+    new Promise<void>((resolve) => {
       window.fbAsyncInit = function () {
         FB.init({
           appId: '347521480376594',
@@ -15,12 +18,12 @@ export function appInitializer(authService: AuthorizationService, router: Router
         // auto authenticate with the api if already logged in with facebook
         FB.getLoginStatus(async ({ authResponse }) => {
           if (authResponse) {
-            alert("FACEBOOK OK");
+            alert('FACEBOOK OK');
             //await authService.userSignIn(authResponse.accessToken);
             router.navigate(['']);
             resolve();
           } else {
-            alert("FACEBOOK ERROR!");
+            alert('FACEBOOK ERROR!');
             resolve();
           }
         });

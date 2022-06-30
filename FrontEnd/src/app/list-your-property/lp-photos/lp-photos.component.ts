@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import { ListNewPropertyService } from '../../services/list-new-property.service';
 
@@ -14,10 +16,14 @@ export class LpPhotosComponent implements OnInit {
   savedPropertyId: string = '';
   uploadedFiles: File[] = [];
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private listNewPropertyService: ListNewPropertyService,
     private router: Router,
-    private activatedRouter: ActivatedRoute
+    private activatedRouter: ActivatedRoute,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {}
 
   fileToUpload: any;
@@ -27,8 +33,6 @@ export class LpPhotosComponent implements OnInit {
 
   selectFiles(event: any): void {
     this.selectedFiles = event.target.files;
-
-    //this.previews = [];
 
     if (this.selectedFiles && this.selectedFiles[0]) {
       const numberOfFiles = this.selectedFiles.length;
@@ -52,13 +56,18 @@ export class LpPhotosComponent implements OnInit {
     }
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   addPropertyPhotos(): void {
     if (this.uploadedFiles == null) {
-      alert('Upload files please!');
+      this.showAlert('Upload files please!');
       return;
     }
     if (this.uploadedFiles.length < 8) {
-      alert('You have to upload at least 8 images!');
+      this.showAlert('You have to upload at least 8 images!');
       return;
     }
 
@@ -67,7 +76,6 @@ export class LpPhotosComponent implements OnInit {
     for (let i = 0; i < this.uploadedFiles.length; i++) {
       fData.append('uploadedFiles', this.uploadedFiles[i]);
     }
-    console.log(fData.getAll('uploadedFiles'));
     fetch(
       'https://apartmain.azurewebsites.net/api/listnewproperty/addphotos?suggestionId=' +
         this.listNewPropertyService.getSavedPropertyId(),
@@ -84,23 +92,21 @@ export class LpPhotosComponent implements OnInit {
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
-          console.log('Files have been successfully uploaded!');
           this.router.navigate(['/lp/reviewandcomplete']);
         } else {
-          alert('Uploading error!');
+          this.showAlert('Uploading error!');
         }
       })
       .catch((err) => {
-        alert(err);
+        this.mainDataService.alertContent = err;
+        this.modalService.open(this.alert);
       });
   }
 
   ngOnInit(): void {
     this.activatedRouter.queryParams.subscribe((params: any) => {
       if (params['toSaveId'] == 'true') {
-        this.listNewPropertyService.setSavedPropertyId(
-          params['id']
-        );
+        this.listNewPropertyService.setSavedPropertyId(params['id']);
       }
       if (!AuthHelper.isLogged()) {
         this.router.navigate(['']);

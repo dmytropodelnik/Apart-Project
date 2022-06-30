@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { SuggestionRuleType } from 'src/app/models/Suggestions/suggestionruletype.item';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
 import ImageHelper from '../../../utils/imageHelper';
 import { AdminContentService } from 'src/app/services/admin-content.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 @Component({
   selector: 'app-suggestion-rule-types-list',
   templateUrl: './suggestion-rule-types-list.component.html',
-  styleUrls: ['./suggestion-rule-types-list.component.css']
+  styleUrls: ['./suggestion-rule-types-list.component.css'],
 })
 export class SuggestionRuleTypesListComponent implements OnInit {
-
   ruleTypes: SuggestionRuleType[] | null = null;
   type: SuggestionRuleType | null = null;
   searchType: string = '';
@@ -22,13 +23,21 @@ export class SuggestionRuleTypesListComponent implements OnInit {
   page: number = 1;
   pageSize: number = 15;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
-    private adminContentService: AdminContentService
-  ) {
+    private adminContentService: AdminContentService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   search(): void {
+<<<<<<< HEAD
     fetch('https://apartmain.azurewebsites.net/api/suggestionruletypes/search?type=' + this.searchType, {
       method: 'GET',
       headers: {
@@ -36,17 +45,30 @@ export class SuggestionRuleTypesListComponent implements OnInit {
         Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
+=======
+    fetch(
+      'https://localhost:44381/api/suggestionruletypes/search?type=' +
+        this.searchType,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+>>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.ruleTypes = data.ruleTypes;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchType = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -69,12 +91,12 @@ export class SuggestionRuleTypesListComponent implements OnInit {
         if (data.code === 200) {
           this.getTypes();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.type = null;
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -99,12 +121,12 @@ export class SuggestionRuleTypesListComponent implements OnInit {
           this.getTypes();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.type = null;
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -129,16 +151,17 @@ export class SuggestionRuleTypesListComponent implements OnInit {
           this.getTypes();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.type = null;
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
   getTypes(): void {
+<<<<<<< HEAD
     fetch(`https://apartmain.azurewebsites.net/api/suggestionruletypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
       headers: {
@@ -147,16 +170,29 @@ export class SuggestionRuleTypesListComponent implements OnInit {
         Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
+=======
+    fetch(
+      `https://localhost:44381/api/suggestionruletypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+>>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.ruleTypes = data.types;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -169,6 +205,7 @@ export class SuggestionRuleTypesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
+<<<<<<< HEAD
     fetch(`https://apartmain.azurewebsites.net/api/suggestionruletypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
       method: 'GET',
       headers: {
@@ -177,16 +214,29 @@ export class SuggestionRuleTypesListComponent implements OnInit {
         Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
       },
     })
+=======
+    fetch(
+      `https://localhost:44381/api/suggestionruletypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
+>>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.collectElements(data.types);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -201,5 +251,4 @@ export class SuggestionRuleTypesListComponent implements OnInit {
   ngOnInit(): void {
     this.getTypes();
   }
-
 }

@@ -1,5 +1,9 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <div class="input-group">
-  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+    aria-describedby="search-addon" />
   <button type="button" class="btn btn-dark">search</button>
 </div>
 
@@ -9,7 +13,8 @@
   </div>
 </div> -->
 
-<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="editLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -41,7 +46,7 @@
       <th scope="row">
         <div class="form-check">
           <input class="form-check-input" type="radio" name="favoriteRadio" id="favoriteRadio" value={{item.id}}
-          (click)="setFavorite(item)" >
+            (click)="setFavorite(item)">
         </div>
       </th>
       <td>{{item.id}}</td>
