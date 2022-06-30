@@ -252,9 +252,6 @@
             </div>
           </div>
         </div>
-        <button *ngIf="isDateChosen" class="btn btn-primary" (click)="chooseApartments()">
-          Reserve
-        </button>
       </div>
       <div class="facilities-main" id="targetFacilities">
         <h2 *ngIf="facilityTypes.length != 0">Facilities</h2>
@@ -322,7 +319,7 @@
               mathHelper.Round10(grade) < 7.7
             ">Normal</span>
           <div *ngIf="grade == 0" class="review-card-avatar">
-            <div class="bui-review-score__badge">
+            <div class="bui-review-score__badge_unrated">
               Unrated
             </div>
           </div>

@@ -42,7 +42,7 @@
         <div *ngIf="isPromoCodeApplied" class="booking-details-price-item">
           <div>
             <span>Discount with promo code: </span><span>-{{discount}}%</span><span> (-${{difference}}) </span>
-          </div><br/>
+          </div><br />
           <div>
             <span>Final price: </span><span>${{finalPrice}}</span>
           </div>
@@ -95,29 +95,39 @@
             </span>
           </div>
           <div class="booking-details-card-container-item">
-            <span class="bui-review-score__badge">{{ mathHelper.Round10(grade) }}</span>
-            <span></span>
-            <span *ngIf="mathHelper.Round10(grade) >= 9.7">Exceptional</span>
-            <span *ngIf="
+            <div class="search_card_score">
+              <div class="bui-review-score__content">
+                <div *ngIf="grade != 0" class="bui-review-score__badge_unrated">
+                  {{ mathHelper.Round10(grade) }}
+                </div>
+                <span></span>
+                <span *ngIf="mathHelper.Round10(grade) >= 9.7">Exceptional</span>
+                <span *ngIf="
                 mathHelper.Round10(grade) >= 9.0 &&
                 mathHelper.Round10(grade) < 9.7
               ">Wonderful</span>
-            <span *ngIf="
+                <span *ngIf="
                 mathHelper.Round10(grade) >= 8.7 &&
                 mathHelper.Round10(grade) < 9.0
               ">Excellent</span>
-            <span *ngIf="
+                <span *ngIf="
                 mathHelper.Round10(grade) >= 8.2 &&
                 mathHelper.Round10(grade) < 8.7
               ">Very Good</span>
-            <span *ngIf="
+                <span *ngIf="
                 mathHelper.Round10(grade) > 7.6 && mathHelper.Round10(grade) < 8.2
               ">Good</span>
-            <span *ngIf="
+                <span *ngIf="
                 mathHelper.Round10(grade) >= 7.0 &&
                 mathHelper.Round10(grade) < 7.7
               ">Normal</span>
-            <span *ngIf="grade == 0"> Unrated </span>
+                <div *ngIf="grade == 0" class="review-card-avatar">
+                  <div class="bui-review-score__badge_unrated">
+                    Unrated
+                  </div>
+                </div>
+              </div>
+            </div>
             <span>{{chosenSuggestion.reviews.length}} reviews</span>
           </div>
           <div *ngIf="chosenSuggestion?.IsParkingAvailable" class="booking-details-card-container-item">
@@ -178,7 +188,9 @@
       <img src="../../../assets/images/12.jpg" alt="photo" />
       <div class="user-bookings-card-left-item">
         <span>{{chosenSuggestion?.bookingCategory}}</span>
-        <span>{{newStayBooking.checkIn!.toString().substring(0, newStayBooking.checkIn!.toString().indexOf('T'))}} - {{newStayBooking.checkOut!.toString().substring(0, newStayBooking.checkOut!.toString().indexOf('T'))}}, {{newStayBooking?.suggestion?.address?.city.title}}</span>
+        <span>{{newStayBooking.checkIn!.toString().substring(0, newStayBooking.checkIn!.toString().indexOf('T'))}} -
+          {{newStayBooking.checkOut!.toString().substring(0, newStayBooking.checkOut!.toString().indexOf('T'))}},
+          {{newStayBooking?.suggestion?.address?.city.title}}</span>
         <span>Nights: </span><span>{{newStayBooking.nights}}</span>
         <span>Booking status: Reserved</span>
         <span *ngIf="newStayBooking.isPaid">Booking is paid</span>
@@ -188,31 +200,35 @@
   </div>
   <div class="modal-footer">
     <div class="modal-footer-remove">
-      <span>Is for work:</span><span *ngIf="newStayBooking.isForWork">Yes</span><span *ngIf="!newStayBooking.isForWork">No</span>
+      <span>Is for work:</span><span *ngIf="newStayBooking.isForWork">Yes</span><span
+        *ngIf="!newStayBooking.isForWork">No</span>
       <span>Special requests:</span><span>{{newStayBooking.specialRequests}}</span>
       <span>Price</span> <span>${{newStayBooking.price?.totalPrice}}</span>
       <div *ngIf="newStayBooking.promoCode">
-        <span>Discount with promo code: </span><span>-{{newStayBooking.price?.discount}}%</span><span> (-${{newStayBooking.price?.difference}}) </span>
+        <span>Discount with promo code: </span><span>-{{newStayBooking.price?.discount}}%</span><span>
+          (-${{newStayBooking.price?.difference}}) </span>
       </div>
       <span>Final price: </span><span>${{newStayBooking.price?.finalPrice}}</span>
-      <span>Customer: </span><span>{{newStayBooking.customerInfo?.firstName}} {{newStayBooking.customerInfo?.lastName}}</span>
+      <span>Customer: </span><span>{{newStayBooking.customerInfo?.firstName}}
+        {{newStayBooking.customerInfo?.lastName}}</span>
       <span>Customer email: </span><span>{{newStayBooking.customerInfo?.email}}</span>
       <span>Customer phone number: </span><span>{{newStayBooking.customerInfo?.phoneNumber}}</span>
-      <span>Customer address: </span><span>              {{
+      <span>Customer address: </span><span> {{
         newStayBooking.customerInfo?.addressText +
         ", " +
         newStayBooking.customerInfo?.city +
         ", " +
         newStayBooking.customerInfo?.country
         }}</span>
-        <span *ngIf="newStayBooking.customerInfo?.zipCode">{{newStayBooking.customerInfo?.zipCode}}</span>
-        <span>Guests: </span>
-        <span *ngFor="let guest of newStayBooking.stayBookingsGuests; let i = index">
-          {{guest.guest.fullName}}
-        </span>
-        <span>We sent a booking confirmation letter to your email!</span>
+      <span *ngIf="newStayBooking.customerInfo?.zipCode">{{newStayBooking.customerInfo?.zipCode}}</span>
+      <span>Guests: </span>
+      <span *ngFor="let guest of newStayBooking.stayBookingsGuests; let i = index">
+        {{guest.guest.fullName}}
+      </span>
+      <span>We sent a booking confirmation letter to your email!</span>
       <div>
-        <button type="button" class="btn btn-primary" aria-label="Close" (click)="modal.dismiss('Cross click')">Close</button>
+        <button type="button" class="btn btn-primary" aria-label="Close"
+          (click)="modal.dismiss('Cross click')">Close</button>
       </div>
     </div>
   </div>

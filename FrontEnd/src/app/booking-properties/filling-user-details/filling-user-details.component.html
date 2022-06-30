@@ -78,7 +78,7 @@
             </span>
           </div>
           <div class="booking-details-card-container-item">
-            <span class="bui-review-score__badge">{{ mathHelper.Round10(grade) }}</span>
+            <span *ngIf="grade != 0" class="bui-review-score__badge_unrated">{{ mathHelper.Round10(grade) }}</span>
             <span></span>
             <span *ngIf="mathHelper.Round10(grade) >= 9.7">Exceptional</span>
             <span *ngIf="
@@ -100,7 +100,11 @@
                 mathHelper.Round10(grade) >= 7.0 &&
                 mathHelper.Round10(grade) < 7.7
               ">Normal</span>
-            <span *ngIf="grade"> Unrated </span>
+            <div *ngIf="grade == 0" class="review-card-avatar">
+              <div class="bui-review-score__badge_unrated">
+                Unrated
+              </div>
+            </div>
             <span>{{chosenSuggestion.reviews.length}} reviews</span>
           </div>
           <div *ngIf="chosenSuggestion?.IsParkingAvailable" class="booking-details-card-container-item">
@@ -120,7 +124,8 @@
             <label class="form-check-label" for="forWork">Yes</label>
           </div>
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="forWork" id="notForWork" (change)="changeIsForWork()" checked />
+            <input class="form-check-input" type="radio" name="forWork" id="notForWork" (change)="changeIsForWork()"
+              checked />
             <label class="form-check-label" for="forWork">No</label>
           </div>
         </div>
@@ -131,13 +136,15 @@
           </div>
           <div class="mb-3">
             <label for="confirmPassword" class="form-label">Last name</label>
-            <input type="text" class="form-control" id="confirmPassword" name="mainLastName" [(ngModel)]="mainLastName" />
+            <input type="text" class="form-control" id="confirmPassword" name="mainLastName"
+              [(ngModel)]="mainLastName" />
           </div>
         </div>
         <div>
           <div class="mb-3">
             <label for="email" class="form-label">Email address</label>
-            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="mainEmail" [(ngModel)]="mainEmail" />
+            <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="mainEmail"
+              [(ngModel)]="mainEmail" />
             <div id="emailHelp" class="form-text">
               We'll never share your email with anyone else.
             </div>
@@ -146,7 +153,8 @@
         <div>
           <div class="mb-3">
             <label for="confirmEmail" class="form-label">Confirm email address</label>
-            <input type="email" class="form-control" id="confirmEmail" aria-describedby="emailHelp" name="confirmEmail" [(ngModel)]="confirmEmail" />
+            <input type="email" class="form-control" id="confirmEmail" aria-describedby="emailHelp" name="confirmEmail"
+              [(ngModel)]="confirmEmail" />
           </div>
         </div>
       </div>
@@ -183,7 +191,8 @@
             its best to meet your needs. You can always make a special request
             after your booking is complete!</span>
           <label for="specialrequest"></label>
-          <textarea name="specialRequests" id="specialRequests" cols="30" rows="10" [(ngModel)]="specialRequests" ></textarea>
+          <textarea name="specialRequests" id="specialRequests" cols="30" rows="10"
+            [(ngModel)]="specialRequests"></textarea>
           <div class="booking-details-fill-specialrequest-buttons">
             <button type="button" class="btn btn-primary" (click)="continueBooking()">
               Next: Final details

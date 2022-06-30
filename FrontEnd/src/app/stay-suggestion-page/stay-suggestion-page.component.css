@@ -19,6 +19,22 @@
   overflow: hidden;
 }
 
+.bui-review-score__badge_unrated {
+  background: #0c9496;
+  color: #fff;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  vertical-align: baseline;
+  border-radius: 5.81818px 5.81818px 5.81818px 0;
+  height: 32px;
+  min-width: 64px;
+  align-items: center;
+  margin-left: 25px;
+}
+
 .facilities-margin {
   margin-right: 15px;
 }
@@ -533,9 +549,7 @@
   justify-content: center;
   background-color: #494949;
   color: #fff;
-  text-transform: uppercase;
   font-size: 14px;
-  font-weight: 700;
   line-height: 20px;
   font-family: BlinkMacSystemFont, -apple-system, Segoe UI, Roboto, Helvetica,
     Arial, sans-serif;
