@@ -58,13 +58,18 @@ export class ViewPropertyComponent implements OnInit {
           this.inProgressSuggestionsAmount =
             response.inProgressSuggestionsAmount;
         } else {
-          alert('Get properties fetching error!');
+          this.showAlert('Get properties fetching error!');
         }
       })
       .catch((ex) => {
         this.mainDataService.alertContent = ex;
         this.modalService.open(this.alert);
       });
+  }
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   continueRegistration(suggestion: any): void {
@@ -176,7 +181,7 @@ export class ViewPropertyComponent implements OnInit {
           this.activeSuggestions = response.activeSuggestions;
           this.activeSuggestionsAmount = response.activeSuggestionsAmount;
         } else {
-          alert(response.message);
+          this.showAlert(response.message);
         }
       })
       .catch((ex) => {
@@ -206,7 +211,7 @@ export class ViewPropertyComponent implements OnInit {
           this.inProgressSuggestionsAmount =
             response.inProgressSuggestionsAmount;
         } else {
-          alert(response.message);
+          this.showAlert(response.message);
         }
       })
       .catch((ex) => {
@@ -231,10 +236,10 @@ export class ViewPropertyComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          alert('Suggestion was deleted successfully!');
+          this.showAlert('Suggestion was deleted successfully!');
           this.getProperties();
         } else {
-          alert(data.message);
+          this.showAlert(data.message);
         }
       })
       .catch((ex) => {

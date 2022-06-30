@@ -86,9 +86,14 @@ export class BookingFinalStepComponent implements OnInit {
     });
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   applyPromoCode(): void {
     if (this.promoCode.length < 6) {
-      alert('Please enter a correct promo code!');
+      this.showAlert('Please enter a correct promo code!');
       return;
     }
 
@@ -111,7 +116,7 @@ export class BookingFinalStepComponent implements OnInit {
           this.discount = response.discount;
           this.difference = response.difference;
         } else {
-          alert(response.message);
+          this.showAlert(response.message);
         }
       })
       .catch((ex) => {
@@ -122,21 +127,21 @@ export class BookingFinalStepComponent implements OnInit {
 
   completeBooking(revealContent: any): void {
     if (this.address.length < 5) {
-      alert('Address must contain at least 5 characters!');
+      this.showAlert('Address must contain at least 5 characters!');
       return;
     }
     if (this.city.length < 2) {
-      alert('City must contain at least 2 characters!');
+      this.showAlert('City must contain at least 2 characters!');
       return;
     }
     if (this.country.length < 2) {
-      alert('Country must contain at least 2 characters!');
+      this.showAlert('Country must contain at least 2 characters!');
       return;
     }
     if (
       !this.phone.match('^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$')
     ) {
-      alert('Enter a correct phone number!');
+      this.showAlert('Enter a correct phone number!');
       return;
     }
 
@@ -196,7 +201,7 @@ export class BookingFinalStepComponent implements OnInit {
           }
           BookingHelper.clearBookingData();
         } else {
-          alert(response.message);
+          this.showAlert(response.message);
         }
       })
       .catch((ex) => {
@@ -268,7 +273,7 @@ export class BookingFinalStepComponent implements OnInit {
       .then(async (data) => {
         if (data.code === 200) {
         } else {
-          alert(data.message);
+          this.showAlert(data.message);
         }
       })
       .catch((ex) => {

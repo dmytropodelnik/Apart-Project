@@ -32,6 +32,11 @@ export class RoomTypesListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   search(): void {
     fetch(
       'https://localhost:44381/api/roomtypes/search?type=' + this.searchType,
@@ -48,7 +53,7 @@ export class RoomTypesListComponent implements OnInit {
         if (data.code === 200) {
           this.roomTypes = data.roomTypes;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchType = '';
       })
@@ -77,7 +82,7 @@ export class RoomTypesListComponent implements OnInit {
         if (data.code === 200) {
           this.getTypes();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.type = null;
       })
@@ -108,7 +113,7 @@ export class RoomTypesListComponent implements OnInit {
           this.getTypes();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.type = null;
       })
@@ -139,7 +144,7 @@ export class RoomTypesListComponent implements OnInit {
           this.getTypes();
           ListHelper.disableButtons();
         } else {
-          alert('Deleting error!');
+          this.showAlert('Deleting error!');
         }
         this.type = null;
       })
@@ -166,7 +171,7 @@ export class RoomTypesListComponent implements OnInit {
         if (data.code === 200) {
           this.roomTypes = data.types;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -200,7 +205,7 @@ export class RoomTypesListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.types);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

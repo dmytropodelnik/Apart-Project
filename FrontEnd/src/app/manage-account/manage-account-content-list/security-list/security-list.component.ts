@@ -48,6 +48,11 @@ export class SecurityListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   setDeleteReason(value: number) {
     this.deleteReason = value;
   }
@@ -98,7 +103,7 @@ export class SecurityListComponent implements OnInit {
         if (data.code === 200) {
           this.isEmailSent = true;
         } else {
-          alert('Error generating reset link');
+          this.showAlert('Error generating reset link');
         }
       })
       .catch((ex) => {
@@ -110,7 +115,7 @@ export class SecurityListComponent implements OnInit {
   unsubscribeMails(id: number): void {
     this.cancelButtonClick(id);
 
-    alert('You have successfully unsubscribed from mail letters!');
+    this.showAlert('You have successfully unsubscribed from mail letters!');
   }
 
   deleteAccount(id: number): void {
@@ -132,7 +137,7 @@ export class SecurityListComponent implements OnInit {
           this.isDeleteRequested = true;
           this.cancelButtonClick(id);
         } else {
-          alert('Error generating delete user code');
+          this.showAlert('Error generating delete user code');
         }
       })
       .catch((ex) => {

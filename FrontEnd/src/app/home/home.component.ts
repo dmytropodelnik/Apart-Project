@@ -135,6 +135,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   setChildren(value: number): void {
     if (this.searchViewModel.searchChildrenAmount + value < 0) {
       return;
@@ -166,7 +171,7 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.recommendedSuggestionsCount = data.suggestionsCount;
           this.recommendedCities = data.citiesList;
         } else {
-          alert('Recommended dest data fetching error!');
+          this.showAlert('Recommended dest data fetching error!');
         }
       })
       .catch((ex) => {
@@ -190,11 +195,12 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.bookingCategories = r.categories;
           this.mainDataService.setBookingCategories(this.bookingCategories);
         } else {
-          alert('Categories data fetching error!');
+          this.showAlert('Categories data fetching error!');
         }
       })
       .catch((err) => {
-        alert(err);
+        this.mainDataService.alertContent = err;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -209,11 +215,12 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.regionsSuggestions = r.regionsSuggestions;
           this.mainDataService.setSearchingRegions(this.regions);
         } else {
-          alert('Data fetching error!');
+          this.showAlert('Data fetching error!');
         }
       })
       .catch((err) => {
-        alert(err);
+        this.mainDataService.alertContent = err;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -228,11 +235,12 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.countries = r.countries;
           this.mainDataService.setSearchingCountries(this.countries);
         } else {
-          alert('Data fetching error!');
+          this.showAlert('Data fetching error!');
         }
       })
       .catch((err) => {
-        alert(err);
+        this.mainDataService.alertContent = err;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -252,11 +260,12 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.footerCities = r.footerCities;
           this.mainDataService.setSearchingCities(this.cities);
         } else {
-          alert('Data fetching error!');
+          this.showAlert('Data fetching error!');
         }
       })
       .catch((err) => {
-        alert(err);
+        this.mainDataService.alertContent = err;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -332,7 +341,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         '-' +
         this.searchViewModel.pdateOut!.day;
     } else {
-      alert('Select the check in and check out dates!');
+      this.showAlert('Select the check in and check out dates!');
       return;
     }
 

@@ -43,6 +43,11 @@ export class UserSavedComponent implements OnInit {
     this.getUserFavorites();
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   removeSuggestion(id: any): void {
     const suggestion = {
       id: id,
@@ -69,7 +74,7 @@ export class UserSavedComponent implements OnInit {
             }
           });
         } else {
-          alert('User favorites fetching error!');
+          this.showAlert('User favorites fetching error!');
         }
       })
       .catch((ex) => {
@@ -110,7 +115,7 @@ export class UserSavedComponent implements OnInit {
           this.reviewsCount = response.reviewsCount;
           this.suggestionStartsFrom = response.suggestionStartsFrom;
         } else {
-          alert('User favorites fetching error!');
+          this.showAlert('User favorites fetching error!');
         }
       })
       .catch((ex) => {

@@ -29,6 +29,11 @@ export class PaymentsListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   addPayment(): void {
     let payment = {
       name: this.payment,
@@ -48,7 +53,7 @@ export class PaymentsListComponent implements OnInit {
         if (data.code === 200) {
           this.getPayments();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.payment = null;
       })
@@ -79,7 +84,7 @@ export class PaymentsListComponent implements OnInit {
           this.getPayments();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.payment = null;
       })
@@ -110,7 +115,7 @@ export class PaymentsListComponent implements OnInit {
           this.getPayments();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.payment = null;
       })
@@ -137,7 +142,7 @@ export class PaymentsListComponent implements OnInit {
         if (data.code === 200) {
           this.payments = data.payments;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -171,7 +176,7 @@ export class PaymentsListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.payments);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

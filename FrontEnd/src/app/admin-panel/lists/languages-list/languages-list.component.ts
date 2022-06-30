@@ -29,6 +29,11 @@ export class LanguagesListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   search(): void {
     fetch(
       'https://localhost:44381/api/languages/search?lang=' + this.searchLang,
@@ -45,7 +50,7 @@ export class LanguagesListComponent implements OnInit {
         if (data.code === 200) {
           this.languages = data.languages;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchLang = '';
       })
@@ -74,7 +79,7 @@ export class LanguagesListComponent implements OnInit {
         if (data.code === 200) {
           this.getLangs();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.lang = '';
       })
@@ -105,7 +110,7 @@ export class LanguagesListComponent implements OnInit {
           this.getLangs();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         console.log(data);
         this.lang = '';
@@ -137,7 +142,7 @@ export class LanguagesListComponent implements OnInit {
           this.getLangs();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.lang = '';
       })
@@ -172,7 +177,7 @@ export class LanguagesListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.languages);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -206,7 +211,7 @@ export class LanguagesListComponent implements OnInit {
         if (data.code === 200) {
           this.languages = data.languages;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

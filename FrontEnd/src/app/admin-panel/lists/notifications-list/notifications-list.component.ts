@@ -30,6 +30,11 @@ export class NotificationsListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   search(): void {
     fetch(
       'https://localhost:44381/api/notifications/search?notification=' +
@@ -47,7 +52,7 @@ export class NotificationsListComponent implements OnInit {
         if (data.code === 200) {
           this.notifications = data.notifications;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchNotification = '';
       })
@@ -76,7 +81,7 @@ export class NotificationsListComponent implements OnInit {
         if (data.code === 200) {
           this.getNotifications();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.notification = '';
       })
@@ -107,7 +112,7 @@ export class NotificationsListComponent implements OnInit {
           this.getNotifications();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.notification = '';
       })
@@ -138,7 +143,7 @@ export class NotificationsListComponent implements OnInit {
           this.getNotifications();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.notification = '';
       })
@@ -165,7 +170,7 @@ export class NotificationsListComponent implements OnInit {
         if (data.code === 200) {
           this.notifications = data.notifications;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -199,7 +204,7 @@ export class NotificationsListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.notifications);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

@@ -44,6 +44,11 @@ export class HeaderComponent implements OnInit {
     return AuthHelper.getToken();
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   userSignOut(): void {
     let model = {
       username: AuthHelper.getLogin(),
@@ -85,7 +90,7 @@ export class HeaderComponent implements OnInit {
 
           this.router.navigate(['']);
         } else {
-          alert('Logout error!');
+          this.showAlert('Logout error!');
         }
       })
       .catch((ex) => {

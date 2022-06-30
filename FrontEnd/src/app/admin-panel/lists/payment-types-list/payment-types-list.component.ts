@@ -31,6 +31,11 @@ export class PaymentTypesListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   addType(): void {
     let type = {
       title: this.type,
@@ -50,7 +55,7 @@ export class PaymentTypesListComponent implements OnInit {
         if (data.code === 200) {
           this.getTypes();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.type = '';
       })
@@ -81,7 +86,7 @@ export class PaymentTypesListComponent implements OnInit {
           this.getTypes();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         console.log(data);
         this.type = '';
@@ -113,7 +118,7 @@ export class PaymentTypesListComponent implements OnInit {
           this.getTypes();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.type = '';
       })
@@ -140,7 +145,7 @@ export class PaymentTypesListComponent implements OnInit {
         if (data.code === 200) {
           this.types = data.types;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -174,7 +179,7 @@ export class PaymentTypesListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.types);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

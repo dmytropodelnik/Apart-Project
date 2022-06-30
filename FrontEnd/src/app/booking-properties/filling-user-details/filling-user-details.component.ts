@@ -68,6 +68,11 @@ export class FillingUserDetailsComponent implements OnInit {
     }
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   changeIsForWork(): void {
     this.isForWork = !this.isForWork;
   }
@@ -82,25 +87,25 @@ export class FillingUserDetailsComponent implements OnInit {
 
   continueBooking(): void {
     if (this.mainEmail != this.confirmEmail) {
-      alert('Emails are not equal!');
+      this.showAlert('Emails are not equal!');
       return;
     }
     if (this.mainFirstName.length < 1) {
-      alert('Enter a first name!');
+      this.showAlert('Enter a first name!');
       return;
     }
     if (this.mainLastName.length < 1) {
-      alert('Enter a last name!');
+      this.showAlert('Enter a last name!');
       return;
     }
     if (this.mainEmail.length < 1) {
-      alert('Enter an email!');
+      this.showAlert('Enter an email!');
       return;
     }
 
     for (let i = 0; i < this.guestsData.length; i++) {
       if (this.guestsData[i].length < 2) {
-        alert('Enter a full guests name');
+        this.showAlert('Enter a full guests name');
         return;
       }
     }

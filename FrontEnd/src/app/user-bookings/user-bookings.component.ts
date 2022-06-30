@@ -39,6 +39,11 @@ export class UserBookingsComponent implements OnInit {
 
   payBooking(): void {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   getUserBooking(): void {
     fetch(
       `https://localhost:44381/api/staybookings/getuserbookings?email=${AuthHelper.getLogin()}`,
@@ -56,7 +61,7 @@ export class UserBookingsComponent implements OnInit {
         if (response.code === 200) {
           this.bookings = response.stayBookings;
         } else {
-          alert(response.message);
+          this.showAlert(response.message);
         }
       })
       .catch((ex) => {
@@ -82,7 +87,7 @@ export class UserBookingsComponent implements OnInit {
         if (response.code === 200) {
           this.getUserBooking();
         } else {
-          alert(response.message);
+          this.showAlert(response.message);
         }
       })
       .catch((ex) => {

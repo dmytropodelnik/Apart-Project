@@ -14,11 +14,11 @@ export class ListNewPropertyService {
     //       if (response.code === 200) {
     //         this.savedPropertyId = response.userId;
     //       } else {
-    //         alert("Refresh getting userId error!");
+    //        alert("Refresh getting userId error!");
     //       }
     //     })
     //     .catch((ex) => {
-    //               alert(ex);
+    //              alert(ex);
     //     });
     // }
   }

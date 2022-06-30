@@ -29,6 +29,11 @@ export class PromoCodesListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   search(): void {
     fetch(
       'https://localhost:44381/api/promocodes/search?code=' + this.searchCode,
@@ -45,7 +50,7 @@ export class PromoCodesListComponent implements OnInit {
         if (data.code === 200) {
           this.codes = data.codes;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchCode = '';
       })
@@ -74,7 +79,7 @@ export class PromoCodesListComponent implements OnInit {
         if (data.code === 200) {
           this.getCodes();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.code = null;
       })
@@ -105,7 +110,7 @@ export class PromoCodesListComponent implements OnInit {
           this.getCodes();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.code = null;
       })
@@ -136,7 +141,7 @@ export class PromoCodesListComponent implements OnInit {
           this.getCodes();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.code = null;
       })
@@ -163,7 +168,7 @@ export class PromoCodesListComponent implements OnInit {
         if (data.code === 200) {
           this.codes = data.codes;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -197,7 +202,7 @@ export class PromoCodesListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.codes);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

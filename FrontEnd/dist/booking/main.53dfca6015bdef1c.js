@@ -14,7 +14,7 @@
             const n = new Error();
             console.warn(
               "DEPRECATED! RxJS was set to use deprecated synchronous error handling behavior by code at: \n" +
-                n.stack
+              n.stack
             );
           } else
             vr &&
@@ -33,14 +33,14 @@
         }, 0);
       }
       const Js = {
-          closed: !0,
-          next(t) {},
-          error(t) {
-            if (Xt.useDeprecatedSynchronousErrorHandling) throw t;
-            pi(t);
-          },
-          complete() {},
+        closed: !0,
+        next(t) { },
+        error(t) {
+          if (Xt.useDeprecatedSynchronousErrorHandling) throw t;
+          pi(t);
         },
+        complete() { },
+      },
         gi = Array.isArray || ((t) => t && "number" == typeof t.length);
       function pc(t) {
         return null !== t && "object" == typeof t;
@@ -51,8 +51,8 @@
             Error.call(this),
             (this.message = n
               ? `${n.length} errors occurred during unsubscription:\n${n
-                  .map((e, i) => `${i + 1}) ${e.toString()}`)
-                  .join("\n  ")}`
+                .map((e, i) => `${i + 1}) ${e.toString()}`)
+                .join("\n  ")}`
               : ""),
             (this.name = "UnsubscriptionError"),
             (this.errors = n),
@@ -79,9 +79,9 @@
           } = this;
           if (
             ((this.closed = !0),
-            (this._parentOrParents = null),
-            (this._subscriptions = null),
-            e instanceof $e)
+              (this._parentOrParents = null),
+              (this._subscriptions = null),
+              e instanceof $e)
           )
             e.remove(this);
           else if (null !== e)
@@ -97,7 +97,7 @@
           if (gi(a)) {
             let l = -1,
               d = a.length;
-            for (; ++l < d; ) {
+            for (; ++l < d;) {
               const u = a[l];
               if (pc(u))
                 try {
@@ -162,7 +162,7 @@
       class xe extends $e {
         constructor(n, e, i) {
           switch (
-            (super(),
+          (super(),
             (this.syncErrorValue = null),
             (this.syncErrorThrown = !1),
             (this.syncErrorThrowable = !1),
@@ -239,11 +239,11 @@
           hi(e)
             ? (a = e)
             : e &&
-              ((a = e.next),
+            ((a = e.next),
               (i = e.error),
               (o = e.complete),
               e !== Js &&
-                ((l = Object.create(e)),
+              ((l = Object.create(e)),
                 hi(l.unsubscribe) && this.add(l.unsubscribe.bind(l)),
                 (l.unsubscribe = this.unsubscribe.bind(this)))),
             (this._context = l),
@@ -345,10 +345,10 @@
                   : this.source ||
                     (Xt.useDeprecatedSynchronousErrorHandling &&
                       !l.syncErrorThrowable)
-                  ? this._subscribe(l)
-                  : this._trySubscribe(l)
+                    ? this._subscribe(l)
+                    : this._trySubscribe(l)
               ),
-              Xt.useDeprecatedSynchronousErrorHandling &&
+                Xt.useDeprecatedSynchronousErrorHandling &&
                 l.syncErrorThrowable &&
                 ((l.syncErrorThrowable = !1), l.syncErrorThrown))
             )
@@ -362,7 +362,7 @@
               Xt.useDeprecatedSynchronousErrorHandling &&
                 ((e.syncErrorThrown = !0), (e.syncErrorValue = i)),
                 (function (t) {
-                  for (; t; ) {
+                  for (; t;) {
                     const { closed: n, destination: e, isStopped: i } = t;
                     if (n || i) return !1;
                     t = e && e instanceof xe ? e : null;
@@ -400,14 +400,14 @@
             return 0 === e.length
               ? this
               : (function (t) {
-                  return 0 === t.length
-                    ? Zs
-                    : 1 === t.length
+                return 0 === t.length
+                  ? Zs
+                  : 1 === t.length
                     ? t[0]
                     : function (e) {
-                        return t.reduce((i, o) => o(i), e);
-                      };
-                })(e)(this);
+                      return t.reduce((i, o) => o(i), e);
+                    };
+              })(e)(this);
           }
           toPromise(e) {
             return new (e = Ap(e))((i, o) => {
@@ -452,7 +452,7 @@
             e = n.observers;
           if (
             ((this.subject = null),
-            !e || 0 === e.length || n.isStopped || n.closed)
+              !e || 0 === e.length || n.isStopped || n.closed)
           )
             return;
           const i = e.indexOf(this.subscriber);
@@ -520,8 +520,8 @@
             return this.hasError
               ? (e.error(this.thrownError), $e.EMPTY)
               : this.isStopped
-              ? (e.complete(), $e.EMPTY)
-              : (this.observers.push(e), new LC(this, e));
+                ? (e.complete(), $e.EMPTY)
+                : (this.observers.push(e), new LC(this, e));
           }
           asObservable() {
             const e = new _e();
@@ -589,9 +589,9 @@
         }
       }
       const Rp = (t) => (n) => {
-          for (let e = 0, i = t.length; e < i && !n.closed; e++) n.next(t[e]);
-          n.complete();
-        },
+        for (let e = 0, i = t.length; e < i && !n.closed; e++) n.next(t[e]);
+        n.complete();
+      },
         fi =
           "function" == typeof Symbol && Symbol.iterator
             ? Symbol.iterator
@@ -628,7 +628,7 @@
         if (t && "function" == typeof t[fi])
           return ((t) => (n) => {
             const e = t[fi]();
-            for (;;) {
+            for (; ;) {
               let i;
               try {
                 i = e.next();
@@ -643,16 +643,15 @@
             }
             return (
               "function" == typeof e.return &&
-                n.add(() => {
-                  e.return && e.return();
-                }),
+              n.add(() => {
+                e.return && e.return();
+              }),
               n
             );
           })(t);
         {
-          const e = `You provided ${
-            pc(t) ? "an invalid object" : `'${t}'`
-          } where a stream was expected. You can provide an Observable, Promise, Array, or Iterable.`;
+          const e = `You provided ${pc(t) ? "an invalid object" : `'${t}'`
+            } where a stream was expected. You can provide an Observable, Promise, Array, or Iterable.`;
           throw new TypeError(e);
         }
       };
@@ -675,112 +674,112 @@
       function xt(t, n) {
         return n
           ? (function (t, n) {
-              if (null != t) {
-                if (
-                  (function (t) {
-                    return t && "function" == typeof t[Cr];
-                  })(t)
-                )
-                  return (function (t, n) {
-                    return new _e((e) => {
-                      const i = new $e();
-                      return (
-                        i.add(
-                          n.schedule(() => {
-                            const o = t[Cr]();
-                            i.add(
-                              o.subscribe({
-                                next(a) {
-                                  i.add(n.schedule(() => e.next(a)));
-                                },
-                                error(a) {
-                                  i.add(n.schedule(() => e.error(a)));
-                                },
-                                complete() {
-                                  i.add(n.schedule(() => e.complete()));
-                                },
-                              })
-                            );
-                          })
-                        ),
-                        i
-                      );
-                    });
-                  })(t, n);
-                if (Lp(t))
-                  return (function (t, n) {
-                    return new _e((e) => {
-                      const i = new $e();
-                      return (
-                        i.add(
-                          n.schedule(() =>
-                            t.then(
-                              (o) => {
-                                i.add(
-                                  n.schedule(() => {
-                                    e.next(o),
-                                      i.add(n.schedule(() => e.complete()));
-                                  })
-                                );
+            if (null != t) {
+              if (
+                (function (t) {
+                  return t && "function" == typeof t[Cr];
+                })(t)
+              )
+                return (function (t, n) {
+                  return new _e((e) => {
+                    const i = new $e();
+                    return (
+                      i.add(
+                        n.schedule(() => {
+                          const o = t[Cr]();
+                          i.add(
+                            o.subscribe({
+                              next(a) {
+                                i.add(n.schedule(() => e.next(a)));
                               },
-                              (o) => {
-                                i.add(n.schedule(() => e.error(o)));
-                              }
-                            )
-                          )
-                        ),
-                        i
-                      );
-                    });
-                  })(t, n);
-                if (Fp(t)) return fc(t, n);
-                if (
-                  (function (t) {
-                    return t && "function" == typeof t[fi];
-                  })(t) ||
-                  "string" == typeof t
-                )
-                  return (function (t, n) {
-                    if (!t) throw new Error("Iterable cannot be null");
-                    return new _e((e) => {
-                      const i = new $e();
-                      let o;
-                      return (
-                        i.add(() => {
-                          o && "function" == typeof o.return && o.return();
-                        }),
-                        i.add(
-                          n.schedule(() => {
-                            (o = t[fi]()),
+                              error(a) {
+                                i.add(n.schedule(() => e.error(a)));
+                              },
+                              complete() {
+                                i.add(n.schedule(() => e.complete()));
+                              },
+                            })
+                          );
+                        })
+                      ),
+                      i
+                    );
+                  });
+                })(t, n);
+              if (Lp(t))
+                return (function (t, n) {
+                  return new _e((e) => {
+                    const i = new $e();
+                    return (
+                      i.add(
+                        n.schedule(() =>
+                          t.then(
+                            (o) => {
                               i.add(
-                                n.schedule(function () {
-                                  if (e.closed) return;
-                                  let a, l;
-                                  try {
-                                    const d = o.next();
-                                    (a = d.value), (l = d.done);
-                                  } catch (d) {
-                                    return void e.error(d);
-                                  }
-                                  l
-                                    ? e.complete()
-                                    : (e.next(a), this.schedule());
+                                n.schedule(() => {
+                                  e.next(o),
+                                    i.add(n.schedule(() => e.complete()));
                                 })
                               );
-                          })
-                        ),
-                        i
-                      );
-                    });
-                  })(t, n);
-              }
-              throw new TypeError(
-                ((null !== t && typeof t) || t) + " is not observable"
-              );
-            })(t, n)
+                            },
+                            (o) => {
+                              i.add(n.schedule(() => e.error(o)));
+                            }
+                          )
+                        )
+                      ),
+                      i
+                    );
+                  });
+                })(t, n);
+              if (Fp(t)) return fc(t, n);
+              if (
+                (function (t) {
+                  return t && "function" == typeof t[fi];
+                })(t) ||
+                "string" == typeof t
+              )
+                return (function (t, n) {
+                  if (!t) throw new Error("Iterable cannot be null");
+                  return new _e((e) => {
+                    const i = new $e();
+                    let o;
+                    return (
+                      i.add(() => {
+                        o && "function" == typeof o.return && o.return();
+                      }),
+                      i.add(
+                        n.schedule(() => {
+                          (o = t[fi]()),
+                            i.add(
+                              n.schedule(function () {
+                                if (e.closed) return;
+                                let a, l;
+                                try {
+                                  const d = o.next();
+                                  (a = d.value), (l = d.done);
+                                } catch (d) {
+                                  return void e.error(d);
+                                }
+                                l
+                                  ? e.complete()
+                                  : (e.next(a), this.schedule());
+                              })
+                            );
+                        })
+                      ),
+                      i
+                    );
+                  });
+                })(t, n);
+            }
+            throw new TypeError(
+              ((null !== t && typeof t) || t) + " is not observable"
+            );
+          })(t, n)
           : t instanceof _e
-          ? t
-          : new _e(gc(t));
+            ? t
+            : new _e(gc(t));
       }
       class wr extends xe {
         constructor(n) {
@@ -821,9 +820,9 @@
       function ut(t, n, e = Number.POSITIVE_INFINITY) {
         return "function" == typeof n
           ? (i) =>
-              i.pipe(
-                ut((o, a) => xt(t(o, a)).pipe(oe((l, d) => n(o, l, a, d))), e)
-              )
+            i.pipe(
+              ut((o, a) => xt(t(o, a)).pipe(oe((l, d) => n(o, l, a, d))), e)
+            )
           : ("number" == typeof n && (e = n), (i) => i.lift(new QC(t, e)));
       }
       class QC {
@@ -869,8 +868,8 @@
         _complete() {
           (this.hasCompleted = !0),
             0 === this.active &&
-              0 === this.buffer.length &&
-              this.destination.complete(),
+            0 === this.buffer.length &&
+            this.destination.complete(),
             this.unsubscribe();
         }
         notifyNext(n) {
@@ -882,8 +881,8 @@
             n.length > 0
               ? this._next(n.shift())
               : 0 === this.active &&
-                this.hasCompleted &&
-                this.destination.complete();
+              this.hasCompleted &&
+              this.destination.complete();
         }
       }
       function Dr(t = Number.POSITIVE_INFINITY) {
@@ -900,8 +899,8 @@
           lo(i)
             ? ((e = t.pop()),
               t.length > 1 &&
-                "number" == typeof t[t.length - 1] &&
-                (n = t.pop()))
+              "number" == typeof t[t.length - 1] &&
+              (n = t.pop()))
             : "number" == typeof i && (n = t.pop()),
           null === e && 1 === t.length && t[0] instanceof _e
             ? t[0]
@@ -964,7 +963,7 @@
           let n = this._connection;
           return (
             n ||
-              ((this._isComplete = !1),
+            ((this._isComplete = !1),
               (n = this._connection = new $e()),
               n.add(this.source.subscribe(new t2(this.getSubject(), this))),
               n.closed && ((this._connection = null), (n = $e.EMPTY))),
@@ -1041,8 +1040,8 @@
             ? ""
             : n
           : null == n || "" === n
-          ? t
-          : t + " " + n;
+            ? t
+            : t + " " + n;
       }
       const s2 = De({ __forward_ref__: De });
       function ne(t) {
@@ -1081,8 +1080,8 @@
         return "function" == typeof t
           ? t.name || t.toString()
           : "object" == typeof t && null != t && "function" == typeof t.type
-          ? t.type.name || t.type.toString()
-          : J(t);
+            ? t.type.name || t.type.toString()
+            : J(t);
       }
       function Ks(t, n) {
         const e = n ? ` in ${n}` : "";
@@ -1093,7 +1092,7 @@
           (function (t, n, e, i) {
             throw new Error(
               `ASSERTION ERROR: ${t}` +
-                (null == i ? "" : ` [Expected=> ${e} ${i} ${n} <=Actual]`)
+              (null == i ? "" : ` [Expected=> ${e} ${i} ${n} <=Actual]`)
             );
           })(n, t, null, "!=");
       }
@@ -1143,19 +1142,19 @@
             ? (i.value = i.factory())
             : i.value
           : e & Z.Optional
-          ? null
-          : void 0 !== n
-          ? n
-          : void Ks(he(t), "Injector");
+            ? null
+            : void 0 !== n
+              ? n
+              : void Ks(he(t), "Injector");
       }
       function mi(t) {
         return { toString: t }.toString();
       }
       var _n = (() => (
-          ((_n = _n || {})[(_n.OnPush = 0)] = "OnPush"),
-          (_n[(_n.Default = 1)] = "Default"),
-          _n
-        ))(),
+        ((_n = _n || {})[(_n.OnPush = 0)] = "OnPush"),
+        (_n[(_n.Default = 1)] = "Default"),
+        _n
+      ))(),
         Rn = (() => (
           (function (t) {
             (t[(t.Emulated = 0)] = "Emulated"),
@@ -1338,10 +1337,10 @@
       }
       function P2(t, n, e, i) {
         const o =
-            Xp(t) ||
-            (function (t, n) {
-              return (t[Kp] = n);
-            })(t, { previous: co, current: null }),
+          Xp(t) ||
+          (function (t, n) {
+            return (t[Kp] = n);
+          })(t, { previous: co, current: null }),
           a = o.current || (o.current = {}),
           l = o.previous,
           d = this.declaredInputs[e],
@@ -1363,11 +1362,11 @@
           void 0 !== Sc
             ? Sc
             : "undefined" != typeof document
-            ? document
-            : void 0,
+              ? document
+              : void 0,
       };
       function Ke(t) {
-        for (; Array.isArray(t); ) t = t[0];
+        for (; Array.isArray(t);) t = t[0];
         return t;
       }
       function sa(t, n) {
@@ -1425,7 +1424,7 @@
       }
       function nt() {
         let t = sg();
-        for (; null !== t && 64 === t.type; ) t = t.parent;
+        for (; null !== t && 64 === t.type;) t = t.parent;
         return t;
       }
       function sg() {
@@ -1479,7 +1478,7 @@
           for (
             ;
             !((o = o.parent),
-            null !== o ||
+              null !== o ||
               e & Z.Host ||
               ((o = q2(a)), null === o || ((a = a[15]), 10 & o.type)));
 
@@ -1574,11 +1573,11 @@
             } = a;
           l && (t.contentHooks || (t.contentHooks = [])).push(-e, l),
             d &&
-              ((t.contentHooks || (t.contentHooks = [])).push(e, d),
+            ((t.contentHooks || (t.contentHooks = [])).push(e, d),
               (t.contentCheckHooks || (t.contentCheckHooks = [])).push(e, d)),
             u && (t.viewHooks || (t.viewHooks = [])).push(-e, u),
             h &&
-              ((t.viewHooks || (t.viewHooks = [])).push(e, h),
+            ((t.viewHooks || (t.viewHooks = [])).push(e, h),
               (t.viewCheckHooks || (t.viewCheckHooks = [])).push(e, h)),
             null != p && (t.destroyHooks || (t.destroyHooks = [])).push(e, p);
         }
@@ -1603,7 +1602,7 @@
           } else
             n[u] < 0 && (t[18] += 65536),
               (d < a || -1 == a) &&
-                (X2(t, e, n, u), (t[18] = (4294901760 & t[18]) + u + 2)),
+              (X2(t, e, n, u), (t[18] = (4294901760 & t[18]) + u + 2)),
               u++;
       }
       function X2(t, n, e, i) {
@@ -1635,7 +1634,7 @@
       function ga(t, n, e) {
         const i = Ge(t);
         let o = 0;
-        for (; o < e.length; ) {
+        for (; o < e.length;) {
           const a = e[o];
           if ("number" == typeof a) {
             if (0 !== a) break;
@@ -1650,8 +1649,8 @@
             Uc(l)
               ? i && t.setProperty(n, l, d)
               : i
-              ? t.setAttribute(n, l, d)
-              : n.setAttribute(l, d),
+                ? t.setAttribute(n, l, d)
+                : n.setAttribute(l, d),
               o++;
           }
         }
@@ -1673,7 +1672,7 @@
               "number" == typeof o
                 ? (e = o)
                 : 0 === e ||
-                  mg(t, e, o, null, -1 === e || 2 === e ? n[++i] : null);
+                mg(t, e, o, null, -1 === e || 2 === e ? n[++i] : null);
             }
           }
         return t;
@@ -1683,7 +1682,7 @@
           l = t.length;
         if (-1 === n) l = -1;
         else
-          for (; a < t.length; ) {
+          for (; a < t.length;) {
             const d = t[a++];
             if ("number" == typeof d) {
               if (d === n) {
@@ -1696,7 +1695,7 @@
               }
             }
           }
-        for (; a < t.length; ) {
+        for (; a < t.length;) {
           const d = t[a];
           if ("number" == typeof d) break;
           if (d === e) {
@@ -1718,10 +1717,10 @@
       }
       function _o(t, n) {
         let e = (function (t) {
-            return t >> 16;
-          })(t),
+          return t >> 16;
+        })(t),
           i = n;
-        for (; e > 0; ) (i = i[15]), e--;
+        for (; e > 0;) (i = i[15]), e--;
         return i;
       }
       let zc = !0;
@@ -1736,9 +1735,9 @@
         const i = n[1];
         i.firstCreatePass &&
           ((t.injectorIndex = n.length),
-          Gc(i.data, t),
-          Gc(n, null),
-          Gc(i.blueprint, null));
+            Gc(i.data, t),
+            Gc(n, null),
+            Gc(i.blueprint, null));
         const o = ma(t, n),
           a = t.injectorIndex;
         if (_g(o)) {
@@ -1765,7 +1764,7 @@
         let e = 0,
           i = null,
           o = n;
-        for (; null !== o; ) {
+        for (; null !== o;) {
           const a = o[1],
             l = a.type;
           if (((i = 2 === l ? a.declTNode : 1 === l ? o[6] : null), null === i))
@@ -1793,7 +1792,7 @@
       function wg(t, n, e, i) {
         if (
           (e & Z.Optional && void 0 === i && (i = null),
-          0 == (e & (Z.Self | Z.Host)))
+            0 == (e & (Z.Self | Z.Host)))
         ) {
           const o = t[9],
             a = bi(void 0);
@@ -1829,9 +1828,9 @@
             for (
               (-1 === d || i & Z.SkipSelf) &&
               ((u = -1 === d ? ma(t, n) : n[d + 8]),
-              -1 !== u && kg(i, !1)
-                ? ((l = n[1]), (d = mo(u)), (n = _o(u, n)))
-                : (d = -1));
+                -1 !== u && kg(i, !1)
+                  ? ((l = n[1]), (d = mo(u)), (n = _o(u, n)))
+                  : (d = -1));
               -1 !== d;
 
             ) {
@@ -1905,28 +1904,28 @@
           try {
             (o = t[e] = l.factory(void 0, a, t, i)),
               n.firstCreatePass &&
-                e >= i.directiveStart &&
-                (function (t, n, e) {
-                  const {
-                    ngOnChanges: i,
-                    ngOnInit: o,
-                    ngDoCheck: a,
-                  } = n.type.prototype;
-                  if (i) {
-                    const l = Zp(n);
-                    (e.preOrderHooks || (e.preOrderHooks = [])).push(t, l),
-                      (
-                        e.preOrderCheckHooks || (e.preOrderCheckHooks = [])
-                      ).push(t, l);
-                  }
-                  o &&
-                    (e.preOrderHooks || (e.preOrderHooks = [])).push(0 - t, o),
-                    a &&
-                      ((e.preOrderHooks || (e.preOrderHooks = [])).push(t, a),
-                      (
-                        e.preOrderCheckHooks || (e.preOrderCheckHooks = [])
-                      ).push(t, a));
-                })(e, a[e], n);
+              e >= i.directiveStart &&
+              (function (t, n, e) {
+                const {
+                  ngOnChanges: i,
+                  ngOnInit: o,
+                  ngDoCheck: a,
+                } = n.type.prototype;
+                if (i) {
+                  const l = Zp(n);
+                  (e.preOrderHooks || (e.preOrderHooks = [])).push(t, l),
+                    (
+                      e.preOrderCheckHooks || (e.preOrderCheckHooks = [])
+                    ).push(t, l);
+                }
+                o &&
+                  (e.preOrderHooks || (e.preOrderHooks = [])).push(0 - t, o),
+                  a &&
+                  ((e.preOrderHooks || (e.preOrderHooks = [])).push(t, a),
+                    (
+                      e.preOrderCheckHooks || (e.preOrderCheckHooks = [])
+                    ).push(t, a));
+              })(e, a[e], n);
           } finally {
             null !== u && bi(u), ba(d), (l.resolving = !1), gg();
           }
@@ -1953,7 +1952,7 @@
             e = n[Xn] || Wc(n),
             i = Object.prototype;
           let o = Object.getPrototypeOf(t.prototype).constructor;
-          for (; o && o !== i; ) {
+          for (; o && o !== i;) {
             const a = o[Xn] || Wc(o);
             if (a && a !== e) return a;
             o = Object.getPrototypeOf(o);
@@ -1964,9 +1963,9 @@
       function Wc(t) {
         return Vp(t)
           ? () => {
-              const n = Wc(X(t));
-              return n && n();
-            }
+            const n = Wc(X(t));
+            return n && n();
+          }
           : Vi(t);
       }
       function wi(t) {
@@ -1977,12 +1976,12 @@
           if (e) {
             const i = e.length;
             let o = 0;
-            for (; o < i; ) {
+            for (; o < i;) {
               const a = e[o];
               if (bg(a)) break;
               if (0 === a) o += 2;
               else if ("number" == typeof a)
-                for (o++; o < i && "string" == typeof e[o]; ) o++;
+                for (o++; o < i && "string" == typeof e[o];) o++;
               else {
                 if (a === n) return e[o + 1];
                 o += 2;
@@ -2011,7 +2010,7 @@
               const f = u.hasOwnProperty(Co)
                 ? u[Co]
                 : Object.defineProperty(u, Co, { value: [] })[Co];
-              for (; f.length <= p; ) f.push(null);
+              for (; f.length <= p;) f.push(null);
               return (f[p] = f[p] || []).push(l), u;
             }
           }
@@ -2031,11 +2030,11 @@
             "number" == typeof e
               ? (this.__NG_ELEMENT_ID__ = e)
               : void 0 !== e &&
-                (this.ɵprov = L({
-                  token: this,
-                  providedIn: e.providedIn || "root",
-                  factory: e.factory,
-                }));
+              (this.ɵprov = L({
+                token: this,
+                providedIn: e.providedIn || "root",
+                factory: e.factory,
+              }));
         }
         toString() {
           return `InjectionToken ${this._desc}`;
@@ -2077,7 +2076,7 @@
                 if (o == n) t.push(e, i);
                 else if (1 === o) t.push(i, t[0]), (t[0] = e);
                 else {
-                  for (o--, t.push(t[o - 1], t[o]); o > n; )
+                  for (o--, t.push(t[o - 1], t[o]); o > n;)
                     (t[o] = t[o - 2]), o--;
                   (t[n] = e), (t[n + 1] = i);
                 }
@@ -2093,7 +2092,7 @@
         return (function (t, n, e) {
           let i = 0,
             o = t.length >> e;
-          for (; o !== i; ) {
+          for (; o !== i;) {
             const a = i + ((o - i) >> 1),
               l = t[a << e];
             if (n === l) return a << e;
@@ -2153,9 +2152,9 @@
         return t[Kc];
       }
       const $r = Hr(
-          Mo("Inject", (t) => ({ token: t })),
-          -1
-        ),
+        Mo("Inject", (t) => ({ token: t })),
+        -1
+      ),
         jn = Hr(Mo("Optional"), 8),
         Do = Hr(Mo("SkipSelf"), 4);
       class Ug {
@@ -2170,7 +2169,7 @@
         return t instanceof Ug ? t.changingThisBreaksApplicationSecurity : t;
       }
       const Jw =
-          /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^&:/?#]*(?:[/?#]|$))/gi,
+        /^(?:(?:https?|mailto|ftp|tel|file|sms):|[^&:/?#]*(?:[/?#]|$))/gi,
         Yw =
           /^data:(?:image\/(?:bmp|gif|jpeg|jpg|png|tiff|webp)|video\/(?:mpeg|mp4|ogg|webm)|audio\/(?:mp3|oga|ogg|opus));base64,[a-z0-9+\/]+=*$/i;
       var Xe = (() => (
@@ -2190,19 +2189,19 @@
         return n
           ? n.sanitize(Xe.URL, t) || ""
           : (function (t, n) {
-              const e = (function (t) {
-                return (t instanceof Ug && t.getTypeName()) || null;
-              })(t);
-              if (null != e && e !== n) {
-                if ("ResourceURL" === e && "URL" === n) return !0;
-                throw new Error(
-                  `Required a safe ${n}, got a ${e} (see https://g.co/ng/security#xss)`
-                );
-              }
-              return e === n;
-            })(t, "URL")
-          ? Mi(t)
-          : (function (t) {
+            const e = (function (t) {
+              return (t instanceof Ug && t.getTypeName()) || null;
+            })(t);
+            if (null != e && e !== n) {
+              if ("ResourceURL" === e && "URL" === n) return !0;
+              throw new Error(
+                `Required a safe ${n}, got a ${e} (see https://g.co/ng/security#xss)`
+              );
+            }
+            return e === n;
+          })(t, "URL")
+            ? Mi(t)
+            : (function (t) {
               return (t = String(t)).match(Jw) || t.match(Yw)
                 ? t
                 : "unsafe:" + t;
@@ -2238,7 +2237,7 @@
         }
         _findOriginalError(n) {
           let e = n && ud(n);
-          for (; e && ud(e); ) e = ud(e);
+          for (; e && ud(e);) e = ud(e);
           return e || null;
         }
       }
@@ -2270,7 +2269,7 @@
         return df(t[4]);
       }
       function df(t) {
-        for (; null !== t && !vn(t); ) t = t[4];
+        for (; null !== t && !vn(t);) t = t[4];
         return t;
       }
       function Eo(t, n, e, i, o) {
@@ -2284,33 +2283,33 @@
               ? bf(n, e, d)
               : Hi(n, e, d, o || null, !0)
             : 1 === t && null !== e
-            ? Hi(n, e, d, o || null, !0)
-            : 2 === t
-            ? (function (t, n, e) {
-                const i = Ta(t, n);
-                i &&
-                  (function (t, n, e, i) {
-                    Ge(t) ? t.removeChild(n, e, i) : n.removeChild(e);
-                  })(t, i, n, e);
-              })(n, d, l)
-            : 3 === t && n.destroyNode(d),
+              ? Hi(n, e, d, o || null, !0)
+              : 2 === t
+                ? (function (t, n, e) {
+                  const i = Ta(t, n);
+                  i &&
+                    (function (t, n, e, i) {
+                      Ge(t) ? t.removeChild(n, e, i) : n.removeChild(e);
+                    })(t, i, n, e);
+                })(n, d, l)
+                : 3 === t && n.destroyNode(d),
             null != a &&
-              (function (t, n, e, i, o) {
-                const a = e[7];
-                a !== Ke(e) && Eo(n, t, i, a, o);
-                for (let d = 10; d < e.length; d++) {
-                  const u = e[d];
-                  Yr(u[1], u, t, n, i, a);
-                }
-              })(n, t, a, e, o);
+            (function (t, n, e, i, o) {
+              const a = e[7];
+              a !== Ke(e) && Eo(n, t, i, a, o);
+              for (let d = 10; d < e.length; d++) {
+                const u = e[d];
+                Yr(u[1], u, t, n, i, a);
+              }
+            })(n, t, a, e, o);
         }
       }
       function md(t, n, e) {
         return Ge(t)
           ? t.createElement(n, e)
           : null === e
-          ? t.createElement(n)
-          : t.createElementNS(e, n);
+            ? t.createElement(n)
+            : t.createElementNS(e, n);
       }
       function hf(t, n) {
         const e = t[9],
@@ -2344,7 +2343,7 @@
             (function (t) {
               let n = t[13];
               if (!n) return yd(t[1], t);
-              for (; n; ) {
+              for (; n;) {
                 let e = null;
                 if (Fn(n)) e = n[13];
                 else {
@@ -2352,7 +2351,7 @@
                   i && (e = i);
                 }
                 if (!e) {
-                  for (; n && !n[4] && n !== t; )
+                  for (; n && !n[4] && n !== t;)
                     Fn(n) && yd(n[1], n), (n = n[3]);
                   null === n && (n = t), Fn(n) && yd(n[1], n), (e = n && n[4]);
                 }
@@ -2403,8 +2402,8 @@
                     "boolean" == typeof h
                       ? d.removeEventListener(e[a], u, h)
                       : h >= 0
-                      ? i[(o = h)]()
-                      : i[(o = -h)].unsubscribe(),
+                        ? i[(o = h)]()
+                        : i[(o = -h)].unsubscribe(),
                       (a += 2);
                   } else {
                     const l = i[(o = e[a + 1])];
@@ -2427,7 +2426,7 @@
       function gf(t, n, e) {
         return (function (t, n, e) {
           let i = n;
-          for (; null !== i && 40 & i.type; ) i = (n = i).parent;
+          for (; null !== i && 40 & i.type;) i = (n = i).parent;
           if (null === i) return e[0];
           if (2 & i.flags) {
             const o = t.data[i.directiveStart].encapsulation;
@@ -2501,18 +2500,18 @@
         return n[7];
       }
       function wd(t, n, e, i, o, a, l) {
-        for (; null != e; ) {
+        for (; null != e;) {
           const d = i[e.index],
             u = e.type;
           if (
             (l && 0 === n && (d && Ot(Ke(d), i), (e.flags |= 4)),
-            64 != (64 & e.flags))
+              64 != (64 & e.flags))
           )
             if (8 & u) wd(t, n, e.child, i, o, a, !1), Eo(n, t, o, d, a);
             else if (32 & u) {
               const h = pd(e, i);
               let p;
-              for (; (p = h()); ) Eo(n, t, o, p, a);
+              for (; (p = h());) Eo(n, t, o, p, a);
               Eo(n, t, o, d, a);
             } else 16 & u ? xf(t, n, i, e, o, a) : Eo(n, t, o, d, a);
           e = l ? e.projectionNext : e.next;
@@ -2540,7 +2539,7 @@
       }
       function kf(t, n, e) {
         let i = t.length;
-        for (;;) {
+        for (; ;) {
           const o = t.indexOf(n, e);
           if (-1 === o) return o;
           if (0 === o || t.charCodeAt(o - 1) <= 32) {
@@ -2553,12 +2552,12 @@
       const Of = "ng-template";
       function WM(t, n, e) {
         let i = 0;
-        for (; i < t.length; ) {
+        for (; i < t.length;) {
           let o = t[i++];
           if (e && "class" === o) {
             if (((o = t[i]), -1 !== kf(o.toLowerCase(), n, 0))) return !0;
           } else if (1 === o) {
-            for (; i < t.length && "string" == typeof (o = t[i++]); )
+            for (; i < t.length && "string" == typeof (o = t[i++]);)
               if (o.toLowerCase() === n) return !0;
             return !1;
           }
@@ -2586,7 +2585,7 @@
               if (4 & i) {
                 if (
                   ((i = 2 | (1 & i)),
-                  ("" !== u && !JM(t, u, e)) || ("" === u && 1 === n.length))
+                    ("" !== u && !JM(t, u, e)) || ("" === u && 1 === n.length))
                 ) {
                   if (wn(i)) return !1;
                   l = !0;
@@ -2632,14 +2631,14 @@
         let o = 0;
         if (i || !e) {
           let a = !1;
-          for (; o < n.length; ) {
+          for (; o < n.length;) {
             const l = n[o];
             if (l === t) return o;
             if (3 === l || 6 === l) a = !0;
             else {
               if (1 === l || 2 === l) {
                 let d = n[++o];
-                for (; "string" == typeof d; ) d = n[++o];
+                for (; "string" == typeof d;) d = n[++o];
                 continue;
               }
               if (4 === l) break;
@@ -2655,7 +2654,7 @@
         return (function (t, n) {
           let e = t.indexOf(4);
           if (e > -1)
-            for (e++; e < t.length; ) {
+            for (e++; e < t.length;) {
               const i = t[e];
               if ("number" == typeof i) return -1;
               if (i === n) return e;
@@ -2687,7 +2686,7 @@
           i = 2,
           o = "",
           a = !1;
-        for (; e < t.length; ) {
+        for (; e < t.length;) {
           let l = t[e];
           if ("string" == typeof l)
             if (2 & i) {
@@ -2808,9 +2807,9 @@
             return (
               null === t.firstChild && (t.firstChild = u),
               null !== a &&
-                (l
-                  ? null == a.child && null !== u.parent && (a.child = u)
-                  : null === a.next && (a.next = u)),
+              (l
+                ? null == a.child && null !== u.parent && (a.child = u)
+                : null === a.next && (a.next = u)),
               u
             );
           })(t, n, e, i, o)),
@@ -2852,7 +2851,7 @@
           throw (
             (t.firstCreatePass &&
               ((t.incompleteFirstPass = !0), (t.firstCreatePass = !1)),
-            i)
+              i)
           );
         } finally {
           (n[2] &= -5), da();
@@ -2890,16 +2889,16 @@
                 }
               }
             })(n),
-            (function (t) {
-              for (let n = gd(t); null !== n; n = fd(n))
-                for (let e = 10; e < n.length; e++) {
-                  const i = n[e],
-                    o = i[1];
-                  Ic(i) && No(o, i, o.template, i[8]);
-                }
-            })(n),
-            null !== t.contentQueries && $f(t, n),
-            !a)
+              (function (t) {
+                for (let n = gd(t); null !== n; n = fd(n))
+                  for (let e = 10; e < n.length; e++) {
+                    const i = n[e],
+                      o = i[1];
+                    Ic(i) && No(o, i, o.template, i[8]);
+                  }
+              })(n),
+              null !== t.contentQueries && $f(t, n),
+              !a)
           )
             if (l) {
               const h = t.contentCheckHooks;
@@ -2992,7 +2991,7 @@
                 h && (Jt(e.index, n)[8] = p);
             }
           })(t, n, e, on(e, n)),
-          128 == (128 & e.flags) &&
+            128 == (128 & e.flags) &&
             (function (t, n, e) {
               const i = e.directiveStart,
                 o = e.directiveEnd,
@@ -3007,7 +3006,7 @@
                     (null !== h.hostBindings ||
                       0 !== h.hostVars ||
                       null !== h.hostAttrs) &&
-                      Kf(h, p);
+                    Kf(h, p);
                 }
               } finally {
                 vi(-1), Bc(d);
@@ -3029,17 +3028,17 @@
         const n = t.tView;
         return null === n || n.incompleteFirstPass
           ? (t.tView = Ia(
-              1,
-              null,
-              t.template,
-              t.decls,
-              t.vars,
-              t.directiveDefs,
-              t.pipeDefs,
-              t.viewQuery,
-              t.schemas,
-              t.consts
-            ))
+            1,
+            null,
+            t.template,
+            t.decls,
+            t.vars,
+            t.directiveDefs,
+            t.pipeDefs,
+            t.viewQuery,
+            t.schemas,
+            t.consts
+          ))
           : n;
       }
       function Ia(t, n, e, i, o, a, l, d, u, h) {
@@ -3107,26 +3106,26 @@
         !d && null != h && (p = h[i])
           ? (l1(t, e, p, i, o),
             oa(n) &&
-              (function (t, n) {
-                const e = Jt(n, t);
-                16 & e[2] || (e[2] |= 64);
-              })(e, n.index))
+            (function (t, n) {
+              const e = Jt(n, t);
+              16 & e[2] || (e[2] |= 64);
+            })(e, n.index))
           : 3 & n.type &&
-            ((i = (function (t) {
-              return "class" === t
-                ? "className"
-                : "for" === t
+          ((i = (function (t) {
+            return "class" === t
+              ? "className"
+              : "for" === t
                 ? "htmlFor"
                 : "formaction" === t
-                ? "formAction"
-                : "innerHtml" === t
-                ? "innerHTML"
-                : "readonly" === t
-                ? "readOnly"
-                : "tabindex" === t
-                ? "tabIndex"
-                : t;
-            })(i)),
+                  ? "formAction"
+                  : "innerHtml" === t
+                    ? "innerHTML"
+                    : "readonly" === t
+                      ? "readOnly"
+                      : "tabindex" === t
+                        ? "tabIndex"
+                        : t;
+          })(i)),
             (o = null != l ? l(o, n.value || "", i) : o),
             Ge(a)
               ? a.setProperty(u, i, o)
@@ -3136,18 +3135,18 @@
         let o = !1;
         if (rg()) {
           const a = (function (t, n, e) {
-              const i = t.directiveRegistry;
-              let o = null;
-              if (i)
-                for (let a = 0; a < i.length; a++) {
-                  const l = i[a];
-                  Pf(e, l.selectors, !1) &&
-                    (o || (o = []),
+            const i = t.directiveRegistry;
+            let o = null;
+            if (i)
+              for (let a = 0; a < i.length; a++) {
+                const l = i[a];
+                Pf(e, l.selectors, !1) &&
+                  (o || (o = []),
                     _a(Ir(e, n), t, l.type),
                     Cn(l) ? (Xf(t, e), o.unshift(l)) : o.push(l));
-                }
-              return o;
-            })(t, n, e),
+              }
+            return o;
+          })(t, n, e),
             l = null === i ? null : { "": -1 };
           if (null !== a) {
             (o = !0), e1(e, t.data.length, a.length);
@@ -3167,17 +3166,17 @@
                 (null !== f.hostBindings ||
                   null !== f.hostAttrs ||
                   0 !== f.hostVars) &&
-                  (e.flags |= 128);
+                (e.flags |= 128);
               const b = f.type.prototype;
               !d &&
                 (b.ngOnChanges || b.ngOnInit || b.ngDoCheck) &&
                 ((t.preOrderHooks || (t.preOrderHooks = [])).push(e.index),
-                (d = !0)),
+                  (d = !0)),
                 !u &&
-                  (b.ngOnChanges || b.ngDoCheck) &&
-                  ((t.preOrderCheckHooks || (t.preOrderCheckHooks = [])).push(
-                    e.index
-                  ),
+                (b.ngOnChanges || b.ngDoCheck) &&
+                ((t.preOrderCheckHooks || (t.preOrderCheckHooks = [])).push(
+                  e.index
+                ),
                   (u = !0)),
                 h++;
             }
@@ -3196,7 +3195,7 @@
               }
               null !== d &&
                 (d.hasOwnProperty("class") && (n.flags |= 16),
-                d.hasOwnProperty("style") && (n.flags |= 32)),
+                  d.hasOwnProperty("style") && (n.flags |= 32)),
                 (n.initialInputs = l),
                 (n.inputs = d),
                 (n.outputs = u);
@@ -3228,7 +3227,7 @@
           const u = ~n.index;
           (function (t) {
             let n = t.length;
-            for (; n > 0; ) {
+            for (; n > 0;) {
               const e = t[--n];
               if ("number" == typeof e && e < 0) return e;
             }
@@ -3295,8 +3294,8 @@
             Ge(t)
               ? t.setAttribute(n, o, d, e)
               : e
-              ? n.setAttributeNS(e, o, d)
-              : n.setAttribute(o, d);
+                ? n.setAttributeNS(e, o, d)
+                : n.setAttribute(o, d);
           }
         })(n[11], l, a, t.value, e, i, o);
       }
@@ -3304,7 +3303,7 @@
         const l = a[n];
         if (null !== l) {
           const d = i.setInput;
-          for (let u = 0; u < l.length; ) {
+          for (let u = 0; u < l.length;) {
             const h = l[u++],
               p = l[u++],
               f = l[u++];
@@ -3315,7 +3314,7 @@
       function Nx(t, n) {
         let e = null,
           i = 0;
-        for (; i < n.length; ) {
+        for (; i < n.length;) {
           const o = n[i];
           if (0 !== o)
             if (5 !== o) {
@@ -3367,7 +3366,7 @@
         return t[13] ? (t[14][4] = n) : (t[13] = n), (t[14] = n), n;
       }
       function Hd(t) {
-        for (; t; ) {
+        for (; t;) {
           t[2] |= 64;
           const n = Jr(t);
           if (x2(t) && !n) return t;
@@ -3412,7 +3411,7 @@
         i && i.handleError(n);
       }
       function l1(t, n, e, i, o) {
-        for (let a = 0; a < e.length; ) {
+        for (let a = 0; a < e.length;) {
           const l = e[a++],
             d = e[a++],
             u = n[l],
@@ -3436,8 +3435,8 @@
             "number" == typeof d
               ? (a = d)
               : 1 == a
-              ? (o = yc(o, d))
-              : 2 == a && (i = yc(i, d + ": " + n[++l] + ";"));
+                ? (o = yc(o, d))
+                : 2 == a && (i = yc(i, d + ": " + n[++l] + ";"));
           }
         e ? (t.styles = i) : (t.stylesWithoutHost = i),
           e ? (t.classes = o) : (t.classesWithoutHost = o);
@@ -3525,34 +3524,34 @@
                 const o = t[wa];
                 throw (
                   (n[Ng] && o.unshift(n[Ng]),
-                  (t.message = (function (t, n, e, i = null) {
-                    t =
-                      t && "\n" === t.charAt(0) && "\u0275" == t.charAt(1)
-                        ? t.substr(2)
-                        : t;
-                    let o = he(n);
-                    if (Array.isArray(n)) o = n.map(he).join(" -> ");
-                    else if ("object" == typeof n) {
-                      let a = [];
-                      for (let l in n)
-                        if (n.hasOwnProperty(l)) {
-                          let d = n[l];
-                          a.push(
-                            l +
+                    (t.message = (function (t, n, e, i = null) {
+                      t =
+                        t && "\n" === t.charAt(0) && "\u0275" == t.charAt(1)
+                          ? t.substr(2)
+                          : t;
+                      let o = he(n);
+                      if (Array.isArray(n)) o = n.map(he).join(" -> ");
+                      else if ("object" == typeof n) {
+                        let a = [];
+                        for (let l in n)
+                          if (n.hasOwnProperty(l)) {
+                            let d = n[l];
+                            a.push(
+                              l +
                               ":" +
                               ("string" == typeof d ? JSON.stringify(d) : he(d))
-                          );
-                        }
-                      o = `{${a.join(", ")}}`;
-                    }
-                    return `${e}${i ? "(" + i + ")" : ""}[${o}]: ${t.replace(
-                      ww,
-                      "\n  "
-                    )}`;
-                  })("\n" + t.message, o, e, i)),
-                  (t.ngTokenPath = o),
-                  (t[wa] = null),
-                  t)
+                            );
+                          }
+                        o = `{${a.join(", ")}}`;
+                      }
+                      return `${e}${i ? "(" + i + ")" : ""}[${o}]: ${t.replace(
+                        ww,
+                        "\n  "
+                      )}`;
+                    })("\n" + t.message, o, e, i)),
+                    (t.ngTokenPath = o),
+                    (t[wa] = null),
+                    t)
                 );
               })(l, n, "R3InjectorError", this.source);
             }
@@ -3618,8 +3617,8 @@
             let l = this.records.get(o);
             l ||
               ((l = Io(void 0, Xr, !0)),
-              (l.factory = () => Xc(l.multi)),
-              this.records.set(o, l)),
+                (l.factory = () => Xc(l.multi)),
+                this.records.set(o, l)),
               (o = n),
               l.multi.push(n);
           }
@@ -3629,15 +3628,15 @@
           return (
             e.value === Xr && ((e.value = Gx), (e.value = e.factory())),
             "object" == typeof e.value &&
-              e.value &&
-              (function (t) {
-                return (
-                  null !== t &&
-                  "object" == typeof t &&
-                  "function" == typeof t.ngOnDestroy
-                );
-              })(e.value) &&
-              this.onDestroy.add(e.value),
+            e.value &&
+            (function (t) {
+              return (
+                null !== t &&
+                "object" == typeof t &&
+                "function" == typeof t.ngOnDestroy
+              );
+            })(e.value) &&
+            this.onDestroy.add(e.value),
             e.value
           );
         }
@@ -3749,11 +3748,11 @@
       }
       function Oe(t) {
         let n = (function (t) {
-            return Object.getPrototypeOf(t.prototype).constructor;
-          })(t.type),
+          return Object.getPrototypeOf(t.prototype).constructor;
+        })(t.type),
           e = !0;
         const i = [t];
-        for (; n; ) {
+        for (; n;) {
           let o;
           if (Cn(t)) o = n.ɵcmp || n.ɵdir;
           else {
@@ -3773,11 +3772,11 @@
                 h = o.contentQueries;
               if (
                 (u && dD(t, u),
-                h && uD(t, h),
-                _c(t.inputs, o.inputs),
-                _c(t.declaredInputs, o.declaredInputs),
-                _c(t.outputs, o.outputs),
-                Cn(o) && o.data.animation)
+                  h && uD(t, h),
+                  _c(t.inputs, o.inputs),
+                  _c(t.declaredInputs, o.declaredInputs),
+                  _c(t.outputs, o.outputs),
+                  Cn(o) && o.data.animation)
               ) {
                 const p = t.data;
                 p.animation = (p.animation || []).concat(o.data.animation);
@@ -3809,24 +3808,24 @@
         const e = t.viewQuery;
         t.viewQuery = e
           ? (i, o) => {
-              n(i, o), e(i, o);
-            }
+            n(i, o), e(i, o);
+          }
           : n;
       }
       function uD(t, n) {
         const e = t.contentQueries;
         t.contentQueries = e
           ? (i, o, a) => {
-              n(i, o, a), e(i, o, a);
-            }
+            n(i, o, a), e(i, o, a);
+          }
           : n;
       }
       function hD(t, n) {
         const e = t.hostBindings;
         t.hostBindings = e
           ? (i, o) => {
-              n(i, o), e(i, o);
-            }
+            n(i, o), e(i, o);
+          }
           : n;
       }
       let La = null;
@@ -3871,28 +3870,28 @@
           p = t + 20,
           f = h.firstCreatePass
             ? (function (t, n, e, i, o, a, l, d, u) {
-                const h = n.consts,
-                  p = So(n, t, 4, l || null, yi(h, d));
-                Bd(n, e, p, yi(h, u)), ua(n, p);
-                const f = (p.tViews = Ia(
-                  2,
-                  p,
-                  i,
-                  o,
-                  a,
-                  n.directiveRegistry,
-                  n.pipeRegistry,
-                  null,
-                  n.schemas,
-                  h
-                ));
-                return (
-                  null !== n.queries &&
-                    (n.queries.template(n, p),
-                    (f.queries = n.queries.embeddedTView(p))),
-                  p
-                );
-              })(p, h, u, n, e, i, o, a, l)
+              const h = n.consts,
+                p = So(n, t, 4, l || null, yi(h, d));
+              Bd(n, e, p, yi(h, u)), ua(n, p);
+              const f = (p.tViews = Ia(
+                2,
+                p,
+                i,
+                o,
+                a,
+                n.directiveRegistry,
+                n.pipeRegistry,
+                null,
+                n.schemas,
+                h
+              ));
+              return (
+                null !== n.queries &&
+                (n.queries.template(n, p),
+                  (f.queries = n.queries.embeddedTView(p))),
+                p
+              );
+            })(p, h, u, n, e, i, o, a, l)
             : h.data[p];
         Ln(f, !1);
         const b = u[11].createComment("");
@@ -3930,16 +3929,16 @@
           u = (o[l] = md(d, n, W.lFrame.currentNamespace)),
           h = a.firstCreatePass
             ? (function (t, n, e, i, o, a, l) {
-                const d = n.consts,
-                  h = So(n, t, 2, o, yi(d, a));
-                return (
-                  Bd(n, e, h, yi(d, l)),
-                  null !== h.attrs && Fa(h, h.attrs, !1),
-                  null !== h.mergedAttrs && Fa(h, h.mergedAttrs, !0),
-                  null !== n.queries && n.queries.elementStart(n, h),
-                  h
-                );
-              })(l, a, o, 0, n, e, i)
+              const d = n.consts,
+                h = So(n, t, 2, o, yi(d, a));
+              return (
+                Bd(n, e, h, yi(d, l)),
+                null !== h.attrs && Fa(h, h.attrs, !1),
+                null !== h.mergedAttrs && Fa(h, h.mergedAttrs, !0),
+                null !== n.queries && n.queries.elementStart(n, h),
+                h
+              );
+            })(l, a, o, 0, n, e, i)
             : a.data[l];
         Ln(h, !0);
         const p = h.mergedAttrs;
@@ -3962,15 +3961,15 @@
         const e = pe();
         e.firstCreatePass && (ua(e, t), Tc(t) && e.queries.elementEnd(t)),
           null != n.classesWithoutHost &&
-            (function (t) {
-              return 0 != (16 & t.flags);
-            })(n) &&
-            iu(e, n, P(), n.classesWithoutHost, !0),
+          (function (t) {
+            return 0 != (16 & t.flags);
+          })(n) &&
+          iu(e, n, P(), n.classesWithoutHost, !0),
           null != n.stylesWithoutHost &&
-            (function (t) {
-              return 0 != (32 & t.flags);
-            })(n) &&
-            iu(e, n, P(), n.stylesWithoutHost, !1);
+          (function (t) {
+            return 0 != (32 & t.flags);
+          })(n) &&
+          iu(e, n, P(), n.stylesWithoutHost, !1);
       }
       function g(t, n, e, i) {
         r(t, n, e, i), s();
@@ -3982,16 +3981,16 @@
             a = t + 20,
             l = o.firstCreatePass
               ? (function (t, n, e, i, o) {
-                  const a = n.consts,
-                    l = yi(a, i),
-                    d = So(n, t, 8, "ng-container", l);
-                  return (
-                    null !== l && Fa(d, l, !0),
-                    Bd(n, e, d, yi(a, o)),
-                    null !== n.queries && n.queries.elementStart(n, d),
-                    d
-                  );
-                })(a, o, i, n, e)
+                const a = n.consts,
+                  l = yi(a, i),
+                  d = So(n, t, 8, "ng-container", l);
+                return (
+                  null !== l && Fa(d, l, !0),
+                  Bd(n, e, d, yi(a, o)),
+                  null !== n.queries && n.queries.elementStart(n, d),
+                  d
+                );
+              })(a, o, i, n, e)
               : o.data[a];
           Ln(l, !0);
           const d = (i[a] = i[11].createComment(""));
@@ -4051,7 +4050,7 @@
                         }
                       return null;
                     })(t, n, o, i.index)),
-                  null !== z)
+                    null !== z)
                 )
                   ((z.__ngLastListenerFn__ || z).__ngNextListenerFn__ = a),
                     (z.__ngLastListenerFn__ = a),
@@ -4096,14 +4095,14 @@
           0 == (32 & n[2]) && Hd(d);
           let u = Q1(n, 0, i, l),
             h = a.__ngNextListenerFn__;
-          for (; h; ) (u = Q1(n, 0, h, l) && u), (h = h.__ngNextListenerFn__);
+          for (; h;) (u = Q1(n, 0, h, l) && u), (h = h.__ngNextListenerFn__);
           return o && !1 === u && (l.preventDefault(), (l.returnValue = !1)), u;
         };
       }
       function O(t = 1) {
         return (function (t) {
           return (W.lFrame.contextLView = (function (t, n) {
-            for (; t > 0; ) (n = n[15]), t--;
+            for (; t > 0;) (n = n[15]), t--;
             return n;
           })(t, W.lFrame.contextLView))[8];
         })(t);
@@ -4132,7 +4131,7 @@
           const i = (n.projection = Br(t ? t.length : 1, null)),
             o = i.slice();
           let a = n.child;
-          for (; null !== a; ) {
+          for (; null !== a;) {
             const l = t ? UD(a, t) : 0;
             null !== l &&
               (o[l] ? (o[l].projectionNext = a) : (i[l] = a), (o[l] = a)),
@@ -4147,9 +4146,9 @@
         null === a.projection && (a.projection = n),
           Lc(),
           64 != (64 & a.flags) &&
-            (function (t, n, e) {
-              xf(n[11], 0, n, e, gf(t, e, n), _f(e.parent || n[6], e, n));
-            })(o, i, a);
+          (function (t, n, e) {
+            xf(n[11], 0, n, e, gf(t, e, n), _f(e.parent || n[6], e, n));
+          })(o, i, a);
       }
       function Fe(t, n, e) {
         return Va(t, "", n, "", e), Fe;
@@ -4164,7 +4163,7 @@
           l = null === n;
         let d = i ? Mn(a) : ni(a),
           u = !1;
-        for (; 0 !== d && (!1 === u || l); ) {
+        for (; 0 !== d && (!1 === u || l);) {
           const p = t[d + 1];
           qD(t[d], n) && ((u = !0), (t[d + 1] = i ? kd(p) : xd(p))),
             (d = i ? Mn(p) : ni(p));
@@ -4188,14 +4187,14 @@
         return e === n
           ? -1
           : ((n = ot.keyEnd =
-              (function (t, n, e) {
-                for (; n < e && t.charCodeAt(n) > 32; ) n++;
-                return n;
-              })(t, (ot.key = n), e)),
+            (function (t, n, e) {
+              for (; n < e && t.charCodeAt(n) > 32;) n++;
+              return n;
+            })(t, (ot.key = n), e)),
             Wo(t, n, e));
       }
       function Wo(t, n, e) {
-        for (; n < e && t.charCodeAt(n) <= 32; ) n++;
+        for (; n < e && t.charCodeAt(n) <= 32;) n++;
         return n;
       }
       function K(t, n) {
@@ -4206,25 +4205,25 @@
               l = ti(2);
             a.firstUpdatePass && pb(a, t, l, i),
               n !== Y &&
-                Tt(o, l, n) &&
-                fb(
-                  a,
-                  a.data[Nt()],
-                  o,
-                  o[11],
-                  t,
-                  (o[l + 1] = (function (t, n) {
-                    return (
-                      null == t ||
-                        ("string" == typeof n
-                          ? (t += n)
-                          : "object" == typeof t && (t = he(Mi(t)))),
-                      t
-                    );
-                  })(n, e)),
-                  i,
-                  l
-                );
+              Tt(o, l, n) &&
+              fb(
+                a,
+                a.data[Nt()],
+                o,
+                o[11],
+                t,
+                (o[l + 1] = (function (t, n) {
+                  return (
+                    null == t ||
+                    ("string" == typeof n
+                      ? (t += n)
+                      : "object" == typeof t && (t = he(Mi(t)))),
+                    t
+                  );
+                })(n, e)),
+                i,
+                l
+              );
           })(t, n, null, !0),
           K
         );
@@ -4247,7 +4246,7 @@
                   h = 0,
                   p = 0 < o.length ? o[0] : null,
                   f = 0 < a.length ? a[0] : null;
-                for (; null !== p || null !== f; ) {
+                for (; null !== p || null !== f;) {
                   const b = u < o.length ? o[u + 1] : void 0,
                     m = h < a.length ? a[h + 1] : void 0;
                   let D,
@@ -4255,8 +4254,8 @@
                   p === f
                     ? ((u += 2), (h += 2), b !== m && ((w = f), (D = m)))
                     : null === f || (null !== p && p < f)
-                    ? ((u += 2), (w = p))
-                    : ((h += 2), (w = f), (D = m)),
+                      ? ((u += 2), (w = p))
+                      : ((h += 2), (w = f), (D = m)),
                     null !== w && fb(t, n, e, i, w, D, l, d),
                     (p = u < o.length ? o[u] : null),
                     (f = h < a.length ? a[h] : null);
@@ -4321,7 +4320,7 @@
               if (null === o)
                 0 === (i ? n.classBindings : n.styleBindings) &&
                   ((e = is((e = lu(null, t, n, e, i)), n.attrs, i)),
-                  (a = null));
+                    (a = null));
               else {
                 const l = n.directiveStylingLast;
                 if (-1 === l || t[l] !== o)
@@ -4333,10 +4332,10 @@
                     void 0 !== u &&
                       Array.isArray(u) &&
                       ((u = lu(null, t, n, u[1], i)),
-                      (u = is(u, n.attrs, i)),
-                      (function (t, n, e, i) {
-                        t[Mn(e ? n.classBindings : n.styleBindings)] = i;
-                      })(t, n, i, u));
+                        (u = is(u, n.attrs, i)),
+                        (function (t, n, e, i) {
+                          t[Mn(e ? n.classBindings : n.styleBindings)] = i;
+                        })(t, n, i, u));
                   } else
                     a = (function (t, n, e) {
                       let i;
@@ -4348,7 +4347,7 @@
               }
               return (
                 void 0 !== a &&
-                  (i ? (n.residualClasses = a) : (n.residualStyles = a)),
+                (i ? (n.residualClasses = a) : (n.residualStyles = a)),
                 e
               );
             })(o, a, n, i)),
@@ -4415,7 +4414,7 @@
             "number" == typeof l
               ? (o = l)
               : o === i &&
-                (Array.isArray(t) || (t = void 0 === t ? [] : ["", t]),
+              (Array.isArray(t) || (t = void 0 === t ? [] : ["", t]),
                 Yt(t, l, !!e || n[++a]));
           }
         return void 0 === t ? null : t;
@@ -4436,34 +4435,34 @@
               return 2 == (2 & t);
             })(h) &&
               (a = bb(u, null, e, o, d, l))),
-          (function (t, n, e, i, o) {
-            const a = Ge(t);
-            if (n)
-              o
-                ? a
-                  ? t.addClass(e, i)
-                  : e.classList.add(i)
-                : a
-                ? t.removeClass(e, i)
-                : e.classList.remove(i);
-            else {
-              let l = -1 === i.indexOf("-") ? void 0 : Qt.DashCase;
-              if (null == o)
-                a ? t.removeStyle(e, i, l) : e.style.removeProperty(i);
+            (function (t, n, e, i, o) {
+              const a = Ge(t);
+              if (n)
+                o
+                  ? a
+                    ? t.addClass(e, i)
+                    : e.classList.add(i)
+                  : a
+                    ? t.removeClass(e, i)
+                    : e.classList.remove(i);
               else {
-                const d = "string" == typeof o && o.endsWith("!important");
-                d && ((o = o.slice(0, -10)), (l |= Qt.Important)),
-                  a
-                    ? t.setStyle(e, i, o, l)
-                    : e.style.setProperty(i, o, d ? "important" : "");
+                let l = -1 === i.indexOf("-") ? void 0 : Qt.DashCase;
+                if (null == o)
+                  a ? t.removeStyle(e, i, l) : e.style.removeProperty(i);
+                else {
+                  const d = "string" == typeof o && o.endsWith("!important");
+                  d && ((o = o.slice(0, -10)), (l |= Qt.Important)),
+                    a
+                      ? t.setStyle(e, i, o, l)
+                      : e.style.setProperty(i, o, d ? "important" : "");
+                }
               }
-            }
-          })(i, l, sa(Nt(), e), o, a));
+            })(i, l, sa(Nt(), e), o, a));
       }
       function bb(t, n, e, i, o, a) {
         const l = null === n;
         let d;
-        for (; o > 0; ) {
+        for (; o > 0;) {
           const u = t[o],
             h = Array.isArray(u),
             p = h ? u[1] : u,
@@ -4612,11 +4611,11 @@
       function Bb(t) {
         return (
           t in Yo ||
-            (Yo[t] =
-              we.ng &&
-              we.ng.common &&
-              we.ng.common.locales &&
-              we.ng.common.locales[t]),
+          (Yo[t] =
+            we.ng &&
+            we.ng.common &&
+            we.ng.common.locales &&
+            we.ng.common.locales[t]),
           Yo[t]
         );
       }
@@ -4756,7 +4755,7 @@
             })(i, o ? o(t) : t, n);
         };
       }
-      class cm {}
+      class cm { }
       class D5 {
         resolveComponentFactory(n) {
           throw (function (t) {
@@ -4770,7 +4769,7 @@
         }
       }
       let ln = (() => {
-        class t {}
+        class t { }
         return (t.NULL = new D5()), t;
       })();
       function k5() {
@@ -4790,23 +4789,23 @@
       function O5(t) {
         return t instanceof le ? t.nativeElement : t;
       }
-      class Wa {}
+      class Wa { }
       let mt = (() => {
-          class t {}
-          return (
-            (t.__NG_ELEMENT_ID__ = () =>
-              (function () {
-                const t = P(),
-                  e = Jt(nt().index, t);
-                return (function (t) {
-                  return t[11];
-                })(Fn(e) ? e : t);
-              })()),
-            t
-          );
-        })(),
+        class t { }
+        return (
+          (t.__NG_ELEMENT_ID__ = () =>
+            (function () {
+              const t = P(),
+                e = Jt(nt().index, t);
+              return (function (t) {
+                return t[11];
+              })(Fn(e) ? e : t);
+            })()),
+          t
+        );
+      })(),
         E5 = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵprov = L({
               token: t,
@@ -4827,7 +4826,7 @@
       const S5 = new cs("13.1.1"),
         fu = {};
       function Ja(t, n, e, i, o = !1) {
-        for (; null !== e; ) {
+        for (; null !== e;) {
           const a = n[e.index];
           if ((null !== a && i.push(Ke(a)), vn(a)))
             for (let d = 10; d < a.length; d++) {
@@ -4840,7 +4839,7 @@
           else if (32 & l) {
             const d = pd(e, n);
             let u;
-            for (; (u = d()); ) i.push(u);
+            for (; (u = d());) i.push(u);
           } else if (16 & l) {
             const d = wf(n, e);
             if (Array.isArray(d)) i.push(...d);
@@ -4995,37 +4994,37 @@
         }
         create(n, e, i, o) {
           const a = (o = o || this.ngModule)
-              ? (function (t, n) {
-                  return {
-                    get: (e, i, o) => {
-                      const a = t.get(e, fu, o);
-                      return a !== fu || i === fu ? a : n.get(e, i, o);
-                    },
-                  };
-                })(n, o.injector)
-              : n,
+            ? (function (t, n) {
+              return {
+                get: (e, i, o) => {
+                  const a = t.get(e, fu, o);
+                  return a !== fu || i === fu ? a : n.get(e, i, o);
+                },
+              };
+            })(n, o.injector)
+            : n,
             l = a.get(Wa, ng),
             d = a.get(E5, null),
             u = l.createRenderer(null, this.componentDef),
             h = this.componentDef.selectors[0][0] || "div",
             p = i
               ? (function (t, n, e) {
-                  if (Ge(t)) return t.selectRootElement(n, e === Rn.ShadowDom);
-                  let i = "string" == typeof n ? t.querySelector(n) : n;
-                  return (i.textContent = ""), i;
-                })(u, i, this.componentDef.encapsulation)
+                if (Ge(t)) return t.selectRootElement(n, e === Rn.ShadowDom);
+                let i = "string" == typeof n ? t.querySelector(n) : n;
+                return (i.textContent = ""), i;
+              })(u, i, this.componentDef.encapsulation)
               : md(
-                  l.createRenderer(null, this.componentDef),
-                  h,
-                  (function (t) {
-                    const n = t.toLowerCase();
-                    return "svg" === n
-                      ? eg
-                      : "math" === n
+                l.createRenderer(null, this.componentDef),
+                h,
+                (function (t) {
+                  const n = t.toLowerCase();
+                  return "svg" === n
+                    ? eg
+                    : "math" === n
                       ? "http://www.w3.org/1998/MathML/"
                       : null;
-                  })(h)
-                ),
+                })(h)
+              ),
             f = this.componentDef.onPush ? 576 : 528,
             b = (function (t, n) {
               return {
@@ -5048,10 +5047,10 @@
                 h = (u.mergedAttrs = n.hostAttrs);
               null !== h &&
                 (Fa(u, h, !0),
-                null !== t &&
+                  null !== t &&
                   (ga(o, t, h),
-                  null !== u.classes && Md(o, t, u.classes),
-                  null !== u.styles && Df(o, t, u.styles)));
+                    null !== u.classes && Md(o, t, u.classes),
+                    null !== u.styles && Df(o, t, u.styles)));
               const p = i.createRenderer(t, n),
                 f = Qr(
                   e,
@@ -5067,7 +5066,7 @@
                 );
               return (
                 l.firstCreatePass &&
-                  (_a(Ir(u, e), l, n.type), Xf(l, u), e1(u, e.length, 1)),
+                (_a(Ir(u, e), l, n.type), Xf(l, u), e1(u, e.length, 1)),
                 Ra(e, f),
                 (e[20] = f)
               );
@@ -5080,7 +5079,7 @@
                     e = [];
                   let i = 1,
                     o = 2;
-                  for (; i < t.length; ) {
+                  for (; i < t.length;) {
                     let a = t[i];
                     if ("string" == typeof a)
                       2 === o
@@ -5109,7 +5108,7 @@
                   const i = nt();
                   t.firstCreatePass &&
                     (e.providersResolver && e.providersResolver(e),
-                    t1(t, i, n, Ao(t, n, 1, null), e));
+                      t1(t, i, n, Ao(t, n, 1, null), e));
                   const o = Rr(n, t, i.directiveStart, i);
                   Ot(o, n);
                   const a = on(i, n);
@@ -5117,9 +5116,9 @@
                 })(a, e, n);
               if (
                 (i.components.push(l),
-                (t[8] = l),
-                o && o.forEach((u) => u(l, n)),
-                n.contentQueries)
+                  (t[8] = l),
+                  o && o.forEach((u) => u(l, n)),
+                  n.contentQueries)
               ) {
                 const u = nt();
                 n.contentQueries(1, l, u.directiveStart);
@@ -5127,8 +5126,8 @@
               const d = nt();
               return (
                 !a.firstCreatePass ||
-                  (null === n.hostBindings && null === n.hostAttrs) ||
-                  (vi(d.index),
+                (null === n.hostBindings && null === n.hostAttrs) ||
+                (vi(d.index),
                   Zf(e[1], d, 0, d.directiveStart, d.directiveEnd, n),
                   Kf(n, l)),
                 l
@@ -5141,7 +5140,7 @@
           return new L5(this.componentType, D, Ko(T, w), w, T);
         }
       }
-      class L5 extends class {} {
+      class L5 extends class { } {
         constructor(n, e, i, o, a) {
           super(),
             (this.location = i),
@@ -5161,8 +5160,8 @@
           this.hostView.onDestroy(n);
         }
       }
-      class oi {}
-      class pm {}
+      class oi { }
+      class pm { }
       const Xo = new Map();
       class bm extends oi {
         constructor(n, e) {
@@ -5206,25 +5205,25 @@
           super(),
             (this.moduleType = n),
             null !== en(n) &&
-              (function (t) {
-                const n = new Set();
-                !(function e(i) {
-                  const o = en(i, !0),
-                    a = o.id;
-                  null !== a &&
-                    ((function (t, n, e) {
-                      if (n && n !== e)
-                        throw new Error(
-                          `Duplicate module registered for ${t} - ${he(
-                            n
-                          )} vs ${he(n.name)}`
-                        );
-                    })(a, Xo.get(a), i),
+            (function (t) {
+              const n = new Set();
+              !(function e(i) {
+                const o = en(i, !0),
+                  a = o.id;
+                null !== a &&
+                  ((function (t, n, e) {
+                    if (n && n !== e)
+                      throw new Error(
+                        `Duplicate module registered for ${t} - ${he(
+                          n
+                        )} vs ${he(n.name)}`
+                      );
+                  })(a, Xo.get(a), i),
                     Xo.set(a, i));
-                  const l = Hn(o.imports);
-                  for (const d of l) n.has(d) || (n.add(d), e(d));
-                })(t);
-              })(n);
+                const l = Hn(o.imports);
+                for (const d of l) n.has(d) || (n.add(d), e(d));
+              })(t);
+            })(n);
         }
         create(n) {
           return new bm(this.moduleType, n);
@@ -5235,12 +5234,12 @@
           const l = n + e;
           return Tt(t, l, o)
             ? (function (t, n, e) {
-                return (t[n] = e);
-              })(t, l + 1, a ? i.call(a, o) : i(o))
+              return (t[n] = e);
+            })(t, l + 1, a ? i.call(a, o) : i(o))
             : (function (t, n) {
-                const e = t[n];
-                return e === Y ? void 0 : e;
-              })(t, l + 1);
+              const e = t[n];
+              return e === Y ? void 0 : e;
+            })(t, l + 1);
         })(
           P(),
           (function () {
@@ -5347,9 +5346,9 @@
             return !0;
           })(i._results, o, e)) &&
             ((i._results = o),
-            (i.length = o.length),
-            (i.last = o[this.length - 1]),
-            (i.first = o[0]));
+              (i.length = o.length),
+              (i.last = o[this.length - 1]),
+              (i.first = o[0]));
         }
         notifyOnChanges() {
           this._changes &&
@@ -5365,7 +5364,7 @@
       }
       Symbol;
       let Te = (() => {
-        class t {}
+        class t { }
         return (t.__NG_ELEMENT_ID__ = n3), t;
       })();
       const e3 = Te,
@@ -5406,7 +5405,7 @@
         return 4 & t.type ? new t3(n, t, Ko(t, n)) : null;
       }
       let Ft = (() => {
-        class t {}
+        class t { }
         return (t.__NG_ELEMENT_ID__ = i3), t;
       })();
       function i3() {
@@ -5436,7 +5435,7 @@
             return new yo(null, this._hostLView);
           }
           clear() {
-            for (; this.length > 0; ) this.remove(this.length - 1);
+            for (; this.length > 0;) this.remove(this.length - 1);
           }
           get(n) {
             const e = Dm(this._lContainer);
@@ -5515,9 +5514,9 @@
               h = Ta(u, l[7]);
             return (
               null !== h &&
-                (function (t, n, e, i, o, a) {
-                  (i[0] = o), (i[6] = n), Yr(t, i, e, 1, o, a);
-                })(o, l[6], u, i, h, d),
+              (function (t, n, e, i, o, a) {
+                (i[0] = o), (i[6] = n), Yr(t, i, e, 1, o, a);
+              })(o, l[6], u, i, h, d),
               n.attachToViewContainerRef(),
               Tg(vu(l), a, n),
               n
@@ -5594,7 +5593,7 @@
           const e = n.queries;
           if (null !== e) {
             const i =
-                null !== n.contentQueries ? n.contentQueries[0] : e.length,
+              null !== n.contentQueries ? n.contentQueries[0] : e.length,
               o = [];
             for (let a = 0; a < i; a++) {
               const l = e.getByIndex(a);
@@ -5639,7 +5638,7 @@
               a = this.getByIndex(i).embeddedTView(n, o);
             a &&
               ((a.indexInDeclarationView = i),
-              null !== e ? e.push(a) : (e = [a]));
+                null !== e ? e.push(a) : (e = [a]));
           }
           return null !== e ? new Mu(e) : null;
         }
@@ -5687,7 +5686,7 @@
           if (this._appliesToNextNode && 1 != (1 & this.metadata.flags)) {
             const e = this._declarationNodeIndex;
             let i = n.parent;
-            for (; null !== i && 8 & i.type && i.index !== e; ) i = i.parent;
+            for (; null !== i && 8 & i.type && i.index !== e;) i = i.parent;
             return e === (null !== i ? i.index : -1);
           }
           return this._appliesToNextNode;
@@ -5733,19 +5732,19 @@
       function c3(t, n, e, i) {
         return -1 === e
           ? (function (t, n) {
-              return 11 & t.type ? Ko(t, n) : 4 & t.type ? Qa(t, n) : null;
-            })(n, t)
+            return 11 & t.type ? Ko(t, n) : 4 & t.type ? Qa(t, n) : null;
+          })(n, t)
           : -2 === e
-          ? (function (t, n, e) {
+            ? (function (t, n, e) {
               return e === le
                 ? Ko(n, t)
                 : e === Te
-                ? Qa(n, t)
-                : e === Ft
-                ? km(n, t)
-                : void 0;
+                  ? Qa(n, t)
+                  : e === Ft
+                    ? km(n, t)
+                    : void 0;
             })(t, n, i)
-          : Rr(t, t[1], e, n);
+            : Rr(t, t[1], e, n);
       }
       function Tm(t, n, e, i) {
         const o = n[19].queries[i];
@@ -5808,7 +5807,7 @@
         const i = pe();
         i.firstCreatePass &&
           (Em(i, new Om(t, n, e), -1),
-          2 == (2 & n) && (i.staticViewQueries = !0)),
+            2 == (2 & n) && (i.staticViewQueries = !0)),
           Pm(i, P(), n);
       }
       function Ve(t, n, e, i) {
@@ -5846,7 +5845,7 @@
       function Pe(t, n) {
         return Qa(t, n);
       }
-      function Xa(...t) {}
+      function Xa(...t) { }
       const el = new re("Application Initializer");
       let tr = (() => {
         class t {
@@ -5953,9 +5952,9 @@
           compileModuleAndAllComponentsAsync(e) {
             return Promise.resolve(this.compileModuleAndAllComponentsSync(e));
           }
-          clearCache() {}
-          clearCacheFor(e) {}
-          getModuleId(e) {}
+          clearCache() { }
+          clearCacheFor(e) { }
+          getModuleId(e) { }
         }
         return (
           (t.ɵfac = function (e) {
@@ -5969,8 +5968,8 @@
       function Au(t) {
         "undefined" == typeof Zone
           ? N3.then(() => {
-              t && t.apply(null, null);
-            })
+            t && t.apply(null, null);
+          })
           : Zone.current.scheduleMicroTask("scheduleMicrotask", t);
       }
       class de {
@@ -5981,13 +5980,13 @@
         }) {
           if (
             ((this.hasPendingMacrotasks = !1),
-            (this.hasPendingMicrotasks = !1),
-            (this.isStable = !0),
-            (this.onUnstable = new j(!1)),
-            (this.onMicrotaskEmpty = new j(!1)),
-            (this.onStable = new j(!1)),
-            (this.onError = new j(!1)),
-            "undefined" == typeof Zone)
+              (this.hasPendingMicrotasks = !1),
+              (this.isStable = !0),
+              (this.onUnstable = new j(!1)),
+              (this.onMicrotaskEmpty = new j(!1)),
+              (this.onStable = new j(!1)),
+              (this.onError = new j(!1)),
+              "undefined" == typeof Zone)
           )
             throw new Error("In this configuration Angular requires Zone.js");
           Zone.assertZonePatched();
@@ -5995,10 +5994,10 @@
           (o._nesting = 0),
             (o._outer = o._inner = Zone.current),
             Zone.TaskTrackingZoneSpec &&
-              (o._inner = o._inner.fork(new Zone.TaskTrackingZoneSpec())),
+            (o._inner = o._inner.fork(new Zone.TaskTrackingZoneSpec())),
             n &&
-              Zone.longStackTraceZoneSpec &&
-              (o._inner = o._inner.fork(Zone.longStackTraceZoneSpec)),
+            Zone.longStackTraceZoneSpec &&
+            (o._inner = o._inner.fork(Zone.longStackTraceZoneSpec)),
             (o.shouldCoalesceEventChangeDetection = !i && e),
             (o.shouldCoalesceRunChangeDetection = i),
             (o.lastRequestAnimationFrameId = -1),
@@ -6034,12 +6033,12 @@
                                 (t.isCheckStableRunning = !1);
                             },
                             void 0,
-                            () => {},
-                            () => {}
+                            () => { },
+                            () => { }
                           )),
                           t.fakeTopEventTask.invoke();
                       })),
-                    Iu(t));
+                      Iu(t));
                 })(t);
               };
               t._inner = t._inner.fork({
@@ -6066,12 +6065,12 @@
                 onHasTask: (e, i, o, a) => {
                   e.hasTask(o, a),
                     i === o &&
-                      ("microTask" == a.change
-                        ? ((t._hasPendingMicrotasks = a.microTask),
-                          Iu(t),
-                          Nu(t))
-                        : "macroTask" == a.change &&
-                          (t.hasPendingMacrotasks = a.macroTask));
+                    ("microTask" == a.change
+                      ? ((t._hasPendingMicrotasks = a.microTask),
+                        Iu(t),
+                        Nu(t))
+                      : "macroTask" == a.change &&
+                      (t.hasPendingMacrotasks = a.macroTask));
                 },
                 onHandleError: (e, i, o, a) => (
                   e.handleError(o, a),
@@ -6164,122 +6163,122 @@
         }
       }
       let Ru = (() => {
-          class t {
-            constructor(e) {
-              (this._ngZone = e),
-                (this._pendingCount = 0),
-                (this._isZoneStable = !0),
-                (this._didWork = !1),
-                (this._callbacks = []),
-                (this.taskTrackingZone = null),
-                this._watchAngularEvents(),
-                e.run(() => {
-                  this.taskTrackingZone =
-                    "undefined" == typeof Zone
-                      ? null
-                      : Zone.current.get("TaskTrackingZone");
+        class t {
+          constructor(e) {
+            (this._ngZone = e),
+              (this._pendingCount = 0),
+              (this._isZoneStable = !0),
+              (this._didWork = !1),
+              (this._callbacks = []),
+              (this.taskTrackingZone = null),
+              this._watchAngularEvents(),
+              e.run(() => {
+                this.taskTrackingZone =
+                  "undefined" == typeof Zone
+                    ? null
+                    : Zone.current.get("TaskTrackingZone");
+              });
+          }
+          _watchAngularEvents() {
+            this._ngZone.onUnstable.subscribe({
+              next: () => {
+                (this._didWork = !0), (this._isZoneStable = !1);
+              },
+            }),
+              this._ngZone.runOutsideAngular(() => {
+                this._ngZone.onStable.subscribe({
+                  next: () => {
+                    de.assertNotInAngularZone(),
+                      Au(() => {
+                        (this._isZoneStable = !0),
+                          this._runCallbacksIfReady();
+                      });
+                  },
                 });
-            }
-            _watchAngularEvents() {
-              this._ngZone.onUnstable.subscribe({
-                next: () => {
-                  (this._didWork = !0), (this._isZoneStable = !1);
-                },
-              }),
-                this._ngZone.runOutsideAngular(() => {
-                  this._ngZone.onStable.subscribe({
-                    next: () => {
-                      de.assertNotInAngularZone(),
-                        Au(() => {
-                          (this._isZoneStable = !0),
-                            this._runCallbacksIfReady();
-                        });
-                    },
-                  });
-                });
-            }
-            increasePendingRequestCount() {
-              return (
-                (this._pendingCount += 1),
-                (this._didWork = !0),
-                this._pendingCount
-              );
-            }
-            decreasePendingRequestCount() {
-              if (((this._pendingCount -= 1), this._pendingCount < 0))
-                throw new Error("pending async requests below zero");
-              return this._runCallbacksIfReady(), this._pendingCount;
-            }
-            isStable() {
-              return (
-                this._isZoneStable &&
-                0 === this._pendingCount &&
-                !this._ngZone.hasPendingMacrotasks
-              );
-            }
-            _runCallbacksIfReady() {
-              if (this.isStable())
-                Au(() => {
-                  for (; 0 !== this._callbacks.length; ) {
-                    let e = this._callbacks.pop();
-                    clearTimeout(e.timeoutId), e.doneCb(this._didWork);
-                  }
-                  this._didWork = !1;
-                });
-              else {
-                let e = this.getPendingTasks();
-                (this._callbacks = this._callbacks.filter(
-                  (i) =>
-                    !i.updateCb ||
-                    !i.updateCb(e) ||
-                    (clearTimeout(i.timeoutId), !1)
-                )),
-                  (this._didWork = !0);
-              }
-            }
-            getPendingTasks() {
-              return this.taskTrackingZone
-                ? this.taskTrackingZone.macroTasks.map((e) => ({
-                    source: e.source,
-                    creationLocation: e.creationLocation,
-                    data: e.data,
-                  }))
-                : [];
-            }
-            addCallback(e, i, o) {
-              let a = -1;
-              i &&
-                i > 0 &&
-                (a = setTimeout(() => {
-                  (this._callbacks = this._callbacks.filter(
-                    (l) => l.timeoutId !== a
-                  )),
-                    e(this._didWork, this.getPendingTasks());
-                }, i)),
-                this._callbacks.push({ doneCb: e, timeoutId: a, updateCb: o });
-            }
-            whenStable(e, i, o) {
-              if (o && !this.taskTrackingZone)
-                throw new Error(
-                  'Task tracking zone is required when passing an update callback to whenStable(). Is "zone.js/plugins/task-tracking" loaded?'
-                );
-              this.addCallback(e, i, o), this._runCallbacksIfReady();
-            }
-            getPendingRequestCount() {
-              return this._pendingCount;
-            }
-            findProviders(e, i, o) {
-              return [];
+              });
+          }
+          increasePendingRequestCount() {
+            return (
+              (this._pendingCount += 1),
+              (this._didWork = !0),
+              this._pendingCount
+            );
+          }
+          decreasePendingRequestCount() {
+            if (((this._pendingCount -= 1), this._pendingCount < 0))
+              throw new Error("pending async requests below zero");
+            return this._runCallbacksIfReady(), this._pendingCount;
+          }
+          isStable() {
+            return (
+              this._isZoneStable &&
+              0 === this._pendingCount &&
+              !this._ngZone.hasPendingMacrotasks
+            );
+          }
+          _runCallbacksIfReady() {
+            if (this.isStable())
+              Au(() => {
+                for (; 0 !== this._callbacks.length;) {
+                  let e = this._callbacks.pop();
+                  clearTimeout(e.timeoutId), e.doneCb(this._didWork);
+                }
+                this._didWork = !1;
+              });
+            else {
+              let e = this.getPendingTasks();
+              (this._callbacks = this._callbacks.filter(
+                (i) =>
+                  !i.updateCb ||
+                  !i.updateCb(e) ||
+                  (clearTimeout(i.timeoutId), !1)
+              )),
+                (this._didWork = !0);
             }
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)(E(de));
-            }),
-            (t.ɵprov = L({ token: t, factory: t.ɵfac })),
-            t
-          );
-        })(),
+          getPendingTasks() {
+            return this.taskTrackingZone
+              ? this.taskTrackingZone.macroTasks.map((e) => ({
+                source: e.source,
+                creationLocation: e.creationLocation,
+                data: e.data,
+              }))
+              : [];
+          }
+          addCallback(e, i, o) {
+            let a = -1;
+            i &&
+              i > 0 &&
+              (a = setTimeout(() => {
+                (this._callbacks = this._callbacks.filter(
+                  (l) => l.timeoutId !== a
+                )),
+                  e(this._didWork, this.getPendingTasks());
+              }, i)),
+              this._callbacks.push({ doneCb: e, timeoutId: a, updateCb: o });
+          }
+          whenStable(e, i, o) {
+            if (o && !this.taskTrackingZone)
+              throw new Error(
+                'Task tracking zone is required when passing an update callback to whenStable(). Is "zone.js/plugins/task-tracking" loaded?'
+              );
+            this.addCallback(e, i, o), this._runCallbacksIfReady();
+          }
+          getPendingRequestCount() {
+            return this._pendingCount;
+          }
+          findProviders(e, i, o) {
+            return [];
+          }
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)(E(de));
+          }),
+          (t.ɵprov = L({ token: t, factory: t.ɵfac })),
+          t
+        );
+      })(),
         e_ = (() => {
           class t {
             constructor() {
@@ -6316,7 +6315,7 @@
           );
         })();
       class j3 {
-        addToWindow(n) {}
+        addToWindow(n) { }
         findTestabilityInTree(n, e, i) {
           return null;
         }
@@ -6371,34 +6370,34 @@
           }
           bootstrapModuleFactory(e, i) {
             const d = (function (t, n) {
-                let e;
-                return (
-                  (e =
-                    "noop" === t
-                      ? new B3()
-                      : ("zone.js" === t ? void 0 : t) ||
-                        new de({
-                          enableLongStackTrace: !1,
-                          shouldCoalesceEventChangeDetection: !!(null == n
-                            ? void 0
-                            : n.ngZoneEventCoalescing),
-                          shouldCoalesceRunChangeDetection: !!(null == n
-                            ? void 0
-                            : n.ngZoneRunCoalescing),
-                        })),
-                  e
-                );
-              })(i ? i.ngZone : void 0, {
-                ngZoneEventCoalescing: (i && i.ngZoneEventCoalescing) || !1,
-                ngZoneRunCoalescing: (i && i.ngZoneRunCoalescing) || !1,
-              }),
+              let e;
+              return (
+                (e =
+                  "noop" === t
+                    ? new B3()
+                    : ("zone.js" === t ? void 0 : t) ||
+                    new de({
+                      enableLongStackTrace: !1,
+                      shouldCoalesceEventChangeDetection: !!(null == n
+                        ? void 0
+                        : n.ngZoneEventCoalescing),
+                      shouldCoalesceRunChangeDetection: !!(null == n
+                        ? void 0
+                        : n.ngZoneRunCoalescing),
+                    })),
+                e
+              );
+            })(i ? i.ngZone : void 0, {
+              ngZoneEventCoalescing: (i && i.ngZoneEventCoalescing) || !1,
+              ngZoneRunCoalescing: (i && i.ngZoneRunCoalescing) || !1,
+            }),
               u = [{ provide: de, useValue: d }];
             return d.run(() => {
               const h = We.create({
-                  providers: u,
-                  parent: this.injector,
-                  name: e.moduleType.name,
-                }),
+                providers: u,
+                parent: this.injector,
+                name: e.moduleType.name,
+              }),
                 p = e.create(h),
                 f = p.injector.get(To, null);
               if (!f) throw new zt("402", "");
@@ -6418,10 +6417,10 @@
                     const i = e();
                     return ns(i)
                       ? i.catch((o) => {
-                          throw (
-                            (n.runOutsideAngular(() => t.handleError(o)), o)
-                          );
-                        })
+                        throw (
+                          (n.runOutsideAngular(() => t.handleError(o)), o)
+                        );
+                      })
                       : i;
                   } catch (i) {
                     throw (n.runOutsideAngular(() => t.handleError(i)), i);
@@ -6435,7 +6434,7 @@
                         (function (t) {
                           qt(t, "Expected localeId to be defined"),
                             "string" == typeof t &&
-                              (jb = t.toLowerCase().replace(/_/g, "-"));
+                            (jb = t.toLowerCase().replace(/_/g, "-"));
                         })(p.injector.get(cn, $a) || $a),
                         this._moduleDoBootstrap(p),
                         p
@@ -6515,14 +6514,14 @@
                   },
                 }));
             const d = new _e((h) => {
-                (this._stable =
-                  this._zone.isStable &&
-                  !this._zone.hasPendingMacrotasks &&
-                  !this._zone.hasPendingMicrotasks),
-                  this._zone.runOutsideAngular(() => {
-                    h.next(this._stable), h.complete();
-                  });
-              }),
+              (this._stable =
+                this._zone.isStable &&
+                !this._zone.hasPendingMacrotasks &&
+                !this._zone.hasPendingMicrotasks),
+                this._zone.runOutsideAngular(() => {
+                  h.next(this._stable), h.complete();
+                });
+            }),
               u = new _e((h) => {
                 let p;
                 this._zone.runOutsideAngular(() => {
@@ -6539,7 +6538,7 @@
                 const f = this._zone.onUnstable.subscribe(() => {
                   de.assertInAngularZone(),
                     this._stable &&
-                      ((this._stable = !1),
+                    ((this._stable = !1),
                       this._zone.runOutsideAngular(() => {
                         h.next(!1);
                       }));
@@ -6559,8 +6558,8 @@
                         "function" == typeof t
                           ? t
                           : function () {
-                              return t;
-                            };
+                            return t;
+                          };
                       const a = Object.create(i, e2);
                       return (a.source = i), (a.subjectFactory = o), a;
                     };
@@ -6578,10 +6577,10 @@
                 : this._componentFactoryResolver.resolveComponentFactory(e)),
               this.componentTypes.push(o.componentType);
             const a = (function (t) {
-                return t.isBoundToModule;
-              })(o)
-                ? void 0
-                : this._injector.get(oi),
+              return t.isBoundToModule;
+            })(o)
+              ? void 0
+              : this._injector.get(oi),
               d = o.create(We.NULL, [], i || o.selector, a),
               u = d.location.nativeElement,
               h = d.injector.get(Ru, null),
@@ -6649,7 +6648,7 @@
       }
       let l_ = !0,
         _t = (() => {
-          class t {}
+          class t { }
           return (t.__NG_ELEMENT_ID__ = Q3), t;
         })();
       function Q3(t) {
@@ -6662,7 +6661,7 @@
         })(nt(), P(), 16 == (16 & t));
       }
       class f_ {
-        constructor() {}
+        constructor() { }
         supports(n) {
           return es(n);
         }
@@ -6698,7 +6697,7 @@
             i = this._removalsHead,
             o = 0,
             a = null;
-          for (; e || i; ) {
+          for (; e || i;) {
             const l = !i || (e && e.currentIndex < m_(i, o, a)) ? e : i,
               d = m_(l, o, a),
               u = l.currentIndex;
@@ -6754,7 +6753,7 @@
             );
           return this.check(n) ? this : null;
         }
-        onDestroy() {}
+        onDestroy() { }
         check(n) {
           this._reset();
           let o,
@@ -6780,7 +6779,7 @@
                 else {
                   const e = t[Fo()]();
                   let i;
-                  for (; !(i = e.next()).done; ) n(i.value);
+                  for (; !(i = e.next()).done;) n(i.value);
                 }
               })(n, (d) => {
                 (l = this._trackByFn(o, d)),
@@ -6815,7 +6814,7 @@
               n.previousIndex = n.currentIndex;
             for (
               this._additionsHead = this._additionsTail = null,
-                n = this._movesHead;
+              n = this._movesHead;
               null !== n;
               n = n._nextMoved
             )
@@ -6830,10 +6829,10 @@
           return (
             null === n ? (a = this._itTail) : ((a = n._prev), this._remove(n)),
             null !==
-            (n =
-              null === this._unlinkedRecords
-                ? null
-                : this._unlinkedRecords.get(i, null))
+              (n =
+                null === this._unlinkedRecords
+                  ? null
+                  : this._unlinkedRecords.get(i, null))
               ? (Object.is(n.item, e) || this._addIdentityChange(n, e),
                 this._reinsertAfter(n, a, o))
               : null !==
@@ -6841,9 +6840,9 @@
                   null === this._linkedRecords
                     ? null
                     : this._linkedRecords.get(i, o))
-              ? (Object.is(n.item, e) || this._addIdentityChange(n, e),
-                this._moveAfter(n, a, o))
-              : (n = this._addAfter(new oO(e, i), a, o)),
+                ? (Object.is(n.item, e) || this._addIdentityChange(n, e),
+                  this._moveAfter(n, a, o))
+                : (n = this._addAfter(new oO(e, i), a, o)),
             n
           );
         }
@@ -6856,24 +6855,24 @@
             null !== a
               ? (n = this._reinsertAfter(a, n._prev, o))
               : n.currentIndex != o &&
-                ((n.currentIndex = o), this._addToMoves(n, o)),
+              ((n.currentIndex = o), this._addToMoves(n, o)),
             n
           );
         }
         _truncate(n) {
-          for (; null !== n; ) {
+          for (; null !== n;) {
             const e = n._next;
             this._addToRemovals(this._unlink(n)), (n = e);
           }
           null !== this._unlinkedRecords && this._unlinkedRecords.clear(),
             null !== this._additionsTail &&
-              (this._additionsTail._nextAdded = null),
+            (this._additionsTail._nextAdded = null),
             null !== this._movesTail && (this._movesTail._nextMoved = null),
             null !== this._itTail && (this._itTail._next = null),
             null !== this._removalsTail &&
-              (this._removalsTail._nextRemoved = null),
+            (this._removalsTail._nextRemoved = null),
             null !== this._identityChangesTail &&
-              (this._identityChangesTail._nextIdentityChange = null);
+            (this._identityChangesTail._nextIdentityChange = null);
         }
         _reinsertAfter(n, e, i) {
           null !== this._unlinkedRecords && this._unlinkedRecords.remove(n);
@@ -6934,17 +6933,17 @@
         _addToMoves(n, e) {
           return (
             n.previousIndex === e ||
-              (this._movesTail =
-                null === this._movesTail
-                  ? (this._movesHead = n)
-                  : (this._movesTail._nextMoved = n)),
+            (this._movesTail =
+              null === this._movesTail
+                ? (this._movesHead = n)
+                : (this._movesTail._nextMoved = n)),
             n
           );
         }
         _addToRemovals(n) {
           return (
             null === this._unlinkedRecords &&
-              (this._unlinkedRecords = new b_()),
+            (this._unlinkedRecords = new b_()),
             this._unlinkedRecords.put(n),
             (n.currentIndex = null),
             (n._nextRemoved = null),
@@ -7050,7 +7049,7 @@
         return e && i < e.length && (o = e[i]), i + n + o;
       }
       class __ {
-        constructor() {}
+        constructor() { }
         supports(n) {
           return n instanceof Map || Zd(n);
         }
@@ -7109,23 +7108,23 @@
           } else n = new Map();
           return this.check(n) ? this : null;
         }
-        onDestroy() {}
+        onDestroy() { }
         check(n) {
           this._reset();
           let e = this._mapHead;
           if (
             ((this._appendAfter = null),
-            this._forEach(n, (i, o) => {
-              if (e && e.key === o)
-                this._maybeAddToChanges(e, i),
-                  (this._appendAfter = e),
-                  (e = e._next);
-              else {
-                const a = this._getOrCreateRecordForKey(o, i);
-                e = this._insertBeforeOrAppend(e, a);
-              }
-            }),
-            e)
+              this._forEach(n, (i, o) => {
+                if (e && e.key === o)
+                  this._maybeAddToChanges(e, i),
+                    (this._appendAfter = e),
+                    (e = e._next);
+                else {
+                  const a = this._getOrCreateRecordForKey(o, i);
+                  e = this._insertBeforeOrAppend(e, a);
+                }
+              }),
+              e)
           ) {
             e._prev && (e._prev._next = null), (this._removalsHead = e);
             for (let i = e; null !== i; i = i._nextRemoved)
@@ -7207,8 +7206,8 @@
         _maybeAddToChanges(n, e) {
           Object.is(e, n.currentValue) ||
             ((n.previousValue = n.currentValue),
-            (n.currentValue = e),
-            this._addToChanges(n));
+              (n.currentValue = e),
+              this._addToChanges(n));
         }
         _addToAdditions(n) {
           null === this._additionsHead
@@ -7323,7 +7322,7 @@
               let n = [];
               return (
                 t.onStable.subscribe(() => {
-                  for (; n.length; ) n.pop()();
+                  for (; n.length;) n.pop()();
                 }),
                 function (e) {
                   n.push(e);
@@ -7360,18 +7359,18 @@
           { provide: Zm, useValue: "USD" },
         ];
       let vO = (() => {
-          class t {
-            constructor(e) {}
-          }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)(E(Wn));
-            }),
-            (t.ɵmod = Ce({ type: t })),
-            (t.ɵinj = ye({ providers: _O })),
-            t
-          );
-        })(),
+        class t {
+          constructor(e) { }
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)(E(Wn));
+          }),
+          (t.ɵmod = Ce({ type: t })),
+          (t.ɵinj = ye({ providers: _O })),
+          t
+        );
+      })(),
         il = null;
       function Jn() {
         return il;
@@ -7528,72 +7527,72 @@
       })();
       const Uu = new re("appBaseHref");
       let x_ = (() => {
-          class t extends or {
-            constructor(e, i) {
-              if (
-                (super(),
+        class t extends or {
+          constructor(e, i) {
+            if (
+              (super(),
                 (this._platformLocation = e),
                 (this._removeListenerFns = []),
                 null == i && (i = this._platformLocation.getBaseHrefFromDOM()),
                 null == i)
-              )
-                throw new Error(
-                  "No base href set. Please provide a value for the APP_BASE_HREF token or add a base element to the document."
-                );
-              this._baseHref = i;
-            }
-            ngOnDestroy() {
-              for (; this._removeListenerFns.length; )
-                this._removeListenerFns.pop()();
-            }
-            onPopState(e) {
-              this._removeListenerFns.push(
-                this._platformLocation.onPopState(e),
-                this._platformLocation.onHashChange(e)
+            )
+              throw new Error(
+                "No base href set. Please provide a value for the APP_BASE_HREF token or add a base element to the document."
               );
-            }
-            getBaseHref() {
-              return this._baseHref;
-            }
-            prepareExternalUrl(e) {
-              return $u(this._baseHref, e);
-            }
-            path(e = !1) {
-              const i =
-                  this._platformLocation.pathname +
-                  si(this._platformLocation.search),
-                o = this._platformLocation.hash;
-              return o && e ? `${i}${o}` : i;
-            }
-            pushState(e, i, o, a) {
-              const l = this.prepareExternalUrl(o + si(a));
-              this._platformLocation.pushState(e, i, l);
-            }
-            replaceState(e, i, o, a) {
-              const l = this.prepareExternalUrl(o + si(a));
-              this._platformLocation.replaceState(e, i, l);
-            }
-            forward() {
-              this._platformLocation.forward();
-            }
-            back() {
-              this._platformLocation.back();
-            }
-            historyGo(e = 0) {
-              var i, o;
-              null === (o = (i = this._platformLocation).historyGo) ||
-                void 0 === o ||
-                o.call(i, e);
-            }
+            this._baseHref = i;
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)(E(Gi), E(Uu, 8));
-            }),
-            (t.ɵprov = L({ token: t, factory: t.ɵfac })),
-            t
-          );
-        })(),
+          ngOnDestroy() {
+            for (; this._removeListenerFns.length;)
+              this._removeListenerFns.pop()();
+          }
+          onPopState(e) {
+            this._removeListenerFns.push(
+              this._platformLocation.onPopState(e),
+              this._platformLocation.onHashChange(e)
+            );
+          }
+          getBaseHref() {
+            return this._baseHref;
+          }
+          prepareExternalUrl(e) {
+            return $u(this._baseHref, e);
+          }
+          path(e = !1) {
+            const i =
+              this._platformLocation.pathname +
+              si(this._platformLocation.search),
+              o = this._platformLocation.hash;
+            return o && e ? `${i}${o}` : i;
+          }
+          pushState(e, i, o, a) {
+            const l = this.prepareExternalUrl(o + si(a));
+            this._platformLocation.pushState(e, i, l);
+          }
+          replaceState(e, i, o, a) {
+            const l = this.prepareExternalUrl(o + si(a));
+            this._platformLocation.replaceState(e, i, l);
+          }
+          forward() {
+            this._platformLocation.forward();
+          }
+          back() {
+            this._platformLocation.back();
+          }
+          historyGo(e = 0) {
+            var i, o;
+            null === (o = (i = this._platformLocation).historyGo) ||
+              void 0 === o ||
+              o.call(i, e);
+          }
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)(E(Gi), E(Uu, 8));
+          }),
+          (t.ɵprov = L({ token: t, factory: t.ɵfac })),
+          t
+        );
+      })(),
         TO = (() => {
           class t extends or {
             constructor(e, i) {
@@ -7604,7 +7603,7 @@
                 null != i && (this._baseHref = i);
             }
             ngOnDestroy() {
-              for (; this._removeListenerFns.length; )
+              for (; this._removeListenerFns.length;)
                 this._removeListenerFns.pop()();
             }
             onPopState(e) {
@@ -7724,9 +7723,9 @@
             onUrlChange(e) {
               this._urlChangeListeners.push(e),
                 this._urlChangeSubscription ||
-                  (this._urlChangeSubscription = this.subscribe((i) => {
-                    this._notifyUrlChangeListeners(i.url, i.state);
-                  }));
+                (this._urlChangeSubscription = this.subscribe((i) => {
+                  this._notifyUrlChangeListeners(i.url, i.state);
+                }));
             }
             _notifyUrlChangeListeners(e = "", i) {
               this._urlChangeListeners.forEach((o) => o(e, i));
@@ -7760,14 +7759,14 @@
         return t.replace(/\/index.html$/, "");
       }
       var et = (() => (
-          ((et = et || {})[(et.Zero = 0)] = "Zero"),
-          (et[(et.One = 1)] = "One"),
-          (et[(et.Two = 2)] = "Two"),
-          (et[(et.Few = 3)] = "Few"),
-          (et[(et.Many = 4)] = "Many"),
-          (et[(et.Other = 5)] = "Other"),
-          et
-        ))(),
+        ((et = et || {})[(et.Zero = 0)] = "Zero"),
+        (et[(et.One = 1)] = "One"),
+        (et[(et.Two = 2)] = "Two"),
+        (et[(et.Few = 3)] = "Few"),
+        (et[(et.Many = 4)] = "Many"),
+        (et[(et.Other = 5)] = "Other"),
+        et
+      ))(),
         Be = (() => (
           ((Be = Be || {})[(Be.Format = 0)] = "Format"),
           (Be[(Be.Standalone = 1)] = "Standalone"),
@@ -7838,8 +7837,7 @@
       function P_(t) {
         if (!t[R.ExtraData])
           throw new Error(
-            `Missing extra locale data for the locale "${
-              t[R.LocaleId]
+            `Missing extra locale data for the locale "${t[R.LocaleId]
             }". Use "registerLocaleData" to load new data. See the "I18n guide" on angular.io to know more.`
           );
       }
@@ -7852,17 +7850,17 @@
         return { hours: +n, minutes: +e };
       }
       const VO =
-          /^(\d{4})-?(\d\d)-?(\d\d)(?:T(\d\d)(?::?(\d\d)(?::?(\d\d)(?:\.(\d+))?)?)?(Z|([+-])(\d\d):?(\d\d))?)?$/,
+        /^(\d{4})-?(\d\d)-?(\d\d)(?:T(\d\d)(?::?(\d\d)(?::?(\d\d)(?:\.(\d+))?)?)?(Z|([+-])(\d\d):?(\d\d))?)?$/,
         ms = {},
         HO =
           /((?:[^BEGHLMOSWYZabcdhmswyz']+)|(?:'(?:[^']|'')*')|(?:G{1,5}|y{1,4}|Y{1,4}|M{1,5}|L{1,5}|w{1,2}|W{1}|d{1,2}|E{1,6}|c{1,6}|a{1,5}|b{1,5}|B{1,5}|h{1,2}|H{1,2}|m{1,2}|s{1,2}|S{1,3}|z{1,4}|Z{1,5}|O{1,4}))([\s\S]*)/;
       var rt = (() => (
-          ((rt = rt || {})[(rt.Short = 0)] = "Short"),
-          (rt[(rt.ShortGMT = 1)] = "ShortGMT"),
-          (rt[(rt.Long = 2)] = "Long"),
-          (rt[(rt.Extended = 3)] = "Extended"),
-          rt
-        ))(),
+        ((rt = rt || {})[(rt.Short = 0)] = "Short"),
+        (rt[(rt.ShortGMT = 1)] = "ShortGMT"),
+        (rt[(rt.Long = 2)] = "Long"),
+        (rt[(rt.Extended = 3)] = "Extended"),
+        rt
+      ))(),
         G = (() => (
           ((G = G || {})[(G.FullYear = 0)] = "FullYear"),
           (G[(G.Month = 1)] = "Month"),
@@ -7917,7 +7915,7 @@
         n = ai(e, n) || n;
         let d,
           l = [];
-        for (; n; ) {
+        for (; n;) {
           if (((d = HO.exec(n)), !d)) {
             l.push(n);
             break;
@@ -7932,14 +7930,14 @@
         let u = o.getTimezoneOffset();
         i &&
           ((u = A_(i, u)),
-          (o = (function (t, n, e) {
-            const o = t.getTimezoneOffset();
-            return (function (t, n) {
-              return (
-                (t = new Date(t.getTime())).setMinutes(t.getMinutes() + n), t
-              );
-            })(t, -1 * (A_(n, o) - o));
-          })(o, i)));
+            (o = (function (t, n, e) {
+              const o = t.getTimezoneOffset();
+              return (function (t, n) {
+                return (
+                  (t = new Date(t.getTime())).setMinutes(t.getMinutes() + n), t
+                );
+              })(t, -1 * (A_(n, o) - o));
+            })(o, i)));
         let h = "";
         return (
           l.forEach((p) => {
@@ -8148,8 +8146,8 @@
             h += f
               ? f(o, e, u)
               : "''" === p
-              ? "'"
-              : p.replace(/(^'|'$)/g, "").replace(/''/g, "'");
+                ? "'"
+                : p.replace(/(^'|'$)/g, "").replace(/''/g, "'");
           }),
           h
         );
@@ -8214,9 +8212,9 @@
       function ll(t, n) {
         return (
           n &&
-            (t = t.replace(/\{([^}]+)}/g, function (e, i) {
-              return null != n && i in n ? n[i] : e;
-            })),
+          (t = t.replace(/\{([^}]+)}/g, function (e, i) {
+            return null != n && i in n ? n[i] : e;
+          })),
           t
         );
       }
@@ -8224,7 +8222,7 @@
         let a = "";
         (t < 0 || (o && t <= 0)) && (o ? (t = 1 - t) : ((t = -t), (a = e)));
         let l = String(t);
-        for (; l.length < n; ) l = "0" + l;
+        for (; l.length < n;) l = "0" + l;
         return i && (l = l.substr(l.length - n)), a + l;
       }
       function tt(t, n, e = 0, i = !1, o = !1) {
@@ -8274,14 +8272,14 @@
                   d = t.getMinutes();
                 if (a) {
                   const h = (function (t) {
-                      const n = Rt(t);
-                      return (
-                        P_(n),
-                        (n[R.ExtraData][2] || []).map((i) =>
-                          "string" == typeof i ? Wu(i) : [Wu(i[0]), Wu(i[1])]
-                        )
-                      );
-                    })(n),
+                    const n = Rt(t);
+                    return (
+                      P_(n),
+                      (n[R.ExtraData][2] || []).map((i) =>
+                        "string" == typeof i ? Wu(i) : [Wu(i[0]), Wu(i[1])]
+                      )
+                    );
+                  })(n),
                     p = (function (t, n, e) {
                       const i = Rt(t);
                       P_(i);
@@ -8344,9 +8342,9 @@
               return 0 === i
                 ? "Z"
                 : (o >= 0 ? "+" : "") +
-                    Pn(l, 2, a) +
-                    ":" +
-                    Pn(Math.abs(o % 60), 2, a);
+                Pn(l, 2, a) +
+                ":" +
+                Pn(Math.abs(o % 60), 2, a);
             default:
               throw new Error(`Unknown zone width "${t}"`);
           }
@@ -8392,37 +8390,37 @@
       function N_(t) {
         return t instanceof Date && !isNaN(t.valueOf());
       }
-      class pl {}
+      class pl { }
       let lT = (() => {
-          class t extends pl {
-            constructor(e) {
-              super(), (this.locale = e);
-            }
-            getPluralCategory(e, i) {
-              switch (IO(i || this.locale)(e)) {
-                case et.Zero:
-                  return "zero";
-                case et.One:
-                  return "one";
-                case et.Two:
-                  return "two";
-                case et.Few:
-                  return "few";
-                case et.Many:
-                  return "many";
-                default:
-                  return "other";
-              }
+        class t extends pl {
+          constructor(e) {
+            super(), (this.locale = e);
+          }
+          getPluralCategory(e, i) {
+            switch (IO(i || this.locale)(e)) {
+              case et.Zero:
+                return "zero";
+              case et.One:
+                return "one";
+              case et.Two:
+                return "two";
+              case et.Few:
+                return "few";
+              case et.Many:
+                return "many";
+              default:
+                return "other";
             }
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)(E(cn));
-            }),
-            (t.ɵprov = L({ token: t, factory: t.ɵfac })),
-            t
-          );
-        })(),
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)(E(cn));
+          }),
+          (t.ɵprov = L({ token: t, factory: t.ɵfac })),
+          t
+        );
+      })(),
         eh = (() => {
           class t {
             constructor(e, i, o, a) {
@@ -8449,13 +8447,13 @@
                 (this._keyValueDiffer = null),
                 (this._rawClass = "string" == typeof e ? e.split(/\s+/) : e),
                 this._rawClass &&
-                  (es(this._rawClass)
-                    ? (this._iterableDiffer = this._iterableDiffers
-                        .find(this._rawClass)
-                        .create())
-                    : (this._keyValueDiffer = this._keyValueDiffers
-                        .find(this._rawClass)
-                        .create()));
+                (es(this._rawClass)
+                  ? (this._iterableDiffer = this._iterableDiffers
+                    .find(this._rawClass)
+                    .create())
+                  : (this._keyValueDiffer = this._keyValueDiffers
+                    .find(this._rawClass)
+                    .create()));
             }
             ngDoCheck() {
               if (this._iterableDiffer) {
@@ -8494,8 +8492,8 @@
                 (Array.isArray(e) || e instanceof Set
                   ? e.forEach((i) => this._toggleClass(i, !0))
                   : Object.keys(e).forEach((i) =>
-                      this._toggleClass(i, !!e[i])
-                    ));
+                    this._toggleClass(i, !!e[i])
+                  ));
             }
             _removeClasses(e) {
               e &&
@@ -8657,21 +8655,21 @@
           _updateView() {
             this._context.$implicit
               ? this._thenViewRef ||
-                (this._viewContainer.clear(),
+              (this._viewContainer.clear(),
                 (this._elseViewRef = null),
                 this._thenTemplateRef &&
-                  (this._thenViewRef = this._viewContainer.createEmbeddedView(
-                    this._thenTemplateRef,
-                    this._context
-                  )))
+                (this._thenViewRef = this._viewContainer.createEmbeddedView(
+                  this._thenTemplateRef,
+                  this._context
+                )))
               : this._elseViewRef ||
-                (this._viewContainer.clear(),
+              (this._viewContainer.clear(),
                 (this._thenViewRef = null),
                 this._elseTemplateRef &&
-                  (this._elseViewRef = this._viewContainer.createEmbeddedView(
-                    this._elseTemplateRef,
-                    this._context
-                  )));
+                (this._elseViewRef = this._viewContainer.createEmbeddedView(
+                  this._elseTemplateRef,
+                  this._context
+                )));
           }
           static ngTemplateContextGuard(e, i) {
             return !0;
@@ -8724,56 +8722,56 @@
         }
       }
       let gl = (() => {
-          class t {
-            constructor() {
-              (this._defaultUsed = !1),
-                (this._caseCount = 0),
+        class t {
+          constructor() {
+            (this._defaultUsed = !1),
+              (this._caseCount = 0),
+              (this._lastCaseCheckIndex = 0),
+              (this._lastCasesMatched = !1);
+          }
+          set ngSwitch(e) {
+            (this._ngSwitch = e),
+              0 === this._caseCount && this._updateDefaultCases(!0);
+          }
+          _addCase() {
+            return this._caseCount++;
+          }
+          _addDefault(e) {
+            this._defaultViews || (this._defaultViews = []),
+              this._defaultViews.push(e);
+          }
+          _matchCase(e) {
+            const i = e == this._ngSwitch;
+            return (
+              (this._lastCasesMatched = this._lastCasesMatched || i),
+              this._lastCaseCheckIndex++,
+              this._lastCaseCheckIndex === this._caseCount &&
+              (this._updateDefaultCases(!this._lastCasesMatched),
                 (this._lastCaseCheckIndex = 0),
-                (this._lastCasesMatched = !1);
-            }
-            set ngSwitch(e) {
-              (this._ngSwitch = e),
-                0 === this._caseCount && this._updateDefaultCases(!0);
-            }
-            _addCase() {
-              return this._caseCount++;
-            }
-            _addDefault(e) {
-              this._defaultViews || (this._defaultViews = []),
-                this._defaultViews.push(e);
-            }
-            _matchCase(e) {
-              const i = e == this._ngSwitch;
-              return (
-                (this._lastCasesMatched = this._lastCasesMatched || i),
-                this._lastCaseCheckIndex++,
-                this._lastCaseCheckIndex === this._caseCount &&
-                  (this._updateDefaultCases(!this._lastCasesMatched),
-                  (this._lastCaseCheckIndex = 0),
-                  (this._lastCasesMatched = !1)),
-                i
-              );
-            }
-            _updateDefaultCases(e) {
-              if (this._defaultViews && e !== this._defaultUsed) {
-                this._defaultUsed = e;
-                for (let i = 0; i < this._defaultViews.length; i++)
-                  this._defaultViews[i].enforceState(e);
-              }
+                (this._lastCasesMatched = !1)),
+              i
+            );
+          }
+          _updateDefaultCases(e) {
+            if (this._defaultViews && e !== this._defaultUsed) {
+              this._defaultUsed = e;
+              for (let i = 0; i < this._defaultViews.length; i++)
+                this._defaultViews[i].enforceState(e);
             }
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)();
-            }),
-            (t.ɵdir = A({
-              type: t,
-              selectors: [["", "ngSwitch", ""]],
-              inputs: { ngSwitch: "ngSwitch" },
-            })),
-            t
-          );
-        })(),
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)();
+          }),
+          (t.ɵdir = A({
+            type: t,
+            selectors: [["", "ngSwitch", ""]],
+            inputs: { ngSwitch: "ngSwitch" },
+          })),
+          t
+        );
+      })(),
         j_ = (() => {
           class t {
             constructor(e, i, o) {
@@ -8825,9 +8823,9 @@
                 this._viewRef && i.remove(i.indexOf(this._viewRef)),
                   (this._viewRef = this.ngTemplateOutlet
                     ? i.createEmbeddedView(
-                        this.ngTemplateOutlet,
-                        this.ngTemplateOutletContext
-                      )
+                      this.ngTemplateOutlet,
+                      this.ngTemplateOutletContext
+                    )
                     : null);
               } else
                 this._viewRef &&
@@ -8853,7 +8851,7 @@
           );
         })(),
         Ut = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -8868,7 +8866,7 @@
         return t === z_;
       }
       let jT = (() => {
-        class t {}
+        class t { }
         return (
           (t.ɵprov = L({
             token: t,
@@ -8905,7 +8903,7 @@
             ) {
               const i = t.createTreeWalker(t.body, NodeFilter.SHOW_ELEMENT);
               let o = i.currentNode;
-              for (; o; ) {
+              for (; o;) {
                 const a = o.shadowRoot;
                 if (a) {
                   const l =
@@ -8961,7 +8959,7 @@
       function G_(t) {
         return Object.getOwnPropertyDescriptor(t, "scrollRestoration");
       }
-      class rh extends class extends class {} {
+      class rh extends class extends class { } {
         constructor() {
           super(...arguments), (this.supportsDOMEvents = !0);
         }
@@ -9004,23 +9002,23 @@
           return "window" === e
             ? window
             : "document" === e
-            ? n
-            : "body" === e
-            ? n.body
-            : null;
+              ? n
+              : "body" === e
+                ? n.body
+                : null;
         }
         getBaseHref(n) {
           const e =
             ((ys = ys || document.querySelector("base")),
-            ys ? ys.getAttribute("href") : null);
+              ys ? ys.getAttribute("href") : null);
           return null == e
             ? null
             : (function (t) {
-                (fl = fl || document.createElement("a")),
-                  fl.setAttribute("href", t);
-                const n = fl.pathname;
-                return "/" === n.charAt(0) ? n : `/${n}`;
-              })(e);
+              (fl = fl || document.createElement("a")),
+                fl.setAttribute("href", t);
+              const n = fl.pathname;
+              return "/" === n.charAt(0) ? n : `/${n}`;
+            })(e);
         }
         resetBaseElement() {
           ys = null;
@@ -9093,10 +9091,10 @@
           return null != o
             ? o
             : i
-            ? Jn().isShadowRoot(e)
-              ? this.findTestabilityInTree(n, e.host, !0)
-              : this.findTestabilityInTree(n, e.parentElement, !0)
-            : null;
+              ? Jn().isShadowRoot(e)
+                ? this.findTestabilityInTree(n, e.host, !0)
+                : this.findTestabilityInTree(n, e.parentElement, !0)
+              : null;
         }
       }
       let JT = (() => {
@@ -9162,30 +9160,30 @@
         }
       }
       let J_ = (() => {
-          class t {
-            constructor() {
-              this._stylesSet = new Set();
-            }
-            addStyles(e) {
-              const i = new Set();
-              e.forEach((o) => {
-                this._stylesSet.has(o) || (this._stylesSet.add(o), i.add(o));
-              }),
-                this.onStylesAdded(i);
-            }
-            onStylesAdded(e) {}
-            getAllStyles() {
-              return Array.from(this._stylesSet);
-            }
+        class t {
+          constructor() {
+            this._stylesSet = new Set();
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)();
+          addStyles(e) {
+            const i = new Set();
+            e.forEach((o) => {
+              this._stylesSet.has(o) || (this._stylesSet.add(o), i.add(o));
             }),
-            (t.ɵprov = L({ token: t, factory: t.ɵfac })),
-            t
-          );
-        })(),
+              this.onStylesAdded(i);
+          }
+          onStylesAdded(e) { }
+          getAllStyles() {
+            return Array.from(this._stylesSet);
+          }
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)();
+          }),
+          (t.ɵprov = L({ token: t, factory: t.ɵfac })),
+          t
+        );
+      })(),
         vs = (() => {
           class t extends J_ {
             constructor(e) {
@@ -9230,12 +9228,12 @@
         Jn().remove(t);
       }
       const ah = {
-          svg: "http://www.w3.org/2000/svg",
-          xhtml: "http://www.w3.org/1999/xhtml",
-          xlink: "http://www.w3.org/1999/xlink",
-          xml: "http://www.w3.org/XML/1998/namespace",
-          xmlns: "http://www.w3.org/2000/xmlns/",
-        },
+        svg: "http://www.w3.org/2000/svg",
+        xhtml: "http://www.w3.org/1999/xhtml",
+        xlink: "http://www.w3.org/1999/xlink",
+        xml: "http://www.w3.org/XML/1998/namespace",
+        xmlns: "http://www.w3.org/2000/xmlns/",
+      },
         lh = /%COMP%/g;
       function _l(t, n, e) {
         for (let i = 0; i < n.length; i++) {
@@ -9266,12 +9264,12 @@
                 let o = this.rendererByCompId.get(i.id);
                 return (
                   o ||
-                    ((o = new e4(
-                      this.eventManager,
-                      this.sharedStylesHost,
-                      i,
-                      this.appId
-                    )),
+                  ((o = new e4(
+                    this.eventManager,
+                    this.sharedStylesHost,
+                    i,
+                    this.appId
+                  )),
                     this.rendererByCompId.set(i.id, o)),
                   o.applyToHost(e),
                   o
@@ -9289,8 +9287,8 @@
                 return this.defaultRenderer;
             }
           }
-          begin() {}
-          end() {}
+          begin() { }
+          end() { }
         }
         return (
           (t.ɵfac = function (e) {
@@ -9306,7 +9304,7 @@
             (this.data = Object.create(null)),
             (this.destroyNode = null);
         }
-        destroy() {}
+        destroy() { }
         createElement(n, e) {
           return e
             ? document.createElementNS(ah[e] || e, n)
@@ -9525,8 +9523,8 @@
                 const h = i.indexOf(u);
                 h > -1 && (i.splice(h, 1), (l += u + "."));
               }),
-              (l += a),
-              0 != i.length || 0 === a.length)
+                (l += a),
+                0 != i.length || 0 === a.length)
             )
               return null;
             const d = {};
@@ -9540,7 +9538,7 @@
                   if (((n = t.keyIdentifier), null == n)) return "Unidentified";
                   n.startsWith("U+") &&
                     ((n = String.fromCharCode(parseInt(n.substring(2), 16))),
-                    3 === t.location && t0.hasOwnProperty(n) && (n = t0[n]));
+                      3 === t.location && t0.hasOwnProperty(n) && (n = t0[n]));
                 }
                 return o4[n] || n;
               })(e);
@@ -9572,27 +9570,27 @@
         );
       })();
       const u4 = i_(pO, "browser", [
-          { provide: nr, useValue: z_ },
-          {
-            provide: Jm,
-            useValue: function () {
-              rh.makeCurrent(), sh.init();
-            },
-            multi: !0,
+        { provide: nr, useValue: z_ },
+        {
+          provide: Jm,
+          useValue: function () {
+            rh.makeCurrent(), sh.init();
           },
-          {
-            provide: Le,
-            useFactory: function () {
-              return (
-                (function (t) {
-                  Sc = t;
-                })(document),
-                document
-              );
-            },
-            deps: [],
+          multi: !0,
+        },
+        {
+          provide: Le,
+          useFactory: function () {
+            return (
+              (function (t) {
+                Sc = t;
+              })(document),
+              document
+            );
           },
-        ]),
+          deps: [],
+        },
+      ]),
         h4 = [
           { provide: Gd, useValue: "root" },
           {
@@ -9610,7 +9608,7 @@
           { provide: vs, useClass: vs, deps: [Le] },
           { provide: Ru, useClass: Ru, deps: [de] },
           { provide: ml, useClass: ml, deps: [bl, de] },
-          { provide: class {}, useClass: JT, deps: [] },
+          { provide: class { }, useClass: JT, deps: [] },
         ];
       let p4 = (() => {
         class t {
@@ -9659,10 +9657,10 @@
                 complete: () => {
                   a++,
                     (a === i || !h) &&
-                      (l === i &&
-                        e.next(
-                          n ? n.reduce((p, f, b) => ((p[f] = o[b]), p), {}) : o
-                        ),
+                    (l === i &&
+                      e.next(
+                        n ? n.reduce((p, f, b) => ((p[f] = o[b]), p), {}) : o
+                      ),
                       e.complete());
                 },
               })
@@ -9672,36 +9670,36 @@
       }
       "undefined" != typeof window && window;
       let r0 = (() => {
-          class t {
-            constructor(e, i) {
-              (this._renderer = e),
-                (this._elementRef = i),
-                (this.onChange = (o) => {}),
-                (this.onTouched = () => {});
-            }
-            setProperty(e, i) {
-              this._renderer.setProperty(this._elementRef.nativeElement, e, i);
-            }
-            registerOnTouched(e) {
-              this.onTouched = e;
-            }
-            registerOnChange(e) {
-              this.onChange = e;
-            }
-            setDisabledState(e) {
-              this.setProperty("disabled", e);
-            }
+        class t {
+          constructor(e, i) {
+            (this._renderer = e),
+              (this._elementRef = i),
+              (this.onChange = (o) => { }),
+              (this.onTouched = () => { });
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)(y(mt), y(le));
-            }),
-            (t.ɵdir = A({ type: t })),
-            t
-          );
-        })(),
+          setProperty(e, i) {
+            this._renderer.setProperty(this._elementRef.nativeElement, e, i);
+          }
+          registerOnTouched(e) {
+            this.onTouched = e;
+          }
+          registerOnChange(e) {
+            this.onChange = e;
+          }
+          setDisabledState(e) {
+            this.setProperty("disabled", e);
+          }
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)(y(mt), y(le));
+          }),
+          (t.ɵdir = A({ type: t })),
+          t
+        );
+      })(),
         qi = (() => {
-          class t extends r0 {}
+          class t extends r0 { }
           return (
             (t.ɵfac = (function () {
               let n;
@@ -9723,10 +9721,10 @@
               (this._compositionMode = o),
               (this._composing = !1),
               null == this._compositionMode &&
-                (this._compositionMode = !(function () {
-                  const t = Jn() ? Jn().getUserAgent() : "";
-                  return /android (\d+)/.test(t.toLowerCase());
-                })());
+              (this._compositionMode = !(function () {
+                const t = Jn() ? Jn().getUserAgent() : "";
+                return /android (\d+)/.test(t.toLowerCase());
+              })());
           }
           writeValue(e) {
             this.setProperty("value", null == e ? "" : e);
@@ -9827,13 +9825,13 @@
               Pi(n.value) || !a0(n.value)
                 ? null
                 : n.value.length < t
-                ? {
+                  ? {
                     minlength: {
                       requiredLength: t,
                       actualLength: n.value.length,
                     },
                   }
-                : null;
+                  : null;
           })(n);
         }
         static maxLength(n) {
@@ -9841,11 +9839,11 @@
             return (n) =>
               a0(n.value) && n.value.length > t
                 ? {
-                    maxlength: {
-                      requiredLength: t,
-                      actualLength: n.value.length,
-                    },
-                  }
+                  maxlength: {
+                    requiredLength: t,
+                    actualLength: n.value.length,
+                  },
+                }
                 : null;
           })(n);
         }
@@ -9922,8 +9920,8 @@
         return 0 == n.length
           ? null
           : function (e) {
-              return _0(y0(e, n));
-            };
+            return _0(y0(e, n));
+          };
       }
       function hh(t) {
         return null != t ? C0(v0(t)) : null;
@@ -9934,28 +9932,28 @@
         return 0 == n.length
           ? null
           : function (e) {
-              return (function (...t) {
-                if (1 === t.length) {
-                  const n = t[0];
-                  if (gi(n)) return yl(n, null);
-                  if (pc(n) && Object.getPrototypeOf(n) === Object.prototype) {
-                    const e = Object.keys(n);
-                    return yl(
-                      e.map((i) => n[i]),
-                      e
-                    );
-                  }
-                }
-                if ("function" == typeof t[t.length - 1]) {
-                  const n = t.pop();
+            return (function (...t) {
+              if (1 === t.length) {
+                const n = t[0];
+                if (gi(n)) return yl(n, null);
+                if (pc(n) && Object.getPrototypeOf(n) === Object.prototype) {
+                  const e = Object.keys(n);
                   return yl(
-                    (t = 1 === t.length && gi(t[0]) ? t[0] : t),
-                    null
-                  ).pipe(oe((e) => n(...e)));
+                    e.map((i) => n[i]),
+                    e
+                  );
                 }
-                return yl(t, null);
-              })(y0(e, n).map(m0)).pipe(oe(_0));
-            };
+              }
+              if ("function" == typeof t[t.length - 1]) {
+                const n = t.pop();
+                return yl(
+                  (t = 1 === t.length && gi(t[0]) ? t[0] : t),
+                  null
+                ).pipe(oe((e) => n(...e)));
+              }
+              return yl(t, null);
+            })(y0(e, n).map(m0)).pipe(oe(_0));
+          };
       }
       function ph(t) {
         return null != t ? w0(v0(t)) : null;
@@ -10094,50 +10092,50 @@
           return "submitted" === n
             ? !!(null === (e = this._cd) || void 0 === e ? void 0 : e.submitted)
             : !!(null ===
-                (o =
-                  null === (i = this._cd) || void 0 === i
-                    ? void 0
-                    : i.control) || void 0 === o
-                ? void 0
-                : o[n]);
+              (o =
+                null === (i = this._cd) || void 0 === i
+                  ? void 0
+                  : i.control) || void 0 === o
+              ? void 0
+              : o[n]);
         }
       }
       let Wi = (() => {
-          class t extends P0 {
-            constructor(e) {
-              super(e);
-            }
+        class t extends P0 {
+          constructor(e) {
+            super(e);
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)(y(Si, 2));
-            }),
-            (t.ɵdir = A({
-              type: t,
-              selectors: [
-                ["", "formControlName", ""],
-                ["", "ngModel", ""],
-                ["", "formControl", ""],
-              ],
-              hostVars: 14,
-              hostBindings: function (e, i) {
-                2 & e &&
-                  K("ng-untouched", i.is("untouched"))(
-                    "ng-touched",
-                    i.is("touched")
-                  )("ng-pristine", i.is("pristine"))("ng-dirty", i.is("dirty"))(
-                    "ng-valid",
-                    i.is("valid")
-                  )("ng-invalid", i.is("invalid"))(
-                    "ng-pending",
-                    i.is("pending")
-                  );
-              },
-              features: [Oe],
-            })),
-            t
-          );
-        })(),
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)(y(Si, 2));
+          }),
+          (t.ɵdir = A({
+            type: t,
+            selectors: [
+              ["", "formControlName", ""],
+              ["", "ngModel", ""],
+              ["", "formControl", ""],
+            ],
+            hostVars: 14,
+            hostBindings: function (e, i) {
+              2 & e &&
+                K("ng-untouched", i.is("untouched"))(
+                  "ng-touched",
+                  i.is("touched")
+                )("ng-pristine", i.is("pristine"))("ng-dirty", i.is("dirty"))(
+                  "ng-valid",
+                  i.is("valid")
+                )("ng-invalid", i.is("invalid"))(
+                  "ng-pending",
+                  i.is("pending")
+                );
+            },
+            features: [Oe],
+          })),
+          t
+        );
+      })(),
         pn = (() => {
           class t extends P0 {
             constructor(e) {
@@ -10220,14 +10218,14 @@
           })(t, n);
       }
       function Ml(t, n, e = !0) {
-        const i = () => {};
+        const i = () => { };
         n.valueAccessor &&
           (n.valueAccessor.registerOnChange(i),
-          n.valueAccessor.registerOnTouched(i)),
+            n.valueAccessor.registerOnTouched(i)),
           Dl(t, n),
           t &&
-            (n._invokeOnDestroyCallbacks(),
-            t._registerOnCollectionChange(() => {}));
+          (n._invokeOnDestroyCallbacks(),
+            t._registerOnCollectionChange(() => { }));
       }
       function xl(t, n) {
         t.forEach((e) => {
@@ -10264,7 +10262,7 @@
             }
           }
         }
-        const i = () => {};
+        const i = () => { };
         return xl(n._rawValidators, i), xl(n._rawAsyncValidators, i), e;
       }
       function E0(t, n) {
@@ -10299,10 +10297,10 @@
             a.constructor === li
               ? (e = a)
               : (function (t) {
-                  return Object.getPrototypeOf(t.constructor) === qi;
-                })(a)
-              ? (i = a)
-              : (o = a);
+                return Object.getPrototypeOf(t.constructor) === qi;
+              })(a)
+                ? (i = a)
+                : (o = a);
           }),
           o || i || e || null
         );
@@ -10335,7 +10333,7 @@
           (this._pendingDirty = !1),
             (this._hasOwnPendingAsyncValidator = !1),
             (this._pendingTouched = !1),
-            (this._onCollectionChange = () => {}),
+            (this._onCollectionChange = () => { }),
             (this._parent = null),
             (this.pristine = !0),
             (this.touched = !1),
@@ -10385,8 +10383,8 @@
           return this._updateOn
             ? this._updateOn
             : this.parent
-            ? this.parent.updateOn
-            : "change";
+              ? this.parent.updateOn
+              : "change";
         }
         setValidators(n) {
           (this._rawValidators = n), (this._composedValidatorFn = N0(n));
@@ -10461,7 +10459,7 @@
             }),
             this._updateValue(),
             !1 !== n.emitEvent &&
-              (this.valueChanges.emit(this.value),
+            (this.valueChanges.emit(this.value),
               this.statusChanges.emit(this.status)),
             this._updateAncestors(
               Object.assign(Object.assign({}, n), { skipPristineCheck: e })
@@ -10487,8 +10485,8 @@
           this._parent &&
             !n.onlySelf &&
             (this._parent.updateValueAndValidity(n),
-            n.skipPristineCheck || this._parent._updatePristine(),
-            this._parent._updateTouched());
+              n.skipPristineCheck || this._parent._updatePristine(),
+              this._parent._updateTouched());
         }
         setParent(n) {
           this._parent = n;
@@ -10497,17 +10495,17 @@
           this._setInitialStatus(),
             this._updateValue(),
             this.enabled &&
-              (this._cancelExistingSubscription(),
+            (this._cancelExistingSubscription(),
               (this.errors = this._runValidator()),
               (this.status = this._calculateStatus()),
               (this.status === Ms || this.status === rr) &&
-                this._runAsyncValidator(n.emitEvent)),
+              this._runAsyncValidator(n.emitEvent)),
             !1 !== n.emitEvent &&
-              (this.valueChanges.emit(this.value),
+            (this.valueChanges.emit(this.value),
               this.statusChanges.emit(this.status)),
             this._parent &&
-              !n.onlySelf &&
-              this._parent.updateValueAndValidity(n);
+            !n.onlySelf &&
+            this._parent.updateValueAndValidity(n);
         }
         _updateTreeValidity(n = { emitEvent: !0 }) {
           this._forEachChild((e) => e._updateTreeValidity(n)),
@@ -10535,7 +10533,7 @@
         _cancelExistingSubscription() {
           this._asyncValidationSubscription &&
             (this._asyncValidationSubscription.unsubscribe(),
-            (this._hasOwnPendingAsyncValidator = !1));
+              (this._hasOwnPendingAsyncValidator = !1));
         }
         setErrors(n, e = {}) {
           (this.errors = n), this._updateControlsErrors(!1 !== e.emitEvent);
@@ -10545,7 +10543,7 @@
             if (
               null == n ||
               (Array.isArray(n) || (n = n.split(".")),
-              Array.isArray(n) && 0 === n.length)
+                Array.isArray(n) && 0 === n.length)
             )
               return null;
             let i = t;
@@ -10571,7 +10569,7 @@
         }
         get root() {
           let n = this;
-          for (; n._parent; ) n = n._parent;
+          for (; n._parent;) n = n._parent;
           return n;
         }
         _updateControlsErrors(n) {
@@ -10586,13 +10584,13 @@
           return this._allControlsDisabled()
             ? xs
             : this.errors
-            ? Ol
-            : this._hasOwnPendingAsyncValidator ||
-              this._anyControlsHaveStatus(rr)
-            ? rr
-            : this._anyControlsHaveStatus(Ol)
-            ? Ol
-            : Ms;
+              ? Ol
+              : this._hasOwnPendingAsyncValidator ||
+                this._anyControlsHaveStatus(rr)
+                ? rr
+                : this._anyControlsHaveStatus(Ol)
+                  ? Ol
+                  : Ms;
         }
         _anyControlsHaveStatus(n) {
           return this._anyControls((e) => e.status === n);
@@ -10650,10 +10648,10 @@
         setValue(n, e = {}) {
           (this.value = this._pendingValue = n),
             this._onChange.length &&
-              !1 !== e.emitModelToViewChange &&
-              this._onChange.forEach((i) =>
-                i(this.value, !1 !== e.emitViewToModelChange)
-              ),
+            !1 !== e.emitModelToViewChange &&
+            this._onChange.forEach((i) =>
+              i(this.value, !1 !== e.emitViewToModelChange)
+            ),
             this.updateValueAndValidity(e);
         }
         patchValue(n, e = {}) {
@@ -10666,7 +10664,7 @@
             this.setValue(this.value, e),
             (this._pendingChange = !1);
         }
-        _updateValue() {}
+        _updateValue() { }
         _anyControls(n) {
           return !1;
         }
@@ -10685,18 +10683,18 @@
         _unregisterOnDisabledChange(n) {
           kl(this._onDisabledChange, n);
         }
-        _forEachChild(n) {}
+        _forEachChild(n) { }
         _syncPendingControls() {
           return !(
             "submit" !== this.updateOn ||
             (this._pendingDirty && this.markAsDirty(),
-            this._pendingTouched && this.markAsTouched(),
-            !this._pendingChange) ||
+              this._pendingTouched && this.markAsTouched(),
+              !this._pendingChange) ||
             (this.setValue(this._pendingValue, {
               onlySelf: !0,
               emitModelToViewChange: !1,
             }),
-            0)
+              0)
           );
         }
         _applyFormState(n) {
@@ -10735,14 +10733,14 @@
         }
         removeControl(n, e = {}) {
           this.controls[n] &&
-            this.controls[n]._registerOnCollectionChange(() => {}),
+            this.controls[n]._registerOnCollectionChange(() => { }),
             delete this.controls[n],
             this.updateValueAndValidity({ emitEvent: e.emitEvent }),
             this._onCollectionChange();
         }
         setControl(n, e, i = {}) {
           this.controls[n] &&
-            this.controls[n]._registerOnCollectionChange(() => {}),
+            this.controls[n]._registerOnCollectionChange(() => { }),
             delete this.controls[n],
             e && this.registerControl(n, e),
             this.updateValueAndValidity({ emitEvent: i.emitEvent }),
@@ -10771,7 +10769,7 @@
                   emitEvent: e.emitEvent,
                 });
             }),
-            this.updateValueAndValidity(e));
+              this.updateValueAndValidity(e));
         }
         reset(n = {}, e = {}) {
           this._forEachChild((i, o) => {
@@ -10883,13 +10881,13 @@
         }
         removeAt(n, e = {}) {
           this.controls[n] &&
-            this.controls[n]._registerOnCollectionChange(() => {}),
+            this.controls[n]._registerOnCollectionChange(() => { }),
             this.controls.splice(n, 1),
             this.updateValueAndValidity({ emitEvent: e.emitEvent });
         }
         setControl(n, e, i = {}) {
           this.controls[n] &&
-            this.controls[n]._registerOnCollectionChange(() => {}),
+            this.controls[n]._registerOnCollectionChange(() => { }),
             this.controls.splice(n, 1),
             e && (this.controls.splice(n, 0, e), this._registerControl(e)),
             this.updateValueAndValidity({ emitEvent: i.emitEvent }),
@@ -10918,7 +10916,7 @@
                   emitEvent: e.emitEvent,
                 });
             }),
-            this.updateValueAndValidity(e));
+              this.updateValueAndValidity(e));
         }
         reset(n = [], e = {}) {
           this._forEachChild((i, o) => {
@@ -10935,9 +10933,9 @@
         }
         clear(n = {}) {
           this.controls.length < 1 ||
-            (this._forEachChild((e) => e._registerOnCollectionChange(() => {})),
-            this.controls.splice(0),
-            this.updateValueAndValidity({ emitEvent: n.emitEvent }));
+            (this._forEachChild((e) => e._registerOnCollectionChange(() => { })),
+              this.controls.splice(0),
+              this.updateValueAndValidity({ emitEvent: n.emitEvent }));
         }
         _syncPendingControls() {
           let n = this.controls.reduce(
@@ -11110,118 +11108,118 @@
       const z4 = { provide: Si, useExisting: ne(() => ar) },
         L0 = (() => Promise.resolve(null))();
       let ar = (() => {
-          class t extends Si {
-            constructor(e, i, o, a) {
-              super(),
-                (this.control = new sr()),
-                (this._registered = !1),
-                (this.update = new j()),
-                (this._parent = e),
-                this._setValidators(i),
-                this._setAsyncValidators(o),
-                (this.valueAccessor = yh(0, a));
-            }
-            ngOnChanges(e) {
-              this._checkForErrors(),
-                this._registered || this._setUpControl(),
-                "isDisabled" in e && this._updateDisabled(e),
-                _h(e, this.viewModel) &&
-                  (this._updateValue(this.model),
-                  (this.viewModel = this.model));
-            }
-            ngOnDestroy() {
-              this.formDirective && this.formDirective.removeControl(this);
-            }
-            get path() {
-              return this._parent ? wl(this.name, this._parent) : [this.name];
-            }
-            get formDirective() {
-              return this._parent ? this._parent.formDirective : null;
-            }
-            viewToModelUpdate(e) {
-              (this.viewModel = e), this.update.emit(e);
-            }
-            _setUpControl() {
-              this._setUpdateStrategy(),
-                this._isStandalone()
-                  ? this._setUpStandalone()
-                  : this.formDirective.addControl(this),
-                (this._registered = !0);
-            }
-            _setUpdateStrategy() {
-              this.options &&
-                null != this.options.updateOn &&
-                (this.control._updateOn = this.options.updateOn);
-            }
-            _isStandalone() {
-              return (
-                !this._parent || !(!this.options || !this.options.standalone)
-              );
-            }
-            _setUpStandalone() {
-              ws(this.control, this),
-                this.control.updateValueAndValidity({ emitEvent: !1 });
-            }
-            _checkForErrors() {
-              this._isStandalone() || this._checkParentType(),
-                this._checkName();
-            }
-            _checkParentType() {}
-            _checkName() {
-              this.options &&
-                this.options.name &&
-                (this.name = this.options.name),
-                this._isStandalone();
-            }
-            _updateValue(e) {
-              L0.then(() => {
-                this.control.setValue(e, { emitViewToModelChange: !1 });
-              });
-            }
-            _updateDisabled(e) {
-              const i = e.isDisabled.currentValue,
-                o = "" === i || (i && "false" !== i);
-              L0.then(() => {
-                o && !this.control.disabled
-                  ? this.control.disable()
-                  : !o && this.control.disabled && this.control.enable();
-              });
-            }
+        class t extends Si {
+          constructor(e, i, o, a) {
+            super(),
+              (this.control = new sr()),
+              (this._registered = !1),
+              (this.update = new j()),
+              (this._parent = e),
+              this._setValidators(i),
+              this._setAsyncValidators(o),
+              (this.valueAccessor = yh(0, a));
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)(y(Bt, 9), y(yt, 10), y(Ei, 10), y(gt, 10));
-            }),
-            (t.ɵdir = A({
-              type: t,
-              selectors: [
-                [
-                  "",
-                  "ngModel",
-                  "",
-                  3,
-                  "formControlName",
-                  "",
-                  3,
-                  "formControl",
-                  "",
-                ],
+          ngOnChanges(e) {
+            this._checkForErrors(),
+              this._registered || this._setUpControl(),
+              "isDisabled" in e && this._updateDisabled(e),
+              _h(e, this.viewModel) &&
+              (this._updateValue(this.model),
+                (this.viewModel = this.model));
+          }
+          ngOnDestroy() {
+            this.formDirective && this.formDirective.removeControl(this);
+          }
+          get path() {
+            return this._parent ? wl(this.name, this._parent) : [this.name];
+          }
+          get formDirective() {
+            return this._parent ? this._parent.formDirective : null;
+          }
+          viewToModelUpdate(e) {
+            (this.viewModel = e), this.update.emit(e);
+          }
+          _setUpControl() {
+            this._setUpdateStrategy(),
+              this._isStandalone()
+                ? this._setUpStandalone()
+                : this.formDirective.addControl(this),
+              (this._registered = !0);
+          }
+          _setUpdateStrategy() {
+            this.options &&
+              null != this.options.updateOn &&
+              (this.control._updateOn = this.options.updateOn);
+          }
+          _isStandalone() {
+            return (
+              !this._parent || !(!this.options || !this.options.standalone)
+            );
+          }
+          _setUpStandalone() {
+            ws(this.control, this),
+              this.control.updateValueAndValidity({ emitEvent: !1 });
+          }
+          _checkForErrors() {
+            this._isStandalone() || this._checkParentType(),
+              this._checkName();
+          }
+          _checkParentType() { }
+          _checkName() {
+            this.options &&
+              this.options.name &&
+              (this.name = this.options.name),
+              this._isStandalone();
+          }
+          _updateValue(e) {
+            L0.then(() => {
+              this.control.setValue(e, { emitViewToModelChange: !1 });
+            });
+          }
+          _updateDisabled(e) {
+            const i = e.isDisabled.currentValue,
+              o = "" === i || (i && "false" !== i);
+            L0.then(() => {
+              o && !this.control.disabled
+                ? this.control.disable()
+                : !o && this.control.disabled && this.control.enable();
+            });
+          }
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)(y(Bt, 9), y(yt, 10), y(Ei, 10), y(gt, 10));
+          }),
+          (t.ɵdir = A({
+            type: t,
+            selectors: [
+              [
+                "",
+                "ngModel",
+                "",
+                3,
+                "formControlName",
+                "",
+                3,
+                "formControl",
+                "",
               ],
-              inputs: {
-                name: "name",
-                isDisabled: ["disabled", "isDisabled"],
-                model: ["ngModel", "model"],
-                options: ["ngModelOptions", "options"],
-              },
-              outputs: { update: "ngModelChange" },
-              exportAs: ["ngModel"],
-              features: [fe([z4]), Oe, Me],
-            })),
-            t
-          );
-        })(),
+            ],
+            inputs: {
+              name: "name",
+              isDisabled: ["disabled", "isDisabled"],
+              model: ["ngModel", "model"],
+              options: ["ngModelOptions", "options"],
+            },
+            outputs: { update: "ngModelChange" },
+            exportAs: ["ngModel"],
+            features: [fe([z4]), Oe, Me],
+          })),
+          t
+        );
+      })(),
         fn = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -11237,7 +11235,7 @@
           );
         })(),
         j0 = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -11266,7 +11264,7 @@
           ngOnChanges(e) {
             this._checkFormPresent(),
               e.hasOwnProperty("form") &&
-                (this._updateValidators(),
+              (this._updateValidators(),
                 this._updateDomValue(),
                 this._updateRegistrations(),
                 (this._oldForm = this.form));
@@ -11274,8 +11272,8 @@
           ngOnDestroy() {
             this.form &&
               (Dl(this.form, this),
-              this.form._onCollectionChange === this._onCollectionChange &&
-                this.form._registerOnCollectionChange(() => {}));
+                this.form._onCollectionChange === this._onCollectionChange &&
+                this.form._registerOnCollectionChange(() => { }));
           }
           get formDirective() {
             return this;
@@ -11342,7 +11340,7 @@
                 o = this.form.get(e.path);
               i !== o &&
                 (Ml(i || null, e),
-                o instanceof sr && (ws(o, e), (e.control = o)));
+                  o instanceof sr && (ws(o, e), (e.control = o)));
             }),
               this.form._updateTreeValidity({ emitEvent: !1 });
           }
@@ -11363,12 +11361,12 @@
           _updateRegistrations() {
             this.form._registerOnCollectionChange(this._onCollectionChange),
               this._oldForm &&
-                this._oldForm._registerOnCollectionChange(() => {});
+              this._oldForm._registerOnCollectionChange(() => { });
           }
           _updateValidators() {
             mh(this.form, this), this._oldForm && Dl(this._oldForm, this);
           }
-          _checkFormPresent() {}
+          _checkFormPresent() { }
         }
         return (
           (t.ɵfac = function (e) {
@@ -11407,11 +11405,11 @@
               this._setAsyncValidators(o),
               (this.valueAccessor = yh(0, a));
           }
-          set isDisabled(e) {}
+          set isDisabled(e) { }
           ngOnChanges(e) {
             this._added || this._setUpControl(),
               _h(e, this.viewModel) &&
-                ((this.viewModel = this.model),
+              ((this.viewModel = this.model),
                 this.formDirective.updateModel(this, this.model));
           }
           ngOnDestroy() {
@@ -11429,13 +11427,13 @@
           get formDirective() {
             return this._parent ? this._parent.formDirective : null;
           }
-          _checkParentType() {}
+          _checkParentType() { }
           _setUpControl() {
             this._checkParentType(),
               (this.control = this.formDirective.addControl(this)),
               this.control.disabled &&
-                this.valueAccessor.setDisabledState &&
-                this.valueAccessor.setDisabledState(!0),
+              this.valueAccessor.setDisabledState &&
+              this.valueAccessor.setDisabledState(!0),
               (this._added = !0);
           }
         }
@@ -11472,71 +11470,71 @@
             `${t}: ${n}`.slice(0, 50));
       }
       let Th = (() => {
-          class t extends qi {
-            constructor() {
-              super(...arguments),
-                (this._optionMap = new Map()),
-                (this._idCounter = 0),
-                (this._compareWith = Object.is);
-            }
-            set compareWith(e) {
-              this._compareWith = e;
-            }
-            writeValue(e) {
-              this.value = e;
-              const i = this._getOptionId(e);
-              null == i && this.setProperty("selectedIndex", -1);
-              const o = z0(i, e);
-              this.setProperty("value", o);
-            }
-            registerOnChange(e) {
-              this.onChange = (i) => {
-                (this.value = this._getOptionValue(i)), e(this.value);
-              };
-            }
-            _registerOption() {
-              return (this._idCounter++).toString();
-            }
-            _getOptionId(e) {
-              for (const i of Array.from(this._optionMap.keys()))
-                if (this._compareWith(this._optionMap.get(i), e)) return i;
-              return null;
-            }
-            _getOptionValue(e) {
-              const i = (function (t) {
-                return t.split(":")[0];
-              })(e);
-              return this._optionMap.has(i) ? this._optionMap.get(i) : e;
-            }
+        class t extends qi {
+          constructor() {
+            super(...arguments),
+              (this._optionMap = new Map()),
+              (this._idCounter = 0),
+              (this._compareWith = Object.is);
           }
-          return (
-            (t.ɵfac = (function () {
-              let n;
-              return function (i) {
-                return (n || (n = pt(t)))(i || t);
-              };
-            })()),
-            (t.ɵdir = A({
-              type: t,
-              selectors: [
-                ["select", "formControlName", "", 3, "multiple", ""],
-                ["select", "formControl", "", 3, "multiple", ""],
-                ["select", "ngModel", "", 3, "multiple", ""],
-              ],
-              hostBindings: function (e, i) {
-                1 & e &&
-                  M("change", function (a) {
-                    return i.onChange(a.target.value);
-                  })("blur", function () {
-                    return i.onTouched();
-                  });
-              },
-              inputs: { compareWith: "compareWith" },
-              features: [fe([eP]), Oe],
-            })),
-            t
-          );
-        })(),
+          set compareWith(e) {
+            this._compareWith = e;
+          }
+          writeValue(e) {
+            this.value = e;
+            const i = this._getOptionId(e);
+            null == i && this.setProperty("selectedIndex", -1);
+            const o = z0(i, e);
+            this.setProperty("value", o);
+          }
+          registerOnChange(e) {
+            this.onChange = (i) => {
+              (this.value = this._getOptionValue(i)), e(this.value);
+            };
+          }
+          _registerOption() {
+            return (this._idCounter++).toString();
+          }
+          _getOptionId(e) {
+            for (const i of Array.from(this._optionMap.keys()))
+              if (this._compareWith(this._optionMap.get(i), e)) return i;
+            return null;
+          }
+          _getOptionValue(e) {
+            const i = (function (t) {
+              return t.split(":")[0];
+            })(e);
+            return this._optionMap.has(i) ? this._optionMap.get(i) : e;
+          }
+        }
+        return (
+          (t.ɵfac = (function () {
+            let n;
+            return function (i) {
+              return (n || (n = pt(t)))(i || t);
+            };
+          })()),
+          (t.ɵdir = A({
+            type: t,
+            selectors: [
+              ["select", "formControlName", "", 3, "multiple", ""],
+              ["select", "formControl", "", 3, "multiple", ""],
+              ["select", "ngModel", "", 3, "multiple", ""],
+            ],
+            hostBindings: function (e, i) {
+              1 & e &&
+                M("change", function (a) {
+                  return i.onChange(a.target.value);
+                })("blur", function () {
+                  return i.onTouched();
+                });
+            },
+            inputs: { compareWith: "compareWith" },
+            features: [fe([eP]), Oe],
+          })),
+          t
+        );
+      })(),
         G0 = (() => {
           class t {
             constructor(e, i, o) {
@@ -11548,8 +11546,8 @@
             set ngValue(e) {
               null != this._select &&
                 (this._select._optionMap.set(this.id, e),
-                this._setElementValue(z0(this.id, e)),
-                this._select.writeValue(this._select.value));
+                  this._setElementValue(z0(this.id, e)),
+                  this._select.writeValue(this._select.value));
             }
             set value(e) {
               this._setElementValue(e),
@@ -11565,7 +11563,7 @@
             ngOnDestroy() {
               this._select &&
                 (this._select._optionMap.delete(this.id),
-                this._select.writeValue(this._select.value));
+                  this._select.writeValue(this._select.value));
             }
           }
           return (
@@ -11589,97 +11587,97 @@
             `${t}: ${n}`.slice(0, 50));
       }
       let Ph = (() => {
-          class t extends qi {
-            constructor() {
-              super(...arguments),
-                (this._optionMap = new Map()),
-                (this._idCounter = 0),
-                (this._compareWith = Object.is);
-            }
-            set compareWith(e) {
-              this._compareWith = e;
-            }
-            writeValue(e) {
-              let i;
-              if (((this.value = e), Array.isArray(e))) {
-                const o = e.map((a) => this._getOptionId(a));
-                i = (a, l) => {
-                  a._setSelected(o.indexOf(l.toString()) > -1);
-                };
-              } else
-                i = (o, a) => {
-                  o._setSelected(!1);
-                };
-              this._optionMap.forEach(i);
-            }
-            registerOnChange(e) {
-              this.onChange = (i) => {
-                const o = [],
-                  a = i.selectedOptions;
-                if (void 0 !== a) {
-                  const l = a;
-                  for (let d = 0; d < l.length; d++) {
-                    const h = this._getOptionValue(l[d].value);
+        class t extends qi {
+          constructor() {
+            super(...arguments),
+              (this._optionMap = new Map()),
+              (this._idCounter = 0),
+              (this._compareWith = Object.is);
+          }
+          set compareWith(e) {
+            this._compareWith = e;
+          }
+          writeValue(e) {
+            let i;
+            if (((this.value = e), Array.isArray(e))) {
+              const o = e.map((a) => this._getOptionId(a));
+              i = (a, l) => {
+                a._setSelected(o.indexOf(l.toString()) > -1);
+              };
+            } else
+              i = (o, a) => {
+                o._setSelected(!1);
+              };
+            this._optionMap.forEach(i);
+          }
+          registerOnChange(e) {
+            this.onChange = (i) => {
+              const o = [],
+                a = i.selectedOptions;
+              if (void 0 !== a) {
+                const l = a;
+                for (let d = 0; d < l.length; d++) {
+                  const h = this._getOptionValue(l[d].value);
+                  o.push(h);
+                }
+              } else {
+                const l = i.options;
+                for (let d = 0; d < l.length; d++) {
+                  const u = l[d];
+                  if (u.selected) {
+                    const h = this._getOptionValue(u.value);
                     o.push(h);
                   }
-                } else {
-                  const l = i.options;
-                  for (let d = 0; d < l.length; d++) {
-                    const u = l[d];
-                    if (u.selected) {
-                      const h = this._getOptionValue(u.value);
-                      o.push(h);
-                    }
-                  }
                 }
-                (this.value = o), e(o);
-              };
-            }
-            _registerOption(e) {
-              const i = (this._idCounter++).toString();
-              return this._optionMap.set(i, e), i;
-            }
-            _getOptionId(e) {
-              for (const i of Array.from(this._optionMap.keys()))
-                if (this._compareWith(this._optionMap.get(i)._value, e))
-                  return i;
-              return null;
-            }
-            _getOptionValue(e) {
-              const i = (function (t) {
-                return t.split(":")[0];
-              })(e);
-              return this._optionMap.has(i) ? this._optionMap.get(i)._value : e;
-            }
+              }
+              (this.value = o), e(o);
+            };
           }
-          return (
-            (t.ɵfac = (function () {
-              let n;
-              return function (i) {
-                return (n || (n = pt(t)))(i || t);
-              };
-            })()),
-            (t.ɵdir = A({
-              type: t,
-              selectors: [
-                ["select", "multiple", "", "formControlName", ""],
-                ["select", "multiple", "", "formControl", ""],
-                ["select", "multiple", "", "ngModel", ""],
-              ],
-              hostBindings: function (e, i) {
-                1 & e &&
-                  M("change", function (a) {
-                    return i.onChange(a.target);
-                  })("blur", function () {
-                    return i.onTouched();
-                  });
-              },
-              inputs: { compareWith: "compareWith" },
-              features: [fe([nP]), Oe],
-            })),
-            t
-          );
-        })(),
+          _registerOption(e) {
+            const i = (this._idCounter++).toString();
+            return this._optionMap.set(i, e), i;
+          }
+          _getOptionId(e) {
+            for (const i of Array.from(this._optionMap.keys()))
+              if (this._compareWith(this._optionMap.get(i)._value, e))
+                return i;
+            return null;
+          }
+          _getOptionValue(e) {
+            const i = (function (t) {
+              return t.split(":")[0];
+            })(e);
+            return this._optionMap.has(i) ? this._optionMap.get(i)._value : e;
+          }
+        }
+        return (
+          (t.ɵfac = (function () {
+            let n;
+            return function (i) {
+              return (n || (n = pt(t)))(i || t);
+            };
+          })()),
+          (t.ɵdir = A({
+            type: t,
+            selectors: [
+              ["select", "multiple", "", "formControlName", ""],
+              ["select", "multiple", "", "formControl", ""],
+              ["select", "multiple", "", "ngModel", ""],
+            ],
+            hostBindings: function (e, i) {
+              1 & e &&
+                M("change", function (a) {
+                  return i.onChange(a.target);
+                })("blur", function () {
+                  return i.onTouched();
+                });
+            },
+            inputs: { compareWith: "compareWith" },
+            features: [fe([nP]), Oe],
+          })),
+          t
+        );
+      })(),
         W0 = (() => {
           class t {
             constructor(e, i, o) {
@@ -11691,8 +11689,8 @@
             set ngValue(e) {
               null != this._select &&
                 ((this._value = e),
-                this._setElementValue(q0(this.id, e)),
-                this._select.writeValue(this._select.value));
+                  this._setElementValue(q0(this.id, e)),
+                  this._select.writeValue(this._select.value));
             }
             set value(e) {
               this._select
@@ -11718,7 +11716,7 @@
             ngOnDestroy() {
               this._select &&
                 (this._select._optionMap.delete(this.id),
-                this._select.writeValue(this._select.value));
+                  this._select.writeValue(this._select.value));
             }
           }
           return (
@@ -11785,47 +11783,47 @@
       })();
       const uP = { provide: yt, useExisting: ne(() => Eh), multi: !0 };
       let Eh = (() => {
-          class t {
-            constructor() {
-              this._validator = Cs;
-            }
-            ngOnChanges(e) {
-              "pattern" in e &&
-                (this._createValidator(), this._onChange && this._onChange());
-            }
-            validate(e) {
-              return this._validator(e);
-            }
-            registerOnValidatorChange(e) {
-              this._onChange = e;
-            }
-            _createValidator() {
-              this._validator = f0(this.pattern);
-            }
+        class t {
+          constructor() {
+            this._validator = Cs;
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)();
-            }),
-            (t.ɵdir = A({
-              type: t,
-              selectors: [
-                ["", "pattern", "", "formControlName", ""],
-                ["", "pattern", "", "formControl", ""],
-                ["", "pattern", "", "ngModel", ""],
-              ],
-              hostVars: 1,
-              hostBindings: function (e, i) {
-                2 & e && ge("pattern", i.pattern ? i.pattern : null);
-              },
-              inputs: { pattern: "pattern" },
-              features: [fe([uP]), Me],
-            })),
-            t
-          );
-        })(),
+          ngOnChanges(e) {
+            "pattern" in e &&
+              (this._createValidator(), this._onChange && this._onChange());
+          }
+          validate(e) {
+            return this._validator(e);
+          }
+          registerOnValidatorChange(e) {
+            this._onChange = e;
+          }
+          _createValidator() {
+            this._validator = f0(this.pattern);
+          }
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)();
+          }),
+          (t.ɵdir = A({
+            type: t,
+            selectors: [
+              ["", "pattern", "", "formControlName", ""],
+              ["", "pattern", "", "formControl", ""],
+              ["", "pattern", "", "ngModel", ""],
+            ],
+            hostVars: 1,
+            hostBindings: function (e, i) {
+              2 & e && ge("pattern", i.pattern ? i.pattern : null);
+            },
+            inputs: { pattern: "pattern" },
+            features: [fe([uP]), Me],
+          })),
+          t
+        );
+      })(),
         ny = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -11836,7 +11834,7 @@
           );
         })(),
         iy = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -11875,20 +11873,20 @@
                 l = null;
               return (
                 null != i &&
-                  ((function (t) {
-                    return (
-                      void 0 !== t.asyncValidators ||
-                      void 0 !== t.validators ||
-                      void 0 !== t.updateOn
-                    );
-                  })(i)
-                    ? ((a = null != i.validators ? i.validators : null),
-                      (l =
-                        null != i.asyncValidators ? i.asyncValidators : null),
-                      (d = null != i.updateOn ? i.updateOn : void 0))
-                    : ((a = null != i.validator ? i.validator : null),
-                      (l =
-                        null != i.asyncValidator ? i.asyncValidator : null))),
+                ((function (t) {
+                  return (
+                    void 0 !== t.asyncValidators ||
+                    void 0 !== t.validators ||
+                    void 0 !== t.updateOn
+                  );
+                })(i)
+                  ? ((a = null != i.validators ? i.validators : null),
+                    (l =
+                      null != i.asyncValidators ? i.asyncValidators : null),
+                    (d = null != i.updateOn ? i.updateOn : void 0))
+                  : ((a = null != i.validator ? i.validator : null),
+                    (l =
+                      null != i.asyncValidator ? i.asyncValidator : null))),
                 new Ds(o, { asyncValidators: l, updateOn: d, validators: a })
               );
             }
@@ -11912,12 +11910,12 @@
               return e instanceof sr || e instanceof Ds || e instanceof xh
                 ? e
                 : Array.isArray(e)
-                ? this.control(
+                  ? this.control(
                     e[0],
                     e.length > 1 ? e[1] : null,
                     e.length > 2 ? e[2] : null
                   )
-                : this.control(e);
+                  : this.control(e);
             }
           }
           return (
@@ -12031,9 +12029,9 @@
               : 0;
           (o[i] = e),
             0 === l &&
-              (this.resultSelector
-                ? this._tryResultSelector(o)
-                : this.destination.next(o.slice()));
+            (this.resultSelector
+              ? this._tryResultSelector(o)
+              : this.destination.next(o.slice()));
         }
         _tryResultSelector(n) {
           let e;
@@ -12063,8 +12061,8 @@
       function Nl(t) {
         return t
           ? (function (t) {
-              return new _e((n) => t.schedule(() => n.complete()));
-            })(t)
+            return new _e((n) => t.schedule(() => n.complete()));
+          })(t)
           : Ji;
       }
       function ay(t) {
@@ -12081,9 +12079,9 @@
       function An(t, n) {
         return "function" == typeof n
           ? (e) =>
-              e.pipe(
-                An((i, o) => xt(t(i, o)).pipe(oe((a, l) => n(i, a, o, l))))
-              )
+            e.pipe(
+              An((i, o) => xt(t(i, o)).pipe(oe((a, l) => n(i, a, o, l))))
+            )
           : (e) => e.lift(new _P(t));
       }
       class _P {
@@ -12163,7 +12161,7 @@
             i = ++this.count;
           i <= e &&
             (this.destination.next(n),
-            i === e && (this.destination.complete(), this.unsubscribe()));
+              i === e && (this.destination.complete(), this.unsubscribe()));
         }
       }
       function Il(...t) {
@@ -12389,7 +12387,7 @@
             e ? uy(n) : dy(() => new Sl())
           );
       }
-      function ci() {}
+      function ci() { }
       function vt(t, n, e) {
         return function (o) {
           return o.lift(new FP(t, n, e));
@@ -12416,7 +12414,7 @@
             hi(e)
               ? ((this._context = this), (this._tapNext = e))
               : e &&
-                ((this._context = e),
+              ((this._context = e),
                 (this._tapNext = e.next || ci),
                 (this._tapError = e.error || ci),
                 (this._tapComplete = e.complete || ci));
@@ -12560,9 +12558,8 @@
           this.snapshot = n;
         }
         toString() {
-          return `ChildActivationStart(path: '${
-            (this.snapshot.routeConfig && this.snapshot.routeConfig.path) || ""
-          }')`;
+          return `ChildActivationStart(path: '${(this.snapshot.routeConfig && this.snapshot.routeConfig.path) || ""
+            }')`;
         }
       }
       class JP {
@@ -12570,9 +12567,8 @@
           this.snapshot = n;
         }
         toString() {
-          return `ChildActivationEnd(path: '${
-            (this.snapshot.routeConfig && this.snapshot.routeConfig.path) || ""
-          }')`;
+          return `ChildActivationEnd(path: '${(this.snapshot.routeConfig && this.snapshot.routeConfig.path) || ""
+            }')`;
         }
       }
       class YP {
@@ -12580,9 +12576,8 @@
           this.snapshot = n;
         }
         toString() {
-          return `ActivationStart(path: '${
-            (this.snapshot.routeConfig && this.snapshot.routeConfig.path) || ""
-          }')`;
+          return `ActivationStart(path: '${(this.snapshot.routeConfig && this.snapshot.routeConfig.path) || ""
+            }')`;
         }
       }
       class QP {
@@ -12590,9 +12585,8 @@
           this.snapshot = n;
         }
         toString() {
-          return `ActivationEnd(path: '${
-            (this.snapshot.routeConfig && this.snapshot.routeConfig.path) || ""
-          }')`;
+          return `ActivationEnd(path: '${(this.snapshot.routeConfig && this.snapshot.routeConfig.path) || ""
+            }')`;
         }
       }
       class fy {
@@ -12600,9 +12594,8 @@
           (this.routerEvent = n), (this.position = e), (this.anchor = i);
         }
         toString() {
-          return `Scroll(anchor: '${this.anchor}', position: '${
-            this.position ? `${this.position[0]}, ${this.position[1]}` : null
-          }')`;
+          return `Scroll(anchor: '${this.anchor}', position: '${this.position ? `${this.position[0]}, ${this.position[1]}` : null
+            }')`;
         }
       }
       const ce = "primary";
@@ -12686,20 +12679,20 @@
         return su(t) ? t : ns(t) ? xt(Promise.resolve(t)) : q(t);
       }
       const nE = {
-          exact: function wy(t, n, e) {
-            if (
-              !Zi(t.segments, n.segments) ||
-              !Rl(t.segments, n.segments, e) ||
-              t.numberOfChildren !== n.numberOfChildren
-            )
+        exact: function wy(t, n, e) {
+          if (
+            !Zi(t.segments, n.segments) ||
+            !Rl(t.segments, n.segments, e) ||
+            t.numberOfChildren !== n.numberOfChildren
+          )
+            return !1;
+          for (const i in n.children)
+            if (!t.children[i] || !wy(t.children[i], n.children[i], e))
               return !1;
-            for (const i in n.children)
-              if (!t.children[i] || !wy(t.children[i], n.children[i], e))
-                return !1;
-            return !0;
-          },
-          subset: My,
+          return !0;
         },
+        subset: My,
+      },
         vy = {
           exact: function (t, n) {
             return Yn(t, n);
@@ -12794,7 +12787,7 @@
       function Zi(t, n) {
         return t.length === n.length && t.every((e, i) => e.path === n[i].path);
       }
-      class Dy {}
+      class Dy { }
       class ky {
         parse(n) {
           const e = new bE(n);
@@ -12820,8 +12813,8 @@
             o =
               "string" == typeof n.fragment
                 ? `#${(function (t) {
-                    return encodeURI(t);
-                  })(n.fragment)}`
+                  return encodeURI(t);
+                })(n.fragment)}`
                 : "";
           return `${e}${i}${o}`;
         }
@@ -12906,8 +12899,8 @@
           return (
             this.consumeOptional("/"),
             "" === this.remaining ||
-            this.peekStartsWith("?") ||
-            this.peekStartsWith("#")
+              this.peekStartsWith("?") ||
+              this.peekStartsWith("#")
               ? new ue([], {})
               : new ue([], this.parseChildren())
           );
@@ -12944,7 +12937,7 @@
           return (
             this.peekStartsWith("(") && (i = this.parseParens(!1)),
             (n.length > 0 || Object.keys(e).length > 0) &&
-              (i[ce] = new ue(n, e)),
+            (i[ce] = new ue(n, e)),
             i
           );
         }
@@ -12958,7 +12951,7 @@
         }
         parseMatrixParams() {
           const n = {};
-          for (; this.consumeOptional(";"); ) this.parseParam(n);
+          for (; this.consumeOptional(";");) this.parseParam(n);
           return n;
         }
         parseParam(n) {
@@ -13054,8 +13047,8 @@
           return e.length < 2
             ? []
             : e[e.length - 2].children
-                .map((o) => o.value)
-                .filter((o) => o !== n);
+              .map((o) => o.value)
+              .filter((o) => o !== n);
         }
         pathFromRoot(n) {
           return jh(n, this._root).map((e) => e.value);
@@ -13099,9 +13092,9 @@
       }
       function Ay(t, n) {
         const e = (function (t, n) {
-            const l = new Vl([], {}, {}, "", {}, ce, n, null, t.root, -1, {});
-            return new Iy("", new ui(l, []));
-          })(t, n),
+          const l = new Vl([], {}, {}, "", {}, ce, n, null, t.root, -1, {});
+          return new Iy("", new ui(l, []));
+        })(t, n),
           i = new at([new Es("", {})]),
           o = new at({}),
           a = new at({}),
@@ -13142,14 +13135,14 @@
         get paramMap() {
           return (
             this._paramMap ||
-              (this._paramMap = this.params.pipe(oe((n) => cr(n)))),
+            (this._paramMap = this.params.pipe(oe((n) => cr(n)))),
             this._paramMap
           );
         }
         get queryParamMap() {
           return (
             this._queryParamMap ||
-              (this._queryParamMap = this.queryParams.pipe(oe((n) => cr(n)))),
+            (this._queryParamMap = this.queryParams.pipe(oe((n) => cr(n)))),
             this._queryParamMap
           );
         }
@@ -13163,7 +13156,7 @@
         const e = t.pathFromRoot;
         let i = 0;
         if ("always" !== n)
-          for (i = e.length - 1; i >= 1; ) {
+          for (i = e.length - 1; i >= 1;) {
             const o = e[i],
               a = e[i - 1];
             if (o.routeConfig && "" === o.routeConfig.path) i--;
@@ -13229,9 +13222,8 @@
         toString() {
           return `Route(url:'${this.url
             .map((i) => i.toString())
-            .join("/")}', path:'${
-            this.routeConfig ? this.routeConfig.path : ""
-          }')`;
+            .join("/")}', path:'${this.routeConfig ? this.routeConfig.path : ""
+            }')`;
         }
       }
       class Iy extends Ey {
@@ -13256,7 +13248,7 @@
             e = t._futureSnapshot;
           (t.snapshot = e),
             Yn(n.queryParams, e.queryParams) ||
-              t.queryParams.next(e.queryParams),
+            t.queryParams.next(e.queryParams),
             n.fragment !== e.fragment && t.fragment.next(e.fragment),
             Yn(n.params, e.params) || t.params.next(e.params),
             (function (t, n) {
@@ -13309,17 +13301,17 @@
             }
           }
           const i = (function (t) {
-              return new Ki(
-                new at(t.url),
-                new at(t.params),
-                new at(t.queryParams),
-                new at(t.fragment),
-                new at(t.data),
-                t.outlet,
-                t.component,
-                t
-              );
-            })(n.value),
+            return new Ki(
+              new at(t.url),
+              new at(t.params),
+              new at(t.queryParams),
+              new at(t.fragment),
+              new at(t.data),
+              t.outlet,
+              t.component,
+              t
+            );
+          })(n.value),
             o = n.children.map((a) => As(t, a));
           return new ui(i, o);
         }
@@ -13336,9 +13328,9 @@
         let a = {};
         return (
           i &&
-            Ct(i, (l, d) => {
-              a[d] = Array.isArray(l) ? l.map((u) => `${u}`) : `${l}`;
-            }),
+          Ct(i, (l, d) => {
+            a[d] = Array.isArray(l) ? l.map((u) => `${u}`) : `${l}`;
+          }),
           new Qi(e.root === t ? n : Fy(e.root, t, n), a, o)
         );
       }
@@ -13355,9 +13347,9 @@
         constructor(n, e, i) {
           if (
             ((this.isAbsolute = n),
-            (this.numberOfDoubleDots = e),
-            (this.commands = i),
-            n && i.length > 0 && Hl(i[0]))
+              (this.numberOfDoubleDots = e),
+              (this.commands = i),
+              n && i.length > 0 && Hl(i[0]))
           )
             throw new Error("Root segment cannot have matrix parameters");
           const o = i.find(Ns);
@@ -13380,32 +13372,32 @@
       function By(t, n, e) {
         if (
           (t || (t = new ue([], {})),
-          0 === t.segments.length && t.hasChildren())
+            0 === t.segments.length && t.hasChildren())
         )
           return $l(t, n, e);
         const i = (function (t, n, e) {
-            let i = 0,
-              o = n;
-            const a = { match: !1, pathIndex: 0, commandIndex: 0 };
-            for (; o < t.segments.length; ) {
-              if (i >= e.length) return a;
-              const l = t.segments[o],
-                d = e[i];
-              if (Ns(d)) break;
-              const u = `${d}`,
-                h = i < e.length - 1 ? e[i + 1] : null;
-              if (o > 0 && void 0 === u) break;
-              if (u && h && "object" == typeof h && void 0 === h.outlets) {
-                if (!Vy(u, h, l)) return a;
-                i += 2;
-              } else {
-                if (!Vy(u, {}, l)) return a;
-                i++;
-              }
-              o++;
+          let i = 0,
+            o = n;
+          const a = { match: !1, pathIndex: 0, commandIndex: 0 };
+          for (; o < t.segments.length;) {
+            if (i >= e.length) return a;
+            const l = t.segments[o],
+              d = e[i];
+            if (Ns(d)) break;
+            const u = `${d}`,
+              h = i < e.length - 1 ? e[i + 1] : null;
+            if (o > 0 && void 0 === u) break;
+            if (u && h && "object" == typeof h && void 0 === h.outlets) {
+              if (!Vy(u, h, l)) return a;
+              i += 2;
+            } else {
+              if (!Vy(u, {}, l)) return a;
+              i++;
             }
-            return { match: !0, pathIndex: o, commandIndex: i };
-          })(t, n, e),
+            o++;
+          }
+          return { match: !0, pathIndex: o, commandIndex: i };
+        })(t, n, e),
           o = e.slice(i.commandIndex);
         if (i.match && i.pathIndex < t.segments.length) {
           const a = new ue(t.segments.slice(0, i.pathIndex), {});
@@ -13420,17 +13412,17 @@
         return i.match && 0 === o.length
           ? new ue(t.segments, {})
           : i.match && !t.hasChildren()
-          ? Gh(t, n, e)
-          : i.match
-          ? $l(t, 0, o)
-          : Gh(t, n, e);
+            ? Gh(t, n, e)
+            : i.match
+              ? $l(t, 0, o)
+              : Gh(t, n, e);
       }
       function $l(t, n, e) {
         if (0 === e.length) return new ue(t.segments, {});
         {
           const i = (function (t) {
-              return Ns(t[0]) ? t[0].outlets : { [ce]: t };
-            })(e),
+            return Ns(t[0]) ? t[0].outlets : { [ce]: t };
+          })(e),
             o = {};
           return (
             Ct(i, (a, l) => {
@@ -13447,7 +13439,7 @@
       function Gh(t, n, e) {
         const i = t.segments.slice(0, n);
         let o = 0;
-        for (; o < e.length; ) {
+        for (; o < e.length;) {
           const a = e[o];
           if (Ns(a)) {
             const u = TE(a.outlets);
@@ -13518,7 +13510,7 @@
         }
         deactivateRouteAndItsChildren(n, e) {
           n.value.component &&
-          this.routeReuseStrategy.shouldDetach(n.value.snapshot)
+            this.routeReuseStrategy.shouldDetach(n.value.snapshot)
             ? this.detachAndStoreRouteSubtree(n, e)
             : this.deactivateRouteAndOutlet(n, e);
         }
@@ -13547,10 +13539,10 @@
           i &&
             i.outlet &&
             (i.outlet.deactivate(),
-            i.children.onOutletDeactivated(),
-            (i.attachRef = null),
-            (i.resolver = null),
-            (i.route = null));
+              i.children.onOutletDeactivated(),
+              (i.attachRef = null),
+              (i.resolver = null),
+              (i.route = null));
         }
         activateChildRoutes(n, e, i) {
           const o = dr(e);
@@ -13581,13 +13573,13 @@
                 this.activateChildRoutes(n, null, l.children);
             } else {
               const d = (function (t) {
-                  for (let n = t.parent; n; n = n.parent) {
-                    const e = n.routeConfig;
-                    if (e && e._loadedConfig) return e._loadedConfig;
-                    if (e && e.component) return null;
-                  }
-                  return null;
-                })(o.snapshot),
+                for (let n = t.parent; n; n = n.parent) {
+                  const e = n.routeConfig;
+                  if (e && e._loadedConfig) return e._loadedConfig;
+                  if (e && e.component) return null;
+                }
+                return null;
+              })(o.snapshot),
                 u = d ? d.module.componentFactoryResolver : null;
               (l.attachRef = null),
                 (l.route = o),
@@ -13750,8 +13742,8 @@
               throw new Error("Cannot activate an already activated outlet");
             this._activatedRoute = e;
             const l = (i = i || this.resolver).resolveComponentFactory(
-                e._futureSnapshot.routeConfig.component
-              ),
+              e._futureSnapshot.routeConfig.component
+            ),
               d = this.parentContexts.getOrCreateContext(this.name).children,
               u = new BE(e, d, this.location.injector);
             (this.activated = this.location.createComponent(
@@ -13789,12 +13781,12 @@
           return n === Ki
             ? this.route
             : n === Fs
-            ? this.childContexts
-            : this.parent.get(n, e);
+              ? this.childContexts
+              : this.parent.get(n, e);
         }
       }
       let Hy = (() => {
-        class t {}
+        class t { }
         return (
           (t.ɵfac = function (e) {
             return new (e || t)();
@@ -13828,8 +13820,8 @@
             ? t && !n.path
               ? `${t}/`
               : !t && n.path
-              ? n.path
-              : `${t}/${n.path}`
+                ? n.path
+                : `${t}/${n.path}`
             : ""
           : t;
       }
@@ -13840,10 +13832,10 @@
             : Object.assign({}, t);
         return (
           !e.component &&
-            (n || e.loadChildren) &&
-            e.outlet &&
-            e.outlet !== ce &&
-            (e.component = Hy),
+          (n || e.loadChildren) &&
+          e.outlet &&
+          e.outlet !== ce &&
+          (e.component = Hy),
           e
         );
       }
@@ -13867,12 +13859,12 @@
           return "full" === n.pathMatch && (t.hasChildren() || e.length > 0)
             ? Object.assign({}, zy)
             : {
-                matched: !0,
-                consumedSegments: [],
-                lastChild: 0,
-                parameters: {},
-                positionalParamSegments: {},
-              };
+              matched: !0,
+              consumedSegments: [],
+              lastChild: 0,
+              parameters: {},
+              positionalParamSegments: {},
+            };
         const a = (n.matcher || XP)(e, t, n);
         if (!a) return Object.assign({}, zy);
         const l = {};
@@ -13882,9 +13874,9 @@
         const d =
           a.consumed.length > 0
             ? Object.assign(
-                Object.assign({}, l),
-                a.consumed[a.consumed.length - 1].parameters
-              )
+              Object.assign({}, l),
+              a.consumed[a.consumed.length - 1].parameters
+            )
             : l;
         return {
           matched: !0,
@@ -14103,32 +14095,32 @@
             ? void 0 === o.redirectTo
               ? this.matchSegmentAgainstRoute(n, e, o, a, l)
               : d && this.allowRedirects
-              ? this.expandSegmentAgainstRouteUsingRedirect(n, e, i, o, a, l)
-              : ql(e)
+                ? this.expandSegmentAgainstRouteUsingRedirect(n, e, i, o, a, l)
+                : ql(e)
             : ql(e);
         }
         expandSegmentAgainstRouteUsingRedirect(n, e, i, o, a, l) {
           return "**" === o.path
             ? this.expandWildCardWithParamsAgainstRouteUsingRedirect(n, i, o, l)
             : this.expandRegularSegmentAgainstRouteUsingRedirect(
-                n,
-                e,
-                i,
-                o,
-                a,
-                l
-              );
+              n,
+              e,
+              i,
+              o,
+              a,
+              l
+            );
         }
         expandWildCardWithParamsAgainstRouteUsingRedirect(n, e, i, o) {
           const a = this.applyRedirectCommands([], i.redirectTo, {});
           return i.redirectTo.startsWith("/")
             ? Jy(a)
             : this.lineralizeSegments(i, a).pipe(
-                ut((l) => {
-                  const d = new ue(l, {});
-                  return this.expandSegment(n, d, e, l, o, !1);
-                })
-              );
+              ut((l) => {
+                const d = new ue(l, {});
+                return this.expandSegment(n, d, e, l, o, !1);
+              })
+            );
         }
         expandRegularSegmentAgainstRouteUsingRedirect(n, e, i, o, a, l) {
           const {
@@ -14142,18 +14134,18 @@
           return o.redirectTo.startsWith("/")
             ? Jy(f)
             : this.lineralizeSegments(o, f).pipe(
-                ut((b) =>
-                  this.expandSegment(n, e, i, b.concat(a.slice(h)), l, !1)
-                )
-              );
+              ut((b) =>
+                this.expandSegment(n, e, i, b.concat(a.slice(h)), l, !1)
+              )
+            );
         }
         matchSegmentAgainstRoute(n, e, i, o, a) {
           if ("**" === i.path)
             return i.loadChildren
               ? (i._loadedConfig
-                  ? q(i._loadedConfig)
-                  : this.configLoader.load(n.injector, i)
-                ).pipe(oe((b) => ((i._loadedConfig = b), new ue(o, {}))))
+                ? q(i._loadedConfig)
+                : this.configLoader.load(n.injector, i)
+              ).pipe(oe((b) => ((i._loadedConfig = b), new ue(o, {}))))
               : q(new ue(o, {}));
           const { matched: l, consumedSegments: d, lastChild: u } = Ul(e, i, o);
           if (!l) return ql(e);
@@ -14180,26 +14172,26 @@
           return e.children
             ? q(new qh(e.children, n))
             : e.loadChildren
-            ? void 0 !== e._loadedConfig
-              ? q(e._loadedConfig)
-              : this.runCanLoadGuards(n.injector, e, i).pipe(
+              ? void 0 !== e._loadedConfig
+                ? q(e._loadedConfig)
+                : this.runCanLoadGuards(n.injector, e, i).pipe(
                   ut((o) =>
                     o
                       ? this.configLoader
-                          .load(n.injector, e)
-                          .pipe(oe((a) => ((e._loadedConfig = a), a)))
+                        .load(n.injector, e)
+                        .pipe(oe((a) => ((e._loadedConfig = a), a)))
                       : (function (t) {
-                          return new _e((n) =>
-                            n.error(
-                              Fh(
-                                `Cannot load children because the guard of the route "path: '${t.path}'" returned false`
-                              )
+                        return new _e((n) =>
+                          n.error(
+                            Fh(
+                              `Cannot load children because the guard of the route "path: '${t.path}'" returned false`
                             )
-                          );
-                        })(e)
+                          )
+                        );
+                      })(e)
                   )
                 )
-            : q(new qh([], n));
+              : q(new qh([], n));
         }
         runCanLoadGuards(n, e, i) {
           const o = e.canLoad;
@@ -14234,7 +14226,7 @@
         lineralizeSegments(n, e) {
           let i = [],
             o = e.root;
-          for (;;) {
+          for (; ;) {
             if (((i = i.concat(o.segments)), 0 === o.numberOfChildren))
               return q(i);
             if (o.numberOfChildren > 1 || !o.children[ce])
@@ -14386,10 +14378,10 @@
                   : ((a.data = l.data), (a._resolvedData = l._resolvedData)),
                   Bs(t, n, a.component ? (d ? d.children : null) : e, i, o),
                   u &&
-                    d &&
-                    d.outlet &&
-                    d.outlet.isActivated &&
-                    o.canDeactivateChecks.push(new Wl(d.outlet.component, l));
+                  d &&
+                  d.outlet &&
+                  d.outlet.isActivated &&
+                  o.canDeactivateChecks.push(new Wl(d.outlet.component, l));
               } else
                 l && js(n, d, o),
                   o.canActivateChecks.push(new Yy(i)),
@@ -14416,7 +14408,7 @@
             )
           );
       }
-      class dS {}
+      class dS { }
       function Qy(t) {
         return new _e((n) => n.error(t));
       }
@@ -14431,27 +14423,27 @@
         }
         recognize() {
           const n = zl(
-              this.urlTree.root,
-              [],
-              [],
-              this.config.filter((l) => void 0 === l.redirectTo),
-              this.relativeLinkResolution
-            ).segmentGroup,
+            this.urlTree.root,
+            [],
+            [],
+            this.config.filter((l) => void 0 === l.redirectTo),
+            this.relativeLinkResolution
+          ).segmentGroup,
             e = this.processSegmentGroup(this.config, n, ce);
           if (null === e) return null;
           const i = new Vl(
-              [],
-              Object.freeze({}),
-              Object.freeze(Object.assign({}, this.urlTree.queryParams)),
-              this.urlTree.fragment,
-              {},
-              ce,
-              this.rootComponentType,
-              null,
-              this.urlTree.root,
-              -1,
-              {}
-            ),
+            [],
+            Object.freeze({}),
+            Object.freeze(Object.assign({}, this.urlTree.queryParams)),
+            this.urlTree.fragment,
+            {},
+            ce,
+            this.rootComponentType,
+            null,
+            this.urlTree.root,
+            -1,
+            {}
+          ),
             o = new ui(i, e),
             a = new Iy(this.url, o);
           return this.inheritParamsAndData(a._root), a;
@@ -14484,8 +14476,8 @@
                 n.value.outlet === ce
                   ? -1
                   : e.value.outlet === ce
-                  ? 1
-                  : n.value.outlet.localeCompare(e.value.outlet)
+                    ? 1
+                    : n.value.outlet.localeCompare(e.value.outlet)
               );
             })(o),
             o
@@ -14538,12 +14530,12 @@
               ));
           }
           const u = (function (t) {
-              return t.children
-                ? t.children
-                : t.loadChildren
+            return t.children
+              ? t.children
+              : t.loadChildren
                 ? t._loadedConfig.routes
                 : [];
-            })(n),
+          })(n),
             { segmentGroup: h, slicedSegments: p } = zl(
               e,
               l,
@@ -14584,13 +14576,13 @@
       }
       function Ky(t) {
         let n = t;
-        for (; n._sourceSegment; ) n = n._sourceSegment;
+        for (; n._sourceSegment;) n = n._sourceSegment;
         return n;
       }
       function Xy(t) {
         let n = t,
           e = n._segmentIndexShift ? n._segmentIndexShift : 0;
-        for (; n._sourceSegment; )
+        for (; n._sourceSegment;)
           (n = n._sourceSegment),
             (e += n._segmentIndexShift ? n._segmentIndexShift : 0);
         return e - 1;
@@ -14611,7 +14603,7 @@
         shouldDetach(n) {
           return !1;
         }
-        store(n, e) {}
+        store(n, e) { }
         shouldAttach(n) {
           return !1;
         }
@@ -14621,7 +14613,7 @@
         shouldReuseRoute(n, e) {
           return n.routeConfig === e.routeConfig;
         }
-      } {}
+      } { }
       const Zh = new re("ROUTES");
       class nv {
         constructor(n, e, i, o) {
@@ -14679,11 +14671,11 @@
         return q(null);
       }
       const TS = {
-          paths: "exact",
-          fragment: "ignored",
-          matrixParams: "ignored",
-          queryParams: "exact",
-        },
+        paths: "exact",
+        fragment: "ignored",
+        matrixParams: "ignored",
+        queryParams: "exact",
+      },
         PS = {
           paths: "subset",
           fragment: "ignored",
@@ -14794,9 +14786,9 @@
                       extras: d.extras,
                       previousNavigation: this.lastSuccessfulNavigation
                         ? Object.assign(
-                            Object.assign({}, this.lastSuccessfulNavigation),
-                            { previousNavigation: null }
-                          )
+                          Object.assign({}, this.lastSuccessfulNavigation),
+                          { previousNavigation: null }
+                        )
                         : null,
                     };
                   }),
@@ -14925,12 +14917,12 @@
                       this.urlHandlingStrategy.shouldProcessUrl(this.rawUrlTree)
                     ) {
                       const {
-                          id: b,
-                          extractedUrl: m,
-                          source: w,
-                          restoredState: D,
-                          extras: T,
-                        } = d,
+                        id: b,
+                        extractedUrl: m,
+                        source: w,
+                        restoredState: D,
+                        extras: T,
+                      } = d,
                         S = new Rh(b, this.serializeUrl(m), w, D);
                       i.next(S);
                       const k = Ay(m, this.rootComponentType).snapshot;
@@ -14993,166 +14985,166 @@
                       } = e;
                       return 0 === l.length && 0 === a.length
                         ? q(
-                            Object.assign(Object.assign({}, e), {
-                              guardsResult: !0,
-                            })
-                          )
+                          Object.assign(Object.assign({}, e), {
+                            guardsResult: !0,
+                          })
+                        )
                         : (function (t, n, e, i) {
-                            return xt(t).pipe(
-                              ut((o) =>
-                                (function (t, n, e, i, o) {
-                                  const a =
-                                    n && n.routeConfig
-                                      ? n.routeConfig.canDeactivate
-                                      : null;
-                                  return a && 0 !== a.length
-                                    ? q(
-                                        a.map((d) => {
-                                          const u = Jl(d, n, o);
-                                          let h;
-                                          if (
-                                            (function (t) {
-                                              return t && Ai(t.canDeactivate);
-                                            })(u)
-                                          )
-                                            h = Qn(u.canDeactivate(t, n, e, i));
-                                          else {
-                                            if (!Ai(u))
-                                              throw new Error(
-                                                "Invalid CanDeactivate guard"
-                                              );
-                                            h = Qn(u(t, n, e, i));
-                                          }
-                                          return h.pipe(lr());
-                                        })
-                                      ).pipe(Rs())
-                                    : q(!0);
-                                })(o.component, o.route, e, n, i)
-                              ),
-                              lr((o) => !0 !== o, !0)
-                            );
-                          })(l, i, o, t).pipe(
-                            ut((d) =>
-                              d &&
+                          return xt(t).pipe(
+                            ut((o) =>
+                              (function (t, n, e, i, o) {
+                                const a =
+                                  n && n.routeConfig
+                                    ? n.routeConfig.canDeactivate
+                                    : null;
+                                return a && 0 !== a.length
+                                  ? q(
+                                    a.map((d) => {
+                                      const u = Jl(d, n, o);
+                                      let h;
+                                      if (
+                                        (function (t) {
+                                          return t && Ai(t.canDeactivate);
+                                        })(u)
+                                      )
+                                        h = Qn(u.canDeactivate(t, n, e, i));
+                                      else {
+                                        if (!Ai(u))
+                                          throw new Error(
+                                            "Invalid CanDeactivate guard"
+                                          );
+                                        h = Qn(u(t, n, e, i));
+                                      }
+                                      return h.pipe(lr());
+                                    })
+                                  ).pipe(Rs())
+                                  : q(!0);
+                              })(o.component, o.route, e, n, i)
+                            ),
+                            lr((o) => !0 !== o, !0)
+                          );
+                        })(l, i, o, t).pipe(
+                          ut((d) =>
+                            d &&
                               (function (t) {
                                 return "boolean" == typeof t;
                               })(d)
-                                ? (function (t, n, e, i) {
-                                    return xt(n).pipe(
-                                      Ts((o) =>
-                                        Al(
-                                          (function (t, n) {
-                                            return (
-                                              null !== t && n && n(new WP(t)),
-                                              q(!0)
-                                            );
-                                          })(o.route.parent, i),
-                                          (function (t, n) {
-                                            return (
-                                              null !== t && n && n(new YP(t)),
-                                              q(!0)
-                                            );
-                                          })(o.route, i),
-                                          (function (t, n, e) {
-                                            const i = n[n.length - 1],
-                                              a = n
-                                                .slice(0, n.length - 1)
-                                                .reverse()
-                                                .map((l) =>
-                                                  (function (t) {
-                                                    const n = t.routeConfig
-                                                      ? t.routeConfig
-                                                          .canActivateChild
-                                                      : null;
-                                                    return n && 0 !== n.length
-                                                      ? { node: t, guards: n }
-                                                      : null;
-                                                  })(l)
-                                                )
-                                                .filter((l) => null !== l)
-                                                .map((l) =>
-                                                  ay(() =>
-                                                    q(
-                                                      l.guards.map((u) => {
-                                                        const h = Jl(
-                                                          u,
-                                                          l.node,
-                                                          e
+                              ? (function (t, n, e, i) {
+                                return xt(n).pipe(
+                                  Ts((o) =>
+                                    Al(
+                                      (function (t, n) {
+                                        return (
+                                          null !== t && n && n(new WP(t)),
+                                          q(!0)
+                                        );
+                                      })(o.route.parent, i),
+                                      (function (t, n) {
+                                        return (
+                                          null !== t && n && n(new YP(t)),
+                                          q(!0)
+                                        );
+                                      })(o.route, i),
+                                      (function (t, n, e) {
+                                        const i = n[n.length - 1],
+                                          a = n
+                                            .slice(0, n.length - 1)
+                                            .reverse()
+                                            .map((l) =>
+                                              (function (t) {
+                                                const n = t.routeConfig
+                                                  ? t.routeConfig
+                                                    .canActivateChild
+                                                  : null;
+                                                return n && 0 !== n.length
+                                                  ? { node: t, guards: n }
+                                                  : null;
+                                              })(l)
+                                            )
+                                            .filter((l) => null !== l)
+                                            .map((l) =>
+                                              ay(() =>
+                                                q(
+                                                  l.guards.map((u) => {
+                                                    const h = Jl(
+                                                      u,
+                                                      l.node,
+                                                      e
+                                                    );
+                                                    let p;
+                                                    if (
+                                                      (function (t) {
+                                                        return (
+                                                          t &&
+                                                          Ai(
+                                                            t.canActivateChild
+                                                          )
                                                         );
-                                                        let p;
-                                                        if (
-                                                          (function (t) {
-                                                            return (
-                                                              t &&
-                                                              Ai(
-                                                                t.canActivateChild
-                                                              )
-                                                            );
-                                                          })(h)
+                                                      })(h)
+                                                    )
+                                                      p = Qn(
+                                                        h.canActivateChild(
+                                                          i,
+                                                          t
                                                         )
-                                                          p = Qn(
-                                                            h.canActivateChild(
-                                                              i,
-                                                              t
-                                                            )
-                                                          );
-                                                        else {
-                                                          if (!Ai(h))
-                                                            throw new Error(
-                                                              "Invalid CanActivateChild guard"
-                                                            );
-                                                          p = Qn(h(i, t));
-                                                        }
-                                                        return p.pipe(lr());
-                                                      })
-                                                    ).pipe(Rs())
-                                                  )
-                                                );
-                                            return q(a).pipe(Rs());
-                                          })(t, o.path, e),
-                                          (function (t, n, e) {
-                                            const i = n.routeConfig
-                                              ? n.routeConfig.canActivate
-                                              : null;
-                                            if (!i || 0 === i.length)
-                                              return q(!0);
-                                            const o = i.map((a) =>
-                                              ay(() => {
-                                                const l = Jl(a, n, e);
-                                                let d;
-                                                if (
-                                                  (function (t) {
-                                                    return (
-                                                      t && Ai(t.canActivate)
-                                                    );
-                                                  })(l)
-                                                )
-                                                  d = Qn(l.canActivate(n, t));
-                                                else {
-                                                  if (!Ai(l))
-                                                    throw new Error(
-                                                      "Invalid CanActivate guard"
-                                                    );
-                                                  d = Qn(l(n, t));
-                                                }
-                                                return d.pipe(lr());
-                                              })
+                                                      );
+                                                    else {
+                                                      if (!Ai(h))
+                                                        throw new Error(
+                                                          "Invalid CanActivateChild guard"
+                                                        );
+                                                      p = Qn(h(i, t));
+                                                    }
+                                                    return p.pipe(lr());
+                                                  })
+                                                ).pipe(Rs())
+                                              )
                                             );
-                                            return q(o).pipe(Rs());
-                                          })(t, o.route, e)
-                                        )
-                                      ),
-                                      lr((o) => !0 !== o, !0)
-                                    );
-                                  })(i, a, t, n)
-                                : q(d)
-                            ),
-                            oe((d) =>
-                              Object.assign(Object.assign({}, e), {
-                                guardsResult: d,
-                              })
-                            )
-                          );
+                                        return q(a).pipe(Rs());
+                                      })(t, o.path, e),
+                                      (function (t, n, e) {
+                                        const i = n.routeConfig
+                                          ? n.routeConfig.canActivate
+                                          : null;
+                                        if (!i || 0 === i.length)
+                                          return q(!0);
+                                        const o = i.map((a) =>
+                                          ay(() => {
+                                            const l = Jl(a, n, e);
+                                            let d;
+                                            if (
+                                              (function (t) {
+                                                return (
+                                                  t && Ai(t.canActivate)
+                                                );
+                                              })(l)
+                                            )
+                                              d = Qn(l.canActivate(n, t));
+                                            else {
+                                              if (!Ai(l))
+                                                throw new Error(
+                                                  "Invalid CanActivate guard"
+                                                );
+                                              d = Qn(l(n, t));
+                                            }
+                                            return d.pipe(lr());
+                                          })
+                                        );
+                                        return q(o).pipe(Rs());
+                                      })(t, o.route, e)
+                                    )
+                                  ),
+                                  lr((o) => !0 !== o, !0)
+                                );
+                              })(i, a, t, n)
+                              : q(d)
+                          ),
+                          oe((d) =>
+                            Object.assign(Object.assign({}, e), {
+                              guardsResult: d,
+                            })
+                          )
+                        );
                     });
                   })(this.ngModule.injector, (d) => this.triggerEvent(d)),
                   vt((d) => {
@@ -15175,8 +15167,8 @@
                     (d) =>
                       !!d.guardsResult ||
                       (this.restoreHistory(d),
-                      this.cancelNavigationTransition(d, ""),
-                      !1)
+                        this.cancelNavigationTransition(d, ""),
+                        !1)
                   ),
                   Qh((d) => {
                     if (d.guards.canActivateChecks.length)
@@ -15258,10 +15250,10 @@
                               complete: () => {
                                 h ||
                                   (this.restoreHistory(u),
-                                  this.cancelNavigationTransition(
-                                    u,
-                                    "At least one route resolver didn't emit any value."
-                                  ));
+                                    this.cancelNavigationTransition(
+                                      u,
+                                      "At least one route resolver didn't emit any value."
+                                    ));
                               },
                             })
                           );
@@ -15314,8 +15306,8 @@
                       )),
                       (this.routerState = d.targetRouterState),
                       "deferred" === this.urlUpdateStrategy &&
-                        (d.extras.skipLocationChange ||
-                          this.setBrowserUrl(this.rawUrlTree, d),
+                      (d.extras.skipLocationChange ||
+                        this.setBrowserUrl(this.rawUrlTree, d),
                         (this.browserUrlTree = d.urlAfterRedirects));
                   }),
                   ((t, n, e) =>
@@ -15330,8 +15322,8 @@
                         i
                       )
                     ))(this.rootContexts, this.routeReuseStrategy, (d) =>
-                    this.triggerEvent(d)
-                  ),
+                      this.triggerEvent(d)
+                    ),
                   vt({
                     next() {
                       a = !0;
@@ -15357,9 +15349,9 @@
                   Yi((d) => {
                     if (
                       ((l = !0),
-                      (function (t) {
-                        return t && t[by];
-                      })(d))
+                        (function (t) {
+                          return t && t[by];
+                        })(d))
                     ) {
                       const u = Xi(d.url);
                       u || ((this.navigated = !0), this.restoreHistory(o, !0));
@@ -15371,29 +15363,29 @@
                       i.next(h),
                         u
                           ? setTimeout(() => {
-                              const p = this.urlHandlingStrategy.merge(
-                                  d.url,
-                                  this.rawUrlTree
-                                ),
-                                f = {
-                                  skipLocationChange:
-                                    o.extras.skipLocationChange,
-                                  replaceUrl:
-                                    "eager" === this.urlUpdateStrategy ||
-                                    Yl(o.source),
-                                };
-                              this.scheduleNavigation(
-                                p,
-                                "imperative",
-                                null,
-                                f,
-                                {
-                                  resolve: o.resolve,
-                                  reject: o.reject,
-                                  promise: o.promise,
-                                }
-                              );
-                            }, 0)
+                            const p = this.urlHandlingStrategy.merge(
+                              d.url,
+                              this.rawUrlTree
+                            ),
+                              f = {
+                                skipLocationChange:
+                                  o.extras.skipLocationChange,
+                                replaceUrl:
+                                  "eager" === this.urlUpdateStrategy ||
+                                  Yl(o.source),
+                              };
+                            this.scheduleNavigation(
+                              p,
+                              "imperative",
+                              null,
+                              f,
+                              {
+                                resolve: o.resolve,
+                                reject: o.reject,
+                                promise: o.promise,
+                              }
+                            );
+                          }, 0)
                           : o.resolve(!1);
                     } else {
                       this.restoreHistory(o, !0);
@@ -15427,7 +15419,7 @@
           initialNavigation() {
             this.setUpLocationChangeListener(),
               0 === this.navigationId &&
-                this.navigateByUrl(this.location.path(!0), { replaceUrl: !0 });
+              this.navigateByUrl(this.location.path(!0), { replaceUrl: !0 });
           }
           setUpLocationChangeListener() {
             this.locationSubscription ||
@@ -15476,18 +15468,18 @@
           dispose() {
             this.transitions.complete(),
               this.locationSubscription &&
-                (this.locationSubscription.unsubscribe(),
+              (this.locationSubscription.unsubscribe(),
                 (this.locationSubscription = void 0)),
               (this.disposed = !0);
           }
           createUrlTree(e, i = {}) {
             const {
-                relativeTo: o,
-                queryParams: a,
-                fragment: l,
-                queryParamsHandling: d,
-                preserveFragment: u,
-              } = i,
+              relativeTo: o,
+              queryParams: a,
+              fragment: l,
+              queryParamsHandling: d,
+              preserveFragment: u,
+            } = i,
               h = o || this.routerState.root,
               p = u ? this.currentUrlTree.fragment : l;
             let f = null;
@@ -15529,43 +15521,43 @@
                     return "string" != typeof a
                       ? [...o, a]
                       : 0 === l
-                      ? (a.split("/").forEach((d, u) => {
+                        ? (a.split("/").forEach((d, u) => {
                           (0 == u && "." === d) ||
                             (0 == u && "" === d
                               ? (e = !0)
                               : ".." === d
-                              ? n++
-                              : "" != d && o.push(d));
+                                ? n++
+                                : "" != d && o.push(d));
                         }),
-                        o)
-                      : [...o, a];
+                          o)
+                        : [...o, a];
                   }, []);
                   return new Ly(e, n, i);
                 })(e);
                 if (a.toRoot()) return Uh(n.root, new ue([], {}), n, i, o);
                 const l = (function (t, n, e) {
-                    if (t.isAbsolute) return new zh(n.root, !0, 0);
-                    if (-1 === e.snapshot._lastPathIndex) {
-                      const a = e.snapshot._urlSegment;
-                      return new zh(a, a === n.root, 0);
+                  if (t.isAbsolute) return new zh(n.root, !0, 0);
+                  if (-1 === e.snapshot._lastPathIndex) {
+                    const a = e.snapshot._urlSegment;
+                    return new zh(a, a === n.root, 0);
+                  }
+                  const i = Hl(t.commands[0]) ? 0 : 1;
+                  return (function (t, n, e) {
+                    let i = t,
+                      o = n,
+                      a = e;
+                    for (; a > o;) {
+                      if (((a -= o), (i = i.parent), !i))
+                        throw new Error("Invalid number of '../'");
+                      o = i.segments.length;
                     }
-                    const i = Hl(t.commands[0]) ? 0 : 1;
-                    return (function (t, n, e) {
-                      let i = t,
-                        o = n,
-                        a = e;
-                      for (; a > o; ) {
-                        if (((a -= o), (i = i.parent), !i))
-                          throw new Error("Invalid number of '../'");
-                        o = i.segments.length;
-                      }
-                      return new zh(i, !1, o - a);
-                    })(
-                      e.snapshot._urlSegment,
-                      e.snapshot._lastPathIndex + i,
-                      t.numberOfDoubleDots
-                    );
-                  })(a, n, t),
+                    return new zh(i, !1, o - a);
+                  })(
+                    e.snapshot._urlSegment,
+                    e.snapshot._lastPathIndex + i,
+                    t.numberOfDoubleDots
+                  );
+                })(a, n, t),
                   d = l.processChildren
                     ? $l(l.segmentGroup, l.index, a.commands)
                     : By(l.segmentGroup, l.index, a.commands);
@@ -15611,9 +15603,9 @@
                 !0 === i
                   ? Object.assign({}, TS)
                   : !1 === i
-                  ? Object.assign({}, PS)
-                  : i),
-              Xi(e))
+                    ? Object.assign({}, PS)
+                    : i),
+                Xi(e))
             )
               return Cy(this.currentUrlTree, e, o);
             const a = this.parseUrl(e);
@@ -15662,8 +15654,8 @@
             l
               ? ((D = l.resolve), (T = l.reject), (S = l.promise))
               : (S = new Promise((z, ie) => {
-                  (D = z), (T = ie);
-                }));
+                (D = z), (T = ie);
+              }));
             const k = ++this.navigationId;
             let F;
             return (
@@ -15673,10 +15665,10 @@
                     o && o.ɵrouterPageId
                       ? o.ɵrouterPageId
                       : a.replaceUrl || a.skipLocationChange
-                      ? null !== (u = this.browserPageId) && void 0 !== u
-                        ? u
-                        : 0
-                      : (null !== (h = this.browserPageId) && void 0 !== h
+                        ? null !== (u = this.browserPageId) && void 0 !== u
+                          ? u
+                          : 0
+                        : (null !== (h = this.browserPageId) && void 0 !== h
                           ? h
                           : 0) + 1))
                 : (F = 0),
@@ -15715,16 +15707,16 @@
               ("popstate" !== e.source &&
                 "eager" !== this.urlUpdateStrategy &&
                 this.currentUrlTree !==
-                  (null === (o = this.currentNavigation) || void 0 === o
-                    ? void 0
-                    : o.finalUrl)) ||
-              0 === l
+                (null === (o = this.currentNavigation) || void 0 === o
+                  ? void 0
+                  : o.finalUrl)) ||
+                0 === l
                 ? this.currentUrlTree ===
-                    (null === (a = this.currentNavigation) || void 0 === a
-                      ? void 0
-                      : a.finalUrl) &&
-                  0 === l &&
-                  (this.resetState(e),
+                (null === (a = this.currentNavigation) || void 0 === a
+                  ? void 0
+                  : a.finalUrl) &&
+                0 === l &&
+                (this.resetState(e),
                   (this.browserUrlTree = e.currentUrlTree),
                   this.resetUrlToCurrentUrlTree())
                 : this.location.historyGo(l);
@@ -15772,86 +15764,86 @@
         return "imperative" !== t;
       }
       let ur = (() => {
-          class t {
-            constructor(e, i, o, a, l) {
-              (this.router = e),
-                (this.route = i),
-                (this.tabIndexAttribute = o),
-                (this.renderer = a),
-                (this.el = l),
-                (this.commands = null),
-                (this.onChanges = new Ee()),
-                this.setTabIndexIfNotOnNativeEl("0");
-            }
-            setTabIndexIfNotOnNativeEl(e) {
-              if (null != this.tabIndexAttribute) return;
-              const i = this.renderer,
-                o = this.el.nativeElement;
-              null !== e
-                ? i.setAttribute(o, "tabindex", e)
-                : i.removeAttribute(o, "tabindex");
-            }
-            ngOnChanges(e) {
-              this.onChanges.next(this);
-            }
-            set routerLink(e) {
-              null != e
-                ? ((this.commands = Array.isArray(e) ? e : [e]),
-                  this.setTabIndexIfNotOnNativeEl("0"))
-                : ((this.commands = null),
-                  this.setTabIndexIfNotOnNativeEl(null));
-            }
-            onClick() {
-              if (null === this.urlTree) return !0;
-              const e = {
-                skipLocationChange: hr(this.skipLocationChange),
-                replaceUrl: hr(this.replaceUrl),
-                state: this.state,
-              };
-              return this.router.navigateByUrl(this.urlTree, e), !0;
-            }
-            get urlTree() {
-              return null === this.commands
-                ? null
-                : this.router.createUrlTree(this.commands, {
-                    relativeTo:
-                      void 0 !== this.relativeTo ? this.relativeTo : this.route,
-                    queryParams: this.queryParams,
-                    fragment: this.fragment,
-                    queryParamsHandling: this.queryParamsHandling,
-                    preserveFragment: hr(this.preserveFragment),
-                  });
-            }
+        class t {
+          constructor(e, i, o, a, l) {
+            (this.router = e),
+              (this.route = i),
+              (this.tabIndexAttribute = o),
+              (this.renderer = a),
+              (this.el = l),
+              (this.commands = null),
+              (this.onChanges = new Ee()),
+              this.setTabIndexIfNotOnNativeEl("0");
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)(y(Pt), y(Ki), wi("tabindex"), y(mt), y(le));
-            }),
-            (t.ɵdir = A({
-              type: t,
-              selectors: [["", "routerLink", "", 5, "a", 5, "area"]],
-              hostBindings: function (e, i) {
-                1 & e &&
-                  M("click", function () {
-                    return i.onClick();
-                  });
-              },
-              inputs: {
-                queryParams: "queryParams",
-                fragment: "fragment",
-                queryParamsHandling: "queryParamsHandling",
-                preserveFragment: "preserveFragment",
-                skipLocationChange: "skipLocationChange",
-                replaceUrl: "replaceUrl",
-                state: "state",
-                relativeTo: "relativeTo",
-                routerLink: "routerLink",
-              },
-              features: [Me],
-            })),
-            t
-          );
-        })(),
+          setTabIndexIfNotOnNativeEl(e) {
+            if (null != this.tabIndexAttribute) return;
+            const i = this.renderer,
+              o = this.el.nativeElement;
+            null !== e
+              ? i.setAttribute(o, "tabindex", e)
+              : i.removeAttribute(o, "tabindex");
+          }
+          ngOnChanges(e) {
+            this.onChanges.next(this);
+          }
+          set routerLink(e) {
+            null != e
+              ? ((this.commands = Array.isArray(e) ? e : [e]),
+                this.setTabIndexIfNotOnNativeEl("0"))
+              : ((this.commands = null),
+                this.setTabIndexIfNotOnNativeEl(null));
+          }
+          onClick() {
+            if (null === this.urlTree) return !0;
+            const e = {
+              skipLocationChange: hr(this.skipLocationChange),
+              replaceUrl: hr(this.replaceUrl),
+              state: this.state,
+            };
+            return this.router.navigateByUrl(this.urlTree, e), !0;
+          }
+          get urlTree() {
+            return null === this.commands
+              ? null
+              : this.router.createUrlTree(this.commands, {
+                relativeTo:
+                  void 0 !== this.relativeTo ? this.relativeTo : this.route,
+                queryParams: this.queryParams,
+                fragment: this.fragment,
+                queryParamsHandling: this.queryParamsHandling,
+                preserveFragment: hr(this.preserveFragment),
+              });
+          }
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)(y(Pt), y(Ki), wi("tabindex"), y(mt), y(le));
+          }),
+          (t.ɵdir = A({
+            type: t,
+            selectors: [["", "routerLink", "", 5, "a", 5, "area"]],
+            hostBindings: function (e, i) {
+              1 & e &&
+                M("click", function () {
+                  return i.onClick();
+                });
+            },
+            inputs: {
+              queryParams: "queryParams",
+              fragment: "fragment",
+              queryParamsHandling: "queryParamsHandling",
+              preserveFragment: "preserveFragment",
+              skipLocationChange: "skipLocationChange",
+              replaceUrl: "replaceUrl",
+              state: "state",
+              relativeTo: "relativeTo",
+              routerLink: "routerLink",
+            },
+            features: [Me],
+          })),
+          t
+        );
+      })(),
         eo = (() => {
           class t {
             constructor(e, i, o) {
@@ -15896,21 +15888,21 @@
               this.href =
                 null !== this.urlTree
                   ? this.locationStrategy.prepareExternalUrl(
-                      this.router.serializeUrl(this.urlTree)
-                    )
+                    this.router.serializeUrl(this.urlTree)
+                  )
                   : null;
             }
             get urlTree() {
               return null === this.commands
                 ? null
                 : this.router.createUrlTree(this.commands, {
-                    relativeTo:
-                      void 0 !== this.relativeTo ? this.relativeTo : this.route,
-                    queryParams: this.queryParams,
-                    fragment: this.fragment,
-                    queryParamsHandling: this.queryParamsHandling,
-                    preserveFragment: hr(this.preserveFragment),
-                  });
+                  relativeTo:
+                    void 0 !== this.relativeTo ? this.relativeTo : this.route,
+                  queryParams: this.queryParams,
+                  fragment: this.fragment,
+                  queryParamsHandling: this.queryParamsHandling,
+                  preserveFragment: hr(this.preserveFragment),
+                });
             }
           }
           return (
@@ -16012,8 +16004,8 @@
             var e;
             this.routerEventsSubscription.unsubscribe(),
               null === (e = this.linkInputChangesSubscription) ||
-                void 0 === e ||
-                e.unsubscribe();
+              void 0 === e ||
+              e.unsubscribe();
           }
           update() {
             !this.links ||
@@ -16023,16 +16015,16 @@
                 const e = this.hasActiveLinks();
                 this.isActive !== e &&
                   ((this.isActive = e),
-                  this.cdr.markForCheck(),
-                  this.classes.forEach((i) => {
-                    e
-                      ? this.renderer.addClass(this.element.nativeElement, i)
-                      : this.renderer.removeClass(
+                    this.cdr.markForCheck(),
+                    this.classes.forEach((i) => {
+                      e
+                        ? this.renderer.addClass(this.element.nativeElement, i)
+                        : this.renderer.removeClass(
                           this.element.nativeElement,
                           i
                         );
-                  }),
-                  this.isActiveChange.emit(e));
+                    }),
+                    this.isActiveChange.emit(e));
               });
           }
           isLinkActive(e) {
@@ -16078,79 +16070,79 @@
           t
         );
       })();
-      class rv {}
+      class rv { }
       class sv {
         preload(n, e) {
           return q(null);
         }
       }
       let av = (() => {
-          class t {
-            constructor(e, i, o, a) {
-              (this.router = e),
-                (this.injector = o),
-                (this.preloadingStrategy = a),
-                (this.loader = new nv(
-                  o,
-                  i,
-                  (u) => e.triggerEvent(new py(u)),
-                  (u) => e.triggerEvent(new gy(u))
-                ));
-            }
-            setUpPreloading() {
-              this.subscription = this.router.events
-                .pipe(
-                  lt((e) => e instanceof Ps),
-                  Ts(() => this.preload())
-                )
-                .subscribe(() => {});
-            }
-            preload() {
-              const e = this.injector.get(oi);
-              return this.processRoutes(e, this.router.config);
-            }
-            ngOnDestroy() {
-              this.subscription && this.subscription.unsubscribe();
-            }
-            processRoutes(e, i) {
-              const o = [];
-              for (const a of i)
-                if (a.loadChildren && !a.canLoad && a._loadedConfig) {
-                  const l = a._loadedConfig;
-                  o.push(this.processRoutes(l.module, l.routes));
-                } else
-                  a.loadChildren && !a.canLoad
-                    ? o.push(this.preloadConfig(e, a))
-                    : a.children && o.push(this.processRoutes(e, a.children));
-              return xt(o).pipe(
-                Dr(),
-                oe((a) => {})
-              );
-            }
-            preloadConfig(e, i) {
-              return this.preloadingStrategy.preload(i, () =>
-                (i._loadedConfig
-                  ? q(i._loadedConfig)
-                  : this.loader.load(e.injector, i)
-                ).pipe(
-                  ut(
-                    (a) => (
-                      (i._loadedConfig = a),
-                      this.processRoutes(a.module, a.routes)
-                    )
+        class t {
+          constructor(e, i, o, a) {
+            (this.router = e),
+              (this.injector = o),
+              (this.preloadingStrategy = a),
+              (this.loader = new nv(
+                o,
+                i,
+                (u) => e.triggerEvent(new py(u)),
+                (u) => e.triggerEvent(new gy(u))
+              ));
+          }
+          setUpPreloading() {
+            this.subscription = this.router.events
+              .pipe(
+                lt((e) => e instanceof Ps),
+                Ts(() => this.preload())
+              )
+              .subscribe(() => { });
+          }
+          preload() {
+            const e = this.injector.get(oi);
+            return this.processRoutes(e, this.router.config);
+          }
+          ngOnDestroy() {
+            this.subscription && this.subscription.unsubscribe();
+          }
+          processRoutes(e, i) {
+            const o = [];
+            for (const a of i)
+              if (a.loadChildren && !a.canLoad && a._loadedConfig) {
+                const l = a._loadedConfig;
+                o.push(this.processRoutes(l.module, l.routes));
+              } else
+                a.loadChildren && !a.canLoad
+                  ? o.push(this.preloadConfig(e, a))
+                  : a.children && o.push(this.processRoutes(e, a.children));
+            return xt(o).pipe(
+              Dr(),
+              oe((a) => { })
+            );
+          }
+          preloadConfig(e, i) {
+            return this.preloadingStrategy.preload(i, () =>
+              (i._loadedConfig
+                ? q(i._loadedConfig)
+                : this.loader.load(e.injector, i)
+              ).pipe(
+                ut(
+                  (a) => (
+                    (i._loadedConfig = a),
+                    this.processRoutes(a.module, a.routes)
                   )
                 )
-              );
-            }
+              )
+            );
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)(E(Pt), E(tl), E(We), E(rv));
-            }),
-            (t.ɵprov = L({ token: t, factory: t.ɵfac })),
-            t
-          );
-        })(),
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)(E(Pt), E(tl), E(We), E(rv));
+          }),
+          (t.ɵprov = L({ token: t, factory: t.ɵfac })),
+          t
+        );
+      })(),
         Kh = (() => {
           class t {
             constructor(e, i, o = {}) {
@@ -16175,13 +16167,13 @@
               return this.router.events.subscribe((e) => {
                 e instanceof Rh
                   ? ((this.store[this.lastId] =
-                      this.viewportScroller.getScrollPosition()),
+                    this.viewportScroller.getScrollPosition()),
                     (this.lastSource = e.navigationTrigger),
                     (this.restoredId = e.restoredState
                       ? e.restoredState.navigationId
                       : 0))
                   : e instanceof Ps &&
-                    ((this.lastId = e.id),
+                  ((this.lastId = e.id),
                     this.scheduleScrollEvent(
                       e,
                       this.router.parseUrl(e.urlAfterRedirects).fragment
@@ -16195,10 +16187,10 @@
                     ? "top" === this.options.scrollPositionRestoration
                       ? this.viewportScroller.scrollToPosition([0, 0])
                       : "enabled" === this.options.scrollPositionRestoration &&
-                        this.viewportScroller.scrollToPosition(e.position)
+                      this.viewportScroller.scrollToPosition(e.position)
                     : e.anchor && "enabled" === this.options.anchorScrolling
-                    ? this.viewportScroller.scrollToAnchor(e.anchor)
-                    : "disabled" !== this.options.scrollPositionRestoration &&
+                      ? this.viewportScroller.scrollToAnchor(e.anchor)
+                      : "disabled" !== this.options.scrollPositionRestoration &&
                       this.viewportScroller.scrollToPosition([0, 0]));
               });
             }
@@ -16217,7 +16209,7 @@
               this.routerEventsSubscription &&
                 this.routerEventsSubscription.unsubscribe(),
                 this.scrollEventsSubscription &&
-                  this.scrollEventsSubscription.unsubscribe();
+                this.scrollEventsSubscription.unsubscribe();
             }
           }
           return (
@@ -16243,32 +16235,32 @@
                 (function (t, n) {
                   t.errorHandler && (n.errorHandler = t.errorHandler),
                     t.malformedUriErrorHandler &&
-                      (n.malformedUriErrorHandler = t.malformedUriErrorHandler),
+                    (n.malformedUriErrorHandler = t.malformedUriErrorHandler),
                     t.onSameUrlNavigation &&
-                      (n.onSameUrlNavigation = t.onSameUrlNavigation),
+                    (n.onSameUrlNavigation = t.onSameUrlNavigation),
                     t.paramsInheritanceStrategy &&
-                      (n.paramsInheritanceStrategy =
-                        t.paramsInheritanceStrategy),
+                    (n.paramsInheritanceStrategy =
+                      t.paramsInheritanceStrategy),
                     t.relativeLinkResolution &&
-                      (n.relativeLinkResolution = t.relativeLinkResolution),
+                    (n.relativeLinkResolution = t.relativeLinkResolution),
                     t.urlUpdateStrategy &&
-                      (n.urlUpdateStrategy = t.urlUpdateStrategy),
+                    (n.urlUpdateStrategy = t.urlUpdateStrategy),
                     t.canceledNavigationResolution &&
-                      (n.canceledNavigationResolution =
-                        t.canceledNavigationResolution);
+                    (n.canceledNavigationResolution =
+                      t.canceledNavigationResolution);
                 })(l, h),
                 l.enableTracing &&
-                  h.events.subscribe((p) => {
-                    var f, b;
-                    null === (f = console.group) ||
-                      void 0 === f ||
-                      f.call(console, `Router Event: ${p.constructor.name}`),
-                      console.log(p.toString()),
-                      console.log(p),
-                      null === (b = console.groupEnd) ||
-                        void 0 === b ||
-                        b.call(console);
-                  }),
+                h.events.subscribe((p) => {
+                  var f, b;
+                  null === (f = console.group) ||
+                    void 0 === f ||
+                    f.call(console, `Router Event: ${p.constructor.name}`),
+                    console.log(p.toString()),
+                    console.log(p),
+                    null === (b = console.groupEnd) ||
+                    void 0 === b ||
+                    b.call(console);
+                }),
                 h
               );
             },
@@ -16280,8 +16272,8 @@
               tl,
               Zh,
               to,
-              [class {}, new jn()],
-              [class {}, new jn()],
+              [class { }, new jn()],
+              [class { }, new jn()],
             ],
           },
           Fs,
@@ -16306,7 +16298,7 @@
       }
       let cv = (() => {
         class t {
-          constructor(e, i) {}
+          constructor(e, i) { }
           static forRoot(e, i) {
             return {
               ngModule: t,
@@ -16388,14 +16380,14 @@
                   ? (a.setUpLocationChangeListener(), i(!0))
                   : "enabled" === l.initialNavigation ||
                     "enabledBlocking" === l.initialNavigation
-                  ? ((a.hooks.afterPreactivation = () =>
+                    ? ((a.hooks.afterPreactivation = () =>
                       this.initNavigation
                         ? q(null)
                         : ((this.initNavigation = !0),
                           i(!0),
                           this.resultOfPreactivationDone)),
-                    a.initialNavigation())
-                  : i(!0),
+                      a.initialNavigation())
+                    : i(!0),
                 o
               );
             });
@@ -16410,11 +16402,11 @@
               (("enabledNonBlocking" === i.initialNavigation ||
                 void 0 === i.initialNavigation) &&
                 l.initialNavigation(),
-              o.setUpPreloading(),
-              a.init(),
-              l.resetRootComponentType(d.componentTypes[0]),
-              this.resultOfPreactivationDone.next(null),
-              this.resultOfPreactivationDone.complete());
+                o.setUpPreloading(),
+                a.init(),
+                l.resetRootComponentType(d.componentTypes[0]),
+                this.resultOfPreactivationDone.next(null),
+                this.resultOfPreactivationDone.complete());
           }
           ngOnDestroy() {
             this.destroyed = !0;
@@ -16472,10 +16464,10 @@
               .then((e) => {
                 200 === e.code
                   ? this.setLogCondition(!0)
-                  : alert("Refresh auth error!");
+                  : this.showAlert("Refresh auth error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
         }
         getIsAdmin() {
@@ -16514,10 +16506,10 @@
         if (
           (1 & t &&
             (r(0, "div", 44),
-            v(1, GS, 2, 0, "div", 45),
-            v(2, qS, 2, 0, "div", 45),
-            s()),
-          2 & t)
+              v(1, GS, 2, 0, "div", 45),
+              v(2, qS, 2, 0, "div", 45),
+              s()),
+            2 & t)
         ) {
           const e = O(2);
           _(1),
@@ -16575,29 +16567,29 @@
         if (
           (1 & t &&
             (r(0, "div"),
-            r(1, "div", 48),
-            r(2, "h1", 49),
-            c(3, "Check your inbox "),
-            s(),
-            r(4, "div", 50),
-            r(5, "div"),
-            r(6, "p", 51),
-            c(7, "We've just emailed a verification link to "),
-            r(8, "strong", 52),
-            c(9),
-            s(),
-            c(10, ". Once it arrives, it will be valid for 10 minutes."),
-            s(),
-            s(),
-            s(),
-            s(),
-            s(),
-            r(11, "div"),
-            r(12, "button", 53),
-            c(13, "Back to sign-in"),
-            s(),
-            s()),
-          2 & t)
+              r(1, "div", 48),
+              r(2, "h1", 49),
+              c(3, "Check your inbox "),
+              s(),
+              r(4, "div", 50),
+              r(5, "div"),
+              r(6, "p", 51),
+              c(7, "We've just emailed a verification link to "),
+              r(8, "strong", 52),
+              c(9),
+              s(),
+              c(10, ". Once it arrives, it will be valid for 10 minutes."),
+              s(),
+              s(),
+              s(),
+              s(),
+              s(),
+              r(11, "div"),
+              r(12, "button", 53),
+              c(13, "Back to sign-in"),
+              s(),
+              s()),
+            2 & t)
         ) {
           const e = O(2);
           _(9), an(" ", e.email, "");
@@ -16617,10 +16609,10 @@
         if (
           (1 & t &&
             (r(0, "div", 44),
-            v(1, KS, 2, 0, "div", 45),
-            v(2, XS, 2, 0, "div", 45),
-            s()),
-          2 & t)
+              v(1, KS, 2, 0, "div", 45),
+              v(2, XS, 2, 0, "div", 45),
+              s()),
+            2 & t)
         ) {
           const e = O(4);
           _(1),
@@ -16639,10 +16631,10 @@
         if (
           (1 & t &&
             (r(0, "div", 44),
-            v(1, tA, 2, 0, "div", 45),
-            v(2, nA, 2, 0, "div", 45),
-            s()),
-          2 & t)
+              v(1, tA, 2, 0, "div", 45),
+              v(2, nA, 2, 0, "div", 45),
+              s()),
+            2 & t)
         ) {
           const e = O(4);
           _(1),
@@ -16719,10 +16711,10 @@
         if (
           (1 & t &&
             (r(0, "div", 44),
-            v(1, rA, 2, 0, "div", 45),
-            v(2, sA, 2, 0, "div", 45),
-            s()),
-          2 & t)
+              v(1, rA, 2, 0, "div", 45),
+              v(2, sA, 2, 0, "div", 45),
+              s()),
+            2 & t)
         ) {
           const e = O(4);
           _(1),
@@ -16774,9 +16766,9 @@
         if (
           (1 & t &&
             (v(0, ZS, 1, 0, "ng-container", 11),
-            v(1, oA, 14, 12, "ng-template", null, 54, Pe),
-            v(3, lA, 9, 7, "ng-template", null, 55, Pe)),
-          2 & t)
+              v(1, oA, 14, 12, "ng-template", null, 54, Pe),
+              v(3, lA, 9, 7, "ng-template", null, 55, Pe)),
+            2 & t)
         ) {
           const e = ve(2),
             i = ve(4);
@@ -16787,9 +16779,9 @@
         if (
           (1 & t &&
             (v(0, YS, 1, 0, "div", 11),
-            v(1, QS, 14, 1, "ng-template", null, 46, Pe),
-            v(3, cA, 5, 3, "ng-template", null, 47, Pe)),
-          2 & t)
+              v(1, QS, 14, 1, "ng-template", null, 46, Pe),
+              v(3, cA, 5, 3, "ng-template", null, 47, Pe)),
+            2 & t)
         ) {
           const e = ve(2),
             i = ve(4);
@@ -16858,7 +16850,7 @@
                   (this.isExistUser = !0);
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           userSignIn() {
@@ -16876,11 +16868,11 @@
               .then((i) => {
                 x_saveAuth(e.email, i),
                   this.authService.toggleLogCondition(),
-                  alert("You have successfully authenticated!"),
+                  this.showAlert("You have successfully authenticated!"),
                   this.router.navigate([""]);
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           userSignUp() {
@@ -16897,10 +16889,10 @@
               })
                 .then((i) => i.json())
                 .then((i) => {
-                  alert(i.code), console.log(i);
+                  this.showAlert(i.code), console.log(i);
                 })
                 .catch((i) => {
-                  alert(i);
+                  this.showAlert(i);
                 });
           }
           MustMatch(e, i) {
@@ -16929,17 +16921,17 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                alert(i.code),
+                this.showAlert(i.code),
                   console.log(i),
                   200 === i.code &&
-                    (this.userSignIn(), this.router.navigate([""]));
+                  (this.userSignIn(), this.router.navigate([""]));
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
-          verifyEnter() {}
-          ngOnInit() {}
+          verifyEnter() { }
+          ngOnInit() { }
         }
         return (
           (t.ɵfac = function (e) {
@@ -17237,106 +17229,106 @@
               if (
                 (1 & e &&
                   (r(0, "div", 0),
-                  r(1, "nav", 1),
-                  r(2, "div", 2),
-                  r(3, "div", 3),
-                  r(4, "span"),
-                  r(5, "label", 4),
-                  c(6, "Apart.com"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(7, "div"),
-                  r(8, "button", 5),
-                  r(9, "div", 6),
-                  g(10, "img", 7),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(11, "div", 8),
-                  r(12, "div", 9),
-                  r(13, "div", 10),
-                  v(14, zS, 1, 0, "div", 11),
-                  v(15, JS, 11, 7, "ng-template", null, 12, Pe),
-                  v(17, dA, 5, 3, "ng-template", null, 13, Pe),
-                  r(19, "div", 14),
-                  r(20, "div", 15),
-                  r(21, "div", 16),
-                  r(22, "span"),
-                  c(23, "or use one of these options"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(24, "div", 17),
-                  r(25, "a", 18),
-                  r(26, "div", 19),
-                  r(27, "div", 20),
-                  Ie(),
-                  r(28, "svg", 21),
-                  g(29, "path", 22),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  Re(),
-                  r(30, "a", 23),
-                  r(31, "div", 19),
-                  r(32, "div", 20),
-                  Ie(),
-                  r(33, "svg", 24),
-                  g(34, "path", 25),
-                  g(35, "path", 26),
-                  g(36, "path", 27),
-                  g(37, "path", 28),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  Re(),
-                  r(38, "a", 29),
-                  r(39, "div", 19),
-                  r(40, "div", 20),
-                  Ie(),
-                  r(41, "svg", 30),
-                  g(42, "path", 31),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  Re(),
-                  r(43, "div", 32),
-                  r(44, "div", 33),
-                  r(45, "div", 34),
-                  c(
-                    46,
-                    "By signing in or creating an account, you agree with our "
-                  ),
-                  r(47, "a", 35),
-                  c(48, "Terms & Conditions"),
-                  s(),
-                  c(49, " and "),
-                  r(50, "a", 36),
-                  c(51, "Privacy Statement"),
-                  s(),
-                  s(),
-                  r(52, "div", 37),
-                  r(53, "div"),
-                  c(54, "All rights reserved. "),
-                  g(55, "br"),
-                  c(56, "Copyright (2006-2022) \u2013 Booking.com\u2122 "),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s()),
-                2 & e)
+                    r(1, "nav", 1),
+                    r(2, "div", 2),
+                    r(3, "div", 3),
+                    r(4, "span"),
+                    r(5, "label", 4),
+                    c(6, "Apart.com"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(7, "div"),
+                    r(8, "button", 5),
+                    r(9, "div", 6),
+                    g(10, "img", 7),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(11, "div", 8),
+                    r(12, "div", 9),
+                    r(13, "div", 10),
+                    v(14, zS, 1, 0, "div", 11),
+                    v(15, JS, 11, 7, "ng-template", null, 12, Pe),
+                    v(17, dA, 5, 3, "ng-template", null, 13, Pe),
+                    r(19, "div", 14),
+                    r(20, "div", 15),
+                    r(21, "div", 16),
+                    r(22, "span"),
+                    c(23, "or use one of these options"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(24, "div", 17),
+                    r(25, "a", 18),
+                    r(26, "div", 19),
+                    r(27, "div", 20),
+                    Ie(),
+                    r(28, "svg", 21),
+                    g(29, "path", 22),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    Re(),
+                    r(30, "a", 23),
+                    r(31, "div", 19),
+                    r(32, "div", 20),
+                    Ie(),
+                    r(33, "svg", 24),
+                    g(34, "path", 25),
+                    g(35, "path", 26),
+                    g(36, "path", 27),
+                    g(37, "path", 28),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    Re(),
+                    r(38, "a", 29),
+                    r(39, "div", 19),
+                    r(40, "div", 20),
+                    Ie(),
+                    r(41, "svg", 30),
+                    g(42, "path", 31),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    Re(),
+                    r(43, "div", 32),
+                    r(44, "div", 33),
+                    r(45, "div", 34),
+                    c(
+                      46,
+                      "By signing in or creating an account, you agree with our "
+                    ),
+                    r(47, "a", 35),
+                    c(48, "Terms & Conditions"),
+                    s(),
+                    c(49, " and "),
+                    r(50, "a", 36),
+                    c(51, "Privacy Statement"),
+                    s(),
+                    s(),
+                    r(52, "div", 37),
+                    r(53, "div"),
+                    c(54, "All rights reserved. "),
+                    g(55, "br"),
+                    c(56, "Copyright (2006-2022) \u2013 Booking.com\u2122 "),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s()),
+                  2 & e)
               ) {
                 const o = ve(16),
                   a = ve(18);
@@ -17455,307 +17447,307 @@
         }
       }
       let pA = (() => {
-          class t {
-            constructor() {
-              (this.users = null),
-                (this.user = null),
-                (this.checkedUser = null);
-            }
-            addUser() {
-              let e = { name: this.user };
-              fetch("https://localhost:44381/api/users/adduser", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json; charset=utf-8",
-                  Accept: "application/json",
-                  Authorization: "Bearer " + x_getToken(),
-                },
-                body: JSON.stringify(e),
-              })
-                .then((i) => i.json())
-                .then((i) => {
-                  200 === i.code ? this.getUsers() : alert("Adding error!"),
-                    (this.user = "");
-                })
-                .catch((i) => {
-                  alert(i);
-                });
-            }
-            editUser() {
-              let e = { id: this.checkedUser, name: this.user };
-              fetch("https://localhost:44381/api/users/edituser", {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json; charset=utf-8",
-                  Accept: "application/json",
-                  Authorization: "Bearer " + x_getToken(),
-                },
-                body: JSON.stringify(e),
-              })
-                .then((i) => i.json())
-                .then((i) => {
-                  200 === i.code ? this.getUsers() : alert("Editing error!"),
-                    (this.user = "");
-                })
-                .catch((i) => {
-                  alert(i);
-                });
-            }
-            deleteUser() {
-              let e = { id: this.checkedUser, name: this.user };
-              fetch("https://localhost:44381/api/users/deleteuser", {
-                method: "DELETE",
-                headers: {
-                  "Content-Type": "application/json; charset=utf-8",
-                  Accept: "application/json",
-                  Authorization: "Bearer " + x_getToken(),
-                },
-                body: JSON.stringify(e),
-              })
-                .then((i) => i.json())
-                .then((i) => {
-                  200 === i.code ? this.getUsers() : alert("Editing error!"),
-                    (this.user = "");
-                })
-                .catch((i) => {
-                  alert(i);
-                });
-            }
-            getUsers() {
-              fetch("https://localhost:44381/api/users/getusers", {
-                method: "GET",
-              })
-                .then((e) => e.json())
-                .then((e) => {
-                  200 === e.code
-                    ? (this.users = e.users)
-                    : alert("Fetch error!");
-                })
-                .catch((e) => {
-                  alert(e);
-                });
-            }
-            setUser(e, i) {
-              var o, a;
-              (this.checkedUser = e),
-                (this.user = i),
-                null === (o = document.getElementById("editButton")) ||
-                  void 0 === o ||
-                  o.removeAttribute("disabled"),
-                null === (a = document.getElementById("deleteButton")) ||
-                  void 0 === a ||
-                  a.removeAttribute("disabled");
-            }
-            ngOnInit() {
-              this.getUsers();
-            }
+        class t {
+          constructor() {
+            (this.users = null),
+              (this.user = null),
+              (this.checkedUser = null);
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)();
-            }),
-            (t.ɵcmp = N({
-              type: t,
-              selectors: [["app-users-list"]],
-              decls: 99,
-              vars: 1,
-              consts: [
-                [1, "row"],
-                [
-                  "role",
-                  "group",
-                  "aria-label",
-                  "Basic example",
-                  1,
-                  "btn-group",
-                ],
-                [
-                  "type",
-                  "button",
-                  "data-bs-toggle",
-                  "modal",
-                  "data-bs-target",
-                  "#add",
-                  1,
-                  "btn",
-                  "btn-dark",
-                ],
-                [
-                  "type",
-                  "button",
-                  "id",
-                  "editButton",
-                  "data-bs-toggle",
-                  "modal",
-                  "data-bs-target",
-                  "#edit",
-                  "disabled",
-                  "",
-                  1,
-                  "btn",
-                  "btn-dark",
-                ],
-                [
-                  "type",
-                  "button",
-                  "id",
-                  "deleteButton",
-                  "data-bs-toggle",
-                  "modal",
-                  "data-bs-target",
-                  "#delete",
-                  "disabled",
-                  "",
-                  1,
-                  "btn",
-                  "btn-dark",
-                ],
-                [
-                  "id",
-                  "add",
-                  "data-bs-backdrop",
-                  "static",
-                  "data-bs-keyboard",
-                  "false",
-                  "tabindex",
-                  "-1",
-                  "aria-labelledby",
-                  "addLabel",
-                  "aria-hidden",
-                  "true",
-                  1,
-                  "modal",
-                  "fade",
-                ],
-                [1, "modal-dialog"],
-                [1, "modal-content"],
-                [1, "modal-header"],
-                ["id", "addLabel", 1, "modal-title"],
-                [
-                  "type",
-                  "button",
-                  "data-bs-dismiss",
-                  "modal",
-                  "aria-label",
-                  "Close",
-                  1,
-                  "btn-close",
-                ],
-                [1, "modal-body"],
-                [1, "mb-3"],
-                ["for", "newRole", 1, "form-label"],
-                [
-                  "type",
-                  "text",
-                  "id",
-                  "newRole",
-                  "aria-describedby",
-                  "emailHelp",
-                  1,
-                  "form-control",
-                ],
-                [1, "modal-footer"],
-                [
-                  "type",
-                  "button",
-                  "data-bs-dismiss",
-                  "modal",
-                  1,
-                  "btn",
-                  "btn-secondary",
-                ],
-                ["type", "button", 1, "btn", "btn-primary"],
-                [
-                  "id",
-                  "edit",
-                  "data-bs-backdrop",
-                  "static",
-                  "data-bs-keyboard",
-                  "false",
-                  "tabindex",
-                  "-1",
-                  "aria-labelledby",
-                  "editLabel",
-                  "aria-hidden",
-                  "true",
-                  1,
-                  "modal",
-                  "fade",
-                ],
-                ["id", "editLabel", 1, "modal-title"],
-                ["for", "editRole", 1, "form-label"],
-                [
-                  "type",
-                  "text",
-                  "id",
-                  "editRole",
-                  "aria-describedby",
-                  "emailHelp",
-                  1,
-                  "form-control",
-                ],
-                [
-                  "id",
-                  "delete",
-                  "data-bs-backdrop",
-                  "static",
-                  "data-bs-keyboard",
-                  "false",
-                  "tabindex",
-                  "-1",
-                  "aria-labelledby",
-                  "deleteLabel",
-                  "aria-hidden",
-                  "true",
-                  1,
-                  "modal",
-                  "fade",
-                ],
-                ["id", "deleteLabel", 1, "modal-title"],
-                ["for", "deleteRole", 1, "form-label"],
-                [
-                  "type",
-                  "text",
-                  "id",
-                  "deleteRole",
-                  "aria-describedby",
-                  "emailHelp",
-                  1,
-                  "form-control",
-                ],
-                [
-                  "type",
-                  "button",
-                  "data-bs-dismiss",
-                  "modal",
-                  1,
-                  "btn",
-                  "btn-danger",
-                ],
-                [1, "table", "table-dark", "table-bordered", "border-white"],
-                ["scope", "col text-center align-self-center"],
-                ["scope", "col align-top"],
-                ["scope", "col"],
-                [4, "ngFor", "ngForOf"],
-                ["scope", "row"],
-                [1, "form-check"],
-                [
-                  "type",
-                  "radio",
-                  "name",
-                  "roleRadio",
-                  "id",
-                  "roleRadio",
-                  1,
-                  "form-check-input",
-                  3,
-                  "value",
-                  "click",
-                ],
+          addUser() {
+            let e = { name: this.user };
+            fetch("https://localhost:44381/api/users/adduser", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json; charset=utf-8",
+                Accept: "application/json",
+                Authorization: "Bearer " + x_getToken(),
+              },
+              body: JSON.stringify(e),
+            })
+              .then((i) => i.json())
+              .then((i) => {
+                200 === i.code ? this.getUsers() : this.showAlert("Adding error!"),
+                  (this.user = "");
+              })
+              .catch((i) => {
+                this.showAlert(i);
+              });
+          }
+          editUser() {
+            let e = { id: this.checkedUser, name: this.user };
+            fetch("https://localhost:44381/api/users/edituser", {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json; charset=utf-8",
+                Accept: "application/json",
+                Authorization: "Bearer " + x_getToken(),
+              },
+              body: JSON.stringify(e),
+            })
+              .then((i) => i.json())
+              .then((i) => {
+                200 === i.code ? this.getUsers() : this.showAlert("Editing error!"),
+                  (this.user = "");
+              })
+              .catch((i) => {
+                this.showAlert(i);
+              });
+          }
+          deleteUser() {
+            let e = { id: this.checkedUser, name: this.user };
+            fetch("https://localhost:44381/api/users/deleteuser", {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json; charset=utf-8",
+                Accept: "application/json",
+                Authorization: "Bearer " + x_getToken(),
+              },
+              body: JSON.stringify(e),
+            })
+              .then((i) => i.json())
+              .then((i) => {
+                200 === i.code ? this.getUsers() : this.showAlert("Editing error!"),
+                  (this.user = "");
+              })
+              .catch((i) => {
+                this.showAlert(i);
+              });
+          }
+          getUsers() {
+            fetch("https://localhost:44381/api/users/getusers", {
+              method: "GET",
+            })
+              .then((e) => e.json())
+              .then((e) => {
+                200 === e.code
+                  ? (this.users = e.users)
+                  : this.showAlert("Fetch error!");
+              })
+              .catch((e) => {
+                this.showAlert(e);
+              });
+          }
+          setUser(e, i) {
+            var o, a;
+            (this.checkedUser = e),
+              (this.user = i),
+              null === (o = document.getElementById("editButton")) ||
+              void 0 === o ||
+              o.removeAttribute("disabled"),
+              null === (a = document.getElementById("deleteButton")) ||
+              void 0 === a ||
+              a.removeAttribute("disabled");
+          }
+          ngOnInit() {
+            this.getUsers();
+          }
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)();
+          }),
+          (t.ɵcmp = N({
+            type: t,
+            selectors: [["app-users-list"]],
+            decls: 99,
+            vars: 1,
+            consts: [
+              [1, "row"],
+              [
+                "role",
+                "group",
+                "aria-label",
+                "Basic example",
+                1,
+                "btn-group",
               ],
-              template: function (e, i) {
-                1 & e &&
-                  (r(0, "div", 0),
+              [
+                "type",
+                "button",
+                "data-bs-toggle",
+                "modal",
+                "data-bs-target",
+                "#add",
+                1,
+                "btn",
+                "btn-dark",
+              ],
+              [
+                "type",
+                "button",
+                "id",
+                "editButton",
+                "data-bs-toggle",
+                "modal",
+                "data-bs-target",
+                "#edit",
+                "disabled",
+                "",
+                1,
+                "btn",
+                "btn-dark",
+              ],
+              [
+                "type",
+                "button",
+                "id",
+                "deleteButton",
+                "data-bs-toggle",
+                "modal",
+                "data-bs-target",
+                "#delete",
+                "disabled",
+                "",
+                1,
+                "btn",
+                "btn-dark",
+              ],
+              [
+                "id",
+                "add",
+                "data-bs-backdrop",
+                "static",
+                "data-bs-keyboard",
+                "false",
+                "tabindex",
+                "-1",
+                "aria-labelledby",
+                "addLabel",
+                "aria-hidden",
+                "true",
+                1,
+                "modal",
+                "fade",
+              ],
+              [1, "modal-dialog"],
+              [1, "modal-content"],
+              [1, "modal-header"],
+              ["id", "addLabel", 1, "modal-title"],
+              [
+                "type",
+                "button",
+                "data-bs-dismiss",
+                "modal",
+                "aria-label",
+                "Close",
+                1,
+                "btn-close",
+              ],
+              [1, "modal-body"],
+              [1, "mb-3"],
+              ["for", "newRole", 1, "form-label"],
+              [
+                "type",
+                "text",
+                "id",
+                "newRole",
+                "aria-describedby",
+                "emailHelp",
+                1,
+                "form-control",
+              ],
+              [1, "modal-footer"],
+              [
+                "type",
+                "button",
+                "data-bs-dismiss",
+                "modal",
+                1,
+                "btn",
+                "btn-secondary",
+              ],
+              ["type", "button", 1, "btn", "btn-primary"],
+              [
+                "id",
+                "edit",
+                "data-bs-backdrop",
+                "static",
+                "data-bs-keyboard",
+                "false",
+                "tabindex",
+                "-1",
+                "aria-labelledby",
+                "editLabel",
+                "aria-hidden",
+                "true",
+                1,
+                "modal",
+                "fade",
+              ],
+              ["id", "editLabel", 1, "modal-title"],
+              ["for", "editRole", 1, "form-label"],
+              [
+                "type",
+                "text",
+                "id",
+                "editRole",
+                "aria-describedby",
+                "emailHelp",
+                1,
+                "form-control",
+              ],
+              [
+                "id",
+                "delete",
+                "data-bs-backdrop",
+                "static",
+                "data-bs-keyboard",
+                "false",
+                "tabindex",
+                "-1",
+                "aria-labelledby",
+                "deleteLabel",
+                "aria-hidden",
+                "true",
+                1,
+                "modal",
+                "fade",
+              ],
+              ["id", "deleteLabel", 1, "modal-title"],
+              ["for", "deleteRole", 1, "form-label"],
+              [
+                "type",
+                "text",
+                "id",
+                "deleteRole",
+                "aria-describedby",
+                "emailHelp",
+                1,
+                "form-control",
+              ],
+              [
+                "type",
+                "button",
+                "data-bs-dismiss",
+                "modal",
+                1,
+                "btn",
+                "btn-danger",
+              ],
+              [1, "table", "table-dark", "table-bordered", "border-white"],
+              ["scope", "col text-center align-self-center"],
+              ["scope", "col align-top"],
+              ["scope", "col"],
+              [4, "ngFor", "ngForOf"],
+              ["scope", "row"],
+              [1, "form-check"],
+              [
+                "type",
+                "radio",
+                "name",
+                "roleRadio",
+                "id",
+                "roleRadio",
+                1,
+                "form-check-input",
+                3,
+                "value",
+                "click",
+              ],
+            ],
+            template: function (e, i) {
+              1 & e &&
+                (r(0, "div", 0),
                   r(1, "div", 1),
                   r(2, "button", 2),
                   c(3, "Add"),
@@ -17915,14 +17907,14 @@
                   v(98, hA, 36, 17, "tr", 31),
                   s(),
                   s()),
-                  2 & e && (_(98), C("ngForOf", i.users));
-              },
-              directives: [fn, pn, gn, H],
-              styles: [""],
-            })),
-            t
-          );
-        })(),
+                2 & e && (_(98), C("ngForOf", i.users));
+            },
+            directives: [fn, pn, gn, H],
+            styles: [""],
+          })),
+          t
+        );
+      })(),
         gA = (() => {
           class t {
             constructor() {
@@ -17943,11 +17935,11 @@
               })
                 .then((i) => i.json())
                 .then((i) => {
-                  200 === i.code ? this.getProfiles() : alert("Adding error!"),
+                  200 === i.code ? this.getProfiles() : this.showAlert("Adding error!"),
                     (this.profile = "");
                 })
                 .catch((i) => {
-                  alert(i);
+                  this.showAlert(i);
                 });
             }
             editProfile() {
@@ -17963,11 +17955,11 @@
               })
                 .then((i) => i.json())
                 .then((i) => {
-                  200 === i.code ? this.getProfiles() : alert("Editing error!"),
+                  200 === i.code ? this.getProfiles() : this.showAlert("Editing error!"),
                     (this.profile = "");
                 })
                 .catch((i) => {
-                  alert(i);
+                  this.showAlert(i);
                 });
             }
             deleteProfile() {
@@ -17983,11 +17975,11 @@
               })
                 .then((i) => i.json())
                 .then((i) => {
-                  200 === i.code ? this.getProfiles() : alert("Editing error!"),
+                  200 === i.code ? this.getProfiles() : this.showAlert("Editing error!"),
                     (this.profile = "");
                 })
                 .catch((i) => {
-                  alert(i);
+                  this.showAlert(i);
                 });
             }
             getProfiles() {
@@ -17998,10 +17990,10 @@
                 .then((e) => {
                   200 === e.code
                     ? (this.profiles = e.profiles)
-                    : alert("Fetch error!");
+                    : this.showAlert("Fetch error!");
                 })
                 .catch((e) => {
-                  alert(e);
+                  this.showAlert(e);
                 });
             }
             setProfile(e, i) {
@@ -18009,11 +18001,11 @@
               (this.checkedProfile = e),
                 (this.profile = i),
                 null === (o = document.getElementById("editButton")) ||
-                  void 0 === o ||
-                  o.removeAttribute("disabled"),
+                void 0 === o ||
+                o.removeAttribute("disabled"),
                 null === (a = document.getElementById("deleteButton")) ||
-                  void 0 === a ||
-                  a.removeAttribute("disabled");
+                void 0 === a ||
+                a.removeAttribute("disabled");
             }
             ngOnInit() {
               this.getProfiles();
@@ -18162,87 +18154,87 @@
               template: function (e, i) {
                 1 & e &&
                   (r(0, "div", 0),
-                  r(1, "div", 1),
-                  r(2, "button", 2),
-                  c(3, "Add"),
-                  s(),
-                  r(4, "button", 3),
-                  c(5, "Edit"),
-                  s(),
-                  r(6, "button", 4),
-                  c(7, "Delete"),
-                  s(),
-                  s(),
-                  s(),
-                  r(8, "div", 5),
-                  r(9, "div", 6),
-                  r(10, "div", 7),
-                  r(11, "div", 8),
-                  r(12, "h5", 9),
-                  c(13, "Modal title"),
-                  s(),
-                  g(14, "button", 10),
-                  s(),
-                  r(15, "div", 11),
-                  c(16, " ... "),
-                  s(),
-                  r(17, "div", 12),
-                  r(18, "button", 13),
-                  c(19, "Close"),
-                  s(),
-                  r(20, "button", 14),
-                  c(21, "Understood"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(22, "div", 15),
-                  r(23, "div", 6),
-                  r(24, "div", 7),
-                  r(25, "div", 8),
-                  r(26, "h5", 16),
-                  c(27, "Modal title"),
-                  s(),
-                  g(28, "button", 10),
-                  s(),
-                  r(29, "div", 11),
-                  c(30, " ... "),
-                  s(),
-                  r(31, "div", 12),
-                  r(32, "button", 13),
-                  c(33, "Close"),
-                  s(),
-                  r(34, "button", 14),
-                  c(35, "Understood"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(36, "div", 17),
-                  r(37, "div", 6),
-                  r(38, "div", 7),
-                  r(39, "div", 8),
-                  r(40, "h5", 18),
-                  c(41, "Modal title"),
-                  s(),
-                  g(42, "button", 10),
-                  s(),
-                  r(43, "div", 11),
-                  c(44, " ... "),
-                  s(),
-                  r(45, "div", 12),
-                  r(46, "button", 13),
-                  c(47, "Close"),
-                  s(),
-                  r(48, "button", 14),
-                  c(49, "Understood"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s());
+                    r(1, "div", 1),
+                    r(2, "button", 2),
+                    c(3, "Add"),
+                    s(),
+                    r(4, "button", 3),
+                    c(5, "Edit"),
+                    s(),
+                    r(6, "button", 4),
+                    c(7, "Delete"),
+                    s(),
+                    s(),
+                    s(),
+                    r(8, "div", 5),
+                    r(9, "div", 6),
+                    r(10, "div", 7),
+                    r(11, "div", 8),
+                    r(12, "h5", 9),
+                    c(13, "Modal title"),
+                    s(),
+                    g(14, "button", 10),
+                    s(),
+                    r(15, "div", 11),
+                    c(16, " ... "),
+                    s(),
+                    r(17, "div", 12),
+                    r(18, "button", 13),
+                    c(19, "Close"),
+                    s(),
+                    r(20, "button", 14),
+                    c(21, "Understood"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(22, "div", 15),
+                    r(23, "div", 6),
+                    r(24, "div", 7),
+                    r(25, "div", 8),
+                    r(26, "h5", 16),
+                    c(27, "Modal title"),
+                    s(),
+                    g(28, "button", 10),
+                    s(),
+                    r(29, "div", 11),
+                    c(30, " ... "),
+                    s(),
+                    r(31, "div", 12),
+                    r(32, "button", 13),
+                    c(33, "Close"),
+                    s(),
+                    r(34, "button", 14),
+                    c(35, "Understood"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(36, "div", 17),
+                    r(37, "div", 6),
+                    r(38, "div", 7),
+                    r(39, "div", 8),
+                    r(40, "h5", 18),
+                    c(41, "Modal title"),
+                    s(),
+                    g(42, "button", 10),
+                    s(),
+                    r(43, "div", 11),
+                    c(44, " ... "),
+                    s(),
+                    r(45, "div", 12),
+                    r(46, "button", 13),
+                    c(47, "Close"),
+                    s(),
+                    r(48, "button", 14),
+                    c(49, "Understood"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s());
               },
               styles: [""],
             })),
@@ -18289,11 +18281,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getUsers() : alert("Adding error!"),
+                200 === i.code ? this.getUsers() : this.showAlert("Adding error!"),
                   (this.user = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editUser() {
@@ -18309,11 +18301,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getUsers() : alert("Editing error!"),
+                200 === i.code ? this.getUsers() : this.showAlert("Editing error!"),
                   (this.user = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteUser() {
@@ -18329,11 +18321,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getUsers() : alert("Editing error!"),
+                200 === i.code ? this.getUsers() : this.showAlert("Editing error!"),
                   (this.user = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getUsers() {
@@ -18342,10 +18334,10 @@
             })
               .then((e) => e.json())
               .then((e) => {
-                200 === e.code ? (this.users = e.users) : alert("Fetch error!");
+                200 === e.code ? (this.users = e.users) : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setUser(e, i) {
@@ -18353,11 +18345,11 @@
             (this.checkedUser = e),
               (this.user = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getUsers();
@@ -18518,102 +18510,102 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Role"),
-                s(),
-                s(),
-                s(),
-                r(57, "tbody"),
-                v(58, fA, 5, 1, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Role"),
+                  s(),
+                  s(),
+                  s(),
+                  r(57, "tbody"),
+                  v(58, fA, 5, 1, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(58), C("ngForOf", i.users));
             },
             directives: [H],
@@ -18664,11 +18656,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getRoles() : alert("Adding error!"),
+                200 === i.code ? this.getRoles() : this.showAlert("Adding error!"),
                   (this.role = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editRole() {
@@ -18684,12 +18676,12 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getRoles() : alert("Editing error!"),
+                200 === i.code ? this.getRoles() : this.showAlert("Editing error!"),
                   console.log(i),
                   (this.role = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteRole() {
@@ -18705,12 +18697,12 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getRoles() : alert("Editing error!"),
+                200 === i.code ? this.getRoles() : this.showAlert("Editing error!"),
                   console.log(e),
                   (this.role = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getRoles() {
@@ -18719,10 +18711,10 @@
             })
               .then((e) => e.json())
               .then((e) => {
-                200 === e.code ? (this.roles = e.roles) : alert("Fetch error!");
+                200 === e.code ? (this.roles = e.roles) : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setRole(e, i) {
@@ -18730,11 +18722,11 @@
             (this.checkedRole = e),
               (this.role = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getRoles();
@@ -18967,146 +18959,146 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Add role"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                r(16, "form"),
-                r(17, "div", 12),
-                r(18, "label", 13),
-                c(19, "New role"),
-                s(),
-                r(20, "input", 14),
-                M("ngModelChange", function (a) {
-                  return (i.role = a);
-                }),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(21, "div", 15),
-                r(22, "button", 16),
-                M("click", function () {
-                  return i.addRole();
-                }),
-                c(23, "Save"),
-                s(),
-                r(24, "button", 17),
-                c(25, "Close"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(26, "div", 18),
-                r(27, "div", 6),
-                r(28, "div", 7),
-                r(29, "div", 8),
-                r(30, "h5", 19),
-                c(31, "Edit role"),
-                s(),
-                g(32, "button", 10),
-                s(),
-                r(33, "div", 11),
-                r(34, "form"),
-                r(35, "div", 12),
-                r(36, "label", 20),
-                c(37, "Role"),
-                s(),
-                r(38, "input", 21),
-                M("ngModelChange", function (a) {
-                  return (i.role = a);
-                }),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(39, "div", 15),
-                r(40, "button", 16),
-                M("click", function () {
-                  return i.editRole();
-                }),
-                c(41, "Save"),
-                s(),
-                r(42, "button", 17),
-                c(43, "Close"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(44, "div", 22),
-                r(45, "div", 6),
-                r(46, "div", 7),
-                r(47, "div", 8),
-                r(48, "h5", 23),
-                c(49, "Delete role"),
-                s(),
-                g(50, "button", 10),
-                s(),
-                r(51, "div", 11),
-                r(52, "form"),
-                r(53, "div", 12),
-                r(54, "label", 24),
-                c(55, "Role"),
-                s(),
-                r(56, "input", 25),
-                M("ngModelChange", function (a) {
-                  return (i.role = a);
-                }),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(57, "div", 15),
-                r(58, "button", 26),
-                M("click", function () {
-                  return i.deleteRole();
-                }),
-                c(59, "Delete"),
-                s(),
-                r(60, "button", 17),
-                c(61, "Cancel"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(62, "table", 27),
-                r(63, "thead"),
-                r(64, "tr"),
-                r(65, "th", 28),
-                c(66, "#"),
-                s(),
-                r(67, "th", 29),
-                c(68, "Role"),
-                s(),
-                s(),
-                s(),
-                r(69, "tbody"),
-                v(70, mA, 6, 2, "tr", 30),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Add role"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  r(16, "form"),
+                  r(17, "div", 12),
+                  r(18, "label", 13),
+                  c(19, "New role"),
+                  s(),
+                  r(20, "input", 14),
+                  M("ngModelChange", function (a) {
+                    return (i.role = a);
+                  }),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(21, "div", 15),
+                  r(22, "button", 16),
+                  M("click", function () {
+                    return i.addRole();
+                  }),
+                  c(23, "Save"),
+                  s(),
+                  r(24, "button", 17),
+                  c(25, "Close"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(26, "div", 18),
+                  r(27, "div", 6),
+                  r(28, "div", 7),
+                  r(29, "div", 8),
+                  r(30, "h5", 19),
+                  c(31, "Edit role"),
+                  s(),
+                  g(32, "button", 10),
+                  s(),
+                  r(33, "div", 11),
+                  r(34, "form"),
+                  r(35, "div", 12),
+                  r(36, "label", 20),
+                  c(37, "Role"),
+                  s(),
+                  r(38, "input", 21),
+                  M("ngModelChange", function (a) {
+                    return (i.role = a);
+                  }),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(39, "div", 15),
+                  r(40, "button", 16),
+                  M("click", function () {
+                    return i.editRole();
+                  }),
+                  c(41, "Save"),
+                  s(),
+                  r(42, "button", 17),
+                  c(43, "Close"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(44, "div", 22),
+                  r(45, "div", 6),
+                  r(46, "div", 7),
+                  r(47, "div", 8),
+                  r(48, "h5", 23),
+                  c(49, "Delete role"),
+                  s(),
+                  g(50, "button", 10),
+                  s(),
+                  r(51, "div", 11),
+                  r(52, "form"),
+                  r(53, "div", 12),
+                  r(54, "label", 24),
+                  c(55, "Role"),
+                  s(),
+                  r(56, "input", 25),
+                  M("ngModelChange", function (a) {
+                    return (i.role = a);
+                  }),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(57, "div", 15),
+                  r(58, "button", 26),
+                  M("click", function () {
+                    return i.deleteRole();
+                  }),
+                  c(59, "Delete"),
+                  s(),
+                  r(60, "button", 17),
+                  c(61, "Cancel"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(62, "table", 27),
+                  r(63, "thead"),
+                  r(64, "tr"),
+                  r(65, "th", 28),
+                  c(66, "#"),
+                  s(),
+                  r(67, "th", 29),
+                  c(68, "Role"),
+                  s(),
+                  s(),
+                  s(),
+                  r(69, "tbody"),
+                  v(70, mA, 6, 2, "tr", 30),
+                  s(),
+                  s()),
                 2 & e &&
-                  (_(20),
+                (_(20),
                   C("ngModel", i.role),
                   _(18),
                   C("ngModel", i.role),
@@ -19167,11 +19159,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getGenders() : alert("Adding error!"),
+                200 === i.code ? this.getGenders() : this.showAlert("Adding error!"),
                   (this.gender = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editGender() {
@@ -19187,11 +19179,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getGenders() : alert("Editing error!"),
+                200 === i.code ? this.getGenders() : this.showAlert("Editing error!"),
                   (this.gender = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteGender() {
@@ -19207,11 +19199,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getGenders() : alert("Editing error!"),
+                200 === i.code ? this.getGenders() : this.showAlert("Editing error!"),
                   (this.gender = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getGenders() {
@@ -19222,10 +19214,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.genders = e.genders)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setGender(e, i) {
@@ -19233,11 +19225,11 @@
             (this.checkedGender = e),
               (this.gender = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getGenders();
@@ -19470,146 +19462,146 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Add gender"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                r(16, "form"),
-                r(17, "div", 12),
-                r(18, "label", 13),
-                c(19, "New gender"),
-                s(),
-                r(20, "input", 14),
-                M("ngModelChange", function (a) {
-                  return (i.gender = a);
-                }),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(21, "div", 15),
-                r(22, "button", 16),
-                M("click", function () {
-                  return i.addGender();
-                }),
-                c(23, "Save"),
-                s(),
-                r(24, "button", 17),
-                c(25, "Close"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(26, "div", 18),
-                r(27, "div", 6),
-                r(28, "div", 7),
-                r(29, "div", 8),
-                r(30, "h5", 19),
-                c(31, "Edit gender"),
-                s(),
-                g(32, "button", 10),
-                s(),
-                r(33, "div", 11),
-                r(34, "form"),
-                r(35, "div", 12),
-                r(36, "label", 20),
-                c(37, "Gender"),
-                s(),
-                r(38, "input", 21),
-                M("ngModelChange", function (a) {
-                  return (i.gender = a);
-                }),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(39, "div", 15),
-                r(40, "button", 16),
-                M("click", function () {
-                  return i.editGender();
-                }),
-                c(41, "Save"),
-                s(),
-                r(42, "button", 17),
-                c(43, "Close"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(44, "div", 22),
-                r(45, "div", 6),
-                r(46, "div", 7),
-                r(47, "div", 8),
-                r(48, "h5", 23),
-                c(49, "Delete gender"),
-                s(),
-                g(50, "button", 10),
-                s(),
-                r(51, "div", 11),
-                r(52, "form"),
-                r(53, "div", 12),
-                r(54, "label", 24),
-                c(55, "Gender"),
-                s(),
-                r(56, "input", 25),
-                M("ngModelChange", function (a) {
-                  return (i.gender = a);
-                }),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(57, "div", 15),
-                r(58, "button", 26),
-                M("click", function () {
-                  return i.deleteGender();
-                }),
-                c(59, "Delete"),
-                s(),
-                r(60, "button", 17),
-                c(61, "Cancel"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(62, "table", 27),
-                r(63, "thead"),
-                r(64, "tr"),
-                r(65, "th", 28),
-                c(66, "#"),
-                s(),
-                r(67, "th", 29),
-                c(68, "Gender"),
-                s(),
-                s(),
-                s(),
-                r(69, "tbody"),
-                v(70, yA, 6, 2, "tr", 30),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Add gender"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  r(16, "form"),
+                  r(17, "div", 12),
+                  r(18, "label", 13),
+                  c(19, "New gender"),
+                  s(),
+                  r(20, "input", 14),
+                  M("ngModelChange", function (a) {
+                    return (i.gender = a);
+                  }),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(21, "div", 15),
+                  r(22, "button", 16),
+                  M("click", function () {
+                    return i.addGender();
+                  }),
+                  c(23, "Save"),
+                  s(),
+                  r(24, "button", 17),
+                  c(25, "Close"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(26, "div", 18),
+                  r(27, "div", 6),
+                  r(28, "div", 7),
+                  r(29, "div", 8),
+                  r(30, "h5", 19),
+                  c(31, "Edit gender"),
+                  s(),
+                  g(32, "button", 10),
+                  s(),
+                  r(33, "div", 11),
+                  r(34, "form"),
+                  r(35, "div", 12),
+                  r(36, "label", 20),
+                  c(37, "Gender"),
+                  s(),
+                  r(38, "input", 21),
+                  M("ngModelChange", function (a) {
+                    return (i.gender = a);
+                  }),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(39, "div", 15),
+                  r(40, "button", 16),
+                  M("click", function () {
+                    return i.editGender();
+                  }),
+                  c(41, "Save"),
+                  s(),
+                  r(42, "button", 17),
+                  c(43, "Close"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(44, "div", 22),
+                  r(45, "div", 6),
+                  r(46, "div", 7),
+                  r(47, "div", 8),
+                  r(48, "h5", 23),
+                  c(49, "Delete gender"),
+                  s(),
+                  g(50, "button", 10),
+                  s(),
+                  r(51, "div", 11),
+                  r(52, "form"),
+                  r(53, "div", 12),
+                  r(54, "label", 24),
+                  c(55, "Gender"),
+                  s(),
+                  r(56, "input", 25),
+                  M("ngModelChange", function (a) {
+                    return (i.gender = a);
+                  }),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(57, "div", 15),
+                  r(58, "button", 26),
+                  M("click", function () {
+                    return i.deleteGender();
+                  }),
+                  c(59, "Delete"),
+                  s(),
+                  r(60, "button", 17),
+                  c(61, "Cancel"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(62, "table", 27),
+                  r(63, "thead"),
+                  r(64, "tr"),
+                  r(65, "th", 28),
+                  c(66, "#"),
+                  s(),
+                  r(67, "th", 29),
+                  c(68, "Gender"),
+                  s(),
+                  s(),
+                  s(),
+                  r(69, "tbody"),
+                  v(70, yA, 6, 2, "tr", 30),
+                  s(),
+                  s()),
                 2 & e &&
-                  (_(20),
+                (_(20),
                   C("ngModel", i.gender),
                   _(18),
                   C("ngModel", i.gender),
@@ -19627,273 +19619,273 @@
       function CA(t, n) {
         1 & t &&
           (r(0, "tr"),
-          r(1, "th", 23),
-          r(2, "div", 24),
-          g(3, "input", 25),
-          s(),
-          s(),
-          g(4, "td"),
-          s());
+            r(1, "th", 23),
+            r(2, "div", 24),
+            g(3, "input", 25),
+            s(),
+            s(),
+            g(4, "td"),
+            s());
       }
       let wA = (() => {
-          class t {
-            constructor() {
-              (this.favorites = null),
-                (this.favorite = null),
-                (this.checkedFavorite = null);
-            }
-            addFavorite() {
-              let e = { name: this.favorite };
-              fetch("https://localhost:44381/api/favorites/addfavorite", {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json; charset=utf-8",
-                  Accept: "application/json",
-                  Authorization: "Bearer " + x_getToken(),
-                },
-                body: JSON.stringify(e),
-              })
-                .then((i) => i.json())
-                .then((i) => {
-                  200 === i.code ? this.getFavorites() : alert("Adding error!"),
-                    (this.favorite = "");
-                })
-                .catch((i) => {
-                  alert(i);
-                });
-            }
-            editFavorite() {
-              let e = { id: this.checkedFavorite, name: this.favorite };
-              fetch("https://localhost:44381/api/favorites/editfavorite", {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json; charset=utf-8",
-                  Accept: "application/json",
-                  Authorization: "Bearer " + x_getToken(),
-                },
-                body: JSON.stringify(e),
-              })
-                .then((i) => i.json())
-                .then((i) => {
-                  200 === i.code
-                    ? this.getFavorites()
-                    : alert("Editing error!"),
-                    (this.favorite = "");
-                })
-                .catch((i) => {
-                  alert(i);
-                });
-            }
-            deleteFavorite() {
-              let e = { id: this.checkedFavorite, name: this.favorite };
-              fetch("https://localhost:44381/api/favorites/deletefavorite", {
-                method: "DELETE",
-                headers: {
-                  "Content-Type": "application/json; charset=utf-8",
-                  Accept: "application/json",
-                  Authorization: "Bearer " + x_getToken(),
-                },
-                body: JSON.stringify(e),
-              })
-                .then((i) => i.json())
-                .then((i) => {
-                  200 === i.code
-                    ? this.getFavorites()
-                    : alert("Editing error!"),
-                    (this.favorite = "");
-                })
-                .catch((i) => {
-                  alert(i);
-                });
-            }
-            getFavorites() {
-              fetch("https://localhost:44381/api/favorites/getfavorites", {
-                method: "GET",
-              })
-                .then((e) => e.json())
-                .then((e) => {
-                  200 === e.code
-                    ? (this.favorites = e.favorites)
-                    : alert("Fetch error!");
-                })
-                .catch((e) => {
-                  alert(e);
-                });
-            }
-            setFavorite(e, i) {
-              var o, a;
-              (this.checkedFavorite = e),
-                (this.favorite = i),
-                null === (o = document.getElementById("editButton")) ||
-                  void 0 === o ||
-                  o.removeAttribute("disabled"),
-                null === (a = document.getElementById("deleteButton")) ||
-                  void 0 === a ||
-                  a.removeAttribute("disabled");
-            }
-            ngOnInit() {
-              this.getFavorites();
-            }
+        class t {
+          constructor() {
+            (this.favorites = null),
+              (this.favorite = null),
+              (this.checkedFavorite = null);
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)();
-            }),
-            (t.ɵcmp = N({
-              type: t,
-              selectors: [["app-favorites-list"]],
-              decls: 59,
-              vars: 1,
-              consts: [
-                [1, "row"],
-                [
-                  "role",
-                  "group",
-                  "aria-label",
-                  "Basic example",
-                  1,
-                  "btn-group",
-                ],
-                [
-                  "type",
-                  "button",
-                  "data-bs-toggle",
-                  "modal",
-                  "data-bs-target",
-                  "#add",
-                  1,
-                  "btn",
-                  "btn-dark",
-                ],
-                [
-                  "type",
-                  "button",
-                  "id",
-                  "editButton",
-                  "data-bs-toggle",
-                  "modal",
-                  "data-bs-target",
-                  "#edit",
-                  "disabled",
-                  "",
-                  1,
-                  "btn",
-                  "btn-dark",
-                ],
-                [
-                  "type",
-                  "button",
-                  "id",
-                  "deleteButton",
-                  "data-bs-toggle",
-                  "modal",
-                  "data-bs-target",
-                  "#delete",
-                  "disabled",
-                  "",
-                  1,
-                  "btn",
-                  "btn-dark",
-                ],
-                [
-                  "id",
-                  "add",
-                  "data-bs-backdrop",
-                  "static",
-                  "data-bs-keyboard",
-                  "false",
-                  "tabindex",
-                  "-1",
-                  "aria-labelledby",
-                  "addLabel",
-                  "aria-hidden",
-                  "true",
-                  1,
-                  "modal",
-                  "fade",
-                ],
-                [1, "modal-dialog"],
-                [1, "modal-content"],
-                [1, "modal-header"],
-                ["id", "addLabel", 1, "modal-title"],
-                [
-                  "type",
-                  "button",
-                  "data-bs-dismiss",
-                  "modal",
-                  "aria-label",
-                  "Close",
-                  1,
-                  "btn-close",
-                ],
-                [1, "modal-body"],
-                [1, "modal-footer"],
-                [
-                  "type",
-                  "button",
-                  "data-bs-dismiss",
-                  "modal",
-                  1,
-                  "btn",
-                  "btn-secondary",
-                ],
-                ["type", "button", 1, "btn", "btn-primary"],
-                [
-                  "id",
-                  "edit",
-                  "data-bs-backdrop",
-                  "static",
-                  "data-bs-keyboard",
-                  "false",
-                  "tabindex",
-                  "-1",
-                  "aria-labelledby",
-                  "editLabel",
-                  "aria-hidden",
-                  "true",
-                  1,
-                  "modal",
-                  "fade",
-                ],
-                ["id", "editLabel", 1, "modal-title"],
-                [
-                  "id",
-                  "delete",
-                  "data-bs-backdrop",
-                  "static",
-                  "data-bs-keyboard",
-                  "false",
-                  "tabindex",
-                  "-1",
-                  "aria-labelledby",
-                  "deleteLabel",
-                  "aria-hidden",
-                  "true",
-                  1,
-                  "modal",
-                  "fade",
-                ],
-                ["id", "deleteLabel", 1, "modal-title"],
-                [1, "table", "table-dark", "table-bordered", "border-white"],
-                ["scope", "col text-center align-self-center"],
-                ["scope", "col"],
-                [4, "ngFor", "ngForOf"],
-                ["scope", "row"],
-                [1, "form-check"],
-                [
-                  "type",
-                  "checkbox",
-                  "value",
-                  "",
-                  "id",
-                  "flexCheckDefault",
-                  1,
-                  "form-check-input",
-                ],
+          addFavorite() {
+            let e = { name: this.favorite };
+            fetch("https://localhost:44381/api/favorites/addfavorite", {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json; charset=utf-8",
+                Accept: "application/json",
+                Authorization: "Bearer " + x_getToken(),
+              },
+              body: JSON.stringify(e),
+            })
+              .then((i) => i.json())
+              .then((i) => {
+                200 === i.code ? this.getFavorites() : this.showAlert("Adding error!"),
+                  (this.favorite = "");
+              })
+              .catch((i) => {
+                this.showAlert(i);
+              });
+          }
+          editFavorite() {
+            let e = { id: this.checkedFavorite, name: this.favorite };
+            fetch("https://localhost:44381/api/favorites/editfavorite", {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json; charset=utf-8",
+                Accept: "application/json",
+                Authorization: "Bearer " + x_getToken(),
+              },
+              body: JSON.stringify(e),
+            })
+              .then((i) => i.json())
+              .then((i) => {
+                200 === i.code
+                  ? this.getFavorites()
+                  : this.showAlert("Editing error!"),
+                  (this.favorite = "");
+              })
+              .catch((i) => {
+                this.showAlert(i);
+              });
+          }
+          deleteFavorite() {
+            let e = { id: this.checkedFavorite, name: this.favorite };
+            fetch("https://localhost:44381/api/favorites/deletefavorite", {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json; charset=utf-8",
+                Accept: "application/json",
+                Authorization: "Bearer " + x_getToken(),
+              },
+              body: JSON.stringify(e),
+            })
+              .then((i) => i.json())
+              .then((i) => {
+                200 === i.code
+                  ? this.getFavorites()
+                  : this.showAlert("Editing error!"),
+                  (this.favorite = "");
+              })
+              .catch((i) => {
+                this.showAlert(i);
+              });
+          }
+          getFavorites() {
+            fetch("https://localhost:44381/api/favorites/getfavorites", {
+              method: "GET",
+            })
+              .then((e) => e.json())
+              .then((e) => {
+                200 === e.code
+                  ? (this.favorites = e.favorites)
+                  : this.showAlert("Fetch error!");
+              })
+              .catch((e) => {
+                this.showAlert(e);
+              });
+          }
+          setFavorite(e, i) {
+            var o, a;
+            (this.checkedFavorite = e),
+              (this.favorite = i),
+              null === (o = document.getElementById("editButton")) ||
+              void 0 === o ||
+              o.removeAttribute("disabled"),
+              null === (a = document.getElementById("deleteButton")) ||
+              void 0 === a ||
+              a.removeAttribute("disabled");
+          }
+          ngOnInit() {
+            this.getFavorites();
+          }
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)();
+          }),
+          (t.ɵcmp = N({
+            type: t,
+            selectors: [["app-favorites-list"]],
+            decls: 59,
+            vars: 1,
+            consts: [
+              [1, "row"],
+              [
+                "role",
+                "group",
+                "aria-label",
+                "Basic example",
+                1,
+                "btn-group",
               ],
-              template: function (e, i) {
-                1 & e &&
-                  (r(0, "div", 0),
+              [
+                "type",
+                "button",
+                "data-bs-toggle",
+                "modal",
+                "data-bs-target",
+                "#add",
+                1,
+                "btn",
+                "btn-dark",
+              ],
+              [
+                "type",
+                "button",
+                "id",
+                "editButton",
+                "data-bs-toggle",
+                "modal",
+                "data-bs-target",
+                "#edit",
+                "disabled",
+                "",
+                1,
+                "btn",
+                "btn-dark",
+              ],
+              [
+                "type",
+                "button",
+                "id",
+                "deleteButton",
+                "data-bs-toggle",
+                "modal",
+                "data-bs-target",
+                "#delete",
+                "disabled",
+                "",
+                1,
+                "btn",
+                "btn-dark",
+              ],
+              [
+                "id",
+                "add",
+                "data-bs-backdrop",
+                "static",
+                "data-bs-keyboard",
+                "false",
+                "tabindex",
+                "-1",
+                "aria-labelledby",
+                "addLabel",
+                "aria-hidden",
+                "true",
+                1,
+                "modal",
+                "fade",
+              ],
+              [1, "modal-dialog"],
+              [1, "modal-content"],
+              [1, "modal-header"],
+              ["id", "addLabel", 1, "modal-title"],
+              [
+                "type",
+                "button",
+                "data-bs-dismiss",
+                "modal",
+                "aria-label",
+                "Close",
+                1,
+                "btn-close",
+              ],
+              [1, "modal-body"],
+              [1, "modal-footer"],
+              [
+                "type",
+                "button",
+                "data-bs-dismiss",
+                "modal",
+                1,
+                "btn",
+                "btn-secondary",
+              ],
+              ["type", "button", 1, "btn", "btn-primary"],
+              [
+                "id",
+                "edit",
+                "data-bs-backdrop",
+                "static",
+                "data-bs-keyboard",
+                "false",
+                "tabindex",
+                "-1",
+                "aria-labelledby",
+                "editLabel",
+                "aria-hidden",
+                "true",
+                1,
+                "modal",
+                "fade",
+              ],
+              ["id", "editLabel", 1, "modal-title"],
+              [
+                "id",
+                "delete",
+                "data-bs-backdrop",
+                "static",
+                "data-bs-keyboard",
+                "false",
+                "tabindex",
+                "-1",
+                "aria-labelledby",
+                "deleteLabel",
+                "aria-hidden",
+                "true",
+                1,
+                "modal",
+                "fade",
+              ],
+              ["id", "deleteLabel", 1, "modal-title"],
+              [1, "table", "table-dark", "table-bordered", "border-white"],
+              ["scope", "col text-center align-self-center"],
+              ["scope", "col"],
+              [4, "ngFor", "ngForOf"],
+              ["scope", "row"],
+              [1, "form-check"],
+              [
+                "type",
+                "checkbox",
+                "value",
+                "",
+                "id",
+                "flexCheckDefault",
+                1,
+                "form-check-input",
+              ],
+            ],
+            template: function (e, i) {
+              1 & e &&
+                (r(0, "div", 0),
                   r(1, "div", 1),
                   r(2, "button", 2),
                   c(3, "Add"),
@@ -19990,14 +19982,14 @@
                   v(58, CA, 5, 0, "tr", 22),
                   s(),
                   s()),
-                  2 & e && (_(58), C("ngForOf", i.favorites));
-              },
-              directives: [H],
-              styles: [""],
-            })),
-            t
-          );
-        })(),
+                2 & e && (_(58), C("ngForOf", i.favorites));
+            },
+            directives: [H],
+            styles: [""],
+          })),
+          t
+        );
+      })(),
         MA = (() => {
           class t {
             constructor() {
@@ -20018,11 +20010,11 @@
               })
                 .then((i) => i.json())
                 .then((i) => {
-                  200 === i.code ? this.getBookings() : alert("Adding error!"),
+                  200 === i.code ? this.getBookings() : this.showAlert("Adding error!"),
                     (this.booking = "");
                 })
                 .catch((i) => {
-                  alert(i);
+                  this.showAlert(i);
                 });
             }
             editBooking() {
@@ -20038,11 +20030,11 @@
               })
                 .then((i) => i.json())
                 .then((i) => {
-                  200 === i.code ? this.getBookings() : alert("Editing error!"),
+                  200 === i.code ? this.getBookings() : this.showAlert("Editing error!"),
                     (this.booking = "");
                 })
                 .catch((i) => {
-                  alert(i);
+                  this.showAlert(i);
                 });
             }
             deleteBooking() {
@@ -20058,11 +20050,11 @@
               })
                 .then((i) => i.json())
                 .then((i) => {
-                  200 === i.code ? this.getBookings() : alert("Editing error!"),
+                  200 === i.code ? this.getBookings() : this.showAlert("Editing error!"),
                     (this.booking = "");
                 })
                 .catch((i) => {
-                  alert(i);
+                  this.showAlert(i);
                 });
             }
             getBookings() {
@@ -20073,10 +20065,10 @@
                 .then((e) => {
                   200 === e.code
                     ? (this.bookings = e.bookings)
-                    : alert("Fetch error!");
+                    : this.showAlert("Fetch error!");
                 })
                 .catch((e) => {
-                  alert(e);
+                  this.showAlert(e);
                 });
             }
             setBooking(e, i) {
@@ -20084,11 +20076,11 @@
               (this.checkedBooking = e),
                 (this.booking = i),
                 null === (o = document.getElementById("editButton")) ||
-                  void 0 === o ||
-                  o.removeAttribute("disabled"),
+                void 0 === o ||
+                o.removeAttribute("disabled"),
                 null === (a = document.getElementById("deleteButton")) ||
-                  void 0 === a ||
-                  a.removeAttribute("disabled");
+                void 0 === a ||
+                a.removeAttribute("disabled");
             }
             ngOnInit() {
               this.getBookings();
@@ -20237,87 +20229,87 @@
               template: function (e, i) {
                 1 & e &&
                   (r(0, "div", 0),
-                  r(1, "div", 1),
-                  r(2, "button", 2),
-                  c(3, "Add"),
-                  s(),
-                  r(4, "button", 3),
-                  c(5, "Edit"),
-                  s(),
-                  r(6, "button", 4),
-                  c(7, "Delete"),
-                  s(),
-                  s(),
-                  s(),
-                  r(8, "div", 5),
-                  r(9, "div", 6),
-                  r(10, "div", 7),
-                  r(11, "div", 8),
-                  r(12, "h5", 9),
-                  c(13, "Modal title"),
-                  s(),
-                  g(14, "button", 10),
-                  s(),
-                  r(15, "div", 11),
-                  c(16, " ... "),
-                  s(),
-                  r(17, "div", 12),
-                  r(18, "button", 13),
-                  c(19, "Close"),
-                  s(),
-                  r(20, "button", 14),
-                  c(21, "Understood"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(22, "div", 15),
-                  r(23, "div", 6),
-                  r(24, "div", 7),
-                  r(25, "div", 8),
-                  r(26, "h5", 16),
-                  c(27, "Modal title"),
-                  s(),
-                  g(28, "button", 10),
-                  s(),
-                  r(29, "div", 11),
-                  c(30, " ... "),
-                  s(),
-                  r(31, "div", 12),
-                  r(32, "button", 13),
-                  c(33, "Close"),
-                  s(),
-                  r(34, "button", 14),
-                  c(35, "Understood"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(36, "div", 17),
-                  r(37, "div", 6),
-                  r(38, "div", 7),
-                  r(39, "div", 8),
-                  r(40, "h5", 18),
-                  c(41, "Modal title"),
-                  s(),
-                  g(42, "button", 10),
-                  s(),
-                  r(43, "div", 11),
-                  c(44, " ... "),
-                  s(),
-                  r(45, "div", 12),
-                  r(46, "button", 13),
-                  c(47, "Close"),
-                  s(),
-                  r(48, "button", 14),
-                  c(49, "Understood"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s());
+                    r(1, "div", 1),
+                    r(2, "button", 2),
+                    c(3, "Add"),
+                    s(),
+                    r(4, "button", 3),
+                    c(5, "Edit"),
+                    s(),
+                    r(6, "button", 4),
+                    c(7, "Delete"),
+                    s(),
+                    s(),
+                    s(),
+                    r(8, "div", 5),
+                    r(9, "div", 6),
+                    r(10, "div", 7),
+                    r(11, "div", 8),
+                    r(12, "h5", 9),
+                    c(13, "Modal title"),
+                    s(),
+                    g(14, "button", 10),
+                    s(),
+                    r(15, "div", 11),
+                    c(16, " ... "),
+                    s(),
+                    r(17, "div", 12),
+                    r(18, "button", 13),
+                    c(19, "Close"),
+                    s(),
+                    r(20, "button", 14),
+                    c(21, "Understood"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(22, "div", 15),
+                    r(23, "div", 6),
+                    r(24, "div", 7),
+                    r(25, "div", 8),
+                    r(26, "h5", 16),
+                    c(27, "Modal title"),
+                    s(),
+                    g(28, "button", 10),
+                    s(),
+                    r(29, "div", 11),
+                    c(30, " ... "),
+                    s(),
+                    r(31, "div", 12),
+                    r(32, "button", 13),
+                    c(33, "Close"),
+                    s(),
+                    r(34, "button", 14),
+                    c(35, "Understood"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(36, "div", 17),
+                    r(37, "div", 6),
+                    r(38, "div", 7),
+                    r(39, "div", 8),
+                    r(40, "h5", 18),
+                    c(41, "Modal title"),
+                    s(),
+                    g(42, "button", 10),
+                    s(),
+                    r(43, "div", 11),
+                    c(44, " ... "),
+                    s(),
+                    r(45, "div", 12),
+                    r(46, "button", 13),
+                    c(47, "Close"),
+                    s(),
+                    r(48, "button", 14),
+                    c(49, "Understood"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s());
               },
               styles: [""],
             })),
@@ -20327,13 +20319,13 @@
       function xA(t, n) {
         1 & t &&
           (r(0, "tr"),
-          r(1, "th", 23),
-          r(2, "div", 24),
-          g(3, "input", 25),
-          s(),
-          s(),
-          g(4, "td"),
-          s());
+            r(1, "th", 23),
+            r(2, "div", 24),
+            g(3, "input", 25),
+            s(),
+            s(),
+            g(4, "td"),
+            s());
       }
       let DA = (() => {
         class t {
@@ -20355,11 +20347,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getBookings() : alert("Adding error!"),
+                200 === i.code ? this.getBookings() : this.showAlert("Adding error!"),
                   (this.booking = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editBooking() {
@@ -20375,11 +20367,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getBookings() : alert("Editing error!"),
+                200 === i.code ? this.getBookings() : this.showAlert("Editing error!"),
                   (this.booking = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteBooking() {
@@ -20395,11 +20387,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getBookings() : alert("Editing error!"),
+                200 === i.code ? this.getBookings() : this.showAlert("Editing error!"),
                   (this.booking = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getBookings() {
@@ -20410,10 +20402,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.bookings = e.bookings)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setBooking(e, i) {
@@ -20421,11 +20413,11 @@
             (this.checkedBooking = e),
               (this.booking = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getBookings();
@@ -20583,102 +20575,102 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Role"),
-                s(),
-                s(),
-                s(),
-                r(57, "tbody"),
-                v(58, xA, 5, 0, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Role"),
+                  s(),
+                  s(),
+                  s(),
+                  r(57, "tbody"),
+                  v(58, xA, 5, 0, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(58), C("ngForOf", i.bookings));
             },
             directives: [H],
@@ -20690,27 +20682,27 @@
       function kA(t, n) {
         1 & t &&
           (r(0, "tr"),
-          r(1, "th", 22),
-          r(2, "div", 23),
-          g(3, "input", 24),
-          s(),
-          s(),
-          g(4, "td"),
-          g(5, "td"),
-          g(6, "td"),
-          g(7, "td"),
-          g(8, "td"),
-          g(9, "td"),
-          g(10, "td"),
-          g(11, "td"),
-          g(12, "td"),
-          g(13, "td"),
-          g(14, "td"),
-          g(15, "td"),
-          g(16, "td"),
-          g(17, "td"),
-          g(18, "td"),
-          s());
+            r(1, "th", 22),
+            r(2, "div", 23),
+            g(3, "input", 24),
+            s(),
+            s(),
+            g(4, "td"),
+            g(5, "td"),
+            g(6, "td"),
+            g(7, "td"),
+            g(8, "td"),
+            g(9, "td"),
+            g(10, "td"),
+            g(11, "td"),
+            g(12, "td"),
+            g(13, "td"),
+            g(14, "td"),
+            g(15, "td"),
+            g(16, "td"),
+            g(17, "td"),
+            g(18, "td"),
+            s());
       }
       let OA = (() => {
         class t {
@@ -20732,11 +20724,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getBookings() : alert("Adding error!"),
+                200 === i.code ? this.getBookings() : this.showAlert("Adding error!"),
                   (this.booking = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editBooking() {
@@ -20752,11 +20744,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getBookings() : alert("Editing error!"),
+                200 === i.code ? this.getBookings() : this.showAlert("Editing error!"),
                   (this.booking = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteBooking() {
@@ -20775,11 +20767,11 @@
             )
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getBookings() : alert("Editing error!"),
+                200 === i.code ? this.getBookings() : this.showAlert("Editing error!"),
                   (this.booking = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getBookings() {
@@ -20790,10 +20782,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.bookings = e.bookings)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setBooking(e, i) {
@@ -20801,11 +20793,11 @@
             (this.checkedBooking = e),
               (this.booking = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getBookings();
@@ -20962,105 +20954,105 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 20),
-                c(56, "Title"),
-                s(),
-                r(57, "th", 20),
-                c(58, "Image"),
-                s(),
-                s(),
-                s(),
-                r(59, "tbody"),
-                v(60, kA, 19, 0, "tr", 21),
-                s(),
-                s());
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 20),
+                  c(56, "Title"),
+                  s(),
+                  r(57, "th", 20),
+                  c(58, "Image"),
+                  s(),
+                  s(),
+                  s(),
+                  r(59, "tbody"),
+                  v(60, kA, 19, 0, "tr", 21),
+                  s(),
+                  s());
             },
             directives: [H],
             styles: [""],
@@ -21071,27 +21063,27 @@
       function TA(t, n) {
         1 & t &&
           (r(0, "tr"),
-          r(1, "th", 22),
-          r(2, "div", 23),
-          g(3, "input", 24),
-          s(),
-          s(),
-          g(4, "td"),
-          g(5, "td"),
-          g(6, "td"),
-          g(7, "td"),
-          g(8, "td"),
-          g(9, "td"),
-          g(10, "td"),
-          g(11, "td"),
-          g(12, "td"),
-          g(13, "td"),
-          g(14, "td"),
-          g(15, "td"),
-          g(16, "td"),
-          g(17, "td"),
-          g(18, "td"),
-          s());
+            r(1, "th", 22),
+            r(2, "div", 23),
+            g(3, "input", 24),
+            s(),
+            s(),
+            g(4, "td"),
+            g(5, "td"),
+            g(6, "td"),
+            g(7, "td"),
+            g(8, "td"),
+            g(9, "td"),
+            g(10, "td"),
+            g(11, "td"),
+            g(12, "td"),
+            g(13, "td"),
+            g(14, "td"),
+            g(15, "td"),
+            g(16, "td"),
+            g(17, "td"),
+            g(18, "td"),
+            s());
       }
       let PA = (() => {
         class t {
@@ -21113,11 +21105,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getBookings() : alert("Adding error!"),
+                200 === i.code ? this.getBookings() : this.showAlert("Adding error!"),
                   (this.booking = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editBooking() {
@@ -21136,11 +21128,11 @@
             )
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getBookings() : alert("Editing error!"),
+                200 === i.code ? this.getBookings() : this.showAlert("Editing error!"),
                   (this.booking = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteBooking() {
@@ -21159,11 +21151,11 @@
             )
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getBookings() : alert("Editing error!"),
+                200 === i.code ? this.getBookings() : this.showAlert("Editing error!"),
                   (this.booking = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getBookings() {
@@ -21175,10 +21167,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.bookings = e.bookings)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setBooking(e, i) {
@@ -21186,11 +21178,11 @@
             (this.checkedBooking = e),
               (this.booking = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getBookings();
@@ -21347,105 +21339,105 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 20),
-                c(56, "Title"),
-                s(),
-                r(57, "th", 20),
-                c(58, "Image"),
-                s(),
-                s(),
-                s(),
-                r(59, "tbody"),
-                v(60, TA, 19, 0, "tr", 21),
-                s(),
-                s());
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 20),
+                  c(56, "Title"),
+                  s(),
+                  r(57, "th", 20),
+                  c(58, "Image"),
+                  s(),
+                  s(),
+                  s(),
+                  r(59, "tbody"),
+                  v(60, TA, 19, 0, "tr", 21),
+                  s(),
+                  s());
             },
             directives: [H],
             styles: [""],
@@ -21456,27 +21448,27 @@
       function EA(t, n) {
         1 & t &&
           (r(0, "tr"),
-          r(1, "th", 22),
-          r(2, "div", 23),
-          g(3, "input", 24),
-          s(),
-          s(),
-          g(4, "td"),
-          g(5, "td"),
-          g(6, "td"),
-          g(7, "td"),
-          g(8, "td"),
-          g(9, "td"),
-          g(10, "td"),
-          g(11, "td"),
-          g(12, "td"),
-          g(13, "td"),
-          g(14, "td"),
-          g(15, "td"),
-          g(16, "td"),
-          g(17, "td"),
-          g(18, "td"),
-          s());
+            r(1, "th", 22),
+            r(2, "div", 23),
+            g(3, "input", 24),
+            s(),
+            s(),
+            g(4, "td"),
+            g(5, "td"),
+            g(6, "td"),
+            g(7, "td"),
+            g(8, "td"),
+            g(9, "td"),
+            g(10, "td"),
+            g(11, "td"),
+            g(12, "td"),
+            g(13, "td"),
+            g(14, "td"),
+            g(15, "td"),
+            g(16, "td"),
+            g(17, "td"),
+            g(18, "td"),
+            s());
       }
       let SA = (() => {
         class t {
@@ -21501,11 +21493,11 @@
             )
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getBookings() : alert("Adding error!"),
+                200 === i.code ? this.getBookings() : this.showAlert("Adding error!"),
                   (this.booking = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editBooking() {
@@ -21524,11 +21516,11 @@
             )
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getBookings() : alert("Editing error!"),
+                200 === i.code ? this.getBookings() : this.showAlert("Editing error!"),
                   (this.booking = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteBooking() {
@@ -21547,11 +21539,11 @@
             )
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getBookings() : alert("Editing error!"),
+                200 === i.code ? this.getBookings() : this.showAlert("Editing error!"),
                   (this.booking = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getBookings() {
@@ -21563,10 +21555,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.bookings = e.bookings)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setBooking(e, i) {
@@ -21574,11 +21566,11 @@
             (this.checkedBooking = e),
               (this.booking = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getBookings();
@@ -21735,105 +21727,105 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 20),
-                c(56, "Title"),
-                s(),
-                r(57, "th", 20),
-                c(58, "Image"),
-                s(),
-                s(),
-                s(),
-                r(59, "tbody"),
-                v(60, EA, 19, 0, "tr", 21),
-                s(),
-                s());
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 20),
+                  c(56, "Title"),
+                  s(),
+                  r(57, "th", 20),
+                  c(58, "Image"),
+                  s(),
+                  s(),
+                  s(),
+                  r(59, "tbody"),
+                  v(60, EA, 19, 0, "tr", 21),
+                  s(),
+                  s());
             },
             directives: [H],
             styles: [""],
@@ -21845,34 +21837,34 @@
         if (
           (1 & t &&
             (r(0, "tr"),
-            r(1, "th", 22),
-            r(2, "div", 23),
-            g(3, "input", 24),
-            s(),
-            s(),
-            r(4, "td"),
-            c(5),
-            s(),
-            r(6, "td"),
-            c(7),
-            s(),
-            r(8, "td"),
-            c(9),
-            s(),
-            r(10, "td"),
-            c(11),
-            s(),
-            r(12, "td"),
-            c(13),
-            s(),
-            r(14, "td"),
-            c(15),
-            s(),
-            r(16, "td"),
-            c(17),
-            s(),
-            s()),
-          2 & t)
+              r(1, "th", 22),
+              r(2, "div", 23),
+              g(3, "input", 24),
+              s(),
+              s(),
+              r(4, "td"),
+              c(5),
+              s(),
+              r(6, "td"),
+              c(7),
+              s(),
+              r(8, "td"),
+              c(9),
+              s(),
+              r(10, "td"),
+              c(11),
+              s(),
+              r(12, "td"),
+              c(13),
+              s(),
+              r(14, "td"),
+              c(15),
+              s(),
+              r(16, "td"),
+              c(17),
+              s(),
+              s()),
+            2 & t)
         ) {
           const e = n.$implicit;
           _(5),
@@ -21911,11 +21903,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getAddresses() : alert("Adding error!"),
+                200 === i.code ? this.getAddresses() : this.showAlert("Adding error!"),
                   (this.address = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editAddress() {
@@ -21931,11 +21923,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getAddresses() : alert("Editing error!"),
+                200 === i.code ? this.getAddresses() : this.showAlert("Editing error!"),
                   (this.address = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteAddress() {
@@ -21951,11 +21943,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getAddresses() : alert("Editing error!"),
+                200 === i.code ? this.getAddresses() : this.showAlert("Editing error!"),
                   (this.address = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getAddresses() {
@@ -21966,10 +21958,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.addresses = e.addresses)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setAddress(e, i) {
@@ -21977,11 +21969,11 @@
             (this.checkedAddress = e),
               (this.address = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getAddresses();
@@ -22138,120 +22130,120 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 20),
-                c(56, "Address"),
-                s(),
-                r(57, "th", 20),
-                c(58, "Country"),
-                s(),
-                r(59, "th", 20),
-                c(60, "City"),
-                s(),
-                r(61, "th", 20),
-                c(62, "District"),
-                s(),
-                r(63, "th", 20),
-                c(64, "Region"),
-                s(),
-                r(65, "th", 20),
-                c(66, "Zip code"),
-                s(),
-                r(67, "th", 20),
-                c(68, "Phone number"),
-                s(),
-                s(),
-                s(),
-                r(69, "tbody"),
-                v(70, AA, 18, 7, "tr", 21),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 20),
+                  c(56, "Address"),
+                  s(),
+                  r(57, "th", 20),
+                  c(58, "Country"),
+                  s(),
+                  r(59, "th", 20),
+                  c(60, "City"),
+                  s(),
+                  r(61, "th", 20),
+                  c(62, "District"),
+                  s(),
+                  r(63, "th", 20),
+                  c(64, "Region"),
+                  s(),
+                  r(65, "th", 20),
+                  c(66, "Zip code"),
+                  s(),
+                  r(67, "th", 20),
+                  c(68, "Phone number"),
+                  s(),
+                  s(),
+                  s(),
+                  r(69, "tbody"),
+                  v(70, AA, 18, 7, "tr", 21),
+                  s(),
+                  s()),
                 2 & e && (_(70), C("ngForOf", i.addresses));
             },
             directives: [H],
@@ -22263,27 +22255,27 @@
       function IA(t, n) {
         1 & t &&
           (r(0, "tr"),
-          r(1, "th", 22),
-          r(2, "div", 23),
-          g(3, "input", 24),
-          s(),
-          s(),
-          g(4, "td"),
-          g(5, "td"),
-          g(6, "td"),
-          g(7, "td"),
-          g(8, "td"),
-          g(9, "td"),
-          g(10, "td"),
-          g(11, "td"),
-          g(12, "td"),
-          g(13, "td"),
-          g(14, "td"),
-          g(15, "td"),
-          g(16, "td"),
-          g(17, "td"),
-          g(18, "td"),
-          s());
+            r(1, "th", 22),
+            r(2, "div", 23),
+            g(3, "input", 24),
+            s(),
+            s(),
+            g(4, "td"),
+            g(5, "td"),
+            g(6, "td"),
+            g(7, "td"),
+            g(8, "td"),
+            g(9, "td"),
+            g(10, "td"),
+            g(11, "td"),
+            g(12, "td"),
+            g(13, "td"),
+            g(14, "td"),
+            g(15, "td"),
+            g(16, "td"),
+            g(17, "td"),
+            g(18, "td"),
+            s());
       }
       let RA = (() => {
         class t {
@@ -22305,11 +22297,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getAirports() : alert("Adding error!"),
+                200 === i.code ? this.getAirports() : this.showAlert("Adding error!"),
                   (this.airport = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editAirport() {
@@ -22325,11 +22317,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getAirports() : alert("Editing error!"),
+                200 === i.code ? this.getAirports() : this.showAlert("Editing error!"),
                   (this.airport = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteAirport() {
@@ -22345,11 +22337,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getAirports() : alert("Editing error!"),
+                200 === i.code ? this.getAirports() : this.showAlert("Editing error!"),
                   (this.airport = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getAirports() {
@@ -22360,10 +22352,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.airports = e.airports)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setAirport(e, i) {
@@ -22371,11 +22363,11 @@
             (this.checkedAirport = e),
               (this.airport = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getAirports();
@@ -22532,105 +22524,105 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 20),
-                c(56, "Title"),
-                s(),
-                r(57, "th", 20),
-                c(58, "Image"),
-                s(),
-                s(),
-                s(),
-                r(59, "tbody"),
-                v(60, IA, 19, 0, "tr", 21),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 20),
+                  c(56, "Title"),
+                  s(),
+                  r(57, "th", 20),
+                  c(58, "Image"),
+                  s(),
+                  s(),
+                  s(),
+                  r(59, "tbody"),
+                  v(60, IA, 19, 0, "tr", 21),
+                  s(),
+                  s()),
                 2 & e && (_(60), C("ngForOf", i.airports));
             },
             directives: [H],
@@ -22643,19 +22635,19 @@
         if (
           (1 & t &&
             (r(0, "tr"),
-            r(1, "th", 22),
-            r(2, "div", 23),
-            g(3, "input", 24),
-            s(),
-            s(),
-            r(4, "td"),
-            c(5),
-            s(),
-            r(6, "td"),
-            c(7),
-            s(),
-            s()),
-          2 & t)
+              r(1, "th", 22),
+              r(2, "div", 23),
+              g(3, "input", 24),
+              s(),
+              s(),
+              r(4, "td"),
+              c(5),
+              s(),
+              r(6, "td"),
+              c(7),
+              s(),
+              s()),
+            2 & t)
         ) {
           const e = n.$implicit;
           _(5), B(e.title), _(2), B(e.image);
@@ -22679,11 +22671,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCities() : alert("Adding error!"),
+                200 === i.code ? this.getCities() : this.showAlert("Adding error!"),
                   (this.city = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editCity() {
@@ -22699,11 +22691,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCities() : alert("Editing error!"),
+                200 === i.code ? this.getCities() : this.showAlert("Editing error!"),
                   (this.city = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteCity() {
@@ -22719,11 +22711,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCities() : alert("Editing error!"),
+                200 === i.code ? this.getCities() : this.showAlert("Editing error!"),
                   (this.city = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getCities() {
@@ -22734,10 +22726,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.cities = e.cities)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setCity(e, i) {
@@ -22745,11 +22737,11 @@
             (this.checkedCity = e),
               (this.city = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getCities();
@@ -22906,105 +22898,105 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 20),
-                c(56, "City"),
-                s(),
-                r(57, "th", 20),
-                c(58, "Image"),
-                s(),
-                s(),
-                s(),
-                r(59, "tbody"),
-                v(60, FA, 8, 2, "tr", 21),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 20),
+                  c(56, "City"),
+                  s(),
+                  r(57, "th", 20),
+                  c(58, "Image"),
+                  s(),
+                  s(),
+                  s(),
+                  r(59, "tbody"),
+                  v(60, FA, 8, 2, "tr", 21),
+                  s(),
+                  s()),
                 2 & e && (_(60), C("ngForOf", i.cities));
             },
             directives: [H],
@@ -23017,19 +23009,19 @@
         if (
           (1 & t &&
             (r(0, "tr"),
-            r(1, "th", 22),
-            r(2, "div", 23),
-            g(3, "input", 24),
-            s(),
-            s(),
-            r(4, "td"),
-            c(5),
-            s(),
-            r(6, "td"),
-            c(7),
-            s(),
-            s()),
-          2 & t)
+              r(1, "th", 22),
+              r(2, "div", 23),
+              g(3, "input", 24),
+              s(),
+              s(),
+              r(4, "td"),
+              c(5),
+              s(),
+              r(6, "td"),
+              c(7),
+              s(),
+              s()),
+            2 & t)
         ) {
           const e = n.$implicit;
           _(5), B(e.title), _(2), B(e.image);
@@ -23055,11 +23047,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCountries() : alert("Adding error!"),
+                200 === i.code ? this.getCountries() : this.showAlert("Adding error!"),
                   (this.country = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editCountry() {
@@ -23075,11 +23067,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCountries() : alert("Editing error!"),
+                200 === i.code ? this.getCountries() : this.showAlert("Editing error!"),
                   (this.country = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteCountry() {
@@ -23095,11 +23087,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCountries() : alert("Editing error!"),
+                200 === i.code ? this.getCountries() : this.showAlert("Editing error!"),
                   (this.country = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getCountries() {
@@ -23110,10 +23102,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.countries = e.countries)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setCountry(e, i) {
@@ -23121,11 +23113,11 @@
             (this.checkedCountry = e),
               (this.country = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getCountries();
@@ -23282,105 +23274,105 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 20),
-                c(56, "Country"),
-                s(),
-                r(57, "th", 20),
-                c(58, "Image"),
-                s(),
-                s(),
-                s(),
-                r(59, "tbody"),
-                v(60, BA, 8, 2, "tr", 21),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 20),
+                  c(56, "Country"),
+                  s(),
+                  r(57, "th", 20),
+                  c(58, "Image"),
+                  s(),
+                  s(),
+                  s(),
+                  r(59, "tbody"),
+                  v(60, BA, 8, 2, "tr", 21),
+                  s(),
+                  s()),
                 2 & e && (_(60), C("ngForOf", i.countries));
             },
             directives: [H],
@@ -23393,16 +23385,16 @@
         if (
           (1 & t &&
             (r(0, "tr"),
-            r(1, "th", 23),
-            r(2, "div", 24),
-            g(3, "input", 25),
-            s(),
-            s(),
-            r(4, "td"),
-            c(5),
-            s(),
-            s()),
-          2 & t)
+              r(1, "th", 23),
+              r(2, "div", 24),
+              g(3, "input", 25),
+              s(),
+              s(),
+              r(4, "td"),
+              c(5),
+              s(),
+              s()),
+            2 & t)
         ) {
           const e = n.$implicit;
           _(5), B(e.title);
@@ -23428,11 +23420,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getDistricts() : alert("Adding error!"),
+                200 === i.code ? this.getDistricts() : this.showAlert("Adding error!"),
                   (this.district = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editDistrict() {
@@ -23448,11 +23440,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getDistricts() : alert("Editing error!"),
+                200 === i.code ? this.getDistricts() : this.showAlert("Editing error!"),
                   (this.district = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteDistrict() {
@@ -23468,11 +23460,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getDistricts() : alert("Editing error!"),
+                200 === i.code ? this.getDistricts() : this.showAlert("Editing error!"),
                   (this.district = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getDistricts() {
@@ -23483,10 +23475,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.districts = e.districts)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setDistrict(e, i) {
@@ -23494,11 +23486,11 @@
             (this.checkedDistrict = e),
               (this.district = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getDistricts();
@@ -23656,108 +23648,108 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Title"),
-                s(),
-                r(57, "th", 21),
-                c(58, "Address"),
-                s(),
-                r(59, "th", 21),
-                c(60, "Image"),
-                s(),
-                s(),
-                s(),
-                r(61, "tbody"),
-                v(62, VA, 6, 1, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Title"),
+                  s(),
+                  r(57, "th", 21),
+                  c(58, "Address"),
+                  s(),
+                  r(59, "th", 21),
+                  c(60, "Image"),
+                  s(),
+                  s(),
+                  s(),
+                  r(61, "tbody"),
+                  v(62, VA, 6, 1, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(62), C("ngForOf", i.districts));
             },
             directives: [H],
@@ -23808,11 +23800,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getRegions() : alert("Adding error!"),
+                200 === i.code ? this.getRegions() : this.showAlert("Adding error!"),
                   (this.region = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editRegion() {
@@ -23828,12 +23820,12 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getRegions() : alert("Editing error!"),
+                200 === i.code ? this.getRegions() : this.showAlert("Editing error!"),
                   console.log(i),
                   (this.region = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteRegion() {
@@ -23849,11 +23841,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getRegions() : alert("Editing error!"),
+                200 === i.code ? this.getRegions() : this.showAlert("Editing error!"),
                   (this.region = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getRegions() {
@@ -23864,10 +23856,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.regions = e.regions)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setRegion(e, i) {
@@ -23875,11 +23867,11 @@
             (this.checkedRegion = e),
               (this.region = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getRegions();
@@ -24040,108 +24032,108 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Title"),
-                s(),
-                r(57, "th", 21),
-                c(58, "Address"),
-                s(),
-                r(59, "th", 21),
-                c(60, "Image"),
-                s(),
-                s(),
-                s(),
-                r(61, "tbody"),
-                v(62, $A, 5, 1, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Title"),
+                  s(),
+                  r(57, "th", 21),
+                  c(58, "Address"),
+                  s(),
+                  r(59, "th", 21),
+                  c(60, "Image"),
+                  s(),
+                  s(),
+                  s(),
+                  r(61, "tbody"),
+                  v(62, $A, 5, 1, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(62), C("ngForOf", i.regions));
             },
             directives: [H],
@@ -24194,11 +24186,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getSuggestions() : alert("Adding error!"),
+                200 === i.code ? this.getSuggestions() : this.showAlert("Adding error!"),
                   (this.suggestion = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editSuggestion() {
@@ -24216,11 +24208,11 @@
               .then((i) => {
                 200 === i.code
                   ? this.getSuggestions()
-                  : alert("Editing error!"),
+                  : this.showAlert("Editing error!"),
                   (this.suggestion = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteSuggestion() {
@@ -24238,11 +24230,11 @@
               .then((i) => {
                 200 === i.code
                   ? this.getSuggestions()
-                  : alert("Editing error!"),
+                  : this.showAlert("Editing error!"),
                   (this.suggestion = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getSuggestions() {
@@ -24253,10 +24245,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.suggestions = e.suggestions)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setSuggestion(e, i) {
@@ -24264,11 +24256,11 @@
             (this.checkedSuggestion = e),
               (this.suggestion = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getSuggestions();
@@ -24429,117 +24421,117 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Address"),
-                s(),
-                r(57, "th", 21),
-                c(58, "User"),
-                s(),
-                r(59, "th", 21),
-                c(60, "ServiceCategory"),
-                s(),
-                r(61, "th", 21),
-                c(62, "BookingCategory"),
-                s(),
-                r(63, "th", 21),
-                c(64, "Title"),
-                s(),
-                r(65, "th", 21),
-                c(66, "Title"),
-                s(),
-                s(),
-                s(),
-                r(67, "tbody"),
-                v(68, zA, 6, 2, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Address"),
+                  s(),
+                  r(57, "th", 21),
+                  c(58, "User"),
+                  s(),
+                  r(59, "th", 21),
+                  c(60, "ServiceCategory"),
+                  s(),
+                  r(61, "th", 21),
+                  c(62, "BookingCategory"),
+                  s(),
+                  r(63, "th", 21),
+                  c(64, "Title"),
+                  s(),
+                  r(65, "th", 21),
+                  c(66, "Title"),
+                  s(),
+                  s(),
+                  s(),
+                  r(67, "tbody"),
+                  v(68, zA, 6, 2, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(68), C("ngForOf", i.suggestions));
             },
             directives: [H],
@@ -24590,11 +24582,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getHighlights() : alert("Adding error!"),
+                200 === i.code ? this.getHighlights() : this.showAlert("Adding error!"),
                   (this.highlight = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editHighlight() {
@@ -24610,11 +24602,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getHighlights() : alert("Editing error!"),
+                200 === i.code ? this.getHighlights() : this.showAlert("Editing error!"),
                   (this.highlight = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteHighlight() {
@@ -24630,11 +24622,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getHighlights() : alert("Editing error!"),
+                200 === i.code ? this.getHighlights() : this.showAlert("Editing error!"),
                   (this.highlight = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getHighlights() {
@@ -24645,10 +24637,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.highlights = e.highlights)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setHighlight(e, i) {
@@ -24656,11 +24648,11 @@
             (this.checkedHighlight = e),
               (this.highlight = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getHighlights();
@@ -24821,102 +24813,102 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Role"),
-                s(),
-                s(),
-                s(),
-                r(57, "tbody"),
-                v(58, qA, 5, 1, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Role"),
+                  s(),
+                  s(),
+                  s(),
+                  r(57, "tbody"),
+                  v(58, qA, 5, 1, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(58), C("ngForOf", i.highlights));
             },
             directives: [H],
@@ -24980,11 +24972,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getRules() : alert("Adding error!"),
+                200 === i.code ? this.getRules() : this.showAlert("Adding error!"),
                   (this.rule = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editRule() {
@@ -25000,11 +24992,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getRules() : alert("Editing error!"),
+                200 === i.code ? this.getRules() : this.showAlert("Editing error!"),
                   (this.rule = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteRule() {
@@ -25020,11 +25012,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getRules() : alert("Editing error!"),
+                200 === i.code ? this.getRules() : this.showAlert("Editing error!"),
                   (this.rule = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getRules() {
@@ -25033,10 +25025,10 @@
             })
               .then((e) => e.json())
               .then((e) => {
-                200 === e.code ? (this.rules = e.rules) : alert("Fetch error!");
+                200 === e.code ? (this.rules = e.rules) : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setRule(e, i) {
@@ -25044,11 +25036,11 @@
             (this.checkedRule = e),
               (this.rule = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getRules();
@@ -25209,108 +25201,108 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Rule text"),
-                s(),
-                r(57, "th", 21),
-                c(58, "Rule type"),
-                s(),
-                r(59, "th", 21),
-                c(60, "Suggestion"),
-                s(),
-                s(),
-                s(),
-                r(61, "tbody"),
-                v(62, JA, 10, 4, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Rule text"),
+                  s(),
+                  r(57, "th", 21),
+                  c(58, "Rule type"),
+                  s(),
+                  r(59, "th", 21),
+                  c(60, "Suggestion"),
+                  s(),
+                  s(),
+                  s(),
+                  r(61, "tbody"),
+                  v(62, JA, 10, 4, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(62), C("ngForOf", i.rules));
             },
             directives: [H],
@@ -25366,11 +25358,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Adding error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Adding error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editType() {
@@ -25386,11 +25378,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Editing error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Editing error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteType() {
@@ -25406,11 +25398,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Editing error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Editing error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getTypes() {
@@ -25421,10 +25413,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.ruleTypes = e.types)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setType(e, i) {
@@ -25432,11 +25424,11 @@
             (this.checkedType = e),
               (this.type = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getTypes();
@@ -25597,105 +25589,105 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Type"),
-                s(),
-                r(57, "th", 21),
-                c(58, "Suggestion rule"),
-                s(),
-                s(),
-                s(),
-                r(59, "tbody"),
-                v(60, QA, 8, 3, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Type"),
+                  s(),
+                  r(57, "th", 21),
+                  c(58, "Suggestion rule"),
+                  s(),
+                  s(),
+                  s(),
+                  r(59, "tbody"),
+                  v(60, QA, 8, 3, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(60), C("ngForOf", i.ruleTypes));
             },
             directives: [H],
@@ -25746,11 +25738,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getGrades() : alert("Adding error!"),
+                200 === i.code ? this.getGrades() : this.showAlert("Adding error!"),
                   (this.grade = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editGrade() {
@@ -25766,11 +25758,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getGrades() : alert("Editing error!"),
+                200 === i.code ? this.getGrades() : this.showAlert("Editing error!"),
                   (this.grade = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteGrade() {
@@ -25786,11 +25778,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getGrades() : alert("Editing error!"),
+                200 === i.code ? this.getGrades() : this.showAlert("Editing error!"),
                   (this.grade = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getGrades() {
@@ -25801,10 +25793,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.grades = e.grades)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setGrade(e, i) {
@@ -25812,11 +25804,11 @@
             (this.checkedGrade = e),
               (this.grade = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getGrades();
@@ -25977,102 +25969,102 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Role"),
-                s(),
-                s(),
-                s(),
-                r(57, "tbody"),
-                v(58, KA, 5, 1, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Role"),
+                  s(),
+                  s(),
+                  s(),
+                  r(57, "tbody"),
+                  v(58, KA, 5, 1, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(58), C("ngForOf", i.grades));
             },
             directives: [H],
@@ -26133,11 +26125,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getObjects() : alert("Adding error!"),
+                200 === i.code ? this.getObjects() : this.showAlert("Adding error!"),
                   (this.object = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editObject() {
@@ -26153,11 +26145,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getObjects() : alert("Editing error!"),
+                200 === i.code ? this.getObjects() : this.showAlert("Editing error!"),
                   (this.object = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteObject() {
@@ -26173,11 +26165,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getObjects() : alert("Editing error!"),
+                200 === i.code ? this.getObjects() : this.showAlert("Editing error!"),
                   (this.object = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getObjects() {
@@ -26188,10 +26180,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.objects = e.objects)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setObject(e, i) {
@@ -26199,11 +26191,11 @@
             (this.checkedObject = e),
               (this.object = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getObjects();
@@ -26364,105 +26356,105 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Surrounding object type"),
-                s(),
-                r(57, "th", 21),
-                c(58, "Suggestion"),
-                s(),
-                s(),
-                s(),
-                r(59, "tbody"),
-                v(60, e8, 8, 3, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Surrounding object type"),
+                  s(),
+                  r(57, "th", 21),
+                  c(58, "Suggestion"),
+                  s(),
+                  s(),
+                  s(),
+                  r(59, "tbody"),
+                  v(60, e8, 8, 3, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(60), C("ngForOf", i.objects));
             },
             directives: [H],
@@ -26513,11 +26505,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Adding error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Adding error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editType() {
@@ -26533,11 +26525,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Editing error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Editing error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteType() {
@@ -26553,11 +26545,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Editing error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Editing error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getTypes() {
@@ -26566,10 +26558,10 @@
             })
               .then((e) => e.json())
               .then((e) => {
-                200 === e.code ? (this.types = e.types) : alert("Fetch error!");
+                200 === e.code ? (this.types = e.types) : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setType(e, i) {
@@ -26577,11 +26569,11 @@
             (this.checkedType = e),
               (this.type = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getTypes();
@@ -26742,105 +26734,105 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Type"),
-                s(),
-                r(57, "th", 21),
-                c(58, "Surrounding object"),
-                s(),
-                s(),
-                s(),
-                r(59, "tbody"),
-                v(60, n8, 6, 2, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Type"),
+                  s(),
+                  r(57, "th", 21),
+                  c(58, "Surrounding object"),
+                  s(),
+                  s(),
+                  s(),
+                  r(59, "tbody"),
+                  v(60, n8, 6, 2, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(60), C("ngForOf", i.types));
             },
             directives: [H],
@@ -26893,11 +26885,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getRooms() : alert("Adding error!"),
+                200 === i.code ? this.getRooms() : this.showAlert("Adding error!"),
                   (this.room = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editRoom() {
@@ -26913,11 +26905,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getRooms() : alert("Editing error!"),
+                200 === i.code ? this.getRooms() : this.showAlert("Editing error!"),
                   (this.room = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteRoom() {
@@ -26933,11 +26925,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getRooms() : alert("Editing error!"),
+                200 === i.code ? this.getRooms() : this.showAlert("Editing error!"),
                   (this.room = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getRooms() {
@@ -26946,10 +26938,10 @@
             })
               .then((e) => e.json())
               .then((e) => {
-                200 === e.code ? (this.rooms = e.rooms) : alert("Fetch error!");
+                200 === e.code ? (this.rooms = e.rooms) : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setRoom(e, i) {
@@ -26957,11 +26949,11 @@
             (this.checkedRoom = e),
               (this.room = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getRooms();
@@ -27122,102 +27114,102 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Role"),
-                s(),
-                s(),
-                s(),
-                r(57, "tbody"),
-                v(58, o8, 5, 1, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Role"),
+                  s(),
+                  s(),
+                  s(),
+                  r(57, "tbody"),
+                  v(58, o8, 5, 1, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(58), C("ngForOf", i.rooms));
             },
             directives: [H],
@@ -27270,11 +27262,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Adding error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Adding error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editType() {
@@ -27290,11 +27282,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Editing error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Editing error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteType() {
@@ -27310,11 +27302,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Editing error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Editing error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getTypes() {
@@ -27325,10 +27317,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.roomTypes = e.types)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setType(e, i) {
@@ -27336,11 +27328,11 @@
             (this.checkedType = e),
               (this.type = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getTypes();
@@ -27500,102 +27492,102 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Role"),
-                s(),
-                s(),
-                s(),
-                r(57, "tbody"),
-                v(58, s8, 5, 1, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Role"),
+                  s(),
+                  s(),
+                  s(),
+                  r(57, "tbody"),
+                  v(58, s8, 5, 1, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(58), C("ngForOf", i.roomTypes));
             },
             directives: [H],
@@ -27648,11 +27640,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getReviews() : alert("Adding error!"),
+                200 === i.code ? this.getReviews() : this.showAlert("Adding error!"),
                   (this.review = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editReview() {
@@ -27668,11 +27660,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getReviews() : alert("Editing error!"),
+                200 === i.code ? this.getReviews() : this.showAlert("Editing error!"),
                   (this.review = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteReview() {
@@ -27688,11 +27680,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getReviews() : alert("Editing error!"),
+                200 === i.code ? this.getReviews() : this.showAlert("Editing error!"),
                   (this.review = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getReviews() {
@@ -27703,10 +27695,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.reviews = e.reviews)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setReview(e, i) {
@@ -27714,11 +27706,11 @@
             (this.checkedReview = e),
               (this.review = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getReviews();
@@ -27934,132 +27926,132 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Add review"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                r(16, "form"),
-                r(17, "div", 12),
-                r(18, "label", 13),
-                c(19, "New review"),
-                s(),
-                g(20, "input", 14),
-                s(),
-                s(),
-                s(),
-                r(21, "div", 15),
-                r(22, "button", 16),
-                M("click", function () {
-                  return i.addReview();
-                }),
-                c(23, "Save"),
-                s(),
-                r(24, "button", 17),
-                c(25, "Close"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(26, "div", 18),
-                r(27, "div", 6),
-                r(28, "div", 7),
-                r(29, "div", 8),
-                r(30, "h5", 19),
-                c(31, "Edit review"),
-                s(),
-                g(32, "button", 10),
-                s(),
-                r(33, "div", 11),
-                r(34, "form"),
-                r(35, "div", 12),
-                r(36, "label", 20),
-                c(37, "Review"),
-                s(),
-                g(38, "input", 21),
-                s(),
-                s(),
-                s(),
-                r(39, "div", 15),
-                r(40, "button", 16),
-                M("click", function () {
-                  return i.editReview();
-                }),
-                c(41, "Save"),
-                s(),
-                r(42, "button", 17),
-                c(43, "Close"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(44, "div", 22),
-                r(45, "div", 6),
-                r(46, "div", 7),
-                r(47, "div", 8),
-                r(48, "h5", 23),
-                c(49, "Delete review"),
-                s(),
-                g(50, "button", 10),
-                s(),
-                r(51, "div", 11),
-                r(52, "form"),
-                r(53, "div", 12),
-                r(54, "label", 24),
-                c(55, "Review"),
-                s(),
-                g(56, "input", 25),
-                s(),
-                s(),
-                s(),
-                r(57, "div", 15),
-                r(58, "button", 26),
-                M("click", function () {
-                  return i.deleteReview();
-                }),
-                c(59, "Delete"),
-                s(),
-                r(60, "button", 17),
-                c(61, "Cancel"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(62, "table", 27),
-                r(63, "thead"),
-                r(64, "tr"),
-                r(65, "th", 28),
-                c(66, "#"),
-                s(),
-                r(67, "th", 29),
-                c(68, "Role"),
-                s(),
-                s(),
-                s(),
-                r(69, "tbody"),
-                v(70, l8, 5, 1, "tr", 30),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Add review"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  r(16, "form"),
+                  r(17, "div", 12),
+                  r(18, "label", 13),
+                  c(19, "New review"),
+                  s(),
+                  g(20, "input", 14),
+                  s(),
+                  s(),
+                  s(),
+                  r(21, "div", 15),
+                  r(22, "button", 16),
+                  M("click", function () {
+                    return i.addReview();
+                  }),
+                  c(23, "Save"),
+                  s(),
+                  r(24, "button", 17),
+                  c(25, "Close"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(26, "div", 18),
+                  r(27, "div", 6),
+                  r(28, "div", 7),
+                  r(29, "div", 8),
+                  r(30, "h5", 19),
+                  c(31, "Edit review"),
+                  s(),
+                  g(32, "button", 10),
+                  s(),
+                  r(33, "div", 11),
+                  r(34, "form"),
+                  r(35, "div", 12),
+                  r(36, "label", 20),
+                  c(37, "Review"),
+                  s(),
+                  g(38, "input", 21),
+                  s(),
+                  s(),
+                  s(),
+                  r(39, "div", 15),
+                  r(40, "button", 16),
+                  M("click", function () {
+                    return i.editReview();
+                  }),
+                  c(41, "Save"),
+                  s(),
+                  r(42, "button", 17),
+                  c(43, "Close"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(44, "div", 22),
+                  r(45, "div", 6),
+                  r(46, "div", 7),
+                  r(47, "div", 8),
+                  r(48, "h5", 23),
+                  c(49, "Delete review"),
+                  s(),
+                  g(50, "button", 10),
+                  s(),
+                  r(51, "div", 11),
+                  r(52, "form"),
+                  r(53, "div", 12),
+                  r(54, "label", 24),
+                  c(55, "Review"),
+                  s(),
+                  g(56, "input", 25),
+                  s(),
+                  s(),
+                  s(),
+                  r(57, "div", 15),
+                  r(58, "button", 26),
+                  M("click", function () {
+                    return i.deleteReview();
+                  }),
+                  c(59, "Delete"),
+                  s(),
+                  r(60, "button", 17),
+                  c(61, "Cancel"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(62, "table", 27),
+                  r(63, "thead"),
+                  r(64, "tr"),
+                  r(65, "th", 28),
+                  c(66, "#"),
+                  s(),
+                  r(67, "th", 29),
+                  c(68, "Role"),
+                  s(),
+                  s(),
+                  s(),
+                  r(69, "tbody"),
+                  v(70, l8, 5, 1, "tr", 30),
+                  s(),
+                  s()),
                 2 & e && (_(70), C("ngForOf", i.reviews));
             },
             directives: [fn, pn, gn, H],
@@ -28125,11 +28117,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCategories() : alert("Adding error!"),
+                200 === i.code ? this.getCategories() : this.showAlert("Adding error!"),
                   (this.category = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editCategory() {
@@ -28145,11 +28137,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCategories() : alert("Editing error!"),
+                200 === i.code ? this.getCategories() : this.showAlert("Editing error!"),
                   (this.category = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteCategory() {
@@ -28165,11 +28157,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCategories() : alert("Editing error!"),
+                200 === i.code ? this.getCategories() : this.showAlert("Editing error!"),
                   (this.category = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getCategories() {
@@ -28180,10 +28172,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.categories = e.categories)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setCategory(e, i) {
@@ -28191,11 +28183,11 @@
             (this.checkedCategory = e),
               (this.category = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getCategories();
@@ -28356,108 +28348,108 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Category"),
-                s(),
-                r(57, "th", 21),
-                c(58, "Suggestion"),
-                s(),
-                r(59, "th", 21),
-                c(60, "Suggestion review grades"),
-                s(),
-                s(),
-                s(),
-                r(61, "tbody"),
-                v(62, d8, 10, 4, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Category"),
+                  s(),
+                  r(57, "th", 21),
+                  c(58, "Suggestion"),
+                  s(),
+                  r(59, "th", 21),
+                  c(60, "Suggestion review grades"),
+                  s(),
+                  s(),
+                  s(),
+                  r(61, "tbody"),
+                  v(62, d8, 10, 4, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(62), C("ngForOf", i.categories));
             },
             directives: [H],
@@ -28508,11 +28500,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getMessages() : alert("Adding error!"),
+                200 === i.code ? this.getMessages() : this.showAlert("Adding error!"),
                   (this.message = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editMessage() {
@@ -28528,11 +28520,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getMessages() : alert("Editing error!"),
+                200 === i.code ? this.getMessages() : this.showAlert("Editing error!"),
                   (this.message = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteMessage() {
@@ -28548,11 +28540,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getMessages() : alert("Editing error!"),
+                200 === i.code ? this.getMessages() : this.showAlert("Editing error!"),
                   (this.message = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getMessages() {
@@ -28563,10 +28555,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.reviewMessages = e.messages)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setMessage(e, i) {
@@ -28574,11 +28566,11 @@
             (this.checkedMessage = e),
               (this.message = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getMessages();
@@ -28782,123 +28774,123 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Add role"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                r(16, "form"),
-                r(17, "div", 12),
-                r(18, "label", 13),
-                c(19, "New role"),
-                s(),
-                g(20, "input", 14),
-                s(),
-                s(),
-                s(),
-                r(21, "div", 15),
-                r(22, "button", 16),
-                c(23, "Close"),
-                s(),
-                r(24, "button", 17),
-                c(25, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(26, "div", 18),
-                r(27, "div", 6),
-                r(28, "div", 7),
-                r(29, "div", 8),
-                r(30, "h5", 19),
-                c(31, "Edit role"),
-                s(),
-                g(32, "button", 10),
-                s(),
-                r(33, "div", 11),
-                r(34, "form"),
-                r(35, "div", 12),
-                r(36, "label", 20),
-                c(37, "Role"),
-                s(),
-                g(38, "input", 21),
-                s(),
-                s(),
-                s(),
-                r(39, "div", 15),
-                r(40, "button", 16),
-                c(41, "Close"),
-                s(),
-                r(42, "button", 17),
-                c(43, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(44, "div", 22),
-                r(45, "div", 6),
-                r(46, "div", 7),
-                r(47, "div", 8),
-                r(48, "h5", 23),
-                c(49, "Delete role"),
-                s(),
-                g(50, "button", 10),
-                s(),
-                r(51, "div", 11),
-                r(52, "form"),
-                r(53, "div", 12),
-                r(54, "label", 24),
-                c(55, "Role"),
-                s(),
-                g(56, "input", 25),
-                s(),
-                s(),
-                s(),
-                r(57, "div", 15),
-                r(58, "button", 26),
-                c(59, "Delete"),
-                s(),
-                r(60, "button", 17),
-                c(61, "Cancel"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(62, "table", 27),
-                r(63, "thead"),
-                r(64, "tr"),
-                r(65, "th", 28),
-                c(66, "#"),
-                s(),
-                r(67, "th", 29),
-                c(68, "Role"),
-                s(),
-                s(),
-                s(),
-                r(69, "tbody"),
-                v(70, h8, 5, 1, "tr", 30),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Add role"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  r(16, "form"),
+                  r(17, "div", 12),
+                  r(18, "label", 13),
+                  c(19, "New role"),
+                  s(),
+                  g(20, "input", 14),
+                  s(),
+                  s(),
+                  s(),
+                  r(21, "div", 15),
+                  r(22, "button", 16),
+                  c(23, "Close"),
+                  s(),
+                  r(24, "button", 17),
+                  c(25, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(26, "div", 18),
+                  r(27, "div", 6),
+                  r(28, "div", 7),
+                  r(29, "div", 8),
+                  r(30, "h5", 19),
+                  c(31, "Edit role"),
+                  s(),
+                  g(32, "button", 10),
+                  s(),
+                  r(33, "div", 11),
+                  r(34, "form"),
+                  r(35, "div", 12),
+                  r(36, "label", 20),
+                  c(37, "Role"),
+                  s(),
+                  g(38, "input", 21),
+                  s(),
+                  s(),
+                  s(),
+                  r(39, "div", 15),
+                  r(40, "button", 16),
+                  c(41, "Close"),
+                  s(),
+                  r(42, "button", 17),
+                  c(43, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(44, "div", 22),
+                  r(45, "div", 6),
+                  r(46, "div", 7),
+                  r(47, "div", 8),
+                  r(48, "h5", 23),
+                  c(49, "Delete role"),
+                  s(),
+                  g(50, "button", 10),
+                  s(),
+                  r(51, "div", 11),
+                  r(52, "form"),
+                  r(53, "div", 12),
+                  r(54, "label", 24),
+                  c(55, "Role"),
+                  s(),
+                  g(56, "input", 25),
+                  s(),
+                  s(),
+                  s(),
+                  r(57, "div", 15),
+                  r(58, "button", 26),
+                  c(59, "Delete"),
+                  s(),
+                  r(60, "button", 17),
+                  c(61, "Cancel"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(62, "table", 27),
+                  r(63, "thead"),
+                  r(64, "tr"),
+                  r(65, "th", 28),
+                  c(66, "#"),
+                  s(),
+                  r(67, "th", 29),
+                  c(68, "Role"),
+                  s(),
+                  s(),
+                  s(),
+                  r(69, "tbody"),
+                  v(70, h8, 5, 1, "tr", 30),
+                  s(),
+                  s()),
                 2 & e && (_(70), C("ngForOf", i.reviewMessages));
             },
             directives: [fn, pn, gn, H],
@@ -28949,11 +28941,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getPayments() : alert("Adding error!"),
+                200 === i.code ? this.getPayments() : this.showAlert("Adding error!"),
                   (this.payment = null);
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editPayment() {
@@ -28969,11 +28961,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getPayments() : alert("Editing error!"),
+                200 === i.code ? this.getPayments() : this.showAlert("Editing error!"),
                   (this.payment = null);
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deletePayment() {
@@ -28989,11 +28981,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getPayments() : alert("Editing error!"),
+                200 === i.code ? this.getPayments() : this.showAlert("Editing error!"),
                   (this.payment = null);
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getPayments() {
@@ -29004,10 +28996,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.payments = e.payments)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setPayment(e, i) {
@@ -29015,11 +29007,11 @@
             (this.checkedPayment = e),
               (this.payment = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getPayments();
@@ -29180,102 +29172,102 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Role"),
-                s(),
-                s(),
-                s(),
-                r(57, "tbody"),
-                v(58, g8, 5, 1, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Role"),
+                  s(),
+                  s(),
+                  s(),
+                  r(57, "tbody"),
+                  v(58, g8, 5, 1, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(58), C("ngForOf", i.payments));
             },
             directives: [H],
@@ -29328,11 +29320,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Adding error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Adding error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editType() {
@@ -29348,12 +29340,12 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Editing error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Editing error!"),
                   console.log(i),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteType() {
@@ -29369,11 +29361,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Editing error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Editing error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getTypes() {
@@ -29382,10 +29374,10 @@
             })
               .then((e) => e.json())
               .then((e) => {
-                200 === e.code ? (this.types = e.types) : alert("Fetch error!");
+                200 === e.code ? (this.types = e.types) : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setType(e, i) {
@@ -29393,11 +29385,11 @@
             (this.checkedType = e),
               (this.type = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getTypes();
@@ -29558,102 +29550,102 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Role"),
-                s(),
-                s(),
-                s(),
-                r(57, "tbody"),
-                v(58, b8, 5, 1, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Role"),
+                  s(),
+                  s(),
+                  s(),
+                  r(57, "tbody"),
+                  v(58, b8, 5, 1, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(58), C("ngForOf", i.types));
             },
             directives: [H],
@@ -29702,11 +29694,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCodes() : alert("Adding error!"),
+                200 === i.code ? this.getCodes() : this.showAlert("Adding error!"),
                   (this.code = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editCode() {
@@ -29722,11 +29714,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCodes() : alert("Editing error!"),
+                200 === i.code ? this.getCodes() : this.showAlert("Editing error!"),
                   (this.code = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteCode() {
@@ -29742,11 +29734,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCodes() : alert("Editing error!"),
+                200 === i.code ? this.getCodes() : this.showAlert("Editing error!"),
                   (this.code = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getCodes() {
@@ -29755,10 +29747,10 @@
             })
               .then((e) => e.json())
               .then((e) => {
-                200 === e.code ? (this.codes = e.codes) : alert("Fetch error!");
+                200 === e.code ? (this.codes = e.codes) : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setCode(e, i) {
@@ -29766,11 +29758,11 @@
             (this.checkedCode = e),
               (this.code = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getCodes();
@@ -29931,102 +29923,102 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Role"),
-                s(),
-                s(),
-                s(),
-                r(57, "tbody"),
-                v(58, _8, 5, 1, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Role"),
+                  s(),
+                  s(),
+                  s(),
+                  r(57, "tbody"),
+                  v(58, _8, 5, 1, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(58), C("ngForOf", i.codes));
             },
             directives: [H],
@@ -30039,22 +30031,22 @@
         if (
           (1 & t &&
             (r(0, "tr"),
-            r(1, "th", 23),
-            r(2, "div", 24),
-            g(3, "input", 25),
-            s(),
-            s(),
-            r(4, "td"),
-            c(5),
-            s(),
-            r(6, "td"),
-            c(7),
-            s(),
-            r(8, "td"),
-            c(9),
-            s(),
-            s()),
-          2 & t)
+              r(1, "th", 23),
+              r(2, "div", 24),
+              g(3, "input", 25),
+              s(),
+              s(),
+              r(4, "td"),
+              c(5),
+              s(),
+              r(6, "td"),
+              c(7),
+              s(),
+              r(8, "td"),
+              c(9),
+              s(),
+              s()),
+            2 & t)
         ) {
           const e = n.$implicit;
           _(5), B(e.value), _(2), B(e.abbreviation), _(2), B(e.bankCode);
@@ -30080,11 +30072,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCurrencies() : alert("Adding error!"),
+                200 === i.code ? this.getCurrencies() : this.showAlert("Adding error!"),
                   (this.currency = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editCurrency() {
@@ -30100,12 +30092,12 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCurrencies() : alert("Editing error!"),
+                200 === i.code ? this.getCurrencies() : this.showAlert("Editing error!"),
                   console.log(i),
                   (this.currency = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteCurrency() {
@@ -30121,11 +30113,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCurrencies() : alert("Editing error!"),
+                200 === i.code ? this.getCurrencies() : this.showAlert("Editing error!"),
                   (this.currency = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getCurrencies() {
@@ -30136,10 +30128,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.currencies = e.currencies)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setCurrency(e, i) {
@@ -30147,11 +30139,11 @@
             (this.checkedCurrency = e),
               (this.currency = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getCurrencies();
@@ -30309,108 +30301,108 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Value"),
-                s(),
-                r(57, "th", 21),
-                c(58, "Abbrevation"),
-                s(),
-                r(59, "th", 21),
-                c(60, "Bank code"),
-                s(),
-                s(),
-                s(),
-                r(61, "tbody"),
-                v(62, v8, 10, 3, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Value"),
+                  s(),
+                  r(57, "th", 21),
+                  c(58, "Abbrevation"),
+                  s(),
+                  r(59, "th", 21),
+                  c(60, "Bank code"),
+                  s(),
+                  s(),
+                  s(),
+                  r(61, "tbody"),
+                  v(62, v8, 10, 3, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(62), C("ngForOf", i.currencies));
             },
             directives: [H],
@@ -30422,27 +30414,27 @@
       function w8(t, n) {
         1 & t &&
           (r(0, "tr"),
-          r(1, "th", 22),
-          r(2, "div", 23),
-          g(3, "input", 24),
-          s(),
-          s(),
-          g(4, "td"),
-          g(5, "td"),
-          g(6, "td"),
-          g(7, "td"),
-          g(8, "td"),
-          g(9, "td"),
-          g(10, "td"),
-          g(11, "td"),
-          g(12, "td"),
-          g(13, "td"),
-          g(14, "td"),
-          g(15, "td"),
-          g(16, "td"),
-          g(17, "td"),
-          g(18, "td"),
-          s());
+            r(1, "th", 22),
+            r(2, "div", 23),
+            g(3, "input", 24),
+            s(),
+            s(),
+            g(4, "td"),
+            g(5, "td"),
+            g(6, "td"),
+            g(7, "td"),
+            g(8, "td"),
+            g(9, "td"),
+            g(10, "td"),
+            g(11, "td"),
+            g(12, "td"),
+            g(13, "td"),
+            g(14, "td"),
+            g(15, "td"),
+            g(16, "td"),
+            g(17, "td"),
+            g(18, "td"),
+            s());
       }
       let M8 = (() => {
         class t {
@@ -30464,11 +30456,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Adding error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Adding error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editType() {
@@ -30484,11 +30476,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Editing error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Editing error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteType() {
@@ -30504,11 +30496,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Editing error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Editing error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getTypes() {
@@ -30519,10 +30511,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.cardTypes = e.cardTypes)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setType(e, i) {
@@ -30530,11 +30522,11 @@
             (this.checkedType = e),
               (this.type = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getTypes();
@@ -30691,105 +30683,105 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 20),
-                c(56, "Title"),
-                s(),
-                r(57, "th", 20),
-                c(58, "Image"),
-                s(),
-                s(),
-                s(),
-                r(59, "tbody"),
-                v(60, w8, 19, 0, "tr", 21),
-                s(),
-                s());
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 20),
+                  c(56, "Title"),
+                  s(),
+                  r(57, "th", 20),
+                  c(58, "Image"),
+                  s(),
+                  s(),
+                  s(),
+                  r(59, "tbody"),
+                  v(60, w8, 19, 0, "tr", 21),
+                  s(),
+                  s());
             },
             directives: [H],
             styles: [""],
@@ -30800,13 +30792,13 @@
       function x8(t, n) {
         1 & t &&
           (r(0, "tr"),
-          r(1, "th", 23),
-          r(2, "div", 24),
-          g(3, "input", 25),
-          s(),
-          s(),
-          g(4, "td"),
-          s());
+            r(1, "th", 23),
+            r(2, "div", 24),
+            g(3, "input", 25),
+            s(),
+            s(),
+            g(4, "td"),
+            s());
       }
       let D8 = (() => {
         class t {
@@ -30828,11 +30820,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCards() : alert("Adding error!"),
+                200 === i.code ? this.getCards() : this.showAlert("Adding error!"),
                   (this.card = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editCard() {
@@ -30848,11 +30840,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCards() : alert("Editing error!"),
+                200 === i.code ? this.getCards() : this.showAlert("Editing error!"),
                   (this.card = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteCard() {
@@ -30868,11 +30860,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCards() : alert("Editing error!"),
+                200 === i.code ? this.getCards() : this.showAlert("Editing error!"),
                   (this.card = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getCards() {
@@ -30883,10 +30875,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.creditCards = e.cards)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setCard(e, i) {
@@ -30894,11 +30886,11 @@
             (this.checkedCard = e),
               (this.card = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getCards();
@@ -31056,102 +31048,102 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Role"),
-                s(),
-                s(),
-                s(),
-                r(57, "tbody"),
-                v(58, x8, 5, 0, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Role"),
+                  s(),
+                  s(),
+                  s(),
+                  r(57, "tbody"),
+                  v(58, x8, 5, 0, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(58), C("ngForOf", i.creditCards));
             },
             directives: [H],
@@ -31163,27 +31155,27 @@
       function k8(t, n) {
         1 & t &&
           (r(0, "tr"),
-          r(1, "th", 22),
-          r(2, "div", 23),
-          g(3, "input", 24),
-          s(),
-          s(),
-          g(4, "td"),
-          g(5, "td"),
-          g(6, "td"),
-          g(7, "td"),
-          g(8, "td"),
-          g(9, "td"),
-          g(10, "td"),
-          g(11, "td"),
-          g(12, "td"),
-          g(13, "td"),
-          g(14, "td"),
-          g(15, "td"),
-          g(16, "td"),
-          g(17, "td"),
-          g(18, "td"),
-          s());
+            r(1, "th", 22),
+            r(2, "div", 23),
+            g(3, "input", 24),
+            s(),
+            s(),
+            g(4, "td"),
+            g(5, "td"),
+            g(6, "td"),
+            g(7, "td"),
+            g(8, "td"),
+            g(9, "td"),
+            g(10, "td"),
+            g(11, "td"),
+            g(12, "td"),
+            g(13, "td"),
+            g(14, "td"),
+            g(15, "td"),
+            g(16, "td"),
+            g(17, "td"),
+            g(18, "td"),
+            s());
       }
       let O8 = (() => {
         class t {
@@ -31205,11 +31197,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getBookings() : alert("Adding error!"),
+                200 === i.code ? this.getBookings() : this.showAlert("Adding error!"),
                   (this.booking = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editBooking() {
@@ -31225,11 +31217,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getBookings() : alert("Editing error!"),
+                200 === i.code ? this.getBookings() : this.showAlert("Editing error!"),
                   (this.booking = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteBooking() {
@@ -31245,11 +31237,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getBookings() : alert("Editing error!"),
+                200 === i.code ? this.getBookings() : this.showAlert("Editing error!"),
                   (this.booking = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getBookings() {
@@ -31260,10 +31252,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.bookings = e.bookings)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setBooking(e, i) {
@@ -31271,11 +31263,11 @@
             (this.checkedBooking = e),
               (this.booking = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getBookings();
@@ -31432,105 +31424,105 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 20),
-                c(56, "Title"),
-                s(),
-                r(57, "th", 20),
-                c(58, "Image"),
-                s(),
-                s(),
-                s(),
-                r(59, "tbody"),
-                v(60, k8, 19, 0, "tr", 21),
-                s(),
-                s());
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 20),
+                  c(56, "Title"),
+                  s(),
+                  r(57, "th", 20),
+                  c(58, "Image"),
+                  s(),
+                  s(),
+                  s(),
+                  r(59, "tbody"),
+                  v(60, k8, 19, 0, "tr", 21),
+                  s(),
+                  s());
             },
             directives: [H],
             styles: [""],
@@ -31542,16 +31534,16 @@
         if (
           (1 & t &&
             (r(0, "tr"),
-            r(1, "th", 23),
-            r(2, "div", 24),
-            g(3, "input", 25),
-            s(),
-            s(),
-            r(4, "td"),
-            c(5),
-            s(),
-            s()),
-          2 & t)
+              r(1, "th", 23),
+              r(2, "div", 24),
+              g(3, "input", 25),
+              s(),
+              s(),
+              r(4, "td"),
+              c(5),
+              s(),
+              s()),
+            2 & t)
         ) {
           const e = n.$implicit;
           _(5), B(e.type);
@@ -31575,11 +31567,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Adding error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Adding error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editType() {
@@ -31595,11 +31587,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Editing error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Editing error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteType() {
@@ -31615,11 +31607,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Editing error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Editing error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getTypes() {
@@ -31628,10 +31620,10 @@
             })
               .then((e) => e.json())
               .then((e) => {
-                200 === e.code ? (this.types = e.types) : alert("Fetch error!");
+                200 === e.code ? (this.types = e.types) : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setType(e, i) {
@@ -31639,11 +31631,11 @@
             (this.checkedType = e),
               (this.type = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getTypes();
@@ -31801,102 +31793,102 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Type"),
-                s(),
-                s(),
-                s(),
-                r(57, "tbody"),
-                v(58, T8, 6, 1, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Type"),
+                  s(),
+                  s(),
+                  s(),
+                  r(57, "tbody"),
+                  v(58, T8, 6, 1, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(58), C("ngForOf", i.types));
             },
             directives: [H],
@@ -31909,16 +31901,16 @@
         if (
           (1 & t &&
             (r(0, "tr"),
-            r(1, "th", 23),
-            r(2, "div", 24),
-            g(3, "input", 25),
-            s(),
-            s(),
-            r(4, "td"),
-            c(5),
-            s(),
-            s()),
-          2 & t)
+              r(1, "th", 23),
+              r(2, "div", 24),
+              g(3, "input", 25),
+              s(),
+              s(),
+              r(4, "td"),
+              c(5),
+              s(),
+              s()),
+            2 & t)
         ) {
           const e = n.$implicit;
           _(5), B(e.category);
@@ -31944,11 +31936,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCategories() : alert("Adding error!"),
+                200 === i.code ? this.getCategories() : this.showAlert("Adding error!"),
                   (this.category = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editCategory() {
@@ -31964,11 +31956,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCategories() : alert("Editing error!"),
+                200 === i.code ? this.getCategories() : this.showAlert("Editing error!"),
                   (this.category = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteCategory() {
@@ -31984,11 +31976,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCategories() : alert("Editing error!"),
+                200 === i.code ? this.getCategories() : this.showAlert("Editing error!"),
                   (this.category = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getCategories() {
@@ -31999,10 +31991,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.categories = e.categories)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setCategory(e, i) {
@@ -32010,11 +32002,11 @@
             (this.checkedCategory = e),
               (this.category = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getCategories();
@@ -32172,102 +32164,102 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Category"),
-                s(),
-                s(),
-                s(),
-                r(57, "tbody"),
-                v(58, E8, 6, 1, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Category"),
+                  s(),
+                  s(),
+                  s(),
+                  r(57, "tbody"),
+                  v(58, E8, 6, 1, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(58), C("ngForOf", i.categories));
             },
             directives: [H],
@@ -32320,11 +32312,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCategories() : alert("Adding error!"),
+                200 === i.code ? this.getCategories() : this.showAlert("Adding error!"),
                   (this.category = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editCategory() {
@@ -32340,11 +32332,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCategories() : alert("Editing error!"),
+                200 === i.code ? this.getCategories() : this.showAlert("Editing error!"),
                   (this.category = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteCategory() {
@@ -32360,11 +32352,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getCategories() : alert("Editing error!"),
+                200 === i.code ? this.getCategories() : this.showAlert("Editing error!"),
                   (this.category = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getCategories() {
@@ -32375,10 +32367,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.categories = e.categories)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setCategory(e, i) {
@@ -32386,11 +32378,11 @@
             (this.checkedCategory = e),
               (this.category = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getCategories();
@@ -32551,102 +32543,102 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Category"),
-                s(),
-                s(),
-                s(),
-                r(57, "tbody"),
-                v(58, A8, 6, 2, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Category"),
+                  s(),
+                  s(),
+                  s(),
+                  r(57, "tbody"),
+                  v(58, A8, 6, 2, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(58), C("ngForOf", i.categories));
             },
             directives: [H],
@@ -32659,25 +32651,25 @@
         if (
           (1 & t &&
             (r(0, "tr"),
-            r(1, "th", 23),
-            r(2, "div", 24),
-            g(3, "input", 25),
-            s(),
-            s(),
-            r(4, "td"),
-            c(5),
-            s(),
-            r(6, "td"),
-            c(7),
-            s(),
-            r(8, "td"),
-            c(9),
-            s(),
-            r(10, "td"),
-            c(11),
-            s(),
-            s()),
-          2 & t)
+              r(1, "th", 23),
+              r(2, "div", 24),
+              g(3, "input", 25),
+              s(),
+              s(),
+              r(4, "td"),
+              c(5),
+              s(),
+              r(6, "td"),
+              c(7),
+              s(),
+              r(8, "td"),
+              c(9),
+              s(),
+              r(10, "td"),
+              c(11),
+              s(),
+              s()),
+            2 & t)
         ) {
           const e = n.$implicit;
           _(5),
@@ -32710,11 +32702,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getFacilities() : alert("Adding error!"),
+                200 === i.code ? this.getFacilities() : this.showAlert("Adding error!"),
                   (this.facility = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editFacility() {
@@ -32730,11 +32722,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getFacilities() : alert("Editing error!"),
+                200 === i.code ? this.getFacilities() : this.showAlert("Editing error!"),
                   (this.facility = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteFacility() {
@@ -32750,11 +32742,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getFacilities() : alert("Editing error!"),
+                200 === i.code ? this.getFacilities() : this.showAlert("Editing error!"),
                   (this.facility = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getFacilities() {
@@ -32765,10 +32757,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.facilities = e.facilities)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setFacility(e, i) {
@@ -32776,11 +32768,11 @@
             (this.checkedFacility = e),
               (this.facility = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getFacilities();
@@ -32938,111 +32930,111 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Facility"),
-                s(),
-                r(57, "th", 21),
-                c(58, "FacilityType"),
-                s(),
-                r(59, "th", 21),
-                c(60, "Suggestion"),
-                s(),
-                r(61, "th", 21),
-                c(62, "Image"),
-                s(),
-                s(),
-                s(),
-                r(63, "tbody"),
-                v(64, I8, 12, 4, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Facility"),
+                  s(),
+                  r(57, "th", 21),
+                  c(58, "FacilityType"),
+                  s(),
+                  r(59, "th", 21),
+                  c(60, "Suggestion"),
+                  s(),
+                  r(61, "th", 21),
+                  c(62, "Image"),
+                  s(),
+                  s(),
+                  s(),
+                  r(63, "tbody"),
+                  v(64, I8, 12, 4, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(64), C("ngForOf", i.facilities));
             },
             directives: [H],
@@ -33055,19 +33047,19 @@
         if (
           (1 & t &&
             (r(0, "tr"),
-            r(1, "th", 23),
-            r(2, "div", 24),
-            g(3, "input", 25),
-            s(),
-            s(),
-            r(4, "td"),
-            c(5),
-            s(),
-            r(6, "td"),
-            c(7),
-            s(),
-            s()),
-          2 & t)
+              r(1, "th", 23),
+              r(2, "div", 24),
+              g(3, "input", 25),
+              s(),
+              s(),
+              r(4, "td"),
+              c(5),
+              s(),
+              r(6, "td"),
+              c(7),
+              s(),
+              s()),
+            2 & t)
         ) {
           const e = n.$implicit;
           _(5), B(e.type), _(2), B(e.facilities);
@@ -33091,11 +33083,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Adding error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Adding error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editType() {
@@ -33111,11 +33103,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Editing error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Editing error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteType() {
@@ -33131,11 +33123,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getTypes() : alert("Editing error!"),
+                200 === i.code ? this.getTypes() : this.showAlert("Editing error!"),
                   (this.type = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           getTypes() {
@@ -33144,10 +33136,10 @@
             })
               .then((e) => e.json())
               .then((e) => {
-                200 === e.code ? (this.types = e.types) : alert("Fetch error!");
+                200 === e.code ? (this.types = e.types) : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           setType(e, i) {
@@ -33155,11 +33147,11 @@
             (this.checkedType = e),
               (this.type = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           ngOnInit() {
             this.getTypes();
@@ -33317,105 +33309,105 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Modal title"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                c(16, " ... "),
-                s(),
-                r(17, "div", 12),
-                r(18, "button", 13),
-                c(19, "Close"),
-                s(),
-                r(20, "button", 14),
-                c(21, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(22, "div", 15),
-                r(23, "div", 6),
-                r(24, "div", 7),
-                r(25, "div", 8),
-                r(26, "h5", 16),
-                c(27, "Modal title"),
-                s(),
-                g(28, "button", 10),
-                s(),
-                r(29, "div", 11),
-                c(30, " ... "),
-                s(),
-                r(31, "div", 12),
-                r(32, "button", 13),
-                c(33, "Close"),
-                s(),
-                r(34, "button", 14),
-                c(35, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(36, "div", 17),
-                r(37, "div", 6),
-                r(38, "div", 7),
-                r(39, "div", 8),
-                r(40, "h5", 18),
-                c(41, "Modal title"),
-                s(),
-                g(42, "button", 10),
-                s(),
-                r(43, "div", 11),
-                c(44, " ... "),
-                s(),
-                r(45, "div", 12),
-                r(46, "button", 13),
-                c(47, "Close"),
-                s(),
-                r(48, "button", 14),
-                c(49, "Understood"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(50, "table", 19),
-                r(51, "thead"),
-                r(52, "tr"),
-                r(53, "th", 20),
-                c(54, "#"),
-                s(),
-                r(55, "th", 21),
-                c(56, "Type"),
-                s(),
-                r(57, "th", 21),
-                c(58, "Facility"),
-                s(),
-                s(),
-                s(),
-                r(59, "tbody"),
-                v(60, F8, 8, 2, "tr", 22),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Modal title"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  c(16, " ... "),
+                  s(),
+                  r(17, "div", 12),
+                  r(18, "button", 13),
+                  c(19, "Close"),
+                  s(),
+                  r(20, "button", 14),
+                  c(21, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(22, "div", 15),
+                  r(23, "div", 6),
+                  r(24, "div", 7),
+                  r(25, "div", 8),
+                  r(26, "h5", 16),
+                  c(27, "Modal title"),
+                  s(),
+                  g(28, "button", 10),
+                  s(),
+                  r(29, "div", 11),
+                  c(30, " ... "),
+                  s(),
+                  r(31, "div", 12),
+                  r(32, "button", 13),
+                  c(33, "Close"),
+                  s(),
+                  r(34, "button", 14),
+                  c(35, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(36, "div", 17),
+                  r(37, "div", 6),
+                  r(38, "div", 7),
+                  r(39, "div", 8),
+                  r(40, "h5", 18),
+                  c(41, "Modal title"),
+                  s(),
+                  g(42, "button", 10),
+                  s(),
+                  r(43, "div", 11),
+                  c(44, " ... "),
+                  s(),
+                  r(45, "div", 12),
+                  r(46, "button", 13),
+                  c(47, "Close"),
+                  s(),
+                  r(48, "button", 14),
+                  c(49, "Understood"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(50, "table", 19),
+                  r(51, "thead"),
+                  r(52, "tr"),
+                  r(53, "th", 20),
+                  c(54, "#"),
+                  s(),
+                  r(55, "th", 21),
+                  c(56, "Type"),
+                  s(),
+                  r(57, "th", 21),
+                  c(58, "Facility"),
+                  s(),
+                  s(),
+                  s(),
+                  r(59, "tbody"),
+                  v(60, F8, 8, 2, "tr", 22),
+                  s(),
+                  s()),
                 2 & e && (_(60), C("ngForOf", i.types));
             },
             directives: [H],
@@ -33469,11 +33461,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getLangs() : alert("Adding error!"),
+                200 === i.code ? this.getLangs() : this.showAlert("Adding error!"),
                   (this.lang = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           editLang() {
@@ -33489,12 +33481,12 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getLangs() : alert("Editing error!"),
+                200 === i.code ? this.getLangs() : this.showAlert("Editing error!"),
                   console.log(i),
                   (this.lang = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           deleteLang() {
@@ -33510,11 +33502,11 @@
             })
               .then((i) => i.json())
               .then((i) => {
-                200 === i.code ? this.getLangs() : alert("Editing error!"),
+                200 === i.code ? this.getLangs() : this.showAlert("Editing error!"),
                   (this.lang = "");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
           setLang(e, i) {
@@ -33522,11 +33514,11 @@
             (this.checkedLang = e),
               (this.lang = i),
               null === (o = document.getElementById("editButton")) ||
-                void 0 === o ||
-                o.removeAttribute("disabled"),
+              void 0 === o ||
+              o.removeAttribute("disabled"),
               null === (a = document.getElementById("deleteButton")) ||
-                void 0 === a ||
-                a.removeAttribute("disabled");
+              void 0 === a ||
+              a.removeAttribute("disabled");
           }
           getLangs() {
             fetch("https://localhost:44381/api/languages/getlanguages", {
@@ -33536,10 +33528,10 @@
               .then((e) => {
                 200 === e.code
                   ? (this.languages = e.languages)
-                  : alert("Fetch error!");
+                  : this.showAlert("Fetch error!");
               })
               .catch((e) => {
-                alert(e);
+                this.showAlert(e);
               });
           }
           ngOnInit() {
@@ -33773,146 +33765,146 @@
             template: function (e, i) {
               1 & e &&
                 (r(0, "div", 0),
-                r(1, "div", 1),
-                r(2, "button", 2),
-                c(3, "Add"),
-                s(),
-                r(4, "button", 3),
-                c(5, "Edit"),
-                s(),
-                r(6, "button", 4),
-                c(7, "Delete"),
-                s(),
-                s(),
-                s(),
-                r(8, "div", 5),
-                r(9, "div", 6),
-                r(10, "div", 7),
-                r(11, "div", 8),
-                r(12, "h5", 9),
-                c(13, "Add language"),
-                s(),
-                g(14, "button", 10),
-                s(),
-                r(15, "div", 11),
-                r(16, "form"),
-                r(17, "div", 12),
-                r(18, "label", 13),
-                c(19, "New language"),
-                s(),
-                r(20, "input", 14),
-                M("ngModelChange", function (a) {
-                  return (i.lang = a);
-                }),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(21, "div", 15),
-                r(22, "button", 16),
-                M("click", function () {
-                  return i.addLang();
-                }),
-                c(23, "Save"),
-                s(),
-                r(24, "button", 17),
-                c(25, "Close"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(26, "div", 18),
-                r(27, "div", 6),
-                r(28, "div", 7),
-                r(29, "div", 8),
-                r(30, "h5", 19),
-                c(31, "Edit language"),
-                s(),
-                g(32, "button", 10),
-                s(),
-                r(33, "div", 11),
-                r(34, "form"),
-                r(35, "div", 12),
-                r(36, "label", 20),
-                c(37, "Language"),
-                s(),
-                r(38, "input", 21),
-                M("ngModelChange", function (a) {
-                  return (i.lang = a);
-                }),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(39, "div", 15),
-                r(40, "button", 16),
-                M("click", function () {
-                  return i.editLang();
-                }),
-                c(41, "Save"),
-                s(),
-                r(42, "button", 17),
-                c(43, "Close"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(44, "div", 22),
-                r(45, "div", 6),
-                r(46, "div", 7),
-                r(47, "div", 8),
-                r(48, "h5", 23),
-                c(49, "Delete language"),
-                s(),
-                g(50, "button", 10),
-                s(),
-                r(51, "div", 11),
-                r(52, "form"),
-                r(53, "div", 12),
-                r(54, "label", 24),
-                c(55, "Language"),
-                s(),
-                r(56, "input", 25),
-                M("ngModelChange", function (a) {
-                  return (i.lang = a);
-                }),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(57, "div", 15),
-                r(58, "button", 26),
-                M("click", function () {
-                  return i.deleteLang();
-                }),
-                c(59, "Delete"),
-                s(),
-                r(60, "button", 17),
-                c(61, "Cancel"),
-                s(),
-                s(),
-                s(),
-                s(),
-                s(),
-                r(62, "table", 27),
-                r(63, "thead"),
-                r(64, "tr"),
-                r(65, "th", 28),
-                c(66, "#"),
-                s(),
-                r(67, "th", 29),
-                c(68, "Language"),
-                s(),
-                s(),
-                s(),
-                r(69, "tbody"),
-                v(70, B8, 6, 2, "tr", 30),
-                s(),
-                s()),
+                  r(1, "div", 1),
+                  r(2, "button", 2),
+                  c(3, "Add"),
+                  s(),
+                  r(4, "button", 3),
+                  c(5, "Edit"),
+                  s(),
+                  r(6, "button", 4),
+                  c(7, "Delete"),
+                  s(),
+                  s(),
+                  s(),
+                  r(8, "div", 5),
+                  r(9, "div", 6),
+                  r(10, "div", 7),
+                  r(11, "div", 8),
+                  r(12, "h5", 9),
+                  c(13, "Add language"),
+                  s(),
+                  g(14, "button", 10),
+                  s(),
+                  r(15, "div", 11),
+                  r(16, "form"),
+                  r(17, "div", 12),
+                  r(18, "label", 13),
+                  c(19, "New language"),
+                  s(),
+                  r(20, "input", 14),
+                  M("ngModelChange", function (a) {
+                    return (i.lang = a);
+                  }),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(21, "div", 15),
+                  r(22, "button", 16),
+                  M("click", function () {
+                    return i.addLang();
+                  }),
+                  c(23, "Save"),
+                  s(),
+                  r(24, "button", 17),
+                  c(25, "Close"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(26, "div", 18),
+                  r(27, "div", 6),
+                  r(28, "div", 7),
+                  r(29, "div", 8),
+                  r(30, "h5", 19),
+                  c(31, "Edit language"),
+                  s(),
+                  g(32, "button", 10),
+                  s(),
+                  r(33, "div", 11),
+                  r(34, "form"),
+                  r(35, "div", 12),
+                  r(36, "label", 20),
+                  c(37, "Language"),
+                  s(),
+                  r(38, "input", 21),
+                  M("ngModelChange", function (a) {
+                    return (i.lang = a);
+                  }),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(39, "div", 15),
+                  r(40, "button", 16),
+                  M("click", function () {
+                    return i.editLang();
+                  }),
+                  c(41, "Save"),
+                  s(),
+                  r(42, "button", 17),
+                  c(43, "Close"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(44, "div", 22),
+                  r(45, "div", 6),
+                  r(46, "div", 7),
+                  r(47, "div", 8),
+                  r(48, "h5", 23),
+                  c(49, "Delete language"),
+                  s(),
+                  g(50, "button", 10),
+                  s(),
+                  r(51, "div", 11),
+                  r(52, "form"),
+                  r(53, "div", 12),
+                  r(54, "label", 24),
+                  c(55, "Language"),
+                  s(),
+                  r(56, "input", 25),
+                  M("ngModelChange", function (a) {
+                    return (i.lang = a);
+                  }),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(57, "div", 15),
+                  r(58, "button", 26),
+                  M("click", function () {
+                    return i.deleteLang();
+                  }),
+                  c(59, "Delete"),
+                  s(),
+                  r(60, "button", 17),
+                  c(61, "Cancel"),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  s(),
+                  r(62, "table", 27),
+                  r(63, "thead"),
+                  r(64, "tr"),
+                  r(65, "th", 28),
+                  c(66, "#"),
+                  s(),
+                  r(67, "th", 29),
+                  c(68, "Language"),
+                  s(),
+                  s(),
+                  s(),
+                  r(69, "tbody"),
+                  v(70, B8, 6, 2, "tr", 30),
+                  s(),
+                  s()),
                 2 & e &&
-                  (_(20),
+                (_(20),
                   C("ngModel", i.lang),
                   _(18),
                   C("ngModel", i.lang),
@@ -34057,78 +34049,78 @@
         1 & t && g(0, "app-users-list");
       }
       let PN = (() => {
-          class t {
-            constructor() {
-              this.content = "users";
-            }
-            setContent(e) {
-              this.content = e;
-            }
-            ngOnInit() {}
+        class t {
+          constructor() {
+            this.content = "users";
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)();
-            }),
-            (t.ɵcmp = N({
-              type: t,
-              selectors: [["app-admin-content"]],
-              inputs: { content: "content" },
-              decls: 48,
-              vars: 1,
-              consts: [
-                [1, "page-content"],
-                [1, "container-fluid"],
-                [1, "container"],
-                [1, "row"],
-                [3, "ngSwitch"],
-                ["ngSwitchCase", "users"],
-                ["ngSwitchCase", "user-profiles"],
-                ["ngSwitchCase", "temp-users"],
-                ["ngSwitchCase", "roles"],
-                ["ngSwitchCase", "genders"],
-                ["ngSwitchCase", "favorites"],
-                ["ngSwitchCase", "stay-bookings"],
-                ["ngSwitchCase", "flight-bookings"],
-                ["ngSwitchCase", "car-rental-bookings"],
-                ["ngSwitchCase", "attraction-bookings"],
-                ["ngSwitchCase", "airport-taxi-bookings"],
-                ["ngSwitchCase", "addresses"],
-                ["ngSwitchCase", "airports"],
-                ["ngSwitchCase", "cities"],
-                ["ngSwitchCase", "countries"],
-                ["ngSwitchCase", "districts"],
-                ["ngSwitchCase", "regions"],
-                ["ngSwitchCase", "suggestions"],
-                ["ngSwitchCase", "suggestions-highlights"],
-                ["ngSwitchCase", "suggestions-rules"],
-                ["ngSwitchCase", "suggestions-rule-types"],
-                ["ngSwitchCase", "suggestions-review-grades"],
-                ["ngSwitchCase", "surrounding-objects"],
-                ["ngSwitchCase", "surrounding-object-types"],
-                ["ngSwitchCase", "rooms"],
-                ["ngSwitchCase", "room-types"],
-                ["ngSwitchCase", "reviews"],
-                ["ngSwitchCase", "review-categories"],
-                ["ngSwitchCase", "review-messages"],
-                ["ngSwitchCase", "payments"],
-                ["ngSwitchCase", "payment-types"],
-                ["ngSwitchCase", "promo-codes"],
-                ["ngSwitchCase", "currencies"],
-                ["ngSwitchCase", "card-types"],
-                ["ngSwitchCase", "credit-cards"],
-                ["ngSwitchCase", "booking-prices"],
-                ["ngSwitchCase", "flight-class-types"],
-                ["ngSwitchCase", "booking-categories"],
-                ["ngSwitchCase", "service-categories"],
-                ["ngSwitchCase", "facility"],
-                ["ngSwitchCase", "facility-types"],
-                ["ngSwitchCase", "languages"],
-                ["ngSwitchDefault", ""],
-              ],
-              template: function (e, i) {
-                1 & e &&
-                  (r(0, "div", 0),
+          setContent(e) {
+            this.content = e;
+          }
+          ngOnInit() { }
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)();
+          }),
+          (t.ɵcmp = N({
+            type: t,
+            selectors: [["app-admin-content"]],
+            inputs: { content: "content" },
+            decls: 48,
+            vars: 1,
+            consts: [
+              [1, "page-content"],
+              [1, "container-fluid"],
+              [1, "container"],
+              [1, "row"],
+              [3, "ngSwitch"],
+              ["ngSwitchCase", "users"],
+              ["ngSwitchCase", "user-profiles"],
+              ["ngSwitchCase", "temp-users"],
+              ["ngSwitchCase", "roles"],
+              ["ngSwitchCase", "genders"],
+              ["ngSwitchCase", "favorites"],
+              ["ngSwitchCase", "stay-bookings"],
+              ["ngSwitchCase", "flight-bookings"],
+              ["ngSwitchCase", "car-rental-bookings"],
+              ["ngSwitchCase", "attraction-bookings"],
+              ["ngSwitchCase", "airport-taxi-bookings"],
+              ["ngSwitchCase", "addresses"],
+              ["ngSwitchCase", "airports"],
+              ["ngSwitchCase", "cities"],
+              ["ngSwitchCase", "countries"],
+              ["ngSwitchCase", "districts"],
+              ["ngSwitchCase", "regions"],
+              ["ngSwitchCase", "suggestions"],
+              ["ngSwitchCase", "suggestions-highlights"],
+              ["ngSwitchCase", "suggestions-rules"],
+              ["ngSwitchCase", "suggestions-rule-types"],
+              ["ngSwitchCase", "suggestions-review-grades"],
+              ["ngSwitchCase", "surrounding-objects"],
+              ["ngSwitchCase", "surrounding-object-types"],
+              ["ngSwitchCase", "rooms"],
+              ["ngSwitchCase", "room-types"],
+              ["ngSwitchCase", "reviews"],
+              ["ngSwitchCase", "review-categories"],
+              ["ngSwitchCase", "review-messages"],
+              ["ngSwitchCase", "payments"],
+              ["ngSwitchCase", "payment-types"],
+              ["ngSwitchCase", "promo-codes"],
+              ["ngSwitchCase", "currencies"],
+              ["ngSwitchCase", "card-types"],
+              ["ngSwitchCase", "credit-cards"],
+              ["ngSwitchCase", "booking-prices"],
+              ["ngSwitchCase", "flight-class-types"],
+              ["ngSwitchCase", "booking-categories"],
+              ["ngSwitchCase", "service-categories"],
+              ["ngSwitchCase", "facility"],
+              ["ngSwitchCase", "facility-types"],
+              ["ngSwitchCase", "languages"],
+              ["ngSwitchDefault", ""],
+            ],
+            template: function (e, i) {
+              1 & e &&
+                (r(0, "div", 0),
                   r(1, "div", 1),
                   r(2, "div", 2),
                   r(3, "div", 3),
@@ -34181,60 +34173,60 @@
                   s(),
                   s(),
                   s()),
-                  2 & e && (_(4), C("ngSwitch", i.content));
-              },
-              directives: [
-                gl,
-                j_,
-                V_,
-                pA,
-                gA,
-                bA,
-                _A,
-                vA,
-                wA,
-                MA,
-                DA,
-                OA,
-                PA,
-                SA,
-                NA,
-                RA,
-                LA,
-                jA,
-                HA,
-                UA,
-                GA,
-                WA,
-                YA,
-                ZA,
-                XA,
-                t8,
-                i8,
-                r8,
-                a8,
-                c8,
-                u8,
-                p8,
-                f8,
-                m8,
-                y8,
-                C8,
-                M8,
-                D8,
-                O8,
-                P8,
-                S8,
-                N8,
-                R8,
-                L8,
-                j8,
-              ],
-              styles: [""],
-            })),
-            t
-          );
-        })(),
+                2 & e && (_(4), C("ngSwitch", i.content));
+            },
+            directives: [
+              gl,
+              j_,
+              V_,
+              pA,
+              gA,
+              bA,
+              _A,
+              vA,
+              wA,
+              MA,
+              DA,
+              OA,
+              PA,
+              SA,
+              NA,
+              RA,
+              LA,
+              jA,
+              HA,
+              UA,
+              GA,
+              WA,
+              YA,
+              ZA,
+              XA,
+              t8,
+              i8,
+              r8,
+              a8,
+              c8,
+              u8,
+              p8,
+              f8,
+              m8,
+              y8,
+              C8,
+              M8,
+              D8,
+              O8,
+              P8,
+              S8,
+              N8,
+              R8,
+              L8,
+              j8,
+            ],
+            styles: [""],
+          })),
+          t
+        );
+      })(),
         EN = (() => {
           class t {
             constructor() {
@@ -34243,7 +34235,7 @@
             setContent(e) {
               this.content = e;
             }
-            ngOnInit() {}
+            ngOnInit() { }
           }
           return (
             (t.ɵfac = function (e) {
@@ -34579,635 +34571,635 @@
               template: function (e, i) {
                 1 & e &&
                   (r(0, "body", 0),
-                  r(1, "div", 1),
-                  r(2, "header", 2),
-                  r(3, "div", 3),
-                  r(4, "div", 4),
-                  r(5, "div", 5),
-                  r(6, "a", 6),
-                  r(7, "span", 7),
-                  r(8, "div", 8),
-                  c(9, "Apart.com"),
-                  s(),
-                  s(),
-                  r(10, "span", 9),
-                  r(11, "div", 8),
-                  c(12, "Apart.com"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(13, "button", 10),
-                  g(14, "i", 11),
-                  s(),
-                  s(),
-                  r(15, "div", 4),
-                  r(16, "div", 12),
-                  r(17, "a", 13),
-                  c(18, "Support"),
-                  s(),
-                  s(),
-                  r(19, "div", 14),
-                  r(20, "a", 13),
-                  c(21, "Need Customization?"),
-                  s(),
-                  s(),
-                  r(22, "div", 12),
-                  r(23, "a", 13),
-                  c(24, "Buy Now"),
-                  s(),
-                  s(),
-                  r(25, "div", 12),
-                  r(26, "h5", 15),
-                  r(27, "span", 16),
-                  c(28, "ADMIN"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(29, "div", 17),
-                  r(30, "div", 18),
-                  r(31, "div", 19),
-                  r(32, "div", 20),
-                  r(33, "ul", 21),
-                  r(34, "div", 22),
-                  r(35, "h2", 23),
-                  r(36, "li", 24),
-                  c(37, " User data "),
-                  s(),
-                  s(),
-                  r(38, "div", 25),
-                  r(39, "li"),
-                  r(40, "a", 26),
-                  M("click", function () {
-                    return i.setContent("users");
-                  }),
-                  g(41, "i", 27),
-                  r(42, "span"),
-                  c(43, "Users"),
-                  s(),
-                  s(),
-                  s(),
-                  r(44, "li"),
-                  r(45, "a", 26),
-                  M("click", function () {
-                    return i.setContent("user-profiles");
-                  }),
-                  g(46, "i", 28),
-                  r(47, "span"),
-                  c(48, "User profiles"),
-                  s(),
-                  s(),
-                  s(),
-                  r(49, "li"),
-                  r(50, "a", 26),
-                  M("click", function () {
-                    return i.setContent("temp-users");
-                  }),
-                  g(51, "i", 29),
-                  r(52, "span"),
-                  c(53, "Temp users"),
-                  s(),
-                  s(),
-                  s(),
-                  r(54, "li"),
-                  r(55, "a", 26),
-                  M("click", function () {
-                    return i.setContent("roles");
-                  }),
-                  g(56, "i", 30),
-                  r(57, "span"),
-                  c(58, "Roles"),
-                  s(),
-                  s(),
-                  s(),
-                  r(59, "li"),
-                  r(60, "a", 26),
-                  M("click", function () {
-                    return i.setContent("genders");
-                  }),
-                  g(61, "i", 27),
-                  r(62, "span"),
-                  c(63, "Genders"),
-                  s(),
-                  s(),
-                  s(),
-                  r(64, "li"),
-                  r(65, "a", 26),
-                  M("click", function () {
-                    return i.setContent("favorites");
-                  }),
-                  g(66, "i", 31),
-                  r(67, "span"),
-                  c(68, "Favorites"),
-                  s(),
-                  s(),
-                  s(),
-                  r(69, "li"),
-                  r(70, "a", 26),
-                  M("click", function () {
-                    return i.setContent("languages");
-                  }),
-                  g(71, "i", 32),
-                  r(72, "span"),
-                  c(73, "Languages"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(74, "div", 22),
-                  r(75, "h2", 23),
-                  r(76, "li", 33),
-                  c(77, " Services "),
-                  s(),
-                  s(),
-                  r(78, "div", 34),
-                  r(79, "li"),
-                  r(80, "a", 26),
-                  M("click", function () {
-                    return i.setContent("stay-bookings");
-                  }),
-                  g(81, "i", 35),
-                  r(82, "span"),
-                  c(83, "Stay bookings"),
-                  s(),
-                  s(),
-                  s(),
-                  r(84, "li"),
-                  r(85, "a", 26),
-                  M("click", function () {
-                    return i.setContent("flight-bookings");
-                  }),
-                  g(86, "i", 36),
-                  r(87, "span"),
-                  c(88, "Flight bookings"),
-                  s(),
-                  s(),
-                  s(),
-                  r(89, "li"),
-                  r(90, "a", 26),
-                  M("click", function () {
-                    return i.setContent("car-rental-bookings");
-                  }),
-                  g(91, "i", 37),
-                  r(92, "span"),
-                  c(93, "Car rental bookings"),
-                  s(),
-                  s(),
-                  s(),
-                  r(94, "li"),
-                  r(95, "a", 26),
-                  M("click", function () {
-                    return i.setContent("attraction-bookings");
-                  }),
-                  g(96, "i", 38),
-                  r(97, "span"),
-                  c(98, "Attraction bookings"),
-                  s(),
-                  s(),
-                  s(),
-                  r(99, "li"),
-                  r(100, "a", 26),
-                  M("click", function () {
-                    return i.setContent("airport-taxi-bookings");
-                  }),
-                  g(101, "i", 39),
-                  r(102, "span"),
-                  c(103, "Airport taxi bookings"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(104, "div", 22),
-                  r(105, "h2", 23),
-                  r(106, "li", 40),
-                  c(107, " Location "),
-                  s(),
-                  s(),
-                  r(108, "div", 41),
-                  r(109, "li"),
-                  r(110, "a", 42),
-                  M("click", function () {
-                    return i.setContent("addresses");
-                  }),
-                  g(111, "i", 43),
-                  r(112, "span"),
-                  c(113, "Addresses"),
-                  s(),
-                  s(),
-                  s(),
-                  r(114, "li"),
-                  r(115, "a", 26),
-                  M("click", function () {
-                    return i.setContent("airports");
-                  }),
-                  g(116, "i", 44),
-                  r(117, "span"),
-                  c(118, "Airports"),
-                  s(),
-                  s(),
-                  s(),
-                  r(119, "li"),
-                  r(120, "a", 26),
-                  M("click", function () {
-                    return i.setContent("cities");
-                  }),
-                  g(121, "i", 45),
-                  r(122, "span"),
-                  c(123, "Cities"),
-                  s(),
-                  s(),
-                  s(),
-                  r(124, "li"),
-                  r(125, "a", 26),
-                  M("click", function () {
-                    return i.setContent("countries");
-                  }),
-                  g(126, "i", 46),
-                  r(127, "span"),
-                  c(128, "Countries"),
-                  s(),
-                  s(),
-                  s(),
-                  r(129, "li"),
-                  r(130, "a", 26),
-                  M("click", function () {
-                    return i.setContent("districts");
-                  }),
-                  g(131, "i", 47),
-                  r(132, "span"),
-                  c(133, "Districts"),
-                  s(),
-                  s(),
-                  s(),
-                  r(134, "li"),
-                  r(135, "a", 26),
-                  M("click", function () {
-                    return i.setContent("regions");
-                  }),
-                  g(136, "i", 48),
-                  r(137, "span"),
-                  c(138, "Regions"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(139, "div", 22),
-                  r(140, "h2", 49),
-                  r(141, "li", 50),
-                  c(142, " Suggestions "),
-                  s(),
-                  s(),
-                  r(143, "div", 51),
-                  r(144, "li"),
-                  r(145, "a", 26),
-                  M("click", function () {
-                    return i.setContent("suggestions");
-                  }),
-                  g(146, "i", 52),
-                  r(147, "span"),
-                  c(148, "Suggestions"),
-                  s(),
-                  s(),
-                  s(),
-                  r(149, "li"),
-                  r(150, "a", 26),
-                  M("click", function () {
-                    return i.setContent("suggestions-highlights");
-                  }),
-                  g(151, "i", 53),
-                  r(152, "span"),
-                  c(153, "Suggestions highlights"),
-                  s(),
-                  s(),
-                  s(),
-                  r(154, "li"),
-                  r(155, "a", 26),
-                  M("click", function () {
-                    return i.setContent("suggestions-review-grades");
-                  }),
-                  g(156, "i", 54),
-                  r(157, "span"),
-                  c(158, "Suggestion review grades"),
-                  s(),
-                  s(),
-                  s(),
-                  r(159, "li"),
-                  r(160, "a", 26),
-                  M("click", function () {
-                    return i.setContent("suggestions-rules");
-                  }),
-                  g(161, "i", 55),
-                  r(162, "span"),
-                  c(163, "Suggestion rules"),
-                  s(),
-                  s(),
-                  s(),
-                  r(164, "li"),
-                  r(165, "a", 26),
-                  M("click", function () {
-                    return i.setContent("suggestions-rule-types");
-                  }),
-                  g(166, "i", 55),
-                  r(167, "span"),
-                  c(168, "Suggestion rule types"),
-                  s(),
-                  s(),
-                  s(),
-                  r(169, "li"),
-                  r(170, "a", 26),
-                  M("click", function () {
-                    return i.setContent("surrounding-objects");
-                  }),
-                  g(171, "i", 56),
-                  r(172, "span"),
-                  c(173, "Surrounding objects"),
-                  s(),
-                  s(),
-                  s(),
-                  r(174, "li"),
-                  r(175, "a", 26),
-                  M("click", function () {
-                    return i.setContent("surrounding-object-types");
-                  }),
-                  g(176, "i", 56),
-                  r(177, "span"),
-                  c(178, "Surrounding object types"),
-                  s(),
-                  s(),
-                  s(),
-                  r(179, "li"),
-                  r(180, "a", 26),
-                  M("click", function () {
-                    return i.setContent("room-types");
-                  }),
-                  g(181, "i", 57),
-                  r(182, "span"),
-                  c(183, "Room types"),
-                  s(),
-                  s(),
-                  s(),
-                  r(184, "li"),
-                  r(185, "a", 26),
-                  M("click", function () {
-                    return i.setContent("rooms");
-                  }),
-                  g(186, "i", 57),
-                  r(187, "span"),
-                  c(188, "Rooms"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(189, "div", 22),
-                  r(190, "h2", 23),
-                  r(191, "li", 58),
-                  c(192, " Reviews "),
-                  s(),
-                  s(),
-                  r(193, "div", 59),
-                  r(194, "li"),
-                  r(195, "a", 26),
-                  M("click", function () {
-                    return i.setContent("reviews");
-                  }),
-                  g(196, "i", 60),
-                  r(197, "span"),
-                  c(198, "Reviews"),
-                  s(),
-                  s(),
-                  s(),
-                  r(199, "li"),
-                  r(200, "a", 26),
-                  M("click", function () {
-                    return i.setContent("review-categories");
-                  }),
-                  g(201, "i", 61),
-                  r(202, "span"),
-                  c(203, "Review categories"),
-                  s(),
-                  s(),
-                  s(),
-                  r(204, "li"),
-                  r(205, "a", 26),
-                  M("click", function () {
-                    return i.setContent("review-messages");
-                  }),
-                  g(206, "i", 62),
-                  r(207, "span"),
-                  c(208, "Review messages"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(209, "div", 22),
-                  r(210, "h2", 23),
-                  r(211, "li", 63),
-                  c(212, " Payment "),
-                  s(),
-                  s(),
-                  r(213, "div", 64),
-                  r(214, "li"),
-                  r(215, "a", 26),
-                  M("click", function () {
-                    return i.setContent("payments");
-                  }),
-                  g(216, "i", 65),
-                  r(217, "span"),
-                  c(218, "Payment"),
-                  s(),
-                  s(),
-                  s(),
-                  r(219, "li"),
-                  r(220, "a", 26),
-                  M("click", function () {
-                    return i.setContent("payment-types");
-                  }),
-                  g(221, "i", 66),
-                  r(222, "span"),
-                  c(223, "Payment types"),
-                  s(),
-                  s(),
-                  s(),
-                  r(224, "li"),
-                  r(225, "a", 26),
-                  M("click", function () {
-                    return i.setContent("promo-codes");
-                  }),
-                  g(226, "i", 67),
-                  r(227, "span"),
-                  c(228, "Promo codes"),
-                  s(),
-                  s(),
-                  s(),
-                  r(229, "li"),
-                  r(230, "a", 26),
-                  M("click", function () {
-                    return i.setContent("currencies");
-                  }),
-                  g(231, "i", 68),
-                  r(232, "span"),
-                  c(233, "Currencies"),
-                  s(),
-                  s(),
-                  s(),
-                  r(234, "li"),
-                  r(235, "a", 26),
-                  M("click", function () {
-                    return i.setContent("credit-cards");
-                  }),
-                  g(236, "i", 69),
-                  r(237, "span"),
-                  c(238, "Credit cards"),
-                  s(),
-                  s(),
-                  s(),
-                  r(239, "li"),
-                  r(240, "a", 26),
-                  M("click", function () {
-                    return i.setContent("card-types");
-                  }),
-                  g(241, "i", 70),
-                  r(242, "span"),
-                  c(243, "Card types"),
-                  s(),
-                  s(),
-                  s(),
-                  r(244, "li"),
-                  r(245, "a", 26),
-                  M("click", function () {
-                    return i.setContent("booking-prices");
-                  }),
-                  g(246, "i", 71),
-                  r(247, "span"),
-                  c(248, "Booking prices"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(249, "div", 22),
-                  r(250, "h2", 23),
-                  r(251, "li", 72),
-                  c(252, " Flights "),
-                  s(),
-                  s(),
-                  r(253, "div", 73),
-                  r(254, "li"),
-                  r(255, "a", 26),
-                  M("click", function () {
-                    return i.setContent("flight-class-types");
-                  }),
-                  g(256, "i", 68),
-                  r(257, "span"),
-                  c(258, "Flight class types"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(259, "div", 22),
-                  r(260, "h2", 23),
-                  r(261, "li", 74),
-                  c(262, " Categories "),
-                  s(),
-                  s(),
-                  r(263, "div", 75),
-                  r(264, "li"),
-                  r(265, "a", 26),
-                  M("click", function () {
-                    return i.setContent("booking-categories");
-                  }),
-                  g(266, "i", 76),
-                  r(267, "span"),
-                  c(268, "Booking categories"),
-                  s(),
-                  s(),
-                  s(),
-                  r(269, "li"),
-                  r(270, "a", 26),
-                  M("click", function () {
-                    return i.setContent("service-categories");
-                  }),
-                  g(271, "i", 77),
-                  r(272, "span"),
-                  c(273, "Service categories"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(274, "div", 22),
-                  r(275, "h2", 23),
-                  r(276, "li", 78),
-                  c(277, " Facilities "),
-                  s(),
-                  s(),
-                  r(278, "div", 79),
-                  r(279, "li"),
-                  r(280, "a", 26),
-                  M("click", function () {
-                    return i.setContent("facility");
-                  }),
-                  g(281, "i", 80),
-                  r(282, "span"),
-                  c(283, "Facilities"),
-                  s(),
-                  s(),
-                  s(),
-                  r(284, "li"),
-                  r(285, "a", 26),
-                  M("click", function () {
-                    return i.setContent("facility-types");
-                  }),
-                  g(286, "i", 81),
-                  r(287, "span"),
-                  c(288, "Facility types"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(289, "div", 82),
-                  g(290, "app-admin-content", 83),
-                  s(),
-                  s(),
-                  s(),
-                  r(291, "footer", 84),
-                  r(292, "div", 85),
-                  r(293, "div", 86),
-                  r(294, "div", 87),
-                  r(295, "p"),
-                  c(296),
-                  s(),
-                  s(),
-                  r(297, "div", 87),
-                  r(298, "div", 88),
-                  c(299, " Designed "),
-                  g(300, "i", 89),
-                  c(301, " by "),
-                  r(302, "a", 90),
-                  c(303, "Apart Team"),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s()),
+                    r(1, "div", 1),
+                    r(2, "header", 2),
+                    r(3, "div", 3),
+                    r(4, "div", 4),
+                    r(5, "div", 5),
+                    r(6, "a", 6),
+                    r(7, "span", 7),
+                    r(8, "div", 8),
+                    c(9, "Apart.com"),
+                    s(),
+                    s(),
+                    r(10, "span", 9),
+                    r(11, "div", 8),
+                    c(12, "Apart.com"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(13, "button", 10),
+                    g(14, "i", 11),
+                    s(),
+                    s(),
+                    r(15, "div", 4),
+                    r(16, "div", 12),
+                    r(17, "a", 13),
+                    c(18, "Support"),
+                    s(),
+                    s(),
+                    r(19, "div", 14),
+                    r(20, "a", 13),
+                    c(21, "Need Customization?"),
+                    s(),
+                    s(),
+                    r(22, "div", 12),
+                    r(23, "a", 13),
+                    c(24, "Buy Now"),
+                    s(),
+                    s(),
+                    r(25, "div", 12),
+                    r(26, "h5", 15),
+                    r(27, "span", 16),
+                    c(28, "ADMIN"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(29, "div", 17),
+                    r(30, "div", 18),
+                    r(31, "div", 19),
+                    r(32, "div", 20),
+                    r(33, "ul", 21),
+                    r(34, "div", 22),
+                    r(35, "h2", 23),
+                    r(36, "li", 24),
+                    c(37, " User data "),
+                    s(),
+                    s(),
+                    r(38, "div", 25),
+                    r(39, "li"),
+                    r(40, "a", 26),
+                    M("click", function () {
+                      return i.setContent("users");
+                    }),
+                    g(41, "i", 27),
+                    r(42, "span"),
+                    c(43, "Users"),
+                    s(),
+                    s(),
+                    s(),
+                    r(44, "li"),
+                    r(45, "a", 26),
+                    M("click", function () {
+                      return i.setContent("user-profiles");
+                    }),
+                    g(46, "i", 28),
+                    r(47, "span"),
+                    c(48, "User profiles"),
+                    s(),
+                    s(),
+                    s(),
+                    r(49, "li"),
+                    r(50, "a", 26),
+                    M("click", function () {
+                      return i.setContent("temp-users");
+                    }),
+                    g(51, "i", 29),
+                    r(52, "span"),
+                    c(53, "Temp users"),
+                    s(),
+                    s(),
+                    s(),
+                    r(54, "li"),
+                    r(55, "a", 26),
+                    M("click", function () {
+                      return i.setContent("roles");
+                    }),
+                    g(56, "i", 30),
+                    r(57, "span"),
+                    c(58, "Roles"),
+                    s(),
+                    s(),
+                    s(),
+                    r(59, "li"),
+                    r(60, "a", 26),
+                    M("click", function () {
+                      return i.setContent("genders");
+                    }),
+                    g(61, "i", 27),
+                    r(62, "span"),
+                    c(63, "Genders"),
+                    s(),
+                    s(),
+                    s(),
+                    r(64, "li"),
+                    r(65, "a", 26),
+                    M("click", function () {
+                      return i.setContent("favorites");
+                    }),
+                    g(66, "i", 31),
+                    r(67, "span"),
+                    c(68, "Favorites"),
+                    s(),
+                    s(),
+                    s(),
+                    r(69, "li"),
+                    r(70, "a", 26),
+                    M("click", function () {
+                      return i.setContent("languages");
+                    }),
+                    g(71, "i", 32),
+                    r(72, "span"),
+                    c(73, "Languages"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(74, "div", 22),
+                    r(75, "h2", 23),
+                    r(76, "li", 33),
+                    c(77, " Services "),
+                    s(),
+                    s(),
+                    r(78, "div", 34),
+                    r(79, "li"),
+                    r(80, "a", 26),
+                    M("click", function () {
+                      return i.setContent("stay-bookings");
+                    }),
+                    g(81, "i", 35),
+                    r(82, "span"),
+                    c(83, "Stay bookings"),
+                    s(),
+                    s(),
+                    s(),
+                    r(84, "li"),
+                    r(85, "a", 26),
+                    M("click", function () {
+                      return i.setContent("flight-bookings");
+                    }),
+                    g(86, "i", 36),
+                    r(87, "span"),
+                    c(88, "Flight bookings"),
+                    s(),
+                    s(),
+                    s(),
+                    r(89, "li"),
+                    r(90, "a", 26),
+                    M("click", function () {
+                      return i.setContent("car-rental-bookings");
+                    }),
+                    g(91, "i", 37),
+                    r(92, "span"),
+                    c(93, "Car rental bookings"),
+                    s(),
+                    s(),
+                    s(),
+                    r(94, "li"),
+                    r(95, "a", 26),
+                    M("click", function () {
+                      return i.setContent("attraction-bookings");
+                    }),
+                    g(96, "i", 38),
+                    r(97, "span"),
+                    c(98, "Attraction bookings"),
+                    s(),
+                    s(),
+                    s(),
+                    r(99, "li"),
+                    r(100, "a", 26),
+                    M("click", function () {
+                      return i.setContent("airport-taxi-bookings");
+                    }),
+                    g(101, "i", 39),
+                    r(102, "span"),
+                    c(103, "Airport taxi bookings"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(104, "div", 22),
+                    r(105, "h2", 23),
+                    r(106, "li", 40),
+                    c(107, " Location "),
+                    s(),
+                    s(),
+                    r(108, "div", 41),
+                    r(109, "li"),
+                    r(110, "a", 42),
+                    M("click", function () {
+                      return i.setContent("addresses");
+                    }),
+                    g(111, "i", 43),
+                    r(112, "span"),
+                    c(113, "Addresses"),
+                    s(),
+                    s(),
+                    s(),
+                    r(114, "li"),
+                    r(115, "a", 26),
+                    M("click", function () {
+                      return i.setContent("airports");
+                    }),
+                    g(116, "i", 44),
+                    r(117, "span"),
+                    c(118, "Airports"),
+                    s(),
+                    s(),
+                    s(),
+                    r(119, "li"),
+                    r(120, "a", 26),
+                    M("click", function () {
+                      return i.setContent("cities");
+                    }),
+                    g(121, "i", 45),
+                    r(122, "span"),
+                    c(123, "Cities"),
+                    s(),
+                    s(),
+                    s(),
+                    r(124, "li"),
+                    r(125, "a", 26),
+                    M("click", function () {
+                      return i.setContent("countries");
+                    }),
+                    g(126, "i", 46),
+                    r(127, "span"),
+                    c(128, "Countries"),
+                    s(),
+                    s(),
+                    s(),
+                    r(129, "li"),
+                    r(130, "a", 26),
+                    M("click", function () {
+                      return i.setContent("districts");
+                    }),
+                    g(131, "i", 47),
+                    r(132, "span"),
+                    c(133, "Districts"),
+                    s(),
+                    s(),
+                    s(),
+                    r(134, "li"),
+                    r(135, "a", 26),
+                    M("click", function () {
+                      return i.setContent("regions");
+                    }),
+                    g(136, "i", 48),
+                    r(137, "span"),
+                    c(138, "Regions"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(139, "div", 22),
+                    r(140, "h2", 49),
+                    r(141, "li", 50),
+                    c(142, " Suggestions "),
+                    s(),
+                    s(),
+                    r(143, "div", 51),
+                    r(144, "li"),
+                    r(145, "a", 26),
+                    M("click", function () {
+                      return i.setContent("suggestions");
+                    }),
+                    g(146, "i", 52),
+                    r(147, "span"),
+                    c(148, "Suggestions"),
+                    s(),
+                    s(),
+                    s(),
+                    r(149, "li"),
+                    r(150, "a", 26),
+                    M("click", function () {
+                      return i.setContent("suggestions-highlights");
+                    }),
+                    g(151, "i", 53),
+                    r(152, "span"),
+                    c(153, "Suggestions highlights"),
+                    s(),
+                    s(),
+                    s(),
+                    r(154, "li"),
+                    r(155, "a", 26),
+                    M("click", function () {
+                      return i.setContent("suggestions-review-grades");
+                    }),
+                    g(156, "i", 54),
+                    r(157, "span"),
+                    c(158, "Suggestion review grades"),
+                    s(),
+                    s(),
+                    s(),
+                    r(159, "li"),
+                    r(160, "a", 26),
+                    M("click", function () {
+                      return i.setContent("suggestions-rules");
+                    }),
+                    g(161, "i", 55),
+                    r(162, "span"),
+                    c(163, "Suggestion rules"),
+                    s(),
+                    s(),
+                    s(),
+                    r(164, "li"),
+                    r(165, "a", 26),
+                    M("click", function () {
+                      return i.setContent("suggestions-rule-types");
+                    }),
+                    g(166, "i", 55),
+                    r(167, "span"),
+                    c(168, "Suggestion rule types"),
+                    s(),
+                    s(),
+                    s(),
+                    r(169, "li"),
+                    r(170, "a", 26),
+                    M("click", function () {
+                      return i.setContent("surrounding-objects");
+                    }),
+                    g(171, "i", 56),
+                    r(172, "span"),
+                    c(173, "Surrounding objects"),
+                    s(),
+                    s(),
+                    s(),
+                    r(174, "li"),
+                    r(175, "a", 26),
+                    M("click", function () {
+                      return i.setContent("surrounding-object-types");
+                    }),
+                    g(176, "i", 56),
+                    r(177, "span"),
+                    c(178, "Surrounding object types"),
+                    s(),
+                    s(),
+                    s(),
+                    r(179, "li"),
+                    r(180, "a", 26),
+                    M("click", function () {
+                      return i.setContent("room-types");
+                    }),
+                    g(181, "i", 57),
+                    r(182, "span"),
+                    c(183, "Room types"),
+                    s(),
+                    s(),
+                    s(),
+                    r(184, "li"),
+                    r(185, "a", 26),
+                    M("click", function () {
+                      return i.setContent("rooms");
+                    }),
+                    g(186, "i", 57),
+                    r(187, "span"),
+                    c(188, "Rooms"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(189, "div", 22),
+                    r(190, "h2", 23),
+                    r(191, "li", 58),
+                    c(192, " Reviews "),
+                    s(),
+                    s(),
+                    r(193, "div", 59),
+                    r(194, "li"),
+                    r(195, "a", 26),
+                    M("click", function () {
+                      return i.setContent("reviews");
+                    }),
+                    g(196, "i", 60),
+                    r(197, "span"),
+                    c(198, "Reviews"),
+                    s(),
+                    s(),
+                    s(),
+                    r(199, "li"),
+                    r(200, "a", 26),
+                    M("click", function () {
+                      return i.setContent("review-categories");
+                    }),
+                    g(201, "i", 61),
+                    r(202, "span"),
+                    c(203, "Review categories"),
+                    s(),
+                    s(),
+                    s(),
+                    r(204, "li"),
+                    r(205, "a", 26),
+                    M("click", function () {
+                      return i.setContent("review-messages");
+                    }),
+                    g(206, "i", 62),
+                    r(207, "span"),
+                    c(208, "Review messages"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(209, "div", 22),
+                    r(210, "h2", 23),
+                    r(211, "li", 63),
+                    c(212, " Payment "),
+                    s(),
+                    s(),
+                    r(213, "div", 64),
+                    r(214, "li"),
+                    r(215, "a", 26),
+                    M("click", function () {
+                      return i.setContent("payments");
+                    }),
+                    g(216, "i", 65),
+                    r(217, "span"),
+                    c(218, "Payment"),
+                    s(),
+                    s(),
+                    s(),
+                    r(219, "li"),
+                    r(220, "a", 26),
+                    M("click", function () {
+                      return i.setContent("payment-types");
+                    }),
+                    g(221, "i", 66),
+                    r(222, "span"),
+                    c(223, "Payment types"),
+                    s(),
+                    s(),
+                    s(),
+                    r(224, "li"),
+                    r(225, "a", 26),
+                    M("click", function () {
+                      return i.setContent("promo-codes");
+                    }),
+                    g(226, "i", 67),
+                    r(227, "span"),
+                    c(228, "Promo codes"),
+                    s(),
+                    s(),
+                    s(),
+                    r(229, "li"),
+                    r(230, "a", 26),
+                    M("click", function () {
+                      return i.setContent("currencies");
+                    }),
+                    g(231, "i", 68),
+                    r(232, "span"),
+                    c(233, "Currencies"),
+                    s(),
+                    s(),
+                    s(),
+                    r(234, "li"),
+                    r(235, "a", 26),
+                    M("click", function () {
+                      return i.setContent("credit-cards");
+                    }),
+                    g(236, "i", 69),
+                    r(237, "span"),
+                    c(238, "Credit cards"),
+                    s(),
+                    s(),
+                    s(),
+                    r(239, "li"),
+                    r(240, "a", 26),
+                    M("click", function () {
+                      return i.setContent("card-types");
+                    }),
+                    g(241, "i", 70),
+                    r(242, "span"),
+                    c(243, "Card types"),
+                    s(),
+                    s(),
+                    s(),
+                    r(244, "li"),
+                    r(245, "a", 26),
+                    M("click", function () {
+                      return i.setContent("booking-prices");
+                    }),
+                    g(246, "i", 71),
+                    r(247, "span"),
+                    c(248, "Booking prices"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(249, "div", 22),
+                    r(250, "h2", 23),
+                    r(251, "li", 72),
+                    c(252, " Flights "),
+                    s(),
+                    s(),
+                    r(253, "div", 73),
+                    r(254, "li"),
+                    r(255, "a", 26),
+                    M("click", function () {
+                      return i.setContent("flight-class-types");
+                    }),
+                    g(256, "i", 68),
+                    r(257, "span"),
+                    c(258, "Flight class types"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(259, "div", 22),
+                    r(260, "h2", 23),
+                    r(261, "li", 74),
+                    c(262, " Categories "),
+                    s(),
+                    s(),
+                    r(263, "div", 75),
+                    r(264, "li"),
+                    r(265, "a", 26),
+                    M("click", function () {
+                      return i.setContent("booking-categories");
+                    }),
+                    g(266, "i", 76),
+                    r(267, "span"),
+                    c(268, "Booking categories"),
+                    s(),
+                    s(),
+                    s(),
+                    r(269, "li"),
+                    r(270, "a", 26),
+                    M("click", function () {
+                      return i.setContent("service-categories");
+                    }),
+                    g(271, "i", 77),
+                    r(272, "span"),
+                    c(273, "Service categories"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(274, "div", 22),
+                    r(275, "h2", 23),
+                    r(276, "li", 78),
+                    c(277, " Facilities "),
+                    s(),
+                    s(),
+                    r(278, "div", 79),
+                    r(279, "li"),
+                    r(280, "a", 26),
+                    M("click", function () {
+                      return i.setContent("facility");
+                    }),
+                    g(281, "i", 80),
+                    r(282, "span"),
+                    c(283, "Facilities"),
+                    s(),
+                    s(),
+                    s(),
+                    r(284, "li"),
+                    r(285, "a", 26),
+                    M("click", function () {
+                      return i.setContent("facility-types");
+                    }),
+                    g(286, "i", 81),
+                    r(287, "span"),
+                    c(288, "Facility types"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(289, "div", 82),
+                    g(290, "app-admin-content", 83),
+                    s(),
+                    s(),
+                    s(),
+                    r(291, "footer", 84),
+                    r(292, "div", 85),
+                    r(293, "div", 86),
+                    r(294, "div", 87),
+                    r(295, "p"),
+                    c(296),
+                    s(),
+                    s(),
+                    r(297, "div", 87),
+                    r(298, "div", 88),
+                    c(299, " Designed "),
+                    g(300, "i", 89),
+                    c(301, " by "),
+                    r(302, "a", 90),
+                    c(303, "Apart Team"),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s()),
                   2 & e &&
-                    (_(290),
+                  (_(290),
                     C("content", i.content),
                     _(6),
                     an(
@@ -35230,20 +35222,20 @@
           i
             ? wt(t, n, e).pipe(oe((o) => (gi(o) ? i(...o) : i(o))))
             : new _e((o) => {
-                hv(
-                  t,
-                  n,
-                  function (l) {
-                    o.next(
-                      arguments.length > 1
-                        ? Array.prototype.slice.call(arguments)
-                        : l
-                    );
-                  },
-                  o,
-                  e
-                );
-              })
+              hv(
+                t,
+                n,
+                function (l) {
+                  o.next(
+                    arguments.length > 1
+                      ? Array.prototype.slice.call(arguments)
+                      : l
+                  );
+                },
+                o,
+                e
+              );
+            })
         );
       }
       function hv(t, n, e, i, o) {
@@ -35326,7 +35318,7 @@
             if ((i = n.execute(n.state, n.delay))) break;
           } while ((n = e.shift()));
           if (((this.active = !1), i)) {
-            for (; (n = e.shift()); ) n.unsubscribe();
+            for (; (n = e.shift());) n.unsubscribe();
             throw i;
           }
         }
@@ -35476,10 +35468,10 @@
           gi(n)
             ? e.push(new $N(n))
             : e.push(
-                "function" == typeof n[fi]
-                  ? new HN(n[fi]())
-                  : new UN(this.destination, this, n)
-              );
+              "function" == typeof n[fi]
+                ? new HN(n[fi]())
+                : new UN(this.destination, this, n)
+            );
         }
         _complete() {
           const n = this.iterators,
@@ -35622,7 +35614,7 @@
         notifyNext() {
           (this.seenValue = !0), this.complete();
         }
-        notifyComplete() {}
+        notifyComplete() { }
       }
       class WN {
         constructor(n, e) {
@@ -35698,7 +35690,7 @@
             -1 !== a && o.splice(a, 1);
           }
         }
-        notifyComplete() {}
+        notifyComplete() { }
         _next(n) {
           if (0 === this.toRespond.length) {
             const e = [n, ...this.values];
@@ -35794,7 +35786,7 @@
             i = e.queue,
             o = n.scheduler,
             a = n.destination;
-          for (; i.length > 0 && i[0].time - o.now() <= 0; )
+          for (; i.length > 0 && i[0].time - o.now() <= 0;)
             i.shift().notification.observe(a);
           if (i.length > 0) {
             const l = Math.max(0, i[0].time - o.now());
@@ -35877,10 +35869,10 @@
         if (
           (1 & t &&
             (r(0, "div", 9),
-            v(1, C6, 2, 1, "div", 10),
-            g(2, "ngb-datepicker-month", 11),
-            s()),
-          2 & t)
+              v(1, C6, 2, 1, "div", 10),
+              g(2, "ngb-datepicker-month", 11),
+              s()),
+            2 & t)
         ) {
           const e = n.$implicit,
             i = O(2);
@@ -35888,7 +35880,7 @@
             C(
               "ngIf",
               "none" === i.navigation ||
-                (i.displayMonths > 1 && "select" === i.navigation)
+              (i.displayMonths > 1 && "select" === i.navigation)
             ),
             _(1),
             C("month", e.firstDate);
@@ -35923,8 +35915,8 @@
           );
         }
       }
-      function D6(t, n) {}
-      function k6(t, n) {}
+      function D6(t, n) { }
+      function k6(t, n) { }
       function O6(t, n) {
         if ((1 & t && (r(0, "div", 5), c(1), s()), 2 & t)) {
           const e = O(2);
@@ -35941,10 +35933,10 @@
         if (
           (1 & t &&
             (r(0, "div", 2),
-            v(1, O6, 2, 1, "div", 3),
-            v(2, T6, 2, 1, "div", 4),
-            s()),
-          2 & t)
+              v(1, O6, 2, 1, "div", 3),
+              v(2, T6, 2, 1, "div", 4),
+              s()),
+            2 & t)
         ) {
           const e = O();
           _(1),
@@ -35960,7 +35952,7 @@
           _(1), B(i.i18n.getWeekNumerals(e.number));
         }
       }
-      function S6(t, n) {}
+      function S6(t, n) { }
       function A6(t, n) {
         if ((1 & t && v(0, S6, 0, 0, "ng-template", 14), 2 & t)) {
           const e = O().$implicit;
@@ -35997,10 +35989,10 @@
         if (
           (1 & t &&
             (r(0, "div", 8),
-            v(1, E6, 2, 1, "div", 9),
-            v(2, N6, 2, 9, "div", 10),
-            s()),
-          2 & t)
+              v(1, E6, 2, 1, "div", 9),
+              v(2, N6, 2, 9, "div", 10),
+              s()),
+            2 & t)
         ) {
           const e = O().$implicit,
             i = O();
@@ -36041,11 +36033,11 @@
         if (
           (1 & t &&
             (v(0, L6, 1, 0, "div", 9),
-            r(1, "div", 10),
-            c(2),
-            s(),
-            v(3, B6, 1, 0, "div", 9)),
-          2 & t)
+              r(1, "div", 10),
+              c(2),
+              s(),
+              v(3, B6, 1, 0, "div", 9)),
+            2 & t)
         ) {
           const e = n.$implicit,
             i = n.index,
@@ -36086,14 +36078,14 @@
       }
       const q6 = ["dialog"],
         W6 = ["ngbNavOutlet", ""];
-      function J6(t, n) {}
+      function J6(t, n) { }
       const Y6 = function (t) {
         return { $implicit: t };
       };
       function Q6(t, n) {
         if (
           (1 & t && (r(0, "div", 2), v(1, J6, 0, 0, "ng-template", 3), s()),
-          2 & t)
+            2 & t)
         ) {
           const e = O().$implicit,
             i = O();
@@ -36150,15 +36142,15 @@
           (Element.prototype.matches =
             Element.prototype.msMatchesSelector ||
             Element.prototype.webkitMatchesSelector),
-        (Element.prototype.closest = function (t) {
-          let n = this;
-          if (!document.documentElement.contains(n)) return null;
-          do {
-            if (n.matches(t)) return n;
-            n = n.parentElement || n.parentNode;
-          } while (null !== n && 1 === n.nodeType);
-          return null;
-        }));
+          (Element.prototype.closest = function (t) {
+            let n = this;
+            if (!document.documentElement.contains(n)) return null;
+            do {
+              if (n.matches(t)) return n;
+              n = n.parentElement || n.parentNode;
+            } while (null !== n && 1 === n.nodeType);
+            return null;
+          }));
       const wv = { animation: !0, transitionTimerDelayMs: 5 };
       let ft = (() => {
         class t {
@@ -36180,7 +36172,7 @@
           t
         );
       })();
-      const o7 = () => {},
+      const o7 = () => { },
         { transitionTimerDelayMs: r7 } = wv,
         Hs = new Map(),
         ct = (t, n, e, i) => {
@@ -36273,18 +36265,18 @@
           );
         };
       let Ov = (() => {
-          class t {}
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)();
-            }),
-            (t.ɵmod = Ce({ type: t })),
-            (t.ɵinj = ye({ imports: [[Ut]] })),
-            t
-          );
-        })(),
+        class t { }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)();
+          }),
+          (t.ɵmod = Ce({ type: t })),
+          (t.ɵinj = ye({ imports: [[Ut]] })),
+          t
+        );
+      })(),
         Tv = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -36295,7 +36287,7 @@
           );
         })(),
         Ev = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -36306,7 +36298,7 @@
           );
         })(),
         Nv = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -36317,7 +36309,7 @@
           );
         })(),
         Iv = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -36337,8 +36329,8 @@
           return n instanceof dt
             ? n
             : n
-            ? new dt(n.year, n.month, n.day)
-            : null;
+              ? new dt(n.year, n.month, n.day)
+              : null;
         }
         equals(n) {
           return (
@@ -36380,15 +36372,15 @@
         return new C7();
       }
       let nc = (() => {
-          class t {}
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)();
-            }),
-            (t.ɵprov = L({ factory: v7, token: t, providedIn: "root" })),
-            t
-          );
-        })(),
+        class t { }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)();
+          }),
+          (t.ɵprov = L({ factory: v7, token: t, providedIn: "root" })),
+          t
+        );
+      })(),
         C7 = (() => {
           class t extends nc {
             getDaysPerWeek() {
@@ -36490,42 +36482,42 @@
         );
       }
       let io = (() => {
-          class t {
-            getMonthLabel(e) {
-              return `${this.getMonthFullName(
-                e.month,
-                e.year
-              )} ${this.getYearNumerals(e.year)}`;
-            }
-            getDayNumerals(e) {
-              return `${e.day}`;
-            }
-            getWeekNumerals(e) {
-              return `${e}`;
-            }
-            getYearNumerals(e) {
-              return `${e}`;
-            }
-            getWeekLabel() {
-              return "";
-            }
+        class t {
+          getMonthLabel(e) {
+            return `${this.getMonthFullName(
+              e.month,
+              e.year
+            )} ${this.getYearNumerals(e.year)}`;
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)();
-            }),
-            (t.ɵprov = L({
-              factory: function () {
-                return (function (t) {
-                  return new A7(t);
-                })(E(cn));
-              },
-              token: t,
-              providedIn: "root",
-            })),
-            t
-          );
-        })(),
+          getDayNumerals(e) {
+            return `${e.day}`;
+          }
+          getWeekNumerals(e) {
+            return `${e}`;
+          }
+          getYearNumerals(e) {
+            return `${e}`;
+          }
+          getWeekLabel() {
+            return "";
+          }
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)();
+          }),
+          (t.ɵprov = L({
+            factory: function () {
+              return (function (t) {
+                return new A7(t);
+              })(E(cn));
+            },
+            token: t,
+            providedIn: "root",
+          })),
+          t
+        );
+      })(),
         A7 = (() => {
           class t extends io {
             constructor(e) {
@@ -36687,7 +36679,7 @@
                 !this._state.disabled &&
                 (mr(this._state.selectedDate, o) &&
                   this._nextState({ selectedDate: o }),
-                i.emitEvent && lp(o, this._state) && this._dateSelect$.next(o));
+                  i.emitEvent && lp(o, this._state) && this._dateSelect$.next(o));
             }
             toValidDate(e, i) {
               const o = dt.from(e);
@@ -36727,14 +36719,14 @@
                           : -1),
                       !0 === u && (b.context.disabled = !0),
                       void 0 !== a &&
-                        (b.context.selected = null !== a && a.equals(b.date)),
+                      (b.context.selected = null !== a && a.equals(b.date)),
                       p.number !== b.date.month &&
-                        (b.hidden =
-                          "hidden" === h ||
-                          "collapsed" === h ||
-                          (o > 1 &&
-                            b.date.after(i[0].firstDate) &&
-                            b.date.before(i[o - 1].lastDate)));
+                      (b.hidden =
+                        "hidden" === h ||
+                        "collapsed" === h ||
+                        (o > 1 &&
+                          b.date.after(i[0].firstDate) &&
+                          b.date.before(i[o - 1].lastDate)));
                   });
                 });
               });
@@ -36750,18 +36742,18 @@
                         `'maxDate' ${n} should be greater than 'minDate' ${t}`
                       );
                   })(i.minDate, i.maxDate),
-                  (i.focusDate = ic(i.focusDate, i.minDate, i.maxDate)),
-                  (i.firstDate = ic(i.firstDate, i.minDate, i.maxDate)),
-                  (o = i.focusDate)),
-                "disabled" in e && (i.focusVisible = !1),
-                "selectedDate" in e &&
+                    (i.focusDate = ic(i.focusDate, i.minDate, i.maxDate)),
+                    (i.firstDate = ic(i.firstDate, i.minDate, i.maxDate)),
+                    (o = i.focusDate)),
+                  "disabled" in e && (i.focusVisible = !1),
+                  "selectedDate" in e &&
                   0 === this._state.months.length &&
                   (o = i.selectedDate),
-                "focusVisible" in e ||
+                  "focusVisible" in e ||
                   ("focusDate" in e &&
                     ((i.focusDate = ic(i.focusDate, i.minDate, i.maxDate)),
-                    (o = i.focusDate),
-                    0 !== i.months.length &&
+                      (o = i.focusDate),
+                      0 !== i.months.length &&
                       i.focusDate &&
                       !i.focusDate.before(i.firstDate) &&
                       !i.focusDate.after(i.lastDate))))
@@ -36770,8 +36762,8 @@
               if (
                 ("firstDate" in e &&
                   ((i.firstDate = ic(i.firstDate, i.minDate, i.maxDate)),
-                  (o = i.firstDate)),
-                o)
+                    (o = i.firstDate)),
+                  o)
               ) {
                 const l = (function (t, n, e, i, o) {
                   const { displayMonths: a, months: l } = e,
@@ -36788,15 +36780,15 @@
                       null === l[p] &&
                         (l[p] = (function (t, n, e, i, o = {}) {
                           const {
-                              dayTemplateData: a,
-                              minDate: l,
-                              maxDate: d,
-                              firstDayOfWeek: u,
-                              markDisabled: h,
-                              outsideDays: p,
-                              weekdayWidth: f,
-                              weekdaysVisible: b,
-                            } = e,
+                            dayTemplateData: a,
+                            minDate: l,
+                            maxDate: d,
+                            firstDayOfWeek: u,
+                            markDisabled: h,
+                            outsideDays: p,
+                            weekdayWidth: f,
+                            weekdaysVisible: b,
+                          } = e,
                             m = t.getToday();
                           (o.firstDate = null),
                             (o.lastDate = null),
@@ -36842,8 +36834,8 @@
                                 k.month === o.number &&
                                 (o.firstDate = k),
                                 k.month === o.number &&
-                                  F.month !== o.number &&
-                                  (o.lastDate = k);
+                                F.month !== o.number &&
+                                (o.lastDate = k);
                               let mn = T[S];
                               mn || (mn = T[S] = {}),
                                 (mn.date = k),
@@ -36883,83 +36875,83 @@
                   i,
                   this._i18n,
                   "dayTemplateData" in e ||
-                    "firstDayOfWeek" in e ||
-                    "markDisabled" in e ||
-                    "minDate" in e ||
-                    "maxDate" in e ||
-                    "disabled" in e ||
-                    "outsideDays" in e ||
-                    "weekdaysVisible" in e
+                  "firstDayOfWeek" in e ||
+                  "markDisabled" in e ||
+                  "minDate" in e ||
+                  "maxDate" in e ||
+                  "disabled" in e ||
+                  "outsideDays" in e ||
+                  "weekdaysVisible" in e
                 );
                 (i.months = l),
                   (i.firstDate = l[0].firstDate),
                   (i.lastDate = l[l.length - 1].lastDate),
                   "selectedDate" in e &&
-                    !lp(i.selectedDate, i) &&
-                    (i.selectedDate = null),
+                  !lp(i.selectedDate, i) &&
+                  (i.selectedDate = null),
                   "firstDate" in e &&
-                    (!i.focusDate ||
-                      i.focusDate.before(i.firstDate) ||
-                      i.focusDate.after(i.lastDate)) &&
-                    (i.focusDate = o);
+                  (!i.focusDate ||
+                    i.focusDate.before(i.firstDate) ||
+                    i.focusDate.after(i.lastDate)) &&
+                  (i.focusDate = o);
                 const d =
-                    !this._state.firstDate ||
-                    this._state.firstDate.year !== i.firstDate.year,
+                  !this._state.firstDate ||
+                  this._state.firstDate.year !== i.firstDate.year,
                   u =
                     !this._state.firstDate ||
                     this._state.firstDate.month !== i.firstDate.month;
                 "select" === i.navigation
                   ? (("minDate" in e ||
-                      "maxDate" in e ||
-                      0 === i.selectBoxes.years.length ||
-                      d) &&
-                      (i.selectBoxes.years = (function (t, n, e) {
-                        if (!t) return [];
-                        const i = n
-                            ? Math.max(n.year, t.year - 500)
-                            : t.year - 10,
-                          a =
-                            (e ? Math.min(e.year, t.year + 500) : t.year + 10) -
-                            i +
-                            1,
-                          l = Array(a);
-                        for (let d = 0; d < a; d++) l[d] = i + d;
-                        return l;
-                      })(i.firstDate, i.minDate, i.maxDate)),
+                    "maxDate" in e ||
+                    0 === i.selectBoxes.years.length ||
+                    d) &&
+                    (i.selectBoxes.years = (function (t, n, e) {
+                      if (!t) return [];
+                      const i = n
+                        ? Math.max(n.year, t.year - 500)
+                        : t.year - 10,
+                        a =
+                          (e ? Math.min(e.year, t.year + 500) : t.year + 10) -
+                          i +
+                          1,
+                        l = Array(a);
+                      for (let d = 0; d < a; d++) l[d] = i + d;
+                      return l;
+                    })(i.firstDate, i.minDate, i.maxDate)),
                     ("minDate" in e ||
                       "maxDate" in e ||
                       0 === i.selectBoxes.months.length ||
                       d) &&
-                      (i.selectBoxes.months = (function (t, n, e, i) {
-                        if (!n) return [];
-                        let o = t.getMonths(n.year);
-                        if (e && n.year === e.year) {
-                          const a = o.findIndex((l) => l === e.month);
-                          o = o.slice(a);
-                        }
-                        if (i && n.year === i.year) {
-                          const a = o.findIndex((l) => l === i.month);
-                          o = o.slice(0, a + 1);
-                        }
-                        return o;
-                      })(this._calendar, i.firstDate, i.minDate, i.maxDate)))
+                    (i.selectBoxes.months = (function (t, n, e, i) {
+                      if (!n) return [];
+                      let o = t.getMonths(n.year);
+                      if (e && n.year === e.year) {
+                        const a = o.findIndex((l) => l === e.month);
+                        o = o.slice(a);
+                      }
+                      if (i && n.year === i.year) {
+                        const a = o.findIndex((l) => l === i.month);
+                        o = o.slice(0, a + 1);
+                      }
+                      return o;
+                    })(this._calendar, i.firstDate, i.minDate, i.maxDate)))
                   : (i.selectBoxes = { years: [], months: [] }),
                   ("arrows" === i.navigation || "select" === i.navigation) &&
-                    (u ||
-                      d ||
-                      "minDate" in e ||
-                      "maxDate" in e ||
-                      "disabled" in e) &&
-                    ((i.prevDisabled =
-                      i.disabled ||
-                      (function (t, n, e) {
-                        const i = Object.assign(t.getPrev(n, "m"), { day: 1 });
-                        return (
-                          null != e &&
-                          ((i.year === e.year && i.month < e.month) ||
-                            (i.year < e.year && 1 === e.month))
-                        );
-                      })(this._calendar, i.firstDate, i.minDate)),
+                  (u ||
+                    d ||
+                    "minDate" in e ||
+                    "maxDate" in e ||
+                    "disabled" in e) &&
+                  ((i.prevDisabled =
+                    i.disabled ||
+                    (function (t, n, e) {
+                      const i = Object.assign(t.getPrev(n, "m"), { day: 1 });
+                      return (
+                        null != e &&
+                        ((i.year === e.year && i.month < e.month) ||
+                          (i.year < e.year && 1 === e.month))
+                      );
+                    })(this._calendar, i.firstDate, i.minDate)),
                     (i.nextDisabled =
                       i.disabled ||
                       (function (t, n, e) {
@@ -37013,15 +37005,15 @@
         return new I7();
       }
       let up = (() => {
-          class t {}
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)();
-            }),
-            (t.ɵprov = L({ factory: N7, token: t, providedIn: "root" })),
-            t
-          );
-        })(),
+        class t { }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)();
+          }),
+          (t.ɵprov = L({ factory: N7, token: t, providedIn: "root" })),
+          t
+        );
+      })(),
         I7 = (() => {
           class t extends up {
             fromModel(e) {
@@ -37077,8 +37069,8 @@
                 (this._publicState = {}),
                 (this.navigate = new j()),
                 (this.dateSelect = new j()),
-                (this.onChange = (p) => {}),
-                (this.onTouched = () => {}),
+                (this.onChange = (p) => { }),
+                (this.onTouched = () => { }),
                 [
                   "dayTemplate",
                   "dayTemplateData",
@@ -37116,7 +37108,7 @@
                       next: { year: f.year, month: f.month },
                       preventDefault: () => (m = !0),
                     }),
-                    m && null !== b)
+                      m && null !== b)
                   )
                     return void this._service.open(b);
                   const w = p.selectedDate,
@@ -37124,7 +37116,7 @@
                     T = this.model ? this.model.focusDate : null;
                   (this.model = p),
                     mr(w, this._controlValue) &&
-                      ((this._controlValue = w),
+                    ((this._controlValue = w),
                       this.onTouched(),
                       this.onChange(this._ngbDateAdapter.toModel(w))),
                     mr(D, T) && T && p.focusVisible && this.focus(),
@@ -37228,8 +37220,8 @@
                 ]
                   .filter((o) => o in e)
                   .forEach((o) => (i[o] = this[o])),
-                this._service.set(i),
-                "startDate" in e)
+                  this._service.set(i),
+                  "startDate" in e)
               ) {
                 const { currentValue: o, previousValue: a } = e.startDate;
                 Fv(a, o) && this.navigateTo(this.startDate);
@@ -37374,15 +37366,15 @@
                 if (
                   (1 & e &&
                     (v(0, v6, 1, 5, "ng-template", null, 0, Pe),
-                    v(2, M6, 1, 1, "ng-template", null, 1, Pe),
-                    r(4, "div", 2),
-                    v(5, x6, 1, 7, "ngb-datepicker-navigation", 3),
-                    s(),
-                    r(6, "div", 4, 5),
-                    v(8, D6, 0, 0, "ng-template", 6),
-                    s(),
-                    v(9, k6, 0, 0, "ng-template", 6)),
-                  2 & e)
+                      v(2, M6, 1, 1, "ng-template", null, 1, Pe),
+                      r(4, "div", 2),
+                      v(5, x6, 1, 7, "ngb-datepicker-navigation", 3),
+                      s(),
+                      r(6, "div", 4, 5),
+                      v(8, D6, 0, 0, "ng-template", 6),
+                      s(),
+                      v(9, k6, 0, 0, "ng-template", 6)),
+                    2 & e)
                 ) {
                   const o = ve(3);
                   _(5),
@@ -37430,66 +37422,66 @@
         se
       ))();
       let F7 = (() => {
-          class t {
-            processKey(e, i) {
-              const { state: o, calendar: a } = i;
-              switch (e.which) {
-                case se.PageUp:
-                  i.focusDate(
-                    a.getPrev(o.focusedDate, e.shiftKey ? "y" : "m", 1)
-                  );
-                  break;
-                case se.PageDown:
-                  i.focusDate(
-                    a.getNext(o.focusedDate, e.shiftKey ? "y" : "m", 1)
-                  );
-                  break;
-                case se.End:
-                  i.focusDate(e.shiftKey ? o.maxDate : o.lastDate);
-                  break;
-                case se.Home:
-                  i.focusDate(e.shiftKey ? o.minDate : o.firstDate);
-                  break;
-                case se.ArrowLeft:
-                  i.focusDate(a.getPrev(o.focusedDate, "d", 1));
-                  break;
-                case se.ArrowUp:
-                  i.focusDate(
-                    a.getPrev(o.focusedDate, "d", a.getDaysPerWeek())
-                  );
-                  break;
-                case se.ArrowRight:
-                  i.focusDate(a.getNext(o.focusedDate, "d", 1));
-                  break;
-                case se.ArrowDown:
-                  i.focusDate(
-                    a.getNext(o.focusedDate, "d", a.getDaysPerWeek())
-                  );
-                  break;
-                case se.Enter:
-                case se.Space:
-                  i.focusSelect();
-                  break;
-                default:
-                  return;
-              }
-              e.preventDefault(), e.stopPropagation();
+        class t {
+          processKey(e, i) {
+            const { state: o, calendar: a } = i;
+            switch (e.which) {
+              case se.PageUp:
+                i.focusDate(
+                  a.getPrev(o.focusedDate, e.shiftKey ? "y" : "m", 1)
+                );
+                break;
+              case se.PageDown:
+                i.focusDate(
+                  a.getNext(o.focusedDate, e.shiftKey ? "y" : "m", 1)
+                );
+                break;
+              case se.End:
+                i.focusDate(e.shiftKey ? o.maxDate : o.lastDate);
+                break;
+              case se.Home:
+                i.focusDate(e.shiftKey ? o.minDate : o.firstDate);
+                break;
+              case se.ArrowLeft:
+                i.focusDate(a.getPrev(o.focusedDate, "d", 1));
+                break;
+              case se.ArrowUp:
+                i.focusDate(
+                  a.getPrev(o.focusedDate, "d", a.getDaysPerWeek())
+                );
+                break;
+              case se.ArrowRight:
+                i.focusDate(a.getNext(o.focusedDate, "d", 1));
+                break;
+              case se.ArrowDown:
+                i.focusDate(
+                  a.getNext(o.focusedDate, "d", a.getDaysPerWeek())
+                );
+                break;
+              case se.Enter:
+              case se.Space:
+                i.focusSelect();
+                break;
+              default:
+                return;
             }
+            e.preventDefault(), e.stopPropagation();
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)();
-            }),
-            (t.ɵprov = L({
-              factory: function () {
-                return new t();
-              },
-              token: t,
-              providedIn: "root",
-            })),
-            t
-          );
-        })(),
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)();
+          }),
+          (t.ɵprov = L({
+            factory: function () {
+              return new t();
+            },
+            token: t,
+            providedIn: "root",
+          })),
+          t
+        );
+      })(),
         L7 = (() => {
           class t {
             constructor(e, i, o, a) {
@@ -37577,7 +37569,7 @@
                 1 & e &&
                   (v(0, P6, 3, 2, "div", 0), v(1, R6, 1, 1, "ng-template", 1)),
                   2 & e &&
-                    (C("ngIf", i.viewModel.weekdays.length > 0),
+                  (C("ngIf", i.viewModel.weekdays.length > 0),
                     _(1),
                     C("ngForOf", i.viewModel.weeks));
               },
@@ -37698,25 +37690,25 @@
               template: function (e, i) {
                 1 & e &&
                   (r(0, "div", 0),
-                  r(1, "button", 1),
-                  M("click", function (a) {
-                    return i.onClickPrev(a);
-                  }),
-                  g(2, "span", 2),
-                  s(),
-                  s(),
-                  v(3, F6, 1, 4, "ngb-datepicker-navigation-select", 3),
-                  v(4, V6, 1, 1, void 0, 4),
-                  r(5, "div", 5),
-                  r(6, "button", 6),
-                  M("click", function (a) {
-                    return i.onClickNext(a);
-                  }),
-                  g(7, "span", 2),
-                  s(),
-                  s()),
+                    r(1, "button", 1),
+                    M("click", function (a) {
+                      return i.onClickPrev(a);
+                    }),
+                    g(2, "span", 2),
+                    s(),
+                    s(),
+                    v(3, F6, 1, 4, "ngb-datepicker-navigation-select", 3),
+                    v(4, V6, 1, 1, void 0, 4),
+                    r(5, "div", 5),
+                    r(6, "button", 6),
+                    M("click", function (a) {
+                      return i.onClickNext(a);
+                    }),
+                    g(7, "span", 2),
+                    s(),
+                    s()),
                   2 & e &&
-                    (_(1),
+                  (_(1),
                     C("disabled", i.prevDisabled),
                     _(2),
                     C("ngIf", i.showSelect),
@@ -37741,9 +37733,9 @@
         Bv = (t, n) =>
           !n ||
           null !=
-            (function (t, n) {
-              return n && void 0 !== t.closest ? t.closest(n) : null;
-            })(t, n),
+          (function (t, n) {
+            return n && void 0 !== t.closest ? t.closest(n) : null;
+          })(t, n),
         j7 =
           "undefined" != typeof navigator &&
           !!navigator.userAgent &&
@@ -37757,10 +37749,10 @@
           t.runOutsideAngular(
             ((t) => (j7 ? () => setTimeout(() => t(), 100) : t))(() => {
               const h = wt(n, "keydown").pipe(
-                  Ye(o),
-                  lt((b) => b.which === se.Escape),
-                  vt((b) => b.preventDefault())
-                ),
+                Ye(o),
+                lt((b) => b.which === se.Escape),
+                vt((b) => b.preventDefault())
+              ),
                 p = wt(n, "mousedown").pipe(
                   oe((b) => {
                     const m = b.target;
@@ -37770,8 +37762,8 @@
                       ("inside" === e
                         ? oc(m, a) && Bv(m, d)
                         : "outside" === e
-                        ? !oc(m, a)
-                        : Bv(m, d) || !oc(m, a))
+                          ? !oc(m, a)
+                          : Bv(m, d) || !oc(m, a))
                     );
                   }),
                   Ye(o)
@@ -37811,34 +37803,34 @@
         return [n[0], n[n.length - 1]];
       }
       const Hv = (t, n, e, i = !1) => {
-          t.runOutsideAngular(() => {
-            const o = wt(n, "focusin").pipe(
+        t.runOutsideAngular(() => {
+          const o = wt(n, "focusin").pipe(
+            Ye(e),
+            oe((a) => a.target)
+          );
+          wt(n, "keydown")
+            .pipe(
               Ye(e),
-              oe((a) => a.target)
-            );
-            wt(n, "keydown")
+              lt((a) => a.which === se.Tab),
+              tp(o)
+            )
+            .subscribe(([a, l]) => {
+              const [d, u] = Vv(n);
+              (l === d || l === n) &&
+                a.shiftKey &&
+                (u.focus(), a.preventDefault()),
+                l === u && !a.shiftKey && (d.focus(), a.preventDefault());
+            }),
+            i &&
+            wt(n, "click")
               .pipe(
                 Ye(e),
-                lt((a) => a.which === se.Tab),
-                tp(o)
+                tp(o),
+                oe((a) => a[1])
               )
-              .subscribe(([a, l]) => {
-                const [d, u] = Vv(n);
-                (l === d || l === n) &&
-                  a.shiftKey &&
-                  (u.focus(), a.preventDefault()),
-                  l === u && !a.shiftKey && (d.focus(), a.preventDefault());
-              }),
-              i &&
-                wt(n, "click")
-                  .pipe(
-                    Ye(e),
-                    tp(o),
-                    oe((a) => a[1])
-                  )
-                  .subscribe((a) => a.focus());
-          });
-        },
+              .subscribe((a) => a.focus());
+        });
+      },
         $7 = /\s+/,
         $v = new (class {
           getAllStyles(n) {
@@ -37886,7 +37878,7 @@
               (i.left -= o.left),
               (i.right -= o.left),
               e &&
-                ((i.top = Math.round(i.top)),
+              ((i.top = Math.round(i.top)),
                 (i.bottom = Math.round(i.bottom)),
                 (i.left = Math.round(i.left)),
                 (i.right = Math.round(i.right))),
@@ -37907,7 +37899,7 @@
             };
             return (
               e &&
-                ((a.height = Math.round(a.height)),
+              ((a.height = Math.round(a.height)),
                 (a.width = Math.round(a.width)),
                 (a.top = Math.round(a.top)),
                 (a.bottom = Math.round(a.bottom)),
@@ -37971,15 +37963,15 @@
         return new z7();
       }
       let Uv = (() => {
-          class t {}
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)();
-            }),
-            (t.ɵprov = L({ factory: U7, token: t, providedIn: "root" })),
-            t
-          );
-        })(),
+        class t { }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)();
+          }),
+          (t.ɵprov = L({ factory: U7, token: t, providedIn: "root" })),
+          t
+        );
+      })(),
         z7 = (() => {
           class t extends Uv {
             parse(e) {
@@ -37996,9 +37988,8 @@
             }
             format(e) {
               return e
-                ? `${e.year}-${Qe(e.month) ? fr(e.month) : ""}-${
-                    Qe(e.day) ? fr(e.day) : ""
-                  }`
+                ? `${e.year}-${Qe(e.month) ? fr(e.month) : ""}-${Qe(e.day) ? fr(e.day) : ""
+                }`
                 : "";
             }
           }
@@ -38064,9 +38055,9 @@
                 (this.dateSelect = new j()),
                 (this.navigate = new j()),
                 (this.closed = new j()),
-                (this._onChange = (m) => {}),
-                (this._onTouched = () => {}),
-                (this._validatorChange = () => {}),
+                (this._onChange = (m) => { }),
+                (this._onTouched = () => { }),
+                (this._validatorChange = () => { }),
                 [
                   "autoClose",
                   "container",
@@ -38083,7 +38074,7 @@
             set disabled(e) {
               (this._disabled = "" === e || (e && "false" !== e)),
                 this.isOpen() &&
-                  this._cRef.instance.setDisabledState(this._disabled);
+                this._cRef.instance.setDisabledState(this._disabled);
             }
             registerOnChange(e) {
               this._onChange = e;
@@ -38123,17 +38114,17 @@
               const o = e !== this._inputValue;
               o &&
                 ((this._inputValue = e),
-                (this._model = this._fromDateStruct(
-                  this._parserFormatter.parse(e)
-                ))),
+                  (this._model = this._fromDateStruct(
+                    this._parserFormatter.parse(e)
+                  ))),
                 (o || !i) &&
-                  this._onChange(
-                    this._model
-                      ? this._dateAdapter.toModel(this._model)
-                      : "" === e
+                this._onChange(
+                  this._model
+                    ? this._dateAdapter.toModel(this._model)
+                    : "" === e
                       ? null
                       : e
-                  ),
+                ),
                 i && this._model && this._writeModelValue(this._model);
             }
             isOpen() {
@@ -38156,9 +38147,9 @@
                   this._cRef.changeDetectorRef.detectChanges(),
                   this._cRef.instance.setDisabledState(this.disabled),
                   "body" === this.container &&
-                    this._document
-                      .querySelector(this.container)
-                      .appendChild(this._cRef.location.nativeElement),
+                  this._document
+                    .querySelector(this.container)
+                    .appendChild(this._cRef.location.nativeElement),
                   (this._elWithFocus = this._document.activeElement),
                   Hv(
                     this._ngZone,
@@ -38210,11 +38201,11 @@
               if (
                 ((e.minDate || e.maxDate) &&
                   (this._validatorChange(),
-                  this.isOpen() &&
+                    this.isOpen() &&
                     (e.minDate && (this._cRef.instance.minDate = this.minDate),
-                    e.maxDate && (this._cRef.instance.maxDate = this.maxDate),
-                    this._cRef.instance.ngOnChanges(e))),
-                e.datepickerClass)
+                      e.maxDate && (this._cRef.instance.maxDate = this.maxDate),
+                      this._cRef.instance.ngOnChanges(e))),
+                  e.datepickerClass)
               ) {
                 const { currentValue: i, previousValue: o } = e.datepickerClass;
                 this._applyPopupClass(i, o);
@@ -38251,13 +38242,13 @@
                   : o.location.nativeElement;
               a &&
                 (e && this._renderer.addClass(a, e),
-                i && this._renderer.removeClass(a, i));
+                  i && this._renderer.removeClass(a, i));
             }
             _applyPopupStyling(e) {
               this._renderer.addClass(e, "dropdown-menu"),
                 this._renderer.addClass(e, "show"),
                 "body" === this.container &&
-                  this._renderer.addClass(e, "ngb-dp-body"),
+                this._renderer.addClass(e, "ngb-dp-body"),
                 this._applyPopupClass(this.datepickerClass);
             }
             _subscribeForDatepickerOutputs(e) {
@@ -38265,7 +38256,7 @@
                 e.dateSelect.subscribe((i) => {
                   this.dateSelect.emit(i),
                     (!0 === this.autoClose || "inside" === this.autoClose) &&
-                      this.close();
+                    this.close();
                 });
             }
             _writeModelValue(e) {
@@ -38277,7 +38268,7 @@
                   i
                 ),
                 this.isOpen() &&
-                  (this._cRef.instance.writeValue(this._dateAdapter.toModel(e)),
+                (this._cRef.instance.writeValue(this._dateAdapter.toModel(e)),
                   this._onTouched());
             }
             _fromDateStruct(e) {
@@ -38291,9 +38282,9 @@
                 ((e = Xl(this.positionTarget)
                   ? this._document.querySelector(this.positionTarget)
                   : this.positionTarget instanceof HTMLElement
-                  ? this.positionTarget
-                  : this._elRef.nativeElement),
-                this.positionTarget && !e)
+                    ? this.positionTarget
+                    : this._elRef.nativeElement),
+                  this.positionTarget && !e)
               )
                 throw new Error(
                   "ngbDatepicker could not find element declared in [positionTarget] to position against."
@@ -38301,26 +38292,26 @@
               !(function (t, n, e, i, o) {
                 let a = Array.isArray(e) ? e : e.split($7);
                 const l = [
-                    "top",
-                    "bottom",
-                    "left",
-                    "right",
-                    "top-left",
-                    "top-right",
-                    "bottom-left",
-                    "bottom-right",
-                    "left-top",
-                    "left-bottom",
-                    "right-top",
-                    "right-bottom",
-                  ],
+                  "top",
+                  "bottom",
+                  "left",
+                  "right",
+                  "top-left",
+                  "top-right",
+                  "bottom-left",
+                  "bottom-right",
+                  "left-top",
+                  "left-bottom",
+                  "right-top",
+                  "right-bottom",
+                ],
                   d = n.classList,
                   u = (m) => {
                     const [w, D] = m.split("-"),
                       T = [];
                     return (
                       o &&
-                        (T.push(`${o}-${w}`),
+                      (T.push(`${o}-${w}`),
                         D && T.push(`${o}-${w}-${D}`),
                         T.forEach((S) => {
                           d.add(S);
@@ -38507,18 +38498,18 @@
               this.date &&
                 (this.date.month !== this._month &&
                   ((this._month = this.date.month),
-                  this._renderer.setProperty(
-                    this.monthSelect.nativeElement,
-                    "value",
-                    this._month
-                  )),
-                this.date.year !== this._year &&
+                    this._renderer.setProperty(
+                      this.monthSelect.nativeElement,
+                      "value",
+                      this._month
+                    )),
+                  this.date.year !== this._year &&
                   ((this._year = this.date.year),
-                  this._renderer.setProperty(
-                    this.yearSelect.nativeElement,
-                    "value",
-                    this._year
-                  )));
+                    this._renderer.setProperty(
+                      this.yearSelect.nativeElement,
+                      "value",
+                      this._year
+                    )));
             }
           }
           return (
@@ -38584,19 +38575,19 @@
               template: function (e, i) {
                 1 & e &&
                   (r(0, "select", 0, 1),
-                  M("change", function (a) {
-                    return i.changeMonth(a.target.value);
-                  }),
-                  v(2, z6, 2, 3, "option", 2),
-                  s(),
-                  r(3, "select", 3, 4),
-                  M("change", function (a) {
-                    return i.changeYear(a.target.value);
-                  }),
-                  v(5, G6, 2, 2, "option", 2),
-                  s()),
+                    M("change", function (a) {
+                      return i.changeMonth(a.target.value);
+                    }),
+                    v(2, z6, 2, 3, "option", 2),
+                    s(),
+                    r(3, "select", 3, 4),
+                    M("change", function (a) {
+                      return i.changeYear(a.target.value);
+                    }),
+                    v(5, G6, 2, 2, "option", 2),
+                    s()),
                   2 & e &&
-                    (C("disabled", i.disabled),
+                  (C("disabled", i.disabled),
                     _(2),
                     C("ngForOf", i.months),
                     _(1),
@@ -38616,18 +38607,18 @@
         })();
       new Date(1882, 10, 12), new Date(2174, 10, 25);
       let Zv = (() => {
-          class t {}
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)();
-            }),
-            (t.ɵmod = Ce({ type: t })),
-            (t.ɵinj = ye({ imports: [[Ut, iy]] })),
-            t
-          );
-        })(),
+        class t { }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)();
+          }),
+          (t.ɵmod = Ce({ type: t })),
+          (t.ɵinj = ye({ imports: [[Ut, iy]] })),
+          t
+        );
+      })(),
         lc = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -38637,7 +38628,7 @@
           );
         })(),
         eC = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -38680,52 +38671,52 @@
           (this.nodes = n), (this.viewRef = e), (this.componentRef = i);
         }
       }
-      const nR = () => {};
+      const nR = () => { };
       let tC = (() => {
-          class t {
-            constructor(e) {
-              this._document = e;
-            }
-            compensate() {
-              const e = this._getWidth();
-              return this._isPresent(e) ? this._adjustBody(e) : nR;
-            }
-            _adjustBody(e) {
-              const i = this._document.body,
-                o = i.style.paddingRight,
-                a = parseFloat(window.getComputedStyle(i)["padding-right"]);
-              return (
-                (i.style["padding-right"] = `${a + e}px`),
-                () => (i.style["padding-right"] = o)
-              );
-            }
-            _isPresent(e) {
-              const i = this._document.body.getBoundingClientRect();
-              return window.innerWidth - (i.left + i.right) >= e - 0.1 * e;
-            }
-            _getWidth() {
-              const e = this._document.createElement("div");
-              e.className = "modal-scrollbar-measure";
-              const i = this._document.body;
-              i.appendChild(e);
-              const o = e.getBoundingClientRect().width - e.clientWidth;
-              return i.removeChild(e), o;
-            }
+        class t {
+          constructor(e) {
+            this._document = e;
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)(E(Le));
-            }),
-            (t.ɵprov = L({
-              factory: function () {
-                return new t(E(Le));
-              },
-              token: t,
-              providedIn: "root",
-            })),
-            t
-          );
-        })(),
+          compensate() {
+            const e = this._getWidth();
+            return this._isPresent(e) ? this._adjustBody(e) : nR;
+          }
+          _adjustBody(e) {
+            const i = this._document.body,
+              o = i.style.paddingRight,
+              a = parseFloat(window.getComputedStyle(i)["padding-right"]);
+            return (
+              (i.style["padding-right"] = `${a + e}px`),
+              () => (i.style["padding-right"] = o)
+            );
+          }
+          _isPresent(e) {
+            const i = this._document.body.getBoundingClientRect();
+            return window.innerWidth - (i.left + i.right) >= e - 0.1 * e;
+          }
+          _getWidth() {
+            const e = this._document.createElement("div");
+            e.className = "modal-scrollbar-measure";
+            const i = this._document.body;
+            i.appendChild(e);
+            const o = e.getBoundingClientRect().width - e.clientWidth;
+            return i.removeChild(e), o;
+          }
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)(E(Le));
+          }),
+          (t.ɵprov = L({
+            factory: function () {
+              return new t(E(Le));
+            },
+            token: t,
+            providedIn: "root",
+          })),
+          t
+        );
+      })(),
         iR = (() => {
           class t {
             constructor(e, i) {
@@ -38768,9 +38759,9 @@
                 2 & e &&
                   (Dn(
                     "modal-backdrop" +
-                      (i.backdropClass ? " " + i.backdropClass : "")
+                    (i.backdropClass ? " " + i.backdropClass : "")
                   ),
-                  K("show", !i.animation)("fade", i.animation));
+                    K("show", !i.animation)("fade", i.animation));
               },
               inputs: {
                 animation: "animation",
@@ -38778,15 +38769,15 @@
               },
               decls: 0,
               vars: 0,
-              template: function (e, i) {},
+              template: function (e, i) { },
               encapsulation: 2,
             })),
             t
           );
         })();
       class nC {
-        close(n) {}
-        dismiss(n) {}
+        close(n) { }
+        dismiss(n) { }
       }
       class oR {
         constructor(n, e, i, o) {
@@ -38803,7 +38794,7 @@
             (this.result = new Promise((a, l) => {
               (this._resolve = a), (this._reject = l);
             })),
-            this.result.then(null, () => {});
+            this.result.then(null, () => { });
         }
         get componentInstance() {
           if (this._contentRef && this._contentRef.componentRef)
@@ -38824,8 +38815,8 @@
         close(n) {
           this._windowCmptRef &&
             (this._closed.next(n),
-            this._resolve(n),
-            this._removeModalElements());
+              this._resolve(n),
+              this._removeModalElements());
         }
         _dismiss(n) {
           this._dismissed.next(n), this._reject(n), this._removeModalElements();
@@ -38836,11 +38827,11 @@
               const e = this._beforeDismiss();
               e && e.then
                 ? e.then(
-                    (i) => {
-                      !1 !== i && this._dismiss(n);
-                    },
-                    () => {}
-                  )
+                  (i) => {
+                    !1 !== i && this._dismiss(n);
+                  },
+                  () => { }
+                )
                 : !1 !== e && this._dismiss(n);
             } else this._dismiss(n);
         }
@@ -38854,8 +38845,8 @@
             i.parentNode.removeChild(i),
               this._windowCmptRef.destroy(),
               this._contentRef &&
-                this._contentRef.viewRef &&
-                this._contentRef.viewRef.destroy(),
+              this._contentRef.viewRef &&
+              this._contentRef.viewRef.destroy(),
               (this._windowCmptRef = null),
               (this._contentRef = null);
           }),
@@ -38880,212 +38871,212 @@
         Ws
       ))();
       let rR = (() => {
-          class t {
-            constructor(e, i, o) {
-              (this._document = e),
-                (this._elRef = i),
-                (this._zone = o),
-                (this._closed$ = new Ee()),
-                (this._elWithFocus = null),
-                (this.backdrop = !0),
-                (this.keyboard = !0),
-                (this.dismissEvent = new j()),
-                (this.shown = new Ee()),
-                (this.hidden = new Ee());
-            }
-            dismiss(e) {
-              this.dismissEvent.emit(e);
-            }
-            ngOnInit() {
-              (this._elWithFocus = this._document.activeElement),
-                this._zone.onStable
-                  .asObservable()
-                  .pipe(jt(1))
-                  .subscribe(() => {
-                    this._show();
-                  });
-            }
-            ngOnDestroy() {
-              this._disableEventHandling();
-            }
-            hide() {
-              const { nativeElement: e } = this._elRef,
-                i = { animation: this.animation, runningTransition: "stop" },
-                l = Zl(
-                  ct(this._zone, e, () => e.classList.remove("show"), i),
-                  ct(this._zone, this._dialogEl.nativeElement, () => {}, i)
-                );
-              return (
-                l.subscribe(() => {
-                  this.hidden.next(), this.hidden.complete();
-                }),
-                this._disableEventHandling(),
-                this._restoreFocus(),
-                l
-              );
-            }
-            _show() {
-              const e = {
-                animation: this.animation,
-                runningTransition: "continue",
-              };
-              Zl(
-                ct(
-                  this._zone,
-                  this._elRef.nativeElement,
-                  (a, l) => {
-                    l && br(a), a.classList.add("show");
-                  },
-                  e
-                ),
-                ct(this._zone, this._dialogEl.nativeElement, () => {}, e)
-              ).subscribe(() => {
-                this.shown.next(), this.shown.complete();
-              }),
-                this._enableEventHandling(),
-                this._setFocus();
-            }
-            _enableEventHandling() {
-              const { nativeElement: e } = this._elRef;
-              this._zone.runOutsideAngular(() => {
-                wt(e, "keydown")
-                  .pipe(
-                    Ye(this._closed$),
-                    lt((o) => o.which === se.Escape)
-                  )
-                  .subscribe((o) => {
-                    this.keyboard
-                      ? requestAnimationFrame(() => {
-                          o.defaultPrevented ||
-                            this._zone.run(() => this.dismiss(Ws.ESC));
-                        })
-                      : "static" === this.backdrop && this._bumpBackdrop();
-                  });
-                let i = !1;
-                wt(this._dialogEl.nativeElement, "mousedown")
-                  .pipe(
-                    Ye(this._closed$),
-                    vt(() => (i = !1)),
-                    An(() => wt(e, "mouseup").pipe(Ye(this._closed$), jt(1))),
-                    lt(({ target: o }) => e === o)
-                  )
-                  .subscribe(() => {
-                    i = !0;
-                  }),
-                  wt(e, "click")
-                    .pipe(Ye(this._closed$))
-                    .subscribe(({ target: o }) => {
-                      e === o &&
-                        ("static" === this.backdrop
-                          ? this._bumpBackdrop()
-                          : !0 === this.backdrop &&
-                            !i &&
-                            this._zone.run(() =>
-                              this.dismiss(Ws.BACKDROP_CLICK)
-                            )),
-                        (i = !1);
-                    });
-              });
-            }
-            _disableEventHandling() {
-              this._closed$.next();
-            }
-            _setFocus() {
-              const { nativeElement: e } = this._elRef;
-              if (!e.contains(document.activeElement)) {
-                const i = e.querySelector("[ngbAutofocus]"),
-                  o = Vv(e)[0];
-                (i || o || e).focus();
-              }
-            }
-            _restoreFocus() {
-              const e = this._document.body,
-                i = this._elWithFocus;
-              let o;
-              (o = i && i.focus && e.contains(i) ? i : e),
-                this._zone.runOutsideAngular(() => {
-                  setTimeout(() => o.focus()), (this._elWithFocus = null);
+        class t {
+          constructor(e, i, o) {
+            (this._document = e),
+              (this._elRef = i),
+              (this._zone = o),
+              (this._closed$ = new Ee()),
+              (this._elWithFocus = null),
+              (this.backdrop = !0),
+              (this.keyboard = !0),
+              (this.dismissEvent = new j()),
+              (this.shown = new Ee()),
+              (this.hidden = new Ee());
+          }
+          dismiss(e) {
+            this.dismissEvent.emit(e);
+          }
+          ngOnInit() {
+            (this._elWithFocus = this._document.activeElement),
+              this._zone.onStable
+                .asObservable()
+                .pipe(jt(1))
+                .subscribe(() => {
+                  this._show();
                 });
-            }
-            _bumpBackdrop() {
-              "static" === this.backdrop &&
-                ct(
-                  this._zone,
-                  this._elRef.nativeElement,
-                  ({ classList: e }) => (
-                    e.add("modal-static"), () => e.remove("modal-static")
-                  ),
-                  { animation: this.animation, runningTransition: "continue" }
-                );
+          }
+          ngOnDestroy() {
+            this._disableEventHandling();
+          }
+          hide() {
+            const { nativeElement: e } = this._elRef,
+              i = { animation: this.animation, runningTransition: "stop" },
+              l = Zl(
+                ct(this._zone, e, () => e.classList.remove("show"), i),
+                ct(this._zone, this._dialogEl.nativeElement, () => { }, i)
+              );
+            return (
+              l.subscribe(() => {
+                this.hidden.next(), this.hidden.complete();
+              }),
+              this._disableEventHandling(),
+              this._restoreFocus(),
+              l
+            );
+          }
+          _show() {
+            const e = {
+              animation: this.animation,
+              runningTransition: "continue",
+            };
+            Zl(
+              ct(
+                this._zone,
+                this._elRef.nativeElement,
+                (a, l) => {
+                  l && br(a), a.classList.add("show");
+                },
+                e
+              ),
+              ct(this._zone, this._dialogEl.nativeElement, () => { }, e)
+            ).subscribe(() => {
+              this.shown.next(), this.shown.complete();
+            }),
+              this._enableEventHandling(),
+              this._setFocus();
+          }
+          _enableEventHandling() {
+            const { nativeElement: e } = this._elRef;
+            this._zone.runOutsideAngular(() => {
+              wt(e, "keydown")
+                .pipe(
+                  Ye(this._closed$),
+                  lt((o) => o.which === se.Escape)
+                )
+                .subscribe((o) => {
+                  this.keyboard
+                    ? requestAnimationFrame(() => {
+                      o.defaultPrevented ||
+                        this._zone.run(() => this.dismiss(Ws.ESC));
+                    })
+                    : "static" === this.backdrop && this._bumpBackdrop();
+                });
+              let i = !1;
+              wt(this._dialogEl.nativeElement, "mousedown")
+                .pipe(
+                  Ye(this._closed$),
+                  vt(() => (i = !1)),
+                  An(() => wt(e, "mouseup").pipe(Ye(this._closed$), jt(1))),
+                  lt(({ target: o }) => e === o)
+                )
+                .subscribe(() => {
+                  i = !0;
+                }),
+                wt(e, "click")
+                  .pipe(Ye(this._closed$))
+                  .subscribe(({ target: o }) => {
+                    e === o &&
+                      ("static" === this.backdrop
+                        ? this._bumpBackdrop()
+                        : !0 === this.backdrop &&
+                        !i &&
+                        this._zone.run(() =>
+                          this.dismiss(Ws.BACKDROP_CLICK)
+                        )),
+                      (i = !1);
+                  });
+            });
+          }
+          _disableEventHandling() {
+            this._closed$.next();
+          }
+          _setFocus() {
+            const { nativeElement: e } = this._elRef;
+            if (!e.contains(document.activeElement)) {
+              const i = e.querySelector("[ngbAutofocus]"),
+                o = Vv(e)[0];
+              (i || o || e).focus();
             }
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)(y(Le), y(le), y(de));
-            }),
-            (t.ɵcmp = N({
-              type: t,
-              selectors: [["ngb-modal-window"]],
-              viewQuery: function (e, i) {
-                if ((1 & e && ri(q6, 7), 2 & e)) {
-                  let o;
-                  be((o = me())) && (i._dialogEl = o.first);
-                }
-              },
-              hostAttrs: ["role", "dialog", "tabindex", "-1"],
-              hostVars: 7,
-              hostBindings: function (e, i) {
-                2 & e &&
-                  (ge("aria-modal", !0)("aria-labelledby", i.ariaLabelledBy)(
-                    "aria-describedby",
-                    i.ariaDescribedBy
-                  ),
+          _restoreFocus() {
+            const e = this._document.body,
+              i = this._elWithFocus;
+            let o;
+            (o = i && i.focus && e.contains(i) ? i : e),
+              this._zone.runOutsideAngular(() => {
+                setTimeout(() => o.focus()), (this._elWithFocus = null);
+              });
+          }
+          _bumpBackdrop() {
+            "static" === this.backdrop &&
+              ct(
+                this._zone,
+                this._elRef.nativeElement,
+                ({ classList: e }) => (
+                  e.add("modal-static"), () => e.remove("modal-static")
+                ),
+                { animation: this.animation, runningTransition: "continue" }
+              );
+          }
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)(y(Le), y(le), y(de));
+          }),
+          (t.ɵcmp = N({
+            type: t,
+            selectors: [["ngb-modal-window"]],
+            viewQuery: function (e, i) {
+              if ((1 & e && ri(q6, 7), 2 & e)) {
+                let o;
+                be((o = me())) && (i._dialogEl = o.first);
+              }
+            },
+            hostAttrs: ["role", "dialog", "tabindex", "-1"],
+            hostVars: 7,
+            hostBindings: function (e, i) {
+              2 & e &&
+                (ge("aria-modal", !0)("aria-labelledby", i.ariaLabelledBy)(
+                  "aria-describedby",
+                  i.ariaDescribedBy
+                ),
                   Dn(
                     "modal d-block" + (i.windowClass ? " " + i.windowClass : "")
                   ),
                   K("fade", i.animation));
-              },
-              inputs: {
-                backdrop: "backdrop",
-                keyboard: "keyboard",
-                animation: "animation",
-                ariaLabelledBy: "ariaLabelledBy",
-                ariaDescribedBy: "ariaDescribedBy",
-                centered: "centered",
-                scrollable: "scrollable",
-                size: "size",
-                windowClass: "windowClass",
-                modalDialogClass: "modalDialogClass",
-              },
-              outputs: { dismissEvent: "dismiss" },
-              ngContentSelectors: gr,
-              decls: 4,
-              vars: 2,
-              consts: [
-                ["role", "document"],
-                ["dialog", ""],
-                [1, "modal-content"],
-              ],
-              template: function (e, i) {
-                1 & e &&
-                  (ki(), r(0, "div", 0, 1), r(2, "div", 2), Oi(3), s(), s()),
-                  2 & e &&
-                    Dn(
-                      "modal-dialog" +
-                        (i.size ? " modal-" + i.size : "") +
-                        (i.centered ? " modal-dialog-centered" : "") +
-                        (i.scrollable ? " modal-dialog-scrollable" : "") +
-                        (i.modalDialogClass ? " " + i.modalDialogClass : "")
-                    );
-              },
-              styles: [
-                "ngb-modal-window .component-host-scrollable{display:flex;flex-direction:column;overflow:hidden}",
-              ],
-              encapsulation: 2,
-            })),
-            t
-          );
-        })(),
+            },
+            inputs: {
+              backdrop: "backdrop",
+              keyboard: "keyboard",
+              animation: "animation",
+              ariaLabelledBy: "ariaLabelledBy",
+              ariaDescribedBy: "ariaDescribedBy",
+              centered: "centered",
+              scrollable: "scrollable",
+              size: "size",
+              windowClass: "windowClass",
+              modalDialogClass: "modalDialogClass",
+            },
+            outputs: { dismissEvent: "dismiss" },
+            ngContentSelectors: gr,
+            decls: 4,
+            vars: 2,
+            consts: [
+              ["role", "document"],
+              ["dialog", ""],
+              [1, "modal-content"],
+            ],
+            template: function (e, i) {
+              1 & e &&
+                (ki(), r(0, "div", 0, 1), r(2, "div", 2), Oi(3), s(), s()),
+                2 & e &&
+                Dn(
+                  "modal-dialog" +
+                  (i.size ? " modal-" + i.size : "") +
+                  (i.centered ? " modal-dialog-centered" : "") +
+                  (i.scrollable ? " modal-dialog-scrollable" : "") +
+                  (i.modalDialogClass ? " " + i.modalDialogClass : "")
+                );
+            },
+            styles: [
+              "ngb-modal-window .component-host-scrollable{display:flex;flex-direction:column;overflow:hidden}",
+            ],
+            encapsulation: 2,
+          })),
+          t
+        );
+      })(),
         iC = (() => {
           class t {
             constructor(e, i, o, a, l, d) {
@@ -39128,9 +39119,9 @@
             }
             open(e, i, o, a) {
               const l =
-                  a.container instanceof HTMLElement
-                    ? a.container
-                    : Ii(a.container)
+                a.container instanceof HTMLElement
+                  ? a.container
+                  : Ii(a.container)
                     ? this._document.querySelector(a.container)
                     : this._document.body,
                 d = this._rendererFactory.createRenderer(null, null),
@@ -39138,12 +39129,11 @@
                 h = () => {
                   this._modalRefs.length ||
                     (d.removeClass(this._document.body, "modal-open"),
-                    this._revertAriaHidden());
+                      this._revertAriaHidden());
                 };
               if (!l)
                 throw new Error(
-                  `The specified modal container "${
-                    a.container || "body"
+                  `The specified modal container "${a.container || "body"
                   }" was not found in the DOM.`
                 );
               const p = new nC(),
@@ -39164,10 +39154,10 @@
                 }),
                 this._applyWindowOptions(m.instance, a),
                 1 === this._modalRefs.length &&
-                  d.addClass(this._document.body, "modal-open"),
+                d.addClass(this._document.body, "modal-open"),
                 b &&
-                  b.instance &&
-                  (this._applyBackdropOptions(b.instance, a),
+                b.instance &&
+                (this._applyBackdropOptions(b.instance, a),
                   b.changeDetectorRef.detectChanges()),
                 m.changeDetectorRef.detectChanges(),
                 w
@@ -39215,8 +39205,8 @@
                 ? o instanceof Te
                   ? this._createFromTemplateRef(o, a)
                   : Xl(o)
-                  ? this._createFromString(o)
-                  : this._createFromComponent(e, i, o, a, l)
+                    ? this._createFromString(o)
+                    : this._createFromComponent(e, i, o, a, l)
                 : new so([]);
             }
             _createFromTemplateRef(e, i) {
@@ -39262,9 +39252,9 @@
                       o,
                       o.getAttribute("aria-hidden")
                     ),
-                    o.setAttribute("aria-hidden", "true"));
+                      o.setAttribute("aria-hidden", "true"));
                 }),
-                this._setAriaHidden(i));
+                  this._setAriaHidden(i));
             }
             _revertAriaHidden() {
               this._ariaHiddenValues.forEach((e, i) => {
@@ -39279,7 +39269,7 @@
                 const o = this._modalRefs.indexOf(e);
                 o > -1 &&
                   (this._modalRefs.splice(o, 1),
-                  this._activeInstances.emit(this._modalRefs));
+                    this._activeInstances.emit(this._modalRefs));
               };
               this._modalRefs.push(e),
                 this._activeInstances.emit(this._modalRefs),
@@ -39292,7 +39282,7 @@
                   const i = this._windowCmpts.indexOf(e);
                   i > -1 &&
                     (this._windowCmpts.splice(i, 1),
-                    this._activeWindowCmptHasChanged.next());
+                      this._activeWindowCmptHasChanged.next());
                 });
             }
           }
@@ -39357,7 +39347,7 @@
           );
         })(),
         rC = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -39511,7 +39501,7 @@
                   d.elRef.nativeElement === this._document.activeElement &&
                     (l = u);
                 }),
-                a)
+                  a)
               ) {
                 switch (i) {
                   case se.ArrowLeft:
@@ -39573,7 +39563,7 @@
                     },
                   }),
                   o ||
-                    ((this.activeId = e),
+                  ((this.activeId = e),
                     this.activeIdChange.emit(e),
                     this._notifyItemChanged(e));
               }
@@ -39616,12 +39606,12 @@
                     return i.onKeyDown(a);
                   }),
                   2 & e &&
-                    (ge(
-                      "aria-orientation",
-                      "vertical" === i.orientation && "tablist" === i.roles
-                        ? "vertical"
-                        : void 0
-                    )("role", i.role ? i.role : i.roles ? "tablist" : void 0),
+                  (ge(
+                    "aria-orientation",
+                    "vertical" === i.orientation && "tablist" === i.roles
+                      ? "vertical"
+                      : void 0
+                  )("role", i.role ? i.role : i.roles ? "tablist" : void 0),
                     K("nav", !0)("flex-column", "vertical" === i.orientation));
               },
               inputs: {
@@ -39674,7 +39664,7 @@
                     return i.nav.click(i.navItem), a.preventDefault();
                   }),
                   2 & e &&
-                    (Kt("id", i.navItem.domId),
+                  (Kt("id", i.navItem.domId),
                     ge("role", i.role ? i.role : i.nav.roles ? "tab" : void 0)(
                       "tabindex",
                       i.navItem.disabled ? -1 : void 0
@@ -39695,40 +39685,40 @@
           );
         })();
       const lR = ({ classList: t }) => (
-          t.remove("show"), () => t.remove("active")
-        ),
+        t.remove("show"), () => t.remove("active")
+      ),
         cR = (t, n) => {
           n && br(t), t.classList.add("show");
         };
       let yp = (() => {
-          class t {
-            constructor(e) {
-              this.elRef = e;
-            }
+        class t {
+          constructor(e) {
+            this.elRef = e;
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)(y(le));
-            }),
-            (t.ɵdir = A({
-              type: t,
-              selectors: [["", "ngbNavPane", ""]],
-              hostAttrs: [1, "tab-pane"],
-              hostVars: 5,
-              hostBindings: function (e, i) {
-                2 & e &&
-                  (Kt("id", i.item.panelDomId),
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)(y(le));
+          }),
+          (t.ɵdir = A({
+            type: t,
+            selectors: [["", "ngbNavPane", ""]],
+            hostAttrs: [1, "tab-pane"],
+            hostVars: 5,
+            hostBindings: function (e, i) {
+              2 & e &&
+                (Kt("id", i.item.panelDomId),
                   ge(
                     "role",
                     i.role ? i.role : i.nav.roles ? "tabpanel" : void 0
                   )("aria-labelledby", i.item.domId),
                   K("fade", i.nav.animation));
-              },
-              inputs: { item: "item", nav: "nav", role: "role" },
-            })),
-            t
-          );
-        })(),
+            },
+            inputs: { item: "item", nav: "nav", role: "role" },
+          })),
+          t
+        );
+      })(),
         aC = (() => {
           class t {
             constructor(e, i) {
@@ -39766,34 +39756,34 @@
                     this._cd.detectChanges(),
                       this._activePane
                         ? ct(
-                            this._ngZone,
-                            this._activePane.elRef.nativeElement,
-                            lR,
-                            o
-                          ).subscribe(() => {
-                            var a;
-                            const l =
-                              null === (a = this._activePane) || void 0 === a
-                                ? void 0
-                                : a.item;
-                            (this._activePane = this._getPaneForItem(i)),
-                              this._cd.markForCheck(),
-                              this._activePane &&
-                                (this._activePane.elRef.nativeElement.classList.add(
-                                  "active"
-                                ),
-                                ct(
-                                  this._ngZone,
-                                  this._activePane.elRef.nativeElement,
-                                  cR,
-                                  o
-                                ).subscribe(() => {
-                                  i &&
-                                    (i.shown.emit(), this.nav.shown.emit(i.id));
-                                })),
-                              l &&
-                                (l.hidden.emit(), this.nav.hidden.emit(l.id));
-                          })
+                          this._ngZone,
+                          this._activePane.elRef.nativeElement,
+                          lR,
+                          o
+                        ).subscribe(() => {
+                          var a;
+                          const l =
+                            null === (a = this._activePane) || void 0 === a
+                              ? void 0
+                              : a.item;
+                          (this._activePane = this._getPaneForItem(i)),
+                            this._cd.markForCheck(),
+                            this._activePane &&
+                            (this._activePane.elRef.nativeElement.classList.add(
+                              "active"
+                            ),
+                              ct(
+                                this._ngZone,
+                                this._activePane.elRef.nativeElement,
+                                cR,
+                                o
+                              ).subscribe(() => {
+                                i &&
+                                  (i.shown.emit(), this.nav.shown.emit(i.id));
+                              })),
+                            l &&
+                            (l.hidden.emit(), this.nav.hidden.emit(l.id));
+                        })
                         : this._updateActivePane();
                   });
             }
@@ -39801,11 +39791,11 @@
               var e, i;
               (this._activePane = this._getActivePane()),
                 null === (e = this._activePane) ||
-                  void 0 === e ||
-                  e.elRef.nativeElement.classList.add("show"),
+                void 0 === e ||
+                e.elRef.nativeElement.classList.add("show"),
                 null === (i = this._activePane) ||
-                  void 0 === i ||
-                  i.elRef.nativeElement.classList.add("active");
+                void 0 === i ||
+                i.elRef.nativeElement.classList.add("active");
             }
             _getPaneForItem(e) {
               return (
@@ -39857,7 +39847,7 @@
           );
         })(),
         lC = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -39868,7 +39858,7 @@
           );
         })(),
         bC = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -39879,7 +39869,7 @@
           );
         })(),
         yC = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -39890,7 +39880,7 @@
           );
         })(),
         vC = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -39901,7 +39891,7 @@
           );
         })(),
         CC = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -39912,7 +39902,7 @@
           );
         })(),
         DC = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -39923,7 +39913,7 @@
           );
         })(),
         kC = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -39934,7 +39924,7 @@
           );
         })(),
         OC = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -39951,7 +39941,7 @@
         },
       });
       let EC = (() => {
-        class t {}
+        class t { }
         return (
           (t.ɵfac = function (e) {
             return new (e || t)();
@@ -39981,7 +39971,7 @@
         EC,
       ];
       let $R = (() => {
-        class t {}
+        class t { }
         return (
           (t.ɵfac = function (e) {
             return new (e || t)();
@@ -40093,24 +40083,24 @@
       function WR(t, n) {
         1 & t &&
           (r(0, "div", 6),
-          r(1, "a", 58),
-          r(2, "span", 8),
-          c(3, " Register "),
-          s(),
-          s(),
-          s(),
-          r(4, "div", 6),
-          Ie(),
-          r(5, "svg", 59),
-          g(6, "path", 60),
-          s(),
-          Re(),
-          r(7, "a", 58),
-          r(8, "span", 8),
-          c(9, " Sign in "),
-          s(),
-          s(),
-          s());
+            r(1, "a", 58),
+            r(2, "span", 8),
+            c(3, " Register "),
+            s(),
+            s(),
+            s(),
+            r(4, "div", 6),
+            Ie(),
+            r(5, "svg", 59),
+            g(6, "path", 60),
+            s(),
+            Re(),
+            r(7, "a", 58),
+            r(8, "span", 8),
+            c(9, " Sign in "),
+            s(),
+            s(),
+            s());
       }
       let SC = (() => {
         class t {
@@ -40139,13 +40129,13 @@
               .then((i) => {
                 200 === i.code
                   ? (this.authService.setLogCondition(!1), x_clearAuth())
-                  : alert("Refresh auth error!");
+                  : this.showAlert("Refresh auth error!");
               })
               .catch((i) => {
-                alert(i);
+                this.showAlert(i);
               });
           }
-          ngOnInit() {}
+          ngOnInit() { }
           open() {
             this.modalService.open(this.content, { size: "lg", centered: !0 });
           }
@@ -40539,153 +40529,153 @@
               if (
                 (1 & e &&
                   (r(0, "header", 0),
-                  r(1, "nav", 1),
-                  r(2, "div", 2),
-                  r(3, "span"),
-                  g(4, "img", 3),
-                  s(),
-                  s(),
-                  r(5, "div"),
-                  g(6, "a", 4),
-                  r(7, "div", 5),
-                  r(8, "div", 6),
-                  r(9, "button", 7),
-                  r(10, "span", 8),
-                  r(11, "span", 9),
-                  c(12, " USD "),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(13, "div", 6),
-                  r(14, "button", 10),
-                  r(15, "span", 8),
-                  r(16, "div", 11),
-                  g(17, "img", 12),
-                  s(),
-                  r(18, "span", 13),
-                  c(
-                    19,
-                    " Choose your language. Your current language is English (US) "
-                  ),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(20, "div", 6),
-                  r(21, "a", 14),
-                  r(22, "span", 15),
-                  r(23, "span", 16),
-                  Ie(),
-                  r(24, "svg", 17),
-                  g(25, "path", 18),
-                  s(),
-                  s(),
-                  Re(),
-                  r(26, "span", 13),
-                  c(27, " Get help with your reservation "),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  r(28, "div", 6),
-                  r(29, "a", 14),
-                  r(30, "span", 15),
-                  r(31, "span", 16),
-                  Ie(),
-                  r(32, "svg", 19),
-                  g(33, "path", 20),
-                  s(),
-                  s(),
-                  Re(),
-                  r(34, "span", 13),
-                  c(35, " Notification Bell "),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  v(36, GR, 1, 0, "div", 21),
-                  v(37, qR, 36, 0, "ng-template", null, 22, Pe),
-                  v(39, WR, 10, 0, "ng-template", null, 23, Pe),
-                  s(),
-                  s(),
-                  s(),
-                  r(41, "nav", 24),
-                  r(42, "ul", 25),
-                  r(43, "li", 26),
-                  r(44, "a", 27),
-                  r(45, "span", 28),
-                  Ie(),
-                  r(46, "svg", 29),
-                  g(47, "path", 30),
-                  s(),
-                  s(),
-                  Re(),
-                  r(48, "span", 31),
-                  c(49, " Stays "),
-                  s(),
-                  s(),
-                  s(),
-                  r(50, "li", 26),
-                  r(51, "a", 32),
-                  r(52, "span", 28),
-                  Ie(),
-                  r(53, "svg", 33),
-                  g(54, "path", 34),
-                  s(),
-                  s(),
-                  Re(),
-                  r(55, "span", 31),
-                  c(56, " Flights "),
-                  s(),
-                  s(),
-                  s(),
-                  r(57, "li", 26),
-                  r(58, "a", 35),
-                  r(59, "span", 28),
-                  Ie(),
-                  r(60, "svg", 36),
-                  g(61, "path", 37),
-                  s(),
-                  s(),
-                  Re(),
-                  r(62, "span", 31),
-                  c(63, " Car rentals "),
-                  s(),
-                  s(),
-                  s(),
-                  r(64, "li", 26),
-                  r(65, "a", 35),
-                  r(66, "span", 28),
-                  Ie(),
-                  r(67, "svg", 38),
-                  g(68, "path", 39),
-                  s(),
-                  s(),
-                  Re(),
-                  r(69, "span", 31),
-                  c(70, " Attractions "),
-                  s(),
-                  s(),
-                  s(),
-                  r(71, "li", 26),
-                  r(72, "a", 40),
-                  r(73, "span", 28),
-                  Ie(),
-                  r(74, "svg", 41),
-                  g(75, "path", 42),
-                  s(),
-                  s(),
-                  Re(),
-                  r(76, "span", 31),
-                  c(77, " Airport taxis "),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s(),
-                  s()),
-                2 & e)
+                    r(1, "nav", 1),
+                    r(2, "div", 2),
+                    r(3, "span"),
+                    g(4, "img", 3),
+                    s(),
+                    s(),
+                    r(5, "div"),
+                    g(6, "a", 4),
+                    r(7, "div", 5),
+                    r(8, "div", 6),
+                    r(9, "button", 7),
+                    r(10, "span", 8),
+                    r(11, "span", 9),
+                    c(12, " USD "),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(13, "div", 6),
+                    r(14, "button", 10),
+                    r(15, "span", 8),
+                    r(16, "div", 11),
+                    g(17, "img", 12),
+                    s(),
+                    r(18, "span", 13),
+                    c(
+                      19,
+                      " Choose your language. Your current language is English (US) "
+                    ),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(20, "div", 6),
+                    r(21, "a", 14),
+                    r(22, "span", 15),
+                    r(23, "span", 16),
+                    Ie(),
+                    r(24, "svg", 17),
+                    g(25, "path", 18),
+                    s(),
+                    s(),
+                    Re(),
+                    r(26, "span", 13),
+                    c(27, " Get help with your reservation "),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    r(28, "div", 6),
+                    r(29, "a", 14),
+                    r(30, "span", 15),
+                    r(31, "span", 16),
+                    Ie(),
+                    r(32, "svg", 19),
+                    g(33, "path", 20),
+                    s(),
+                    s(),
+                    Re(),
+                    r(34, "span", 13),
+                    c(35, " Notification Bell "),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    v(36, GR, 1, 0, "div", 21),
+                    v(37, qR, 36, 0, "ng-template", null, 22, Pe),
+                    v(39, WR, 10, 0, "ng-template", null, 23, Pe),
+                    s(),
+                    s(),
+                    s(),
+                    r(41, "nav", 24),
+                    r(42, "ul", 25),
+                    r(43, "li", 26),
+                    r(44, "a", 27),
+                    r(45, "span", 28),
+                    Ie(),
+                    r(46, "svg", 29),
+                    g(47, "path", 30),
+                    s(),
+                    s(),
+                    Re(),
+                    r(48, "span", 31),
+                    c(49, " Stays "),
+                    s(),
+                    s(),
+                    s(),
+                    r(50, "li", 26),
+                    r(51, "a", 32),
+                    r(52, "span", 28),
+                    Ie(),
+                    r(53, "svg", 33),
+                    g(54, "path", 34),
+                    s(),
+                    s(),
+                    Re(),
+                    r(55, "span", 31),
+                    c(56, " Flights "),
+                    s(),
+                    s(),
+                    s(),
+                    r(57, "li", 26),
+                    r(58, "a", 35),
+                    r(59, "span", 28),
+                    Ie(),
+                    r(60, "svg", 36),
+                    g(61, "path", 37),
+                    s(),
+                    s(),
+                    Re(),
+                    r(62, "span", 31),
+                    c(63, " Car rentals "),
+                    s(),
+                    s(),
+                    s(),
+                    r(64, "li", 26),
+                    r(65, "a", 35),
+                    r(66, "span", 28),
+                    Ie(),
+                    r(67, "svg", 38),
+                    g(68, "path", 39),
+                    s(),
+                    s(),
+                    Re(),
+                    r(69, "span", 31),
+                    c(70, " Attractions "),
+                    s(),
+                    s(),
+                    s(),
+                    r(71, "li", 26),
+                    r(72, "a", 40),
+                    r(73, "span", 28),
+                    Ie(),
+                    r(74, "svg", 41),
+                    g(75, "path", 42),
+                    s(),
+                    s(),
+                    Re(),
+                    r(76, "span", 31),
+                    c(77, " Airport taxis "),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s(),
+                    s()),
+                  2 & e)
               ) {
                 const o = ve(38),
                   a = ve(40);
@@ -40706,211 +40696,211 @@
       })();
       const JR = ["*"];
       let vp = (() => {
-          class t {
-            constructor(e, i, o) {
-              (this.el = e),
-                (this.zone = i),
-                (this.platformId = o),
-                (this.afterChange = new j()),
-                (this.beforeChange = new j()),
-                (this.breakpoint = new j()),
-                (this.destroy = new j()),
-                (this.init = new j()),
-                (this.currentIndex = 0),
-                (this.slides = []),
-                (this.initialized = !1),
-                (this._removedSlides = []),
-                (this._addedSlides = []);
-            }
-            ngOnDestroy() {
-              this.unslick();
-            }
-            ngAfterViewInit() {
-              this.ngAfterViewChecked();
-            }
-            ngAfterViewChecked() {
-              if (
-                !(function (t) {
-                  return "server" === t;
-                })(this.platformId) &&
-                (this._addedSlides.length > 0 || this._removedSlides.length > 0)
-              ) {
-                const e =
-                  this.slides.length -
-                  this._removedSlides.length +
-                  this._addedSlides.length;
-                this.initialized
-                  ? 0 === e
-                    ? this.unslick()
-                    : (this._addedSlides.forEach((i) => {
-                        this.slides.push(i),
-                          this.zone.runOutsideAngular(() => {
-                            this.$instance.slick(
-                              "slickAdd",
-                              i.el.nativeElement
-                            );
-                          });
-                      }),
-                      (this._addedSlides = []),
-                      this._removedSlides.forEach((i) => {
-                        const o = this.slides.indexOf(i);
-                        (this.slides = this.slides.filter((a) => a !== i)),
-                          this.zone.runOutsideAngular(() => {
-                            this.$instance.slick("slickRemove", o);
-                          });
-                      }),
-                      (this._removedSlides = []))
-                  : e > 0 && this.initSlick();
-              }
-            }
-            initSlick() {
-              (this.slides = this._addedSlides),
-                (this._addedSlides = []),
-                (this._removedSlides = []),
-                this.zone.runOutsideAngular(() => {
-                  (this.$instance = jQuery(this.el.nativeElement)),
-                    this.$instance.on("init", (e, i) => {
-                      this.zone.run(() => {
-                        this.init.emit({ event: e, slick: i });
+        class t {
+          constructor(e, i, o) {
+            (this.el = e),
+              (this.zone = i),
+              (this.platformId = o),
+              (this.afterChange = new j()),
+              (this.beforeChange = new j()),
+              (this.breakpoint = new j()),
+              (this.destroy = new j()),
+              (this.init = new j()),
+              (this.currentIndex = 0),
+              (this.slides = []),
+              (this.initialized = !1),
+              (this._removedSlides = []),
+              (this._addedSlides = []);
+          }
+          ngOnDestroy() {
+            this.unslick();
+          }
+          ngAfterViewInit() {
+            this.ngAfterViewChecked();
+          }
+          ngAfterViewChecked() {
+            if (
+              !(function (t) {
+                return "server" === t;
+              })(this.platformId) &&
+              (this._addedSlides.length > 0 || this._removedSlides.length > 0)
+            ) {
+              const e =
+                this.slides.length -
+                this._removedSlides.length +
+                this._addedSlides.length;
+              this.initialized
+                ? 0 === e
+                  ? this.unslick()
+                  : (this._addedSlides.forEach((i) => {
+                    this.slides.push(i),
+                      this.zone.runOutsideAngular(() => {
+                        this.$instance.slick(
+                          "slickAdd",
+                          i.el.nativeElement
+                        );
                       });
-                    }),
-                    this.$instance.slick(this.config),
-                    this.zone.run(() => {
-                      var e;
-                      (this.initialized = !0),
-                        (this.currentIndex =
-                          (null === (e = this.config) || void 0 === e
-                            ? void 0
-                            : e.initialSlide) || 0);
-                    }),
-                    this.$instance.on("afterChange", (e, i, o) => {
-                      this.zone.run(() => {
-                        this.afterChange.emit({
-                          event: e,
-                          slick: i,
-                          currentSlide: o,
-                          first: 0 === o,
-                          last:
-                            i.$slides.length === o + i.options.slidesToScroll,
-                        }),
-                          (this.currentIndex = o);
-                      });
-                    }),
-                    this.$instance.on("beforeChange", (e, i, o, a) => {
-                      this.zone.run(() => {
-                        this.beforeChange.emit({
-                          event: e,
-                          slick: i,
-                          currentSlide: o,
-                          nextSlide: a,
-                        }),
-                          (this.currentIndex = a);
-                      });
-                    }),
-                    this.$instance.on("breakpoint", (e, i, o) => {
-                      this.zone.run(() => {
-                        this.breakpoint.emit({
-                          event: e,
-                          slick: i,
-                          breakpoint: o,
+                  }),
+                    (this._addedSlides = []),
+                    this._removedSlides.forEach((i) => {
+                      const o = this.slides.indexOf(i);
+                      (this.slides = this.slides.filter((a) => a !== i)),
+                        this.zone.runOutsideAngular(() => {
+                          this.$instance.slick("slickRemove", o);
                         });
-                      });
                     }),
-                    this.$instance.on("destroy", (e, i) => {
-                      this.zone.run(() => {
-                        this.destroy.emit({ event: e, slick: i }),
-                          (this.initialized = !1);
+                    (this._removedSlides = []))
+                : e > 0 && this.initSlick();
+            }
+          }
+          initSlick() {
+            (this.slides = this._addedSlides),
+              (this._addedSlides = []),
+              (this._removedSlides = []),
+              this.zone.runOutsideAngular(() => {
+                (this.$instance = jQuery(this.el.nativeElement)),
+                  this.$instance.on("init", (e, i) => {
+                    this.zone.run(() => {
+                      this.init.emit({ event: e, slick: i });
+                    });
+                  }),
+                  this.$instance.slick(this.config),
+                  this.zone.run(() => {
+                    var e;
+                    (this.initialized = !0),
+                      (this.currentIndex =
+                        (null === (e = this.config) || void 0 === e
+                          ? void 0
+                          : e.initialSlide) || 0);
+                  }),
+                  this.$instance.on("afterChange", (e, i, o) => {
+                    this.zone.run(() => {
+                      this.afterChange.emit({
+                        event: e,
+                        slick: i,
+                        currentSlide: o,
+                        first: 0 === o,
+                        last:
+                          i.$slides.length === o + i.options.slidesToScroll,
+                      }),
+                        (this.currentIndex = o);
+                    });
+                  }),
+                  this.$instance.on("beforeChange", (e, i, o, a) => {
+                    this.zone.run(() => {
+                      this.beforeChange.emit({
+                        event: e,
+                        slick: i,
+                        currentSlide: o,
+                        nextSlide: a,
+                      }),
+                        (this.currentIndex = a);
+                    });
+                  }),
+                  this.$instance.on("breakpoint", (e, i, o) => {
+                    this.zone.run(() => {
+                      this.breakpoint.emit({
+                        event: e,
+                        slick: i,
+                        breakpoint: o,
                       });
                     });
-                });
-            }
-            addSlide(e) {
-              this._addedSlides.push(e);
-            }
-            removeSlide(e) {
-              this._removedSlides.push(e);
-            }
-            slickGoTo(e) {
-              this.zone.runOutsideAngular(() => {
-                this.$instance.slick("slickGoTo", e);
-              });
-            }
-            slickNext() {
-              this.zone.runOutsideAngular(() => {
-                this.$instance.slick("slickNext");
-              });
-            }
-            slickPrev() {
-              this.zone.runOutsideAngular(() => {
-                this.$instance.slick("slickPrev");
-              });
-            }
-            slickPause() {
-              this.zone.runOutsideAngular(() => {
-                this.$instance.slick("slickPause");
-              });
-            }
-            slickPlay() {
-              this.zone.runOutsideAngular(() => {
-                this.$instance.slick("slickPlay");
-              });
-            }
-            unslick() {
-              this.$instance &&
-                (this.zone.runOutsideAngular(() => {
-                  this.$instance.slick("unslick");
-                }),
-                (this.$instance = void 0)),
-                (this.initialized = !1);
-            }
-            ngOnChanges(e) {
-              if (this.initialized) {
-                const i = e.config;
-                if (
-                  i.previousValue !== i.currentValue &&
-                  void 0 !== i.currentValue
-                ) {
-                  const o = i.currentValue.refresh,
-                    a = Object.assign({}, i.currentValue);
-                  delete a.refresh,
-                    this.zone.runOutsideAngular(() => {
-                      this.$instance.slick("slickSetOption", a, o);
+                  }),
+                  this.$instance.on("destroy", (e, i) => {
+                    this.zone.run(() => {
+                      this.destroy.emit({ event: e, slick: i }),
+                        (this.initialized = !1);
                     });
-                }
+                  });
+              });
+          }
+          addSlide(e) {
+            this._addedSlides.push(e);
+          }
+          removeSlide(e) {
+            this._removedSlides.push(e);
+          }
+          slickGoTo(e) {
+            this.zone.runOutsideAngular(() => {
+              this.$instance.slick("slickGoTo", e);
+            });
+          }
+          slickNext() {
+            this.zone.runOutsideAngular(() => {
+              this.$instance.slick("slickNext");
+            });
+          }
+          slickPrev() {
+            this.zone.runOutsideAngular(() => {
+              this.$instance.slick("slickPrev");
+            });
+          }
+          slickPause() {
+            this.zone.runOutsideAngular(() => {
+              this.$instance.slick("slickPause");
+            });
+          }
+          slickPlay() {
+            this.zone.runOutsideAngular(() => {
+              this.$instance.slick("slickPlay");
+            });
+          }
+          unslick() {
+            this.$instance &&
+              (this.zone.runOutsideAngular(() => {
+                this.$instance.slick("unslick");
+              }),
+                (this.$instance = void 0)),
+              (this.initialized = !1);
+          }
+          ngOnChanges(e) {
+            if (this.initialized) {
+              const i = e.config;
+              if (
+                i.previousValue !== i.currentValue &&
+                void 0 !== i.currentValue
+              ) {
+                const o = i.currentValue.refresh,
+                  a = Object.assign({}, i.currentValue);
+                delete a.refresh,
+                  this.zone.runOutsideAngular(() => {
+                    this.$instance.slick("slickSetOption", a, o);
+                  });
               }
             }
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)(y(le), y(de), y(nr));
-            }),
-            (t.ɵcmp = N({
-              type: t,
-              selectors: [["ngx-slick-carousel"]],
-              inputs: { config: "config" },
-              outputs: {
-                afterChange: "afterChange",
-                beforeChange: "beforeChange",
-                breakpoint: "breakpoint",
-                destroy: "destroy",
-                init: "init",
-              },
-              exportAs: ["slick-carousel"],
-              features: [
-                fe([{ provide: gt, useExisting: ne(() => t), multi: !0 }]),
-                Me,
-              ],
-              ngContentSelectors: JR,
-              decls: 1,
-              vars: 0,
-              template: function (e, i) {
-                1 & e && (ki(), Oi(0));
-              },
-              encapsulation: 2,
-            })),
-            t
-          );
-        })(),
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)(y(le), y(de), y(nr));
+          }),
+          (t.ɵcmp = N({
+            type: t,
+            selectors: [["ngx-slick-carousel"]],
+            inputs: { config: "config" },
+            outputs: {
+              afterChange: "afterChange",
+              beforeChange: "beforeChange",
+              breakpoint: "breakpoint",
+              destroy: "destroy",
+              init: "init",
+            },
+            exportAs: ["slick-carousel"],
+            features: [
+              fe([{ provide: gt, useExisting: ne(() => t), multi: !0 }]),
+              Me,
+            ],
+            ngContentSelectors: JR,
+            decls: 1,
+            vars: 0,
+            template: function (e, i) {
+              1 & e && (ki(), Oi(0));
+            },
+            encapsulation: 2,
+          })),
+          t
+        );
+      })(),
         AC = (() => {
           class t {
             constructor(e, i, o) {
@@ -40932,7 +40922,7 @@
           );
         })(),
         YR = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();
@@ -40946,19 +40936,19 @@
         if (
           (1 & t &&
             (r(0, "div", 134),
-            r(1, "div"),
-            g(2, "img", 135),
-            r(3, "div", 136),
-            r(4, "div", 137),
-            c(5),
-            s(),
-            r(6, "div", 69),
-            c(7),
-            s(),
-            s(),
-            s(),
-            s()),
-          2 & t)
+              r(1, "div"),
+              g(2, "img", 135),
+              r(3, "div", 136),
+              r(4, "div", 137),
+              c(5),
+              s(),
+              r(6, "div", 69),
+              c(7),
+              s(),
+              s(),
+              s(),
+              s()),
+            2 & t)
         ) {
           const e = n.$implicit,
             i = O();
@@ -40972,21 +40962,21 @@
         if (
           (1 & t &&
             (r(0, "div", 134),
-            r(1, "div"),
-            g(2, "img", 138),
-            s(),
-            r(3, "div", 136),
-            r(4, "div", 139),
-            r(5, "span", 137),
-            c(6),
-            s(),
-            r(7, "span", 69),
-            c(8),
-            s(),
-            s(),
-            s(),
-            s()),
-          2 & t)
+              r(1, "div"),
+              g(2, "img", 138),
+              s(),
+              r(3, "div", 136),
+              r(4, "div", 139),
+              r(5, "span", 137),
+              c(6),
+              s(),
+              r(7, "span", 69),
+              c(8),
+              s(),
+              s(),
+              s(),
+              s()),
+            2 & t)
         ) {
           const e = n.$implicit,
             i = O();
@@ -40999,593 +40989,593 @@
       function KR(t, n) {
         1 & t &&
           (r(0, "div", 140),
-          r(1, "div", 141),
-          g(2, "img", 142),
-          s(),
-          r(3, "div", 143),
-          r(4, "h3", 144),
-          r(5, "span"),
-          c(6, "Villa Wellness"),
-          s(),
-          s(),
-          r(7, "p", 145),
-          c(8, "Budapest"),
-          s(),
-          r(9, "p", 146),
-          c(10, " Starting from Euro\xa055.550 "),
-          s(),
-          r(11, "div", 147),
-          r(12, "div", 148),
-          r(13, "div", 149),
-          c(14, " 9.2 "),
-          s(),
-          r(15, "div", 150),
-          r(16, "div", 151),
-          c(17, "Wonderful"),
-          s(),
-          r(18, "div", 152),
-          c(19, "22 reviews"),
-          s(),
-          s(),
-          s(),
-          s(),
-          s(),
-          s());
+            r(1, "div", 141),
+            g(2, "img", 142),
+            s(),
+            r(3, "div", 143),
+            r(4, "h3", 144),
+            r(5, "span"),
+            c(6, "Villa Wellness"),
+            s(),
+            s(),
+            r(7, "p", 145),
+            c(8, "Budapest"),
+            s(),
+            r(9, "p", 146),
+            c(10, " Starting from Euro\xa055.550 "),
+            s(),
+            r(11, "div", 147),
+            r(12, "div", 148),
+            r(13, "div", 149),
+            c(14, " 9.2 "),
+            s(),
+            r(15, "div", 150),
+            r(16, "div", 151),
+            c(17, "Wonderful"),
+            s(),
+            r(18, "div", 152),
+            c(19, "22 reviews"),
+            s(),
+            s(),
+            s(),
+            s(),
+            s(),
+            s());
       }
       function XR(t, n) {
         1 & t &&
           (r(0, "div", 153),
-          r(1, "div"),
-          r(2, "ul", 154),
-          r(3, "li"),
-          r(4, "a", 87),
-          c(5, "Times Square"),
-          s(),
-          r(6, "div", 155),
-          c(7, " 1,382 properties "),
-          s(),
-          s(),
-          r(8, "li"),
-          r(9, "a", 87),
-          c(10, "Times Square"),
-          s(),
-          r(11, "div", 155),
-          c(12, " 1,382 properties "),
-          s(),
-          s(),
-          r(13, "li"),
-          r(14, "a", 87),
-          c(15, "Times Square"),
-          s(),
-          r(16, "div", 155),
-          c(17, " 1,382 properties "),
-          s(),
-          s(),
-          r(18, "li"),
-          r(19, "a", 87),
-          c(20, "Times Square"),
-          s(),
-          r(21, "div", 155),
-          c(22, " 1,382 properties "),
-          s(),
-          s(),
-          s(),
-          s(),
-          r(23, "div"),
-          r(24, "ul", 154),
-          r(25, "li"),
-          r(26, "a", 87),
-          c(27, "Times Square"),
-          s(),
-          r(28, "div", 155),
-          c(29, " 1,382 properties "),
-          s(),
-          s(),
-          r(30, "li"),
-          r(31, "a", 87),
-          c(32, "Times Square"),
-          s(),
-          r(33, "div", 155),
-          c(34, " 1,382 properties "),
-          s(),
-          s(),
-          r(35, "li"),
-          r(36, "a", 87),
-          c(37, "Times Square"),
-          s(),
-          r(38, "div", 155),
-          c(39, " 1,382 properties "),
-          s(),
-          s(),
-          r(40, "li"),
-          r(41, "a", 87),
-          c(42, "Times Square"),
-          s(),
-          r(43, "div", 155),
-          c(44, " 1,382 properties "),
-          s(),
-          s(),
-          s(),
-          s(),
-          r(45, "div"),
-          r(46, "ul", 154),
-          r(47, "li"),
-          r(48, "a", 87),
-          c(49, "Times Square"),
-          s(),
-          r(50, "div", 155),
-          c(51, " 1,382 properties "),
-          s(),
-          s(),
-          r(52, "li"),
-          r(53, "a", 87),
-          c(54, "Times Square"),
-          s(),
-          r(55, "div", 155),
-          c(56, " 1,382 properties "),
-          s(),
-          s(),
-          r(57, "li"),
-          r(58, "a", 87),
-          c(59, "Times Square"),
-          s(),
-          r(60, "div", 155),
-          c(61, " 1,382 properties "),
-          s(),
-          s(),
-          r(62, "li"),
-          r(63, "a", 87),
-          c(64, "Times Square"),
-          s(),
-          r(65, "div", 155),
-          c(66, " 1,382 properties "),
-          s(),
-          s(),
-          s(),
-          s(),
-          r(67, "div"),
-          r(68, "ul", 154),
-          r(69, "li"),
-          r(70, "a", 87),
-          c(71, "Times Square"),
-          s(),
-          r(72, "div", 155),
-          c(73, " 1,382 properties "),
-          s(),
-          s(),
-          r(74, "li"),
-          r(75, "a", 87),
-          c(76, "Times Square"),
-          s(),
-          r(77, "div", 155),
-          c(78, " 1,382 properties "),
-          s(),
-          s(),
-          r(79, "li"),
-          r(80, "a", 87),
-          c(81, "Times Square"),
-          s(),
-          r(82, "div", 155),
-          c(83, " 1,382 properties "),
-          s(),
-          s(),
-          r(84, "li"),
-          r(85, "a", 87),
-          c(86, "Times Square"),
-          s(),
-          r(87, "div", 155),
-          c(88, " 1,382 properties "),
-          s(),
-          s(),
-          s(),
-          s(),
-          r(89, "div"),
-          r(90, "ul", 154),
-          r(91, "li"),
-          r(92, "a", 87),
-          c(93, "Times Square"),
-          s(),
-          r(94, "div", 155),
-          c(95, " 1,382 properties "),
-          s(),
-          s(),
-          r(96, "li"),
-          r(97, "a", 87),
-          c(98, "Times Square"),
-          s(),
-          r(99, "div", 155),
-          c(100, " 1,382 properties "),
-          s(),
-          s(),
-          r(101, "li"),
-          r(102, "a", 87),
-          c(103, "Times Square"),
-          s(),
-          r(104, "div", 155),
-          c(105, " 1,382 properties "),
-          s(),
-          s(),
-          r(106, "li"),
-          r(107, "a", 87),
-          c(108, "Times Square"),
-          s(),
-          r(109, "div", 155),
-          c(110, " 1,382 properties "),
-          s(),
-          s(),
-          s(),
-          s(),
-          s());
+            r(1, "div"),
+            r(2, "ul", 154),
+            r(3, "li"),
+            r(4, "a", 87),
+            c(5, "Times Square"),
+            s(),
+            r(6, "div", 155),
+            c(7, " 1,382 properties "),
+            s(),
+            s(),
+            r(8, "li"),
+            r(9, "a", 87),
+            c(10, "Times Square"),
+            s(),
+            r(11, "div", 155),
+            c(12, " 1,382 properties "),
+            s(),
+            s(),
+            r(13, "li"),
+            r(14, "a", 87),
+            c(15, "Times Square"),
+            s(),
+            r(16, "div", 155),
+            c(17, " 1,382 properties "),
+            s(),
+            s(),
+            r(18, "li"),
+            r(19, "a", 87),
+            c(20, "Times Square"),
+            s(),
+            r(21, "div", 155),
+            c(22, " 1,382 properties "),
+            s(),
+            s(),
+            s(),
+            s(),
+            r(23, "div"),
+            r(24, "ul", 154),
+            r(25, "li"),
+            r(26, "a", 87),
+            c(27, "Times Square"),
+            s(),
+            r(28, "div", 155),
+            c(29, " 1,382 properties "),
+            s(),
+            s(),
+            r(30, "li"),
+            r(31, "a", 87),
+            c(32, "Times Square"),
+            s(),
+            r(33, "div", 155),
+            c(34, " 1,382 properties "),
+            s(),
+            s(),
+            r(35, "li"),
+            r(36, "a", 87),
+            c(37, "Times Square"),
+            s(),
+            r(38, "div", 155),
+            c(39, " 1,382 properties "),
+            s(),
+            s(),
+            r(40, "li"),
+            r(41, "a", 87),
+            c(42, "Times Square"),
+            s(),
+            r(43, "div", 155),
+            c(44, " 1,382 properties "),
+            s(),
+            s(),
+            s(),
+            s(),
+            r(45, "div"),
+            r(46, "ul", 154),
+            r(47, "li"),
+            r(48, "a", 87),
+            c(49, "Times Square"),
+            s(),
+            r(50, "div", 155),
+            c(51, " 1,382 properties "),
+            s(),
+            s(),
+            r(52, "li"),
+            r(53, "a", 87),
+            c(54, "Times Square"),
+            s(),
+            r(55, "div", 155),
+            c(56, " 1,382 properties "),
+            s(),
+            s(),
+            r(57, "li"),
+            r(58, "a", 87),
+            c(59, "Times Square"),
+            s(),
+            r(60, "div", 155),
+            c(61, " 1,382 properties "),
+            s(),
+            s(),
+            r(62, "li"),
+            r(63, "a", 87),
+            c(64, "Times Square"),
+            s(),
+            r(65, "div", 155),
+            c(66, " 1,382 properties "),
+            s(),
+            s(),
+            s(),
+            s(),
+            r(67, "div"),
+            r(68, "ul", 154),
+            r(69, "li"),
+            r(70, "a", 87),
+            c(71, "Times Square"),
+            s(),
+            r(72, "div", 155),
+            c(73, " 1,382 properties "),
+            s(),
+            s(),
+            r(74, "li"),
+            r(75, "a", 87),
+            c(76, "Times Square"),
+            s(),
+            r(77, "div", 155),
+            c(78, " 1,382 properties "),
+            s(),
+            s(),
+            r(79, "li"),
+            r(80, "a", 87),
+            c(81, "Times Square"),
+            s(),
+            r(82, "div", 155),
+            c(83, " 1,382 properties "),
+            s(),
+            s(),
+            r(84, "li"),
+            r(85, "a", 87),
+            c(86, "Times Square"),
+            s(),
+            r(87, "div", 155),
+            c(88, " 1,382 properties "),
+            s(),
+            s(),
+            s(),
+            s(),
+            r(89, "div"),
+            r(90, "ul", 154),
+            r(91, "li"),
+            r(92, "a", 87),
+            c(93, "Times Square"),
+            s(),
+            r(94, "div", 155),
+            c(95, " 1,382 properties "),
+            s(),
+            s(),
+            r(96, "li"),
+            r(97, "a", 87),
+            c(98, "Times Square"),
+            s(),
+            r(99, "div", 155),
+            c(100, " 1,382 properties "),
+            s(),
+            s(),
+            r(101, "li"),
+            r(102, "a", 87),
+            c(103, "Times Square"),
+            s(),
+            r(104, "div", 155),
+            c(105, " 1,382 properties "),
+            s(),
+            s(),
+            r(106, "li"),
+            r(107, "a", 87),
+            c(108, "Times Square"),
+            s(),
+            r(109, "div", 155),
+            c(110, " 1,382 properties "),
+            s(),
+            s(),
+            s(),
+            s(),
+            s());
       }
       function eF(t, n) {
         1 & t &&
           (r(0, "div", 153),
-          r(1, "div"),
-          r(2, "ul", 154),
-          r(3, "li"),
-          r(4, "a", 87),
-          c(5, "Times Square"),
-          s(),
-          r(6, "div", 155),
-          c(7, " 1,382 properties "),
-          s(),
-          s(),
-          r(8, "li"),
-          r(9, "a", 87),
-          c(10, "Times Square"),
-          s(),
-          r(11, "div", 155),
-          c(12, " 1,382 properties "),
-          s(),
-          s(),
-          r(13, "li"),
-          r(14, "a", 87),
-          c(15, "Times Square"),
-          s(),
-          r(16, "div", 155),
-          c(17, " 1,382 properties "),
-          s(),
-          s(),
-          r(18, "li"),
-          r(19, "a", 87),
-          c(20, "Times Square"),
-          s(),
-          r(21, "div", 155),
-          c(22, " 1,382 properties "),
-          s(),
-          s(),
-          s(),
-          s(),
-          r(23, "div"),
-          r(24, "ul", 154),
-          r(25, "li"),
-          r(26, "a", 87),
-          c(27, "Times Square"),
-          s(),
-          r(28, "div", 155),
-          c(29, " 1,382 properties "),
-          s(),
-          s(),
-          r(30, "li"),
-          r(31, "a", 87),
-          c(32, "Times Square"),
-          s(),
-          r(33, "div", 155),
-          c(34, " 1,382 properties "),
-          s(),
-          s(),
-          r(35, "li"),
-          r(36, "a", 87),
-          c(37, "Times Square"),
-          s(),
-          r(38, "div", 155),
-          c(39, " 1,382 properties "),
-          s(),
-          s(),
-          r(40, "li"),
-          r(41, "a", 87),
-          c(42, "Times Square"),
-          s(),
-          r(43, "div", 155),
-          c(44, " 1,382 properties "),
-          s(),
-          s(),
-          s(),
-          s(),
-          r(45, "div"),
-          r(46, "ul", 154),
-          r(47, "li"),
-          r(48, "a", 87),
-          c(49, "Times Square"),
-          s(),
-          r(50, "div", 155),
-          c(51, " 1,382 properties "),
-          s(),
-          s(),
-          r(52, "li"),
-          r(53, "a", 87),
-          c(54, "Times Square"),
-          s(),
-          r(55, "div", 155),
-          c(56, " 1,382 properties "),
-          s(),
-          s(),
-          r(57, "li"),
-          r(58, "a", 87),
-          c(59, "Times Square"),
-          s(),
-          r(60, "div", 155),
-          c(61, " 1,382 properties "),
-          s(),
-          s(),
-          r(62, "li"),
-          r(63, "a", 87),
-          c(64, "Times Square"),
-          s(),
-          r(65, "div", 155),
-          c(66, " 1,382 properties "),
-          s(),
-          s(),
-          s(),
-          s(),
-          r(67, "div"),
-          r(68, "ul", 154),
-          r(69, "li"),
-          r(70, "a", 87),
-          c(71, "Times Square"),
-          s(),
-          r(72, "div", 155),
-          c(73, " 1,382 properties "),
-          s(),
-          s(),
-          r(74, "li"),
-          r(75, "a", 87),
-          c(76, "Times Square"),
-          s(),
-          r(77, "div", 155),
-          c(78, " 1,382 properties "),
-          s(),
-          s(),
-          r(79, "li"),
-          r(80, "a", 87),
-          c(81, "Times Square"),
-          s(),
-          r(82, "div", 155),
-          c(83, " 1,382 properties "),
-          s(),
-          s(),
-          r(84, "li"),
-          r(85, "a", 87),
-          c(86, "Times Square"),
-          s(),
-          r(87, "div", 155),
-          c(88, " 1,382 properties "),
-          s(),
-          s(),
-          s(),
-          s(),
-          r(89, "div"),
-          r(90, "ul", 154),
-          r(91, "li"),
-          r(92, "a", 87),
-          c(93, "Times Square"),
-          s(),
-          r(94, "div", 155),
-          c(95, " 1,382 properties "),
-          s(),
-          s(),
-          r(96, "li"),
-          r(97, "a", 87),
-          c(98, "Times Square"),
-          s(),
-          r(99, "div", 155),
-          c(100, " 1,382 properties "),
-          s(),
-          s(),
-          r(101, "li"),
-          r(102, "a", 87),
-          c(103, "Times Square"),
-          s(),
-          r(104, "div", 155),
-          c(105, " 1,382 properties "),
-          s(),
-          s(),
-          r(106, "li"),
-          r(107, "a", 87),
-          c(108, "Times Square"),
-          s(),
-          r(109, "div", 155),
-          c(110, " 1,382 properties "),
-          s(),
-          s(),
-          s(),
-          s(),
-          s());
+            r(1, "div"),
+            r(2, "ul", 154),
+            r(3, "li"),
+            r(4, "a", 87),
+            c(5, "Times Square"),
+            s(),
+            r(6, "div", 155),
+            c(7, " 1,382 properties "),
+            s(),
+            s(),
+            r(8, "li"),
+            r(9, "a", 87),
+            c(10, "Times Square"),
+            s(),
+            r(11, "div", 155),
+            c(12, " 1,382 properties "),
+            s(),
+            s(),
+            r(13, "li"),
+            r(14, "a", 87),
+            c(15, "Times Square"),
+            s(),
+            r(16, "div", 155),
+            c(17, " 1,382 properties "),
+            s(),
+            s(),
+            r(18, "li"),
+            r(19, "a", 87),
+            c(20, "Times Square"),
+            s(),
+            r(21, "div", 155),
+            c(22, " 1,382 properties "),
+            s(),
+            s(),
+            s(),
+            s(),
+            r(23, "div"),
+            r(24, "ul", 154),
+            r(25, "li"),
+            r(26, "a", 87),
+            c(27, "Times Square"),
+            s(),
+            r(28, "div", 155),
+            c(29, " 1,382 properties "),
+            s(),
+            s(),
+            r(30, "li"),
+            r(31, "a", 87),
+            c(32, "Times Square"),
+            s(),
+            r(33, "div", 155),
+            c(34, " 1,382 properties "),
+            s(),
+            s(),
+            r(35, "li"),
+            r(36, "a", 87),
+            c(37, "Times Square"),
+            s(),
+            r(38, "div", 155),
+            c(39, " 1,382 properties "),
+            s(),
+            s(),
+            r(40, "li"),
+            r(41, "a", 87),
+            c(42, "Times Square"),
+            s(),
+            r(43, "div", 155),
+            c(44, " 1,382 properties "),
+            s(),
+            s(),
+            s(),
+            s(),
+            r(45, "div"),
+            r(46, "ul", 154),
+            r(47, "li"),
+            r(48, "a", 87),
+            c(49, "Times Square"),
+            s(),
+            r(50, "div", 155),
+            c(51, " 1,382 properties "),
+            s(),
+            s(),
+            r(52, "li"),
+            r(53, "a", 87),
+            c(54, "Times Square"),
+            s(),
+            r(55, "div", 155),
+            c(56, " 1,382 properties "),
+            s(),
+            s(),
+            r(57, "li"),
+            r(58, "a", 87),
+            c(59, "Times Square"),
+            s(),
+            r(60, "div", 155),
+            c(61, " 1,382 properties "),
+            s(),
+            s(),
+            r(62, "li"),
+            r(63, "a", 87),
+            c(64, "Times Square"),
+            s(),
+            r(65, "div", 155),
+            c(66, " 1,382 properties "),
+            s(),
+            s(),
+            s(),
+            s(),
+            r(67, "div"),
+            r(68, "ul", 154),
+            r(69, "li"),
+            r(70, "a", 87),
+            c(71, "Times Square"),
+            s(),
+            r(72, "div", 155),
+            c(73, " 1,382 properties "),
+            s(),
+            s(),
+            r(74, "li"),
+            r(75, "a", 87),
+            c(76, "Times Square"),
+            s(),
+            r(77, "div", 155),
+            c(78, " 1,382 properties "),
+            s(),
+            s(),
+            r(79, "li"),
+            r(80, "a", 87),
+            c(81, "Times Square"),
+            s(),
+            r(82, "div", 155),
+            c(83, " 1,382 properties "),
+            s(),
+            s(),
+            r(84, "li"),
+            r(85, "a", 87),
+            c(86, "Times Square"),
+            s(),
+            r(87, "div", 155),
+            c(88, " 1,382 properties "),
+            s(),
+            s(),
+            s(),
+            s(),
+            r(89, "div"),
+            r(90, "ul", 154),
+            r(91, "li"),
+            r(92, "a", 87),
+            c(93, "Times Square"),
+            s(),
+            r(94, "div", 155),
+            c(95, " 1,382 properties "),
+            s(),
+            s(),
+            r(96, "li"),
+            r(97, "a", 87),
+            c(98, "Times Square"),
+            s(),
+            r(99, "div", 155),
+            c(100, " 1,382 properties "),
+            s(),
+            s(),
+            r(101, "li"),
+            r(102, "a", 87),
+            c(103, "Times Square"),
+            s(),
+            r(104, "div", 155),
+            c(105, " 1,382 properties "),
+            s(),
+            s(),
+            r(106, "li"),
+            r(107, "a", 87),
+            c(108, "Times Square"),
+            s(),
+            r(109, "div", 155),
+            c(110, " 1,382 properties "),
+            s(),
+            s(),
+            s(),
+            s(),
+            s());
       }
       function tF(t, n) {
         1 & t &&
           (r(0, "div", 153),
-          r(1, "div"),
-          r(2, "ul", 154),
-          r(3, "li"),
-          r(4, "a", 87),
-          c(5, "Times Square"),
-          s(),
-          r(6, "div", 155),
-          c(7, " 1,382 properties "),
-          s(),
-          s(),
-          r(8, "li"),
-          r(9, "a", 87),
-          c(10, "Times Square"),
-          s(),
-          r(11, "div", 155),
-          c(12, " 1,382 properties "),
-          s(),
-          s(),
-          r(13, "li"),
-          r(14, "a", 87),
-          c(15, "Times Square"),
-          s(),
-          r(16, "div", 155),
-          c(17, " 1,382 properties "),
-          s(),
-          s(),
-          r(18, "li"),
-          r(19, "a", 87),
-          c(20, "Times Square"),
-          s(),
-          r(21, "div", 155),
-          c(22, " 1,382 properties "),
-          s(),
-          s(),
-          s(),
-          s(),
-          r(23, "div"),
-          r(24, "ul", 154),
-          r(25, "li"),
-          r(26, "a", 87),
-          c(27, "Times Square"),
-          s(),
-          r(28, "div", 155),
-          c(29, " 1,382 properties "),
-          s(),
-          s(),
-          r(30, "li"),
-          r(31, "a", 87),
-          c(32, "Times Square"),
-          s(),
-          r(33, "div", 155),
-          c(34, " 1,382 properties "),
-          s(),
-          s(),
-          r(35, "li"),
-          r(36, "a", 87),
-          c(37, "Times Square"),
-          s(),
-          r(38, "div", 155),
-          c(39, " 1,382 properties "),
-          s(),
-          s(),
-          r(40, "li"),
-          r(41, "a", 87),
-          c(42, "Times Square"),
-          s(),
-          r(43, "div", 155),
-          c(44, " 1,382 properties "),
-          s(),
-          s(),
-          s(),
-          s(),
-          r(45, "div"),
-          r(46, "ul", 154),
-          r(47, "li"),
-          r(48, "a", 87),
-          c(49, "Times Square"),
-          s(),
-          r(50, "div", 155),
-          c(51, " 1,382 properties "),
-          s(),
-          s(),
-          r(52, "li"),
-          r(53, "a", 87),
-          c(54, "Times Square"),
-          s(),
-          r(55, "div", 155),
-          c(56, " 1,382 properties "),
-          s(),
-          s(),
-          r(57, "li"),
-          r(58, "a", 87),
-          c(59, "Times Square"),
-          s(),
-          r(60, "div", 155),
-          c(61, " 1,382 properties "),
-          s(),
-          s(),
-          r(62, "li"),
-          r(63, "a", 87),
-          c(64, "Times Square"),
-          s(),
-          r(65, "div", 155),
-          c(66, " 1,382 properties "),
-          s(),
-          s(),
-          s(),
-          s(),
-          r(67, "div"),
-          r(68, "ul", 154),
-          r(69, "li"),
-          r(70, "a", 87),
-          c(71, "Times Square"),
-          s(),
-          r(72, "div", 155),
-          c(73, " 1,382 properties "),
-          s(),
-          s(),
-          r(74, "li"),
-          r(75, "a", 87),
-          c(76, "Times Square"),
-          s(),
-          r(77, "div", 155),
-          c(78, " 1,382 properties "),
-          s(),
-          s(),
-          r(79, "li"),
-          r(80, "a", 87),
-          c(81, "Times Square"),
-          s(),
-          r(82, "div", 155),
-          c(83, " 1,382 properties "),
-          s(),
-          s(),
-          r(84, "li"),
-          r(85, "a", 87),
-          c(86, "Times Square"),
-          s(),
-          r(87, "div", 155),
-          c(88, " 1,382 properties "),
-          s(),
-          s(),
-          s(),
-          s(),
-          r(89, "div"),
-          r(90, "ul", 154),
-          r(91, "li"),
-          r(92, "a", 87),
-          c(93, "Times Square"),
-          s(),
-          r(94, "div", 155),
-          c(95, " 1,382 properties "),
-          s(),
-          s(),
-          r(96, "li"),
-          r(97, "a", 87),
-          c(98, "Times Square"),
-          s(),
-          r(99, "div", 155),
-          c(100, " 1,382 properties "),
-          s(),
-          s(),
-          r(101, "li"),
-          r(102, "a", 87),
-          c(103, "Times Square"),
-          s(),
-          r(104, "div", 155),
-          c(105, " 1,382 properties "),
-          s(),
-          s(),
-          r(106, "li"),
-          r(107, "a", 87),
-          c(108, "Times Square"),
-          s(),
-          r(109, "div", 155),
-          c(110, " 1,382 properties "),
-          s(),
-          s(),
-          s(),
-          s(),
-          s());
+            r(1, "div"),
+            r(2, "ul", 154),
+            r(3, "li"),
+            r(4, "a", 87),
+            c(5, "Times Square"),
+            s(),
+            r(6, "div", 155),
+            c(7, " 1,382 properties "),
+            s(),
+            s(),
+            r(8, "li"),
+            r(9, "a", 87),
+            c(10, "Times Square"),
+            s(),
+            r(11, "div", 155),
+            c(12, " 1,382 properties "),
+            s(),
+            s(),
+            r(13, "li"),
+            r(14, "a", 87),
+            c(15, "Times Square"),
+            s(),
+            r(16, "div", 155),
+            c(17, " 1,382 properties "),
+            s(),
+            s(),
+            r(18, "li"),
+            r(19, "a", 87),
+            c(20, "Times Square"),
+            s(),
+            r(21, "div", 155),
+            c(22, " 1,382 properties "),
+            s(),
+            s(),
+            s(),
+            s(),
+            r(23, "div"),
+            r(24, "ul", 154),
+            r(25, "li"),
+            r(26, "a", 87),
+            c(27, "Times Square"),
+            s(),
+            r(28, "div", 155),
+            c(29, " 1,382 properties "),
+            s(),
+            s(),
+            r(30, "li"),
+            r(31, "a", 87),
+            c(32, "Times Square"),
+            s(),
+            r(33, "div", 155),
+            c(34, " 1,382 properties "),
+            s(),
+            s(),
+            r(35, "li"),
+            r(36, "a", 87),
+            c(37, "Times Square"),
+            s(),
+            r(38, "div", 155),
+            c(39, " 1,382 properties "),
+            s(),
+            s(),
+            r(40, "li"),
+            r(41, "a", 87),
+            c(42, "Times Square"),
+            s(),
+            r(43, "div", 155),
+            c(44, " 1,382 properties "),
+            s(),
+            s(),
+            s(),
+            s(),
+            r(45, "div"),
+            r(46, "ul", 154),
+            r(47, "li"),
+            r(48, "a", 87),
+            c(49, "Times Square"),
+            s(),
+            r(50, "div", 155),
+            c(51, " 1,382 properties "),
+            s(),
+            s(),
+            r(52, "li"),
+            r(53, "a", 87),
+            c(54, "Times Square"),
+            s(),
+            r(55, "div", 155),
+            c(56, " 1,382 properties "),
+            s(),
+            s(),
+            r(57, "li"),
+            r(58, "a", 87),
+            c(59, "Times Square"),
+            s(),
+            r(60, "div", 155),
+            c(61, " 1,382 properties "),
+            s(),
+            s(),
+            r(62, "li"),
+            r(63, "a", 87),
+            c(64, "Times Square"),
+            s(),
+            r(65, "div", 155),
+            c(66, " 1,382 properties "),
+            s(),
+            s(),
+            s(),
+            s(),
+            r(67, "div"),
+            r(68, "ul", 154),
+            r(69, "li"),
+            r(70, "a", 87),
+            c(71, "Times Square"),
+            s(),
+            r(72, "div", 155),
+            c(73, " 1,382 properties "),
+            s(),
+            s(),
+            r(74, "li"),
+            r(75, "a", 87),
+            c(76, "Times Square"),
+            s(),
+            r(77, "div", 155),
+            c(78, " 1,382 properties "),
+            s(),
+            s(),
+            r(79, "li"),
+            r(80, "a", 87),
+            c(81, "Times Square"),
+            s(),
+            r(82, "div", 155),
+            c(83, " 1,382 properties "),
+            s(),
+            s(),
+            r(84, "li"),
+            r(85, "a", 87),
+            c(86, "Times Square"),
+            s(),
+            r(87, "div", 155),
+            c(88, " 1,382 properties "),
+            s(),
+            s(),
+            s(),
+            s(),
+            r(89, "div"),
+            r(90, "ul", 154),
+            r(91, "li"),
+            r(92, "a", 87),
+            c(93, "Times Square"),
+            s(),
+            r(94, "div", 155),
+            c(95, " 1,382 properties "),
+            s(),
+            s(),
+            r(96, "li"),
+            r(97, "a", 87),
+            c(98, "Times Square"),
+            s(),
+            r(99, "div", 155),
+            c(100, " 1,382 properties "),
+            s(),
+            s(),
+            r(101, "li"),
+            r(102, "a", 87),
+            c(103, "Times Square"),
+            s(),
+            r(104, "div", 155),
+            c(105, " 1,382 properties "),
+            s(),
+            s(),
+            r(106, "li"),
+            r(107, "a", 87),
+            c(108, "Times Square"),
+            s(),
+            r(109, "div", 155),
+            c(110, " 1,382 properties "),
+            s(),
+            s(),
+            s(),
+            s(),
+            s());
       }
       let nF = (() => {
         class t {
@@ -41671,9 +41661,9 @@
               .then((e) => {
                 200 === e.code
                   ? (this.bookingCategories = e.bookingCategories)
-                  : alert("Booking categories fetching error!");
+                  : this.showAlert("Booking categories fetching error!");
               })
-              .catch((e) => {}),
+              .catch((e) => { }),
               fetch(
                 "https://apartproject.azurewebsites.net/api/cities/getcountrycities?country=Ukraine",
                 { method: "GET" }
@@ -41682,10 +41672,10 @@
                 .then((e) => {
                   200 === e.code
                     ? (this.cities = e.cities)
-                    : alert("Cities fetching error!");
+                    : this.showAlert("Cities fetching error!");
                 })
                 .catch((e) => {
-                  alert(e);
+                  this.showAlert(e);
                 });
           }
         }
@@ -42853,10 +42843,10 @@
         if (
           (1 & t &&
             (r(0, "div", 53),
-            v(1, iF, 2, 0, "div", 54),
-            v(2, oF, 2, 0, "div", 54),
-            s()),
-          2 & t)
+              v(1, iF, 2, 0, "div", 54),
+              v(2, oF, 2, 0, "div", 54),
+              s()),
+            2 & t)
         ) {
           O();
           const e = ve(13);
@@ -42864,197 +42854,197 @@
         }
       }
       let NC = (() => {
-          class t {
-            constructor() {
-              (this.isCollapsed = !0),
-                (this.email = ""),
-                (this.emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$");
-            }
-            fetchRequest() {
-              this.email.match("^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$")
-                ? fetch(
-                    "https://localhost:44381/api/deals/sendbestdealsletter?email=" +
-                      this.email,
-                    {
-                      method: "GET",
-                      headers: {
-                        Accept: "application/json",
-                        Authorization: "Bearer " + x_getToken(),
-                      },
-                    }
-                  )
-                    .then((e) => e.json())
-                    .then((e) => {
-                      200 === e.code
-                        ? alert(
-                            "A letter has been successfully sent to your email address!"
-                          )
-                        : alert("Error!");
-                    })
-                    .catch((e) => {
-                      alert(e);
-                    })
-                : alert("Incorrect email pattern!");
-            }
-            ngOnInit() {}
+        class t {
+          constructor() {
+            (this.isCollapsed = !0),
+              (this.email = ""),
+              (this.emailPattern = "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$");
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)();
-            }),
-            (t.ɵcmp = N({
-              type: t,
-              selectors: [["app-footer"]],
-              decls: 189,
-              vars: 3,
-              consts: [
-                [
-                  1,
-                  "emk_footer_update",
-                  "emk_footer_centered",
-                  "emk_footer_update_space",
-                ],
-                [1, "footerconstraint-inner"],
-                [1, "emk_footer_banner_block"],
-                [1, "emk_footer_subbanner_block"],
-                [1, "clearfix"],
-                [1, "emk_footer_form_layout"],
-                ["for", "newsletter_to", 1, "invisible_spoken"],
-                [1, "subscription_form_wrap", "position-relative"],
-                [
-                  "name",
-                  "email",
-                  "autocapitalize",
-                  "off",
-                  "required",
-                  "true",
-                  "id",
-                  "newsletter_to",
-                  "placeholder",
-                  "Your email",
-                  "title",
-                  "",
-                  "value",
-                  "",
-                  "required",
-                  "",
-                  1,
-                  "input_newsletter_subscription_to",
-                  3,
-                  "pattern",
-                  "ngModel",
-                  "ngModelChange",
-                ],
-                ["offEmail", "ngModel"],
-                ["id", "newsletter_button_footer", 3, "click"],
-                ["class", "subscriptionValidator", 4, "ngIf"],
-                ["name", "recaptcha_enabled", "value", "1", "type", "hidden"],
-                [2, "clear", "both"],
-                ["id", "booking-footer", 1, "footer-wrapper"],
-                ["id", "footer_top_menu", 1, "footer-top-menu"],
-                [1, "footer-top-partners", "clearfix", "js-footer-top-menu"],
-                [1, "footerconstraint-inner", "clearfix"],
-                ["id", "footertopnav-partners", "role", "navigation"],
-                [1, "footer-top-partner-text", "footer-top-partner-buttons"],
-                ["routerLink", "/joinpartner", 1, "footer-top-button"],
-                ["id", "footertopnav", "role", "navigation"],
-                [1, "footer-top-links-list"],
-                [1, "footer-top-link"],
-                ["rel", "nofollow", "href", "javascript:void(0)"],
-                ["href", "javascript:void(0)"],
-                ["href", "javascript:void(0)", 1, "manage"],
-                ["href", "javascript:void(0)", 1, "cuca"],
-                [
-                  "href",
-                  "javascript:void(0)",
-                  "data-bui-component",
-                  "Tooltip",
-                  1,
-                  "footer_become_affiliate",
-                ],
-                ["href", "javascript:void(0)", 1, "tracked"],
-                [1, "footercolor"],
-                [
-                  "id",
-                  "footer",
-                  "role",
-                  "navigation",
-                  1,
-                  "footer-navigation-links-wrapper",
-                  "clearfix",
-                ],
-                ["id", "footer_links", 1, "footer-navigation-links"],
-                [
-                  1,
-                  "footer-navigation-links-column",
-                  "footer-seo-links-to-html-sitemaps",
-                  "mb-3",
-                  "mb-md-0",
-                ],
-                [1, "footer-navigation-links-list"],
-                [1, "footer-navigation-link"],
-                [1, "footer-navigation-links-column", "mb-3", "mb-md-0"],
-                [
-                  1,
-                  "footer-navigation-links-list",
-                  "footer-seo-links-to-index",
-                ],
-                ["href", "javascript:void(0)", "data-ga", "booking-home"],
-                ["href", "javascript:void(0)", 1, "js-reviews-footer-link"],
-                [
-                  "href",
-                  "javascript:void(0)",
-                  "type",
-                  "nav",
-                  "location",
-                  "main-site-footer",
-                  "category",
-                  "articles-link",
-                ],
-                ["href", "javascript:void(0)", "data-ep-link", ""],
-                [
-                  "href",
-                  "javascript:void(0)",
-                  "title",
-                  "Seasonal and holiday deals",
-                ],
-                [
-                  "rel",
-                  "nofollow",
-                  "href",
-                  "javascript:void(0)",
-                  "target",
-                  "_blank",
-                ],
-                [
-                  "href",
-                  "javascript:void(0)",
-                  "title",
-                  "Booking.com for Travel Advisers",
-                ],
-                [
-                  "role",
-                  "region",
-                  "aria-label",
-                  "Get the FREE Booking.com app now",
-                  1,
-                  "local_info_bot",
-                  "footerconstraint-inner",
-                ],
-                [1, "local_info_bot_inner"],
-                [1, "extranet_link_container"],
-                ["href", "javasccript:void(0)", 1, "extranet_link"],
-                [1, "copyright_text"],
-                [1, "footer-logos", "footerconstraint-inner"],
-                [1, "footer__priceline"],
-                [1, "footer__priceline__title"],
-                [1, "subscriptionValidator"],
-                [4, "ngIf"],
+          fetchRequest() {
+            this.email.match("^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$")
+              ? fetch(
+                "https://localhost:44381/api/deals/sendbestdealsletter?email=" +
+                this.email,
+                {
+                  method: "GET",
+                  headers: {
+                    Accept: "application/json",
+                    Authorization: "Bearer " + x_getToken(),
+                  },
+                }
+              )
+                .then((e) => e.json())
+                .then((e) => {
+                  200 === e.code
+                    ? this.showAlert(
+                      "A letter has been successfully sent to your email address!"
+                    )
+                    : this.showAlert("Error!");
+                })
+                .catch((e) => {
+                  this.showAlert(e);
+                })
+              : this.showAlert("Incorrect email pattern!");
+          }
+          ngOnInit() { }
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)();
+          }),
+          (t.ɵcmp = N({
+            type: t,
+            selectors: [["app-footer"]],
+            decls: 189,
+            vars: 3,
+            consts: [
+              [
+                1,
+                "emk_footer_update",
+                "emk_footer_centered",
+                "emk_footer_update_space",
               ],
-              template: function (e, i) {
-                if (
-                  (1 & e &&
-                    (r(0, "div", 0),
+              [1, "footerconstraint-inner"],
+              [1, "emk_footer_banner_block"],
+              [1, "emk_footer_subbanner_block"],
+              [1, "clearfix"],
+              [1, "emk_footer_form_layout"],
+              ["for", "newsletter_to", 1, "invisible_spoken"],
+              [1, "subscription_form_wrap", "position-relative"],
+              [
+                "name",
+                "email",
+                "autocapitalize",
+                "off",
+                "required",
+                "true",
+                "id",
+                "newsletter_to",
+                "placeholder",
+                "Your email",
+                "title",
+                "",
+                "value",
+                "",
+                "required",
+                "",
+                1,
+                "input_newsletter_subscription_to",
+                3,
+                "pattern",
+                "ngModel",
+                "ngModelChange",
+              ],
+              ["offEmail", "ngModel"],
+              ["id", "newsletter_button_footer", 3, "click"],
+              ["class", "subscriptionValidator", 4, "ngIf"],
+              ["name", "recaptcha_enabled", "value", "1", "type", "hidden"],
+              [2, "clear", "both"],
+              ["id", "booking-footer", 1, "footer-wrapper"],
+              ["id", "footer_top_menu", 1, "footer-top-menu"],
+              [1, "footer-top-partners", "clearfix", "js-footer-top-menu"],
+              [1, "footerconstraint-inner", "clearfix"],
+              ["id", "footertopnav-partners", "role", "navigation"],
+              [1, "footer-top-partner-text", "footer-top-partner-buttons"],
+              ["routerLink", "/joinpartner", 1, "footer-top-button"],
+              ["id", "footertopnav", "role", "navigation"],
+              [1, "footer-top-links-list"],
+              [1, "footer-top-link"],
+              ["rel", "nofollow", "href", "javascript:void(0)"],
+              ["href", "javascript:void(0)"],
+              ["href", "javascript:void(0)", 1, "manage"],
+              ["href", "javascript:void(0)", 1, "cuca"],
+              [
+                "href",
+                "javascript:void(0)",
+                "data-bui-component",
+                "Tooltip",
+                1,
+                "footer_become_affiliate",
+              ],
+              ["href", "javascript:void(0)", 1, "tracked"],
+              [1, "footercolor"],
+              [
+                "id",
+                "footer",
+                "role",
+                "navigation",
+                1,
+                "footer-navigation-links-wrapper",
+                "clearfix",
+              ],
+              ["id", "footer_links", 1, "footer-navigation-links"],
+              [
+                1,
+                "footer-navigation-links-column",
+                "footer-seo-links-to-html-sitemaps",
+                "mb-3",
+                "mb-md-0",
+              ],
+              [1, "footer-navigation-links-list"],
+              [1, "footer-navigation-link"],
+              [1, "footer-navigation-links-column", "mb-3", "mb-md-0"],
+              [
+                1,
+                "footer-navigation-links-list",
+                "footer-seo-links-to-index",
+              ],
+              ["href", "javascript:void(0)", "data-ga", "booking-home"],
+              ["href", "javascript:void(0)", 1, "js-reviews-footer-link"],
+              [
+                "href",
+                "javascript:void(0)",
+                "type",
+                "nav",
+                "location",
+                "main-site-footer",
+                "category",
+                "articles-link",
+              ],
+              ["href", "javascript:void(0)", "data-ep-link", ""],
+              [
+                "href",
+                "javascript:void(0)",
+                "title",
+                "Seasonal and holiday deals",
+              ],
+              [
+                "rel",
+                "nofollow",
+                "href",
+                "javascript:void(0)",
+                "target",
+                "_blank",
+              ],
+              [
+                "href",
+                "javascript:void(0)",
+                "title",
+                "Booking.com for Travel Advisers",
+              ],
+              [
+                "role",
+                "region",
+                "aria-label",
+                "Get the FREE Booking.com app now",
+                1,
+                "local_info_bot",
+                "footerconstraint-inner",
+              ],
+              [1, "local_info_bot_inner"],
+              [1, "extranet_link_container"],
+              ["href", "javasccript:void(0)", 1, "extranet_link"],
+              [1, "copyright_text"],
+              [1, "footer-logos", "footerconstraint-inner"],
+              [1, "footer__priceline"],
+              [1, "footer__priceline__title"],
+              [1, "subscriptionValidator"],
+              [4, "ngIf"],
+            ],
+            template: function (e, i) {
+              if (
+                (1 & e &&
+                  (r(0, "div", 0),
                     r(1, "div", 1),
                     r(2, "div", 2),
                     r(3, "h2"),
@@ -43389,27 +43379,27 @@
                     s(),
                     s()),
                   2 & e)
-                ) {
-                  const o = ve(13);
-                  _(12),
-                    C("pattern", i.emailPattern)("ngModel", i.email),
-                    _(4),
-                    C("ngIf", o.errors);
-                }
-              },
-              directives: [li, El, Eh, Wi, ar, st, eo],
-              styles: [
-                '.emk-subscription-entry-point[_ngcontent-%COMP%]   .-invalid[_ngcontent-%COMP%], .emk-subscription-entry-point[_ngcontent-%COMP%]   .-error[_ngcontent-%COMP%], .emk-subscription-entry-point[_ngcontent-%COMP%]   .-success[_ngcontent-%COMP%], .emk-subscription-entry-point[_ngcontent-%COMP%]   .-submitted[_ngcontent-%COMP%]{display:none}.emk-subscription-entry-point.subscription-invalid[_ngcontent-%COMP%]   .-invalid[_ngcontent-%COMP%], .emk-subscription-entry-point.subscription-error[_ngcontent-%COMP%]   .-error[_ngcontent-%COMP%]{display:block;color:#fcb4b4}.emk-subscription-entry-point.subscription-success[_ngcontent-%COMP%]   .-success[_ngcontent-%COMP%]{display:block;color:#008009}.buttonFigma[_ngcontent-%COMP%]{position:flex;width:217px;height:63px;background:#ffffff;box-shadow:0 4px 4px #00000040;border-radius:5px}.figmaText[_ngcontent-%COMP%]{position:flex;width:135px;height:35px;font-family:Roboto;font-style:normal;font-weight:600;font-size:30px;line-height:35px;color:#0C9496}.subscriptionValidator[_ngcontent-%COMP%]{position:flex;margin-right:130px;color:#fff}.emk-subscription-entry-point.subscription-submitted[_ngcontent-%COMP%]   .-submitted[_ngcontent-%COMP%]{display:block}.emk_footer_centered[_ngcontent-%COMP%], .emk_footer_centered[_ngcontent-%COMP%]   .emk-feedback-msg[_ngcontent-%COMP%]{text-align:center}.emk_footer_centered[_ngcontent-%COMP%]   .emk_footer_banner[_ngcontent-%COMP%], .emk_footer_centered[_ngcontent-%COMP%]   .emk_footer_subbanner[_ngcontent-%COMP%]{float:none;display:inline}.emk_footer_centered[_ngcontent-%COMP%]   .emk_footer_gta_addition[_ngcontent-%COMP%]{text-align:center!important}.emk_footer_update_space[_ngcontent-%COMP%]{padding:50px 0;background-color:#0C9496;color:#fff}.emk_footer_centered[_ngcontent-%COMP%]   .emk_footer_banner_block[_ngcontent-%COMP%]{font-size:24px;line-height:32px;font-weight:300;float:none;display:block;text-align:center}.emk_footer_centered[_ngcontent-%COMP%]   .emk_footer_banner_block[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%]{margin:0;padding:0;font-size:inherit;line-height:inherit;font-weight:inherit;color:inherit}.footer-top-partners[_ngcontent-%COMP%]{border-bottom:1px solid #0C9496}.emk_footer_centered[_ngcontent-%COMP%]   .emk_footer_subbanner_block[_ngcontent-%COMP%]{font-size:16px;line-height:24px;color:#bdbdbd;margin-left:0;text-align:center;display:block;float:none}.input_newsletter_subscription_to[_ngcontent-%COMP%]{font-size:20px;line-height:28px;color:#6b6b6b;border:0;border-radius:3px;font-weight:100;padding:10px;width:65%}.emk_footer_form_layout[_ngcontent-%COMP%]{max-width:50%;margin:20px auto 0}body.zh[_ngcontent-%COMP%]   .emk_footer_form_layout[_ngcontent-%COMP%]{max-width:100%}.subscription_form_wrap[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:space-between}.emk_footer_form_layout[_ngcontent-%COMP%]   button#newsletter_button_footer[_ngcontent-%COMP%]{box-sizing:border-box;border-radius:3px;border:0;padding:0 15px;font-size:20px;line-height:28px;font-weight:300;height:48px;color:#0C9496;background-color:#fff;box-shadow:none;flex:1;margin:0 5px}.emk_footer_form_layout[_ngcontent-%COMP%]   button#newsletter_button_footer[_ngcontent-%COMP%]:hover{color:#fff;background-color:#0C9496;border:1px solid white}.emk_footer_gta_addition_left[_ngcontent-%COMP%]{margin:10px 0 0;display:block;text-align:left}.footerconstraint[_ngcontent-%COMP%]{border-top:1px solid #fafcff;background:#fafcff;width:100%;margin-top:2em;clear:both}.a11y_fix_footer_contrast_footerconstraint[_ngcontent-%COMP%]{background:#fff}.footerconstraint-inner[_ngcontent-%COMP%]{max-width:1094px;min-width:620px;margin:0 auto;padding:0 8px}.extranet_link_container[_ngcontent-%COMP%]{margin-top:3em;padding:0;text-align:center;text-decoration:underline}a[_ngcontent-%COMP%]:link{color:#000;font-weight:700}.extranet_link[_ngcontent-%COMP%]{display:inline-block;font-size:1.1em;margin:0 10px;padding:1em 0;text-align:center;text-decoration:underline;-webkit-text-decoration-color:#000;text-decoration-color:#000}.t_m_viewport[_ngcontent-%COMP%]   .footerconstraint-inner[_ngcontent-%COMP%]{min-width:inherit}.footerconstraint[_ngcontent-%COMP%]   .newsletter_subscribe[_ngcontent-%COMP%]{margin:0;background:#fafcff;border-radius:0;border-bottom:1px solid #ebf3ff}.footerconstraint[_ngcontent-%COMP%]   #footernote[_ngcontent-%COMP%], .footerconstraint[_ngcontent-%COMP%]   #footerrefid[_ngcontent-%COMP%]{font-size:80%}.footerconstraint[_ngcontent-%COMP%]   #footernav[_ngcontent-%COMP%]{color:#838383;font-weight:400}.footerconstraint[_ngcontent-%COMP%]   #footernav[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]{text-decoration:none}.footerconstraint[_ngcontent-%COMP%]   #footernote[_ngcontent-%COMP%]{clear:both;line-height:140%;margin-top:1.6em}.footerconstraint[_ngcontent-%COMP%]   #signup_label[_ngcontent-%COMP%]{padding:21px 0 0 65px}.footerconstraint[_ngcontent-%COMP%]   #signup_label[_ngcontent-%COMP%]   em[_ngcontent-%COMP%]{margin-top:.2em;color:#333}.footerconstraint[_ngcontent-%COMP%]   .icon_secretdeal[_ngcontent-%COMP%]{margin-top:2px}.footerconstraint[_ngcontent-%COMP%]   .footercopyright[_ngcontent-%COMP%]{font-size:80%;border-top:1px solid #fafcff;margin-top:1em}.footerconstraint[_ngcontent-%COMP%]   .footercopyright[_ngcontent-%COMP%]   .whitebar[_ngcontent-%COMP%]{border-top:1px solid #fff}.footerconstraint[_ngcontent-%COMP%]   .footercopyright[_ngcontent-%COMP%]{padding:1em 0;align-items:center}.copyright_text[_ngcontent-%COMP%]{display:flex;color:#000;font-weight:700;justify-content:center}#footerrefid[_ngcontent-%COMP%]{clear:left}.footer_nolanguages_gray[_ngcontent-%COMP%]{background:#fafcff;width:100%;float:left}.footer__priceline[_ngcontent-%COMP%]{width:100%;min-height:90px;color:#000;font-weight:700;text-align:center;font-size:12px;padding-top:0}.footer__priceline__list[_ngcontent-%COMP%]{padding:10px 0 0}.footer__priceline__list[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]{display:inline-block}.footer__priceline__list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]{list-style:none;padding:0 20px;display:inline-block}.footer__priceline__title[_ngcontent-%COMP%]{margin:0}a.footer__priceline__title[_ngcontent-%COMP%]{color:#000;font-weight:700}.footer-top-menu[_ngcontent-%COMP%]{background-color:#fff;font-size:13px;padding:0}.footer-top-partners[_ngcontent-%COMP%]   .footer-top-button[_ngcontent-%COMP%]{border:1px solid #0C9496;border-radius:3px;color:#0C9496;display:inline-block;font-weight:400;padding:0 15px;text-decoration:none}.footerconstraint-inner[_ngcontent-%COMP%]   .footer-top-button[_ngcontent-%COMP%]:hover{background-color:#0C9496;color:#fff!important}.footer-top-partner-buttons[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]{margin:0 10px}.footer-top-partner-text[_ngcontent-%COMP%]{color:#fff;line-height:2;margin:0;padding:15px 10px;text-align:center}#footertopnav[_ngcontent-%COMP%], #footertopnav-partners[_ngcontent-%COMP%]{margin:0 -8px}.footer-top-links-list[_ngcontent-%COMP%]{margin:0;padding:0;text-align:center}.footer-top-link[_ngcontent-%COMP%]{float:left;list-style-type:none}.footercolor[_ngcontent-%COMP%]{background-color:#0C9496}.footer-top-link[_ngcontent-%COMP%]   a[_ngcontent-%COMP%], .footer-top-link[_ngcontent-%COMP%]   input[_ngcontent-%COMP%], .footer-top-link[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]{color:#0C9496;font-weight:700;text-decoration:underline;padding:15px 10px;font-size:13px;background:0;border:0;cursor:pointer;display:inline-block;line-height:1em;height:1em;box-sizing:content-box}#footer_menu_track.footerconstraint[_ngcontent-%COMP%]{padding-bottom:0}.footer-navigation-links-wrapper[_ngcontent-%COMP%]{padding:16px 0}.clearfix[_ngcontent-%COMP%]:before, .clearfix[_ngcontent-%COMP%]:after{content:"";clear:both;display:block}.footer-navigation-links[_ngcontent-%COMP%]{width:100%;display:inline-block;vertical-align:middle}.footer-navigation-links-column[_ngcontent-%COMP%]{margin:0;width:20%;float:left;padding:0 10px 0 0;box-sizing:border-box}.footer-navigation-links-list[_ngcontent-%COMP%]{list-style-type:none;margin:0;padding:0}.footer-navigation-link[_ngcontent-%COMP%]{display:block;margin:0 0 10px;line-height:14px;font-size:13px;white-space:normal!important;list-style-type:none}a[_ngcontent-%COMP%]:hover{color:#fff!important;background-color:#0C9496!important}a[_ngcontent-%COMP%]:active{color:#a30000!important}@media (max-width: 767px){.footerconstraint-inner[_ngcontent-%COMP%]{min-width:auto}.emk_footer_form_layout[_ngcontent-%COMP%]{max-width:75%}.subscription_form_wrap[_ngcontent-%COMP%]{flex-direction:column;width:100%}.input_newsletter_subscription_to[_ngcontent-%COMP%]{width:100%}.emk_footer_form_layout[_ngcontent-%COMP%]   button#newsletter_button_footer[_ngcontent-%COMP%]{margin:10px 0 0;padding-top:10px;padding-bottom:10px}.footer-navigation-links-column[_ngcontent-%COMP%]{width:50%}}.custom-alert[_ngcontent-%COMP%]{background-color:#fff;padding:12px;border-radius:4px;color:#000;position:absolute;bottom:-60px}.custom-alert[_ngcontent-%COMP%]   .alert-gold-i[_ngcontent-%COMP%]{background-color:gold;padding:6px 8px;color:#fff}',
-                ".grecaptcha-badge[_ngcontent-%COMP%] {\n      display: none;\n      bottom: 90px !important;\n    }",
-              ],
-            })),
-            t
-          );
-        })(),
+              ) {
+                const o = ve(13);
+                _(12),
+                  C("pattern", i.emailPattern)("ngModel", i.email),
+                  _(4),
+                  C("ngIf", o.errors);
+              }
+            },
+            directives: [li, El, Eh, Wi, ar, st, eo],
+            styles: [
+              '.emk-subscription-entry-point[_ngcontent-%COMP%]   .-invalid[_ngcontent-%COMP%], .emk-subscription-entry-point[_ngcontent-%COMP%]   .-error[_ngcontent-%COMP%], .emk-subscription-entry-point[_ngcontent-%COMP%]   .-success[_ngcontent-%COMP%], .emk-subscription-entry-point[_ngcontent-%COMP%]   .-submitted[_ngcontent-%COMP%]{display:none}.emk-subscription-entry-point.subscription-invalid[_ngcontent-%COMP%]   .-invalid[_ngcontent-%COMP%], .emk-subscription-entry-point.subscription-error[_ngcontent-%COMP%]   .-error[_ngcontent-%COMP%]{display:block;color:#fcb4b4}.emk-subscription-entry-point.subscription-success[_ngcontent-%COMP%]   .-success[_ngcontent-%COMP%]{display:block;color:#008009}.buttonFigma[_ngcontent-%COMP%]{position:flex;width:217px;height:63px;background:#ffffff;box-shadow:0 4px 4px #00000040;border-radius:5px}.figmaText[_ngcontent-%COMP%]{position:flex;width:135px;height:35px;font-family:Roboto;font-style:normal;font-weight:600;font-size:30px;line-height:35px;color:#0C9496}.subscriptionValidator[_ngcontent-%COMP%]{position:flex;margin-right:130px;color:#fff}.emk-subscription-entry-point.subscription-submitted[_ngcontent-%COMP%]   .-submitted[_ngcontent-%COMP%]{display:block}.emk_footer_centered[_ngcontent-%COMP%], .emk_footer_centered[_ngcontent-%COMP%]   .emk-feedback-msg[_ngcontent-%COMP%]{text-align:center}.emk_footer_centered[_ngcontent-%COMP%]   .emk_footer_banner[_ngcontent-%COMP%], .emk_footer_centered[_ngcontent-%COMP%]   .emk_footer_subbanner[_ngcontent-%COMP%]{float:none;display:inline}.emk_footer_centered[_ngcontent-%COMP%]   .emk_footer_gta_addition[_ngcontent-%COMP%]{text-align:center!important}.emk_footer_update_space[_ngcontent-%COMP%]{padding:50px 0;background-color:#0C9496;color:#fff}.emk_footer_centered[_ngcontent-%COMP%]   .emk_footer_banner_block[_ngcontent-%COMP%]{font-size:24px;line-height:32px;font-weight:300;float:none;display:block;text-align:center}.emk_footer_centered[_ngcontent-%COMP%]   .emk_footer_banner_block[_ngcontent-%COMP%]   h2[_ngcontent-%COMP%]{margin:0;padding:0;font-size:inherit;line-height:inherit;font-weight:inherit;color:inherit}.footer-top-partners[_ngcontent-%COMP%]{border-bottom:1px solid #0C9496}.emk_footer_centered[_ngcontent-%COMP%]   .emk_footer_subbanner_block[_ngcontent-%COMP%]{font-size:16px;line-height:24px;color:#bdbdbd;margin-left:0;text-align:center;display:block;float:none}.input_newsletter_subscription_to[_ngcontent-%COMP%]{font-size:20px;line-height:28px;color:#6b6b6b;border:0;border-radius:3px;font-weight:100;padding:10px;width:65%}.emk_footer_form_layout[_ngcontent-%COMP%]{max-width:50%;margin:20px auto 0}body.zh[_ngcontent-%COMP%]   .emk_footer_form_layout[_ngcontent-%COMP%]{max-width:100%}.subscription_form_wrap[_ngcontent-%COMP%]{display:flex;flex-direction:row;justify-content:space-between}.emk_footer_form_layout[_ngcontent-%COMP%]   button#newsletter_button_footer[_ngcontent-%COMP%]{box-sizing:border-box;border-radius:3px;border:0;padding:0 15px;font-size:20px;line-height:28px;font-weight:300;height:48px;color:#0C9496;background-color:#fff;box-shadow:none;flex:1;margin:0 5px}.emk_footer_form_layout[_ngcontent-%COMP%]   button#newsletter_button_footer[_ngcontent-%COMP%]:hover{color:#fff;background-color:#0C9496;border:1px solid white}.emk_footer_gta_addition_left[_ngcontent-%COMP%]{margin:10px 0 0;display:block;text-align:left}.footerconstraint[_ngcontent-%COMP%]{border-top:1px solid #fafcff;background:#fafcff;width:100%;margin-top:2em;clear:both}.a11y_fix_footer_contrast_footerconstraint[_ngcontent-%COMP%]{background:#fff}.footerconstraint-inner[_ngcontent-%COMP%]{max-width:1094px;min-width:620px;margin:0 auto;padding:0 8px}.extranet_link_container[_ngcontent-%COMP%]{margin-top:3em;padding:0;text-align:center;text-decoration:underline}a[_ngcontent-%COMP%]:link{color:#000;font-weight:700}.extranet_link[_ngcontent-%COMP%]{display:inline-block;font-size:1.1em;margin:0 10px;padding:1em 0;text-align:center;text-decoration:underline;-webkit-text-decoration-color:#000;text-decoration-color:#000}.t_m_viewport[_ngcontent-%COMP%]   .footerconstraint-inner[_ngcontent-%COMP%]{min-width:inherit}.footerconstraint[_ngcontent-%COMP%]   .newsletter_subscribe[_ngcontent-%COMP%]{margin:0;background:#fafcff;border-radius:0;border-bottom:1px solid #ebf3ff}.footerconstraint[_ngcontent-%COMP%]   #footernote[_ngcontent-%COMP%], .footerconstraint[_ngcontent-%COMP%]   #footerrefid[_ngcontent-%COMP%]{font-size:80%}.footerconstraint[_ngcontent-%COMP%]   #footernav[_ngcontent-%COMP%]{color:#838383;font-weight:400}.footerconstraint[_ngcontent-%COMP%]   #footernav[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]{text-decoration:none}.footerconstraint[_ngcontent-%COMP%]   #footernote[_ngcontent-%COMP%]{clear:both;line-height:140%;margin-top:1.6em}.footerconstraint[_ngcontent-%COMP%]   #signup_label[_ngcontent-%COMP%]{padding:21px 0 0 65px}.footerconstraint[_ngcontent-%COMP%]   #signup_label[_ngcontent-%COMP%]   em[_ngcontent-%COMP%]{margin-top:.2em;color:#333}.footerconstraint[_ngcontent-%COMP%]   .icon_secretdeal[_ngcontent-%COMP%]{margin-top:2px}.footerconstraint[_ngcontent-%COMP%]   .footercopyright[_ngcontent-%COMP%]{font-size:80%;border-top:1px solid #fafcff;margin-top:1em}.footerconstraint[_ngcontent-%COMP%]   .footercopyright[_ngcontent-%COMP%]   .whitebar[_ngcontent-%COMP%]{border-top:1px solid #fff}.footerconstraint[_ngcontent-%COMP%]   .footercopyright[_ngcontent-%COMP%]{padding:1em 0;align-items:center}.copyright_text[_ngcontent-%COMP%]{display:flex;color:#000;font-weight:700;justify-content:center}#footerrefid[_ngcontent-%COMP%]{clear:left}.footer_nolanguages_gray[_ngcontent-%COMP%]{background:#fafcff;width:100%;float:left}.footer__priceline[_ngcontent-%COMP%]{width:100%;min-height:90px;color:#000;font-weight:700;text-align:center;font-size:12px;padding-top:0}.footer__priceline__list[_ngcontent-%COMP%]{padding:10px 0 0}.footer__priceline__list[_ngcontent-%COMP%]   ul[_ngcontent-%COMP%]{display:inline-block}.footer__priceline__list[_ngcontent-%COMP%]   li[_ngcontent-%COMP%]{list-style:none;padding:0 20px;display:inline-block}.footer__priceline__title[_ngcontent-%COMP%]{margin:0}a.footer__priceline__title[_ngcontent-%COMP%]{color:#000;font-weight:700}.footer-top-menu[_ngcontent-%COMP%]{background-color:#fff;font-size:13px;padding:0}.footer-top-partners[_ngcontent-%COMP%]   .footer-top-button[_ngcontent-%COMP%]{border:1px solid #0C9496;border-radius:3px;color:#0C9496;display:inline-block;font-weight:400;padding:0 15px;text-decoration:none}.footerconstraint-inner[_ngcontent-%COMP%]   .footer-top-button[_ngcontent-%COMP%]:hover{background-color:#0C9496;color:#fff!important}.footer-top-partner-buttons[_ngcontent-%COMP%]   a[_ngcontent-%COMP%]{margin:0 10px}.footer-top-partner-text[_ngcontent-%COMP%]{color:#fff;line-height:2;margin:0;padding:15px 10px;text-align:center}#footertopnav[_ngcontent-%COMP%], #footertopnav-partners[_ngcontent-%COMP%]{margin:0 -8px}.footer-top-links-list[_ngcontent-%COMP%]{margin:0;padding:0;text-align:center}.footer-top-link[_ngcontent-%COMP%]{float:left;list-style-type:none}.footercolor[_ngcontent-%COMP%]{background-color:#0C9496}.footer-top-link[_ngcontent-%COMP%]   a[_ngcontent-%COMP%], .footer-top-link[_ngcontent-%COMP%]   input[_ngcontent-%COMP%], .footer-top-link[_ngcontent-%COMP%]   span[_ngcontent-%COMP%]{color:#0C9496;font-weight:700;text-decoration:underline;padding:15px 10px;font-size:13px;background:0;border:0;cursor:pointer;display:inline-block;line-height:1em;height:1em;box-sizing:content-box}#footer_menu_track.footerconstraint[_ngcontent-%COMP%]{padding-bottom:0}.footer-navigation-links-wrapper[_ngcontent-%COMP%]{padding:16px 0}.clearfix[_ngcontent-%COMP%]:before, .clearfix[_ngcontent-%COMP%]:after{content:"";clear:both;display:block}.footer-navigation-links[_ngcontent-%COMP%]{width:100%;display:inline-block;vertical-align:middle}.footer-navigation-links-column[_ngcontent-%COMP%]{margin:0;width:20%;float:left;padding:0 10px 0 0;box-sizing:border-box}.footer-navigation-links-list[_ngcontent-%COMP%]{list-style-type:none;margin:0;padding:0}.footer-navigation-link[_ngcontent-%COMP%]{display:block;margin:0 0 10px;line-height:14px;font-size:13px;white-space:normal!important;list-style-type:none}a[_ngcontent-%COMP%]:hover{color:#fff!important;background-color:#0C9496!important}a[_ngcontent-%COMP%]:active{color:#a30000!important}@media (max-width: 767px){.footerconstraint-inner[_ngcontent-%COMP%]{min-width:auto}.emk_footer_form_layout[_ngcontent-%COMP%]{max-width:75%}.subscription_form_wrap[_ngcontent-%COMP%]{flex-direction:column;width:100%}.input_newsletter_subscription_to[_ngcontent-%COMP%]{width:100%}.emk_footer_form_layout[_ngcontent-%COMP%]   button#newsletter_button_footer[_ngcontent-%COMP%]{margin:10px 0 0;padding-top:10px;padding-bottom:10px}.footer-navigation-links-column[_ngcontent-%COMP%]{width:50%}}.custom-alert[_ngcontent-%COMP%]{background-color:#fff;padding:12px;border-radius:4px;color:#000;position:absolute;bottom:-60px}.custom-alert[_ngcontent-%COMP%]   .alert-gold-i[_ngcontent-%COMP%]{background-color:gold;padding:6px 8px;color:#fff}',
+              ".grecaptcha-badge[_ngcontent-%COMP%] {\n      display: none;\n      bottom: 90px !important;\n    }",
+            ],
+          })),
+          t
+        );
+      })(),
         sF = (() => {
           class t {
-            constructor() {}
-            ngOnInit() {}
+            constructor() { }
+            ngOnInit() { }
           }
           return (
             (t.ɵfac = function (e) {
@@ -43441,10 +43431,10 @@
         if (
           (1 & t &&
             (r(0, "div", 9),
-            v(1, aF, 2, 0, "div", 10),
-            v(2, lF, 2, 0, "div", 10),
-            s()),
-          2 & t)
+              v(1, aF, 2, 0, "div", 10),
+              v(2, lF, 2, 0, "div", 10),
+              s()),
+            2 & t)
         ) {
           const e = O();
           _(1),
@@ -43464,10 +43454,10 @@
         if (
           (1 & t &&
             (r(0, "div", 9),
-            v(1, dF, 2, 0, "div", 10),
-            v(2, uF, 2, 0, "div", 10),
-            s()),
-          2 & t)
+              v(1, dF, 2, 0, "div", 10),
+              v(2, uF, 2, 0, "div", 10),
+              s()),
+            2 & t)
         ) {
           const e = O();
           _(1),
@@ -43480,92 +43470,92 @@
         return { "is-invalid": t };
       };
       let pF = (() => {
-          class t {
-            constructor(e, i, o) {
-              (this.router = e),
-                (this.formBuilder = i),
-                (this.authService = o),
-                (this.loginForm = this.formBuilder.group({
-                  login: ["", [hn.required, hn.minLength(8)]],
-                  password: ["", [hn.required, hn.minLength(8)]],
-                }));
-            }
-            get f() {
-              return this.loginForm.controls;
-            }
-            loginAdmin() {
-              fetch("https://localhost:44381/api/admin/login", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                  email: this.login,
-                  passwordHash: this.password,
-                }),
-              })
-                .then((i) => i.json())
-                .then((i) => {
-                  200 === i.code
-                    ? (this.authService.setIsAdmin(!0),
-                      this.router.navigate(["/admin"]))
-                    : alert("Incorrect data");
-                })
-                .catch((i) => {
-                  alert(i);
-                });
-            }
-            ngOnInit() {}
+        class t {
+          constructor(e, i, o) {
+            (this.router = e),
+              (this.formBuilder = i),
+              (this.authService = o),
+              (this.loginForm = this.formBuilder.group({
+                login: ["", [hn.required, hn.minLength(8)]],
+                password: ["", [hn.required, hn.minLength(8)]],
+              }));
           }
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)(y(Pt), y(ry), y(pr));
-            }),
-            (t.ɵcmp = N({
-              type: t,
-              selectors: [["app-admin-auth"]],
-              decls: 15,
-              vars: 12,
-              consts: [
-                [1, "form-center"],
-                [1, "", 3, "formGroup"],
-                [1, "form-group", "mb-3"],
-                [1, "form-label"],
-                [
-                  "type",
-                  "email",
-                  "formControlName",
-                  "login",
-                  "name",
-                  "login",
-                  1,
-                  "form-control",
-                  3,
-                  "ngClass",
-                  "ngModel",
-                  "ngModelChange",
-                ],
-                ["class", "invalid-feedback", 4, "ngIf"],
-                ["for", "password", 1, "form-label"],
-                [
-                  "type",
-                  "password",
-                  "formControlName",
-                  "password",
-                  "name",
-                  "password",
-                  1,
-                  "form-control",
-                  3,
-                  "ngClass",
-                  "ngModel",
-                  "ngModelChange",
-                ],
-                ["type", "submit", 1, "adminLogin", 3, "disabled", "click"],
-                [1, "invalid-feedback"],
-                [4, "ngIf"],
+          get f() {
+            return this.loginForm.controls;
+          }
+          loginAdmin() {
+            fetch("https://localhost:44381/api/admin/login", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                email: this.login,
+                passwordHash: this.password,
+              }),
+            })
+              .then((i) => i.json())
+              .then((i) => {
+                200 === i.code
+                  ? (this.authService.setIsAdmin(!0),
+                    this.router.navigate(["/admin"]))
+                  : this.showAlert("Incorrect data");
+              })
+              .catch((i) => {
+                this.showAlert(i);
+              });
+          }
+          ngOnInit() { }
+        }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)(y(Pt), y(ry), y(pr));
+          }),
+          (t.ɵcmp = N({
+            type: t,
+            selectors: [["app-admin-auth"]],
+            decls: 15,
+            vars: 12,
+            consts: [
+              [1, "form-center"],
+              [1, "", 3, "formGroup"],
+              [1, "form-group", "mb-3"],
+              [1, "form-label"],
+              [
+                "type",
+                "email",
+                "formControlName",
+                "login",
+                "name",
+                "login",
+                1,
+                "form-control",
+                3,
+                "ngClass",
+                "ngModel",
+                "ngModelChange",
               ],
-              template: function (e, i) {
-                1 & e &&
-                  (r(0, "div", 0),
+              ["class", "invalid-feedback", 4, "ngIf"],
+              ["for", "password", 1, "form-label"],
+              [
+                "type",
+                "password",
+                "formControlName",
+                "password",
+                "name",
+                "password",
+                1,
+                "form-control",
+                3,
+                "ngClass",
+                "ngModel",
+                "ngModelChange",
+              ],
+              ["type", "submit", 1, "adminLogin", 3, "disabled", "click"],
+              [1, "invalid-feedback"],
+              [4, "ngIf"],
+            ],
+            template: function (e, i) {
+              1 & e &&
+                (r(0, "div", 0),
                   r(1, "form", 1),
                   r(2, "div", 2),
                   r(3, "label", 3),
@@ -43599,34 +43589,34 @@
                   s(),
                   s(),
                   s()),
-                  2 & e &&
-                    (_(1),
-                    C("formGroup", i.loginForm),
-                    _(4),
-                    C("ngClass", qn(8, IC, i.f.login.errors))(
-                      "ngModel",
-                      i.login
-                    ),
-                    _(1),
-                    C("ngIf", i.f.login.errors),
-                    _(4),
-                    C("ngClass", qn(10, IC, i.f.password.errors))(
-                      "ngModel",
-                      i.password
-                    ),
-                    _(1),
-                    C("ngIf", i.f.password.errors),
-                    _(2),
-                    C("disabled", i.loginForm.invalid));
-              },
-              directives: [fn, pn, Os, li, Wi, Tl, eh, st],
-              styles: [
-                "form[_ngcontent-%COMP%]{min-width:300px;max-width:400px}.form-center[_ngcontent-%COMP%]   form[_ngcontent-%COMP%]{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}.adminLogin[_ngcontent-%COMP%]{border:1px solid transparent;border-radius:2px;background-color:#0071c2;border-color:#0071c2;color:#fff;display:flex;justify-content:center;align-items:center;font-size:16px;font-weight:500;line-height:24px;padding:8px 24px;min-height:48px;min-width:385px;margin-top:7px}",
-              ],
-            })),
-            t
-          );
-        })(),
+                2 & e &&
+                (_(1),
+                  C("formGroup", i.loginForm),
+                  _(4),
+                  C("ngClass", qn(8, IC, i.f.login.errors))(
+                    "ngModel",
+                    i.login
+                  ),
+                  _(1),
+                  C("ngIf", i.f.login.errors),
+                  _(4),
+                  C("ngClass", qn(10, IC, i.f.password.errors))(
+                    "ngModel",
+                    i.password
+                  ),
+                  _(1),
+                  C("ngIf", i.f.password.errors),
+                  _(2),
+                  C("disabled", i.loginForm.invalid));
+            },
+            directives: [fn, pn, Os, li, Wi, Tl, eh, st],
+            styles: [
+              "form[_ngcontent-%COMP%]{min-width:300px;max-width:400px}.form-center[_ngcontent-%COMP%]   form[_ngcontent-%COMP%]{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}.adminLogin[_ngcontent-%COMP%]{border:1px solid transparent;border-radius:2px;background-color:#0071c2;border-color:#0071c2;color:#fff;display:flex;justify-content:center;align-items:center;font-size:16px;font-weight:500;line-height:24px;padding:8px 24px;min-height:48px;min-width:385px;margin-top:7px}",
+            ],
+          })),
+          t
+        );
+      })(),
         gF = (() => {
           class t {
             constructor() {
@@ -43648,17 +43638,17 @@
                   .then((i) => i.json())
                   .then((i) => {
                     200 === i.code
-                      ? alert("File has been successfully uploaded!")
-                      : alert("Uploading error!");
+                      ? this.showAlert("File has been successfully uploaded!")
+                      : this.showAlert("Uploading error!");
                   })
                   .catch((i) => {
-                    alert(i);
+                    this.showAlert(i);
                   });
             }
             handleFileInput(e) {
               null !== e && (this.uploadedFile = e.item(0));
             }
-            ngOnInit() {}
+            ngOnInit() { }
           }
           return (
             (t.ɵfac = function (e) {
@@ -43685,24 +43675,24 @@
               template: function (e, i) {
                 1 & e &&
                   (r(0, "h3"),
-                  c(
-                    1,
-                    "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0444\u0430\u0439\u043b \u0434\u043b\u044f \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0438"
-                  ),
-                  s(),
-                  r(2, "form"),
-                  r(3, "input", 0),
-                  M("change", function (a) {
-                    return i.handleFileInput(a.target.files);
-                  }),
-                  s(),
-                  g(4, "br"),
-                  r(5, "input", 1),
-                  M("click", function () {
-                    return i.uploadFile();
-                  }),
-                  s(),
-                  s());
+                    c(
+                      1,
+                      "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0444\u0430\u0439\u043b \u0434\u043b\u044f \u0437\u0430\u0433\u0440\u0443\u0437\u043a\u0438"
+                    ),
+                    s(),
+                    r(2, "form"),
+                    r(3, "input", 0),
+                    M("change", function (a) {
+                      return i.handleFileInput(a.target.files);
+                    }),
+                    s(),
+                    g(4, "br"),
+                    r(5, "input", 1),
+                    M("click", function () {
+                      return i.uploadFile();
+                    }),
+                    s(),
+                    s());
               },
               directives: [fn, pn, gn],
               styles: [""],
@@ -43746,16 +43736,16 @@
                           this.authService.setTokenKey(o),
                             x_saveAuth(i.email, o),
                             this.authService.toggleLogCondition(),
-                            alert("You have successfully authenticated!"),
+                            this.showAlert("You have successfully authenticated!"),
                             this.router.navigate([""]);
                         })
                         .catch((o) => {
-                          alert(o);
+                          this.showAlert(o);
                         });
-                    } else alert("Enter error!");
+                    } elsethis.showAlert("Enter error!");
                   })
                   .catch((e) => {
-                    alert(e);
+                    this.showAlert(e);
                   });
             }
           }
@@ -43771,8 +43761,8 @@
               template: function (e, i) {
                 1 & e &&
                   (r(0, "p"),
-                  c(1, "Your have been successfully entered."),
-                  s());
+                    c(1, "Your have been successfully entered."),
+                    s());
               },
               styles: [""],
             })),
@@ -43782,59 +43772,59 @@
       function bF(t, n) {
         1 & t &&
           (r(0, "div", 80),
-          r(1, "div", 81),
-          g(2, "img", 82),
-          s(),
-          r(3, "div", 83),
-          r(4, "h3", 84),
-          r(5, "span"),
-          c(6, "Villa Wellness"),
-          s(),
-          s(),
-          r(7, "p", 85),
-          c(8, "Budapest"),
-          s(),
-          r(9, "p", 86),
-          c(10, " Starting from Euro\xa055.550 "),
-          s(),
-          r(11, "div", 87),
-          r(12, "div", 88),
-          r(13, "div", 89),
-          c(14, " 9.2 "),
-          s(),
-          r(15, "div", 90),
-          r(16, "div", 91),
-          c(17, " Wonderful "),
-          s(),
-          r(18, "div", 92),
-          c(19, " 22 reviews "),
-          s(),
-          s(),
-          s(),
-          s(),
-          s(),
-          s());
+            r(1, "div", 81),
+            g(2, "img", 82),
+            s(),
+            r(3, "div", 83),
+            r(4, "h3", 84),
+            r(5, "span"),
+            c(6, "Villa Wellness"),
+            s(),
+            s(),
+            r(7, "p", 85),
+            c(8, "Budapest"),
+            s(),
+            r(9, "p", 86),
+            c(10, " Starting from Euro\xa055.550 "),
+            s(),
+            r(11, "div", 87),
+            r(12, "div", 88),
+            r(13, "div", 89),
+            c(14, " 9.2 "),
+            s(),
+            r(15, "div", 90),
+            r(16, "div", 91),
+            c(17, " Wonderful "),
+            s(),
+            r(18, "div", 92),
+            c(19, " 22 reviews "),
+            s(),
+            s(),
+            s(),
+            s(),
+            s(),
+            s());
       }
       function mF(t, n) {
         1 & t &&
           (r(0, "div", 80),
-          r(1, "div", 81),
-          g(2, "img", 82),
-          s(),
-          r(3, "div", 83),
-          r(4, "h3", 84),
-          r(5, "span"),
-          c(6, "Villa Wellness"),
-          s(),
-          s(),
-          r(7, "p", 85),
-          c(8, "Budapest"),
-          s(),
-          r(9, "p", 86),
-          c(10, " Starting from Euro\xa055.550 "),
-          s(),
-          s(),
-          s());
+            r(1, "div", 81),
+            g(2, "img", 82),
+            s(),
+            r(3, "div", 83),
+            r(4, "h3", 84),
+            r(5, "span"),
+            c(6, "Villa Wellness"),
+            s(),
+            s(),
+            r(7, "p", 85),
+            c(8, "Budapest"),
+            s(),
+            r(9, "p", 86),
+            c(10, " Starting from Euro\xa055.550 "),
+            s(),
+            s(),
+            s());
       }
       let _F = (() => {
         class t {
@@ -43911,7 +43901,7 @@
                 ],
               });
           }
-          ngOnInit() {}
+          ngOnInit() { }
         }
         return (
           (t.ɵfac = function (e) {
@@ -44559,18 +44549,18 @@
               }
               2 & e &&
                 (_(24),
-                C("displayMonths", i.displayMonths)("navigation", i.navigation)(
-                  "outsideDays",
-                  i.outsideDays
-                )("showWeekNumbers", i.showWeekNumbers),
-                _(77),
-                C("config", i.slideConfig1),
-                _(2),
-                C("ngForOf", i.slides),
-                _(9),
-                C("config", i.slideConfig1),
-                _(2),
-                C("ngForOf", i.slides));
+                  C("displayMonths", i.displayMonths)("navigation", i.navigation)(
+                    "outsideDays",
+                    i.outsideDays
+                  )("showWeekNumbers", i.showWeekNumbers),
+                  _(77),
+                  C("config", i.slideConfig1),
+                  _(2),
+                  C("ngForOf", i.slides),
+                  _(9),
+                  C("config", i.slideConfig1),
+                  _(2),
+                  C("ngForOf", i.slides));
             },
             directives: [SC, fn, pn, gn, Gv, vp, H, AC],
             styles: [
@@ -44631,24 +44621,24 @@
       function CF(t, n) {
         1 & t &&
           (r(0, "div", 7),
-          r(1, "a", 40),
-          r(2, "span", 9),
-          c(3, " Register "),
-          s(),
-          s(),
-          s(),
-          r(4, "div", 7),
-          Ie(),
-          r(5, "svg", 41),
-          g(6, "path", 42),
-          s(),
-          Re(),
-          r(7, "a", 40),
-          r(8, "span", 9),
-          c(9, " Sign in "),
-          s(),
-          s(),
-          s());
+            r(1, "a", 40),
+            r(2, "span", 9),
+            c(3, " Register "),
+            s(),
+            s(),
+            s(),
+            r(4, "div", 7),
+            Ie(),
+            r(5, "svg", 41),
+            g(6, "path", 42),
+            s(),
+            Re(),
+            r(7, "a", 40),
+            r(8, "span", 9),
+            c(9, " Sign in "),
+            s(),
+            s(),
+            s());
       }
       const wF = [
         { path: "", redirectTo: "stays", pathMatch: "full" },
@@ -44681,13 +44671,13 @@
                   .then((i) => {
                     200 === i.code
                       ? (this.authService.setLogCondition(!1), x_clearAuth())
-                      : alert("Refresh auth error!");
+                      : this.showAlert("Refresh auth error!");
                   })
                   .catch((i) => {
-                    alert(i);
+                    this.showAlert(i);
                   });
               }
-              ngOnInit() {}
+              ngOnInit() { }
             }
             return (
               (t.ɵfac = function (e) {
@@ -44886,109 +44876,109 @@
                   if (
                     (1 & e &&
                       (r(0, "header", 0),
-                      r(1, "nav", 1),
-                      r(2, "div", 2),
-                      r(3, "div", 3),
-                      r(4, "span"),
-                      r(5, "label", 4),
-                      c(6, "Apart.com"),
-                      s(),
-                      s(),
-                      s(),
-                      s(),
-                      r(7, "div"),
-                      g(8, "a", 5),
-                      r(9, "div", 6),
-                      r(10, "div", 7),
-                      r(11, "button", 8),
-                      r(12, "span", 9),
-                      r(13, "span", 10),
-                      c(14, " USD "),
-                      s(),
-                      s(),
-                      s(),
-                      s(),
-                      r(15, "div", 7),
-                      r(16, "button", 11),
-                      r(17, "span", 9),
-                      r(18, "div", 12),
-                      g(19, "img", 13),
-                      s(),
-                      r(20, "span", 14),
-                      c(
-                        21,
-                        " Choose your language. Your current language is English (US) "
-                      ),
-                      s(),
-                      s(),
-                      s(),
-                      s(),
-                      r(22, "div", 7),
-                      r(23, "a", 15),
-                      r(24, "span", 16),
-                      r(25, "span", 17),
-                      Ie(),
-                      r(26, "svg", 18),
-                      g(27, "path", 19),
-                      s(),
-                      s(),
-                      Re(),
-                      r(28, "span", 14),
-                      c(29, " Get help with your reservation "),
-                      s(),
-                      s(),
-                      s(),
-                      s(),
-                      r(30, "div", 7),
-                      r(31, "a", 15),
-                      r(32, "span", 16),
-                      r(33, "span", 17),
-                      Ie(),
-                      r(34, "svg", 20),
-                      g(35, "path", 21),
-                      s(),
-                      s(),
-                      Re(),
-                      r(36, "span", 14),
-                      c(37, " Notification Bell "),
-                      s(),
-                      s(),
-                      s(),
-                      s(),
-                      v(38, yF, 1, 0, "div", 22),
-                      v(39, vF, 22, 0, "ng-template", null, 23, Pe),
-                      v(41, CF, 10, 0, "ng-template", null, 24, Pe),
-                      s(),
-                      s(),
-                      s(),
-                      s(),
-                      r(43, "body"),
-                      r(44, "div", 25),
-                      r(45, "div", 26),
-                      r(46, "h1", 27),
-                      r(47, "div", 28),
-                      c(48, " Alkateb Heider, list your "),
-                      r(49, "div", 27),
-                      r(50, "div", 27),
-                      r(51, "p", 28),
-                      c(52, "apartment"),
-                      s(),
-                      s(),
-                      s(),
-                      c(53, " on Booking.com "),
-                      s(),
-                      s(),
-                      r(54, "h3", 28),
-                      c(
-                        55,
-                        " Registration can take as little as 15 minutes to complete \u2013 get started today "
-                      ),
-                      s(),
-                      s(),
-                      s(),
-                      s(),
-                      g(56, "app-footer")),
-                    2 & e)
+                        r(1, "nav", 1),
+                        r(2, "div", 2),
+                        r(3, "div", 3),
+                        r(4, "span"),
+                        r(5, "label", 4),
+                        c(6, "Apart.com"),
+                        s(),
+                        s(),
+                        s(),
+                        s(),
+                        r(7, "div"),
+                        g(8, "a", 5),
+                        r(9, "div", 6),
+                        r(10, "div", 7),
+                        r(11, "button", 8),
+                        r(12, "span", 9),
+                        r(13, "span", 10),
+                        c(14, " USD "),
+                        s(),
+                        s(),
+                        s(),
+                        s(),
+                        r(15, "div", 7),
+                        r(16, "button", 11),
+                        r(17, "span", 9),
+                        r(18, "div", 12),
+                        g(19, "img", 13),
+                        s(),
+                        r(20, "span", 14),
+                        c(
+                          21,
+                          " Choose your language. Your current language is English (US) "
+                        ),
+                        s(),
+                        s(),
+                        s(),
+                        s(),
+                        r(22, "div", 7),
+                        r(23, "a", 15),
+                        r(24, "span", 16),
+                        r(25, "span", 17),
+                        Ie(),
+                        r(26, "svg", 18),
+                        g(27, "path", 19),
+                        s(),
+                        s(),
+                        Re(),
+                        r(28, "span", 14),
+                        c(29, " Get help with your reservation "),
+                        s(),
+                        s(),
+                        s(),
+                        s(),
+                        r(30, "div", 7),
+                        r(31, "a", 15),
+                        r(32, "span", 16),
+                        r(33, "span", 17),
+                        Ie(),
+                        r(34, "svg", 20),
+                        g(35, "path", 21),
+                        s(),
+                        s(),
+                        Re(),
+                        r(36, "span", 14),
+                        c(37, " Notification Bell "),
+                        s(),
+                        s(),
+                        s(),
+                        s(),
+                        v(38, yF, 1, 0, "div", 22),
+                        v(39, vF, 22, 0, "ng-template", null, 23, Pe),
+                        v(41, CF, 10, 0, "ng-template", null, 24, Pe),
+                        s(),
+                        s(),
+                        s(),
+                        s(),
+                        r(43, "body"),
+                        r(44, "div", 25),
+                        r(45, "div", 26),
+                        r(46, "h1", 27),
+                        r(47, "div", 28),
+                        c(48, " Alkateb Heider, list your "),
+                        r(49, "div", 27),
+                        r(50, "div", 27),
+                        r(51, "p", 28),
+                        c(52, "apartment"),
+                        s(),
+                        s(),
+                        s(),
+                        c(53, " on Booking.com "),
+                        s(),
+                        s(),
+                        r(54, "h3", 28),
+                        c(
+                          55,
+                          " Registration can take as little as 15 minutes to complete \u2013 get started today "
+                        ),
+                        s(),
+                        s(),
+                        s(),
+                        s(),
+                        g(56, "app-footer")),
+                      2 & e)
                   ) {
                     const o = ve(40),
                       a = ve(42);
@@ -45009,8 +44999,8 @@
           path: "viewproperty",
           component: (() => {
             class t {
-              constructor() {}
-              ngOnInit() {}
+              constructor() { }
+              ngOnInit() { }
             }
             return (
               (t.ɵfac = function (e) {
@@ -45034,8 +45024,8 @@
           path: "addproperty",
           component: (() => {
             class t {
-              constructor() {}
-              ngOnInit() {}
+              constructor() { }
+              ngOnInit() { }
             }
             return (
               (t.ɵfac = function (e) {
@@ -45126,119 +45116,119 @@
                 template: function (e, i) {
                   1 & e &&
                     (r(0, "header", 0),
-                    r(1, "nav", 1),
-                    r(2, "div", 2),
-                    r(3, "div", 3),
-                    r(4, "span"),
-                    r(5, "label", 4),
-                    c(6, "Apart.com"),
-                    s(),
-                    s(),
-                    s(),
-                    s(),
-                    r(7, "div"),
-                    g(8, "a", 5),
-                    r(9, "div", 6),
-                    r(10, "div", 7),
-                    r(11, "button", 8),
-                    r(12, "span", 9),
-                    r(13, "div", 10),
-                    g(14, "img", 11),
-                    s(),
-                    r(15, "span", 12),
-                    c(
-                      16,
-                      " Choose your language. Your current language is English (US) "
-                    ),
-                    s(),
-                    s(),
-                    s(),
-                    s(),
-                    s(),
-                    s(),
-                    s(),
-                    s(),
-                    r(17, "body"),
-                    r(18, "div", 13),
-                    r(19, "div"),
-                    r(20, "div", 14),
-                    c(
-                      21,
-                      "List your property on Booking.com and start welcoming guests in no time!"
-                    ),
-                    s(),
-                    r(22, "div", 15),
-                    c(
-                      23,
-                      "To get started, choose the type of property you want to list on Booking.com"
-                    ),
-                    s(),
-                    s(),
-                    r(24, "div", 16),
-                    r(25, "div", 17),
-                    g(26, "img", 18),
-                    r(27, "span", 19),
-                    c(28, "Apartment"),
-                    s(),
-                    r(29, "span", 20),
-                    c(
-                      30,
-                      "Furnished accommodation, where guests rent the entire place"
-                    ),
-                    s(),
-                    r(31, "button", 21),
-                    c(32, "List your property"),
-                    s(),
-                    s(),
-                    r(33, "div", 17),
-                    g(34, "img", 22),
-                    r(35, "span", 19),
-                    c(36, "Homes"),
-                    s(),
-                    r(37, "span", 20),
-                    c(
-                      38,
-                      "Properties like apartments, holiday homes, villas, etc."
-                    ),
-                    s(),
-                    r(39, "button", 21),
-                    c(40, "List your property"),
-                    s(),
-                    s(),
-                    r(41, "div", 17),
-                    g(42, "img", 23),
-                    r(43, "span", 19),
-                    c(44, "Hotel, B&Bs, and more"),
-                    s(),
-                    r(45, "span", 20),
-                    c(
-                      46,
-                      "Properties like hotels, B&Bs, quest houses, hostels, aparthotels, etc."
-                    ),
-                    s(),
-                    r(47, "button", 21),
-                    c(48, "List your property"),
-                    s(),
-                    s(),
-                    r(49, "div", 17),
-                    g(50, "img", 24),
-                    r(51, "span", 19),
-                    c(52, "Alternative places"),
-                    s(),
-                    r(53, "span", 20),
-                    c(
-                      54,
-                      "Propeties like boats, campsites, luxury tents, etc."
-                    ),
-                    s(),
-                    r(55, "button", 21),
-                    c(56, "List your property"),
-                    s(),
-                    s(),
-                    s(),
-                    s(),
-                    s(),
-                    g(57, "footer"));
+                      r(1, "nav", 1),
+                      r(2, "div", 2),
+                      r(3, "div", 3),
+                      r(4, "span"),
+                      r(5, "label", 4),
+                      c(6, "Apart.com"),
+                      s(),
+                      s(),
+                      s(),
+                      s(),
+                      r(7, "div"),
+                      g(8, "a", 5),
+                      r(9, "div", 6),
+                      r(10, "div", 7),
+                      r(11, "button", 8),
+                      r(12, "span", 9),
+                      r(13, "div", 10),
+                      g(14, "img", 11),
+                      s(),
+                      r(15, "span", 12),
+                      c(
+                        16,
+                        " Choose your language. Your current language is English (US) "
+                      ),
+                      s(),
+                      s(),
+                      s(),
+                      s(),
+                      s(),
+                      s(),
+                      s(),
+                      s(),
+                      r(17, "body"),
+                      r(18, "div", 13),
+                      r(19, "div"),
+                      r(20, "div", 14),
+                      c(
+                        21,
+                        "List your property on Booking.com and start welcoming guests in no time!"
+                      ),
+                      s(),
+                      r(22, "div", 15),
+                      c(
+                        23,
+                        "To get started, choose the type of property you want to list on Booking.com"
+                      ),
+                      s(),
+                      s(),
+                      r(24, "div", 16),
+                      r(25, "div", 17),
+                      g(26, "img", 18),
+                      r(27, "span", 19),
+                      c(28, "Apartment"),
+                      s(),
+                      r(29, "span", 20),
+                      c(
+                        30,
+                        "Furnished accommodation, where guests rent the entire place"
+                      ),
+                      s(),
+                      r(31, "button", 21),
+                      c(32, "List your property"),
+                      s(),
+                      s(),
+                      r(33, "div", 17),
+                      g(34, "img", 22),
+                      r(35, "span", 19),
+                      c(36, "Homes"),
+                      s(),
+                      r(37, "span", 20),
+                      c(
+                        38,
+                        "Properties like apartments, holiday homes, villas, etc."
+                      ),
+                      s(),
+                      r(39, "button", 21),
+                      c(40, "List your property"),
+                      s(),
+                      s(),
+                      r(41, "div", 17),
+                      g(42, "img", 23),
+                      r(43, "span", 19),
+                      c(44, "Hotel, B&Bs, and more"),
+                      s(),
+                      r(45, "span", 20),
+                      c(
+                        46,
+                        "Properties like hotels, B&Bs, quest houses, hostels, aparthotels, etc."
+                      ),
+                      s(),
+                      r(47, "button", 21),
+                      c(48, "List your property"),
+                      s(),
+                      s(),
+                      r(49, "div", 17),
+                      g(50, "img", 24),
+                      r(51, "span", 19),
+                      c(52, "Alternative places"),
+                      s(),
+                      r(53, "span", 20),
+                      c(
+                        54,
+                        "Propeties like boats, campsites, luxury tents, etc."
+                      ),
+                      s(),
+                      r(55, "button", 21),
+                      c(56, "List your property"),
+                      s(),
+                      s(),
+                      s(),
+                      s(),
+                      s(),
+                      g(57, "footer"));
                 },
                 directives: [ur],
                 styles: [
@@ -45251,21 +45241,21 @@
         },
       ];
       let MF = (() => {
-          class t {}
-          return (
-            (t.ɵfac = function (e) {
-              return new (e || t)();
-            }),
-            (t.ɵmod = Ce({ type: t })),
-            (t.ɵinj = ye({
-              imports: [
-                [cv.forRoot(wF, { scrollPositionRestoration: "enabled" })],
-                cv,
-              ],
-            })),
-            t
-          );
-        })(),
+        class t { }
+        return (
+          (t.ɵfac = function (e) {
+            return new (e || t)();
+          }),
+          (t.ɵmod = Ce({ type: t })),
+          (t.ɵinj = ye({
+            imports: [
+              [cv.forRoot(wF, { scrollPositionRestoration: "enabled" })],
+              cv,
+            ],
+          })),
+          t
+        );
+      })(),
         xF = (() => {
           class t {
             constructor() {
@@ -45291,7 +45281,7 @@
           );
         })(),
         DF = (() => {
-          class t {}
+          class t { }
           return (
             (t.ɵfac = function (e) {
               return new (e || t)();

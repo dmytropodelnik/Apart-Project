@@ -35,6 +35,11 @@ export class AddPropertyComponent implements OnInit {
     this.getBookingCategories();
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   addHotel(): void {
     this.choice = 3;
     this.getBookingCategories();
@@ -93,7 +98,7 @@ export class AddPropertyComponent implements OnInit {
             categoryAdd?.append(newOption);
           }
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

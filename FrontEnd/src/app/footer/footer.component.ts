@@ -30,7 +30,7 @@ export class FooterComponent implements OnInit {
 
   addDealsSubscriber() {
     if (!this.email.match('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')) {
-      alert('Incorrect email pattern!');
+      this.showAlert('Incorrect email pattern!');
       return;
     }
 
@@ -44,10 +44,10 @@ export class FooterComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          alert('We sent verification letter to your email!');
+          this.showAlert('We sent verification letter to your email!');
           console.log(data);
         } else {
-          alert(data.message);
+          this.showAlert(data.message);
         }
         this.email = '';
       })
@@ -55,6 +55,11 @@ export class FooterComponent implements OnInit {
         this.mainDataService.alertContent = ex;
         this.modalService.open(this.alert);
       });
+  }
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   routerToMySettings(): void {

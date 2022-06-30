@@ -15,5 +15,10 @@ export class PaymentDetailsListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   ngOnInit(): void {}
 }

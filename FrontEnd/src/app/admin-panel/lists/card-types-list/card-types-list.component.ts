@@ -23,6 +23,11 @@ export class CardTypesListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   addType(): void {
     let type = {
       name: this.type,
@@ -42,7 +47,7 @@ export class CardTypesListComponent implements OnInit {
         if (data.code === 200) {
           this.getTypes();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.type = '';
       })
@@ -73,7 +78,7 @@ export class CardTypesListComponent implements OnInit {
           this.getTypes();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.type = '';
       })
@@ -104,7 +109,7 @@ export class CardTypesListComponent implements OnInit {
           this.getTypes();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.type = '';
       })
@@ -128,7 +133,7 @@ export class CardTypesListComponent implements OnInit {
         if (data.code === 200) {
           this.cardTypes = data.cardTypes;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

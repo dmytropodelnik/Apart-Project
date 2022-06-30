@@ -29,6 +29,11 @@ export class ReviewCategoriesListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   search(): void {
     fetch(
       'https://localhost:44381/api/reviewcategories/search?category=' +
@@ -46,7 +51,7 @@ export class ReviewCategoriesListComponent implements OnInit {
         if (data.code === 200) {
           this.categories = data.categories;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchCategory = '';
       })
@@ -75,7 +80,7 @@ export class ReviewCategoriesListComponent implements OnInit {
         if (data.code === 200) {
           this.getCategories();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.category = null;
       })
@@ -106,7 +111,7 @@ export class ReviewCategoriesListComponent implements OnInit {
           this.getCategories();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.category = null;
       })
@@ -137,7 +142,7 @@ export class ReviewCategoriesListComponent implements OnInit {
           this.getCategories();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.category = null;
       })
@@ -164,7 +169,7 @@ export class ReviewCategoriesListComponent implements OnInit {
         if (data.code === 200) {
           this.categories = data.categories;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -198,7 +203,7 @@ export class ReviewCategoriesListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.categories);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

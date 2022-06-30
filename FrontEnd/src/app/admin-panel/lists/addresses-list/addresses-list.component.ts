@@ -29,6 +29,11 @@ export class AddressesListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   search(): void {
     fetch(
       'https://localhost:44381/api/addresses/search?address=' +
@@ -47,7 +52,7 @@ export class AddressesListComponent implements OnInit {
         if (data.code === 200) {
           this.addresses = data.addresses;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchAddress = '';
       })
@@ -76,7 +81,7 @@ export class AddressesListComponent implements OnInit {
         if (data.code === 200) {
           this.getAddresses();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.address = null;
       })
@@ -107,7 +112,7 @@ export class AddressesListComponent implements OnInit {
           this.getAddresses();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.address = null;
       })
@@ -138,7 +143,7 @@ export class AddressesListComponent implements OnInit {
           this.getAddresses();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.address = null;
       })
@@ -165,7 +170,7 @@ export class AddressesListComponent implements OnInit {
         if (data.code === 200) {
           this.addresses = data.addresses;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -199,7 +204,7 @@ export class AddressesListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.addresses);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

@@ -36,14 +36,20 @@ export class FileUploadComponent implements OnInit {
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
-          alert('File has been successfully uploaded!');
+          this.showAlert('File has been successfully uploaded!');
         } else {
-          alert('Uploading error!');
+          this.showAlert('Uploading error!');
         }
       })
       .catch((err) => {
-        alert(err);
+        this.mainDataService.alertContent = err;
+        this.modalService.open(this.alert);
       });
+  }
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   handleFileInput(files: FileList): void {

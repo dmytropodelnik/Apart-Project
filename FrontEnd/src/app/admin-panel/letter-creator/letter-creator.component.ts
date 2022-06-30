@@ -33,6 +33,11 @@ export class LetterCreatorComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   setChoice(): void {
     this.choice = !this.choice;
   }
@@ -60,23 +65,32 @@ export class LetterCreatorComponent implements OnInit {
         if (r.code === 200) {
           this.isCreated = true;
           this.getSentMails();
-          alert('Letter has been successfully sent!');
+          this.mainDataService.alertContent =
+            'Letter has been successfully sent!';
+          this.modalService.open(this.alert);
         } else {
-          alert('Sending letter to subscribers error!');
+          this.mainDataService.alertContent =
+            'Sending letter to subscribers error!';
+          this.modalService.open(this.alert);
         }
       })
       .catch((err) => {
-        alert(err);
+        this.mainDataService.alertContent = err;
+        this.modalService.open(this.alert);
       });
   }
 
   async createLetter(): Promise<void> {
     if (this.newLetter.title.length < 3) {
-      alert('Title must have at least 3 characters');
+      this.mainDataService.alertContent =
+        'Title must have at least 3 characters';
+      this.modalService.open(this.alert);
       return;
     }
     if (this.newLetter.text.length < 10 && !this.choice) {
-      alert('Text must have at least 10 characters');
+      this.mainDataService.alertContent =
+        'Text must have at least 10 characters';
+      this.modalService.open(this.alert);
       return;
     }
 
@@ -84,12 +98,15 @@ export class LetterCreatorComponent implements OnInit {
 
     if (this.choice) {
       if (this.htmlLetterFile == null) {
-        alert('Upload a file!');
+        this.mainDataService.alertContent = 'Upload a file!';
+        this.modalService.open(this.alert);
         return;
       }
       // checking file type
       if (!['text/html', 'text/plain'].includes(this.htmlLetterFile.type)) {
-        alert('Only HTML and TXT files are allowed!');
+        this.mainDataService.alertContent =
+          'Only HTML and TXT files are allowed!';
+        this.modalService.open(this.alert);
         return;
       }
 
@@ -118,13 +135,18 @@ export class LetterCreatorComponent implements OnInit {
           this.newLetter.title = '';
           this.newLetter.text = '';
           this.getSentMails();
-          alert('Letter has been successfully sent!');
+          this.mainDataService.alertContent =
+            'Letter has been successfully sent!';
+          this.modalService.open(this.alert);
         } else {
-          alert('Sending letter to subscribers error!');
+          this.mainDataService.alertContent =
+            'Sending letter to subscribers error!';
+          this.modalService.open(this.alert);
         }
       })
       .catch((err) => {
-        alert(err);
+        this.mainDataService.alertContent = err;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -146,13 +168,17 @@ export class LetterCreatorComponent implements OnInit {
       .then(async (r) => {
         if (r.code === 200) {
           await this.readContentFromFile(fData);
-          alert('File has been successfully uploaded!');
+          this.mainDataService.alertContent =
+            'File has been successfully uploaded!';
+          this.modalService.open(this.alert);
         } else {
-          alert('Uploading file error!');
+          this.mainDataService.alertContent = 'Uploading file error!';
+          this.modalService.open(this.alert);
         }
       })
       .catch((err) => {
-        alert(err);
+        this.mainDataService.alertContent = err;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -169,13 +195,18 @@ export class LetterCreatorComponent implements OnInit {
       .then((r) => {
         if (r.code === 200) {
           this.newLetter.text = r.letterText;
-          alert('File content has been successfully read!');
+          this.mainDataService.alertContent =
+            'File content has been successfully read!';
+          this.modalService.open(this.alert);
         } else {
-          alert('Reading content from file error!');
+          this.mainDataService.alertContent =
+            'Reading content from file error!';
+          this.modalService.open(this.alert);
         }
       })
       .catch((err) => {
-        alert(err);
+        this.mainDataService.alertContent = err;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -218,11 +249,13 @@ export class LetterCreatorComponent implements OnInit {
           }
           this.lettersAmount = r.amount;
         } else {
-          alert('Getting mails error!');
+          this.mainDataService.alertContent = 'Getting mails error!';
+          this.modalService.open(this.alert);
         }
       })
       .catch((err) => {
-        alert(err);
+        this.mainDataService.alertContent = err;
+        this.modalService.open(this.alert);
       });
   }
 

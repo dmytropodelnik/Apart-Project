@@ -31,6 +31,11 @@ export class BookingCategoriesListComponent implements OnInit {
     this.category = new BookingCategory();
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   search(): void {
     fetch(
       'https://localhost:44381/api/bookingcategories/search?category=' +
@@ -49,7 +54,7 @@ export class BookingCategoriesListComponent implements OnInit {
         if (data.code === 200) {
           this.categories = data.categories;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchCategory = '';
       })
@@ -78,7 +83,7 @@ export class BookingCategoriesListComponent implements OnInit {
         if (data.code === 200) {
           this.getCategories();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.category.category = '';
       })
@@ -109,7 +114,7 @@ export class BookingCategoriesListComponent implements OnInit {
           this.getCategories();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.category.category = '';
       })
@@ -140,7 +145,7 @@ export class BookingCategoriesListComponent implements OnInit {
           this.getCategories();
           ListHelper.disableButtons();
         } else {
-          alert('Deleting error!');
+          this.showAlert('Deleting error!');
         }
         this.category.category = '';
       })
@@ -167,7 +172,7 @@ export class BookingCategoriesListComponent implements OnInit {
         if (data.code === 200) {
           this.categories = data.categories;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -201,7 +206,7 @@ export class BookingCategoriesListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.categories);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

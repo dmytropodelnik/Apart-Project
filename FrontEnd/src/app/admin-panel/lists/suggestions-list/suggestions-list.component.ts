@@ -28,6 +28,11 @@ export class SuggestionsListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   addSuggestion(): void {
     let suggestion = {
       name: this.suggestion,
@@ -47,7 +52,7 @@ export class SuggestionsListComponent implements OnInit {
         if (data.code === 200) {
           this.getSuggestions();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.suggestion = null;
       })
@@ -78,7 +83,7 @@ export class SuggestionsListComponent implements OnInit {
           this.getSuggestions();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.suggestion = null;
       })
@@ -109,7 +114,7 @@ export class SuggestionsListComponent implements OnInit {
           this.getSuggestions();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.suggestion = null;
       })
@@ -136,7 +141,7 @@ export class SuggestionsListComponent implements OnInit {
         if (data.code === 200) {
           this.suggestions = data.suggestions;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -171,7 +176,7 @@ export class SuggestionsListComponent implements OnInit {
           this.collectElements(data.suggestions);
           //this.suggestions = data.suggestions;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

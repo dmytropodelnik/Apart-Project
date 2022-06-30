@@ -28,6 +28,11 @@ export class ReviewMessagesListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   addMessage(): void {
     let message = {
       name: this.message,
@@ -47,7 +52,7 @@ export class ReviewMessagesListComponent implements OnInit {
         if (data.code === 200) {
           this.getMessages();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.message = null;
       })
@@ -78,7 +83,7 @@ export class ReviewMessagesListComponent implements OnInit {
           this.getMessages();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.message = null;
       })
@@ -109,7 +114,7 @@ export class ReviewMessagesListComponent implements OnInit {
           this.getMessages();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.message = null;
       })
@@ -136,7 +141,7 @@ export class ReviewMessagesListComponent implements OnInit {
         if (data.code === 200) {
           this.reviewMessages = data.messages;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -170,7 +175,7 @@ export class ReviewMessagesListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.messages);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

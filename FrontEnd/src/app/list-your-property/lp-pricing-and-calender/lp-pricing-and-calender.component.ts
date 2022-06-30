@@ -54,6 +54,11 @@ export class LpPricingAndCalenderComponent implements OnInit {
       });
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   ngOnInit(): void {
     this.activatedRouter.queryParams.subscribe((params: any) => {
       if (params['toSaveId'] == 'true') {

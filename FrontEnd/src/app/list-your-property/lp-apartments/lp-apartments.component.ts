@@ -41,30 +41,41 @@ export class LpApartmentsComponent implements OnInit {
     }
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   addApartments(): void {
     if (this.validationErrors.length > 0) {
-      alert('Fill all fields!');
+      this.showAlert('Fill all fields!');
       return;
     }
 
     for (let i = 0; i < this.apartments.length; i++) {
       if (this.apartments[i].name.length < 3) {
-        alert('Apartment name must have at least 3 characters!');
+        this.showAlert('Apartment name must have at least 3 characters!');
         return;
       } else if (this.apartments[i].description.length < 10) {
-        alert('Apartment description must have at least 10 characters!');
+        this.showAlert(
+          'Apartment description must have at least 10 characters!'
+        );
         return;
       } else if (!this.apartments[i].priceInUSD?.toString().match(/\d+/)) {
-        alert('Apartment price must have at least 1 character!');
+        this.showAlert('Apartment price must have at least 1 character!');
         return;
       } else if (!this.apartments[i].roomsAmount?.toString().match(/\d+/)) {
-        alert('Apartment rooms amount must have at least 1 character!');
+        this.showAlert(
+          'Apartment rooms amount must have at least 1 character!'
+        );
         return;
       } else if (!this.apartments[i].guestsLimit?.toString().match(/\d+/)) {
-        alert('Apartment guests limit must have at least 1 character!');
+        this.showAlert(
+          'Apartment guests limit must have at least 1 character!'
+        );
         return;
       } else if (!this.apartments[i].bathroomsAmount?.toString().match(/\d+/)) {
-        alert(
+        this.showAlert(
           'Apartment bathrooms amount limit must have at least 1 character!'
         );
         return;

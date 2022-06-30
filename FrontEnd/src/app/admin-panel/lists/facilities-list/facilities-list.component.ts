@@ -34,6 +34,11 @@ export class FacilitiesListComponent implements OnInit {
     this.facility = new Facility();
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   search(): void {
     fetch(
       'https://localhost:44381/api/facilities/search?facility=' +
@@ -51,7 +56,7 @@ export class FacilitiesListComponent implements OnInit {
         if (data.code === 200) {
           this.facilities = data.facilities;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchFacility = '';
       })
@@ -82,7 +87,7 @@ export class FacilitiesListComponent implements OnInit {
         if (data.code === 200) {
           this.getFacilities();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.resetFacility();
       })
@@ -115,7 +120,7 @@ export class FacilitiesListComponent implements OnInit {
           this.getFacilities();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.resetFacility();
       })
@@ -148,7 +153,7 @@ export class FacilitiesListComponent implements OnInit {
           this.getFacilities();
           ListHelper.disableButtons();
         } else {
-          alert('Deleting error!');
+          this.showAlert('Deleting error!');
         }
         this.resetFacility();
       })
@@ -182,7 +187,7 @@ export class FacilitiesListComponent implements OnInit {
         if (data.code === 200) {
           this.facilities = data.facilities;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -216,7 +221,7 @@ export class FacilitiesListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.facilities);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -265,7 +270,7 @@ export class FacilitiesListComponent implements OnInit {
             counter++;
           }
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

@@ -28,6 +28,11 @@ export class AirportsListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   addAirport(): void {
     let airport = {
       name: this.airport,
@@ -47,7 +52,7 @@ export class AirportsListComponent implements OnInit {
         if (data.code === 200) {
           this.getAirports();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.airport = '';
       })
@@ -78,7 +83,7 @@ export class AirportsListComponent implements OnInit {
           this.getAirports();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.airport = '';
       })
@@ -109,7 +114,7 @@ export class AirportsListComponent implements OnInit {
           this.getAirports();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.airport = '';
       })
@@ -136,7 +141,7 @@ export class AirportsListComponent implements OnInit {
         if (data.code === 200) {
           this.airports = data.airports;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -170,7 +175,7 @@ export class AirportsListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.airports);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

@@ -26,6 +26,11 @@ export class AdminContentComponent implements OnInit {
     this.content = 'users';
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   setContent(newContent: string) {
     this.content = newContent;
   }

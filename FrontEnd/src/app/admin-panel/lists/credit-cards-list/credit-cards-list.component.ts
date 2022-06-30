@@ -30,6 +30,11 @@ export class CreditCardsListComponent implements OnInit {
     this.card = new CreditCard();
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   addCard(): void {
     let card = {
       cardHolder: this.card?.cardHolder,
@@ -53,7 +58,7 @@ export class CreditCardsListComponent implements OnInit {
         if (data.code === 200) {
           this.getCards();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.resetCard();
       })
@@ -87,7 +92,7 @@ export class CreditCardsListComponent implements OnInit {
           this.getCards();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.resetCard();
       })
@@ -122,7 +127,7 @@ export class CreditCardsListComponent implements OnInit {
           this.getCards();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.resetCard();
       })
@@ -157,7 +162,7 @@ export class CreditCardsListComponent implements OnInit {
         if (data.code === 200) {
           this.creditCards = data.cards;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -191,7 +196,7 @@ export class CreditCardsListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.cards);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

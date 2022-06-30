@@ -29,6 +29,11 @@ export class SuggestionRulesListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   search(): void {
     fetch(
       'https://localhost:44381/api/suggestionrules/search?rule=' +
@@ -46,7 +51,7 @@ export class SuggestionRulesListComponent implements OnInit {
         if (data.code === 200) {
           this.rules = data.rules;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchRule = '';
       })
@@ -75,7 +80,7 @@ export class SuggestionRulesListComponent implements OnInit {
         if (data.code === 200) {
           this.getRules();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.rule = null;
       })
@@ -106,7 +111,7 @@ export class SuggestionRulesListComponent implements OnInit {
           this.getRules();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.rule = null;
       })
@@ -137,7 +142,7 @@ export class SuggestionRulesListComponent implements OnInit {
           this.getRules();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.rule = null;
       })
@@ -164,7 +169,7 @@ export class SuggestionRulesListComponent implements OnInit {
         if (data.code === 200) {
           this.rules = data.rules;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -198,7 +203,7 @@ export class SuggestionRulesListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.rules);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

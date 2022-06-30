@@ -29,6 +29,11 @@ export class FavoritesListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   search(): void {
     fetch(
       'https://localhost:44381/api/favorites/search?favorite=' +
@@ -46,7 +51,7 @@ export class FavoritesListComponent implements OnInit {
         if (data.code === 200) {
           this.favorites = data.favorites;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchFavorite = '';
       })
@@ -75,7 +80,7 @@ export class FavoritesListComponent implements OnInit {
         if (data.code === 200) {
           this.getFavorites();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.favorite = null;
       })
@@ -105,7 +110,7 @@ export class FavoritesListComponent implements OnInit {
           this.getFavorites();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.favorite = null;
       })
@@ -136,7 +141,7 @@ export class FavoritesListComponent implements OnInit {
           this.getFavorites();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.favorite = null;
       })
@@ -163,7 +168,7 @@ export class FavoritesListComponent implements OnInit {
         if (data.code === 200) {
           this.favorites = data.favorites;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -197,7 +202,7 @@ export class FavoritesListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.favorites);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

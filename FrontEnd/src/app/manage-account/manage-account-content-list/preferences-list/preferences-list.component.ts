@@ -36,6 +36,11 @@ export class PreferencesListComponent implements OnInit {
     this.isEditing[id] = !this.isEditing[id];
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   sendInfoLetter(): void {
     fetch(
       `https://localhost:44381/api/notifications/sendnotification?email=${AuthHelper.getLogin()}&message=${
@@ -49,7 +54,7 @@ export class PreferencesListComponent implements OnInit {
       .then(async (data) => {
         if (data.code === 200) {
         } else {
-          alert(data.message);
+          this.showAlert(data.message);
         }
       })
       .catch((ex) => {
@@ -77,7 +82,7 @@ export class PreferencesListComponent implements OnInit {
           if (response.code === 200) {
             this.user.hasMailing = true;
           } else {
-            alert('Add subscriber error!');
+            this.showAlert('Add subscriber error!');
           }
         })
         .catch((ex) => {
@@ -102,7 +107,7 @@ export class PreferencesListComponent implements OnInit {
           if (response.code === 200) {
             this.user.hasMailing = false;
           } else {
-            alert('Remove subscriber error!');
+            this.showAlert('Remove subscriber error!');
           }
         })
         .catch((ex) => {
@@ -146,7 +151,7 @@ export class PreferencesListComponent implements OnInit {
 
   saveCurrency(id: number): void {
     if (!this.user.currency) {
-      alert('Select your currency!');
+      this.showAlert('Select your currency!');
       return;
     }
 
@@ -175,7 +180,7 @@ export class PreferencesListComponent implements OnInit {
           this.letterAction = false;
           this.sendInfoLetter();
         } else {
-          alert('Save currency error!');
+          this.showAlert('Save currency error!');
         }
       })
       .catch((ex) => {
@@ -186,7 +191,7 @@ export class PreferencesListComponent implements OnInit {
 
   saveLanguage(id: number): void {
     if (this.user.language == '-1' || !this.user.language.match(/\d/)) {
-      alert('Select your language!');
+      this.showAlert('Select your language!');
       return;
     }
 
@@ -215,7 +220,7 @@ export class PreferencesListComponent implements OnInit {
           this.letterAction = false;
           this.sendInfoLetter();
         } else {
-          alert('Save language error!');
+          this.showAlert('Save language error!');
         }
       })
       .catch((ex) => {
@@ -249,7 +254,7 @@ export class PreferencesListComponent implements OnInit {
           this.user.currency = response.user?.profile?.currency.abbreviation;
           this.user.language = response.user?.profile?.language?.title;
         } else {
-          alert('Get current user error!');
+          this.showAlert('Get current user error!');
         }
       })
       .catch((ex) => {
@@ -278,7 +283,7 @@ export class PreferencesListComponent implements OnInit {
             currenciesSelect?.append(newOption);
           }
         } else {
-          alert('Get currencies error!');
+          this.showAlert('Get currencies error!');
         }
       })
       .catch((ex) => {
@@ -303,7 +308,7 @@ export class PreferencesListComponent implements OnInit {
             counter++;
           }
         } else {
-          alert('Get languages error!');
+          this.showAlert('Get languages error!');
         }
       })
       .catch((ex) => {

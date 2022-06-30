@@ -56,13 +56,18 @@ export class LpPhotosComponent implements OnInit {
     }
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   addPropertyPhotos(): void {
     if (this.uploadedFiles == null) {
-      alert('Upload files please!');
+      this.showAlert('Upload files please!');
       return;
     }
     if (this.uploadedFiles.length < 8) {
-      alert('You have to upload at least 8 images!');
+      this.showAlert('You have to upload at least 8 images!');
       return;
     }
 
@@ -91,11 +96,12 @@ export class LpPhotosComponent implements OnInit {
           console.log('Files have been successfully uploaded!');
           this.router.navigate(['/lp/reviewandcomplete']);
         } else {
-          alert('Uploading error!');
+          this.showAlert('Uploading error!');
         }
       })
       .catch((err) => {
-        alert(err);
+        this.mainDataService.alertContent = err;
+        this.modalService.open(this.alert);
       });
   }
 

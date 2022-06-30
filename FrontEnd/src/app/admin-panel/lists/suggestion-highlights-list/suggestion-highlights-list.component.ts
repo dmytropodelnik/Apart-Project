@@ -29,6 +29,11 @@ export class SuggestionHighlightsListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   addHighlight(): void {
     let highlight = {
       name: this.highlight,
@@ -48,7 +53,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
         if (data.code === 200) {
           this.getHighlights();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.highlight = '';
       })
@@ -79,7 +84,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
           this.getHighlights();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.highlight = '';
       })
@@ -110,7 +115,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
           this.getHighlights();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.highlight = '';
       })
@@ -137,7 +142,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
         if (data.code === 200) {
           this.highlights = data.highlights;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -171,7 +176,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.highlights);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

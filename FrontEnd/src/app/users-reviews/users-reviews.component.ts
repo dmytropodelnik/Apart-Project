@@ -41,6 +41,11 @@ export class UsersReviewsComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   getUsersReviews(value: boolean): void {
     this.condition = 1;
 
@@ -78,7 +83,7 @@ export class UsersReviewsComponent implements OnInit {
           }
           this.page++;
         } else {
-          alert(response.message);
+          this.showAlert(response.message);
         }
       })
       .catch((ex) => {
@@ -124,7 +129,7 @@ export class UsersReviewsComponent implements OnInit {
           }
           this.page++;
         } else {
-          alert(response.message);
+          this.showAlert(response.message);
         }
       })
       .catch((ex) => {

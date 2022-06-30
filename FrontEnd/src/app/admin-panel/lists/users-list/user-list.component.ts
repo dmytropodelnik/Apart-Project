@@ -32,6 +32,11 @@ export class UserListComponent implements OnInit {
     this.user = new User();
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   search(): void {
     fetch('https://localhost:44381/api/users/search?user=' + this.searchUser, {
       method: 'GET',
@@ -45,7 +50,7 @@ export class UserListComponent implements OnInit {
         if (data.code === 200) {
           this.users = data.users;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchUser = '';
       })
@@ -76,7 +81,7 @@ export class UserListComponent implements OnInit {
         if (data.code === 200) {
           this.getUsers();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.user = new User();
       })
@@ -107,7 +112,7 @@ export class UserListComponent implements OnInit {
           this.getUsers();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.user = new User();
       })
@@ -131,7 +136,7 @@ export class UserListComponent implements OnInit {
           this.getUsers();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.user = new User();
       })
@@ -158,7 +163,7 @@ export class UserListComponent implements OnInit {
         if (data.code === 200) {
           this.users = data.users;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -198,7 +203,7 @@ export class UserListComponent implements OnInit {
 
           this.user.role.id = 1;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -232,7 +237,7 @@ export class UserListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.users);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

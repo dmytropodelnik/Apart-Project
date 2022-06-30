@@ -55,6 +55,11 @@ export class ResetPasswordComponent implements OnInit {
     return this.passwordForm.controls;
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   sendInfoLetter(): void {
     fetch(
       `https://localhost:44381/api/notifications/sendnotification?email=${this.email}&message=${this.letterMessage}&action=${this.letterAction}`,
@@ -66,7 +71,7 @@ export class ResetPasswordComponent implements OnInit {
       .then(async (data) => {
         if (data.code === 200) {
         } else {
-          alert(data.message);
+          this.showAlert(data.message);
         }
       })
       .catch((ex) => {
@@ -93,12 +98,12 @@ export class ResetPasswordComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          alert('You have successfully reset your password!');
+          this.showAlert('You have successfully reset your password!');
           this.letterMessage = `You have successfully reset your password on Apartstep.fun with ${this.email}!`;
           this.sendInfoLetter();
           this.router.navigate(['']);
         } else {
-          alert(response.message);
+          this.showAlert(response.message);
         }
         this.authService.setResetPasswordCondition(false);
       })

@@ -12,4 +12,6 @@ export class AppInitializerComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  
+
 }

@@ -25,6 +25,11 @@ export class ManageAccountContentComponent implements OnInit {
     this.content = 'personal-details';
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   setContent(newContent: string) {
     this.content = newContent;
   }

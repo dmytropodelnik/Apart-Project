@@ -29,6 +29,11 @@ export class PromocodeGeneratorComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   generatePromoCode(): void {
     let expirationDate = this.dp.year + '-' + this.dp.month + '-' + this.dp.day;
 
@@ -60,7 +65,7 @@ export class PromocodeGeneratorComponent implements OnInit {
               if (data.code === 200) {
                 this.promoCodes = data.codes;
               } else {
-                alert('Fetching last promo codes error!');
+                this.showAlert('Fetching last promo codes error!');
               }
             })
             .catch((ex) => {
@@ -68,7 +73,7 @@ export class PromocodeGeneratorComponent implements OnInit {
               this.modalService.open(this.alert);
             });
         } else {
-          alert('Generating promo codes error!');
+          this.showAlert('Generating promo codes error!');
         }
       })
       .catch((ex) => {
@@ -91,7 +96,7 @@ export class PromocodeGeneratorComponent implements OnInit {
         if (data.code === 200) {
           this.promoCodes = data.codes;
         } else {
-          alert('Fetching last promo codes error!');
+          this.showAlert('Fetching last promo codes error!');
         }
       })
       .catch((ex) => {

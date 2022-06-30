@@ -104,13 +104,17 @@ export class AuthComponent implements OnInit {
         if (data.code === 200) {
           document.location.href = 'https://localhost:4200';
         } else {
-          alert(data.message);
+          this.showAlert(data.message);
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
+  }
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   userCheck(): void {
@@ -157,11 +161,11 @@ export class AuthComponent implements OnInit {
           this.authService.setTokenKey(response.encodedJwt);
           AuthHelper.saveAuth(user.email, response.encodedJwt);
           this.authService.setLogCondition(true);
-          alert('You have successfully authenticated!');
+          this.showAlert('You have successfully authenticated!');
 
           this.router.navigate(['']);
         } else {
-          alert('Token fetching error!');
+          this.showAlert('Token fetching error!');
         }
       })
       .catch((ex) => {
@@ -189,12 +193,12 @@ export class AuthComponent implements OnInit {
           this.authService.setTokenKey(response.encodedJwt);
           AuthHelper.saveAuth(this.email, response.encodedJwt);
           this.authService.setLogCondition(true);
-          alert('You have successfully authenticated!');
+          this.showAlert('You have successfully authenticated!');
           this.letterMessage = `You have successfully entered on Apartstep.fun via social network with ${this.email}!`;
           this.letterAction = true;
           this.sendInfoLetter();
         } else {
-          alert('Token fetching error!');
+          this.showAlert('Token fetching error!');
           if (AuthHelper.isFacebookLogin()) {
             AuthHelper.clearFacebookAuth();
           } else if (AuthHelper.isGoogleLogin()) {
@@ -222,7 +226,7 @@ export class AuthComponent implements OnInit {
     )
       .then((r) => r.json())
       .then((data) => {
-        alert(data.code);
+        this.showAlert(data.code);
         console.log(data);
       })
       .catch((ex) => {
@@ -270,7 +274,7 @@ export class AuthComponent implements OnInit {
           this.userSignIn();
           this.router.navigate(['']);
         } else {
-          alert(response.code);
+          this.showAlert(response.code);
         }
       })
       .catch((ex) => {
@@ -284,7 +288,6 @@ export class AuthComponent implements OnInit {
     this.authSocialService.authState.subscribe((user) => {
       this.user = user;
       this.email = user.email;
-      console.log(this.user);
       this.googleEnter();
     });
   }
@@ -346,7 +349,7 @@ export class AuthComponent implements OnInit {
                         if (response.code === 200) {
                           this.userSocialSignIn();
                         } else {
-                          alert(response.code);
+                          this.showAlert(response.code);
                         }
                       })
                       .catch((ex) => {
@@ -360,12 +363,12 @@ export class AuthComponent implements OnInit {
                   this.modalService.open(this.alert);
                 });
             } else {
-              alert('Login via facebook error!');
+              this.showAlert('Login via facebook error!');
             }
           });
         } else {
           // The person is not logged into your webpage or we are unable to tell.
-          alert('Login via facebook error!');
+          this.showAlert('Login via facebook error!');
         }
       },
       { scope: 'email, public_profile,', return_scopes: true }
@@ -411,7 +414,7 @@ export class AuthComponent implements OnInit {
             AuthHelper.clearGoogleAuth();
           }
         } else {
-          alert('Logout error!');
+          this.showAlert('Logout error!');
         }
       })
       .catch((ex) => {
@@ -453,7 +456,7 @@ export class AuthComponent implements OnInit {
                 AuthHelper.saveGoogleAuth();
                 this.userSocialSignIn();
               } else {
-                alert(response.code);
+                this.showAlert(response.code);
               }
             })
             .catch((ex) => {

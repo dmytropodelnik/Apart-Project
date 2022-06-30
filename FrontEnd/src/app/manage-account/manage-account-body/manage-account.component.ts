@@ -25,6 +25,11 @@ export class ManageAccountComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   setContent(newContent: string) {
     this.content = newContent;
   }

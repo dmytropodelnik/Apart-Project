@@ -31,6 +31,11 @@ export class CurrenciesListComponent implements OnInit {
     this.currency = new Currency();
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   search(): void {
     fetch(
       'https://localhost:44381/api/currencies/search?currency=' +
@@ -48,7 +53,7 @@ export class CurrenciesListComponent implements OnInit {
         if (data.code === 200) {
           this.currencies = data.currencies;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchCurrency = '';
       })
@@ -81,7 +86,7 @@ export class CurrenciesListComponent implements OnInit {
         if (data.code === 200) {
           this.getCurrencies();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.currency.value = '';
         this.currency.abbreviation = '';
@@ -116,7 +121,7 @@ export class CurrenciesListComponent implements OnInit {
           this.getCurrencies();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.currency.value = '';
         this.currency.abbreviation = '';
@@ -151,7 +156,7 @@ export class CurrenciesListComponent implements OnInit {
           this.getCurrencies();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.currency.value = '';
         this.currency.abbreviation = '';
@@ -180,7 +185,7 @@ export class CurrenciesListComponent implements OnInit {
         if (data.code === 200) {
           this.currencies = data.currencies;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -214,7 +219,7 @@ export class CurrenciesListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.currencies);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

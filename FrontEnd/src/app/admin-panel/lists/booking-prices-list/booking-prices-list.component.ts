@@ -28,6 +28,11 @@ export class BookingPricesListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   addPrice(): void {
     let booking = {
       name: this.price,
@@ -47,7 +52,7 @@ export class BookingPricesListComponent implements OnInit {
         if (data.code === 200) {
           this.getPrices();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.price = null;
       })
@@ -78,7 +83,7 @@ export class BookingPricesListComponent implements OnInit {
           this.getPrices();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.price = null;
       })
@@ -109,7 +114,7 @@ export class BookingPricesListComponent implements OnInit {
           this.getPrices();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.price = null;
       })
@@ -136,7 +141,7 @@ export class BookingPricesListComponent implements OnInit {
         if (data.code === 200) {
           this.prices = data.bookings;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -170,7 +175,7 @@ export class BookingPricesListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.bookings);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

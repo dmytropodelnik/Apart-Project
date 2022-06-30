@@ -24,6 +24,11 @@ export class RolesListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   search(): void {
     fetch('https://localhost:44381/api/roles/search?role=' + this.searchRole, {
       method: 'GET',
@@ -37,7 +42,7 @@ export class RolesListComponent implements OnInit {
         if (data.code === 200) {
           this.roles = data.roles;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchRole = '';
       })
@@ -66,7 +71,7 @@ export class RolesListComponent implements OnInit {
         if (data.code === 200) {
           this.getRoles();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.role = '';
       })
@@ -97,7 +102,7 @@ export class RolesListComponent implements OnInit {
           this.getRoles();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         console.log(data);
         this.role = '';
@@ -129,7 +134,7 @@ export class RolesListComponent implements OnInit {
           this.getRoles();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         console.log(role);
         this.role = '';
@@ -154,7 +159,7 @@ export class RolesListComponent implements OnInit {
         if (data.code === 200) {
           this.roles = data.roles;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

@@ -32,6 +32,11 @@ export class RoomsListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   search(): void {
     fetch('https://localhost:44381/api/rooms/search?room=' + this.searchRoom, {
       method: 'GET',
@@ -45,7 +50,7 @@ export class RoomsListComponent implements OnInit {
         if (data.code === 200) {
           this.rooms = data.rooms;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchRoom = '';
       })
@@ -74,7 +79,7 @@ export class RoomsListComponent implements OnInit {
         if (data.code === 200) {
           this.getRooms();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.room = null;
       })
@@ -105,7 +110,7 @@ export class RoomsListComponent implements OnInit {
           this.getRooms();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.room = null;
       })
@@ -136,7 +141,7 @@ export class RoomsListComponent implements OnInit {
           this.getRooms();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.room = null;
       })
@@ -163,7 +168,7 @@ export class RoomsListComponent implements OnInit {
         if (data.code === 200) {
           this.rooms = data.rooms;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -197,7 +202,7 @@ export class RoomsListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.rooms);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

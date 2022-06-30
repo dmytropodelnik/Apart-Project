@@ -43,6 +43,11 @@ export class AdminAuthComponent implements OnInit {
     return this.loginForm.controls;
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   loginAdmin(): void {
     let user = {
       email: this.login,
@@ -76,11 +81,14 @@ export class AdminAuthComponent implements OnInit {
 
                 AuthHelper.saveAuth(user.email, response.encodedJwt);
 
-                alert('You have successfully authenticated as an admin!');
+                this.showAlert(
+                  'You have successfully authenticated as an admin!'
+                );
 
                 this.router.navigate(['/admin']);
               } else {
-                alert('Token fetching error!');
+                this.mainDataService.alertContent = 'Token fetching error!';
+                this.modalService.open(this.alert);
               }
             })
             .catch((ex) => {
@@ -88,7 +96,8 @@ export class AdminAuthComponent implements OnInit {
               this.modalService.open(this.alert);
             });
         } else {
-          alert('Incorrect data');
+          this.mainDataService.alertContent = 'Incorrect data';
+          this.modalService.open(this.alert);
         }
       })
       .catch((ex) => {

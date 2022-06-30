@@ -116,6 +116,11 @@ export class SearchResultsComponent implements OnInit {
       +this.filters.searchChildrenAmount + +value;
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   setAdults(value: number): void {
     if (this.filters.searchAdultsAmount + value < 1) {
       return;
@@ -273,7 +278,7 @@ export class SearchResultsComponent implements OnInit {
         if (data.code === 200) {
           this.facilities = data.facilities;
         } else {
-          alert('Facilities fetching error!');
+          this.showAlert('Facilities fetching error!');
         }
       })
       .catch((ex) => {
@@ -291,7 +296,7 @@ export class SearchResultsComponent implements OnInit {
         if (data.code === 200) {
           this.highlights = data.highlights;
         } else {
-          alert('Highlights fetching error!');
+          this.showAlert('Highlights fetching error!');
         }
       })
       .catch((ex) => {
@@ -309,7 +314,7 @@ export class SearchResultsComponent implements OnInit {
         if (data.code === 200) {
           this.staffLanguages = data.languages;
         } else {
-          alert('Staff languages fetching error!');
+          this.showAlert('Staff languages fetching error!');
         }
       })
       .catch((ex) => {
@@ -343,7 +348,7 @@ export class SearchResultsComponent implements OnInit {
         if (response.code === 200) {
           this.savedSuggestions.push(response.resSuggestion);
         } else {
-          alert('Adding suggestion to saved error!');
+          this.showAlert('Adding suggestion to saved error!');
         }
       })
       .catch((ex) => {
@@ -383,7 +388,7 @@ export class SearchResultsComponent implements OnInit {
             }
           });
         } else {
-          alert('User favorites fetching error!');
+          this.showAlert('User favorites fetching error!');
         }
       })
       .catch((ex) => {
@@ -410,7 +415,7 @@ export class SearchResultsComponent implements OnInit {
         if (response.code === 200) {
           this.savedSuggestions = response.favorites;
         } else {
-          alert('User favorites fetching error!');
+          this.showAlert('User favorites fetching error!');
         }
       })
       .catch((ex) => {

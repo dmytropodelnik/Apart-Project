@@ -26,6 +26,11 @@ export class LpReviewAndCompleteComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   addContactDetails(): void {
     let suggestion = {
       id: this.listNewPropertyService.getSavedPropertyId(),

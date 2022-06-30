@@ -33,6 +33,11 @@ export class FileModelsListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   search(): void {
     fetch('https://localhost:44381/api/files/search?file=' + this.searchFile, {
       method: 'GET',
@@ -46,7 +51,7 @@ export class FileModelsListComponent implements OnInit {
         if (data.code === 200) {
           this.files = data.files;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchFile = '';
       })
@@ -76,7 +81,7 @@ export class FileModelsListComponent implements OnInit {
         if (data.code === 200) {
           this.getFiles();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.name = '';
         this.path = '';
@@ -109,7 +114,7 @@ export class FileModelsListComponent implements OnInit {
           this.getFiles();
           ListHelper.disableButtons();
         } else {
-          alert('Deleting error!');
+          this.showAlert('Deleting error!');
         }
         this.name = '';
         this.path = '';
@@ -137,7 +142,7 @@ export class FileModelsListComponent implements OnInit {
         if (data.code === 200) {
           this.files = data.files;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -163,14 +168,15 @@ export class FileModelsListComponent implements OnInit {
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
-          alert('File has been successfully uploaded!');
+          this.showAlert('File has been successfully uploaded!');
           this.getFiles();
         } else {
-          alert('Uploading error!');
+          this.showAlert('Uploading error!');
         }
       })
       .catch((err) => {
-        alert(err);
+        this.mainDataService.alertContent = err;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -205,7 +211,7 @@ export class FileModelsListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.files);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

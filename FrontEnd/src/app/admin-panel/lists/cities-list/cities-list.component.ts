@@ -31,6 +31,11 @@ export class CitiesListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   search(): void {
     fetch('https://localhost:44381/api/cities/search?city=' + this.searchCity, {
       method: 'GET',
@@ -45,7 +50,7 @@ export class CitiesListComponent implements OnInit {
         if (data.code === 200) {
           this.cities = data.cities;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchCity = '';
       })
@@ -74,7 +79,7 @@ export class CitiesListComponent implements OnInit {
         if (data.code === 200) {
           this.getCities();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.city = null;
       })
@@ -105,7 +110,7 @@ export class CitiesListComponent implements OnInit {
           this.getCities();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.city = null;
       })
@@ -136,7 +141,7 @@ export class CitiesListComponent implements OnInit {
           this.getCities();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.city = null;
       })
@@ -163,7 +168,7 @@ export class CitiesListComponent implements OnInit {
         if (data.code === 200) {
           this.cities = data.cities;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -197,7 +202,7 @@ export class CitiesListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.cities);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

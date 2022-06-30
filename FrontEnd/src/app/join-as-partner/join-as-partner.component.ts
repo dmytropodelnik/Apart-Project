@@ -46,13 +46,18 @@ export class JoinAsPartnerComponent implements OnInit {
           this.authService.setLogCondition(false);
           AuthHelper.clearAuth();
         } else {
-          alert('Logout error!');
+          this.showAlert('Logout error!');
         }
       })
       .catch((ex) => {
         this.mainDataService.alertContent = ex;
         this.modalService.open(this.alert);
       });
+  }
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   ngOnInit(): void {}

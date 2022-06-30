@@ -28,6 +28,11 @@ export class GendersListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   search(): void {
     fetch(
       'https://localhost:44381/api/genders/search?gender=' + this.searchGender,
@@ -44,7 +49,7 @@ export class GendersListComponent implements OnInit {
         if (data.code === 200) {
           this.genders = data.genders;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchGender = '';
       })
@@ -73,7 +78,7 @@ export class GendersListComponent implements OnInit {
         if (data.code === 200) {
           this.getGenders();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.gender = '';
       })
@@ -104,7 +109,7 @@ export class GendersListComponent implements OnInit {
           this.getGenders();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.gender = '';
       })
@@ -135,7 +140,7 @@ export class GendersListComponent implements OnInit {
           this.getGenders();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.gender = '';
       })
@@ -159,7 +164,7 @@ export class GendersListComponent implements OnInit {
         if (data.code === 200) {
           this.genders = data.genders;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

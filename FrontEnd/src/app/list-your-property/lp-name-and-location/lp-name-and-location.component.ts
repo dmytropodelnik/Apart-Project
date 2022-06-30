@@ -52,6 +52,11 @@ export class LpNameAndLocationComponent implements OnInit {
     ++this.choice;
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   incrementChoice1() {
     let secondLine = document.getElementById('secondLine');
     if (secondLine !== null) {
@@ -115,7 +120,7 @@ export class LpNameAndLocationComponent implements OnInit {
             counter++;
           }
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -126,7 +131,7 @@ export class LpNameAndLocationComponent implements OnInit {
 
   addPropertyAddress(): void {
     if (this.sCountry == '-1' || !this.sCountry.match(/\d/)) {
-      alert('Select your country!');
+      this.showAlert('Select your country!');
       return;
     }
 

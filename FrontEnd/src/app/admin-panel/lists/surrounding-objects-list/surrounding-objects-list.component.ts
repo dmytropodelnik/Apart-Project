@@ -28,6 +28,11 @@ export class SurroundingObjectsListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   addObject(): void {
     let object = {
       name: this.object,
@@ -47,7 +52,7 @@ export class SurroundingObjectsListComponent implements OnInit {
         if (data.code === 200) {
           this.getObjects();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.object = '';
       })
@@ -78,7 +83,7 @@ export class SurroundingObjectsListComponent implements OnInit {
           this.getObjects();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.object = '';
       })
@@ -109,7 +114,7 @@ export class SurroundingObjectsListComponent implements OnInit {
           this.getObjects();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.object = '';
       })
@@ -136,7 +141,7 @@ export class SurroundingObjectsListComponent implements OnInit {
         if (data.code === 200) {
           this.objects = data.objects;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
@@ -170,7 +175,7 @@ export class SurroundingObjectsListComponent implements OnInit {
         if (data.code === 200) {
           this.collectElements(data.objects);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

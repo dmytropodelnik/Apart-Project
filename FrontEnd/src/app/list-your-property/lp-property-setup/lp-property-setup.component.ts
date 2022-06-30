@@ -59,6 +59,11 @@ export class LpPropertySetupComponent implements OnInit {
     ++this.bedTypesAmount[value];
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   incrementChoice() {
     let firstLine = document.getElementById('firstLine');
     if (firstLine !== null) {
@@ -273,7 +278,7 @@ export class LpPropertySetupComponent implements OnInit {
               this.includedFacilities.push(false);
             }
           } else {
-            alert('Facilities fetching error!');
+            this.showAlert('Facilities fetching error!');
           }
         }
       })
@@ -296,7 +301,7 @@ export class LpPropertySetupComponent implements OnInit {
               this.includedRules.push(false);
             }
           } else {
-            alert('Rules fetching error!');
+            this.showAlert('Rules fetching error!');
           }
         }
       })

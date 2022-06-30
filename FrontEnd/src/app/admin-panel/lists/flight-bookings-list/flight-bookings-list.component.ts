@@ -24,6 +24,11 @@ export class FlightBookingsListComponent implements OnInit {
     private modalService: NgbModal
   ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   addBooking(): void {
     let booking = {
       name: this.booking,
@@ -43,7 +48,7 @@ export class FlightBookingsListComponent implements OnInit {
         if (data.code === 200) {
           this.getBookings();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.booking = '';
       })
@@ -74,7 +79,7 @@ export class FlightBookingsListComponent implements OnInit {
           this.getBookings();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.booking = '';
       })
@@ -105,7 +110,7 @@ export class FlightBookingsListComponent implements OnInit {
           this.getBookings();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.booking = '';
       })
@@ -129,7 +134,7 @@ export class FlightBookingsListComponent implements OnInit {
         if (data.code === 200) {
           this.bookings = data.bookings;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {

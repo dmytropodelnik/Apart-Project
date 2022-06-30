@@ -1,4 +1,11 @@
-import { Component, OnInit, OnDestroy, HostListener, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  HostListener,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MainDataService } from 'src/app/services/main-data.service';
@@ -51,16 +58,21 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
           this.authService.setIsAdmin(false);
           AuthHelper.clearAuth();
 
-          alert('Success logout!');
+          this.showAlert('Success logout');
           document.location.href = 'https://localhost:4200';
         } else {
-          alert('Logout error!');
+          this.showAlert('Logout error!');
         }
       })
       .catch((ex) => {
         this.mainDataService.alertContent = ex;
         this.modalService.open(this.alert);
       });
+  }
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   ngOnInit(): void {

@@ -57,6 +57,11 @@ export class PersonalDetailsListComponent implements OnInit {
     this.isEditing[id] = !this.isEditing[id];
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   editButtonClick(id: number, value: any): void {
     if (id == 6 || id == 8) {
       this.getCountries(id);
@@ -101,7 +106,7 @@ export class PersonalDetailsListComponent implements OnInit {
       .then(async (data) => {
         if (data.code === 200) {
         } else {
-          alert(data.message);
+          this.showAlert(data.message);
         }
       })
       .catch((ex) => {
@@ -227,7 +232,7 @@ export class PersonalDetailsListComponent implements OnInit {
           this.letterAction = false;
           this.sendInfoLetter();
         } else {
-          alert('Save title error!');
+          this.showAlert('Save title error!');
         }
       })
       .catch((ex) => {
@@ -282,7 +287,7 @@ export class PersonalDetailsListComponent implements OnInit {
           this.letterAction = false;
           this.sendInfoLetter();
         } else {
-          alert('Save name error!');
+          this.showAlert('Save name error!');
         }
       })
       .catch((ex) => {
@@ -326,7 +331,7 @@ export class PersonalDetailsListComponent implements OnInit {
           this.letterAction = false;
           this.sendInfoLetter();
         } else {
-          alert('Save display name error!');
+          this.showAlert('Save display name error!');
         }
       })
       .catch((ex) => {
@@ -379,7 +384,7 @@ export class PersonalDetailsListComponent implements OnInit {
                 this.saveButtonClick(id);
                 this.isEmailSent = true;
               } else {
-                alert('Error generating reset link');
+                this.showAlert('Error generating reset link');
               }
             })
             .catch((ex) => {
@@ -387,7 +392,7 @@ export class PersonalDetailsListComponent implements OnInit {
               this.modalService.open(this.alert);
             });
         } else {
-          alert(data.message);
+          this.showAlert(data.message);
         }
       })
       .catch((ex) => {
@@ -435,7 +440,7 @@ export class PersonalDetailsListComponent implements OnInit {
           this.letterAction = false;
           this.sendInfoLetter();
         } else {
-          alert('Save phone number error!');
+          this.showAlert('Save phone number error!');
         }
       })
       .catch((ex) => {
@@ -481,7 +486,7 @@ export class PersonalDetailsListComponent implements OnInit {
             this.letterAction = false;
             this.sendInfoLetter();
           } else {
-            alert('Save birth date error!');
+            this.showAlert('Save birth date error!');
           }
         })
         .catch((ex) => {
@@ -489,13 +494,13 @@ export class PersonalDetailsListComponent implements OnInit {
           this.modalService.open(this.alert);
         });
     } else {
-      alert('Choose a date');
+      this.showAlert('Choose a date');
     }
   }
 
   saveNationality(id: number): void {
     if (this.user.nationality == '-1') {
-      alert('Select your nationality!');
+      this.showAlert('Select your nationality!');
       return;
     }
 
@@ -524,7 +529,7 @@ export class PersonalDetailsListComponent implements OnInit {
           this.letterAction = false;
           this.sendInfoLetter();
         } else {
-          alert('Save nationality error!');
+          this.showAlert('Save nationality error!');
         }
       })
       .catch((ex) => {
@@ -535,7 +540,7 @@ export class PersonalDetailsListComponent implements OnInit {
 
   saveGender(id: number): void {
     if (this.user.genderId != 1 && this.user.genderId != 2) {
-      alert('Select your gender!');
+      this.showAlert('Select your gender!');
       return;
     }
 
@@ -564,7 +569,7 @@ export class PersonalDetailsListComponent implements OnInit {
           this.letterAction = false;
           this.sendInfoLetter();
         } else {
-          alert('Save gender error!');
+          this.showAlert('Save gender error!');
         }
       })
       .catch((ex) => {
@@ -625,7 +630,7 @@ export class PersonalDetailsListComponent implements OnInit {
           this.letterAction = false;
           this.sendInfoLetter();
         } else {
-          alert('Save address error!');
+          this.showAlert('Save address error!');
         }
       })
       .catch((ex) => {
@@ -682,7 +687,7 @@ export class PersonalDetailsListComponent implements OnInit {
           this.user.nationality = response.user.profile.nationality;
           this.user.genderId = response.user.profile.genderId;
         } else {
-          alert('Get current user error!');
+          this.showAlert('Get current user error!');
         }
       })
       .catch((ex) => {
@@ -715,7 +720,7 @@ export class PersonalDetailsListComponent implements OnInit {
             }
           }
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
