@@ -11,20 +11,16 @@ using CloneBookingAPI.Database.Models.Suggestions;
 using CloneBookingAPI.Database.Models.UserData;
 using CloneBookingAPI.Database.Models.ViewModels;
 using CloneBookingAPI.Services.Database.Configurations;
-using CloneBookingAPI.Services.Database.Configurations.Flights;
 using CloneBookingAPI.Services.Database.Configurations.Location;
 using CloneBookingAPI.Services.Database.Configurations.Payment;
 using CloneBookingAPI.Services.Database.Configurations.Review;
-using CloneBookingAPI.Services.Database.Configurations.Services;
 using CloneBookingAPI.Services.Database.Configurations.Suggestions;
 using CloneBookingAPI.Services.Database.Configurations.UserData;
 using CloneBookingAPI.Services.Database.Configurations.UserProfile;
 using CloneBookingAPI.Services.Database.Models;
-using CloneBookingAPI.Services.Database.Models.Flights;
 using CloneBookingAPI.Services.Database.Models.Location;
 using CloneBookingAPI.Services.Database.Models.Payment;
 using CloneBookingAPI.Services.Database.Models.Review;
-using CloneBookingAPI.Services.Database.Models.Services;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Database.Models.UserData;
 using CloneBookingAPI.Services.Database.Models.UserProfile;
@@ -39,10 +35,6 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<ContactDetails> ContactDetails { get; set; }
         public DbSet<Guest> Guests { get; set; }
         public DbSet<StayBooking> StayBookings { get; set; }
-        public DbSet<FlightBooking> FlightBookings { get; set; }
-        public DbSet<CarRentalBooking> CarRentalBookings { get; set; }
-        public DbSet<AttractionBooking> AttractionBookings { get; set; }
-        public DbSet<AirportTaxiBooking> AirportTaxiBookings { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<PaymentType> PaymentTypes { get; set; }
         public DbSet<CreditCard> CreditCards { get; set; }
@@ -68,7 +60,6 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<SuggestionRuleType> SuggestionRuleTypes { get; set; }
         public DbSet<SuggestionReviewGrade> SuggestionReviewGrades { get; set; }
         public DbSet<SuggestionHighlight> SuggestionHighlights { get; set; }
-        public DbSet<FlightClassType> FlightClassTypes { get; set; }
         public DbSet<Suggestion> Suggestions { get; set; }
         public DbSet<CardType> CardTypes { get; set; }
         public DbSet<Currency> Currencies { get; set; }
@@ -232,7 +223,6 @@ namespace CloneBookingAPI.Services.Database
                         j.HasKey(t => new { t.StayBookingId, t.ApartmentId });
                     });
 
-            modelBuilder.ApplyConfiguration(new FlightClassTypesConfiguration());
             modelBuilder.ApplyConfiguration(new AddressesConfiguration());
             modelBuilder.ApplyConfiguration(new AirportsConfiguration());
             modelBuilder.ApplyConfiguration(new CitiesConfiguration());
@@ -256,17 +246,12 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new AreaInfosConfiguration());
             modelBuilder.ApplyConfiguration(new AreaInfoTypesConfiguration());
             modelBuilder.ApplyConfiguration(new StayBookingsConfiguration());
-            modelBuilder.ApplyConfiguration(new FlightBookingsConfiguration());
-            modelBuilder.ApplyConfiguration(new CarRentalBookingsConfiguration());
-            modelBuilder.ApplyConfiguration(new AttractionBookingsConfiguration());
-            modelBuilder.ApplyConfiguration(new AirportTaxiBookingsConfiguration());
             modelBuilder.ApplyConfiguration(new BookingCategoriesConfiguration());
             modelBuilder.ApplyConfiguration(new FacilitiesConfiguration());
             modelBuilder.ApplyConfiguration(new FacilityTypesConfiguration());
             modelBuilder.ApplyConfiguration(new LanguagesConfiguration());
             modelBuilder.ApplyConfiguration(new NotificationsConfiguration());
             modelBuilder.ApplyConfiguration(new ServicesCategoriesConfiguration());
-            modelBuilder.ApplyConfiguration(new FlightBookingsConfiguration());
             modelBuilder.ApplyConfiguration(new FileModelConfiguration());
             modelBuilder.ApplyConfiguration(new GuestsConfiguration());
             modelBuilder.ApplyConfiguration(new SuggestionsConfiguration());
