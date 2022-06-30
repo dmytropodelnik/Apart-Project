@@ -16,6 +16,7 @@ import { SocialUser } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 import { MainDataService } from '../services/main-data.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BookingFinalStepComponent } from '../booking-properties/booking-final-step/booking-final-step.component';
 
 @Component({
   selector: 'app-auth',
@@ -36,6 +37,7 @@ export class AuthComponent implements OnInit {
   submitted: boolean = false;
   isPasswordsEqual: boolean = false;
   letterAction: boolean = false;
+  signInWithPassword: boolean = false;
 
   userFirstName: string = '';
   userLastName: string = '';
@@ -90,6 +92,11 @@ export class AuthComponent implements OnInit {
 
   get f2() {
     return this.codeForm.controls;
+  }
+
+
+  checkSignInOption(){
+    this.signInWithPassword = !this.signInWithPassword;
   }
 
   sendInfoLetter(): void {

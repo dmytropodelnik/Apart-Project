@@ -340,3 +340,10 @@ body .bui_font_caption {
   padding: 3px;
   transform: rotate(135deg);
 }
+
+.login-with-password1 {
+  display: flex;
+  padding: 5px 10px;
+  gap: 10px;
+  width: 100%;
+}

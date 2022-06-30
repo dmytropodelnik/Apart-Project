@@ -53,6 +53,10 @@
                     Email must be a valid email address
                   </div>
                 </div>
+                <div class="login-with-password1">
+                  <input type="checkbox" id="login-with-password" (change)="checkSignInOption()" [ngModel]="signInWithPassword">
+                  <span>Sign-in with password</span>
+                </div>
                 <div class="signinbutton">
                   <button
                     [disabled]="emailForm.invalid"
@@ -73,7 +77,7 @@
               *ngIf="isAccountExists === true; then SignIn; else SignUp"
             ></div>
             <ng-template #SignIn>
-              <div class="page-header align_formGroup">
+              <div class="page-header align_formGroup" *ngIf="signInWithPassword === false">
                 <h1>Check your inbox</h1>
                 <div class="">
                   <span class="verificationCode_text">
@@ -83,12 +87,18 @@
                   </span>
                 </div>
               </div>
-              <!-- <div class="mt-4 mb-3">
+
+               <div class="mt-4 mb-3" *ngIf="signInWithPassword === true">
                 <label for="email">Password</label>
                 <input type="password" class="auth-input" name="password" [(ngModel)]="password" />
-              </div> -->
-              <div class="signinbutton">
-                <button class="auth-btn" routerLink="">Back to sign-in</button>
+              </div>
+
+              <div class="signinbutton" *ngIf="signInWithPassword === false">
+                <button class="auth-btn" routerLink="">Back to home</button>
+              </div> 
+              
+              <div class="signinbutton" *ngIf="signInWithPassword === true">
+                <button class="auth-btn" routerLink="">Sign-in</button>
               </div>
             </ng-template>
             <ng-template #SignUp>
@@ -111,7 +121,7 @@
                         Google
                       </button>
                       <button class="alteritive_signin">
-                        <img src="../../assets/images/FB icon.png" />Sign in
+                        <img src="../../assets/images/Facebook.png" />Sign in
                         with Facebook
                       </button>
                     </div>
