@@ -386,7 +386,7 @@ namespace CloneBookingAPI.Controllers
                 {
                     return Json(new { code = 200, message = "Login success." });
                 }
-                return Json(new { code = 400, message = "Incorrect login or password." });
+                return Json(new { code = 400, message = "Incorrect password." });
             }
             catch (ArgumentNullException ex)
             {
