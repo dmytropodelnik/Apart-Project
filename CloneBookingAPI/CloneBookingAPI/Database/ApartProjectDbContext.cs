@@ -38,7 +38,6 @@ namespace CloneBookingAPI.Services.Database
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<ContactDetails> ContactDetails { get; set; }
         public DbSet<Guest> Guests { get; set; }
-        public DbSet<Cart> Carts { get; set; }
         public DbSet<StayBooking> StayBookings { get; set; }
         public DbSet<FlightBooking> FlightBookings { get; set; }
         public DbSet<CarRentalBooking> CarRentalBookings { get; set; }
@@ -269,7 +268,6 @@ namespace CloneBookingAPI.Services.Database
             modelBuilder.ApplyConfiguration(new ServicesCategoriesConfiguration());
             modelBuilder.ApplyConfiguration(new FlightBookingsConfiguration());
             modelBuilder.ApplyConfiguration(new FileModelConfiguration());
-            modelBuilder.ApplyConfiguration(new CartsConfiguration());
             modelBuilder.ApplyConfiguration(new GuestsConfiguration());
             modelBuilder.ApplyConfiguration(new SuggestionsConfiguration());
             modelBuilder.ApplyConfiguration(new SuggestionHighlightsConfiguration());

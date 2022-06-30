@@ -60,8 +60,6 @@ namespace CloneBookingAPI.Services.Database.Models
         [ForeignKey("RoleId")]
         public Role Role { get; set; }
 
-        public Cart Cart { get; set; }
-
         // REDUNDANT
         // public int ProfileId { get; set; }
         public UserProfile.UserProfile Profile { get; set; }
