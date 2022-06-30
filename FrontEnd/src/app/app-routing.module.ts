@@ -6,7 +6,6 @@ import { LayoutComponent } from './layout/layout.component';
 import { AdminAuthComponent } from './admin-auth/admin-auth.component';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { VerifyEnterComponent } from './verify-enter/verify-enter.component';
-import { FlightsComponent } from './flights/flights.component';
 import { AdminPanelGuard } from './admin-panel/admin-main-body/admin-panel.guard';
 import { JoinAsPartnerComponent } from './join-as-partner/join-as-partner.component';
 import { ViewPropertyComponent as ViewPropertiesComponent } from './view-properties/view-properties.component';
@@ -41,7 +40,6 @@ const routes: Routes = [
   { path: 'adminlogin', component: AdminAuthComponent },
   { path: 'upload', component: FileUploadComponent },
   { path: 'confirmemail', component: VerifyEnterComponent },
-  //{ path: 'flights', component: FlightsComponent },
   { path: 'joinpartner', component: JoinAsPartnerComponent },
   { path: 'saved', component: UserSavedComponent },
   {
