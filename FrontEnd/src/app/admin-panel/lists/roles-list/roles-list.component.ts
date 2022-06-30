@@ -47,8 +47,7 @@ export class RolesListComponent implements OnInit {
         this.searchRole = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -76,8 +75,7 @@ export class RolesListComponent implements OnInit {
         this.role = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -107,8 +105,7 @@ export class RolesListComponent implements OnInit {
         this.role = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -138,8 +135,7 @@ export class RolesListComponent implements OnInit {
         this.role = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -161,8 +157,7 @@ export class RolesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 

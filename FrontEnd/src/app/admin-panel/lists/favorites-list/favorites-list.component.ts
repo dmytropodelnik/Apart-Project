@@ -56,8 +56,7 @@ export class FavoritesListComponent implements OnInit {
         this.searchFavorite = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -85,8 +84,7 @@ export class FavoritesListComponent implements OnInit {
         this.favorite = null;
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -115,8 +113,7 @@ export class FavoritesListComponent implements OnInit {
         this.favorite = null;
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -146,8 +143,7 @@ export class FavoritesListComponent implements OnInit {
         this.favorite = null;
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -172,8 +168,7 @@ export class FavoritesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -206,8 +201,7 @@ export class FavoritesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 

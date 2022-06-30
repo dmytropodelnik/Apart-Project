@@ -75,8 +75,7 @@ export class ResetPasswordComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -108,8 +107,7 @@ export class ResetPasswordComponent implements OnInit {
         this.authService.setResetPasswordCondition(false);
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 

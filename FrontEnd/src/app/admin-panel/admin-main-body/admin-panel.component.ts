@@ -65,8 +65,7 @@ export class AdminPanelComponent implements OnInit, OnDestroy {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 

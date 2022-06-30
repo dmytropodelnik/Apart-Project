@@ -78,8 +78,7 @@ export class UserSavedComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -119,8 +118,7 @@ export class UserSavedComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 }

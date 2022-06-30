@@ -54,8 +54,7 @@ export class GendersListComponent implements OnInit {
         this.searchGender = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -83,8 +82,7 @@ export class GendersListComponent implements OnInit {
         this.gender = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -114,8 +112,7 @@ export class GendersListComponent implements OnInit {
         this.gender = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -145,8 +142,7 @@ export class GendersListComponent implements OnInit {
         this.gender = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -168,8 +164,7 @@ export class GendersListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 

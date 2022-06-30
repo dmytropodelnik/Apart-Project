@@ -175,8 +175,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -283,8 +282,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 

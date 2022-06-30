@@ -94,8 +94,7 @@ export class AuthComponent implements OnInit {
     return this.codeForm.controls;
   }
 
-
-  checkSignInOption(){
+  checkSignInOption() {
     this.signInWithPassword = !this.signInWithPassword;
   }
 
@@ -143,8 +142,7 @@ export class AuthComponent implements OnInit {
         this.isExistUser = true;
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -176,8 +174,7 @@ export class AuthComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -214,8 +211,7 @@ export class AuthComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -232,12 +228,36 @@ export class AuthComponent implements OnInit {
       }
     )
       .then((r) => r.json())
-      .then((data) => {
+      .catch((ex) => {
+        this.showAlert(ex);
+      });
+  }
 
+  loginWithPassword(): void {
+    if (this.password.length == 0) {
+      this.showAlert('Password length must be greater than zero!');
+      return;
+    }
+
+    fetch(
+      `https://localhost:44381/api/auth/loginwithpassword?email=${this.email}&password=${this.password}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.userSignIn();
+        } else {
+          this.showAlert(response.message);
+        }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -284,8 +304,7 @@ export class AuthComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -422,8 +441,7 @@ export class AuthComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -470,8 +488,7 @@ export class AuthComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 

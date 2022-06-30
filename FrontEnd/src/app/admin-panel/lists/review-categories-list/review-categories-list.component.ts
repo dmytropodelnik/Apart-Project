@@ -56,8 +56,7 @@ export class ReviewCategoriesListComponent implements OnInit {
         this.searchCategory = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -85,8 +84,7 @@ export class ReviewCategoriesListComponent implements OnInit {
         this.category = null;
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -116,8 +114,7 @@ export class ReviewCategoriesListComponent implements OnInit {
         this.category = null;
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -147,8 +144,7 @@ export class ReviewCategoriesListComponent implements OnInit {
         this.category = null;
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -173,8 +169,7 @@ export class ReviewCategoriesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -207,8 +202,7 @@ export class ReviewCategoriesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 

@@ -95,10 +95,10 @@
 
               <div class="signinbutton" *ngIf="signInWithPassword === false">
                 <button class="auth-btn" routerLink="">Back to home</button>
-              </div> 
-              
+              </div>
+
               <div class="signinbutton" *ngIf="signInWithPassword === true">
-                <button class="auth-btn" routerLink="">Sign-in</button>
+                <button class="auth-btn" (click)="loginWithPassword()">Sign-in</button>
               </div>
             </ng-template>
             <ng-template #SignUp>

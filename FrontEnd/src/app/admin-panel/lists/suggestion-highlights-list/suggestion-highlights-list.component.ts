@@ -58,8 +58,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
         this.highlight = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -89,8 +88,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
         this.highlight = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -120,8 +118,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
         this.highlight = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -146,8 +143,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -180,8 +176,7 @@ export class SuggestionHighlightsListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 

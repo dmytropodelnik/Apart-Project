@@ -51,8 +51,7 @@ export class FooterComponent implements OnInit {
         this.email = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 

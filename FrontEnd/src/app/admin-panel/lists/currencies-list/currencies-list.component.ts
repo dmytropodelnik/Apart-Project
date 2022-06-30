@@ -58,8 +58,7 @@ export class CurrenciesListComponent implements OnInit {
         this.searchCurrency = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -91,8 +90,7 @@ export class CurrenciesListComponent implements OnInit {
         this.currency.bankCode = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -126,8 +124,7 @@ export class CurrenciesListComponent implements OnInit {
         this.currency.bankCode = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -161,8 +158,7 @@ export class CurrenciesListComponent implements OnInit {
         this.currency.bankCode = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -187,8 +183,7 @@ export class CurrenciesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -221,8 +216,7 @@ export class CurrenciesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 

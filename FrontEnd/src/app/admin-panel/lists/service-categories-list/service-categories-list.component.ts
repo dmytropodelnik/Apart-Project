@@ -58,8 +58,7 @@ export class ServiceCategoriesListComponent implements OnInit {
         this.searchCategory = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -87,8 +86,7 @@ export class ServiceCategoriesListComponent implements OnInit {
         this.category.category = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -118,8 +116,7 @@ export class ServiceCategoriesListComponent implements OnInit {
         this.category.category = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -149,8 +146,7 @@ export class ServiceCategoriesListComponent implements OnInit {
         this.category.category = '';
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -172,8 +168,7 @@ export class ServiceCategoriesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
@@ -206,8 +201,7 @@ export class ServiceCategoriesListComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        this.mainDataService.alertContent = ex;
-        this.modalService.open(this.alert);
+        this.showAlert(ex);
       });
   }
 
