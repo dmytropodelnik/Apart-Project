@@ -2,91 +2,47 @@
   <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
 </ng-template>
 <!-- nav -->
-<header class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs">
-  <nav class="bui-header__bar navbar navbar-expand-sm">
+<header class="header header--logo-large header--rounded-tabs">
+  <nav class="header__bar navbar navbar-expand-sm">
     <div class="header_text" routerLink="">Apart.fun</div>
     <div>
-      <a class="d-block d-md-none text-white"></a>
-      <div class="bui-group bui-button-group bui-group--inline bui-group--align-end bui-group--vertical-align-middle">
-        <!-- <div class="bui-group__item">
-          <button
-            class="bui-button bui-button--light bui-button--large"
-            data-toggle="tooltip"
-            data-placement="bottom"
-            title="Choose your language"
-          >
-            <span class="bui-button__text">
-              <div class="bui-avatar bui-avatar--small" aria-hidden="true">
-                <img
-                  class="bui-avatar__image"
-                  src="assets/images/us-flag.png"
-                  alt=""
-                />
-              </div>
-              <span class="bui-u-sr-only">
-                Choose your language. Your current language is English (US)
-              </span>
-            </span>
-          </button>
-        </div> -->
-        <div class="bui-group__item">
-          <button class="bui-button1 bui-button--large" data-toggle="tooltip" data-placement="top"
+      <div class="group button-group group--inline group--align-end group--vertical-align-middle">
+        <div class="group__item">
+          <button class="button1 button--large" data-toggle="tooltip" data-placement="top"
             title="Choose your currency">
             <span class="robotomonoregular">
               <span aria-hidden="true"> USD </span>
             </span>
           </button>
         </div>
-        <div class="bui-group__item">
-          <button class="bui-button1 bui-button--large" routerLink="/joinpartner">
+        <div class="group__item">
+          <button class="button1 button--large" routerLink="/joinpartner">
             <span class="robotomonoregular"> List your property </span>
           </button>
         </div>
-        <!-- <div class="bui-group__item">
-          <a class="bui-button bui-button--light bui-button--large">
-            <span class="bui-button__icon">
-              <span aria-hidden="true" class="bui-icon1 bui-icon--large">
-                <svg
-                  class="bk-icon -streamline-bell_normal"
-                  height="24"
-                  width="24"
-                  viewBox="0 0 24 24"
-                  role="presentation"
-                  aria-hidden="true"
-                  focusable="false"
-                >
-                  <path
-                    d="M9.28 21.961a2.837 2.837 0 0 0 5.445 0 .75.75 0 1 0-1.44-.422 1.337 1.337 0 0 1-2.565 0 .75.75 0 1 0-1.44.422zM12.75 3V.75a.75.75 0 0 0-1.5 0V3a.75.75 0 0 0 1.5 0zm-.75.75a6.75 6.75 0 0 1 6.75 6.75c0 3.154.29 5.436.785 6.994.323 1.02.684 1.59.995 1.84L21 18H3l.59 1.212c.248-.315.572-.958.88-2 .49-1.66.78-3.872.78-6.712A6.75 6.75 0 0 1 12 3.75zm0-1.5a8.25 8.25 0 0 0-8.25 8.25c0 2.702-.272 4.772-.72 6.288-.254.864-.493 1.336-.62 1.5A.75.75 0 0 0 3 19.5h18c.708 0 1.022-.892.47-1.335.019.016-.008-.015-.07-.113-.14-.223-.29-.553-.435-1.012-.443-1.396-.715-3.529-.715-6.54A8.25 8.25 0 0 0 12 2.25z"
-                  ></path>
-                </svg>
-              </span>
-              <span class="bui-u-sr-only"> Notification Bell </span>
-            </span>
-          </a>
-        </div> -->
         <div *ngIf="
             authService.getLogCondition() === true;
             then thenBlock;
             else elseBlock
           "></div>
         <ng-template #thenBlock>
-          <div class="bui-group__item" class="dropdown">
-            <button class="bui-button bui-button--light bui-button--large" data-toggle="dropdown">
-              <div class="bui-avatar bui-avatar--small" aria-hidden="true">
+          <div class="group__item" class="dropdown">
+            <button class="button button--light button--large" data-toggle="dropdown">
+              <div class="avatar avatar--small" aria-hidden="true">
                 <img *ngIf="
                     authService.getUserImage() &&
                     authService.getUserImage().indexOf('https://') !== -1
-                  " class="bui-avatar__image" src="{{ authService.getUserImage() }}" alt="user image" />
+                  " class="avatar__image" src="{{ authService.getUserImage() }}" alt="user image" />
                 <img *ngIf="
                     authService.getUserImage() &&
                     authService.getUserImage().indexOf('https://') === -1
-                  " class="bui-avatar__image" src="{{ imageHelper.getRootDirectoryPath() }}{{
+                  " class="avatar__image" src="{{ imageHelper.getRootDirectoryPath() }}{{
                     authService.getUserImage()
                   }}" alt="user image" />
-                <img *ngIf="!authService.getUserImage()" class="bui-avatar__image" src="../../assets/images/User1.png"
+                <img *ngIf="!authService.getUserImage()" class="avatar__image" src="../../assets/images/User1.png"
                   alt="user image" />
               </div>
-              <span class="bui-avatar--button-auth">
+              <span class="avatar--button-auth">
                 <span aria-hidden="true"> {{ authHelper.getLogin() }} </span>
               </span>
             </button>
@@ -122,20 +78,20 @@
           </div>
         </ng-template>
         <ng-template #elseBlock>
-          <div class="bui-group__item">
-            <a class="login-button bui-button--secondary js-header-login-link" routerLink="/auth">
-              <span class="bui-button__text1"> Register </span>
+          <div class="group__item">
+            <a class="login-button button--secondary" routerLink="/auth">
+              <span class="button__text1"> Register </span>
             </a>
           </div>
-          <div class="bui-group__item">
+          <div class="group__item">
             <svg class="bk-icon -streamline-account_create" height="24" style="display: none" width="24"
               viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false">
               <path
                 d="M22.5 17.25a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0zm1.5 0a6.75 6.75 0 1 0-13.5 0 6.75 6.75 0 0 0 13.5 0zm-7.5-3v6a.75.75 0 0 0 1.5 0v-6a.75.75 0 0 0-1.5 0zM14.25 18h6a.75.75 0 0 0 0-1.5h-6a.75.75 0 0 0 0 1.5zM1.5 17.25a6.003 6.003 0 0 1 8.356-5.518.75.75 0 0 0 .588-1.38A7.504 7.504 0 0 0 0 17.25a.75.75 0 0 0 1.5 0zm9.375-12.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0zm1.5 0a4.875 4.875 0 1 0-9.75 0 4.875 4.875 0 0 0 9.75 0z">
               </path>
             </svg>
-            <a class="login-button bui-button--secondary js-header-login-link" routerLink="/auth">
-              <span class="bui-button__text1"> Sign in </span>
+            <a class="login-button button--secondary" routerLink="/auth">
+              <span class="button__text1"> Sign in </span>
             </a>
           </div>
         </ng-template>
@@ -146,11 +102,11 @@
     <span class="HeaderSubText">What´s next, Traveler?</span>
     <span class="HeaderSubText1">Search deals on Hotels, Homes, and much more...</span>
   </div>
-  <nav class="bui-tab bui-header__tab bui-tab--borderless bui-tab--light bui-tab--rounded">
-    <ul class="bui-tab__nav">
-      <li class="bui-tab__item">
-        <a aria-current="page" class="bui-tab__link1" routerLinkActive="activeRoute" routerLink="/stays">
-          <span aria-hidden="true" class="bui-icon bui-tab__icon bui-icon--medium">
+  <nav class="header__tab tab--rounded">
+    <ul class="tab__nav">
+      <li class="tab__item">
+        <a aria-current="page" class="tab__link1" routerLinkActive="activeRoute" routerLink="/stays">
+          <span aria-hidden="true" class="icon tab__icon icon--medium">
             <svg class="bk-icon -streamline-bed" height="24" width="24" viewBox="0 0 24 24" role="presentation"
               aria-hidden="true" focusable="false">
               <path
@@ -159,12 +115,12 @@
             </svg>
           </span>
 
-          <span class="bui-tab__text"> Stays </span>
+          <span class="tab__text"> Stays </span>
         </a>
       </li>
-      <li class="bui-tab__item">
-        <a class="bui-tab__link" rel="nofollow" routerLinkActive="activeRoute" routerLink="/flights">
-          <span aria-hidden="true" class="bui-icon bui-tab__icon bui-icon--medium">
+      <li class="tab__item">
+        <a class="tab__link" rel="nofollow" routerLinkActive="activeRoute" routerLink="/flights">
+          <span aria-hidden="true" class="icon tab__icon icon--medium">
             <svg class="bk-icon -streamline-transport_airplane" height="24" width="24" viewBox="0 0 24 24"
               role="presentation" aria-hidden="true" focusable="false">
               <path
@@ -172,12 +128,12 @@
               </path>
             </svg>
           </span>
-          <span class="bui-tab__text"> Flights </span>
+          <span class="tab__text"> Flights </span>
         </a>
       </li>
-      <li class="bui-tab__item">
-        <a class="bui-tab__link" rel="nofollow" routerLinkActive="activeRoute" routerLink="/CarRentals">
-          <span aria-hidden="true" class="bui-icon bui-tab__icon bui-icon--medium">
+      <li class="tab__item">
+        <a class="tab__link" rel="nofollow" routerLinkActive="activeRoute" routerLink="/CarRentals">
+          <span aria-hidden="true" class="icon tab__icon icon--medium">
             <svg class="bk-icon -streamline-transport_airplane" height="24" width="24" viewBox="0 0 24 24"
               role="presentation" aria-hidden="true" focusable="false">
               <path
@@ -185,12 +141,12 @@
               </path>
             </svg>
           </span>
-          <span class="bui-tab__text"> Car rentals </span>
+          <span class="tab__text"> Car rentals </span>
         </a>
       </li>
-      <li class="bui-tab__item">
-        <a class="bui-tab__link" href="javascript:void(0)">
-          <span aria-hidden="true" class="bui-icon bui-tab__icon bui-icon--medium">
+      <li class="tab__item">
+        <a class="tab__link">
+          <span aria-hidden="true" class="icon tab__icon icon--medium">
             <svg class="bk-icon -streamline-attractions" height="24" width="24" viewBox="0 0 24 24" role="presentation"
               aria-hidden="true" focusable="false">
               <path
@@ -198,12 +154,12 @@
               </path>
             </svg>
           </span>
-          <span class="bui-tab__text"> Attractions </span>
+          <span class="tab__text"> Attractions </span>
         </a>
       </li>
-      <li class="bui-tab__item">
-        <a class="bui-tab__link" rel="nofollow" routerLinkActive="activeRoute" routerLink="/Airporttaxis">
-          <span aria-hidden="true" class="bui-icon bui-tab__icon bui-icon--medium">
+      <li class="tab__item">
+        <a class="tab__link" rel="nofollow" routerLinkActive="activeRoute" routerLink="/Airporttaxis">
+          <span aria-hidden="true" class="icon tab__icon icon--medium">
             <svg class="bk-icon -streamline-transport_airplane" height="24" width="24" viewBox="0 0 24 24"
               role="presentation" aria-hidden="true" focusable="false">
               <path
@@ -211,1038 +167,10 @@
               </path>
             </svg>
           </span>
-          <span class="bui-tab__text"> Airport taxis </span>
+          <span class="tab__text"> Airport taxis </span>
         </a>
       </li>
     </ul>
   </nav>
 </header>
 <!-- nav end -->
-
-<!-- <ng-template #content let-c="close">
-  <div class="modal-header border-0 px-4 pb-0">
-    <h4>Select your language</h4>
-    <button type="button" class="close" aria-label="Close" (click)="c('Save click')">
-      <i class="fas fa-times"></i>
-    </button>
-  </div>
-  <div class="modal-body px-4 pb-2">
-    <div class="fs-14 fw-700 lh-20 mb-3">Suggested for you</div>
-    <div class="row mx-0">
-      <div class="col-md-3  p-0 mb-3">
-        <a href="javascript:void(0)" class="text-black active">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-6.png" alt="">
-              </div>
-            <div class="ml-3">English (US)</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-2.png" alt="">
-            </div>
-          <div class="ml-3">简体中文</div>
-        </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-3.png" alt="">
-            </div>
-          <div class="ml-3">Deutsch</div>
-        </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-4.png" alt="">
-            </div>
-          <div class="ml-3">العربية</div>
-        </div>
-        </a>
-      </div>
-       <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-5.png" alt="">
-            </div>
-          <div class="ml-3">Русский</div>
-        </div>
-        </a>
-      </div>
-    </div>
-    <div class="fs-14 fw-700 lh-20 my-3">All languages</div>
-    <div class="row mx-0 my-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-1.png" alt="">
-              </div>
-            <div class="ml-3">English (UK)</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-6.png" alt="">
-              </div>
-            <div class="ml-3">English (US)</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-3.png" alt="">
-            </div>
-          <div class="ml-3">Deutsch</div>
-        </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-5.png" alt="">
-            </div>
-          <div class="ml-3">Nederlands</div>
-        </div>
-        </a>
-      </div>
-    </div>
-    <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-fr.png" alt="">
-              </div>
-            <div class="ml-3">
-              Français</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-9.png" alt="">
-              </div>
-            <div class="ml-3">Español</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-esp.png" alt="">
-            </div>
-          <div class="ml-3">Español (AR)</div>
-        </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-10.png" alt="">
-            </div>
-          <div class="ml-3">Español (MX)</div>
-        </div>
-        </a>
-      </div>
-    </div>
-    <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-cat.png" alt="">
-              </div>
-            <div class="ml-3">Català</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-ital.png" alt="">
-              </div>
-            <div class="ml-3">Italiano</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-pt.png" alt="">
-            </div>
-          <div class="ml-3">Português (PT)</div>
-        </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-br.png" alt="">
-            </div>
-          <div class="ml-3">Português (BR)</div>
-        </div>
-        </a>
-      </div>
-    </div>
-    <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-11.png" alt="">
-              </div>
-            <div class="ml-3">Norsk</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-12.png" alt="">
-              </div>
-            <div class="ml-3">Suomi</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-14.png" alt="">
-            </div>
-          <div class="ml-3">Svenska</div>
-        </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-15.png" alt="">
-            </div>
-          <div class="ml-3">Dansk</div>
-        </div>
-        </a>
-      </div>
-    </div>
-    <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-16.png" alt="">
-              </div>
-            <div class="ml-3">Čeština</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-17.png" alt="">
-              </div>
-            <div class="ml-3">Magyar</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-rom.png" alt="">
-            </div>
-          <div class="ml-3">Română</div>
-        </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-40.png" alt="">
-            </div>
-          <div class="ml-3">日本語</div>
-        </div>
-        </a>
-      </div>
-    </div>
-    <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-2.png" alt="">
-              </div>
-            <div class="ml-3">简体中文</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-41.png" alt="">
-              </div>
-            <div class="ml-3">繁體中文</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-42.png" alt="">
-            </div>
-          <div class="ml-3">Polski</div>
-        </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-43.png" alt="">
-            </div>
-          <div class="ml-3">Ελληνικά</div>
-        </div>
-        </a>
-      </div>
-    </div>
-    <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-44.png" alt="">
-              </div>
-            <div class="ml-3">Русский</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-trkey.png" alt="">
-              </div>
-            <div class="ml-3">Türkçe</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-45.png" alt="">
-            </div>
-          <div class="ml-3"> Български</div>
-        </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-4.png" alt="">
-            </div>
-          <div class="ml-3">العربية</div>
-        </div>
-        </a>
-      </div>
-    </div>
-    <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-46.png" alt="">
-              </div>
-            <div class="ml-3">한국어</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-47.png" alt="">
-              </div>
-            <div class="ml-3"> עברית</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-48.png" alt="">
-            </div>
-          <div class="ml-3"> Latviski</div>
-        </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-49.png" alt="">
-            </div>
-          <div class="ml-3"> Українська</div>
-        </div>
-        </a>
-      </div>
-    </div>
-    <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-22.png" alt="">
-              </div>
-            <div class="ml-3">Bahasa Indonesia</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-23.png" alt="">
-              </div>
-            <div class="ml-3">Bahasa Malaysia</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-24.png" alt="">
-            </div>
-          <div class="ml-3">ภาษาไทย</div>
-        </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-25.png" alt="">
-            </div>
-          <div class="ml-3">Eesti</div>
-        </div>
-        </a>
-      </div>
-    </div>
-    <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-26.png" alt="">
-              </div>
-            <div class="ml-3">Hrvatski</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-27.png" alt="">
-              </div>
-            <div class="ml-3">Lietuvių</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-28.png" alt="">
-            </div>
-          <div class="ml-3"> Slovenčina</div>
-        </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-50.png" alt="">
-            </div>
-          <div class="ml-3"> Srpski</div>
-        </div>
-        </a>
-      </div>
-    </div>
-    <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-30.png" alt="">
-              </div>
-            <div class="ml-3">Slovenščina</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex align-items-center">
-              <div class="flag">
-                <img src="assets/flag/flag-31.png" alt="">
-              </div>
-            <div class="ml-3">Tiếng Việt</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-32.png" alt="">
-            </div>
-          <div class="ml-3">Filipino</div>
-        </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-        <div class="d-flex align-items-center">
-            <div class="flag">
-              <img src="assets/flag/flag-33.png" alt="">
-            </div>
-          <div class="ml-3"> Íslenska</div>
-        </div>
-        </a>
-      </div>
-    </div>
-  </div>
-
-</ng-template>
-
-<ng-template #content1 let-c="close">
-  <div class="modal-header border-0 px-4 pb-0">
-    <h4>Select your currency</h4>
-    <button type="button" class="close" aria-label="Close" (click)="c('Save click')">
-      <i class="fas fa-times"></i>
-    </button>
-  </div>
-  <div class="modal-body px-4 pb-2">
-    <div class="fs-14 fw-700 lh-20 mb-3">Suggested for you</div>
-    <div class="row mx-0">
-      <div class="col-md-3  p-0 mb-3">
-        <a href="javascript:void(0)" class=" text-black active">
-          <div class="d-flex flex-column">
-            <div class="currency-name">Euro</div>
-            <div class="currency-sign">EUR</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">U.S.dollor</div>
-            <div class="currency-sign">USD</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">Pound  sterling</div>
-            <div class="currency-sign">GBP</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">U.A.E dirham</div>
-            <div class="currency-sign">EUR</div>
-          </div>
-        </a>
-      </div>
-       <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">Saudi Arabian riyal</div>
-            <div class="currency-sign">SAR</div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="fs-14 fw-700 lh-20 my-3">All currencies</div>
-    <div class="row mx-0 my-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">Property currency</div>
-            <div class="currency-sign">€£$</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">Argentine peso</div>
-            <div class="currency-sign">ARS</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">Australian dollar</div>
-            <div class="currency-sign">AUD</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">Azerbaijan, New Manats</div>
-            <div class="currency-sign">AZN</div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">Bahrain dinar</div>
-            <div class="currency-sign">BHD</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Brazilian real</div>
-            <div class="currency-sign">BRL</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Bulgarian lev</div>
-            <div class="currency-sign">BGN</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Canadian dollar</div>
-            <div class="currency-sign">CAD</div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> CFA Franc BCEAO</div>
-            <div class="currency-sign">XOF</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Chilean peso</div>
-            <div class="currency-sign">CLP</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">  Chinese yuan</div>
-            <div class="currency-sign">CNY</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">  Colombian peso</div>
-            <div class="currency-sign">COP</div>
-          </div>
-        </a>
-      </div>
-    </div>
-     <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Czech koruna</div>
-            <div class="currency-sign">CZK</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">  Danish krone</div>
-            <div class="currency-sign">DKK</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">  Egyptian pound</div>
-            <div class="currency-sign">EGP</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Euro</div>
-            <div class="currency-sign">EUR</div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Fijian dollar</div>
-            <div class="currency-sign">FJD</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">  Georgian lari</div>
-            <div class="currency-sign">GEL</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Hong Kong Dollar</div>
-            <div class="currency-sign">HKD</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">   Hungarian forint</div>
-            <div class="currency-sign">HUF</div>
-          </div>
-        </a>
-      </div>
-    </div>
-     <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Indian rupee</div>
-            <div class="currency-sign">INR</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Indonesian rupiah</div>
-            <div class="currency-sign">IDR</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Israeli new sheqel</div>
-            <div class="currency-sign">ILS</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Japanese yen</div>
-            <div class="currency-sign">JPY</div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">  Jordanian dinar</div>
-            <div class="currency-sign">JOD</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Kazakhstani tenge</div>
-            <div class="currency-sign">KZT</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Korean won</div>
-            <div class="currency-sign">KRW</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">  Kuwaiti dinar</div>
-            <div class="currency-sign">KWD</div>
-          </div>
-        </a>
-      </div>
-    </div>
-     <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">Malaysian ringgit</div>
-            <div class="currency-sign">MYR</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Mexican peso</div>
-            <div class="currency-sign">MXN</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">    Moldovan leu</div>
-            <div class="currency-sign">MDL</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Namibian Dollar</div>
-            <div class="currency-sign">NAD</div>
-          </div>
-        </a>
-      </div>
-    </div>
-     <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">  New Taiwan Dollar</div>
-            <div class="currency-sign">TWD</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">  New Zealand dollar</div>
-            <div class="currency-sign">NZD</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Norwegian krone</div>
-            <div class="currency-sign">NOK</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">Omani rial</div>
-            <div class="currency-sign">OMR</div>
-          </div>
-        </a>
-      </div>
-    </div>
-     <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Pakistan rupee</div>
-            <div class="currency-sign">PKR</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Polish zloty</div>
-            <div class="currency-sign">PLN</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Pound sterling</div>
-            <div class="currency-sign">GBP</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Qatar riyal</div>
-            <div class="currency-sign">QAR</div>
-          </div>
-        </a>
-      </div>
-    </div>
-     <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">  Romanian new leu</div>
-            <div class="currency-sign">RON</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">Russian Ruble</div>
-            <div class="currency-sign">RUB</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">  Saudi Arabian riyal</div>
-            <div class="currency-sign">SAR</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Singapore dollar</div>
-            <div class="currency-sign">SGD</div>
-          </div>
-        </a>
-      </div>
-    </div>
-    <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">   South African rand</div>
-            <div class="currency-sign">ZAR</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Swedish krona</div>
-            <div class="currency-sign">SEK</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Swiss franc</div>
-            <div class="currency-sign">CHF</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">Thai baht</div>
-            <div class="currency-sign">THB</div>
-          </div>
-        </a>
-      </div>
-    </div>
-     <div class="row mx-0 mb-4">
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">  Turkish lira</div>
-            <div class="currency-sign">TRY</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> U.A.E. dirham</div>
-            <div class="currency-sign">AED</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name">  U.S. dollar</div>
-            <div class="currency-sign">USD</div>
-          </div>
-        </a>
-      </div>
-      <div class="col-md-3  p-0">
-        <a href="javascript:void(0)" class="text-black">
-          <div class="d-flex flex-column">
-            <div class="currency-name"> Ukraine Hryvnia</div>
-            <div class="currency-sign">UAH</div>
-          </div>
-        </a>
-      </div>
-    </div>
-
-  </div>
-
-</ng-template> -->
