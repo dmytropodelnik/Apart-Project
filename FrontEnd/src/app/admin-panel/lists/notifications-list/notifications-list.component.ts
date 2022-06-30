@@ -36,17 +36,8 @@ export class NotificationsListComponent implements OnInit {
   }
 
   search(): void {
-<<<<<<< HEAD
-    fetch('https://apartmain.azurewebsites.net/api/notifications/search?notification=' + this.searchNotification, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      'https://localhost:44381/api/notifications/search?notification=' +
+      'https://apartmain.azurewebsites.net/api/notifications/search?notification=' +
         this.searchNotification,
       {
         method: 'GET',
@@ -56,7 +47,6 @@ export class NotificationsListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -76,15 +66,18 @@ export class NotificationsListComponent implements OnInit {
       name: this.notification,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/notifications/addnotification', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(notification),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/notifications/addnotification',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(notification),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -105,15 +98,18 @@ export class NotificationsListComponent implements OnInit {
       name: this.notification,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/notifications/editnotification', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(notification),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/notifications/editnotification',
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(notification),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -135,15 +131,18 @@ export class NotificationsListComponent implements OnInit {
       name: this.notification,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/notifications/deletenotification', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(notification),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/notifications/deletenotification',
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(notification),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -160,18 +159,8 @@ export class NotificationsListComponent implements OnInit {
   }
 
   getNotifications(): void {
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/notifications/getnotifications?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/notifications/getnotifications?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/notifications/getnotifications?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -181,7 +170,6 @@ export class NotificationsListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -204,18 +192,8 @@ export class NotificationsListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/notifications/getnotifications?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/notifications/getnotifications?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/notifications/getnotifications?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -225,7 +203,6 @@ export class NotificationsListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {

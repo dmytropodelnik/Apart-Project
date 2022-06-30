@@ -144,7 +144,7 @@ export class CreditCardsListComponent implements OnInit {
 
   getCards(): void {
     fetch(
-      `https://localhost:44381/api/creditcards/getcreditcards?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/creditcards/getcreditcards?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -177,7 +177,7 @@ export class CreditCardsListComponent implements OnInit {
     this.page++;
 
     fetch(
-      `https://localhost:44381/api/creditcards/getcreditcards?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/creditcards/getcreditcards?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {

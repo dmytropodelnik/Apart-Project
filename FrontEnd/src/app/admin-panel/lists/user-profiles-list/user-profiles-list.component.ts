@@ -37,17 +37,8 @@ export class UserProfilesListComponent implements OnInit {
   }
 
   search(): void {
-<<<<<<< HEAD
-    fetch('https://apartmain.azurewebsites.net/api/userprofiles/search?profile=' + this.searchProfile, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      'https://localhost:44381/api/userprofiles/search?profile=' +
+      'https://apartmain.azurewebsites.net/api/userprofiles/search?profile=' +
         this.searchProfile,
       {
         method: 'GET',
@@ -57,7 +48,6 @@ export class UserProfilesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -144,15 +134,18 @@ export class UserProfilesListComponent implements OnInit {
       birthDate: this.birthDate,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/userprofiles/deleteprofile', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(profile),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/userprofiles/deleteprofile',
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(profile),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -169,18 +162,8 @@ export class UserProfilesListComponent implements OnInit {
   }
 
   getProfiles(): void {
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/userprofiles/getprofiles?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/userprofiles/getprofiles?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/userprofiles/getprofiles?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -190,7 +173,6 @@ export class UserProfilesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -213,18 +195,8 @@ export class UserProfilesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/userprofiles/getprofiles?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/userprofiles/getprofiles?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/userprofiles/getprofiles?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -234,7 +206,6 @@ export class UserProfilesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {

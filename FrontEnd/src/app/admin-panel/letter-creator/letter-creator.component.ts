@@ -50,7 +50,7 @@ export class LetterCreatorComponent implements OnInit {
 
   sendLetterAgain(value: number): void {
     fetch(
-      'https://localhost:44381/api/deals/sendbestdealsletteragain?letterId=' +
+      'https://apartmain.azurewebsites.net/api/deals/sendbestdealsletteragain?letterId=' +
         value,
       {
         method: 'POST',
@@ -156,14 +156,17 @@ export class LetterCreatorComponent implements OnInit {
       fData.append('uploadedFile', this.htmlLetterFile);
     }
 
-    await fetch('https://apartmain.azurewebsites.net/api/fileuploader/uploadfile', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: fData,
-    })
+    await fetch(
+      'https://apartmain.azurewebsites.net/api/fileuploader/uploadfile',
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: fData,
+      }
+    )
       .then((r) => r.json())
       .then(async (r) => {
         if (r.code === 200) {
@@ -183,14 +186,17 @@ export class LetterCreatorComponent implements OnInit {
   }
 
   async readContentFromFile(file: FormData): Promise<void> {
-    await fetch('https://apartmain.azurewebsites.net/api/files/readfilecontent', {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: file,
-    })
+    await fetch(
+      'https://apartmain.azurewebsites.net/api/files/readfilecontent',
+      {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: file,
+      }
+    )
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {

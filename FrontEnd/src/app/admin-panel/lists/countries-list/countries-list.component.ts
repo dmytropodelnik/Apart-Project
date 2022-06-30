@@ -38,7 +38,7 @@ export class CountriesListComponent implements OnInit {
 
   search(): void {
     fetch(
-      'https://localhost:44381/api/countries/search?country=' +
+      'https://apartmain.azurewebsites.net/api/countries/search?country=' +
         this.searchCountry,
       {
         method: 'GET',
@@ -153,7 +153,7 @@ export class CountriesListComponent implements OnInit {
 
   getCountries(): void {
     fetch(
-      `https://localhost:44381/api/countries/getcountries?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/countries/getcountries?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -186,7 +186,7 @@ export class CountriesListComponent implements OnInit {
     this.page++;
 
     fetch(
-      `https://localhost:44381/api/countries/getcountries?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/countries/getcountries?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {

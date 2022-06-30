@@ -38,17 +38,9 @@ export class RoomTypesListComponent implements OnInit {
   }
 
   search(): void {
-<<<<<<< HEAD
-    fetch('https://apartmain.azurewebsites.net/api/roomtypes/search?type=' + this.searchType, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      'https://localhost:44381/api/roomtypes/search?type=' + this.searchType,
+      'https://apartmain.azurewebsites.net/api/roomtypes/search?type=' +
+        this.searchType,
       {
         method: 'GET',
         headers: {
@@ -57,7 +49,6 @@ export class RoomTypesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -161,18 +152,8 @@ export class RoomTypesListComponent implements OnInit {
   }
 
   getTypes(): void {
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/roomtypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/roomtypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/roomtypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -182,7 +163,6 @@ export class RoomTypesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -205,18 +185,8 @@ export class RoomTypesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/roomtypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/roomtypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/roomtypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -226,7 +196,6 @@ export class RoomTypesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {

@@ -35,18 +35,8 @@ export class AddressesListComponent implements OnInit {
   }
 
   search(): void {
-<<<<<<< HEAD
-    fetch('https://apartmain.azurewebsites.net/api/addresses/search?address=' + this.searchAddress, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      'https://localhost:44381/api/addresses/search?address=' +
+      'https://apartmain.azurewebsites.net/api/addresses/search?address=' +
         this.searchAddress,
       {
         method: 'GET',
@@ -57,7 +47,6 @@ export class AddressesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -161,18 +150,8 @@ export class AddressesListComponent implements OnInit {
   }
 
   getAddresses(): void {
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/addresses/getaddresses?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/addresses/getaddresses?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/addresses/getaddresses?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -182,7 +161,6 @@ export class AddressesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -205,18 +183,8 @@ export class AddressesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/addresses/getaddresses?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/addresses/getaddresses?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/addresses/getaddresses?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -226,7 +194,6 @@ export class AddressesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {

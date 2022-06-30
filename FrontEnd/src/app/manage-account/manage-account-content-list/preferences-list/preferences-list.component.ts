@@ -43,13 +43,9 @@ export class PreferencesListComponent implements OnInit {
 
   sendInfoLetter(): void {
     fetch(
-<<<<<<< HEAD
-      `https://apartmain.azurewebsites.net/api/notifications/sendnotification?email=${AuthHelper.getLogin()}&message=${this.letterMessage}&action=${this.letterAction}`,
-=======
-      `https://localhost:44381/api/notifications/sendnotification?email=${AuthHelper.getLogin()}&message=${
+      `https://apartmain.azurewebsites.net/api/notifications/sendnotification?email=${AuthHelper.getLogin()}&message=${
         this.letterMessage
       }&action=${this.letterAction}`,
->>>>>>> backend
       {
         method: 'GET',
       }
@@ -163,15 +159,18 @@ export class PreferencesListComponent implements OnInit {
       email: AuthHelper.getLogin(),
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/userdataeditor/editcurrency', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(user),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/userdataeditor/editcurrency',
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(user),
+      }
+    )
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
@@ -202,15 +201,18 @@ export class PreferencesListComponent implements OnInit {
       email: AuthHelper.getLogin(),
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/userdataeditor/editlanguage', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(user),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/userdataeditor/editlanguage',
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(user),
+      }
+    )
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {

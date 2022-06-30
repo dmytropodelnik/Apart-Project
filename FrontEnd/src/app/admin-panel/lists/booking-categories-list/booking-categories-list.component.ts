@@ -37,18 +37,8 @@ export class BookingCategoriesListComponent implements OnInit {
   }
 
   search(): void {
-<<<<<<< HEAD
-    fetch('https://apartmain.azurewebsites.net/api/bookingcategories/search?category=' + this.searchCategory, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      'https://localhost:44381/api/bookingcategories/search?category=' +
+      'https://apartmain.azurewebsites.net/api/bookingcategories/search?category=' +
         this.searchCategory,
       {
         method: 'GET',
@@ -59,7 +49,6 @@ export class BookingCategoriesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -79,15 +68,18 @@ export class BookingCategoriesListComponent implements OnInit {
       category: this.category.category,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/bookingcategories/addcategory', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(category),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/bookingcategories/addcategory',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(category),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -108,15 +100,18 @@ export class BookingCategoriesListComponent implements OnInit {
       category: this.category.category,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/bookingcategories/editcategory', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(category),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/bookingcategories/editcategory',
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(category),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -138,15 +133,18 @@ export class BookingCategoriesListComponent implements OnInit {
       category: this.category.category,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/bookingcategories/deletecategory', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(category),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/bookingcategories/deletecategory',
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(category),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -163,18 +161,8 @@ export class BookingCategoriesListComponent implements OnInit {
   }
 
   getCategories(): void {
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/bookingcategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/bookingcategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/bookingcategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -184,7 +172,6 @@ export class BookingCategoriesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -207,18 +194,8 @@ export class BookingCategoriesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/bookingcategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/bookingcategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/bookingcategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -228,7 +205,6 @@ export class BookingCategoriesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {

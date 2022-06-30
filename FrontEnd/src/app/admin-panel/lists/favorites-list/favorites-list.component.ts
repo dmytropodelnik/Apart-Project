@@ -36,7 +36,7 @@ export class FavoritesListComponent implements OnInit {
 
   search(): void {
     fetch(
-      'https://localhost:44381/api/favorites/search?favorite=' +
+      'https://apartmain.azurewebsites.net/api/favorites/search?favorite=' +
         this.searchFavorite,
       {
         method: 'GET',
@@ -149,7 +149,7 @@ export class FavoritesListComponent implements OnInit {
 
   getFavorites(): void {
     fetch(
-      `https://localhost:44381/api/favorites/getfavorites?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/favorites/getfavorites?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -182,7 +182,7 @@ export class FavoritesListComponent implements OnInit {
     this.page++;
 
     fetch(
-      `https://localhost:44381/api/favorites/getfavorites?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/favorites/getfavorites?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {

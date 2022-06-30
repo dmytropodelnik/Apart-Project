@@ -35,17 +35,8 @@ export class SuggestionRulesListComponent implements OnInit {
   }
 
   search(): void {
-<<<<<<< HEAD
-    fetch('https://apartmain.azurewebsites.net/api/suggestionrules/search?rule=' + this.searchRule, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      'https://localhost:44381/api/suggestionrules/search?rule=' +
+      'https://apartmain.azurewebsites.net/api/suggestionrules/search?rule=' +
         this.searchRule,
       {
         method: 'GET',
@@ -55,7 +46,6 @@ export class SuggestionRulesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -134,15 +124,18 @@ export class SuggestionRulesListComponent implements OnInit {
       name: this.rule,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/suggestionrules/deleterule', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(rule),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/suggestionrules/deleterule',
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(rule),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -159,18 +152,8 @@ export class SuggestionRulesListComponent implements OnInit {
   }
 
   getRules(): void {
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/suggestionrules/getrules?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/suggestionrules/getrules?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/suggestionrules/getrules?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -180,7 +163,6 @@ export class SuggestionRulesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -203,18 +185,8 @@ export class SuggestionRulesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/suggestionrules/getrules?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/suggestionrules/getrules?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/suggestionrules/getrules?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -224,7 +196,6 @@ export class SuggestionRulesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {

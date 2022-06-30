@@ -38,13 +38,17 @@ export class UserListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://apartmain.azurewebsites.net/api/users/search?user=' + this.searchUser, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/users/search?user=' +
+        this.searchUser,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -120,13 +124,17 @@ export class UserListComponent implements OnInit {
   }
 
   deleteUser(): void {
-    fetch('https://apartmain.azurewebsites.net/api/users/deluser?id=' + this.checkedUser, {
-      method: 'DELETE',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/users/deluser?id=' +
+        this.checkedUser,
+      {
+        method: 'DELETE',
+        headers: {
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -143,18 +151,8 @@ export class UserListComponent implements OnInit {
   }
 
   getUsers(): void {
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/users/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/users/getusers?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/users/getusers?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -164,7 +162,6 @@ export class UserListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -226,18 +223,8 @@ export class UserListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/users/getusers?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/users/getusers?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/users/getusers?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -247,7 +234,6 @@ export class UserListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {

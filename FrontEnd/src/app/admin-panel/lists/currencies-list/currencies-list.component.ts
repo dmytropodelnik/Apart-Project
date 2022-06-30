@@ -38,7 +38,7 @@ export class CurrenciesListComponent implements OnInit {
 
   search(): void {
     fetch(
-      'https://localhost:44381/api/currencies/search?currency=' +
+      'https://apartmain.azurewebsites.net/api/currencies/search?currency=' +
         this.searchCurrency,
       {
         method: 'GET',
@@ -69,7 +69,7 @@ export class CurrenciesListComponent implements OnInit {
       bankCode: this.currency.bankCode,
     };
 
-    fetch('https://localhost:44381/api/currencies/addcurrency', {
+    fetch('https://apartmain.azurewebsites.net/api/currencies/addcurrency', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset=utf-8',
@@ -164,7 +164,7 @@ export class CurrenciesListComponent implements OnInit {
 
   getCurrencies(): void {
     fetch(
-      `https://localhost:44381/api/currencies/getcurrencies?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/currencies/getcurrencies?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -197,7 +197,7 @@ export class CurrenciesListComponent implements OnInit {
     this.page++;
 
     fetch(
-      `https://localhost:44381/api/currencies/getcurrencies?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/currencies/getcurrencies?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {

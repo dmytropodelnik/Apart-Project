@@ -38,15 +38,18 @@ export class SuggestionReviewGradesListComponent implements OnInit {
       name: this.grade,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/suggestionreviewgrades/addgrade', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(grade),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/suggestionreviewgrades/addgrade',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(grade),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -67,15 +70,18 @@ export class SuggestionReviewGradesListComponent implements OnInit {
       name: this.grade,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/suggestionreviewgrades/editgrade', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(grade),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/suggestionreviewgrades/editgrade',
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(grade),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -97,15 +103,18 @@ export class SuggestionReviewGradesListComponent implements OnInit {
       name: this.grade,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/suggestionreviewgrades/deletegrade', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(grade),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/suggestionreviewgrades/deletegrade',
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(grade),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -122,18 +131,8 @@ export class SuggestionReviewGradesListComponent implements OnInit {
   }
 
   getGrades(): void {
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/suggestionreviewgrades/getgrades?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/suggestionreviewgrades/getgrades?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/suggestionreviewgrades/getgrades?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -143,7 +142,6 @@ export class SuggestionReviewGradesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -166,18 +164,8 @@ export class SuggestionReviewGradesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/suggestionreviewgrades/getgrades?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/suggestionreviewgrades/getgrades?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/suggestionreviewgrades/getgrades?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -187,7 +175,6 @@ export class SuggestionReviewGradesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {

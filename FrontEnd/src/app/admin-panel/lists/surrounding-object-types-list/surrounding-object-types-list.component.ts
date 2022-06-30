@@ -35,17 +35,8 @@ export class SurroundingObjectTypesListComponent implements OnInit {
   }
 
   search(): void {
-<<<<<<< HEAD
-    fetch('https://apartmain.azurewebsites.net/api/surroundingobjecttypes/search?type=' + this.searchType, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      'https://localhost:44381/api/surroundingobjecttypes/search?type=' +
+      'https://apartmain.azurewebsites.net/api/surroundingobjecttypes/search?type=' +
         this.searchType,
       {
         method: 'GET',
@@ -55,7 +46,6 @@ export class SurroundingObjectTypesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -75,15 +65,18 @@ export class SurroundingObjectTypesListComponent implements OnInit {
       name: this.type,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/surroundingobjecttypes/addtype', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(type),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/surroundingobjecttypes/addtype',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(type),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -104,15 +97,18 @@ export class SurroundingObjectTypesListComponent implements OnInit {
       name: this.type,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/surroundingobjecttypes/edittype', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(type),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/surroundingobjecttypes/edittype',
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(type),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -134,15 +130,18 @@ export class SurroundingObjectTypesListComponent implements OnInit {
       name: this.type,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/surroundingobjecttypes/deletetype', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(type),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/surroundingobjecttypes/deletetype',
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(type),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -159,18 +158,8 @@ export class SurroundingObjectTypesListComponent implements OnInit {
   }
 
   getTypes(): void {
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/surroundingobjecttypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/surroundingobjecttypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/surroundingobjecttypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -180,7 +169,6 @@ export class SurroundingObjectTypesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -203,18 +191,8 @@ export class SurroundingObjectTypesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/surroundingobjecttypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/surroundingobjecttypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/surroundingobjecttypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -224,7 +202,6 @@ export class SurroundingObjectTypesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {

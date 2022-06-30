@@ -38,7 +38,7 @@ export class DistrictsListComponent implements OnInit {
 
   search(): void {
     fetch(
-      'https://localhost:44381/api/districts/search?district=' +
+      'https://apartmain.azurewebsites.net/api/districts/search?district=' +
         this.searchDistrict,
       {
         method: 'GET',
@@ -152,7 +152,7 @@ export class DistrictsListComponent implements OnInit {
 
   getDistricts(): void {
     fetch(
-      `https://localhost:44381/api/districts/getdistricts?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/districts/getdistricts?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -185,7 +185,7 @@ export class DistrictsListComponent implements OnInit {
     this.page++;
 
     fetch(
-      `https://localhost:44381/api/districts/getdistricts?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/districts/getdistricts?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {

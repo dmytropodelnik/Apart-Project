@@ -86,18 +86,8 @@ export class SecurityListComponent implements OnInit {
   }
 
   sendResetPasswordEmail(id: number): void {
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/codes/generateresetcode?email=` + AuthHelper.getLogin(), {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/codes/generateresetcode?email=` +
+      `https://apartmain.azurewebsites.net/api/codes/generateresetcode?email=` +
         AuthHelper.getLogin(),
       {
         method: 'GET',
@@ -108,7 +98,6 @@ export class SecurityListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -129,18 +118,8 @@ export class SecurityListComponent implements OnInit {
   }
 
   deleteAccount(id: number): void {
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/codes/generatedeleteusercode?email=` + AuthHelper.getLogin(), {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/codes/generatedeleteusercode?email=` +
+      `https://apartmain.azurewebsites.net/api/codes/generatedeleteusercode?email=` +
         AuthHelper.getLogin(),
       {
         method: 'GET',
@@ -151,7 +130,6 @@ export class SecurityListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {

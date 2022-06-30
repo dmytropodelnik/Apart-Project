@@ -39,13 +39,17 @@ export class FileModelsListComponent implements OnInit {
   }
 
   search(): void {
-    fetch('https://apartmain.azurewebsites.net/api/files/search?file=' + this.searchFile, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/files/search?file=' +
+        this.searchFile,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -123,18 +127,8 @@ export class FileModelsListComponent implements OnInit {
   }
 
   getFiles(): void {
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/files/getimages?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/files/getimages?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/files/getimages?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -144,7 +138,6 @@ export class FileModelsListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -164,19 +157,7 @@ export class FileModelsListComponent implements OnInit {
       fData.append('uploadedFile', this.uploadedFile);
     }
 
-<<<<<<< HEAD
-      fetch('https://apartmain.azurewebsites.net/api/fileuploader/uploadfile', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-        },
-        body: fData,
-      })
-      .then(r => r.json())
-      .then(r => {
-=======
-    fetch('https://localhost:44381/api/fileuploader/uploadfile', {
+    fetch('https://apartmain.azurewebsites.net/api/fileuploader/uploadfile', {
       method: 'POST',
       headers: {
         Accept: 'application/json',
@@ -186,7 +167,6 @@ export class FileModelsListComponent implements OnInit {
     })
       .then((r) => r.json())
       .then((r) => {
->>>>>>> backend
         if (r.code === 200) {
           this.showAlert('File has been successfully uploaded!');
           this.getFiles();
@@ -215,18 +195,8 @@ export class FileModelsListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/files/getimages?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/files/getimages?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/files/getimages?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -236,7 +206,6 @@ export class FileModelsListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {

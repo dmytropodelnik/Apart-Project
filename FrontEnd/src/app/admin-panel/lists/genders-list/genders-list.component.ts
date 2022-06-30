@@ -34,17 +34,9 @@ export class GendersListComponent implements OnInit {
   }
 
   search(): void {
-<<<<<<< HEAD
-    fetch('https://apartmain.azurewebsites.net/api/genders/search?gender=' + this.searchGender, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      'https://localhost:44381/api/genders/search?gender=' + this.searchGender,
+      'https://apartmain.azurewebsites.net/api/genders/search?gender=' +
+        this.searchGender,
       {
         method: 'GET',
         headers: {
@@ -53,7 +45,6 @@ export class GendersListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {

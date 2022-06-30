@@ -162,13 +162,9 @@ export class ViewPropertyComponent implements OnInit {
 
   filterActiveSuggestions(): void {
     fetch(
-<<<<<<< HEAD
-      `https://apartmain.azurewebsites.net/api/suggestions/getusersuggestions?email=${AuthHelper.getLogin()}&filter=${this.activeFilter}`,
-=======
-      `https://localhost:44381/api/suggestions/getusersuggestions?email=${AuthHelper.getLogin()}&filter=${
+      `https://apartmain.azurewebsites.net/api/suggestions/getusersuggestions?email=${AuthHelper.getLogin()}&filter=${
         this.activeFilter
       }`,
->>>>>>> backend
       {
         method: 'GET',
         headers: {
@@ -194,13 +190,9 @@ export class ViewPropertyComponent implements OnInit {
 
   filterInProgressSuggestions(): void {
     fetch(
-<<<<<<< HEAD
-      `https://apartmain.azurewebsites.net/api/suggestions/getusersuggestions?email=${AuthHelper.getLogin()}&filter=${this.inProgressFilter}`,
-=======
-      `https://localhost:44381/api/suggestions/getusersuggestions?email=${AuthHelper.getLogin()}&filter=${
+      `https://apartmain.azurewebsites.net/api/suggestions/getusersuggestions?email=${AuthHelper.getLogin()}&filter=${
         this.inProgressFilter
       }`,
->>>>>>> backend
       {
         method: 'GET',
         headers: {
@@ -230,14 +222,17 @@ export class ViewPropertyComponent implements OnInit {
       return;
     }
 
-    fetch(`https://apartmain.azurewebsites.net/api/suggestions/deletesuggestion?id=${id}`, {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://apartmain.azurewebsites.net/api/suggestions/deletesuggestion?id=${id}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {

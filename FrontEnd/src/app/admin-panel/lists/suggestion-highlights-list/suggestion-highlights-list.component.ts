@@ -39,15 +39,18 @@ export class SuggestionHighlightsListComponent implements OnInit {
       name: this.highlight,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/suggestionhighlights/addhighlight', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(highlight),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/suggestionhighlights/addhighlight',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(highlight),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -68,15 +71,18 @@ export class SuggestionHighlightsListComponent implements OnInit {
       name: this.highlight,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/suggestionhighlights/edithighlight', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(highlight),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/suggestionhighlights/edithighlight',
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(highlight),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -98,15 +104,18 @@ export class SuggestionHighlightsListComponent implements OnInit {
       name: this.highlight,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/suggestionhighlights/deletehighlight', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(highlight),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/suggestionhighlights/deletehighlight',
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(highlight),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -123,18 +132,8 @@ export class SuggestionHighlightsListComponent implements OnInit {
   }
 
   getHighlights(): void {
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/suggestionhighlights/gethighlights?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/suggestionhighlights/gethighlights?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/suggestionhighlights/gethighlights?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -144,7 +143,6 @@ export class SuggestionHighlightsListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -167,18 +165,8 @@ export class SuggestionHighlightsListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/suggestionhighlights/gethighlights?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/suggestionhighlights/gethighlights?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/suggestionhighlights/gethighlights?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -188,7 +176,6 @@ export class SuggestionHighlightsListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {

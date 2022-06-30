@@ -153,7 +153,7 @@ export class CitiesListComponent implements OnInit {
 
   getCities(): void {
     fetch(
-      `https://localhost:44381/api/cities/getcities?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/cities/getcities?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -186,7 +186,7 @@ export class CitiesListComponent implements OnInit {
     this.page++;
 
     fetch(
-      `https://localhost:44381/api/cities/getcities?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/cities/getcities?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {

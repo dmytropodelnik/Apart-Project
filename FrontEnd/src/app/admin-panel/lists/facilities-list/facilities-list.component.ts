@@ -41,7 +41,7 @@ export class FacilitiesListComponent implements OnInit {
 
   search(): void {
     fetch(
-      'https://localhost:44381/api/facilities/search?facility=' +
+      'https://apartmain.azurewebsites.net/api/facilities/search?facility=' +
         this.searchFacility,
       {
         method: 'GET',
@@ -168,7 +168,7 @@ export class FacilitiesListComponent implements OnInit {
 
   getFacilities(): void {
     fetch(
-      `https://localhost:44381/api/facilities/getfacilities?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/facilities/getfacilities?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -201,7 +201,7 @@ export class FacilitiesListComponent implements OnInit {
     this.page++;
 
     fetch(
-      `https://localhost:44381/api/facilities/getfacilities?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/facilities/getfacilities?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {

@@ -37,17 +37,8 @@ export class SuggestionRuleTypesListComponent implements OnInit {
   }
 
   search(): void {
-<<<<<<< HEAD
-    fetch('https://apartmain.azurewebsites.net/api/suggestionruletypes/search?type=' + this.searchType, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      'https://localhost:44381/api/suggestionruletypes/search?type=' +
+      'https://apartmain.azurewebsites.net/api/suggestionruletypes/search?type=' +
         this.searchType,
       {
         method: 'GET',
@@ -57,7 +48,6 @@ export class SuggestionRuleTypesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -77,15 +67,18 @@ export class SuggestionRuleTypesListComponent implements OnInit {
       name: this.type,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/suggestionruletypes/addtype', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(type),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/suggestionruletypes/addtype',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(type),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -106,15 +99,18 @@ export class SuggestionRuleTypesListComponent implements OnInit {
       name: this.type,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/suggestionruletypes/edittype', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(type),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/suggestionruletypes/edittype',
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(type),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -136,15 +132,18 @@ export class SuggestionRuleTypesListComponent implements OnInit {
       name: this.type,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/suggestionruletypes/deletetype', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(type),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/suggestionruletypes/deletetype',
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(type),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -161,18 +160,8 @@ export class SuggestionRuleTypesListComponent implements OnInit {
   }
 
   getTypes(): void {
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/suggestionruletypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/suggestionruletypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/suggestionruletypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -182,7 +171,6 @@ export class SuggestionRuleTypesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -191,9 +179,7 @@ export class SuggestionRuleTypesListComponent implements OnInit {
           this.showAlert('Fetch error!');
         }
       })
-      .catch((ex) => {
-        this.showAlert(ex);
-      });
+      .catch((ex) => {});
   }
 
   collectElements(types: SuggestionRuleType[]): void {
@@ -205,18 +191,8 @@ export class SuggestionRuleTypesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/suggestionruletypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/suggestionruletypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/suggestionruletypes/gettypes?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -226,7 +202,6 @@ export class SuggestionRuleTypesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {

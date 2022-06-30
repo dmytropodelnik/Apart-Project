@@ -37,17 +37,8 @@ export class ServiceCategoriesListComponent implements OnInit {
   }
 
   search(): void {
-<<<<<<< HEAD
-    fetch('https://apartmain.azurewebsites.net/api/servicecategories/search?category=' + this.searchCategory, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      'https://localhost:44381/api/servicecategories/search?category=' +
+      'https://apartmain.azurewebsites.net/api/servicecategories/search?category=' +
         this.searchCategory,
       {
         method: 'GET',
@@ -57,7 +48,6 @@ export class ServiceCategoriesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -77,15 +67,18 @@ export class ServiceCategoriesListComponent implements OnInit {
       category: this.category.category,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/servicecategories/addcategory', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(category),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/servicecategories/addcategory',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(category),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -106,15 +99,18 @@ export class ServiceCategoriesListComponent implements OnInit {
       category: this.category.category,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/servicecategories/editcategory', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(category),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/servicecategories/editcategory',
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(category),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -136,15 +132,18 @@ export class ServiceCategoriesListComponent implements OnInit {
       category: this.category.category,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/servicecategories/deletecategory', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(category),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/servicecategories/deletecategory',
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(category),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -161,14 +160,17 @@ export class ServiceCategoriesListComponent implements OnInit {
   }
 
   getCategories(): void {
-    fetch('https://apartmain.azurewebsites.net/api/servicecategories/getcategories', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/servicecategories/getcategories',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -191,18 +193,8 @@ export class ServiceCategoriesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-<<<<<<< HEAD
-    fetch(`https://apartmain.azurewebsites.net/api/servicecategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
-=======
     fetch(
-      `https://localhost:44381/api/servicecategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`,
+      `https://apartmain.azurewebsites.net/api/servicecategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`,
       {
         method: 'GET',
         headers: {
@@ -212,7 +204,6 @@ export class ServiceCategoriesListComponent implements OnInit {
         },
       }
     )
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {

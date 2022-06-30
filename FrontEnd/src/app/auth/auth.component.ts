@@ -108,11 +108,7 @@ export class AuthComponent implements OnInit {
       .then((r) => r.json())
       .then(async (data) => {
         if (data.code === 200) {
-<<<<<<< HEAD
-          document.location.href="https://www.apartstep.fun";
-=======
-          document.location.href = 'https://localhost:4200';
->>>>>>> backend
+          document.location.href = 'https://www.apartstep.fun';
         } else {
           this.showAlert(data.message);
         }
@@ -132,7 +128,6 @@ export class AuthComponent implements OnInit {
       email: this.email,
       password: this.password,
     };
-<<<<<<< HEAD
     fetch(
       `https://apartmain.azurewebsites.net/api/users/userexists?email=${user.email}`,
       {
@@ -142,14 +137,6 @@ export class AuthComponent implements OnInit {
         },
       }
     )
-=======
-    fetch(`https://localhost:44381/api/users/userexists?email=${user.email}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-      },
-    })
->>>>>>> backend
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -256,7 +243,7 @@ export class AuthComponent implements OnInit {
     }
 
     fetch(
-      `https://localhost:44381/api/auth/loginwithpassword?email=${this.email}&password=${this.password}`,
+      `https://apartmain.azurewebsites.net/api/auth/loginwithpassword?email=${this.email}&password=${this.password}`,
       {
         method: 'GET',
         headers: {
@@ -481,7 +468,6 @@ export class AuthComponent implements OnInit {
             image: this.user.photoUrl,
           };
 
-<<<<<<< HEAD
           fetch(
             'https://apartmain.azurewebsites.net/api/users/registerviasocial',
             {
@@ -492,15 +478,6 @@ export class AuthComponent implements OnInit {
               body: JSON.stringify(person),
             }
           )
-=======
-          fetch('https://localhost:44381/api/users/registerviasocial', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json; charset=utf-8',
-            },
-            body: JSON.stringify(person),
-          })
->>>>>>> backend
             .then((r) => r.json())
             .then((response) => {
               if (response.code === 200) {
