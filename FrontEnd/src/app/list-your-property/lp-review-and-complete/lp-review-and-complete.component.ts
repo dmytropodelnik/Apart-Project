@@ -32,6 +32,31 @@ export class LpReviewAndCompleteComponent implements OnInit {
   }
 
   addContactDetails(): void {
+    if (this.contactDetails?.firstName.length < 2) {
+      this.showAlert('First name length must be at least 2 characters');
+      return;
+    }
+    if (this.contactDetails?.lastName.length < 2) {
+      this.showAlert('Last name length must be at least 2 characters');
+      return;
+    }
+    if (
+      !this.contactDetails?.phoneNumber.match(
+        '^[+]?[(]?[0-9]{3}[)]?[-s.]?[0-9]{3}[-s.]?[0-9]{4,6}$'
+      )
+    ) {
+      this.showAlert('Enter a correct phone number!');
+      return;
+    }
+    if (
+      !this.contactDetails?.email.match(
+        '^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$'
+      )
+    ) {
+      this.showAlert('Enter a correct email address!');
+      return;
+    }
+
     let suggestion = {
       id: this.listNewPropertyService.getSavedPropertyId(),
       contactFirstName: this.contactDetails?.firstName,

@@ -295,7 +295,7 @@
   <div class="modal-header">
     <div>
       <div class="review-card-left-avatar-block">
-        <div class="review-card-avatar">
+        <div *ngIf="grade != 0" class="review-card-avatar">
           <div class="bui-review-score__badge">
             {{ mathHelper.Round10(grade) }}
           </div>
@@ -321,7 +321,11 @@
               mathHelper.Round10(grade) >= 7.0 &&
               mathHelper.Round10(grade) < 7.7
             ">Normal</span>
-          <span *ngIf="grade == 0"> Unrated </span>
+          <div *ngIf="grade == 0" class="review-card-avatar">
+            <div class="bui-review-score__badge">
+              Unrated
+            </div>
+          </div>
           <span class="text-block-subtitles">
             <span>{{ reviewsAmount }} reviews</span>
           </span>

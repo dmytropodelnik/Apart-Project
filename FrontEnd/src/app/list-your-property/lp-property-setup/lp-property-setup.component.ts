@@ -305,6 +305,11 @@ export class LpPropertySetupComponent implements OnInit {
   }
 
   addDescription(): void {
+    if (this.description.length < 50) {
+      this.showAlert('Description length must have at least 50 characters');
+      return;
+    }
+
     let suggestion = {
       id: this.listNewPropertyService.getSavedPropertyId(),
       description: this.description,

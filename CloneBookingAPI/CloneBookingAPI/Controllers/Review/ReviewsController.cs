@@ -313,12 +313,22 @@ namespace CloneBookingAPI.Controllers.Review
                 {
                     Capacity = reviewCategories.Count,
                 };
-                for (int i = 0; i < reviewCategories.Count; i++)
+                if (grades.Any())
                 {
-                    categoryGrades.Add(new ReviewTuple(
-                        i + 1,
-                        grades[i].Where(g => g.ReviewCategoryId == i + 1).Average(g => g.Grade)
-                        ));
+                    for (int i = 0; i < reviewCategories.Count; i++)
+                    {
+                        categoryGrades.Add(new ReviewTuple(
+                            i + 1,
+                            grades[i].Where(g => g.ReviewCategoryId == i + 1).Average(g => g.Grade)
+                            ));
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < reviewCategories.Count; i++)
+                    {
+                        categoryGrades.Add(new ReviewTuple(i + 1, 0));
+                    }
                 }
 
                 // PAGINATION
