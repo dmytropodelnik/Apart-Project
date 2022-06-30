@@ -91,7 +91,7 @@ export class StaySuggestionPageComponent implements OnInit {
   isSaved: string = 'false';
 
   isDateChosen: boolean = false;
-  isOwnerVerified: boolean = true;
+  isOwnerVerified: boolean = false;
 
   diffDays: number = 0;
 

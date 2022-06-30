@@ -23,37 +23,39 @@ namespace CloneBookingAPI.Controllers
     {
         private readonly ApartProjectDbContext _context;
         private readonly AuthEmailSender _emailSender;
+        private readonly SaltGenerator _saltGenerator;
 
-        private readonly string _subjectRegistrationLetterTemplate  = default;
-        private readonly string _subjectVerifyEnterLetterTemplate   = default;
+        private readonly string _subjectRegistrationLetterTemplate = default;
+        private readonly string _subjectVerifyEnterLetterTemplate = default;
         private readonly string _subjectResetPasswordLetterTemplate = default;
-        private readonly string _subjectChangeEmailLetterTemplate   = default;
-        private readonly string _subjectDeleteUserLetterTemplate    = default;
-        private readonly string _subjectSubscriptionLetterTemplate  = default;
+        private readonly string _subjectChangeEmailLetterTemplate = default;
+        private readonly string _subjectDeleteUserLetterTemplate = default;
+        private readonly string _subjectSubscriptionLetterTemplate = default;
 
-        private readonly string _enterLinkTemplate          = default;
-        private readonly string _resetPasswordLinkTemplate  = default;
-        private readonly string _changeEmailLinkTemplate    = default;
-        private readonly string _deleteUserLinkTemplate     = default;
-        private readonly string _subscriptionLinkTemplate   = default;
+        private readonly string _enterLinkTemplate = default;
+        private readonly string _resetPasswordLinkTemplate = default;
+        private readonly string _changeEmailLinkTemplate = default;
+        private readonly string _deleteUserLinkTemplate = default;
+        private readonly string _subscriptionLinkTemplate = default;
 
-        public AuthController(ApartProjectDbContext context, IConfiguration configuration)
+        public AuthController(ApartProjectDbContext context, IConfiguration configuration, SaltGenerator saltGenerator)
         {
             _context = context;
             _emailSender = new AuthEmailSender(configuration);
+            _saltGenerator = saltGenerator;
 
-            _enterLinkTemplate         = configuration["EmailLinksTemplates:EnterLetter:Template"];
+            _enterLinkTemplate = configuration["EmailLinksTemplates:EnterLetter:Template"];
             _resetPasswordLinkTemplate = configuration["EmailLinksTemplates:ResetPasswordLetter:Template"];
-            _changeEmailLinkTemplate   = configuration["EmailLinksTemplates:ChangingEmailLetter:Template"];
-            _deleteUserLinkTemplate    = configuration["EmailLinksTemplates:DeleteUserLetter:Template"];
-            _subscriptionLinkTemplate  = configuration["EmailLinksTemplates:SubscriptionLetter:Template"];
+            _changeEmailLinkTemplate = configuration["EmailLinksTemplates:ChangingEmailLetter:Template"];
+            _deleteUserLinkTemplate = configuration["EmailLinksTemplates:DeleteUserLetter:Template"];
+            _subscriptionLinkTemplate = configuration["EmailLinksTemplates:SubscriptionLetter:Template"];
 
-            _subjectRegistrationLetterTemplate  = configuration["EmailLetterSubjectTemplates:RegistrationLetterSubject:Template"];
-            _subjectVerifyEnterLetterTemplate   = configuration["EmailLetterSubjectTemplates:EnterLetterSubject:Template"];
+            _subjectRegistrationLetterTemplate = configuration["EmailLetterSubjectTemplates:RegistrationLetterSubject:Template"];
+            _subjectVerifyEnterLetterTemplate = configuration["EmailLetterSubjectTemplates:EnterLetterSubject:Template"];
             _subjectResetPasswordLetterTemplate = configuration["EmailLetterSubjectTemplates:ResetPasswordLetterSubject:Template"];
-            _subjectChangeEmailLetterTemplate   = configuration["EmailLetterSubjectTemplates:ChangingEmailLetterSubject:Template"];
-            _subjectDeleteUserLetterTemplate    = configuration["EmailLetterSubjectTemplates:DeleteUserLetterSubject:Template"];
-            _subjectSubscriptionLetterTemplate  = configuration["EmailLetterSubjectTemplates:SubscriptionLetterSubject:Template"];
+            _subjectChangeEmailLetterTemplate = configuration["EmailLetterSubjectTemplates:ChangingEmailLetterSubject:Template"];
+            _subjectDeleteUserLetterTemplate = configuration["EmailLetterSubjectTemplates:DeleteUserLetterSubject:Template"];
+            _subjectSubscriptionLetterTemplate = configuration["EmailLetterSubjectTemplates:SubscriptionLetterSubject:Template"];
         }
 
         [Route("isemailregistered")]
@@ -339,6 +341,52 @@ namespace CloneBookingAPI.Controllers
                 }
 
                 return Json(new { code = 200 });
+            }
+            catch (ArgumentNullException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500, message = ex.Message });
+            }
+            catch (ArgumentException ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500, message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+
+                return Json(new { code = 500, message = ex.Message });
+            }
+        }
+
+        [Route("loginwithpassword")]
+        [HttpGet]
+        public async Task<IActionResult> LoginWithPassword(string email, string password)
+        {
+            try
+            {
+                if (string.IsNullOrWhiteSpace(email) ||
+                    string.IsNullOrWhiteSpace(password))
+                {
+                    return Json(new { code = 400, message = "Input data is null." });
+                }
+
+                var resUser = await _context.Users.FirstOrDefaultAsync(u => u.Email == email.Trim());
+                if (resUser is null)
+                {
+                    return Json(new { code = 400, message = "User is not found." });
+                }
+
+                string hashedPassword = _saltGenerator.GenerateKeyCode(password.Trim(), resUser.SaltHash);
+
+                if (hashedPassword == resUser.PasswordHash)
+                {
+                    return Json(new { code = 200, message = "Login success." });
+                }
+                return Json(new { code = 400, message = "Incorrect login or password." });
             }
             catch (ArgumentNullException ex)
             {
