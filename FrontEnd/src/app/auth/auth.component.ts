@@ -226,7 +226,7 @@ export class AuthComponent implements OnInit {
     )
       .then((r) => r.json())
       .then((data) => {
-        this.showAlert(data.code);
+
       })
       .catch((ex) => {
         this.mainDataService.alertContent = ex;
