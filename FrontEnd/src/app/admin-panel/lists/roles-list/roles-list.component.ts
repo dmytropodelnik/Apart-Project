@@ -104,7 +104,6 @@ export class RolesListComponent implements OnInit {
         } else {
           this.showAlert('Editing error!');
         }
-        console.log(data);
         this.role = '';
       })
       .catch((ex) => {
@@ -136,7 +135,6 @@ export class RolesListComponent implements OnInit {
         } else {
           this.showAlert('Editing error!');
         }
-        console.log(role);
         this.role = '';
       })
       .catch((ex) => {

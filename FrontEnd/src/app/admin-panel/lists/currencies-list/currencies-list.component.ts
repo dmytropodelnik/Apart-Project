@@ -70,8 +70,6 @@ export class CurrenciesListComponent implements OnInit {
       bankCode: this.currency.bankCode,
     };
 
-    console.log(currency);
-
     fetch('https://localhost:44381/api/currencies/addcurrency', {
       method: 'POST',
       headers: {
@@ -229,7 +227,6 @@ export class CurrenciesListComponent implements OnInit {
   }
 
   setCurrency(currency: Currency): void {
-    console.log(currency);
     this.checkedCurrency = currency.id;
     this.currency.value = currency.value;
     this.currency.abbreviation = currency.abbreviation;

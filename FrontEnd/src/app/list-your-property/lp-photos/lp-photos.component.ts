@@ -76,7 +76,6 @@ export class LpPhotosComponent implements OnInit {
     for (let i = 0; i < this.uploadedFiles.length; i++) {
       fData.append('uploadedFiles', this.uploadedFiles[i]);
     }
-    console.log(fData.getAll('uploadedFiles'));
     fetch(
       'https://localhost:44381/api/listnewproperty/addphotos?suggestionId=' +
         this.listNewPropertyService.getSavedPropertyId(),
@@ -93,7 +92,6 @@ export class LpPhotosComponent implements OnInit {
       .then((r) => r.json())
       .then((r) => {
         if (r.code === 200) {
-          console.log('Files have been successfully uploaded!');
           this.router.navigate(['/lp/reviewandcomplete']);
         } else {
           this.showAlert('Uploading error!');

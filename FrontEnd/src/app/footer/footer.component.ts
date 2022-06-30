@@ -45,7 +45,6 @@ export class FooterComponent implements OnInit {
       .then((data) => {
         if (data.code === 200) {
           this.showAlert('We sent verification letter to your email!');
-          console.log(data);
         } else {
           this.showAlert(data.message);
         }

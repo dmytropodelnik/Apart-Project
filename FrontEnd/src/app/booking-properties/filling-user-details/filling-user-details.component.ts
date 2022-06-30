@@ -166,9 +166,6 @@ export class FillingUserDetailsComponent implements OnInit {
       this.checkIn = bookingData.checkIn;
       this.checkOut = bookingData.checkOut;
 
-      console.log(this.grade);
-      console.log(bookingData.bookingGrade);
-
       this.calculateTotalPrice();
       this.getSuggestionCondition();
       this.fillApartmentsArray();

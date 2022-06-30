@@ -112,7 +112,6 @@ export class LanguagesListComponent implements OnInit {
         } else {
           this.showAlert('Editing error!');
         }
-        console.log(data);
         this.lang = '';
       })
       .catch((ex) => {

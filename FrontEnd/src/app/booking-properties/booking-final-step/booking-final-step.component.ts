@@ -259,7 +259,6 @@ export class BookingFinalStepComponent implements OnInit {
     Your booking PIN: ${this.newStayBooking.pin}. \n
     Save it in order to you have an opportunity to have an access to your booking!
     `;
-    console.log(this.newStayBooking);
   }
 
   sendInfoLetter(): void {
@@ -312,8 +311,6 @@ export class BookingFinalStepComponent implements OnInit {
       this.checkIn = bookingData.checkIn;
       this.checkOut = bookingData.checkOut;
       this.guestsData = BookingHelper.getGuestsData() as any;
-
-      console.log(this.guestsData);
 
       this.activatedRouter.queryParams.subscribe((params: any) => {
         if (params['totalPrice']) {

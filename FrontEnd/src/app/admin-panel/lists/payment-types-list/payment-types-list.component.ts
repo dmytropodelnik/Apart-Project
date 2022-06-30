@@ -88,7 +88,6 @@ export class PaymentTypesListComponent implements OnInit {
         } else {
           this.showAlert('Editing error!');
         }
-        console.log(data);
         this.type = '';
       })
       .catch((ex) => {
