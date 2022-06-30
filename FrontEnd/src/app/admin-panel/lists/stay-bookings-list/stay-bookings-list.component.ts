@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { StayBooking } from 'src/app/models/Services/staybooking.item';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -7,15 +9,24 @@ import ListHelper from '../../../utils/listHelper';
 @Component({
   selector: 'app-stay-bookings-list',
   templateUrl: './stay-bookings-list.component.html',
-  styleUrls: ['./stay-bookings-list.component.css']
+  styleUrls: ['./stay-bookings-list.component.css'],
 })
 export class StayBookingsListComponent implements OnInit {
-
   bookings: StayBooking[] | null = null;
   booking: string | null = null;
   checkedBooking: number | null = null;
 
-  constructor() {}
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
+  constructor(
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
 
   addRole(): void {
     let booking = {
@@ -36,12 +47,12 @@ export class StayBookingsListComponent implements OnInit {
         if (data.code === 200) {
           this.getBookings();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.booking = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -66,12 +77,12 @@ export class StayBookingsListComponent implements OnInit {
           this.getBookings();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.booking = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -96,12 +107,12 @@ export class StayBookingsListComponent implements OnInit {
           this.getBookings();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.booking = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -119,11 +130,11 @@ export class StayBookingsListComponent implements OnInit {
         if (data.code === 200) {
           this.bookings = data.bookings;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 

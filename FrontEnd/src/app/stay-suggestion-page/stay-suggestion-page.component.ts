@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import AuthHelper from '../utils/authHelper';
 import BookingHelper from '../utils/bookingHelper';
@@ -20,6 +20,7 @@ import { SuggestionRuleType } from '../models/Suggestions/suggestionruletype.ite
 import { Review } from '../models/Review/review.item';
 import { ReviewCategory } from '../models/Review/reviewcategory.item';
 import { BookingDetailsService } from '../services/booking-details.service';
+import { MainDataService } from '../services/main-data.service';
 
 @Component({
   selector: 'app-stay-suggestion-page',
@@ -113,18 +114,26 @@ export class StaySuggestionPageComponent implements OnInit {
     day: this.current.getDate(),
   };
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private router: Router,
     private activatedRouter: ActivatedRoute,
-    private modalService: NgbModal,
     private scroller: ViewportScroller,
-    private bookingDetailsService: BookingDetailsService
+    private bookingDetailsService: BookingDetailsService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {}
 
   routerOptions: ExtraOptions = {
     anchorScrolling: 'enabled',
     //scrollPositionRestoration: "enabled"
   };
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
 
   openWindowCustomClass(longContent: any) {
     this.getSuggestionReviews();
@@ -194,11 +203,11 @@ export class StaySuggestionPageComponent implements OnInit {
           this.grade = response.grade;
           this.fillApartmentsArray();
         } else {
-          alert('Suggestion fetching error!');
+          this.showAlert('Suggestion fetching error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -218,11 +227,11 @@ export class StaySuggestionPageComponent implements OnInit {
           }
           this.page++;
         } else {
-          alert('Suggestion reviews fetching error!');
+          this.showAlert('Suggestion reviews fetching error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -251,11 +260,11 @@ export class StaySuggestionPageComponent implements OnInit {
         if (response.code === 200) {
           this.isSaved = 'true';
         } else {
-          alert('User favorites fetching error!');
+          this.showAlert('User favorites fetching error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -284,17 +293,17 @@ export class StaySuggestionPageComponent implements OnInit {
         if (response.code === 200) {
           this.isSaved = 'false';
         } else {
-          alert('User favorites fetching error!');
+          this.showAlert('User favorites fetching error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
   chooseApartments(): void {
     if (!this.isDateChosen) {
-      alert('Select the check in and check out dates!');
+      this.showAlert('Select the check in and check out dates!');
       return;
     }
 
@@ -306,7 +315,7 @@ export class StaySuggestionPageComponent implements OnInit {
       }
     }
     if (this.chosenFinalApartments.length == 0) {
-      alert('Select apartments amount!');
+      this.showAlert('Select apartments amount!');
       return;
     }
 
@@ -321,14 +330,24 @@ export class StaySuggestionPageComponent implements OnInit {
     let hours = minutes / 60;
 
     this.diffDays = hours / 24;
-    this.bookingDetailsService.setChosenDates(dateIn.toDateString(), dateOut.toDateString());
+    this.bookingDetailsService.setChosenDates(
+      dateIn.toDateString(),
+      dateOut.toDateString()
+    );
     this.bookingDetailsService.setChosenApartmentsAndSuggestion(
       this.chosenFinalApartments,
       this.suggestion,
       this.grade,
       this.diffDays
     );
-    BookingHelper.saveBookingData(this.suggestion, this.chosenFinalApartments, this.grade, this.diffDays, dateIn, dateOut);
+    BookingHelper.saveBookingData(
+      this.suggestion,
+      this.chosenFinalApartments,
+      this.grade,
+      this.diffDays,
+      dateIn,
+      dateOut
+    );
     this.router.navigate(['/fillinguserdetails']);
   }
 
@@ -428,13 +447,13 @@ export class StaySuggestionPageComponent implements OnInit {
         if (data.code === 200) {
           this.reviews[index].likes = data.reviewData.likes;
           this.reviews[index].dislikes = data.reviewData.dislikes;
-          alert('Liked successfully!');
+          this.showAlert('Liked successfully!');
         } else {
-          alert(data.message);
+          this.showAlert(data.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -455,13 +474,13 @@ export class StaySuggestionPageComponent implements OnInit {
         if (data.code === 200) {
           this.reviews[index].likes = data.reviewData.likes;
           this.reviews[index].dislikes = data.reviewData.dislikes;
-          alert('Disliked successfully!');
+          this.showAlert('Disliked successfully!');
         } else {
-          alert(data.message);
+          this.showAlert(data.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -481,11 +500,11 @@ export class StaySuggestionPageComponent implements OnInit {
           this.reviewCategories = response.reviewCategories;
           this.categoryGrades = response.categoryGrades;
         } else {
-          alert('Suggestion reviews fetching error!');
+          this.showAlert('Suggestion reviews fetching error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -520,7 +539,7 @@ export class StaySuggestionPageComponent implements OnInit {
       this.monthOut = this.filters.pdateOut!.month;
       this.yearOut = this.filters.pdateOut!.year;
     } else {
-      alert('Select the check in and check out date!');
+      this.showAlert('Select the check in and check out date!');
       return;
     }
 
@@ -548,21 +567,21 @@ export class StaySuggestionPageComponent implements OnInit {
           this.suggestion.apartments = response.apartments;
           this.isDateChosen = true;
         } else {
-          alert(response.message + '123');
+          this.showAlert(response.message + '123');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
   rateStay(): void {
     if (this.bookingNumber.length != 8) {
-      alert('Enter a correct booking number!');
+      this.showAlert('Enter a correct booking number!');
       return;
     }
     if (this.bookingPin.length < 6 && this.bookingPin.length > 8) {
-      alert('Enter a correct booking PIN!');
+      this.showAlert('Enter a correct booking PIN!');
       return;
     }
 
@@ -579,31 +598,35 @@ export class StaySuggestionPageComponent implements OnInit {
           this.owner = response.owner;
           this.booking = response.booking;
         } else {
-          alert(response.message);
+          this.showAlert(response.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
   submitReview(): void {
     if (this.title.length < 6) {
-      alert('Review title must contain at least 6 characters!');
+      this.showAlert('Review title must contain at least 6 characters!');
       return;
     }
     if (this.positiveSide.length < 10) {
-      alert('Positive side of review must contain at least 10 characters!');
+      this.showAlert(
+        'Positive side of review must contain at least 10 characters!'
+      );
       return;
     }
     if (this.negativeSide.length < 10) {
-      alert('Negative side of review must contain at least 10 characters!');
+      this.showAlert(
+        'Negative side of review must contain at least 10 characters!'
+      );
       return;
     }
 
     for (let i = 0; i < this.reviewCategoryGrades.length; i++) {
       if (this.reviewCategoryGrades[i] == -1) {
-        alert('Select review grade for each category!');
+        this.showAlert('Select review grade for each category!');
         return;
       }
     }
@@ -668,11 +691,11 @@ export class StaySuggestionPageComponent implements OnInit {
           this.reviewsAmount++;
           this.isOwnerVerified = false;
         } else {
-          alert(response.message);
+          this.showAlert(response.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 

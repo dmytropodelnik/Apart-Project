@@ -1,4 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { BookingCategory } from '../models/bookingcategory.item';
 import { City } from '../models/Location/city.item';
 import { Suggestion } from '../models/Suggestions/suggestion.item';
@@ -19,7 +25,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { NgbDate } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDate, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -44,7 +50,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   citySuggestionsLength: number[] = [];
 
-  bookingCategories: BookingCategory[] = [];
+  bookingCategories: any = [];
   imagePath: string = '123';
   cities: City[] = [];
   citySuggestions: any;
@@ -121,10 +127,18 @@ export class HomeComponent implements OnInit, OnDestroy {
     ],
   };
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     public mainDataService: MainDataService,
+    private modalService: NgbModal,
     private router: Router
   ) {}
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
 
   setChildren(value: number): void {
     if (this.searchViewModel.searchChildrenAmount + value < 0) {
@@ -160,11 +174,11 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.recommendedSuggestionsCount = data.suggestionsCount;
           this.recommendedCities = data.citiesList;
         } else {
-          alert('Recommended dest data fetching error!');
+          this.showAlert('Recommended dest data fetching error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -183,11 +197,12 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.bookingCategories = r.categories;
           this.mainDataService.setBookingCategories(this.bookingCategories);
         } else {
-          alert('Categories data fetching error!');
+          this.showAlert('Categories data fetching error!');
         }
       })
       .catch((err) => {
-        alert(err);
+        this.mainDataService.alertContent = err;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -202,11 +217,12 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.regionsSuggestions = r.regionsSuggestions;
           this.mainDataService.setSearchingRegions(this.regions);
         } else {
-          alert('Data fetching error!');
+          this.showAlert('Data fetching error!');
         }
       })
       .catch((err) => {
-        alert(err);
+        this.mainDataService.alertContent = err;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -224,11 +240,12 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.countries = r.countries;
           this.mainDataService.setSearchingCountries(this.countries);
         } else {
-          alert('Data fetching error!');
+          this.showAlert('Data fetching error!');
         }
       })
       .catch((err) => {
-        alert(err);
+        this.mainDataService.alertContent = err;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -248,11 +265,12 @@ export class HomeComponent implements OnInit, OnDestroy {
           this.footerCities = r.footerCities;
           this.mainDataService.setSearchingCities(this.cities);
         } else {
-          alert('Data fetching error!');
+          this.showAlert('Data fetching error!');
         }
       })
       .catch((err) => {
-        alert(err);
+        this.mainDataService.alertContent = err;
+        this.modalService.open(this.alert);
       });
   }
 
@@ -273,7 +291,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -330,7 +348,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         '-' +
         this.searchViewModel.pdateOut!.day;
     } else {
-      alert("Select the check in and check out dates!");
+      this.showAlert('Select the check in and check out dates!');
       return;
     }
 

@@ -187,8 +187,24 @@
   width: 300px;
   height: 30px;
   margin-right: 10px;
+  border-radius: 5px;
+  outline: none;
 }
 
 body {
   min-width: 768px;
+}
+
+.filter-button {
+  background-color: #f29e21;
+  color: #ffffff;
+  border: 1px solid #f29e21;
+  height: 30px;
+  width: 70px;
+  font-size: 16px;
+  border-radius: 5px;
+}
+
+.progress-bar{
+  background-color: #0c9496 !important;
 }

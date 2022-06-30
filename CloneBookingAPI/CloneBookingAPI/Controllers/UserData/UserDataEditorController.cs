@@ -18,21 +18,14 @@ namespace CloneBookingAPI.Controllers.UserData
     public class UserDataEditorController : Controller
     {
         private readonly ApartProjectDbContext _context;
-        private readonly InfoEmailSender _emailSender;
         private readonly SaltGenerator _saltGenerator;
-
-        private readonly string _subjectProfileChangingLetterTemplate = default;
 
         public UserDataEditorController(
             ApartProjectDbContext context,
-            SaltGenerator saltGenerator,
-            IConfiguration configuration)
+            SaltGenerator saltGenerator)
         {
             _context = context;
             _saltGenerator = saltGenerator;
-            _emailSender = new InfoEmailSender(configuration);
-
-            _subjectProfileChangingLetterTemplate = configuration["EmailLetterSubjectTemplates:ProfileChaningLetterSubject:Template"];
         }
 
         [Route("edittitle")]

@@ -1,9 +1,12 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <header class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs">
   <nav class="bui-header__bar">
     <div class="bui-header__main">
       <div class="bui-header__logo">
         <span>
-          <label class="robotoregular" routerLink="">Apart.com</label>
+          <label class="robotoregular" routerLink="">Apart.fun</label>
         </span>
       </div>
     </div>
@@ -21,27 +24,8 @@
 </header>
 
 <body>
-  <div class="navigation__container">
-    <div class="sections__container">
-      <div class="section__container section__container--active">
-        <button id="automation_id_section_property_setup" type="button" disabled="" class="section_button">
-          <span class="">Property setup</span>
-        </button>
-        <div class="steps__container">
-          <div class="navstep__container"></div>
-          <div class="navstep__container"></div>
-          <div class="navstep__container"></div>
-          <div class="navstep__container"></div>
-          <div class="navstep__container"></div>
-          <div class="navstep__container"></div>
-          <div class="navstep__container"></div>
-        </div>
-      </div>
-    </div>
-    <hr class="" />
-  </div>
-  <ul [ngSwitch]="choice">
-    <li *ngSwitchDefault>
+  <div [ngSwitch]="choice">
+    <div *ngSwitchDefault>
       <div class="name-and-location-container">
         <div class="header-name-and-location">
           What's the name of your place?
@@ -168,9 +152,8 @@
           Continue
         </button>
       </div>
-
-    </li>
-    <li *ngSwitchCase="1">
+    </div>
+    <div *ngSwitchCase="1">
       <div class="name-and-location-container">
         <div class="header-name-and-location">
           What can guests use at your place?
@@ -178,17 +161,16 @@
         <div class="Input-name-and-location">
           <div *ngFor="let item of facilities; let i = index">
             <div class="form-check">
-              <input class="form-check-input" id={{item.text}} type="checkbox" value="{{i}}"
+              <input class="form-check-input" id="{{ item.text }}" type="checkbox" value="{{ i }}"
                 [(ngModel)]="includedFacilities[i]" />
-              <label class="form-check-label" for={{item.text}}>{{item.text}}</label>
+              <label class="form-check-label" for="{{ item.text }}">{{
+                item.text
+                }}</label>
             </div>
           </div>
         </div>
         <div style="display: flex">
-          <button
-            class="name-and-location-button-back"
-            routerLink="/lp/addproperty"
-          >
+          <button class="name-and-location-button-back" routerLink="/lp/addproperty">
             Go back
           </button>
           <button class="name-and-location-button" (click)="addPropertyFacilities()">
@@ -196,12 +178,10 @@
           </button>
         </div>
       </div>
-    </li>
-    <li *ngSwitchCase="2">
+    </div>
+    <div *ngSwitchCase="2">
       <div class="name-and-location-container">
-        <div class="header-name-and-location">
-          Is parking available?
-        </div>
+        <div class="header-name-and-location">Is parking available?</div>
 
         <div class="Input-name-and-location">
           <div class="form-check">
@@ -209,7 +189,8 @@
             <label class="form-check-label" for="Yes, free">Yes</label>
           </div>
           <div class="form-check">
-            <input class="form-check-input" type="radio" name="parking" id="parkingNo" (click)="setParking(false)" checked />
+            <input class="form-check-input" type="radio" name="parking" id="parkingNo" (click)="setParking(false)"
+              checked />
             <label class="form-check-label" for="No">No</label>
           </div>
         </div>
@@ -217,12 +198,10 @@
           Continue
         </button>
       </div>
-    </li>
-    <li *ngSwitchCase="3">
+    </div>
+    <div *ngSwitchCase="3">
       <div class="name-and-location-container">
-        <div class="header-name-and-location">
-          Select languages for staff
-        </div>
+        <div class="header-name-and-location">Select languages for staff</div>
 
         <div class="Input-name-and-location">
           <div class="form-check">
@@ -270,17 +249,19 @@
           Continue
         </button>
       </div>
-    </li>
-    <li *ngSwitchCase="4">
+    </div>
+    <div *ngSwitchCase="4">
       <div class="name-and-location-container">
         <div class="header-name-and-location">House rules</div>
 
-        <div class="Input-name-and-location">
+        <div class="Input-name-and-location1">
           <div *ngFor="let item of rules; let i = index">
             <div class="form-check form-switch">
-              <input class="form-check-input" type="checkbox" id="rule{{i}}" value="{{i}}"
-              [(ngModel)]="includedRules[i]"/>
-              <label class="form-check-label" for="rule{{i}}">{{item.text}}</label>
+              <input class="form-check-input" type="checkbox" id="rule{{ i }}" value="{{ i }}"
+                [(ngModel)]="includedRules[i]" />
+              <label class="form-check-label" for="rule{{ i }}">{{
+                item.text
+                }}</label>
             </div>
           </div>
         </div>
@@ -288,25 +269,27 @@
           Continue
         </button>
       </div>
-    </li>
-    <li *ngSwitchCase="5">
+    </div>
+    <div *ngSwitchCase="5">
       <div class="name-and-location-container">
-        <div class="header-name-and-location">Please describe your object.</div>
+        <div class="header-name-and-location">Please describe your object (50+ characters)</div>
 
-        <div class="Input-name-and-location">
-          <textarea name="description" [(ngModel)]="description" rows="5" cols="33"></textarea>
+        <div class="Input-name-and-location1">
+          <textarea name="description" [(ngModel)]="description" rows="20" cols="40"></textarea>
         </div>
-        <button class="name-and-location-button" (click)="addDescription()">Continue</button>
+        <button class="name-and-location-button" (click)="addDescription()">
+          Continue
+        </button>
       </div>
-    </li>
-    <li *ngSwitchCase="6">
+    </div>
+    <div *ngSwitchCase="6">
       <div class="name-and-location-container">
         <div class="header-name-and-location">
           Please select star rating for your object.
         </div>
-        <div class="Input-name-and-location">
-          <select class="form-select" aria-label="Default select example" id="starsRatingSelect"
-                  name="starsRating" [(ngModel)]="starsRating">
+        <div class="Input-name-and-location1">
+          <select class="form-select" aria-label="Default select example" id="starsRatingSelect" name="starsRating"
+            [(ngModel)]="starsRating">
             <option value="0" selected>Unrated</option>
             <option value="1">1 star</option>
             <option value="2">2 stars</option>
@@ -319,6 +302,6 @@
           Continue
         </button>
       </div>
-    </li>
-  </ul>
+    </div>
+  </div>
 </body>

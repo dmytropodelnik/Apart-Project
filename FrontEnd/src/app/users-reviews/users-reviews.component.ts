@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AuthorizationService } from '../services/authorization.service';
+import { MainDataService } from '../services/main-data.service';
 
 import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
@@ -30,13 +31,19 @@ export class UsersReviewsComponent implements OnInit {
 
   page: number = 1;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
-    private modalService: NgbModal,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public authService: AuthorizationService,
-  ) {
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   getUsersReviews(value: boolean): void {
@@ -49,7 +56,9 @@ export class UsersReviewsComponent implements OnInit {
     }
 
     fetch(
-      `https://apartmain.azurewebsites.net/api/reviews/getusersreviews?email=${AuthHelper.getLogin()}&page=${this.page}`,
+      `https://apartmain.azurewebsites.net/api/reviews/getusersreviews?email=${AuthHelper.getLogin()}&page=${
+        this.page
+      }`,
       {
         method: 'GET',
         headers: {
@@ -74,11 +83,11 @@ export class UsersReviewsComponent implements OnInit {
           }
           this.page++;
         } else {
-          alert(response.message);
+          this.showAlert(response.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -92,7 +101,9 @@ export class UsersReviewsComponent implements OnInit {
     }
 
     fetch(
-      `https://apartmain.azurewebsites.net/api/reviews/getuserpropertiesreviews?email=${AuthHelper.getLogin()}&page=${this.page}`,
+      `https://apartmain.azurewebsites.net/api/reviews/getuserpropertiesreviews?email=${AuthHelper.getLogin()}&page=${
+        this.page
+      }`,
       {
         method: 'GET',
         headers: {
@@ -117,11 +128,11 @@ export class UsersReviewsComponent implements OnInit {
           }
           this.page++;
         } else {
-          alert(response.message);
+          this.showAlert(response.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 

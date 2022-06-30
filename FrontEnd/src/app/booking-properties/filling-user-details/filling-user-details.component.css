@@ -19,6 +19,37 @@ body {
   cursor: pointer;
 }
 
+.bui-review-score__badge {
+  background: #0c9496;
+  color: #fff;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  vertical-align: baseline;
+  border-radius: 5.81818px 5.81818px 5.81818px 0;
+  height: 32px;
+  width: 32px;
+  min-width: 32px;
+  align-items: center;
+}
+
+.bui-review-score__badge_unrated {
+  background: #0c9496;
+  color: #fff;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  vertical-align: baseline;
+  border-radius: 5.81818px 5.81818px 5.81818px 0;
+  height: 32px;
+  min-width: 64px;
+  align-items: center;
+}
+
 .booking-details-form {
   display: flex;
   flex-direction: column;
@@ -35,8 +66,7 @@ body {
   flex: 1;
 }
 
-.booking-details-header {
-}
+
 
 .booking-details-date {
   display: flex;

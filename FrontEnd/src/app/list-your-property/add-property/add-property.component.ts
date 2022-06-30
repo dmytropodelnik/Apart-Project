@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import { ListNewPropertyService } from '../../services/list-new-property.service';
 
@@ -14,12 +16,14 @@ export class AddPropertyComponent implements OnInit {
   bookingCategoryId: number = -1;
   choice: number = 0;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private listNewPropertyService: ListNewPropertyService,
     private router: Router,
-  ) {
-
-  }
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   addApartment(): void {
     this.choice = 1;
@@ -29,6 +33,11 @@ export class AddPropertyComponent implements OnInit {
   addHome(): void {
     this.choice = 2;
     this.getBookingCategories();
+  }
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   addHotel(): void {
@@ -47,15 +56,18 @@ export class AddPropertyComponent implements OnInit {
       login: AuthHelper.getLogin(),
     };
 
-    fetch(`https://apartmain.azurewebsites.net/api/listnewproperty/addbookingcategory`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(suggestion),
-    })
+    fetch(
+      `https://apartmain.azurewebsites.net/api/listnewproperty/addbookingcategory`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(suggestion),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -66,14 +78,18 @@ export class AddPropertyComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
   getBookingCategories(): void {
-    fetch('https://apartmain.azurewebsites.net/api/bookingcategories/getcategoriesforlist?categoryTypeId=' + this.choice, {
-      method: 'GET',
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/bookingcategories/getcategoriesforlist?categoryTypeId=' +
+        this.choice,
+      {
+        method: 'GET',
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
@@ -84,11 +100,11 @@ export class AddPropertyComponent implements OnInit {
             categoryAdd?.append(newOption);
           }
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 

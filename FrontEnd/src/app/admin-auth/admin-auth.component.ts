@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AuthorizationService } from '../services/authorization.service';
@@ -12,6 +12,8 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { RepositoryEnum } from '../enums/repositoryenum.item';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MainDataService } from '../services/main-data.service';
 
 @Component({
   selector: 'app-admin-auth',
@@ -23,10 +25,14 @@ export class AdminAuthComponent implements OnInit {
   password: string = '';
   loginForm: FormGroup;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private authService: AuthorizationService
+    private authService: AuthorizationService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {
     this.loginForm = this.formBuilder.group({
       login: ['', [Validators.required, Validators.minLength(8)]],
@@ -35,6 +41,11 @@ export class AdminAuthComponent implements OnInit {
   }
   get f() {
     return this.loginForm.controls;
+  }
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   loginAdmin(): void {
@@ -70,22 +81,27 @@ export class AdminAuthComponent implements OnInit {
 
                 AuthHelper.saveAuth(user.email, response.encodedJwt);
 
-                alert('You have successfully authenticated as an admin!');
+                this.showAlert(
+                  'You have successfully authenticated as an admin!'
+                );
 
                 this.router.navigate(['/admin']);
               } else {
-                alert('Token fetching error!');
+                this.mainDataService.alertContent = 'Token fetching error!';
+                this.modalService.open(this.alert);
               }
             })
             .catch((ex) => {
-              alert(ex);
+              this.mainDataService.alertContent = ex;
+              this.modalService.open(this.alert);
             });
         } else {
-          alert('Incorrect data');
+          this.mainDataService.alertContent = 'Incorrect data';
+          this.modalService.open(this.alert);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Favorite } from '../models/UserData/favorite.item';
 
 import AuthHelper from '../utils/authHelper';
@@ -8,6 +8,7 @@ import MathHelper from '../utils/mathHelper';
 import { AuthorizationService } from '../services/authorization.service';
 import { Router } from '@angular/router';
 import { MainDataService } from '../services/main-data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-user-saved',
@@ -29,14 +30,22 @@ export class UserSavedComponent implements OnInit {
 
   userId: number | null = null;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     private authService: AuthorizationService,
     public mainDataService: MainDataService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
     this.getUserFavorites();
+  }
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   removeSuggestion(id: any): void {
@@ -45,31 +54,34 @@ export class UserSavedComponent implements OnInit {
       login: AuthHelper.getLogin(),
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/favorites/removesuggestion', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(suggestion),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/favorites/removesuggestion',
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(suggestion),
+      }
+    )
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
           this.suggestions = this.suggestions.filter((s) => {
-            if (s.id === response.resSuggestion.id ) {
+            if (s.id === response.resSuggestion.id) {
               return false;
             } else {
               return true;
             }
           });
         } else {
-          alert('User favorites fetching error!');
+          this.showAlert('User favorites fetching error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -82,21 +94,21 @@ export class UserSavedComponent implements OnInit {
   }
 
   getUserFavorites(): void {
-    let url = 'https://apartmain.azurewebsites.net/api/favorites/getuserfavorites?email=' +
-                AuthHelper.getLogin();
+    let url =
+      'https://apartmain.azurewebsites.net/api/favorites/getuserfavorites?email=' +
+      AuthHelper.getLogin();
     if (AuthHelper.isFacebookLogin()) {
       url += '&isFacebookAuth=true';
     }
 
     fetch(url, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          Accept: 'application/json',
-          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-        },
-      }
-    )
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        Accept: 'application/json',
+        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+      },
+    })
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
@@ -105,11 +117,11 @@ export class UserSavedComponent implements OnInit {
           this.reviewsCount = response.reviewsCount;
           this.suggestionStartsFrom = response.suggestionStartsFrom;
         } else {
-          alert('User favorites fetching error!');
+          this.showAlert('User favorites fetching error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 }

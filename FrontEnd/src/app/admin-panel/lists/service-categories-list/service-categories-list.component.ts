@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ServiceCategory } from 'src/app/models/servicecategory.item';
 import { AdminContentService } from 'src/app/services/admin-content.service';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import AuthHelper from '../../../utils/authHelper';
 import ListHelper from '../../../utils/listHelper';
@@ -8,10 +10,9 @@ import ListHelper from '../../../utils/listHelper';
 @Component({
   selector: 'app-service-categories-list',
   templateUrl: './service-categories-list.component.html',
-  styleUrls: ['./service-categories-list.component.css']
+  styleUrls: ['./service-categories-list.component.css'],
 })
 export class ServiceCategoriesListComponent implements OnInit {
-
   categories: ServiceCategory[] | null = null;
   category: ServiceCategory;
   searchCategory: string = '';
@@ -20,31 +21,44 @@ export class ServiceCategoriesListComponent implements OnInit {
   page: number = 1;
   pageSize: number = 15;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
-    private adminContentService: AdminContentService
+    private adminContentService: AdminContentService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {
     this.category = new ServiceCategory();
   }
 
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
+
   search(): void {
-    fetch('https://apartmain.azurewebsites.net/api/servicecategories/search?category=' + this.searchCategory, {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/servicecategories/search?category=' +
+        this.searchCategory,
+      {
+        method: 'GET',
+        headers: {
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.categories = data.categories;
         } else {
-          alert('Search error!');
+          this.showAlert('Search error!');
         }
         this.searchCategory = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -53,26 +67,29 @@ export class ServiceCategoriesListComponent implements OnInit {
       category: this.category.category,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/servicecategories/addcategory', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(category),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/servicecategories/addcategory',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(category),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.getCategories();
         } else {
-          alert('Adding error!');
+          this.showAlert('Adding error!');
         }
         this.category.category = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -82,27 +99,30 @@ export class ServiceCategoriesListComponent implements OnInit {
       category: this.category.category,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/servicecategories/editcategory', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(category),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/servicecategories/editcategory',
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(category),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.getCategories();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.category.category = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -112,49 +132,55 @@ export class ServiceCategoriesListComponent implements OnInit {
       category: this.category.category,
     };
 
-    fetch('https://apartmain.azurewebsites.net/api/servicecategories/deletecategory', {
-      method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-      body: JSON.stringify(category),
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/servicecategories/deletecategory',
+      {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+        body: JSON.stringify(category),
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.getCategories();
           ListHelper.disableButtons();
         } else {
-          alert('Editing error!');
+          this.showAlert('Editing error!');
         }
         this.category.category = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
   getCategories(): void {
-    fetch('https://apartmain.azurewebsites.net/api/servicecategories/getcategories', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      'https://apartmain.azurewebsites.net/api/servicecategories/getcategories',
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.categories = data.categories;
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -167,24 +193,27 @@ export class ServiceCategoriesListComponent implements OnInit {
   loadMore(): void {
     this.page++;
 
-    fetch(`https://apartmain.azurewebsites.net/api/servicecategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json; charset=utf-8',
-        Accept: 'application/json',
-        Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
-      },
-    })
+    fetch(
+      `https://apartmain.azurewebsites.net/api/servicecategories/getcategories?page=${this.page}&pageSize=${this.pageSize}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+          Accept: 'application/json',
+          Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+        },
+      }
+    )
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
           this.collectElements(data.categories);
         } else {
-          alert('Fetch error!');
+          this.showAlert('Fetch error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -199,5 +228,4 @@ export class ServiceCategoriesListComponent implements OnInit {
   ngOnInit(): void {
     this.getCategories();
   }
-
 }

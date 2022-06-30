@@ -1,19 +1,25 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <div class="input-group">
-  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"
-         [(ngModel)]="searchFacility" />
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+    aria-describedby="search-addon" [(ngModel)]="searchFacility" />
   <button type="button" class="btn btn-dark" (click)="search()">search</button>
 </div>
 
 <div class="row">
   <div class="btn-group" role="group" aria-label="Basic example">
     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#add">Add</button>
-    <button type="button" id="editButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit" disabled>Edit</button>
-    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete" disabled>Delete</button>
+    <button type="button" id="editButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit"
+      disabled>Edit</button>
+    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete"
+      disabled>Delete</button>
   </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
+<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="addLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -24,10 +30,11 @@
         <form>
           <div class="mb-3">
             <label for="addType" class="form-label">Text</label>
-            <input type="text" class="form-control" id="addType" name="facility.text" [(ngModel)]="facility.text"/>
+            <input type="text" class="form-control" id="addType" name="facility.text" [(ngModel)]="facility.text" />
 
             <label for="addFacilityTypes" class="form-label">Facility type</label>
-            <select id="addFacilityTypes" class="form-select facilityTypes" name="facility.facilityType.id" [(ngModel)]="facility.facilityType.id"></select>
+            <select id="addFacilityTypes" class="form-select facilityTypes" name="facility.facilityType.id"
+              [(ngModel)]="facility.facilityType.id"></select>
           </div>
         </form>
       </div>
@@ -39,7 +46,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="editLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -50,10 +58,11 @@
         <form>
           <div class="mb-3">
             <label for="editType" class="form-label">Text</label>
-            <input type="text" class="form-control" id="editType" name="facility.text" [(ngModel)]="facility.text"/>
+            <input type="text" class="form-control" id="editType" name="facility.text" [(ngModel)]="facility.text" />
 
             <label for="editFacilityTypes" class="form-label">Facility type</label>
-            <select id="editFacilityTypes" class="form-select facilityTypes" name="facilityType.facilityType" [(ngModel)]="facility.facilityType"></select>
+            <select id="editFacilityTypes" class="form-select facilityTypes" name="facilityType.facilityType"
+              [(ngModel)]="facility.facilityType"></select>
           </div>
         </form>
       </div>
@@ -65,7 +74,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
+<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="deleteLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -77,10 +87,10 @@
           <div class="mb-3">
             <label for="deleteType" class="form-label">Text</label>
             <input type="text" class="form-control" id="deleteTypeText" name="facility.text" [(ngModel)]="facility.text"
-                   readonly />
+              readonly />
 
-            <input type="text" class="form-control facilityTypes" id="deleteFacilityType" name="facility.text" [(ngModel)]="facility.text"
-                   readonly />
+            <input type="text" class="form-control facilityTypes" id="deleteFacilityType" name="facility.text"
+              [(ngModel)]="facility.text" readonly />
           </div>
         </form>
       </div>
@@ -108,14 +118,15 @@
       <th scope="row">
         <div class="form-check">
           <input class="form-check-input" type="radio" name="facilityRadio" id="facilityRadio" value={{facility.id}}
-          (click)="setFacility(facility)" >
+            (click)="setFacility(facility)">
         </div>
       </th>
       <td>{{facility.id}}</td>
       <td>{{facility.text}}</td>
       <td>{{facility.facilityType?.type}}</td>
       <td>{{facility.suggestion}}</td>
-      <td id="thenblock" class="text-center"><img width="70px" height="70px" src="{{imageHelper.getImageDirectoryPath()}}{{facility.image?.name}}" /></td>
+      <td id="thenblock" class="text-center"><img width="70px" height="70px"
+          src="{{imageHelper.getImageDirectoryPath()}}{{facility.image?.name}}" /></td>
     </tr>
   </tbody>
 </table>

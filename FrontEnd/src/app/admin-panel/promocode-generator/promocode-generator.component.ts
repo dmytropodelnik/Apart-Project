@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DateModel } from 'src/app/models/datemodel.item';
 import { PromoCode } from 'src/app/models/Payment/promocode.item';
+import { MainDataService } from 'src/app/services/main-data.service';
 
 import AuthHelper from '../../utils/authHelper';
 
@@ -20,7 +22,17 @@ export class PromocodeGeneratorComponent implements OnInit {
   showWeekNumbers = false;
   outsideDays = 'hidden';
 
-  constructor() {}
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
+  constructor(
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
+  }
 
   generatePromoCode(): void {
     let expirationDate = this.dp.year + '-' + this.dp.month + '-' + this.dp.day;
@@ -44,7 +56,8 @@ export class PromocodeGeneratorComponent implements OnInit {
             headers: {
               'Content-Type': 'application/json; charset=utf-8',
               Accept: 'application/json',
-              Authorization: AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
+              Authorization:
+                AuthHelper.getLogin() + ';' + AuthHelper.getToken(),
             },
           })
             .then((r) => r.json())
@@ -52,18 +65,19 @@ export class PromocodeGeneratorComponent implements OnInit {
               if (data.code === 200) {
                 this.promoCodes = data.codes;
               } else {
-                alert('Fetching last promo codes error!');
+                this.showAlert('Fetching last promo codes error!');
               }
             })
             .catch((ex) => {
-              alert(ex);
+              this.mainDataService.alertContent = ex;
+              this.modalService.open(this.alert);
             });
         } else {
-          alert('Generating promo codes error!');
+          this.showAlert('Generating promo codes error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -81,11 +95,11 @@ export class PromocodeGeneratorComponent implements OnInit {
         if (data.code === 200) {
           this.promoCodes = data.codes;
         } else {
-          alert('Fetching last promo codes error!');
+          this.showAlert('Fetching last promo codes error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 }

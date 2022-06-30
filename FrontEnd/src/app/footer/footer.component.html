@@ -1,17 +1,19 @@
-<div class="emk_footer_update emk_footer_centered emk_footer_update_space">
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
+<div class="footer_centered footer_update_space">
   <div class="footerconstraint-inner">
-    <div class="emk_footer_banner_block">
+    <div class="footer_banner_block">
       <h2>Save time, save money!</h2>
     </div>
-    <div class="emk_footer_subbanner_block">
+    <div class="footer_subbanner_block">
       Sign up and we'll send the best deals to you
     </div>
-    <div class="clearfix"></div>
-    <div class="emk_footer_form_layout">
-      <label for="newsletter_to" class="invisible_spoken">
+    <div class="footer_form_layout">
+      <label for="newsletter_to">
         Enter your email address and we'll send you our best deals
       </label>
-      <div class="subscription_form_wrap position-relative">
+      <div class="subscription_form_wrap">
         <input
           name="email"
           autocapitalize="off"
@@ -36,17 +38,7 @@
       <div *ngIf="offEmail.errors.pattern">Email not valid</div>
     </div>
   </div>
-  <input name="recaptcha_enabled" value="1" type="hidden" />
-  <style nonce="em3UjxXo2q0cjXc">
-    .grecaptcha-badge {
-      display: none;
-      bottom: 90px !important;
-    }
-  </style>
 </div>
-
-<div style="clear: both"></div>
-
 <div id="booking-footer" class="footer-wrapper">
   <div id="footer_top_menu" class="footer-top-menu">
     <a routerLink="/joinpartner" class="footer-top-button">
@@ -57,13 +49,13 @@
     <div class="footerconstraint-inner">
       <div
         id="footer"
-        class="footer-navigation-links-wrapper clearfix"
+        class="footer-navigation-links-wrapper"
         role="navigation"
       >
         <div id="footer_links1" class="footer-navigation-links">
           <div class="footer-navigation-links-column mb-3 mb-md-0">
             <span class="footer-navigation-link-title">Property categories</span>
-            <ul class="footer-navigation-links-list footer-seo-links-to-index">
+            <ul class="footer-navigation-links-list ">
               <li class="footer-navigation-link button-class"
                   *ngFor="let category of mainDataService.getBookingCategories(); let i = index"
                   (click)="searchSuggestionsByCategory($event, category.category)">
@@ -73,7 +65,7 @@
           </div>
           <div class="footer-navigation-links-column mb-3 mb-md-0">
             <span class="footer-navigation-link-title">Countries</span>
-            <ul class="footer-navigation-links-list footer-seo-links-to-index">
+            <ul class="footer-navigation-links-list ">
               <li class="footer-navigation-link button-class"
                   *ngFor="let country of mainDataService.getSearchingCountries(); let i = index"
                   (click)="searchSuggestionsByPlace($event, country)">
@@ -83,7 +75,7 @@
           </div>
           <div class="footer-navigation-links-column mb-3 mb-md-0">
             <span class="footer-navigation-link-title">Regions</span>
-            <ul class="footer-navigation-links-list footer-seo-links-to-index">
+            <ul class="footer-navigation-links-list ">
               <li class="footer-navigation-link button-class"
                   *ngFor="let region of mainDataService.getSearchingRegions(); let i = index"
                   (click)="searchSuggestionsByPlace($event, region.title)">
@@ -93,7 +85,7 @@
           </div>
           <div class="footer-navigation-links-column mb-3 mb-md-0">
             <span class="footer-navigation-link-title">Cities</span>
-            <ul class="footer-navigation-links-list footer-seo-links-to-index">
+            <ul class="footer-navigation-links-list ">
               <li class="footer-navigation-link button-class"
                   *ngFor="let city of mainDataService.getSearchingCities(); let i = index"
                   (click)="searchSuggestionsByPlace($event, city.title)">
@@ -103,7 +95,7 @@
           </div>
           <div class="footer-navigation-links-column mb-3 mb-md-0">
             <span class="footer-navigation-link-title">Explore</span>
-            <ul class="footer-navigation-links-list footer-seo-links-to-index">
+            <ul class="footer-navigation-links-list ">
               <li class="footer-navigation-link button-class" (click)="routerToMySettings()">
                 <a> Your account </a>
               </li>

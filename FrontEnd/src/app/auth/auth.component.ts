@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import AuthHelper from '../utils/authHelper';
 import { AuthorizationService } from '../services/authorization.service';
@@ -11,9 +11,12 @@ import {
 } from '@angular/forms';
 import { RepositoryEnum } from '../enums/repositoryenum.item';
 
-import { SocialAuthService } from "angularx-social-login";
-import { SocialUser } from "angularx-social-login";
-import { GoogleLoginProvider } from "angularx-social-login";
+import { SocialAuthService } from 'angularx-social-login';
+import { SocialUser } from 'angularx-social-login';
+import { GoogleLoginProvider } from 'angularx-social-login';
+import { MainDataService } from '../services/main-data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BookingFinalStepComponent } from '../booking-properties/booking-final-step/booking-final-step.component';
 
 @Component({
   selector: 'app-auth',
@@ -34,6 +37,7 @@ export class AuthComponent implements OnInit {
   submitted: boolean = false;
   isPasswordsEqual: boolean = false;
   letterAction: boolean = false;
+  signInWithPassword: boolean = false;
 
   userFirstName: string = '';
   userLastName: string = '';
@@ -42,13 +46,17 @@ export class AuthComponent implements OnInit {
 
   letterMessage: string = '';
 
-  public user: SocialUser = new SocialUser;
+  public user: SocialUser = new SocialUser();
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     public authService: AuthorizationService,
     private router: Router,
     private formBuilder: FormBuilder,
     private authSocialService: SocialAuthService,
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
   ) {
     this.passwordForm = this.formBuilder.group(
       {
@@ -86,6 +94,10 @@ export class AuthComponent implements OnInit {
     return this.codeForm.controls;
   }
 
+  checkSignInOption() {
+    this.signInWithPassword = !this.signInWithPassword;
+  }
+
   sendInfoLetter(): void {
     fetch(
       `https://apartmain.azurewebsites.net/api/notifications/sendnotification?email=${this.email}&message=${this.letterMessage}&action=${this.letterAction}`,
@@ -96,14 +108,19 @@ export class AuthComponent implements OnInit {
       .then((r) => r.json())
       .then(async (data) => {
         if (data.code === 200) {
-          document.location.href="https://www.apartstep.fun";
+          document.location.href = 'https://www.apartstep.fun';
         } else {
-          alert(data.message);
+          this.showAlert(data.message);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
+  }
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   userCheck(): void {
@@ -128,7 +145,7 @@ export class AuthComponent implements OnInit {
         this.isExistUser = true;
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -152,15 +169,15 @@ export class AuthComponent implements OnInit {
           this.authService.setTokenKey(response.encodedJwt);
           AuthHelper.saveAuth(user.email, response.encodedJwt);
           this.authService.setLogCondition(true);
-          alert('You have successfully authenticated!');
+          this.showAlert('You have successfully authenticated!');
 
           this.router.navigate(['']);
         } else {
-          alert('Token fetching error!');
+          this.showAlert('Token fetching error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -178,17 +195,17 @@ export class AuthComponent implements OnInit {
       body: JSON.stringify(user),
     })
       .then((response) => response.json())
-      .then(response => {
+      .then((response) => {
         if (response.code !== 400) {
           this.authService.setTokenKey(response.encodedJwt);
           AuthHelper.saveAuth(this.email, response.encodedJwt);
           this.authService.setLogCondition(true);
-          alert('You have successfully authenticated!');
+          this.showAlert('You have successfully authenticated!');
           this.letterMessage = `You have successfully entered on Apartstep.fun via social network with ${this.email}!`;
           this.letterAction = true;
           this.sendInfoLetter();
         } else {
-          alert('Token fetching error!');
+          this.showAlert('Token fetching error!');
           if (AuthHelper.isFacebookLogin()) {
             AuthHelper.clearFacebookAuth();
           } else if (AuthHelper.isGoogleLogin()) {
@@ -197,7 +214,7 @@ export class AuthComponent implements OnInit {
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -214,12 +231,36 @@ export class AuthComponent implements OnInit {
       }
     )
       .then((r) => r.json())
-      .then((data) => {
-        alert(data.code);
-        console.log(data);
+      .catch((ex) => {
+        this.showAlert(ex);
+      });
+  }
+
+  loginWithPassword(): void {
+    if (this.password.length == 0) {
+      this.showAlert('Password length must be greater than zero!');
+      return;
+    }
+
+    fetch(
+      `https://apartmain.azurewebsites.net/api/auth/loginwithpassword?email=${this.email}&password=${this.password}`,
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json; charset=utf-8',
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((response) => {
+        if (response.code === 200) {
+          this.userSignIn();
+        } else {
+          this.showAlert(response.message);
+        }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -262,20 +303,19 @@ export class AuthComponent implements OnInit {
           this.userSignIn();
           this.router.navigate(['']);
         } else {
-          alert(response.code);
+          this.showAlert(response.code);
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
   async verifyGoogleEnter(): Promise<void> {
     await this.authSocialService.signIn(GoogleLoginProvider.PROVIDER_ID);
-    this.authSocialService.authState.subscribe(user => {
+    this.authSocialService.authState.subscribe((user) => {
       this.user = user;
       this.email = user.email;
-      console.log(this.user);
       this.googleEnter();
     });
   }
@@ -297,10 +337,8 @@ export class AuthComponent implements OnInit {
                 userName.length
               );
               this.email = (response as any).email;
-              this.image =(response as any).picture.data.url;
+              this.image = (response as any).picture.data.url;
               this.authService.setUserImage(this.image);
-
-              console.log(response);
 
               fetch(
                 'https://apartmain.azurewebsites.net/api/users/userexistsbysocial?email=' +
@@ -337,31 +375,29 @@ export class AuthComponent implements OnInit {
                         if (response.code === 200) {
                           this.userSocialSignIn();
                         } else {
-                          alert(response.code);
+                          this.showAlert(response.code);
                         }
                       })
                       .catch((ex) => {
-                        alert(ex);
+                        this.mainDataService.alertContent = ex;
+                        this.modalService.open(this.alert);
                       });
                   }
                 })
                 .catch((ex) => {
-                  alert(ex);
+                  this.mainDataService.alertContent = ex;
+                  this.modalService.open(this.alert);
                 });
             } else {
-              alert('Login via facebook error!');
+              this.showAlert('Login via facebook error!');
             }
-          },
-          );
+          });
         } else {
           // The person is not logged into your webpage or we are unable to tell.
-          alert('Login via facebook error!');
+          this.showAlert('Login via facebook error!');
         }
       },
-      { scope: 'email, public_profile,',
-        return_scopes: true,
-      },
-
+      { scope: 'email, public_profile,', return_scopes: true }
     );
   }
 
@@ -386,11 +422,13 @@ export class AuthComponent implements OnInit {
           this.authService.setLogCondition(false);
           AuthHelper.clearAuth();
 
-          FB.getLoginStatus(function(response) {   // Called after the JS SDK has been initialized.
-            if (response.status === 'connected') {  // Returns the login status.
-              FB.logout(function(response) {
+          FB.getLoginStatus(function (response) {
+            // Called after the JS SDK has been initialized.
+            if (response.status === 'connected') {
+              // Returns the login status.
+              FB.logout(function (response) {
                 // Person is now logged out
-             });
+              });
             }
           });
 
@@ -402,11 +440,11 @@ export class AuthComponent implements OnInit {
             AuthHelper.clearGoogleAuth();
           }
         } else {
-          alert('Logout error!');
+          this.showAlert('Logout error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
@@ -446,16 +484,17 @@ export class AuthComponent implements OnInit {
                 AuthHelper.saveGoogleAuth();
                 this.userSocialSignIn();
               } else {
-                alert(response.code);
+                this.showAlert(response.code);
               }
             })
             .catch((ex) => {
-              alert(ex);
+              this.mainDataService.alertContent = ex;
+              this.modalService.open(this.alert);
             });
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 

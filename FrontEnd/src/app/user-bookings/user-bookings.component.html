@@ -16,6 +16,9 @@
 </p> -->
 
 <body>
+  <ng-template #alert let-modal>
+    <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+  </ng-template>
   <app-header></app-header>
   <div class="user-bookings-container">
     <div class="user-bookings-navbar">

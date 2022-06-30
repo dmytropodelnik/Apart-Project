@@ -1,19 +1,25 @@
+<ng-template #alert let-modal>
+  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+</ng-template>
 <div class="input-group">
-  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon"
-         [(ngModel)]="searchRole" />
+  <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+    aria-describedby="search-addon" [(ngModel)]="searchRole" />
   <button type="button" class="btn btn-dark" (click)="search()">search</button>
 </div>
 
 <div class="row">
   <div class="btn-group" role="group" aria-label="Basic example">
     <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#add">Add</button>
-    <button type="button" id="editButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit" disabled>Edit</button>
-    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete" disabled>Delete</button>
+    <button type="button" id="editButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#edit"
+      disabled>Edit</button>
+    <button type="button" id="deleteButton" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#delete"
+      disabled>Delete</button>
   </div>
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="addLabel" aria-hidden="true">
+<div class="modal fade" id="add" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="addLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -24,7 +30,8 @@
         <form>
           <div class="mb-3">
             <label for="newRole" class="form-label">New role</label>
-            <input type="text" class="form-control" id="newRole" aria-describedby="emailHelp" name="role" [(ngModel)]="role">
+            <input type="text" class="form-control" id="newRole" aria-describedby="emailHelp" name="role"
+              [(ngModel)]="role">
           </div>
         </form>
       </div>
@@ -36,7 +43,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editLabel" aria-hidden="true">
+<div class="modal fade" id="edit" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="editLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -47,7 +55,8 @@
         <form>
           <div class="mb-3">
             <label for="editRole" class="form-label">Role</label>
-            <input type="text" class="form-control" id="editRole" aria-describedby="emailHelp" name="role" [(ngModel)]="role">
+            <input type="text" class="form-control" id="editRole" aria-describedby="emailHelp" name="role"
+              [(ngModel)]="role">
           </div>
         </form>
       </div>
@@ -59,7 +68,8 @@
   </div>
 </div>
 
-<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="deleteLabel" aria-hidden="true">
+<div class="modal fade" id="delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+  aria-labelledby="deleteLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -70,8 +80,8 @@
         <form>
           <div class="mb-3">
             <label for="deleteRole" class="form-label">Role</label>
-            <input type="text" class="form-control" id="deleteRole" aria-describedby="emailHelp" name="role" [(ngModel)]="role"
-                   readonly />
+            <input type="text" class="form-control" id="deleteRole" aria-describedby="emailHelp" name="role"
+              [(ngModel)]="role" readonly />
           </div>
         </form>
       </div>
@@ -96,7 +106,7 @@
       <th scope="row">
         <div class="form-check">
           <input class="form-check-input" type="radio" name="roleRadio" id="roleRadio" value={{role.id}}
-                 (click)="setRole(role.id, role.name)" >
+            (click)="setRole(role.id, role.name)">
         </div>
       </th>
       <td>{{role.id}}</td>
@@ -104,4 +114,3 @@
     </tr>
   </tbody>
 </table>
-

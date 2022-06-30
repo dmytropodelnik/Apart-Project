@@ -1,25 +1,29 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 import AuthHelper from '../utils/authHelper';
 import ImageHelper from '../utils/imageHelper';
 
 import { AuthorizationService } from '../services/authorization.service';
+import { MainDataService } from '../services/main-data.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-join-as-partner',
   templateUrl: './join-as-partner.component.html',
-  styleUrls: ['./join-as-partner.component.css']
+  styleUrls: ['./join-as-partner.component.css'],
 })
 export class JoinAsPartnerComponent implements OnInit {
   authHelper: any = AuthHelper;
   imageHelper: any = ImageHelper;
   login = false;
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     public authService: AuthorizationService,
-  ) {
-
-  }
+    public mainDataService: MainDataService,
+    private modalService: NgbModal
+  ) {}
 
   userSignOut(): void {
     let model = {
@@ -42,16 +46,18 @@ export class JoinAsPartnerComponent implements OnInit {
           this.authService.setLogCondition(false);
           AuthHelper.clearAuth();
         } else {
-          alert("Logout error!");
+          this.showAlert('Logout error!');
         }
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
   }
 
-
-  ngOnInit(): void {
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
+  ngOnInit(): void {}
 }

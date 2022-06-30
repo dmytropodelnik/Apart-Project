@@ -1,8 +1,6 @@
 ﻿using CloneBookingAPI.Database.Models;
-using CloneBookingAPI.Services.Database.Models.Services;
 using CloneBookingAPI.Services.Database.Models.Suggestions;
 using CloneBookingAPI.Services.Database.Models.UserProfile;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -60,8 +58,6 @@ namespace CloneBookingAPI.Services.Database.Models
         [ForeignKey("RoleId")]
         public Role Role { get; set; }
 
-        public Cart Cart { get; set; }
-
         // REDUNDANT
         // public int ProfileId { get; set; }
         public UserProfile.UserProfile Profile { get; set; }
@@ -70,10 +66,6 @@ namespace CloneBookingAPI.Services.Database.Models
         public List<Notification> Notifications { get; set; } = new();
         public List<Suggestion> Suggestions { get; set; } = new();
         public List<StayBooking> StayBookings { get; set; } = new();
-        public List<FlightBooking> FlightBookings { get; set; } = new();
-        public List<CarRentalBooking> CarRentalBookings { get; set; } = new();
-        public List<AttractionBooking> AttractionBookings { get; set; } = new();
-        public List<AirportTaxiBooking> AirportTaxiBookings { get; set; } = new();
         public List<Message> Messages { get; set; } = new();
 
         public override string ToString()

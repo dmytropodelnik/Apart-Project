@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { MainDataService } from '../services/main-data.service';
 
@@ -19,16 +20,17 @@ export class FooterComponent implements OnInit {
 
   searchViewModel: SearchViewModel = new SearchViewModel();
 
+  @ViewChild('alert', { static: true })
+  alert!: TemplateRef<any>;
   constructor(
     public mainDataService: MainDataService,
     private router: Router,
-    ) {
-
-  }
+    private modalService: NgbModal
+  ) {}
 
   addDealsSubscriber() {
     if (!this.email.match('^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$')) {
-      alert('Incorrect email pattern!');
+      this.showAlert('Incorrect email pattern!');
       return;
     }
 
@@ -42,17 +44,20 @@ export class FooterComponent implements OnInit {
       .then((r) => r.json())
       .then((data) => {
         if (data.code === 200) {
-          alert('We sent verification letter to your email!');
-          console.log(data);
-        }
-        else {
-          alert(data.message);
+          this.showAlert('We sent verification letter to your email!');
+        } else {
+          this.showAlert(data.message);
         }
         this.email = '';
       })
       .catch((ex) => {
-        alert(ex);
+        this.showAlert(ex);
       });
+  }
+
+  showAlert(value: string): void {
+    this.mainDataService.alertContent = value;
+    this.modalService.open(this.alert);
   }
 
   routerToMySettings(): void {
