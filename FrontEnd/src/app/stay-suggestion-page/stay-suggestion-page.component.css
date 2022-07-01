@@ -19,13 +19,10 @@
   overflow: hidden;
 }
 
-.bui-review-score__badge_unrated {
+.review-score__badge_unrated {
   background: #0c9496;
   color: #fff;
   display: flex;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
   justify-content: center;
   vertical-align: baseline;
   border-radius: 5.81818px 5.81818px 5.81818px 0;
@@ -247,12 +244,7 @@
   font-weight: 400;
   font-size: 30px;
   line-height: 37px;
-  /* identical to box height */
-
   letter-spacing: 0.02em;
-
-  /* Font color */
-
   color: #000000;
   padding: 0px;
   margin: 0px;
@@ -265,9 +257,6 @@
 .searchbox_button {
   width: 159px;
   height: 37px;
-
-  /* Basic */
-
   background: #f29e21;
   border-radius: 10px;
   border: 0px;
@@ -277,12 +266,7 @@
   font-weight: 700;
   font-size: 14px;
   line-height: 17px;
-  /* identical to box height */
-
   letter-spacing: 0.02em;
-
-  /* Hover */
-
   color: #ffffff;
 }
 
@@ -298,12 +282,7 @@
   font-weight: 400;
   font-size: 14px;
   line-height: 17px;
-  /* identical to box height */
-
   letter-spacing: 0.02em;
-
-  /* Font color */
-
   color: #000000;
 }
 
@@ -379,7 +358,6 @@
   align-items: center;
   padding: 10px 15px;
   gap: 20px;
-  /* BACKGROUND_COLOR */
   background: #ffffff;
 
   border-radius: 10px;
@@ -413,12 +391,7 @@
   font-weight: 700;
   font-size: 23px;
   line-height: 37px;
-  /* identical to box height */
-
   letter-spacing: 0.02em;
-
-  /* Hover */
-
   color: #ffffff;
 }
 
@@ -436,13 +409,8 @@
   font-style: normal;
   font-weight: 700;
   font-size: 27px;
-  line-height: 37px;
-  /* identical to box height */
-
+  line-height: 37px; 
   letter-spacing: 0.02em;
-
-  /* Hover */
-
   color: #ffffff;
 }
 
@@ -535,17 +503,8 @@
   height: 32px;
   width: 32px;
   border-radius: 50%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: -webkit-flex;
   display: flex;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  -webkit-align-items: center;
   align-items: center;
-  -webkit-box-pack: center;
-  -ms-flex-pack: center;
-  -webkit-justify-content: center;
   justify-content: center;
   background-color: #494949;
   color: #fff;
@@ -599,7 +558,7 @@
   gap: 10px;
 }
 
-.bui-review-score__badge {
+.review-score__badge {
   background: #0c9496;
   color: #fff;
   display: flex;
@@ -782,6 +741,122 @@ body {
 .progress-bar {
   background-color: #0c9496 !important;
 }
+
+.button--secondary.button--active,
+.button--secondary:active,
+.button--secondary:focus,
+.button--secondary:hover,
+.button--secondary:link,
+.button--secondary:visited {
+  color: #0c9496;
+}
+
+.button.button--active,
+.button:active,
+.button:focus,
+.button:hover,
+.button:link,
+.button:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
+.button--secondary {
+  background-color: #fff;
+  color: #0c9496 !important;
+}
+
+.button--secondary:before {
+  background: transparent !important;
+  border-color: #0c9496;
+}
+
+.button__text {
+  position: relative;
+}
+
+.button.button--active,
+.button:active,
+.button:focus,
+.button:hover,
+.button:link,
+.button:visited {
+  color: #fff;
+  text-decoration: none;
+}
+
+.button--secondary:before {
+  background: transparent;
+  border-color: #0c9496;
+}
+
+.button--secondary:not(.bui-is-loading):hover:before {
+  background-color: rgba(0, 113, 194, 0.06);
+  border-color: #0c9496;
+}
+
+.button--secondary {
+  background-color: #fff;
+  color: #0c9496;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.dropdownSubSectionButtons {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.button {
+  border: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-family: inherit;
+  text-decoration: none;
+  box-sizing: border-box;
+  vertical-align: middle;
+  position: relative;
+  color: #fff;
+  min-height: 36px;
+  min-width: 36px;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+
+  border-radius: 2px;
+  background: transparent;
+}
+
+.button:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  background-color: #0c9496;
+  border: 1px solid #0c9496;
+  border-radius: 2px;
+}
+
+.dropdown-menu {
+  border: 0 !important;
+  border-radius: 4px;
+  box-shadow: 0 2px 16px rgb(0 0 0 / 15%);
+  padding: 16px !important;
+}
+
+
+
+
+
 
 @media screen and (max-width: 1134px) {
   .basiclayout {
