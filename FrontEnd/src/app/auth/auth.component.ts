@@ -129,7 +129,9 @@ export class AuthComponent implements OnInit {
       password: this.password,
     };
     fetch(
-      `https://apartmain.azurewebsites.net/api/users/userexists?email=${user.email}`,
+      `https://apartmain.azurewebsites.net/api/users/userexists?email=${
+        user.email
+      }&sendLetter=${!this.signInWithPassword}`,
       {
         method: 'GET',
         headers: {

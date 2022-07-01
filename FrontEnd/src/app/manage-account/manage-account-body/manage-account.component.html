@@ -1,14 +1,19 @@
 <ng-template #alert let-modal>
-  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+  <app-alert
+    [content]="mainDataService.alertContent"
+    (click)="modal.dismiss()"
+  ></app-alert>
 </ng-template>
 <header
-  class="bui-header bui-header--logo-large bui-u-hidden-print bui-header--rounded-tabs"
+  class="header header--logo-large bui-u-hidden-print header--rounded-tabs"
 >
-  <nav class="bui-header__bar">
-    <div class="bui-header__main">
-      <div class="bui-header__logo">
+  <nav class="header__bar">
+    <div class="header__main">
+      <div class="header__logo">
         <span>
-          <label class="robotoregular click-component" routerLink="">Apart.com</label>
+          <label class="robotoregular click-component" routerLink=""
+            >Apart.com</label
+          >
         </span>
       </div>
     </div>
@@ -22,23 +27,23 @@
       <!--- Sidemenu -->
       <!-- Left Menu Start -->
       <ul class="side_menu">
-        <li class="side_menu_content">
+        <li class="side_menu_content click-component" (click)="setContent('personal-details')">
           <i><span class="account-personal"></span></i>
-          <a (click)="setContent('personal-details')">
+          <a>
             <span class="side_menu_content_text">Personal details</span>
           </a>
         </li>
 
-        <li class="side_menu_content">
+        <li class="side_menu_content click-component" (click)="setContent('preferences')">
           <i><span class="account-preference"></span></i>
-          <a (click)="setContent('preferences')">
+          <a>
             <span class="side_menu_content_text">Preferences</span>
           </a>
         </li>
 
-        <li class="side_menu_content">
+        <li class="side_menu_content click-component" (click)="setContent('security')">
           <i><span class="account-security"></span></i>
-          <a (click)="setContent('security')">
+          <a>
             <span class="side_menu_content_text">Security</span>
           </a>
         </li>
@@ -53,54 +58,4 @@
       ></app-manage-account-content>
     </div>
   </div>
-
-  <!-- <div class="manageaccount">
-    <div class="">
-      <div class="accordion-collapse collapse show">
-        <li>
-          <a class="btn waves-effect" (click)="setContent('personal-details')">
-            <i class="mdi mdi-account-circle"></i>
-            <span>Personal details</span>
-          </a>
-        </li>
-        <li>
-          <a class="btn waves-effect" (click)="setContent('preferences')">
-            <i class="mdi mdi-account-box"></i>
-            <span>Preferences</span>
-          </a>
-        </li>
-        <li>
-          <a class="btn waves-effect" (click)="setContent('security')">
-            <i class="mdi mdi-account-box-outline"></i>
-            <span>Security</span>
-          </a>
-        </li>
-        <li>
-        <a class="btn waves-effect" (click)="setContent('payment-details')">
-          <i class="mdi mdi-account-group"></i>
-          <span>Payment details</span>
-        </a>
-      </li>
-
-      <li>
-        <a class="btn waves-effect" (click)="setContent('email-notifications')">
-          <i class="mdi mdi-account-circle"></i>
-          <span>Email Notifications</span>
-        </a>
-      </li>
-
-      <li>
-        <a class="btn waves-effect" (click)="setContent('other-travelers')">
-          <i class="mdi mdi-emoticon-tongue"></i>
-          <span>Other travelers</span>
-        </a>
-      </li>
-      </div>
-    </div>
-    <div class="">
-      <app-manage-account-content
-        [content]="content"
-      ></app-manage-account-content>
-    </div>
-  </div> -->
 </body>

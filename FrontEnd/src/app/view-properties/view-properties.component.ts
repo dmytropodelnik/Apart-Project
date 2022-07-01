@@ -111,7 +111,7 @@ export class ViewPropertyComponent implements OnInit {
           toSaveId: true,
         },
       });
-    } else if (suggestion.progress == 35) {
+    } else if (suggestion.progress == 40) {
       this.router.navigate(['lp/propertysetup'], {
         queryParams: {
           id: suggestion.id,
@@ -119,7 +119,7 @@ export class ViewPropertyComponent implements OnInit {
           toSaveId: true,
         },
       });
-    } else if (suggestion.progress == 40) {
+    } else if (suggestion.progress == 45) {
       this.router.navigate(['lp/propertysetup'], {
         queryParams: {
           id: suggestion.id,
@@ -127,7 +127,7 @@ export class ViewPropertyComponent implements OnInit {
           toSaveId: true,
         },
       });
-    } else if (suggestion.progress == 45) {
+    } else if (suggestion.progress == 50) {
       this.router.navigate(['lp/propertysetup'], {
         queryParams: {
           id: suggestion.id,
@@ -135,7 +135,7 @@ export class ViewPropertyComponent implements OnInit {
           toSaveId: true,
         },
       });
-    } else if (suggestion.progress == 50) {
+    } else if (suggestion.progress == 60) {
       this.router.navigate(['lp/propertysetup'], {
         queryParams: {
           id: suggestion.id,
@@ -143,14 +143,14 @@ export class ViewPropertyComponent implements OnInit {
           toSaveId: true,
         },
       });
-    } else if (suggestion.progress == 50) {
+    } else if (suggestion.progress == 70) {
       this.router.navigate(['lp/photos'], {
         queryParams: {
           id: suggestion.id,
           toSaveId: true,
         },
       });
-    } else if (suggestion.progress == 65) {
+    } else if (suggestion.progress == 90) {
       this.router.navigate(['lp/reviewandcomplete'], {
         queryParams: {
           id: suggestion.id,

@@ -19,7 +19,7 @@ body {
   cursor: pointer;
 }
 
-.bui-review-score__badge {
+.review-score__badge {
   background: #0c9496;
   color: #fff;
   display: flex;
@@ -35,7 +35,7 @@ body {
   align-items: center;
 }
 
-.bui-review-score__badge_unrated {
+.review-score__badge_unrated {
   background: #0c9496;
   color: #fff;
   display: flex;
@@ -65,8 +65,6 @@ body {
 .booking-details-form > * {
   flex: 1;
 }
-
-
 
 .booking-details-date {
   display: flex;
@@ -187,11 +185,7 @@ body {
   padding-top: 15px;
 }
 
-.booking-details-fill-specialrequest-buttons > button {
-  border: 0px;
-}
-
-.bui-review-score__badge {
+.review-score__badge {
   background: #0c9496;
   color: #fff;
   display: flex;
@@ -205,6 +199,19 @@ body {
   width: 32px;
   min-width: 32px;
   align-items: center;
+}
+
+.button-next {
+  padding: 10px;
+  background-color: #f29e21;
+  color: #ffffff;
+  border: 1px solid #f29e21;
+}
+
+.button-next:hover{
+  background-color: #ffffff;
+  color: #f29e21;
+  border: 1px solid #f29e21;
 }
 
 @media screen and (max-width: 1068px) {
