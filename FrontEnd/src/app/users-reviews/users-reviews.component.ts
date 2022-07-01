@@ -71,9 +71,9 @@ export class UsersReviewsComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.userCountryImage = response.reviews[0].countryImage.name;
-          this.userFirstName = response.reviews[0].firstName;
-          this.userLastName = response.reviews[0].lastName;
+          this.userCountryImage = response.reviews[0]?.countryImage.name;
+          this.userFirstName = response.reviews[0]?.firstName;
+          this.userLastName = response.reviews[0]?.lastName;
 
           for (let i = 0; i < response.reviews.length; i++) {
             this.usersReviews.push(response.reviews[i]);
@@ -116,9 +116,9 @@ export class UsersReviewsComponent implements OnInit {
       .then((response) => response.json())
       .then((response) => {
         if (response.code === 200) {
-          this.userCountryImage = response.reviews[0].countryImage.name;
-          this.userFirstName = response.reviews[0].firstName;
-          this.userLastName = response.reviews[0].lastName;
+          this.userCountryImage = response.reviews[0]?.countryImage.name;
+          this.userFirstName = response.reviews[0]?.firstName;
+          this.userLastName = response.reviews[0]?.lastName;
 
           for (let i = 0; i < response.reviews.length; i++) {
             this.usersPropertiesReviews.push(response.reviews[i]);

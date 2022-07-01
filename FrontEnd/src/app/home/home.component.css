@@ -117,18 +117,15 @@ form {
   width: 100%;
 }
 
-.pp-searchbox--painted  {
+.pp-searchbox--painted {
   border-color: #cd8900;
 }
-
-
 
 .fieldset *,
 .fieldset *:before,
 .fieldset *:after {
   box-sizing: border-box;
 }
-
 
 .invalid_feedback {
   background-color: red;
@@ -251,7 +248,6 @@ div#basiclayout {
   flex-grow: 1;
 }
 
-
 body .f-font-display_two {
   font-size: 24px;
   font-weight: 700;
@@ -286,7 +282,7 @@ p:last-child {
 .button--secondary:hover,
 .button--secondary:link,
 .button--secondary:visited {
-  color: #0071c2;
+  color: #0c9496;
 }
 
 .button.button--active,
@@ -301,12 +297,12 @@ p:last-child {
 
 .button--secondary {
   background-color: #fff;
-  color: #0071c2 !important;
+  color: #0c9496 !important;
 }
 
 .button--secondary:before {
   background: transparent !important;
-  border-color: #0071c2;
+  border-color: #0c9496;
 }
 
 .button__text {
@@ -324,7 +320,7 @@ p:last-child {
 }
 
 a:link {
-  color: #0071c2;
+  color: #0c9496;
   font-weight: bold;
 }
 
@@ -336,17 +332,17 @@ a:link {
 
 .button--secondary:before {
   background: transparent;
-  border-color: #0071c2;
+  border-color: #0c9496;
 }
 
 .button--secondary:not(.bui-is-loading):hover:before {
   background-color: rgba(0, 113, 194, 0.06);
-  border-color: #0071c2;
+  border-color: #0c9496;
 }
 
 .button--secondary {
   background-color: #fff;
-  color: #0071c2;
+  color: #0c9496;
   margin-left: 5px;
   margin-right: 5px;
 }
@@ -368,6 +364,7 @@ a:link {
 .dropdownSubSectionButtons {
   display: flex;
   justify-content: center;
+  gap: 5px;
 }
 
 .dropdownSubSectionText {
@@ -407,8 +404,8 @@ a:link {
   left: 0;
   transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   pointer-events: none;
-  background-color: #0071c2;
-  border: 1px solid #0071c2;
+  background-color: #0c9496;
+  border: 1px solid #0c9496;
   border-radius: 2px;
 }
 
@@ -620,7 +617,6 @@ a:link {
   line-height: 20px;
   color: #6b6b6b;
 }
-
 
 .carousel--new__title > span {
   text-overflow: ellipsis;
@@ -1114,7 +1110,7 @@ a.bui-card:link {
   .row {
     gap: 3px;
   }
-  
+
   .promotion-postcard__large {
     padding-left: 0px;
   }

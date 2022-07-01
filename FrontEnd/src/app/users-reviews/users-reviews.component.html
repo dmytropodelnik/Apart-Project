@@ -1,6 +1,9 @@
 <body>
   <ng-template #alert let-modal>
-    <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+    <app-alert
+      [content]="mainDataService.alertContent"
+      (click)="modal.dismiss()"
+    ></app-alert>
   </ng-template>
   <app-header></app-header>
   <div class="user-bookings-container">
@@ -12,30 +15,6 @@
         <button routerLink="/mysettings">Settings</button>
         <button routerLink="/joinpartner">List your property</button>
       </div>
-    </div>
-
-    <div class="emptyBookings" *ngIf="(usersReviews.length == 0 && condition == 1) || (usersPropertiesReviews.length == 0 && condition == 2)">
-      <div>
-        <img
-          width="256"
-          height="256"
-          src="https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty.f6d1e091536ec081c442de892cdb505e.png"
-          srcset="
-            https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty.f6d1e091536ec081c442de892cdb505e.png    256w,
-            https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty@2x.bc139fe926ec8a47946e6c6e935e0e0c.png 512w,
-            https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty@3x.5d8f4b54c45b037db50df2fb7b0e3bd4.png 768w
-          "
-          sizes="256px"
-          alt=""
-        />
-      </div>
-
-      <p class="Text_root--variant-headline_2__Mbi-u EmptyState_title__A6vnu">
-        Your trips live here
-      </p>
-      <p class="Text_root--variant-body_1__lq2O8">
-        This page shows all of your bookings.
-      </p>
     </div>
 
     <div *ngIf="condition == 1" class="user-reviews-container">
@@ -72,7 +51,9 @@
                 />
               </div>
               <div class="review-card-avatar-block-text">
-                <span class="font-weight-bold">{{userFirstName}} {{userLastName}}</span>
+                <span class="font-weight-bold"
+                  >{{ userFirstName }} {{ userLastName }}</span
+                >
                 <span class="profile_link">
                   <a routerLink="/mysettings">Edit your profile</a>
                 </span>
@@ -80,51 +61,64 @@
             </div>
           </div>
         </div>
-        <div class="review-information-item click-control" (click)="getUsersReviews(true)"><span>My reviews</span></div>
-        <div class="review-information-item click-control" (click)="getUserPropertiesReviews(true)"><span>Property reviews</span></div>
+        <div
+          class="review-information-item click-control"
+          (click)="getUsersReviews(true)"
+        >
+          <span>My reviews</span>
+        </div>
+        <div
+          class="review-information-item click-control"
+          (click)="getUserPropertiesReviews(true)"
+        >
+          <span>Property reviews</span>
+        </div>
       </div>
-      <div class="user-reviews-card">
-        <div *ngFor="let review of usersReviews; let i = index" class="review-card">
+      <div class="user-reviews-card" *ngIf="usersReviews.length > 0">
+        <div
+          *ngFor="let review of usersReviews; let i = index"
+          class="review-card"
+        >
           <div class="review-card-left">
             <div>
               <div class="review-card-left-avatar-block">
                 <div class="review-card-avatar">
                   <img
-                  *ngIf="
-                    authService.getUserImage() &&
-                    authService.getUserImage().indexOf('https://') !== -1
-                  "
-                  class="bui-avatar__image"
-                  src="{{ authService.getUserImage() }}"
-                  alt="user image"
-                />
-                <img
-                  *ngIf="
-                    authService.getUserImage() &&
-                    authService.getUserImage().indexOf('https://') === -1
-                  "
-                  class="bui-avatar__image"
-                  src="{{ imageHelper.getRootDirectoryPath() }}{{
-                    authService.getUserImage()
-                  }}"
-                  alt="user image"
-                />
-                <img
-                  *ngIf="!authService.getUserImage()"
-                  class="bui-avatar__image"
-                  src="../../assets/images/User1.png"
-                  alt="user image"
-                />
+                    *ngIf="
+                      authService.getUserImage() &&
+                      authService.getUserImage().indexOf('https://') !== -1
+                    "
+                    class="bui-avatar__image"
+                    src="{{ authService.getUserImage() }}"
+                    alt="user image"
+                  />
+                  <img
+                    *ngIf="
+                      authService.getUserImage() &&
+                      authService.getUserImage().indexOf('https://') === -1
+                    "
+                    class="bui-avatar__image"
+                    src="{{ imageHelper.getRootDirectoryPath() }}{{
+                      authService.getUserImage()
+                    }}"
+                    alt="user image"
+                  />
+                  <img
+                    *ngIf="!authService.getUserImage()"
+                    class="bui-avatar__image"
+                    src="../../assets/images/User1.png"
+                    alt="user image"
+                  />
                 </div>
                 <div class="review-card-avatar-block-text">
-                  <span class="font-weight-bold">{{review.firstName}}</span>
+                  <span class="font-weight-bold">{{ review.firstName }}</span>
                   <span class="text-block-subtitles">
                     <span class="avatar-block-flag">
                       <img src="{{ imageHelper.getImageDirectoryPath() }}{{
-                        review.countryImage.name
+                        review.countryImage?.name
                       }}" />
                     </span>
-                    <span>{{review.country}}</span>
+                    <span>{{ review.country }}</span>
                   </span>
                 </div>
               </div>
@@ -134,20 +128,49 @@
             <div>
               <div class="review-card-right-main-item">
                 <div class="review-card-right-main-item-info">
-                  <span>Reviewed: {{review.reviewDate}}</span>
+                  <span>Reviewed: {{ review.reviewDate }}</span>
                   <span class="font-weight-bold"> </span>
                 </div>
-                <div class="bui-review-score__badge"> {{ mathHelper.Round10(userReviewsGrades[i]) }}</div>
+                <div class="review-score__badge">
+                  {{ mathHelper.Round10(userReviewsGrades[i]) }}
+                </div>
               </div>
             </div>
             <div>
-              <span class="fw-bold">{{review.title}}</span>
+              <span class="fw-bold">{{ review.title }}</span>
             </div>
           </div>
         </div>
-        <button *ngIf="usersReviews.length / page > 10" class="btn btn-primary"
+        <button
+          *ngIf="usersReviews.length / page > 10"
+          class="btn btn-primary"
           (click)="getUsersReviews(false)"
-          >Load more</button>
+        >
+          Load more
+        </button>
+      </div>
+      <div class="emptyBookings" *ngIf="usersReviews.length == 0">
+        <div>
+          <img
+            width="256"
+            height="256"
+            src="https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty.f6d1e091536ec081c442de892cdb505e.png"
+            srcset="
+              https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty.f6d1e091536ec081c442de892cdb505e.png    256w,
+              https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty@2x.bc139fe926ec8a47946e6c6e935e0e0c.png 512w,
+              https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty@3x.5d8f4b54c45b037db50df2fb7b0e3bd4.png 768w
+            "
+            sizes="256px"
+            alt=""
+          />
+        </div>
+
+        <p class="Text_root--variant-headline_2__Mbi-u EmptyState_title__A6vnu">
+          Your trips live here
+        </p>
+        <p class="Text_root--variant-body_1__lq2O8">
+          This page shows all of your bookings.
+        </p>
       </div>
     </div>
 
@@ -185,7 +208,9 @@
                 />
               </div>
               <div class="review-card-avatar-block-text">
-                <span class="font-weight-bold">{{userFirstName}} {{userLastName}}</span>
+                <span class="font-weight-bold"
+                  >{{ userFirstName }} {{ userLastName }}</span
+                >
                 <span class="profile_link">
                   <a routerLink="/mysettings">Edit your profile</a>
                 </span>
@@ -193,51 +218,64 @@
             </div>
           </div>
         </div>
-        <div class="review-information-item click-control" (click)="getUsersReviews(true)"><span>My reviews</span></div>
-        <div class="review-information-item click-control" (click)="getUserPropertiesReviews(true)"><span>Property reviews</span></div>
+        <div
+          class="review-information-item click-control"
+          (click)="getUsersReviews(true)"
+        >
+          <span>My reviews</span>
+        </div>
+        <div
+          class="review-information-item click-control"
+          (click)="getUserPropertiesReviews(true)"
+        >
+          <span>Property reviews</span>
+        </div>
       </div>
-      <div class="user-reviews-card">
-        <div *ngFor="let review of usersPropertiesReviews; let i = index" class="review-card">
+      <div class="user-reviews-card" *ngIf="usersReviews.length > 0">
+        <div
+          *ngFor="let review of usersPropertiesReviews; let i = index"
+          class="review-card"
+        >
           <div class="review-card-left">
             <div>
               <div class="review-card-left-avatar-block">
                 <div class="review-card-avatar">
                   <img
-                  *ngIf="
-                    authService.getUserImage() &&
-                    authService.getUserImage().indexOf('https://') !== -1
-                  "
-                  class="bui-avatar__image"
-                  src="{{ authService.getUserImage() }}"
-                  alt="user image"
-                />
-                <img
-                  *ngIf="
-                    authService.getUserImage() &&
-                    authService.getUserImage().indexOf('https://') === -1
-                  "
-                  class="bui-avatar__image"
-                  src="{{ imageHelper.getRootDirectoryPath() }}{{
-                    authService.getUserImage()
-                  }}"
-                  alt="user image"
-                />
-                <img
-                  *ngIf="!authService.getUserImage()"
-                  class="bui-avatar__image"
-                  src="../../assets/images/User1.png"
-                  alt="user image"
-                />
+                    *ngIf="
+                      authService.getUserImage() &&
+                      authService.getUserImage().indexOf('https://') !== -1
+                    "
+                    class="bui-avatar__image"
+                    src="{{ authService.getUserImage() }}"
+                    alt="user image"
+                  />
+                  <img
+                    *ngIf="
+                      authService.getUserImage() &&
+                      authService.getUserImage().indexOf('https://') === -1
+                    "
+                    class="bui-avatar__image"
+                    src="{{ imageHelper.getRootDirectoryPath() }}{{
+                      authService.getUserImage()
+                    }}"
+                    alt="user image"
+                  />
+                  <img
+                    *ngIf="!authService.getUserImage()"
+                    class="bui-avatar__image"
+                    src="../../assets/images/User1.png"
+                    alt="user image"
+                  />
                 </div>
                 <div class="review-card-avatar-block-text">
-                  <span class="font-weight-bold">{{review.firstName}}</span>
+                  <span class="font-weight-bold">{{ review.firstName }}</span>
                   <span class="text-block-subtitles">
                     <span class="avatar-block-flag">
                       <img src="{{ imageHelper.getImageDirectoryPath() }}{{
-                        review.countryImage.name
+                        review.countryImage?.name
                       }}" />
                     </span>
-                    <span>{{review.country}}</span>
+                    <span>{{ review.country }}</span>
                   </span>
                 </div>
               </div>
@@ -247,23 +285,51 @@
             <div>
               <div class="review-card-right-main-item">
                 <div class="review-card-right-main-item-info">
-                  <span>Reviewed: {{review.reviewDate}}</span>
+                  <span>Reviewed: {{ review.reviewDate }}</span>
                   <span class="font-weight-bold"> </span>
                 </div>
-                <div class="bui-review-score__badge"> {{ mathHelper.Round10(userReviewsGrades[i]) }}</div>
+                <div class="review-score__badge">
+                  {{ mathHelper.Round10(userReviewsGrades[i]) }}
+                </div>
               </div>
             </div>
             <div>
-              <span class="fw-bold">{{review.title}}</span>
+              <span class="fw-bold">{{ review.title }}</span>
             </div>
           </div>
         </div>
-        <button *ngIf="usersPropertiesReviews.length / page > 10" class="btn btn-primary"
+        <button
+          *ngIf="usersPropertiesReviews.length / page > 10"
+          class="btn btn-primary"
           (click)="getUserPropertiesReviews(false)"
-          >Load more</button>
+        >
+          Load more
+        </button>
+      </div>
+      <div class="emptyBookings" *ngIf="usersReviews.length == 0">
+        <div>
+          <img
+            width="256"
+            height="256"
+            src="https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty.f6d1e091536ec081c442de892cdb505e.png"
+            srcset="
+              https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty.f6d1e091536ec081c442de892cdb505e.png    256w,
+              https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty@2x.bc139fe926ec8a47946e6c6e935e0e0c.png 512w,
+              https://cf.bstatic.com/psb/mytrips/static/media/bookings-empty@3x.5d8f4b54c45b037db50df2fb7b0e3bd4.png 768w
+            "
+            sizes="256px"
+            alt=""
+          />
+        </div>
+
+        <p class="Text_root--variant-headline_2__Mbi-u EmptyState_title__A6vnu">
+          Your trips live here
+        </p>
+        <p class="Text_root--variant-body_1__lq2O8">
+          This page shows all of your bookings.
+        </p>
       </div>
     </div>
-
   </div>
   <app-footer></app-footer>
 </body>

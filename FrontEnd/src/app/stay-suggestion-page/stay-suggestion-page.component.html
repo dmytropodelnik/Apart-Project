@@ -24,25 +24,12 @@
               <input class="inputfield" placeholder="yyyy-mm-dd" name="filters.pdateOut" [(ngModel)]="filters.pdateOut"
                 ngbDatepicker #d1="ngbDatepicker" (click)="d1.toggle()" [minDate]="minDate" readonly />
             </div>
-            <div class="searchbox_country" data-toggle="dropdown">
+            <div class="searchbox_country" data-toggle="dropdown" >
               <span class="textdecoration" id="basic-addon1">How many people?</span>
-              <input type="text" class="inputfield" placeholder="{{ filters.searchAdultsAmount }} adult {{
+              <input type="text" class="inputfield" readonly placeholder="{{ filters.searchAdultsAmount }} adult {{
                   filters.searchChildrenAmount
                 }} children {{ filters.searchRoomsAmount }} room" aria-label="Username"
                 aria-describedby="basic-addon1" />
-            </div>
-            <div class="dropdown-menu">
-              <form class="dropdownFormReservation">
-                <div class="form-group">
-                  <div class="dropdownSubSection"></div>
-                </div>
-                <div class="form-group">
-                  <div class="dropdownSubSection"></div>
-                </div>
-                <div class="form-group">
-                  <div class="dropdownSubSection"></div>
-                </div>
-              </form>
             </div>
             <div class="searchbox_search">
               <button class="searchbox_button">Search</button>
@@ -151,7 +138,7 @@
       </div>
       <div>
         <span class="bold-title">Description</span>
-        <p>
+        <p class="suggestion-description">
           {{ suggestion?.description }}
         </p>
       </div>
@@ -293,7 +280,7 @@
     <div>
       <div class="review-card-left-avatar-block">
         <div *ngIf="grade != 0" class="review-card-avatar">
-          <div class="bui-review-score__badge">
+          <div class="review-score__badge">
             {{ mathHelper.Round10(grade) }}
           </div>
         </div>
@@ -319,7 +306,7 @@
               mathHelper.Round10(grade) < 7.7
             ">Normal</span>
           <div *ngIf="grade == 0" class="review-card-avatar">
-            <div class="bui-review-score__badge_unrated">
+            <div class="review-score__badge_unrated">
               Unrated
             </div>
           </div>
@@ -395,7 +382,7 @@
                 {{ review.title }}
               </span>
             </div>
-            <div class="bui-review-score__badge">
+            <div class="review-score__badge">
               {{ mathHelper.Round10(reviewGrades[i]) }}
             </div>
           </div>

@@ -69,8 +69,7 @@
             </span>
           </div>
           <div class="booking-details-card-container-item">
-            <span *ngIf="grade != 0" class="bui-review-score__badge_unrated">{{ mathHelper.Round10(grade) }}</span>
-            <span></span>
+            <span *ngIf="grade != 0" class="review-score__badge">{{ mathHelper.Round10(grade) }}</span>
             <span *ngIf="mathHelper.Round10(grade) >= 9.7">Exceptional</span>
             <span *ngIf="
                 mathHelper.Round10(grade) >= 9.0 &&
@@ -92,7 +91,7 @@
                 mathHelper.Round10(grade) < 7.7
               ">Normal</span>
             <div *ngIf="grade == 0" class="review-card-avatar">
-              <div class="bui-review-score__badge_unrated">
+              <div class="review-score__badge_unrated">
                 Unrated
               </div>
             </div>
@@ -185,7 +184,7 @@
           <textarea name="specialRequests" id="specialRequests" cols="30" rows="10"
             [(ngModel)]="specialRequests"></textarea>
           <div class="booking-details-fill-specialrequest-buttons">
-            <button type="button" class="btn btn-primary" (click)="continueBooking()">
+            <button type="button" class="button-next" (click)="continueBooking()">
               Next: Final details
             </button>
           </div>

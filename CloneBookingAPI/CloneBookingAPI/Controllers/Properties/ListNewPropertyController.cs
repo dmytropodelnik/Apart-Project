@@ -559,7 +559,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     .ToListAsync();
 
                 resSuggestion.SuggestionRules = resRules;
-                resSuggestion.Progress = 35;
+                resSuggestion.Progress = 50;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -615,7 +615,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 }
 
                 resSuggestion.Description = suggestion.Description;
-                resSuggestion.Progress = 75;
+                resSuggestion.Progress = 60;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -672,7 +672,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                 }
 
                 resSuggestion.StarsRating = suggestion.StarsRating;
-                resSuggestion.Progress = 50;
+                resSuggestion.Progress = 70;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();
@@ -738,7 +738,7 @@ namespace CloneBookingAPI.Controllers.Suggestions
                     return Json(new { code = 400 });
                 }
 
-                resSuggestion.Progress = 65;
+                resSuggestion.Progress = 90;
 
                 _context.Suggestions.Update(resSuggestion);
                 await _context.SaveChangesAsync();

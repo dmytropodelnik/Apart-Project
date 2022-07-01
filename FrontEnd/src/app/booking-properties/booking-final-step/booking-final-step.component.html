@@ -1,5 +1,8 @@
 <ng-template #alert let-modal>
-  <app-alert [content]="mainDataService.alertContent" (click)="modal.dismiss()"></app-alert>
+  <app-alert
+    [content]="mainDataService.alertContent"
+    (click)="modal.dismiss()"
+  ></app-alert>
 </ng-template>
 <body>
   <app-header></app-header>
@@ -8,34 +11,43 @@
       <div class="booking-details">
         <form class="booking-details-form">
           <div class="booking-details-header">
-            <span class="textdecoration" id="basic-addon1">Your booking details</span>
+            <span class="textdecoration" id="basic-addon1"
+              >Your booking details</span
+            >
           </div>
           <div class="booking-details-date">
             <div class="booking-details-date-item">
               <span class="textdecoration">Check-in Date</span>
-              <span>{{checkIn.substring(0, checkIn.indexOf('T'))}}</span>
+              <span>{{ checkIn.substring(0, checkIn.indexOf("T")) }}</span>
             </div>
             <div class="booking-details-date-item">
               <span class="textdecoration">Check-out Date</span>
-              <span>{{checkOut.substring(0, checkOut.indexOf('T'))}}</span>
+              <span>{{ checkOut.substring(0, checkOut.indexOf("T")) }}</span>
             </div>
           </div>
           <div class="booking-details-stay">
-            <span class="textdecoration" id="basic-addon1">Total length of stay:</span>
-            <span>{{diffDays}} <span *ngIf="diffDays == 1">night</span><span *ngIf="diffDays > 1">nights</span></span>
+            <span class="textdecoration" id="basic-addon1"
+              >Total length of stay:</span
+            >
+            <span
+              >{{ diffDays }} <span *ngIf="diffDays == 1">night</span
+              ><span *ngIf="diffDays > 1">nights</span></span
+            >
           </div>
         </form>
       </div>
       <div class="booking-details-price">
         <div class="booking-details-price-item">
-          <span>Price</span> <span>${{totalPrice}}</span>
+          <span>Price</span> <span>${{ totalPrice }}</span>
         </div>
         <div *ngIf="isPromoCodeApplied" class="booking-details-price-item">
           <div>
-            <span>Discount with promo code: </span><span>-{{discount}}%</span><span> (-${{difference}}) </span>
-          </div><br />
+            <span>Discount with promo code: </span><span>-{{ discount }}%</span
+            ><span> (-${{ difference }}) </span>
+          </div>
+          <br />
           <div>
-            <span>Final price: </span><span>${{finalPrice}}</span>
+            <span>Final price: </span><span>${{ finalPrice }}</span>
           </div>
         </div>
         <div><span>(For all quests)</span></div>
@@ -47,9 +59,19 @@
           </div>
           <div>
             <label for="promoCode" class="form-label">Promo code</label>
-            <input type="text" class="form-control" id="promoCode" name="promoCode" [(ngModel)]="promoCode" />
+            <input
+              type="text"
+              class="form-control"
+              id="promoCode"
+              name="promoCode"
+              [(ngModel)]="promoCode"
+            />
           </div>
-          <div><button (click)="applyPromoCode()">Apply</button></div>
+          <div class="booking-details-fill-specialrequest-buttons">
+            <button class="button-next" (click)="applyPromoCode()">
+              Apply
+            </button>
+          </div>
         </div>
         <div *ngIf="isPromoCodeApplied">
           <p>Promo code is applied!</p>
@@ -58,70 +80,91 @@
     </div>
     <div class="right">
       <div class="booking-details-card">
-        <div class="booking-details-card-image click-component" (click)="showSuggestion(chosenSuggestion.uniqueCode)">
+        <div
+          class="booking-details-card-image click-component"
+          (click)="showSuggestion(chosenSuggestion.uniqueCode)"
+        >
           <img src="../../../assets/images/12.jpg" alt="" />
         </div>
         <div class="booking-details-card-container">
           <div class="booking-details-card-container-item">
-            <span>{{chosenSuggestion?.bookingCategory}}</span>
-            <div *ngFor="let star of chosenSuggestion?.starsRating; let j = index">
+            <span>{{ chosenSuggestion?.bookingCategory }}</span>
+            <div
+              *ngFor="let star of chosenSuggestion?.starsRating; let j = index"
+            >
               <img src="../../../assets/images/Star 1.png" />
             </div>
           </div>
-          <div class="booking-details-card-container-item click-component"
-            (click)="showSuggestion(chosenSuggestion.uniqueCode)">
-            <span>{{chosenSuggestion?.name}}</span>
+          <div
+            class="booking-details-card-container-item click-component"
+            (click)="showSuggestion(chosenSuggestion.uniqueCode)"
+          >
+            <span>{{ chosenSuggestion?.name }}</span>
           </div>
           <div class="booking-details-card-container-item">
             <span>
               {{
-              chosenSuggestion?.address +
-              ", " +
-              chosenSuggestion?.region +
-              ", " +
-              chosenSuggestion?.city +
-              ", " +
-              chosenSuggestion?.country
+                chosenSuggestion?.address +
+                  ", " +
+                  chosenSuggestion?.region +
+                  ", " +
+                  chosenSuggestion?.city +
+                  ", " +
+                  chosenSuggestion?.country
               }}
             </span>
           </div>
           <div class="booking-details-card-container-item">
-            <div class="search_card_score">
-              <div class="bui-review-score__content">
-                <div *ngIf="grade != 0" class="bui-review-score__badge_unrated">
-                  {{ mathHelper.Round10(grade) }}
-                </div>
-                <span></span>
-                <span *ngIf="mathHelper.Round10(grade) >= 9.7">Exceptional</span>
-                <span *ngIf="
+            <div *ngIf="grade != 0" class="review-score__badge">
+              {{ mathHelper.Round10(grade) }}
+            </div>
+            <span></span>
+            <span *ngIf="mathHelper.Round10(grade) >= 9.7">Exceptional</span>
+            <span
+              *ngIf="
                 mathHelper.Round10(grade) >= 9.0 &&
                 mathHelper.Round10(grade) < 9.7
-              ">Wonderful</span>
-                <span *ngIf="
+              "
+              >Wonderful</span
+            >
+            <span
+              *ngIf="
                 mathHelper.Round10(grade) >= 8.7 &&
                 mathHelper.Round10(grade) < 9.0
-              ">Excellent</span>
-                <span *ngIf="
+              "
+              >Excellent</span
+            >
+            <span
+              *ngIf="
                 mathHelper.Round10(grade) >= 8.2 &&
                 mathHelper.Round10(grade) < 8.7
-              ">Very Good</span>
-                <span *ngIf="
-                mathHelper.Round10(grade) > 7.6 && mathHelper.Round10(grade) < 8.2
-              ">Good</span>
-                <span *ngIf="
+              "
+              >Very Good</span
+            >
+            <span
+              *ngIf="
+                mathHelper.Round10(grade) > 7.6 &&
+                mathHelper.Round10(grade) < 8.2
+              "
+              >Good</span
+            >
+            <span
+              *ngIf="
                 mathHelper.Round10(grade) >= 7.0 &&
                 mathHelper.Round10(grade) < 7.7
-              ">Normal</span>
-                <div *ngIf="grade == 0" class="review-card-avatar">
-                  <div class="bui-review-score__badge_unrated">
-                    Unrated
-                  </div>
-                </div>
-              </div>
+              "
+              >Normal</span
+            >
+            <div *ngIf="grade == 0" class="review-card-avatar">
+              <div class="review-score__badge_unrated">Unrated</div>
             </div>
-            <span>{{chosenSuggestion.reviews.length}} reviews</span>
+
+            <span>{{ chosenSuggestion.reviews.length }} reviews</span>
           </div>
-          <div *ngIf="chosenSuggestion?.IsParkingAvailable" class="booking-details-card-container-item">
+          <div
+            *ngIf="chosenSuggestion?.IsParkingAvailable"
+            class="booking-details-card-container-item"
+          >
             <span>parking</span>
           </div>
         </div>
@@ -132,33 +175,66 @@
         <div class="booking-details-fill-name">
           <div>
             <label for="address" class="form-label">Address*</label>
-            <input type="text" class="form-control" name="address" [(ngModel)]="address" />
+            <input
+              type="text"
+              class="form-control"
+              name="address"
+              [(ngModel)]="address"
+            />
           </div>
           <div>
             <label for="city" class="form-label">City*</label>
-            <input type="text" class="form-control" id="city" name="city" [(ngModel)]="city" />
+            <input
+              type="text"
+              class="form-control"
+              id="city"
+              name="city"
+              [(ngModel)]="city"
+            />
           </div>
         </div>
         <div class="booking-details-fill-name">
           <div>
             <label for="zipCode" class="form-label">Zip/Post Code</label>
-            <input type="text" class="form-control" id="zipCode" name="zipCode" [(ngModel)]="zipCode" />
+            <input
+              type="text"
+              class="form-control"
+              id="zipCode"
+              name="zipCode"
+              [(ngModel)]="zipCode"
+            />
           </div>
           <div>
             <label for="telephone" class="form-label">Telephone*</label>
-            <input type="text" class="form-control" id="telephone" name="phone" [(ngModel)]="phone" />
+            <input
+              type="text"
+              class="form-control"
+              id="telephone"
+              name="phone"
+              [(ngModel)]="phone"
+            />
           </div>
           <div>
             <label for="country" class="form-label">Country*</label>
-            <input type="text" class="form-control" id="country" name="country" [(ngModel)]="country" />
+            <input
+              type="text"
+              class="form-control"
+              id="country"
+              name="country"
+              [(ngModel)]="country"
+            />
           </div>
         </div>
         <div>
           <div class="booking-details-fill-specialrequest-buttons">
-            <button type="button" class="btn btn-primary">
+            <button type="button" class="button-next">
               Check your booking
             </button>
-            <button type="button" class="btn btn-primary" (click)="completeBooking(revealContent)">
+            <button
+              type="button"
+              class="button-next"
+              (click)="completeBooking(revealContent)"
+            >
               Complete booking
             </button>
           </div>
@@ -172,17 +248,32 @@
 <ng-template #revealContent let-modal>
   <div class="modal-header">
     <h2>Booking Info</h2>
-    <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+    ></button>
   </div>
   <div class="modal-body">
     <div class="user-bookings-card-left">
       <img src="../../../assets/images/12.jpg" alt="photo" />
       <div class="user-bookings-card-left-item">
-        <span>{{chosenSuggestion?.bookingCategory}}</span>
-        <span>{{newStayBooking.checkIn!.toString().substring(0, newStayBooking.checkIn!.toString().indexOf('T'))}} -
-          {{newStayBooking.checkOut!.toString().substring(0, newStayBooking.checkOut!.toString().indexOf('T'))}},
-          {{newStayBooking?.suggestion?.address?.city.title}}</span>
-        <span>Nights: </span><span>{{newStayBooking.nights}}</span>
+        <span>{{ chosenSuggestion?.bookingCategory }}</span>
+        <span
+          >{{
+            newStayBooking
+              .checkIn!.toString()
+              .substring(0, newStayBooking.checkIn!.toString().indexOf("T"))
+          }}
+          -
+          {{
+            newStayBooking
+              .checkOut!.toString()
+              .substring(0, newStayBooking.checkOut!.toString().indexOf("T"))
+          }}, {{ newStayBooking?.suggestion?.address?.city.title }}</span
+        >
+        <span>Nights: </span><span>{{ newStayBooking.nights }}</span>
         <span>Booking status: Reserved</span>
         <span *ngIf="newStayBooking.isPaid">Booking is paid</span>
         <span *ngIf="!newStayBooking.isPaid">Booking is not paid</span>
@@ -191,35 +282,56 @@
   </div>
   <div class="modal-footer">
     <div class="modal-footer-remove">
-      <span>Is for work:</span><span *ngIf="newStayBooking.isForWork">Yes</span><span
-        *ngIf="!newStayBooking.isForWork">No</span>
-      <span>Special requests:</span><span>{{newStayBooking.specialRequests}}</span>
-      <span>Price</span> <span>${{newStayBooking.price?.totalPrice}}</span>
+      <span>Is for work:</span><span *ngIf="newStayBooking.isForWork">Yes</span
+      ><span *ngIf="!newStayBooking.isForWork">No</span>
+      <span>Special requests:</span
+      ><span>{{ newStayBooking.specialRequests }}</span> <span>Price</span>
+      <span>${{ newStayBooking.price?.totalPrice }}</span>
       <div *ngIf="newStayBooking.promoCode">
-        <span>Discount with promo code: </span><span>-{{newStayBooking.price?.discount}}%</span><span>
-          (-${{newStayBooking.price?.difference}}) </span>
+        <span>Discount with promo code: </span
+        ><span>-{{ newStayBooking.price?.discount }}%</span
+        ><span> (-${{ newStayBooking.price?.difference }}) </span>
       </div>
-      <span>Final price: </span><span>${{newStayBooking.price?.finalPrice}}</span>
-      <span>Customer: </span><span>{{newStayBooking.customerInfo?.firstName}}
-        {{newStayBooking.customerInfo?.lastName}}</span>
-      <span>Customer email: </span><span>{{newStayBooking.customerInfo?.email}}</span>
-      <span>Customer phone number: </span><span>{{newStayBooking.customerInfo?.phoneNumber}}</span>
-      <span>Customer address: </span><span> {{
-        newStayBooking.customerInfo?.addressText +
-        ", " +
-        newStayBooking.customerInfo?.city +
-        ", " +
-        newStayBooking.customerInfo?.country
-        }}</span>
-      <span *ngIf="newStayBooking.customerInfo?.zipCode">{{newStayBooking.customerInfo?.zipCode}}</span>
+      <span>Final price: </span
+      ><span>${{ newStayBooking.price?.finalPrice }}</span>
+      <span>Customer: </span
+      ><span
+        >{{ newStayBooking.customerInfo?.firstName }}
+        {{ newStayBooking.customerInfo?.lastName }}</span
+      >
+      <span>Customer email: </span
+      ><span>{{ newStayBooking.customerInfo?.email }}</span>
+      <span>Customer phone number: </span
+      ><span>{{ newStayBooking.customerInfo?.phoneNumber }}</span>
+      <span>Customer address: </span
+      ><span>
+        {{
+          newStayBooking.customerInfo?.addressText +
+            ", " +
+            newStayBooking.customerInfo?.city +
+            ", " +
+            newStayBooking.customerInfo?.country
+        }}</span
+      >
+      <span *ngIf="newStayBooking.customerInfo?.zipCode">{{
+        newStayBooking.customerInfo?.zipCode
+      }}</span>
       <span>Guests: </span>
-      <span *ngFor="let guest of newStayBooking.stayBookingsGuests; let i = index">
-        {{guest.guest.fullName}}
+      <span
+        *ngFor="let guest of newStayBooking.stayBookingsGuests; let i = index"
+      >
+        {{ guest.guest.fullName }}
       </span>
       <span>We sent a booking confirmation letter to your email!</span>
       <div>
-        <button type="button" class="btn btn-primary" aria-label="Close"
-          (click)="modal.dismiss('Cross click')">Close</button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          aria-label="Close"
+          (click)="modal.dismiss('Cross click')"
+        >
+          Close
+        </button>
       </div>
     </div>
   </div>
