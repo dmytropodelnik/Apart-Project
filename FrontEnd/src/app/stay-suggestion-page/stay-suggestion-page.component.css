@@ -742,6 +742,11 @@ body {
   background-color: #0c9496 !important;
 }
 
+
+.suggestion-description{
+  overflow-wrap: break-word
+}
+
 .button--secondary.button--active,
 .button--secondary:active,
 .button--secondary:focus,
