@@ -91,6 +91,20 @@
   background: white;
 }
 
+.button-next {
+  padding: 10px;
+  background-color: #f29e21;
+  color: #ffffff;
+  border: 1px solid #f29e21;
+}
+
+.button-next:hover{
+  background-color: #ffffff;
+  color: #f29e21;
+  border: 1px solid #f29e21;
+}
+
+
 .modal-footer-remove {
   display: flex;
   flex-direction: column;

@@ -71,7 +71,7 @@
               <span>Booking status: {{ item.bookingStatus }}</span>
               <span *ngIf="item.isPaid">Booking is paid</span>
               <span *ngIf="!item.isPaid">Booking is not paid</span>
-              <button *ngIf="!item.isPaid" type="button" class="btn btn-primary" (click)="payBooking()">
+              <button *ngIf="!item.isPaid" type="button" class="button-next" (click)="payBooking()">
                 Pay
               </button>
             </div>
@@ -150,11 +150,11 @@
       <span>You are about to permanently remove this booking from your bookings
         list.</span>
       <div>
-        <button type="button" class="btn btn-primary" (click)="deleteBooking()" aria-label="Close"
+        <button type="button" class="button-next" (click)="deleteBooking()" aria-label="Close"
           (click)="modal.dismiss('Cross click')">
           Remove
         </button>
-        <button type="button" class="btn btn-outline-primary" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <button type="button" class="button-next" aria-label="Close" (click)="modal.dismiss('Cross click')">
           Keep
         </button>
       </div>
@@ -249,11 +249,6 @@
         <span *ngFor="let guest of bookings[numberBooking]?.guests; let i = index">
           {{ guest }}
         </span>
-      </div>
-      <div>
-        <button type="button" class="btn btn-primary" aria-label="Close" (click)="modal.dismiss('Cross click')">
-          Close
-        </button>
       </div>
     </div>
   </div>
