@@ -43,7 +43,7 @@ namespace CloneBookingAPI.Controllers
 
         [Route("userexists")]
         [HttpGet]
-        public async Task<IActionResult> UserExists(string email)
+        public async Task<IActionResult> UserExists(string email, bool sendLetter = true)
         {
             try
             {
@@ -52,11 +52,19 @@ namespace CloneBookingAPI.Controllers
                     return Json(new { code = 400, message = "Input data is null." });
                 }
 
+
                 var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
 
                 if (user is not null)
                 {
-                    return RedirectToAction("GenerateEnterCode", "Codes", new { email });
+                    if (sendLetter)
+                    {
+                        return RedirectToAction("GenerateEnterCode", "Codes", new { email });
+                    } 
+                    else
+                    {
+                        return Json(new { code = 200, userId = user.Id });
+                    }
                 }
 
                 return Json(new { code = 202, userId = user.Id });
