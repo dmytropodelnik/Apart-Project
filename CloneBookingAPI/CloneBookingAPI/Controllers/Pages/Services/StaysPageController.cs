@@ -358,7 +358,13 @@ namespace CloneBookingAPI.Controllers.Pages
                         s.Id,
                         s.Name,
                         s.Address,
-                        s.Images,
+                        Images = s.Images
+                            .Select(i => new
+                            {
+                                i.Id,
+                                i.Name,
+                                i.Path,
+                            }),
                         s.Apartments,
                         Reviews = s.Reviews.Select(r => new
                             {
@@ -379,7 +385,7 @@ namespace CloneBookingAPI.Controllers.Pages
 
                 for (int i = 0; i < resSuggestion.Count; i++)
                 {
-                    if (resSuggestion[i].Reviews.Count() == 0)
+                    if (!resSuggestion[i].Reviews.Any())
                     {
                         suggestionGrades.Add(0);
                     }
